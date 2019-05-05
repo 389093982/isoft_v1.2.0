@@ -6,25 +6,25 @@ import (
 	"sort"
 )
 
-type BlockParser2 struct {
+type BlockParser struct {
 	ReferWork *iwork.Work
 	Steps     []iwork.WorkStep
 }
 
 // 将 steps 转换为 BlockStep,最终执行的是 BlockStep
-func (this *BlockParser2) ParseToBlockStep() ([]*BlockStep, map[int64]*BlockStep) {
+func (this *BlockParser) ParseToBlockSteps() ([]*BlockStep, map[int64]*BlockStep) {
 	// 获取顶级 blockStep
 	return this.ParseToParentBlockSteps(-1, -1)
 }
 
-func (this *BlockParser2) filterStepsBetweenIndex(prefixIndex, suffixIndex int) []iwork.WorkStep {
+func (this *BlockParser) filterStepsBetweenIndex(prefixIndex, suffixIndex int) []iwork.WorkStep {
 	if prefixIndex < 0 || suffixIndex < 0 {
 		return this.Steps
 	}
 	return this.Steps[prefixIndex+1 : suffixIndex]
 }
 
-func (this *BlockParser2) ParseToParentBlockSteps(prefixIndex, suffixIndex int) ([]*BlockStep, map[int64]*BlockStep) {
+func (this *BlockParser) ParseToParentBlockSteps(prefixIndex, suffixIndex int) ([]*BlockStep, map[int64]*BlockStep) {
 	blockSteps := make([]*BlockStep, 0)
 	blockStepMapper := make(map[int64]*BlockStep)
 	// 获取 prefixIndex 到 suffixIndex 之间所有 step 最小缩进值
@@ -63,7 +63,7 @@ func (this *BlockParser2) ParseToParentBlockSteps(prefixIndex, suffixIndex int) 
 }
 
 // 获取同批最小缩进值索引
-func (this *BlockParser2) getMinIndentIndex(steps []iwork.WorkStep) []int {
+func (this *BlockParser) getMinIndentIndex(steps []iwork.WorkStep) []int {
 	indentMap := make(map[int][]int, 0)
 	for index, step := range steps {
 		if _, ok := indentMap[step.WorkStepIndent]; !ok {
@@ -76,7 +76,7 @@ func (this *BlockParser2) getMinIndentIndex(steps []iwork.WorkStep) []int {
 	return indentMap[indents[0]]
 }
 
-func (this *BlockParser2) getAllStepIds() []int64 {
+func (this *BlockParser) getAllStepIds() []int64 {
 	stepIds := make([]int64, 0)
 	for _, step := range this.Steps {
 		stepIds = append(stepIds, step.Id)
@@ -84,7 +84,7 @@ func (this *BlockParser2) getAllStepIds() []int64 {
 	return stepIds
 }
 
-func (this *BlockParser2) getStepIndex(stepId int64) int {
+func (this *BlockParser) getStepIndex(stepId int64) int {
 	for index, _stepId := range this.getAllStepIds() {
 		if _stepId == stepId {
 			return index

@@ -14,7 +14,7 @@ type BlockStep struct {
 
 // 将 steps 转换为 BlockStep,最终执行的是 BlockStep
 func ParseToBlockStep(steps []iwork.WorkStep) []*BlockStep {
-	parser := &BlockParser2{Steps: steps}
-	blockSteps, _ := parser.ParseToBlockStep()
+	parser := &BlockParser{Steps: steps}
+	blockSteps, _ := parser.ParseToBlockSteps()
 	return blockSteps
 }
