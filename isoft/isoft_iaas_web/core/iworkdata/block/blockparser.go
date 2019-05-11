@@ -24,9 +24,10 @@ func (this *BlockParser) filterStepsBetweenIndex(prefixIndex, suffixIndex int) [
 	return this.Steps[prefixIndex+1 : suffixIndex]
 }
 
+// 获取当前层对应的 blockSteps
 func (this *BlockParser) ParseToParentBlockSteps(prefixIndex, suffixIndex int) ([]*BlockStep, map[int64]*BlockStep) {
-	blockSteps := make([]*BlockStep, 0)
-	blockStepMapper := make(map[int64]*BlockStep)
+	blockSteps := make([]*BlockStep, 0)           // 存放当前层所有的 blockSteps
+	blockStepMapper := make(map[int64]*BlockStep) // stepId 和 step 对应 map
 	// 获取 prefixIndex 到 suffixIndex 之间所有 step 最小缩进值
 	betweenSteps := this.filterStepsBetweenIndex(prefixIndex, suffixIndex)
 	if len(betweenSteps) <= 0 {
@@ -65,11 +66,11 @@ func (this *BlockParser) ParseToParentBlockSteps(prefixIndex, suffixIndex int) (
 // 获取同批最小缩进值索引
 func (this *BlockParser) getMinIndentIndex(steps []iwork.WorkStep) []int {
 	indentMap := make(map[int][]int, 0)
-	for index, step := range steps {
+	for _, step := range steps {
 		if _, ok := indentMap[step.WorkStepIndent]; !ok {
 			indentMap[step.WorkStepIndent] = make([]int, 0)
 		}
-		indentMap[step.WorkStepIndent] = append(indentMap[step.WorkStepIndent], index)
+		indentMap[step.WorkStepIndent] = append(indentMap[step.WorkStepIndent], this.getStepIndex(step.Id))
 	}
 	indents := datatypeutil.GetMapKeySlice(indentMap, []int{}).([]int)
 	sort.Ints(indents)
