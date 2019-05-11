@@ -54,7 +54,7 @@ func RunWorkService(serviceArgs map[string]interface{}) error {
 	if err != nil {
 		return err
 	}
-	go iworkrun.Run(work, steps, nil)
+	go iworkrun.RunOneWork(work, steps, nil)
 	return nil
 }
 

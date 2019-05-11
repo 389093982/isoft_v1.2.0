@@ -14,7 +14,7 @@ import (
 )
 
 // dispatcher 为父流程遗传下来的参数
-func Run(work iwork.Work, steps []iwork.WorkStep, dispatcher *entry.Dispatcher) (receiver *entry.Receiver) {
+func RunOneWork(work iwork.Work, steps []iwork.WorkStep, dispatcher *entry.Dispatcher) (receiver *entry.Receiver) {
 	logwriter := new(iworklog.CacheLoggerWriter)
 	defer logwriter.Close()
 
@@ -62,7 +62,7 @@ func RunOneStep(trackingId string, logwriter *iworklog.CacheLoggerWriter, blockS
 		DataStore:        datastore,
 		LogWriter:        logwriter,
 		BlockStepRunFunc: RunOneStep,
-		WorkSubRunFunc:   Run,
+		WorkSubRunFunc:   RunOneWork,
 	}
 	factory.Execute(trackingId)
 	// 记录结束执行日志
