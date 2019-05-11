@@ -31,7 +31,7 @@ func GetBlockStepExecuteOrder(blockSteps []*block.BlockStep) []*block.BlockStep 
 	return order
 }
 
-func BlockStepOrdersRunnerWarpper(blockStepOrders []*block.BlockStep, trackingId string, logwriter *iworklog.CacheLoggerWriter,
+func RunBlockStepOrders(blockStepOrders []*block.BlockStep, trackingId string, logwriter *iworklog.CacheLoggerWriter,
 	store *datastore.DataStore, dispatcher *entry.Dispatcher, runOneStep iworkprotocol.RunOneStep) (receiver *entry.Receiver) {
 	// 存储前置步骤 afterJudgeInterrupt 属性
 	afterJudgeInterrupt := false

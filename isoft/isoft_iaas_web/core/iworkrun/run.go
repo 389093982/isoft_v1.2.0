@@ -38,7 +38,7 @@ func RunOneWork(work iwork.Work, steps []iwork.WorkStep, dispatcher *entry.Dispa
 
 	// 将 steps 转换成 BlockSteps, 逐个 block 依次执行
 	blockStepOrders := iworknode.GetBlockStepExecuteOrder(block.ParseToBlockStep(steps))
-	receiver = iworknode.BlockStepOrdersRunnerWarpper(blockStepOrders, trackingId, logwriter, store, dispatcher, RunOneStep)
+	receiver = iworknode.RunBlockStepOrders(blockStepOrders, trackingId, logwriter, store, dispatcher, RunOneStep)
 
 	// 注销 MemoryCache,无需注册,不存在时会自动注册
 	memory.UnRegistMemoryCache(trackingId)
