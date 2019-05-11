@@ -22,13 +22,12 @@ type WorkStepFactory struct {
 	BlockStep      *block.BlockStep // 块步骤执行时使用的参数
 	WorkSubRunFunc func(work iwork.Work, steps []iwork.WorkStep,
 		dispatcher *entry.Dispatcher) (receiver *entry.Receiver) // 执行步骤时遇到子流程时的回调函数
-	BlockStepRunFunc func(trackingId string, logwriter *iworklog.CacheLoggerWriter, blockStep *block.BlockStep,
-		datastore *datastore.DataStore, dispatcher *entry.Dispatcher) (receiver *entry.Receiver) // 执行步骤时使用 BlockStep 时的回调函数
-	Dispatcher *entry.Dispatcher
-	Receiver   *entry.Receiver // 代理了 Receiver,值从 work_end 节点获取
-	DataStore  *datastore.DataStore
-	O          orm.Ormer
-	LogWriter  *iworklog.CacheLoggerWriter
+	BlockStepRunFunc func(args *RunOneStepArgs) (receiver *entry.Receiver) // 执行步骤时使用 BlockStep 时的回调函数
+	Dispatcher       *entry.Dispatcher
+	Receiver         *entry.Receiver // 代理了 Receiver,值从 work_end 节点获取
+	DataStore        *datastore.DataStore
+	O                orm.Ormer
+	LogWriter        *iworklog.CacheLoggerWriter
 }
 
 func (this *WorkStepFactory) Execute(trackingId string) {

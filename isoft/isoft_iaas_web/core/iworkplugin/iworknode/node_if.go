@@ -4,10 +4,8 @@ import (
 	"fmt"
 	"isoft/isoft_iaas_web/core/iworkconst"
 	"isoft/isoft_iaas_web/core/iworkdata/block"
-	"isoft/isoft_iaas_web/core/iworkdata/datastore"
 	"isoft/isoft_iaas_web/core/iworkdata/entry"
 	"isoft/isoft_iaas_web/core/iworkdata/schema"
-	"isoft/isoft_iaas_web/core/iworklog"
 	"isoft/isoft_iaas_web/core/iworkmodels"
 	"isoft/isoft_iaas_web/models/iwork"
 )
@@ -16,7 +14,7 @@ type IFNode struct {
 	BaseNode
 	WorkStep         *iwork.WorkStep
 	BlockStep        *block.BlockStep
-	BlockStepRunFunc func(trackingId string, logwriter *iworklog.CacheLoggerWriter, blockStep *block.BlockStep, datastore *datastore.DataStore, dispatcher *entry.Dispatcher) (receiver *entry.Receiver)
+	BlockStepRunFunc func(args *RunOneStepArgs) (receiver *entry.Receiver)
 }
 
 func (this *IFNode) Execute(trackingId string) {
@@ -49,7 +47,7 @@ type ElIfNode struct {
 	BaseNode
 	WorkStep         *iwork.WorkStep
 	BlockStep        *block.BlockStep
-	BlockStepRunFunc func(trackingId string, logwriter *iworklog.CacheLoggerWriter, blockStep *block.BlockStep, datastore *datastore.DataStore, dispatcher *entry.Dispatcher) (receiver *entry.Receiver)
+	BlockStepRunFunc func(args *RunOneStepArgs) (receiver *entry.Receiver)
 }
 
 func (this *ElIfNode) Execute(trackingId string) {
@@ -82,7 +80,7 @@ type ElseNode struct {
 	BaseNode
 	WorkStep         *iwork.WorkStep
 	BlockStep        *block.BlockStep
-	BlockStepRunFunc func(trackingId string, logwriter *iworklog.CacheLoggerWriter, blockStep *block.BlockStep, datastore *datastore.DataStore, dispatcher *entry.Dispatcher) (receiver *entry.Receiver)
+	BlockStepRunFunc func(args *RunOneStepArgs) (receiver *entry.Receiver)
 }
 
 func (this *ElseNode) Execute(trackingId string) {

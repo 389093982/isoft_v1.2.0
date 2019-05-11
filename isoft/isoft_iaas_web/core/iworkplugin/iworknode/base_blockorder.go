@@ -29,8 +29,15 @@ func GetBlockStepExecuteOrder(blockSteps []*block.BlockStep) []*block.BlockStep 
 	return order
 }
 
-type RunOneStep func(trackingId string, logwriter *iworklog.CacheLoggerWriter, blockStep *block.BlockStep,
-	datastore *datastore.DataStore, dispatcher *entry.Dispatcher) (receiver *entry.Receiver)
+type RunOneStepArgs struct {
+	TrackingId string
+	Logwriter  *iworklog.CacheLoggerWriter
+	BlockStep  *block.BlockStep
+	Datastore  *datastore.DataStore
+	Dispatcher *entry.Dispatcher
+}
+
+type RunOneStep func(args *RunOneStepArgs) (receiver *entry.Receiver)
 
 func BlockStepOrdersRunnerWarpper(blockStepOrders []*block.BlockStep, trackingId string, logwriter *iworklog.CacheLoggerWriter,
 	store *datastore.DataStore, dispatcher *entry.Dispatcher, runOneStep RunOneStep) (receiver *entry.Receiver) {
@@ -40,14 +47,23 @@ func BlockStepOrdersRunnerWarpper(blockStepOrders []*block.BlockStep, trackingId
 		if blockStep.Step.WorkStepType == "empty" {
 			continue
 		}
+
+		args := &RunOneStepArgs{
+			TrackingId: trackingId,
+			Logwriter:  logwriter,
+			BlockStep:  blockStep,
+			Datastore:  store,
+			Dispatcher: dispatcher,
+		}
+
 		if blockStep.Step.WorkStepType == "elif" || blockStep.Step.WorkStepType == "else" {
 			if !afterJudgeInterrupt {
-				receiver = runOneStep(trackingId, logwriter, blockStep, store, dispatcher)
+				receiver = runOneStep(args)
 				afterJudgeInterrupt = blockStep.AfterJudgeInterrupt
 			}
 		} else {
 			// 当前步骤不是 elif 或者 else
-			receiver = runOneStep(trackingId, logwriter, blockStep, store, dispatcher)
+			receiver = runOneStep(args)
 			afterJudgeInterrupt = false
 		}
 	}
