@@ -5,6 +5,7 @@ import (
 	"isoft/isoft_iaas_web/core/iworkdata/datastore"
 	"isoft/isoft_iaas_web/core/iworkdata/entry"
 	"isoft/isoft_iaas_web/core/iworklog"
+	"isoft/isoft_iaas_web/core/iworkplugin/iworkprotocol"
 	"isoft/isoft_iaas_web/core/iworkutil/datatypeutil"
 )
 
@@ -29,18 +30,8 @@ func GetBlockStepExecuteOrder(blockSteps []*block.BlockStep) []*block.BlockStep 
 	return order
 }
 
-type RunOneStepArgs struct {
-	TrackingId string
-	Logwriter  *iworklog.CacheLoggerWriter
-	BlockStep  *block.BlockStep
-	Datastore  *datastore.DataStore
-	Dispatcher *entry.Dispatcher
-}
-
-type RunOneStep func(args *RunOneStepArgs) (receiver *entry.Receiver)
-
 func BlockStepOrdersRunnerWarpper(blockStepOrders []*block.BlockStep, trackingId string, logwriter *iworklog.CacheLoggerWriter,
-	store *datastore.DataStore, dispatcher *entry.Dispatcher, runOneStep RunOneStep) (receiver *entry.Receiver) {
+	store *datastore.DataStore, dispatcher *entry.Dispatcher, runOneStep iworkprotocol.RunOneStep) (receiver *entry.Receiver) {
 	// 存储前置步骤 afterJudgeInterrupt 属性
 	afterJudgeInterrupt := false
 	for _, blockStep := range blockStepOrders {
@@ -48,7 +39,7 @@ func BlockStepOrdersRunnerWarpper(blockStepOrders []*block.BlockStep, trackingId
 			continue
 		}
 
-		args := &RunOneStepArgs{
+		args := &iworkprotocol.RunOneStepArgs{
 			TrackingId: trackingId,
 			Logwriter:  logwriter,
 			BlockStep:  blockStep,

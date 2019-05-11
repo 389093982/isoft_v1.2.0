@@ -8,6 +8,7 @@ import (
 	"isoft/isoft_iaas_web/core/iworkdata/memory"
 	"isoft/isoft_iaas_web/core/iworklog"
 	"isoft/isoft_iaas_web/core/iworkplugin/iworknode"
+	"isoft/isoft_iaas_web/core/iworkplugin/iworkprotocol"
 	"isoft/isoft_iaas_web/core/iworkutil/errorutil"
 	"isoft/isoft_iaas_web/models/iwork"
 	"time"
@@ -46,7 +47,7 @@ func RunOneWork(work iwork.Work, steps []iwork.WorkStep, dispatcher *entry.Dispa
 }
 
 // 执行单个 BlockStep
-func RunOneStep(args *iworknode.RunOneStepArgs) (receiver *entry.Receiver) {
+func RunOneStep(args *iworkprotocol.RunOneStepArgs) (receiver *entry.Receiver) {
 	// 统计耗费时间
 	defer args.Logwriter.RecordCostTimeLog(args.BlockStep.Step.WorkStepName, args.TrackingId, time.Now())
 	// 记录开始执行日志
