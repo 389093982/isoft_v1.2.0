@@ -42,6 +42,7 @@ func (this *BlockParser) ParseToParentBlockSteps(prefixIndex, suffixIndex int) (
 		}
 		blockSteps = append(blockSteps, bStep)
 		blockStepMapper[bStep.Step.Id] = bStep
+		bStep.SiblingBlockSteps = blockSteps // 将当前层所有的 step 存储为兄弟 steps
 	}
 
 	for index, blockStep := range blockSteps[:len(blockSteps)-1] {
@@ -97,19 +98,21 @@ func (this *BlockParser) getStepIndex(stepId int64) int {
 // 判断前置 step 在块范围内是否是可访问的
 func CheckBlockAccessble(currentBlockStep *BlockStep, checkStepId int64) bool {
 	for {
-		// 获取父级别 blockStep
+		// 从兄弟节点中查找
+		for _, siblingBlockStep := range currentBlockStep.SiblingBlockSteps {
+			if siblingBlockStep.Step.WorkStepId == checkStepId {
+				return checkStepId < currentBlockStep.Step.WorkStepId
+			}
+		}
+		// 从父节点中查找
 		parentBlockStep := currentBlockStep.ParentBlockStep
-		if parentBlockStep == nil { // 顶层 blockStep
-			if checkStepId < currentBlockStep.Step.Id {
+		if parentBlockStep != nil {
+			if parentBlockStep.Step.WorkStepId == checkStepId {
 				return true
 			}
+			currentBlockStep = parentBlockStep
+		} else {
 			return false
 		}
-		for _, cBlockStep := range parentBlockStep.ChildBlockSteps {
-			if cBlockStep.Step.WorkStepId == checkStepId {
-				return true
-			}
-		}
-		currentBlockStep = parentBlockStep
 	}
 }

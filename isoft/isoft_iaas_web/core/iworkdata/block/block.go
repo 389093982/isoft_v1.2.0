@@ -10,6 +10,7 @@ type BlockStep struct {
 	HasChildren         bool            // 是否有子步骤
 	ChildBlockSteps     []*BlockStep    // 子步骤列表
 	ParentBlockStep     *BlockStep      // 父级 BlockStep
+	SiblingBlockSteps   []*BlockStep    // 兄弟步骤列表,包括自己
 	AfterJudgeInterrupt bool            // 随后判断 blockStep 停止
 }
 
