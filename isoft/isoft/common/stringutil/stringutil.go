@@ -14,20 +14,20 @@ func GetTypeOfInterface(v interface{}) string {
 	return reflect.TypeOf(v).String()
 }
 
-func CheckIndexContains(s string, slice []string) (bool, int) {
+func CheckIndexContains(s string, slice []string) (int, bool) {
 	if len(slice) == 0 {
-		return false, -1
+		return -1, false
 	}
 	for index, ss := range slice {
 		if ss == s {
-			return true, index
+			return index, true
 		}
 	}
-	return false, -1
+	return -1, false
 }
 
 func CheckContains(s string, slice []string) bool {
-	b, _ := CheckIndexContains(s, slice)
+	_, b := CheckIndexContains(s, slice)
 	return b
 }
 

@@ -33,8 +33,8 @@ type OrmerProvider interface {
 type RunOneStepArgs struct {
 	TrackingId string
 	Logwriter  *iworklog.CacheLoggerWriter
-	BlockStep  *block.BlockStep
 	Datastore  *datastore.DataStore
+	BlockStep  *block.BlockStep
 	Dispatcher *entry.Dispatcher
 }
 

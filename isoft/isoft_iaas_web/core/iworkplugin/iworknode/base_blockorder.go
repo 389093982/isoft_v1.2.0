@@ -1,6 +1,7 @@
 package iworknode
 
 import (
+	"isoft/isoft/common/stringutil"
 	"isoft/isoft_iaas_web/core/iworkdata/block"
 	"isoft/isoft_iaas_web/core/iworkdata/datastore"
 	"isoft/isoft_iaas_web/core/iworkdata/entry"
@@ -47,7 +48,7 @@ func BlockStepOrdersRunnerWarpper(blockStepOrders []*block.BlockStep, trackingId
 			Dispatcher: dispatcher,
 		}
 
-		if blockStep.Step.WorkStepType == "elif" || blockStep.Step.WorkStepType == "else" {
+		if stringutil.CheckContains(blockStep.Step.WorkStepType, []string{"elif", "else"}) {
 			if !afterJudgeInterrupt {
 				receiver = runOneStep(args)
 				afterJudgeInterrupt = blockStep.AfterJudgeInterrupt

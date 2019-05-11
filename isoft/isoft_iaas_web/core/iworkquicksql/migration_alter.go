@@ -23,7 +23,7 @@ func (this *MigrationAlter) BuildAlterTableSql() string {
 		}
 	}
 	for index, columnName := range columnNames {
-		if flag, preindex := stringutil.CheckIndexContains(columnName, preColumnNames); !flag {
+		if preindex, flag := stringutil.CheckIndexContains(columnName, preColumnNames); !flag {
 			add := this.addField(this.tableInfo.TableName, columnName, this.tableInfo.TableColumns[index])
 			migrates = append(migrates, add)
 		} else {
