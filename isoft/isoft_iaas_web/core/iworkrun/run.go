@@ -56,13 +56,13 @@ func RunOneStep(trackingId string, logwriter *iworklog.CacheLoggerWriter, blockS
 	// 由工厂代为执行步骤
 	factory := &iworknode.WorkStepFactory{
 		WorkStep:         blockStep.Step,
-		WorkSubRunFunc:   Run,
 		Dispatcher:       dispatcher,
 		Receiver:         receiver,
 		BlockStep:        blockStep,
-		BlockStepRunFunc: RunOneStep,
 		DataStore:        datastore,
 		LogWriter:        logwriter,
+		BlockStepRunFunc: RunOneStep,
+		WorkSubRunFunc:   Run,
 	}
 	factory.Execute(trackingId)
 	// 记录结束执行日志
