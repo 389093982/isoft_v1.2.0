@@ -9,7 +9,6 @@ import (
 	"isoft/isoft_iaas_web/core/iworkdata/schema"
 	"isoft/isoft_iaas_web/core/iworklog"
 	"isoft/isoft_iaas_web/core/iworkmodels"
-	"isoft/isoft_iaas_web/core/iworkutil/datatypeutil"
 	"isoft/isoft_iaas_web/models/iwork"
 )
 
@@ -27,27 +26,12 @@ func (this *IFNode) Execute(trackingId string) {
 	this.DataStore.CacheDatas(this.WorkStep.WorkStepName, map[string]interface{}{iworkconst.BOOL_PREFIX + "expression": expression})
 
 	if expression && this.BlockStep.HasChildren {
-		order := this.getChildBlockStepExecuteOrder()
-		for _, blockStep := range order {
-			this.BlockStepRunFunc(trackingId, this.LogWriter, blockStep, this.DataStore, nil)
-		}
+		this.BlockStep.AfterJudgeInterrupt = true // if 条件满足, AfterJudgeInterrupt 属性变为 true
+		blockStepOrders := GetBlockStepExecuteOrder(this.BlockStep.ChildBlockSteps)
+		BlockStepOrdersRunnerWarpper(blockStepOrders, trackingId, this.LogWriter, this.DataStore, nil, this.BlockStepRunFunc)
 	} else {
 		this.LogWriter.Write(trackingId, fmt.Sprintf("The blockStep for %s was skipped!", this.WorkStep.WorkStepName))
 	}
-}
-
-func (this *IFNode) getChildBlockStepExecuteOrder() []*block.BlockStep {
-	order := make([]*block.BlockStep, 0)
-	deferOrder := make([]*block.BlockStep, 0)
-	for _, blockStep := range this.BlockStep.ChildBlockSteps {
-		if blockStep.Step.IsDefer == "true" {
-			deferOrder = append(deferOrder, blockStep)
-		} else {
-			order = append(order, blockStep)
-		}
-	}
-	order = append(order, datatypeutil.ReverseSlice(deferOrder).([]*block.BlockStep)...)
-	return order
 }
 
 func (this *IFNode) GetDefaultParamInputSchema() *iworkmodels.ParamInputSchema {
@@ -75,27 +59,12 @@ func (this *ElIfNode) Execute(trackingId string) {
 	this.DataStore.CacheDatas(this.WorkStep.WorkStepName, map[string]interface{}{iworkconst.BOOL_PREFIX + "expression": expression})
 
 	if expression && this.BlockStep.HasChildren {
-		order := this.getChildBlockStepExecuteOrder()
-		for _, blockStep := range order {
-			this.BlockStepRunFunc(trackingId, this.LogWriter, blockStep, this.DataStore, nil)
-		}
+		this.BlockStep.AfterJudgeInterrupt = true // if 条件满足, AfterJudgeInterrupt 属性变为 true
+		blockStepOrders := GetBlockStepExecuteOrder(this.BlockStep.ChildBlockSteps)
+		BlockStepOrdersRunnerWarpper(blockStepOrders, trackingId, this.LogWriter, this.DataStore, nil, this.BlockStepRunFunc)
 	} else {
 		this.LogWriter.Write(trackingId, fmt.Sprintf("The blockStep for %s was skipped!", this.WorkStep.WorkStepName))
 	}
-}
-
-func (this *ElIfNode) getChildBlockStepExecuteOrder() []*block.BlockStep {
-	order := make([]*block.BlockStep, 0)
-	deferOrder := make([]*block.BlockStep, 0)
-	for _, blockStep := range this.BlockStep.ChildBlockSteps {
-		if blockStep.Step.IsDefer == "true" {
-			deferOrder = append(deferOrder, blockStep)
-		} else {
-			order = append(order, blockStep)
-		}
-	}
-	order = append(order, datatypeutil.ReverseSlice(deferOrder).([]*block.BlockStep)...)
-	return order
 }
 
 func (this *ElIfNode) GetDefaultParamInputSchema() *iworkmodels.ParamInputSchema {
@@ -117,26 +86,8 @@ type ElseNode struct {
 }
 
 func (this *ElseNode) Execute(trackingId string) {
-	// 节点中间数据
-	//tmpDataMap := this.FillParamInputSchemaDataToTmp(this.WorkStep)
 	if this.BlockStep.HasChildren {
-		order := this.getChildBlockStepExecuteOrder()
-		for _, blockStep := range order {
-			this.BlockStepRunFunc(trackingId, this.LogWriter, blockStep, this.DataStore, nil)
-		}
+		blockStepOrders := GetBlockStepExecuteOrder(this.BlockStep.ChildBlockSteps)
+		BlockStepOrdersRunnerWarpper(blockStepOrders, trackingId, this.LogWriter, this.DataStore, nil, this.BlockStepRunFunc)
 	}
-}
-
-func (this *ElseNode) getChildBlockStepExecuteOrder() []*block.BlockStep {
-	order := make([]*block.BlockStep, 0)
-	deferOrder := make([]*block.BlockStep, 0)
-	for _, blockStep := range this.BlockStep.ChildBlockSteps {
-		if blockStep.Step.IsDefer == "true" {
-			deferOrder = append(deferOrder, blockStep)
-		} else {
-			order = append(order, blockStep)
-		}
-	}
-	order = append(order, datatypeutil.ReverseSlice(deferOrder).([]*block.BlockStep)...)
-	return order
 }

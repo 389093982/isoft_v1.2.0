@@ -8,7 +8,6 @@ import (
 	"isoft/isoft_iaas_web/core/iworkdata/memory"
 	"isoft/isoft_iaas_web/core/iworklog"
 	"isoft/isoft_iaas_web/core/iworkplugin/iworknode"
-	"isoft/isoft_iaas_web/core/iworkutil/datatypeutil"
 	"isoft/isoft_iaas_web/core/iworkutil/errorutil"
 	"isoft/isoft_iaas_web/models/iwork"
 	"time"
@@ -36,37 +35,14 @@ func Run(work iwork.Work, steps []iwork.WorkStep, dispatcher *entry.Dispatcher) 
 	// 获取数据中心
 	store := datastore.InitDataStore(trackingId, logwriter)
 
-	// 将 steps 转换成 BlockSteps
-	// 逐个 block 依次执行
-	for _, blockStep := range getExecuteOrder(steps) {
-		if blockStep.Step.WorkStepType != "empty" {
-			receiver = RunOneStep(trackingId, logwriter, blockStep, store, dispatcher)
-		}
-	}
+	// 将 steps 转换成 BlockSteps, 逐个 block 依次执行
+	blockStepOrders := iworknode.GetBlockStepExecuteOrder(block.ParseToBlockStep(steps))
+	receiver = iworknode.BlockStepOrdersRunnerWarpper(blockStepOrders, trackingId, logwriter, store, dispatcher, RunOneStep)
 
 	// 注销 MemoryCache,无需注册,不存在时会自动注册
 	memory.UnRegistMemoryCache(trackingId)
 	logwriter.Write(trackingId, fmt.Sprintf("~~~~~~~~~~end execute work:%s~~~~~~~~~~", work.WorkName))
 	return
-}
-
-func getExecuteOrder(steps []iwork.WorkStep) []*block.BlockStep {
-	order := make([]*block.BlockStep, 0)
-	deferOrder := make([]*block.BlockStep, 0)
-	var end *block.BlockStep
-	for _, blockStep := range block.ParseToBlockStep(steps) {
-		if blockStep.Step.IsDefer == "true" {
-			deferOrder = append(deferOrder, blockStep)
-		} else if blockStep.Step.WorkStepType == "work_end" {
-			end = blockStep
-		} else {
-			order = append(order, blockStep)
-		}
-	}
-	// is_defer 和 work_end 都是需要延迟执行
-	order = append(order, datatypeutil.ReverseSlice(deferOrder).([]*block.BlockStep)...)
-	order = append(order, end)
-	return order
 }
 
 // 执行单个 BlockStep
