@@ -63,7 +63,7 @@
           {
             title: '步骤编号',
             key: 'work_step_id',
-            width: 100,
+            width: 250,
             render: (h,params)=>{
               return h('div', [
                   h('span', params.row.work_step_id),
@@ -97,6 +97,82 @@
                       }
                     }
                   }),
+                  h('Button', {
+                    props: {
+                      type: 'error',
+                      size: 'small'
+                    },
+                    style: {
+                      marginLeft: '5px',
+                      display: !oneOf(this.worksteps[params.index]['work_step_type'], ["work_start","work_end"])  ? undefined : 'none'
+                    },
+                    on: {
+                      click: () => {
+                        this.$refs.workStepBaseInfo.showWorkStepBaseInfo(this.$route.query.work_id, this.worksteps[params.index]['work_step_id']);
+                      }
+                    }
+                  }, '编辑'),
+                  h('Button', {
+                    props: {
+                      type: 'info',
+                      size: 'small'
+                    },
+                    style: {
+                      marginLeft: '5px',
+                    },
+                    on: {
+                      click: () => {
+                        if (this.worksteps[params.index]['work_step_type']){
+                          this.$refs.workStepParamInfo.showWorkStepParamInfo(this.$route.query.work_id, this.worksteps[params.index]['work_step_id']);
+                        }
+                      }
+                    }
+                  }, '参数'),
+                  h('Button', {
+                    props: {
+                      type: 'success',
+                      size: 'small'
+                    },
+                    style: {
+                      marginLeft: '5px',
+                      display: !oneOf(this.worksteps[params.index]['work_step_type'], ["work_start","work_end"])  ? undefined : 'none'
+                    },
+                    on: {
+                      click: () => {
+                        this.deleteWorkStepByWorkStepId(this.worksteps[params.index]['work_id'], this.worksteps[params.index]['work_step_id']);
+                      }
+                    }
+                  }, '删除'),
+                  h('Button', {
+                    props: {
+                      type: 'warning',
+                      size: 'small'
+                    },
+                    style: {
+                      marginLeft: '5px',
+                      display: oneOf(this.worksteps[params.index]['work_step_type'], ["work_sub"]) ? undefined : 'none'
+                    },
+                    on: {
+                      click: () => {
+                        this.showWorkSubDetail(this.worksteps[params.index]);
+                      }
+                    }
+                  }, '详情'),
+                  h('Button', {
+                    props: {
+                      type: 'warning',
+                      size: 'small'
+                    },
+                    style: {
+                      marginLeft: '5px',
+                      display: oneOf(this.worksteps[params.index]['work_step_type'], ["work_start"]) ? undefined : 'none'
+                    },
+                    on: {
+                      click: () => {
+                        this.goAnchor('#relativeWork');
+                      }
+                    }
+                  }, '关联流程'),
                 ]
               )
             }
@@ -150,92 +226,6 @@
             key: 'work_step_desc',
             width: 250,
           },
-          {
-            title: '操作',
-            key: 'operate',
-            width: 220,
-            fixed: 'right',
-            render: (h, params) => {
-              return h('div', [
-                h('Button', {
-                  props: {
-                    type: 'error',
-                    size: 'small'
-                  },
-                  style: {
-                    marginRight: '5px',
-                    display: !oneOf(this.worksteps[params.index]['work_step_type'], ["work_start","work_end"])  ? undefined : 'none'
-                  },
-                  on: {
-                    click: () => {
-                      this.$refs.workStepBaseInfo.showWorkStepBaseInfo(this.$route.query.work_id, this.worksteps[params.index]['work_step_id']);
-                    }
-                  }
-                }, '编辑'),
-                h('Button', {
-                  props: {
-                    type: 'info',
-                    size: 'small'
-                  },
-                  style: {
-                    marginRight: '5px',
-                  },
-                  on: {
-                    click: () => {
-                      if (this.worksteps[params.index]['work_step_type']){
-                        this.$refs.workStepParamInfo.showWorkStepParamInfo(this.$route.query.work_id, this.worksteps[params.index]['work_step_id']);
-                      }
-                    }
-                  }
-                }, '参数'),
-                h('Button', {
-                  props: {
-                    type: 'success',
-                    size: 'small'
-                  },
-                  style: {
-                    marginRight: '5px',
-                    display: !oneOf(this.worksteps[params.index]['work_step_type'], ["work_start","work_end"])  ? undefined : 'none'
-                  },
-                  on: {
-                    click: () => {
-                      this.deleteWorkStepByWorkStepId(this.worksteps[params.index]['work_id'], this.worksteps[params.index]['work_step_id']);
-                    }
-                  }
-                }, '删除'),
-                h('Button', {
-                  props: {
-                    type: 'warning',
-                    size: 'small'
-                  },
-                  style: {
-                    marginRight: '5px',
-                    display: oneOf(this.worksteps[params.index]['work_step_type'], ["work_sub"]) ? undefined : 'none'
-                  },
-                  on: {
-                    click: () => {
-                      this.showWorkSubDetail(this.worksteps[params.index]);
-                    }
-                  }
-                }, '详情'),
-                h('Button', {
-                  props: {
-                    type: 'warning',
-                    size: 'small'
-                  },
-                  style: {
-                    marginRight: '5px',
-                    display: oneOf(this.worksteps[params.index]['work_step_type'], ["work_start"]) ? undefined : 'none'
-                  },
-                  on: {
-                    click: () => {
-                      this.goAnchor('#relativeWork');
-                    }
-                  }
-                }, '关联流程'),
-              ]);
-            }
-          }
         ],
       }
     },
