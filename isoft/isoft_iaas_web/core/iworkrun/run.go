@@ -51,7 +51,8 @@ func RunOneStep(trackingId string, logwriter *iworklog.CacheLoggerWriter, blockS
 	// 统计耗费时间
 	defer logwriter.RecordCostTimeLog(blockStep.Step.WorkStepName, trackingId, time.Now())
 	// 记录开始执行日志
-	logwriter.Write(trackingId, fmt.Sprintf("start execute blockStep: >>>>>>>>>> [[<span style='color:blue;'>%s<span>]]", blockStep.Step.WorkStepName))
+	log := "start execute blockStep: >>>>>>>>>> [[<span style='color:blue;'>%s<span>]]"
+	logwriter.Write(trackingId, fmt.Sprintf(log, blockStep.Step.WorkStepName))
 	// 由工厂代为执行步骤
 	factory := &iworknode.WorkStepFactory{
 		WorkStep:         blockStep.Step,
