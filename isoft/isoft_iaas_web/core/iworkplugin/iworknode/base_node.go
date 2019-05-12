@@ -219,7 +219,7 @@ func (this *BaseNode) FillParamInputSchemaDataToTmp(workStep *iwork.WorkStep) ma
 	// 存储节点中间数据
 	tmpDataMap := make(map[string]interface{})
 	pureTextTmpDataMap := make(map[string]string)
-	paramInputSchema := schema.GetCacheParamInputSchema(workStep, &WorkStepFactory{WorkStep: workStep})
+	paramInputSchema := this.CacheContext.ParamInputSchemaMap[workStep.WorkStepId]
 	for _, item := range paramInputSchema.ParamInputSchemaItems {
 		this.FillParamInputSchemaItemDataToTmp(pureTextTmpDataMap, tmpDataMap, item)
 	}

@@ -6,16 +6,23 @@ import (
 	"isoft/isoft_iaas_web/core/iworkdata/datastore"
 	"isoft/isoft_iaas_web/core/iworkdata/entry"
 	"isoft/isoft_iaas_web/core/iworkdata/memory"
+	"isoft/isoft_iaas_web/core/iworkdata/schema"
 	"isoft/isoft_iaas_web/core/iworklog"
+	"isoft/isoft_iaas_web/core/iworkmodels"
 	"isoft/isoft_iaas_web/core/iworkplugin/iworknode"
 	"isoft/isoft_iaas_web/core/iworkplugin/iworkprotocol"
 	"isoft/isoft_iaas_web/core/iworkutil/errorutil"
+	"isoft/isoft_iaas_web/models/iwork"
 	"time"
 )
 
+func GetCacheParamInputSchemaFunc(workStep *iwork.WorkStep) *iworkmodels.ParamInputSchema {
+	return schema.GetCacheParamInputSchema(workStep, &iworknode.WorkStepFactory{WorkStep: workStep})
+}
+
 // dispatcher 为父流程遗传下来的参数
 func RunOneWork(work_id int64, dispatcher *entry.Dispatcher) (receiver *entry.Receiver) {
-	cacheContext := iworkcache.GetCacheContext(work_id, iworknode.GetBlockStepExecuteOrder)
+	cacheContext := iworkcache.GetCacheContext(work_id, iworknode.GetBlockStepExecuteOrder, GetCacheParamInputSchemaFunc)
 
 	logwriter := new(iworklog.CacheLoggerWriter)
 	defer logwriter.Close()
