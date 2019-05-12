@@ -8,12 +8,12 @@
     :styles="{top: '20px'}">
     <div>
       <Row>
-        <Col span="4">
+        <Col span="5">
           <p v-for="workstep in worksteps">
-            <Tag><span @click="reloadWorkStepBaseInfo(workstep.work_step_id)">{{workstep.work_step_name}}</span></Tag>
+            <Tag><span @click="reloadWorkStepBaseInfo(workstep.work_step_id, workstep.work_step_name)">{{workstep.work_step_name}}</span></Tag>
           </p>
         </Col>
-        <Col span="20">
+        <Col span="19">
           <!-- 表单信息 -->
           <Form ref="formValidate" :model="formValidate" :rules="ruleValidate" :label-width="140">
             <FormItem label="work_id" prop="work_id">
@@ -66,6 +66,7 @@
   import {EditWorkStepBaseInfo} from "../../../../api/index"
   import {LoadWorkStepInfo} from "../../../../api/index"
   import {validateCommonPatternForString} from "../../../../tools/index"
+  import {oneOf} from "../../../../tools"
 
   export default {
     name: "BaseInfo",
@@ -81,6 +82,8 @@
           callback(new Error('字段值不能为空!'));
         } else if (!validateCommonPatternForString(value)) {
           callback(new Error('存在非法字符，只能包含字母，数字，下划线!'));
+        } else if (value.length > 30) {
+          callback(new Error('长度不能超过30个字符!'));
         } else {
           callback();
         }
@@ -121,8 +124,10 @@
           this.formValidate.is_defer = result.step.is_defer;
         }
       },
-      reloadWorkStepBaseInfo:function(work_step_id){
-        this.$emit("reloadWorkStepBaseInfo", work_step_id);
+      reloadWorkStepBaseInfo:function(work_step_id, work_step_name){
+        if(!oneOf(work_step_name, ['start','end'])){  // start 和 end 禁止修改
+          this.$emit("reloadWorkStepBaseInfo", work_step_id);
+        }
       },
       showWorkStepBaseInfo:function (work_id, work_step_id) {
         // 重置表单,清除缓存

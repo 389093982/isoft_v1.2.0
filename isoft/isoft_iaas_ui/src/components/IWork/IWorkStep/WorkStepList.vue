@@ -63,7 +63,8 @@
     components:{ParamInfo,ISimpleLeftRightRow,BaseInfo,RelativeWork,WorkValidate,ISimpleConfirmModal},
     data(){
       return {
-        showComponet:true,
+        // 默认不显示组件
+        showComponet:false,
         showRelativeWorkFlag:false,
         refactor_worksub_name:'',
         default_work_step_types: this.GLOBAL.default_work_step_types,
