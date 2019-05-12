@@ -26,8 +26,7 @@ func (this *IFNode) Execute(trackingId string) {
 
 	if expression && this.BlockStep.HasChildren {
 		this.BlockStep.AfterJudgeInterrupt = true // if 条件满足, AfterJudgeInterrupt 属性变为 true
-		blockStepOrders := GetBlockStepExecuteOrder(this.BlockStep.ChildBlockSteps)
-		RunBlockStepOrders(blockStepOrders, trackingId, this.LogWriter, this.DataStore, nil, this.BlockStepRunFunc)
+		RunBlockStepOrders(this.WorkStep.WorkStepId, this.CacheContext, trackingId, this.LogWriter, this.DataStore, nil, this.BlockStepRunFunc)
 	} else {
 		this.LogWriter.Write(trackingId, fmt.Sprintf("The blockStep for %s was skipped!", this.WorkStep.WorkStepName))
 	}
@@ -59,8 +58,7 @@ func (this *ElIfNode) Execute(trackingId string) {
 
 	if expression && this.BlockStep.HasChildren {
 		this.BlockStep.AfterJudgeInterrupt = true // if 条件满足, AfterJudgeInterrupt 属性变为 true
-		blockStepOrders := GetBlockStepExecuteOrder(this.BlockStep.ChildBlockSteps)
-		RunBlockStepOrders(blockStepOrders, trackingId, this.LogWriter, this.DataStore, nil, this.BlockStepRunFunc)
+		RunBlockStepOrders(this.WorkStep.WorkStepId, this.CacheContext, trackingId, this.LogWriter, this.DataStore, nil, this.BlockStepRunFunc)
 	} else {
 		this.LogWriter.Write(trackingId, fmt.Sprintf("The blockStep for %s was skipped!", this.WorkStep.WorkStepName))
 	}
@@ -86,7 +84,6 @@ type ElseNode struct {
 
 func (this *ElseNode) Execute(trackingId string) {
 	if this.BlockStep.HasChildren {
-		blockStepOrders := GetBlockStepExecuteOrder(this.BlockStep.ChildBlockSteps)
-		RunBlockStepOrders(blockStepOrders, trackingId, this.LogWriter, this.DataStore, nil, this.BlockStepRunFunc)
+		RunBlockStepOrders(this.WorkStep.WorkStepId, this.CacheContext, trackingId, this.LogWriter, this.DataStore, nil, this.BlockStepRunFunc)
 	}
 }

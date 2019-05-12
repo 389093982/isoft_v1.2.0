@@ -23,7 +23,6 @@ func (this *ForeachNode) Execute(trackingId string) {
 	// 节点中间数据
 	tmpDataMap := this.FillParamInputSchemaDataToTmp(this.WorkStep)
 	if this.BlockStep.HasChildren {
-		blockStepOrders := GetBlockStepExecuteOrder(this.BlockStep.ChildBlockSteps)
 		foreach_datas := tmpDataMap[iworkconst.FOREACH_PREFIX+"foreach_data"].([]map[string]interface{})
 		paramMap := make(map[string]interface{})
 		for index, foreach_data := range foreach_datas {
@@ -35,7 +34,7 @@ func (this *ForeachNode) Execute(trackingId string) {
 				paramMap["item."+_key] = value
 			}
 			this.DataStore.CacheDatas(this.WorkStep.WorkStepName, paramMap)
-			RunBlockStepOrders(blockStepOrders, trackingId, this.LogWriter, this.DataStore, nil, this.BlockStepRunFunc)
+			RunBlockStepOrders(this.WorkStep.WorkStepId, this.CacheContext, trackingId, this.LogWriter, this.DataStore, nil, this.BlockStepRunFunc)
 		}
 	} else {
 		panic(errors.New("empty foreach was found!"))

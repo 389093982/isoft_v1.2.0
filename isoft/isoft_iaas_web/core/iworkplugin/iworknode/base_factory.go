@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"github.com/astaxie/beego/orm"
+	"isoft/isoft_iaas_web/core/iworkcache"
 	"isoft/isoft_iaas_web/core/iworkdata/block"
 	"isoft/isoft_iaas_web/core/iworkdata/datastore"
 	"isoft/isoft_iaas_web/core/iworkdata/entry"
@@ -28,6 +29,7 @@ type WorkStepFactory struct {
 	DataStore        *datastore.DataStore
 	O                orm.Ormer
 	LogWriter        *iworklog.CacheLoggerWriter
+	CacheContext     *iworkcache.CacheContext
 }
 
 func (this *WorkStepFactory) Execute(trackingId string) {
@@ -50,7 +52,7 @@ func GetIWorkStep(workStepType string) iworkprotocol.IWorkStep {
 func (this *WorkStepFactory) getProxy() iworkprotocol.IWorkStep {
 	fieldMap := map[string]interface{}{
 		"WorkStep":         this.WorkStep,
-		"BaseNode":         BaseNode{DataStore: this.DataStore, o: this.O, LogWriter: this.LogWriter},
+		"BaseNode":         BaseNode{DataStore: this.DataStore, o: this.O, LogWriter: this.LogWriter, CacheContext: this.CacheContext},
 		"Dispatcher":       this.Dispatcher,
 		"Receiver":         this.Receiver,
 		"WorkSubRunFunc":   this.WorkSubRunFunc,

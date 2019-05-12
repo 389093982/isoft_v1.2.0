@@ -15,7 +15,7 @@ import (
 
 // dispatcher 为父流程遗传下来的参数
 func RunOneWork(work_id int64, dispatcher *entry.Dispatcher) (receiver *entry.Receiver) {
-	cacheContext := iworkcache.GetCacheContext(work_id)
+	cacheContext := iworkcache.GetCacheContext(work_id, iworknode.GetBlockStepExecuteOrder)
 
 	logwriter := new(iworklog.CacheLoggerWriter)
 	defer logwriter.Close()
@@ -37,7 +37,7 @@ func RunOneWork(work_id int64, dispatcher *entry.Dispatcher) (receiver *entry.Re
 	// 获取数据中心
 	store := datastore.InitDataStore(trackingId, logwriter)
 
-	receiver = iworknode.RunBlockStepOrders(cacheContext.BlockStepOrders, trackingId, logwriter, store, dispatcher, RunOneStep)
+	receiver = iworknode.RunBlockStepOrders(-1, cacheContext, trackingId, logwriter, store, dispatcher, RunOneStep)
 
 	// 注销 MemoryCache,无需注册,不存在时会自动注册
 	memory.UnRegistMemoryCache(trackingId)
@@ -62,6 +62,7 @@ func RunOneStep(args *iworkprotocol.RunOneStepArgs) (receiver *entry.Receiver) {
 		LogWriter:        args.Logwriter,
 		BlockStepRunFunc: RunOneStep,
 		WorkSubRunFunc:   RunOneWork,
+		CacheContext:     args.CacheContext,
 	}
 	factory.Execute(args.TrackingId)
 	// 记录结束执行日志

@@ -2,6 +2,7 @@ package iworkprotocol
 
 import (
 	"github.com/astaxie/beego/orm"
+	"isoft/isoft_iaas_web/core/iworkcache"
 	"isoft/isoft_iaas_web/core/iworkdata/block"
 	"isoft/isoft_iaas_web/core/iworkdata/datastore"
 	"isoft/isoft_iaas_web/core/iworkdata/entry"
@@ -31,11 +32,12 @@ type OrmerProvider interface {
 }
 
 type RunOneStepArgs struct {
-	TrackingId string
-	Logwriter  *iworklog.CacheLoggerWriter
-	Datastore  *datastore.DataStore
-	BlockStep  *block.BlockStep
-	Dispatcher *entry.Dispatcher
+	TrackingId   string
+	Logwriter    *iworklog.CacheLoggerWriter
+	Datastore    *datastore.DataStore
+	BlockStep    *block.BlockStep
+	Dispatcher   *entry.Dispatcher
+	CacheContext *iworkcache.CacheContext
 }
 
 type RunOneStep func(args *RunOneStepArgs) (receiver *entry.Receiver)

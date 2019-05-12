@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/astaxie/beego/orm"
 	"github.com/pkg/errors"
+	"isoft/isoft_iaas_web/core/iworkcache"
 	"isoft/isoft_iaas_web/core/iworkdata/datastore"
 	"isoft/isoft_iaas_web/core/iworkdata/param"
 	"isoft/isoft_iaas_web/core/iworkdata/schema"
@@ -21,9 +22,10 @@ import (
 // 所有 node 的基类
 type BaseNode struct {
 	iworkprotocol.IWorkStep
-	DataStore *datastore.DataStore
-	o         orm.Ormer
-	LogWriter *iworklog.CacheLoggerWriter
+	DataStore    *datastore.DataStore
+	o            orm.Ormer
+	LogWriter    *iworklog.CacheLoggerWriter
+	CacheContext *iworkcache.CacheContext
 }
 
 func (this *BaseNode) GetDefaultParamInputSchema() *iworkmodels.ParamInputSchema {

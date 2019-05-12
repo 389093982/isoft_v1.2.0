@@ -2,6 +2,7 @@ package iworknode
 
 import (
 	"isoft/isoft/common/stringutil"
+	"isoft/isoft_iaas_web/core/iworkcache"
 	"isoft/isoft_iaas_web/core/iworkdata/block"
 	"isoft/isoft_iaas_web/core/iworkdata/datastore"
 	"isoft/isoft_iaas_web/core/iworkdata/entry"
@@ -31,21 +32,22 @@ func GetBlockStepExecuteOrder(blockSteps []*block.BlockStep) []*block.BlockStep 
 	return order
 }
 
-func RunBlockStepOrders(blockStepOrders []*block.BlockStep, trackingId string, logwriter *iworklog.CacheLoggerWriter,
+func RunBlockStepOrders(parentStepId int64, cacheContext *iworkcache.CacheContext, trackingId string, logwriter *iworklog.CacheLoggerWriter,
 	store *datastore.DataStore, dispatcher *entry.Dispatcher, runOneStep iworkprotocol.RunOneStep) (receiver *entry.Receiver) {
 	// 存储前置步骤 afterJudgeInterrupt 属性
 	afterJudgeInterrupt := false
-	for _, blockStep := range blockStepOrders {
+	for _, blockStep := range cacheContext.BlockStepOrdersMap[parentStepId] {
 		if blockStep.Step.WorkStepType == "empty" {
 			continue
 		}
 
 		args := &iworkprotocol.RunOneStepArgs{
-			TrackingId: trackingId,
-			Logwriter:  logwriter,
-			BlockStep:  blockStep,
-			Datastore:  store,
-			Dispatcher: dispatcher,
+			TrackingId:   trackingId,
+			Logwriter:    logwriter,
+			BlockStep:    blockStep,
+			Datastore:    store,
+			Dispatcher:   dispatcher,
+			CacheContext: cacheContext,
 		}
 
 		if stringutil.CheckContains(blockStep.Step.WorkStepType, []string{"elif", "else"}) {
