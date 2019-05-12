@@ -45,16 +45,7 @@ func GetRelativeWorkService(serviceArgs map[string]interface{}) (result map[stri
 
 func RunWorkService(serviceArgs map[string]interface{}) error {
 	work_id := serviceArgs["work_id"].(int64)
-	o := serviceArgs["o"].(orm.Ormer)
-	work, err := iwork.QueryWorkById(work_id, o)
-	if err != nil {
-		return err
-	}
-	steps, err := iwork.QueryAllWorkStepInfo(work_id, o)
-	if err != nil {
-		return err
-	}
-	go iworkrun.RunOneWork(work, steps, nil)
+	go iworkrun.RunOneWork(work_id, nil)
 	return nil
 }
 

@@ -31,7 +31,7 @@ func (this *WorkController) PublishAsSerivce() {
 		panic(err)
 	}
 	mapData := this.ParseParam(steps)
-	receiver := iworkrun.RunOneWork(work, steps, &entry.Dispatcher{TmpDataMap: mapData})
+	receiver := iworkrun.RunOneWork(work.Id, &entry.Dispatcher{TmpDataMap: mapData})
 	costTime := time.Now().Sub(start).Nanoseconds() / 1e6
 	if receiver != nil {
 		this.Data["json"] = &map[string]interface{}{"status": "SUCCESS", "result": receiver.TmpDataMap, "cost(ms)": costTime}

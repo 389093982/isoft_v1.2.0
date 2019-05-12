@@ -2,7 +2,7 @@ package iworkrun
 
 import (
 	"fmt"
-	"isoft/isoft_iaas_web/core/iworkdata/block"
+	"isoft/isoft_iaas_web/core/iworkcache"
 	"isoft/isoft_iaas_web/core/iworkdata/datastore"
 	"isoft/isoft_iaas_web/core/iworkdata/entry"
 	"isoft/isoft_iaas_web/core/iworkdata/memory"
@@ -10,17 +10,18 @@ import (
 	"isoft/isoft_iaas_web/core/iworkplugin/iworknode"
 	"isoft/isoft_iaas_web/core/iworkplugin/iworkprotocol"
 	"isoft/isoft_iaas_web/core/iworkutil/errorutil"
-	"isoft/isoft_iaas_web/models/iwork"
 	"time"
 )
 
 // dispatcher 为父流程遗传下来的参数
-func RunOneWork(work iwork.Work, steps []iwork.WorkStep, dispatcher *entry.Dispatcher) (receiver *entry.Receiver) {
+func RunOneWork(work_id int64, dispatcher *entry.Dispatcher) (receiver *entry.Receiver) {
+	cacheContext := iworkcache.GetCacheContext(work_id)
+
 	logwriter := new(iworklog.CacheLoggerWriter)
 	defer logwriter.Close()
 
 	// 为当前流程创建新的 trackingId
-	trackingId := createNewTrackingIdForWork(dispatcher, work)
+	trackingId := createNewTrackingIdForWork(dispatcher, cacheContext.Work)
 	defer logwriter.RecordCostTimeLog("execute work", trackingId, time.Now())
 	defer func() {
 		if err := recover(); err != nil {
@@ -32,17 +33,15 @@ func RunOneWork(work iwork.Work, steps []iwork.WorkStep, dispatcher *entry.Dispa
 		}
 	}()
 	// 记录日志详细
-	logwriter.Write(trackingId, fmt.Sprintf("~~~~~~~~~~start execute work:%s~~~~~~~~~~", work.WorkName))
+	logwriter.Write(trackingId, fmt.Sprintf("~~~~~~~~~~start execute work:%s~~~~~~~~~~", cacheContext.Work.WorkName))
 	// 获取数据中心
 	store := datastore.InitDataStore(trackingId, logwriter)
 
-	// 将 steps 转换成 BlockSteps, 逐个 block 依次执行
-	blockStepOrders := iworknode.GetBlockStepExecuteOrder(block.ParseToBlockStep(steps))
-	receiver = iworknode.RunBlockStepOrders(blockStepOrders, trackingId, logwriter, store, dispatcher, RunOneStep)
+	receiver = iworknode.RunBlockStepOrders(cacheContext.BlockStepOrders, trackingId, logwriter, store, dispatcher, RunOneStep)
 
 	// 注销 MemoryCache,无需注册,不存在时会自动注册
 	memory.UnRegistMemoryCache(trackingId)
-	logwriter.Write(trackingId, fmt.Sprintf("~~~~~~~~~~end execute work:%s~~~~~~~~~~", work.WorkName))
+	logwriter.Write(trackingId, fmt.Sprintf("~~~~~~~~~~end execute work:%s~~~~~~~~~~", cacheContext.Work.WorkName))
 	return
 }
 
