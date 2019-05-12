@@ -5,8 +5,8 @@
     <Row type="flex" justify="start" class="code-row-bg" style="margin-bottom: 20px;">
       <Col span="2"><Button type="error" size="small" @click="showComponet = !showComponet" style="margin-right: 5px;">显示组件</Button></Col>
       <Col span="2"><Button type="warning" size="small" @click="showRefactorModal">重构流程</Button></Col>
-      <Col span="2"><Button type="info" size="small" @click="batchChangeIndent('left')">向左缩进</Button></Col>
-      <Col span="2"><Button type="error" size="small" @click="batchChangeIndent('right')">向右缩进</Button></Col>
+      <Col span="2"><Button type="info" size="small" @click="batchChangeIndent('left', null)">向左缩进</Button></Col>
+      <Col span="2"><Button type="error" size="small" @click="batchChangeIndent('right', null)">向右缩进</Button></Col>
       <Col span="2"><Button type="warning" size="small" @click="runWork">运行流程</Button></Col>
       <Col span="2"><Button type="info" size="small" @click="showRunLogList">运行日志</Button></Col>
       <Col span="2"><WorkValidate /></Col>
@@ -120,6 +120,36 @@
                     on: {
                       click: () => {
                         this.changeWorkStepOrder(this.worksteps[params.index]['work_step_id'], "down");
+                      }
+                    }
+                  }),
+                  h('Icon', {
+                    props: {
+                      type: 'md-arrow-round-back',
+                      size: 15,
+                    },
+                    style: {
+                      marginLeft: '5px',
+                      display: !oneOf(this.worksteps[params.index]['work_step_type'], ["work_start","work_end"]) ? undefined : 'none',
+                    },
+                    on: {
+                      click: () => {
+                        this.batchChangeIndent('left', [this.worksteps[params.index]['work_step_id']]);
+                      }
+                    }
+                  }),
+                  h('Icon', {
+                    props: {
+                      type: 'md-arrow-round-forward',
+                      size: 15,
+                    },
+                    style: {
+                      marginLeft: '5px',
+                      display: !oneOf(this.worksteps[params.index]['work_step_type'], ["work_start","work_end"]) ? undefined : 'none',
+                    },
+                    on: {
+                      click: () => {
+                        this.batchChangeIndent('right', [this.worksteps[params.index]['work_step_id']]);
                       }
                     }
                   }),
@@ -318,8 +348,10 @@
           this.$Message.error(result.errorMsg);
         }
       },
-      batchChangeIndent:async function (mod) {
-        let selections = this.getSelectionArr();
+      batchChangeIndent:async function (mod, selections) {
+        if (selections == null){
+          selections = this.getSelectionArr();
+        }
         const result = await BatchChangeIndent(this.$route.query.work_id, mod, JSON.stringify(selections));
         if(result.status == "SUCCESS"){
           this.refreshWorkStepList();
