@@ -8,7 +8,8 @@ import (
 
 func (this *WorkController) AddWorkStep() {
 	serviceArgs := make(map[string]interface{}, 0)
-	serviceArgs["work_id"], _ = this.GetInt64("work_id")
+	work_id, _ := this.GetInt64("work_id")
+	serviceArgs["work_id"] = work_id
 	serviceArgs["work_step_id"], _ = this.GetInt64("work_step_id")
 	serviceArgs["default_work_step_type"] = "empty" // 默认新建的是空节点
 	if err := service.ExecuteServiceWithTx(serviceArgs, iworkservice.AddWorkStepService); err == nil {
@@ -16,6 +17,7 @@ func (this *WorkController) AddWorkStep() {
 	} else {
 		this.Data["json"] = &map[string]interface{}{"status": "ERROR", "errorMsg": err.Error()}
 	}
+	handleEditWorkObserver(work_id)
 	this.ServeJSON()
 }
 
@@ -35,6 +37,7 @@ func (this *WorkController) EditWorkStepBaseInfo() {
 	} else {
 		this.Data["json"] = &map[string]interface{}{"status": "ERROR", "errorMsg": err.Error()}
 	}
+	handleEditWorkObserver(work_id)
 	this.ServeJSON()
 }
 
@@ -58,6 +61,7 @@ func (this *WorkController) DeleteWorkStepByWorkStepId() {
 	} else {
 		this.Data["json"] = &map[string]interface{}{"status": "ERROR", "errorMsg": err.Error()}
 	}
+	handleEditWorkObserver(work_id)
 	this.ServeJSON()
 }
 
@@ -101,6 +105,7 @@ func (this *WorkController) ChangeWorkStepOrder() {
 	} else {
 		this.Data["json"] = &map[string]interface{}{"status": "ERROR", "errorMsg": err.Error()}
 	}
+	handleEditWorkObserver(work_id)
 	this.ServeJSON()
 }
 
@@ -118,7 +123,8 @@ func (this *WorkController) LoadPreNodeOutput() {
 
 func (this *WorkController) RefactorWorkStepInfo() {
 	serviceArgs := make(map[string]interface{}, 0)
-	serviceArgs["work_id"], _ = this.GetInt64("work_id")
+	work_id, _ := this.GetInt64("work_id")
+	serviceArgs["work_id"] = work_id
 	serviceArgs["refactor_worksub_name"] = this.GetString("refactor_worksub_name")
 	serviceArgs["refactor_work_step_ids"] = this.GetString("selections")
 	if err := service.ExecuteServiceWithTx(serviceArgs, iworkservice.RefactorWorkStepInfoService); err == nil {
@@ -126,12 +132,14 @@ func (this *WorkController) RefactorWorkStepInfo() {
 	} else {
 		this.Data["json"] = &map[string]interface{}{"status": "ERROR", "errorMsg": err.Error()}
 	}
+	handleEditWorkObserver(work_id)
 	this.ServeJSON()
 }
 
 func (this *WorkController) BatchChangeIndent() {
 	serviceArgs := make(map[string]interface{}, 0)
-	serviceArgs["work_id"], _ = this.GetInt64("work_id")
+	work_id, _ := this.GetInt64("work_id")
+	serviceArgs["work_id"] = work_id
 	serviceArgs["mod"] = this.GetString("mod")
 	serviceArgs["indent_work_step_ids"] = this.GetString("selections")
 	if err := service.ExecuteServiceWithTx(serviceArgs, iworkservice.BatchChangeIndentService); err == nil {
@@ -139,6 +147,7 @@ func (this *WorkController) BatchChangeIndent() {
 	} else {
 		this.Data["json"] = &map[string]interface{}{"status": "ERROR", "errorMsg": err.Error()}
 	}
+	handleEditWorkObserver(work_id)
 	this.ServeJSON()
 }
 
@@ -158,6 +167,7 @@ func (this *WorkController) EditWorkStepParamInfo() {
 	} else {
 		this.Data["json"] = &map[string]interface{}{"status": "ERROR", "errorMsg": err.Error()}
 	}
+	handleEditWorkObserver(work_id)
 	this.ServeJSON()
 }
 

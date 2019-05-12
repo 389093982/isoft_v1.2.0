@@ -15,12 +15,18 @@ var mutex sync.Mutex
 type GetBlockStepExecuteOrder func(blockSteps []*block.BlockStep) []*block.BlockStep
 type GetCacheParamInputSchemaFunc func(step *iwork.WorkStep) *iworkmodels.ParamInputSchema
 
+func UpdateCacheContext(work_id int64, orderFunc GetBlockStepExecuteOrder, paramInputSchemaFunc GetCacheParamInputSchemaFunc) {
+	mutex.Lock()
+	context := &CacheContext{WorkId: work_id}
+	context.LoadCache(orderFunc, paramInputSchemaFunc)
+	cacheContextMap[work_id] = context
+	mutex.Unlock()
+}
+
 func GetCacheContext(work_id int64, orderFunc GetBlockStepExecuteOrder, paramInputSchemaFunc GetCacheParamInputSchemaFunc) *CacheContext {
 	mutex.Lock()
 	if _, ok := cacheContextMap[work_id]; !ok {
-		context := &CacheContext{WorkId: work_id}
-		context.LoadCache(orderFunc, paramInputSchemaFunc)
-		cacheContextMap[work_id] = context
+		UpdateCacheContext(work_id, orderFunc, paramInputSchemaFunc)
 	}
 	mutex.Unlock()
 	return cacheContextMap[work_id]
@@ -64,7 +70,6 @@ func (this *CacheContext) LoadCache(orderFunc GetBlockStepExecuteOrder, paramInp
 		paramInputSchema := paramInputSchemaFunc(&workStep)
 		this.ParamInputSchemaMap[workStep.WorkStepId] = paramInputSchema
 	}
-
 }
 
 func (this *CacheContext) loadChildrenBlockStepOrders(blockStep *block.BlockStep, orderFunc GetBlockStepExecuteOrder) {
