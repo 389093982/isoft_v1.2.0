@@ -2,6 +2,8 @@ package iworknode
 
 import (
 	"fmt"
+	"github.com/pkg/errors"
+	"isoft/isoft/common/stringutil"
 	"isoft/isoft_iaas_web/core/iworkconst"
 	"isoft/isoft_iaas_web/core/iworkdata/block"
 	"isoft/isoft_iaas_web/core/iworkdata/entry"
@@ -60,6 +62,10 @@ type ElIfNode struct {
 }
 
 func (this *ElIfNode) Execute(trackingId string) {
+	if this.BlockStep.PreviousBlockStep.Step == nil ||
+		!stringutil.CheckContains(this.BlockStep.PreviousBlockStep.Step.WorkStepType, []string{"if", "elif"}) {
+		panic(errors.New(fmt.Sprintf(`previous step is not if or elif node for %s`, this.BlockStep.Step.WorkStepName)))
+	}
 	// 节点中间数据
 	tmpDataMap := this.FillParamInputSchemaDataToTmp(this.WorkStep)
 	expression := tmpDataMap[iworkconst.BOOL_PREFIX+"expression"].(bool)
@@ -101,6 +107,10 @@ type ElseNode struct {
 }
 
 func (this *ElseNode) Execute(trackingId string) {
+	if this.BlockStep.PreviousBlockStep.Step == nil ||
+		!stringutil.CheckContains(this.BlockStep.PreviousBlockStep.Step.WorkStepType, []string{"if", "elif"}) {
+		panic(errors.New(fmt.Sprintf(`previous step is not if or elif node for %s`, this.BlockStep.Step.WorkStepName)))
+	}
 	if this.BlockStep.HasChildren {
 		bsoRunner := BlockStepOrdersRunner{
 			ParentStepId: this.WorkStep.WorkStepId,

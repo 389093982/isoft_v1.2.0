@@ -47,12 +47,18 @@ func (this *BlockParser) ParseToParentBlockSteps(prefixIndex, suffixIndex int, p
 		return blockSteps, blockStepMapper
 	}
 	currentMinWorkStepIndent, minIndentIndexs := this.getMinIndentIndex(betweenSteps)
+	var previousBlockStep *BlockStep
 	for _, minIndentIndex := range minIndentIndexs {
 		// 循环遍历每一个最小缩进的 BlockStep
 		bStep := &BlockStep{
 			ReferWork: this.ReferWork,
 			Step:      &this.Steps[minIndentIndex],
 		}
+		if previousBlockStep != nil {
+			bStep.PreviousBlockStep = previousBlockStep // 设置前置
+			previousBlockStep.AfterBlockStep = bStep
+		}
+		previousBlockStep = bStep // 存储为前置
 		blockSteps = append(blockSteps, bStep)
 		blockStepMapper[bStep.Step.WorkStepId] = bStep
 		bStep.SiblingBlockSteps = blockSteps // 将当前层所有的 step 存储为兄弟 steps
