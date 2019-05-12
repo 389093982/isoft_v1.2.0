@@ -16,7 +16,7 @@
         <Input v-model.trim="refactor_worksub_name" placeholder="请输入重构的子流程名称"></Input>
       </ISimpleConfirmModal>
     </Row>
-    <BaseInfo ref="workStepBaseInfo" @handleSuccess="refreshWorkStepList"/>
+    <BaseInfo ref="workStepBaseInfo" @reloadWorkStepBaseInfo="showWorkStepBaseInfo" @handleSuccess="refreshWorkStepList" :worksteps="worksteps"/>
     <ParamInfo ref="workStepParamInfo" @handleSuccess="refreshWorkStepList"/>
 
     <Row type="flex">
@@ -80,18 +80,18 @@
             width: 300,
             render: (h,params)=>{
               return h('div', {
-                    on:{
-                      drop: () => {
-                        const event = window.event||arguments[0];
-                        // 取消冒泡
-                        event.stopPropagation();
-                        event.preventDefault();
-                        var work_step_type = event.dataTransfer.getData("Text");
-                        this.addWorkStep(params.row.work_step_id, work_step_type);
-                      },
-                      dragover: () => this.allowDrop(),
-                    }
-                  }, [
+                  on:{
+                    drop: () => {
+                      const event = window.event||arguments[0];
+                      // 取消冒泡
+                      event.stopPropagation();
+                      event.preventDefault();
+                      var work_step_type = event.dataTransfer.getData("Text");
+                      this.addWorkStep(params.row.work_step_id, work_step_type);
+                    },
+                    dragover: () => this.allowDrop(),
+                  }
+                }, [
                   h('span', params.row.work_step_id),
                   h('Icon', {
                     props: {
@@ -164,7 +164,7 @@
                     },
                     on: {
                       click: () => {
-                        this.$refs.workStepBaseInfo.showWorkStepBaseInfo(this.$route.query.work_id, this.worksteps[params.index]['work_step_id']);
+                        this.showWorkStepBaseInfo(this.worksteps[params.index]['work_step_id']);
                       },
                     }
                   }, '编辑'),
@@ -388,6 +388,9 @@
         const event = window.event||arguments[0];
         event.preventDefault();
       },
+      showWorkStepBaseInfo:function (work_step_id) {
+        this.$refs.workStepBaseInfo.showWorkStepBaseInfo(this.$route.query.work_id, work_step_id);
+      }
     },
     mounted: function () {
       this.refreshWorkStepList();
