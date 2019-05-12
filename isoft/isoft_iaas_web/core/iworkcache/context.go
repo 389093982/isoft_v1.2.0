@@ -21,12 +21,13 @@ func UpdateCacheContext(work_id int64, orderFunc GetBlockStepExecuteOrder, param
 	context := &CacheContext{WorkId: work_id}
 	context.LoadCache(orderFunc, paramInputSchemaFunc)
 	cacheContextMap[work_id] = context
-
 }
 
+var mutex2 sync.Mutex
+
 func GetCacheContext(work_id int64, orderFunc GetBlockStepExecuteOrder, paramInputSchemaFunc GetCacheParamInputSchemaFunc) *CacheContext {
-	mutex.Lock()
-	defer mutex.Unlock()
+	mutex2.Lock()
+	defer mutex2.Unlock()
 	if _, ok := cacheContextMap[work_id]; !ok {
 		UpdateCacheContext(work_id, orderFunc, paramInputSchemaFunc)
 	}
