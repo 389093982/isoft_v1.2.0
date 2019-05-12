@@ -1,6 +1,8 @@
 package block
 
 import (
+	"fmt"
+	"github.com/pkg/errors"
 	"isoft/isoft_iaas_web/core/iworkutil/datatypeutil"
 	"isoft/isoft_iaas_web/models/iwork"
 	"sort"
@@ -11,12 +13,23 @@ type BlockParser struct {
 	Steps     []iwork.WorkStep
 }
 
+func (this *BlockParser) CheckInvalidWorkSteps(blockStepMapper map[int64]*BlockStep) {
+	for _, step := range this.Steps {
+		if _, ok := blockStepMapper[step.WorkStepId]; !ok {
+			panic(errors.New(fmt.Sprintf(`invalid step for %s, never be called!`, step.WorkStepName)))
+		}
+	}
+}
+
 // 将 steps 转换为 BlockStep,最终执行的是 BlockStep
 func (this *BlockParser) ParseToBlockSteps() ([]*BlockStep, map[int64]*BlockStep) {
 	// 获取顶级 blockStep
-	return this.ParseToParentBlockSteps(-1, -1)
+	blockSteps, blockStepMapper := this.ParseToParentBlockSteps(-1, -1, -1)
+	this.CheckInvalidWorkSteps(blockStepMapper)
+	return blockSteps, blockStepMapper
 }
 
+// 获取 prefixIndex 和 suffixIndex 之间的所有 workStep 信息
 func (this *BlockParser) filterStepsBetweenIndex(prefixIndex, suffixIndex int) []iwork.WorkStep {
 	if prefixIndex < 0 || suffixIndex < 0 {
 		return this.Steps
@@ -25,15 +38,15 @@ func (this *BlockParser) filterStepsBetweenIndex(prefixIndex, suffixIndex int) [
 }
 
 // 获取当前层对应的 blockSteps
-func (this *BlockParser) ParseToParentBlockSteps(prefixIndex, suffixIndex int) ([]*BlockStep, map[int64]*BlockStep) {
+func (this *BlockParser) ParseToParentBlockSteps(prefixIndex, suffixIndex int, parentMinWorkStepIndent int) ([]*BlockStep, map[int64]*BlockStep) {
 	blockSteps := make([]*BlockStep, 0)           // 存放当前层所有的 blockSteps
-	blockStepMapper := make(map[int64]*BlockStep) // stepId 和 step 对应 map
+	blockStepMapper := make(map[int64]*BlockStep) // 存放所有 stepId 和 step 对应 map, 包括 parent 和 children 级别
 	// 获取 prefixIndex 到 suffixIndex 之间所有 step 最小缩进值
 	betweenSteps := this.filterStepsBetweenIndex(prefixIndex, suffixIndex)
 	if len(betweenSteps) <= 0 {
 		return blockSteps, blockStepMapper
 	}
-	minIndentIndexs := this.getMinIndentIndex(betweenSteps)
+	currentMinWorkStepIndent, minIndentIndexs := this.getMinIndentIndex(betweenSteps)
 	for _, minIndentIndex := range minIndentIndexs {
 		// 循环遍历每一个最小缩进的 BlockStep
 		bStep := &BlockStep{
@@ -41,14 +54,25 @@ func (this *BlockParser) ParseToParentBlockSteps(prefixIndex, suffixIndex int) (
 			Step:      &this.Steps[minIndentIndex],
 		}
 		blockSteps = append(blockSteps, bStep)
-		blockStepMapper[bStep.Step.Id] = bStep
+		blockStepMapper[bStep.Step.WorkStepId] = bStep
 		bStep.SiblingBlockSteps = blockSteps // 将当前层所有的 step 存储为兄弟 steps
-	}
 
+		if parentMinWorkStepIndent+1 != currentMinWorkStepIndent {
+			panic(errors.New(fmt.Sprintf("invalid indent was found for %s!", bStep.Step.WorkStepName)))
+		}
+	}
+	// 获取 children 层对应的 blockSteps
+	this.ParseToChildrenBlockSteps(blockSteps, blockStepMapper, currentMinWorkStepIndent)
+	return blockSteps, blockStepMapper
+}
+
+// 获取 children 层对应的 blockSteps
+func (this *BlockParser) ParseToChildrenBlockSteps(blockSteps []*BlockStep, blockStepMapper map[int64]*BlockStep, parentMinWorkStepIndent int) {
+	// 循环得到每一个 blockStep
 	for index, blockStep := range blockSteps[:len(blockSteps)-1] {
 		// 为顶级 blockStep 填充子级 blockStep
 		prefixIndex, suffixIndex := this.getStepIndex(blockSteps[index].Step.Id), this.getStepIndex(blockSteps[index+1].Step.Id)
-		childBlockSteps, childBlockStepMapper := this.ParseToParentBlockSteps(prefixIndex, suffixIndex)
+		childBlockSteps, childBlockStepMapper := this.ParseToParentBlockSteps(prefixIndex, suffixIndex, parentMinWorkStepIndent)
 		if len(childBlockSteps) > 0 {
 			blockStep.HasChildren = true
 			blockStep.ChildBlockSteps = childBlockSteps
@@ -61,11 +85,10 @@ func (this *BlockParser) ParseToParentBlockSteps(prefixIndex, suffixIndex int) (
 			}
 		}
 	}
-	return blockSteps, blockStepMapper
 }
 
 // 获取同批最小缩进值索引
-func (this *BlockParser) getMinIndentIndex(steps []iwork.WorkStep) []int {
+func (this *BlockParser) getMinIndentIndex(steps []iwork.WorkStep) (int, []int) {
 	indentMap := make(map[int][]int, 0)
 	for _, step := range steps {
 		if _, ok := indentMap[step.WorkStepIndent]; !ok {
@@ -75,7 +98,7 @@ func (this *BlockParser) getMinIndentIndex(steps []iwork.WorkStep) []int {
 	}
 	indents := datatypeutil.GetMapKeySlice(indentMap, []int{}).([]int)
 	sort.Ints(indents)
-	return indentMap[indents[0]]
+	return indents[0], indentMap[indents[0]]
 }
 
 func (this *BlockParser) getAllStepIds() []int64 {
