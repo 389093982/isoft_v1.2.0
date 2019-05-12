@@ -11,13 +11,13 @@ func (this *WorkController) AddWorkStep() {
 	work_id, _ := this.GetInt64("work_id")
 	serviceArgs["work_id"] = work_id
 	serviceArgs["work_step_id"], _ = this.GetInt64("work_step_id")
-	serviceArgs["default_work_step_type"] = "empty" // 默认新建的是空节点
+	serviceArgs["work_step_type"] = this.GetString("work_step_type") // 需要创建的节点类型
 	if err := service.ExecuteServiceWithTx(serviceArgs, iworkservice.AddWorkStepService); err == nil {
 		this.Data["json"] = &map[string]interface{}{"status": "SUCCESS"}
 	} else {
 		this.Data["json"] = &map[string]interface{}{"status": "ERROR", "errorMsg": err.Error()}
 	}
-	handleEditWorkObserver(work_id)
+	//handleEditWorkObserver(work_id)
 	this.ServeJSON()
 }
 

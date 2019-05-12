@@ -3,7 +3,7 @@
     <h4 v-if="$route.query.work_name" style="text-align: center;margin-bottom: 10px;">当前流程为：{{$route.query.work_name}}</h4>
 
     <Row type="flex" justify="start" class="code-row-bg" style="margin-bottom: 20px;">
-      <Col span="2"><Button type="error" size="small" @click="addWorkStep('empty')" style="margin-right: 5px;">新建节点</Button></Col>
+      <Col span="2"><Button type="error" size="small" @click="addWorkStep(null, 'empty')" style="margin-right: 5px;">新建节点</Button></Col>
       <Col span="2"><Button type="error" size="small" @click="showComponet = !showComponet" style="margin-right: 5px;">显示组件</Button></Col>
       <Col span="2"><Button type="warning" size="small" @click="showRefactorModal">重构流程</Button></Col>
       <Col span="2"><Button type="info" size="small" @click="batchChangeIndent('left')">向左缩进</Button></Col>
@@ -23,12 +23,14 @@
     <Row type="flex">
       <Col v-if="showComponet" span="6">
         <Scroll height="500">
-          <span v-for="default_work_step_type in default_work_step_types" style="margin: 5px;float: left;">
+          <span v-for="default_work_step_type in default_work_step_types" style="margin: 5px;float: left;"
+                draggable="true" @dragstart="dragstart($event, default_work_step_type.name)">
            <Tag>{{default_work_step_type.name}}</Tag>
           </span>
         </Scroll>
       </Col>
       <Col :span="showComponet ? 18 : 24">
+
         <Table :height="500" border :columns="columns1" ref="selection" :data="worksteps" size="small"></Table>
       </Col>
     </Row>
@@ -63,7 +65,6 @@
     data(){
       return {
         showComponet:true,
-        default_work_step_types: this.GLOBAL.default_work_step_types,
         showRelativeWorkFlag:false,
         refactor_worksub_name:'',
         default_work_step_types: this.GLOBAL.default_work_step_types,
@@ -79,7 +80,19 @@
             key: 'work_step_id',
             width: 250,
             render: (h,params)=>{
-              return h('div', [
+              return h('div', {
+                    on:{
+                      drop: () => {
+                        const event = window.event||arguments[0];
+                        // 取消冒泡
+                        event.stopPropagation();
+                        event.preventDefault();
+                        var work_step_type = event.dataTransfer.getData("Text");
+                        this.addWorkStep(params.row.work_step_id, work_step_type);
+                      },
+                      dragover: () => this.allowDrop(),
+                    }
+                  }, [
                   h('span', params.row.work_step_id),
                   h('Icon', {
                     props: {
@@ -93,7 +106,7 @@
                     on: {
                       click: () => {
                         this.changeWorkStepOrder(this.worksteps[params.index]['work_step_id'], "up");
-                      }
+                      },
                     }
                   }),
                   h('Icon', {
@@ -118,12 +131,12 @@
                     },
                     style: {
                       marginLeft: '5px',
-                      display: !oneOf(this.worksteps[params.index]['work_step_type'], ["work_start","work_end"])  ? undefined : 'none'
+                      display: !oneOf(this.worksteps[params.index]['work_step_type'], ["work_start","work_end"])  ? undefined : 'none',
                     },
                     on: {
                       click: () => {
                         this.$refs.workStepBaseInfo.showWorkStepBaseInfo(this.$route.query.work_id, this.worksteps[params.index]['work_step_id']);
-                      }
+                      },
                     }
                   }, '编辑'),
                   h('Button', {
@@ -269,13 +282,16 @@
       renderSourceXml:function () {
         alert(11111);
       },
-      addWorkStep:async function () {
-        let selections = this.$refs.selection.getSelection();
-        if(selections.length != 1){
-          this.$Message.warning('选中行数不符合要求,请选择一行并在其之后进行添加!');
-          return
+      addWorkStep:async function (work_step_id, work_step_type) {
+        if (work_step_id == null){
+          let selections = this.$refs.selection.getSelection();
+          if(selections.length != 1){
+            this.$Message.warning('选中行数不符合要求,请选择一行并在其之后进行添加!');
+            return
+          }
+          work_step_id = selections[0].work_step_id
         }
-        const result = await AddWorkStep(this.$route.query.work_id, selections[0].work_step_id);
+        const result = await AddWorkStep(this.$route.query.work_id, work_step_id, work_step_type);
         if(result.status == "SUCCESS"){
           this.refreshWorkStepList();
         }else{
@@ -340,6 +356,13 @@
       goAnchor: function(selector) {
         var anchor = this.$el.querySelector(selector);
         document.documentElement.scrollTop = anchor.offsetTop;
+      },
+      dragstart:function(event, transferData){
+        event.dataTransfer.setData("Text", transferData);
+      },
+      allowDrop:function(){
+        const event = window.event||arguments[0];
+        event.preventDefault();
       },
     },
     mounted: function () {
