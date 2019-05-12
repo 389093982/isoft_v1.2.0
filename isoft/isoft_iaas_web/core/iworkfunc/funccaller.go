@@ -68,6 +68,9 @@ func ExecuteFuncCaller(caller *FuncCaller, args []interface{}) interface{} {
 	funcName := strings.Join([]string{
 		strings.ToUpper(string([]rune(caller.FuncName)[0])), string([]rune(caller.FuncName)[1:]),
 	}, "")
+	if _, ok := reflect.ValueOf(proxy).Type().MethodByName(funcName); !ok {
+		panic(errors.New(fmt.Sprintf(`invalid func name for %s`, funcName)))
+	}
 	m := reflect.ValueOf(proxy).MethodByName(funcName)
 	rtn := m.Call([]reflect.Value{reflect.ValueOf(args)})
 	return rtn[0].Interface()

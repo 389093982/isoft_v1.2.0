@@ -59,13 +59,15 @@ func (this *BlockStepOrdersRunner) Run() (receiver *entry.Receiver) {
 			CacheContext: this.CacheContext,
 		}
 
-		if stringutil.CheckContains(blockStep.Step.WorkStepType, []string{"elif", "else"}) {
+		if blockStep.Step.WorkStepType == "if" { // 遇到 if 必定可以执行
+			receiver = this.RunOneStep(args)
+			afterJudgeInterrupt = blockStep.AfterJudgeInterrupt
+		} else if stringutil.CheckContains(blockStep.Step.WorkStepType, []string{"elif", "else"}) { // 遇到 elif 和 else
 			if !afterJudgeInterrupt {
 				receiver = this.RunOneStep(args)
 				afterJudgeInterrupt = blockStep.AfterJudgeInterrupt
 			}
-		} else {
-			// 当前步骤不是 elif 或者 else
+		} else { // 非 if、elif、else 节点必定执行
 			receiver = this.RunOneStep(args)
 			afterJudgeInterrupt = false
 		}
