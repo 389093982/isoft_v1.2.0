@@ -175,7 +175,7 @@ func AddWorkStepService(serviceArgs map[string]interface{}) error {
 	}
 	step := &iwork.WorkStep{
 		WorkId:          work_id,
-		WorkStepName:    "random_" + stringutil.RandomUUID(),
+		WorkStepName:    work_step_type + stringutil.RandomUUID(),
 		WorkStepType:    work_step_type,
 		WorkStepDesc:    "",
 		IsDefer:         "false", // 默认不延迟执行
