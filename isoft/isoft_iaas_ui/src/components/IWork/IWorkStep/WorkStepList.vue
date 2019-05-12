@@ -4,6 +4,7 @@
 
     <Row type="flex" justify="start" class="code-row-bg" style="margin-bottom: 20px;">
       <Col span="2"><Button type="error" size="small" @click="addWorkStep('empty')" style="margin-right: 5px;">新建节点</Button></Col>
+      <Col span="2"><Button type="error" size="small" @click="showComponet = !showComponet" style="margin-right: 5px;">显示组件</Button></Col>
       <Col span="2"><Button type="warning" size="small" @click="showRefactorModal">重构流程</Button></Col>
       <Col span="2"><Button type="info" size="small" @click="batchChangeIndent('left')">向左缩进</Button></Col>
       <Col span="2"><Button type="error" size="small" @click="batchChangeIndent('right')">向右缩进</Button></Col>
@@ -19,7 +20,18 @@
     <BaseInfo ref="workStepBaseInfo" @handleSuccess="refreshWorkStepList"/>
     <ParamInfo ref="workStepParamInfo" @handleSuccess="refreshWorkStepList"/>
 
-    <Table border :columns="columns1" ref="selection" :data="worksteps" size="small"></Table>
+    <Row type="flex">
+      <Col v-if="showComponet" span="6">
+        <Scroll height="500">
+          <span v-for="default_work_step_type in default_work_step_types" style="margin: 5px;float: left;">
+           <Tag>{{default_work_step_type.name}}</Tag>
+          </span>
+        </Scroll>
+      </Col>
+      <Col :span="showComponet ? 18 : 24">
+        <Table :height="500" border :columns="columns1" ref="selection" :data="worksteps" size="small"></Table>
+      </Col>
+    </Row>
 
     <!-- 相关流程清单 -->
     <RelativeWork id="relativeWork" ref="relativeWork"/>
@@ -50,6 +62,8 @@
     components:{ParamInfo,ISimpleLeftRightRow,BaseInfo,RelativeWork,WorkValidate,ISimpleConfirmModal},
     data(){
       return {
+        showComponet:true,
+        default_work_step_types: this.GLOBAL.default_work_step_types,
         showRelativeWorkFlag:false,
         refactor_worksub_name:'',
         default_work_step_types: this.GLOBAL.default_work_step_types,
