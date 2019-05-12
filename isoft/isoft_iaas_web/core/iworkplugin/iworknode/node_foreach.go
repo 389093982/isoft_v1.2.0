@@ -34,7 +34,17 @@ func (this *ForeachNode) Execute(trackingId string) {
 				paramMap["item."+_key] = value
 			}
 			this.DataStore.CacheDatas(this.WorkStep.WorkStepName, paramMap)
-			RunBlockStepOrders(this.WorkStep.WorkStepId, this.CacheContext, trackingId, this.LogWriter, this.DataStore, nil, this.BlockStepRunFunc)
+
+			bsoRunner := BlockStepOrdersRunner{
+				ParentStepId: this.WorkStep.WorkStepId,
+				CacheContext: this.CacheContext,
+				TrackingId:   trackingId,
+				Logwriter:    this.LogWriter,
+				Store:        this.DataStore, // 获取数据中心
+				Dispatcher:   nil,
+				RunOneStep:   this.BlockStepRunFunc,
+			}
+			bsoRunner.Run()
 		}
 	} else {
 		panic(errors.New("empty foreach was found!"))

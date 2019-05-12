@@ -41,9 +41,17 @@ func RunOneWork(work_id int64, dispatcher *entry.Dispatcher) (receiver *entry.Re
 	}()
 	// 记录日志详细
 	logwriter.Write(trackingId, fmt.Sprintf("~~~~~~~~~~start execute work:%s~~~~~~~~~~", cacheContext.Work.WorkName))
-	// 获取数据中心
-	store := datastore.InitDataStore(trackingId, logwriter)
-	receiver = iworknode.RunBlockStepOrders(-1, cacheContext, trackingId, logwriter, store, dispatcher, RunOneStep)
+
+	bsoRunner := iworknode.BlockStepOrdersRunner{
+		ParentStepId: -1,
+		CacheContext: cacheContext,
+		TrackingId:   trackingId,
+		Logwriter:    logwriter,
+		Store:        datastore.InitDataStore(trackingId, logwriter), // 获取数据中心
+		Dispatcher:   dispatcher,
+		RunOneStep:   RunOneStep,
+	}
+	receiver = bsoRunner.Run()
 
 	// 注销 MemoryCache,无需注册,不存在时会自动注册
 	memory.UnRegistMemoryCache(trackingId)

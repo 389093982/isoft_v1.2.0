@@ -32,32 +32,41 @@ func GetBlockStepExecuteOrder(blockSteps []*block.BlockStep) []*block.BlockStep 
 	return order
 }
 
-func RunBlockStepOrders(parentStepId int64, cacheContext *iworkcache.CacheContext, trackingId string, logwriter *iworklog.CacheLoggerWriter,
-	store *datastore.DataStore, dispatcher *entry.Dispatcher, runOneStep iworkprotocol.RunOneStep) (receiver *entry.Receiver) {
+type BlockStepOrdersRunner struct {
+	ParentStepId int64
+	CacheContext *iworkcache.CacheContext
+	TrackingId   string
+	Logwriter    *iworklog.CacheLoggerWriter
+	Store        *datastore.DataStore
+	Dispatcher   *entry.Dispatcher
+	RunOneStep   iworkprotocol.RunOneStep
+}
+
+func (this *BlockStepOrdersRunner) Run() (receiver *entry.Receiver) {
 	// 存储前置步骤 afterJudgeInterrupt 属性
 	afterJudgeInterrupt := false
-	for _, blockStep := range cacheContext.BlockStepOrdersMap[parentStepId] {
+	for _, blockStep := range this.CacheContext.BlockStepOrdersMap[this.ParentStepId] {
 		if blockStep.Step.WorkStepType == "empty" {
 			continue
 		}
 
 		args := &iworkprotocol.RunOneStepArgs{
-			TrackingId:   trackingId,
-			Logwriter:    logwriter,
+			TrackingId:   this.TrackingId,
+			Logwriter:    this.Logwriter,
 			BlockStep:    blockStep,
-			Datastore:    store,
-			Dispatcher:   dispatcher,
-			CacheContext: cacheContext,
+			Datastore:    this.Store,
+			Dispatcher:   this.Dispatcher,
+			CacheContext: this.CacheContext,
 		}
 
 		if stringutil.CheckContains(blockStep.Step.WorkStepType, []string{"elif", "else"}) {
 			if !afterJudgeInterrupt {
-				receiver = runOneStep(args)
+				receiver = this.RunOneStep(args)
 				afterJudgeInterrupt = blockStep.AfterJudgeInterrupt
 			}
 		} else {
 			// 当前步骤不是 elif 或者 else
-			receiver = runOneStep(args)
+			receiver = this.RunOneStep(args)
 			afterJudgeInterrupt = false
 		}
 	}
