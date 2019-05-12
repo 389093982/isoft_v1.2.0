@@ -3,7 +3,6 @@
     <h4 v-if="$route.query.work_name" style="text-align: center;margin-bottom: 10px;">当前流程为：{{$route.query.work_name}}</h4>
 
     <Row type="flex" justify="start" class="code-row-bg" style="margin-bottom: 20px;">
-      <Col span="2"><Button type="error" size="small" @click="addWorkStep(null, 'empty')" style="margin-right: 5px;">新建节点</Button></Col>
       <Col span="2"><Button type="error" size="small" @click="showComponet = !showComponet" style="margin-right: 5px;">显示组件</Button></Col>
       <Col span="2"><Button type="warning" size="small" @click="showRefactorModal">重构流程</Button></Col>
       <Col span="2"><Button type="info" size="small" @click="batchChangeIndent('left')">向左缩进</Button></Col>
@@ -282,17 +281,10 @@
         alert(11111);
       },
       addWorkStep:async function (work_step_id, work_step_type) {
-        if (work_step_id == null){
-          let selections = this.$refs.selection.getSelection();
-          if(selections.length != 1){
-            this.$Message.warning('选中行数不符合要求,请选择一行并在其之后进行添加!');
-            return
-          }
-          work_step_id = selections[0].work_step_id
-        }
         const result = await AddWorkStep(this.$route.query.work_id, work_step_id, work_step_type);
         if(result.status == "SUCCESS"){
           this.refreshWorkStepList();
+          this.$Message.success('添加成功!');
         }else{
           this.$Message.error(result.errorMsg);
         }
