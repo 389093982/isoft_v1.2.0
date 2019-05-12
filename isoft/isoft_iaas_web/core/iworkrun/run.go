@@ -22,13 +22,15 @@ func GetCacheParamInputSchemaFunc(workStep *iwork.WorkStep) *iworkmodels.ParamIn
 
 // dispatcher 为父流程遗传下来的参数
 func RunOneWork(work_id int64, dispatcher *entry.Dispatcher) (receiver *entry.Receiver) {
-	cacheContext := iworkcache.GetCacheContext(work_id, iworknode.GetBlockStepExecuteOrder, GetCacheParamInputSchemaFunc)
-
 	logwriter := new(iworklog.CacheLoggerWriter)
 	defer logwriter.Close()
-
-	// 为当前流程创建新的 trackingId
+	cacheContext, err := iworkcache.GetCacheContext(work_id, iworknode.GetBlockStepExecuteOrder, GetCacheParamInputSchemaFunc)
+	// 为当前流程创建新的 trackingId, 前提条件 cacheContext.Work 一定存在
 	trackingId := createNewTrackingIdForWork(dispatcher, cacheContext.Work)
+	if err != nil {
+		logwriter.Write(trackingId, fmt.Sprintf("<span style='color:red;'>internal error:%s</span>", err.Error()))
+	}
+
 	defer logwriter.RecordCostTimeLog("execute work", trackingId, time.Now())
 	defer func() {
 		if err := recover(); err != nil {

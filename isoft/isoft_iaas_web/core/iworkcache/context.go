@@ -15,25 +15,31 @@ var mutex sync.Mutex
 type GetBlockStepExecuteOrder func(blockSteps []*block.BlockStep) []*block.BlockStep
 type GetCacheParamInputSchemaFunc func(step *iwork.WorkStep) *iworkmodels.ParamInputSchema
 
-func UpdateCacheContext(work_id int64, orderFunc GetBlockStepExecuteOrder, paramInputSchemaFunc GetCacheParamInputSchemaFunc) {
+func UpdateCacheContext(work_id int64, orderFunc GetBlockStepExecuteOrder, paramInputSchemaFunc GetCacheParamInputSchemaFunc) (err error) {
 	mutex.Lock()
 	defer mutex.Unlock()
+	defer func() {
+		if err1 := recover(); err1 != nil {
+			err = err1.(error)
+		}
+	}()
 	context := &CacheContext{WorkId: work_id}
-	context.LoadCache(orderFunc, paramInputSchemaFunc)
 	cacheContextMap[work_id] = context
+	context.LoadCache(orderFunc, paramInputSchemaFunc)
+	return nil
 }
 
 var mutex2 sync.Mutex
 
-func GetCacheContext(work_id int64, orderFunc GetBlockStepExecuteOrder, paramInputSchemaFunc GetCacheParamInputSchemaFunc) *CacheContext {
+func GetCacheContext(work_id int64, orderFunc GetBlockStepExecuteOrder, paramInputSchemaFunc GetCacheParamInputSchemaFunc) (*CacheContext, error) {
 	// 先临时强制更新
-	UpdateCacheContext(work_id, orderFunc, paramInputSchemaFunc)
+	err := UpdateCacheContext(work_id, orderFunc, paramInputSchemaFunc)
 	//mutex2.Lock()
 	//defer mutex2.Unlock()
 	//if _, ok := cacheContextMap[work_id]; !ok {
 	//	UpdateCacheContext(work_id, orderFunc, paramInputSchemaFunc)
 	//}
-	return cacheContextMap[work_id]
+	return cacheContextMap[work_id], err
 }
 
 func checkError(err error) {
