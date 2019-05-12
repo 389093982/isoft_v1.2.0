@@ -43,7 +43,6 @@ func RunOneWork(work_id int64, dispatcher *entry.Dispatcher) (receiver *entry.Re
 	logwriter.Write(trackingId, fmt.Sprintf("~~~~~~~~~~start execute work:%s~~~~~~~~~~", cacheContext.Work.WorkName))
 	// 获取数据中心
 	store := datastore.InitDataStore(trackingId, logwriter)
-
 	receiver = iworknode.RunBlockStepOrders(-1, cacheContext, trackingId, logwriter, store, dispatcher, RunOneStep)
 
 	// 注销 MemoryCache,无需注册,不存在时会自动注册

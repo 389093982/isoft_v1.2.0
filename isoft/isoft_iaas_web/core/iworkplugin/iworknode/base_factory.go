@@ -18,12 +18,11 @@ import (
 )
 
 type WorkStepFactory struct {
-	Work           iwork.Work
-	WorkStep       *iwork.WorkStep  // 普通步骤执行时使用的参数
-	BlockStep      *block.BlockStep // 块步骤执行时使用的参数
-	WorkSubRunFunc func(work_id int64,
-		dispatcher *entry.Dispatcher) (receiver *entry.Receiver) // 执行步骤时遇到子流程时的回调函数
-	BlockStepRunFunc func(args *iworkprotocol.RunOneStepArgs) (receiver *entry.Receiver) // 执行步骤时使用 BlockStep 时的回调函数
+	Work             iwork.Work
+	WorkStep         *iwork.WorkStep                                                              // 普通步骤执行时使用的参数
+	BlockStep        *block.BlockStep                                                             // 块步骤执行时使用的参数
+	WorkSubRunFunc   func(work_id int64, dispatcher *entry.Dispatcher) (receiver *entry.Receiver) // 执行步骤时遇到子流程时的回调函数
+	BlockStepRunFunc func(args *iworkprotocol.RunOneStepArgs) (receiver *entry.Receiver)          // 执行步骤时使用 BlockStep 时的回调函数
 	Dispatcher       *entry.Dispatcher
 	Receiver         *entry.Receiver // 代理了 Receiver,值从 work_end 节点获取
 	DataStore        *datastore.DataStore
