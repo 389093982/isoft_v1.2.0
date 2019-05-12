@@ -34,7 +34,7 @@ type CacheContext struct {
 	WorkId             int64
 	Work               iwork.Work
 	Steps              []iwork.WorkStep
-	BlockStepOrdersMap map[int64][]*block.BlockStep
+	BlockStepOrdersMap map[int64][]*block.BlockStep // key 为父节点 StepId
 	err                error
 }
 
