@@ -2,9 +2,6 @@ package iwork
 
 import (
 	"github.com/astaxie/beego"
-	"isoft/isoft_iaas_web/core/iworkcache"
-	"isoft/isoft_iaas_web/core/iworkplugin/iworknode"
-	"isoft/isoft_iaas_web/core/iworkrun"
 	"isoft/isoft_iaas_web/models/iwork"
 	"isoft/isoft_iaas_web/service"
 	"isoft/isoft_iaas_web/service/iworkservice"
@@ -106,7 +103,6 @@ func (this *WorkController) EditWork() {
 	} else {
 		this.Data["json"] = &map[string]interface{}{"status": "ERROR", "errorMsg": err.Error()}
 	}
-	handleEditWorkObserver(work_id)
 	this.ServeJSON()
 }
 
@@ -138,10 +134,5 @@ func (this *WorkController) DeleteWorkById() {
 	} else {
 		this.Data["json"] = &map[string]interface{}{"status": "ERROR"}
 	}
-	handleEditWorkObserver(id)
 	this.ServeJSON()
-}
-
-func handleEditWorkObserver(work_id int64) {
-	iworkcache.UpdateCacheContext(work_id, iworknode.GetBlockStepExecuteOrder, iworkrun.GetCacheParamInputSchemaFunc)
 }

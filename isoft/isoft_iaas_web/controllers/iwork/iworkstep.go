@@ -37,7 +37,6 @@ func (this *WorkController) EditWorkStepBaseInfo() {
 	} else {
 		this.Data["json"] = &map[string]interface{}{"status": "ERROR", "errorMsg": err.Error()}
 	}
-	handleEditWorkObserver(work_id)
 	this.ServeJSON()
 }
 
@@ -61,7 +60,6 @@ func (this *WorkController) DeleteWorkStepByWorkStepId() {
 	} else {
 		this.Data["json"] = &map[string]interface{}{"status": "ERROR", "errorMsg": err.Error()}
 	}
-	handleEditWorkObserver(work_id)
 	this.ServeJSON()
 }
 
@@ -105,7 +103,6 @@ func (this *WorkController) ChangeWorkStepOrder() {
 	} else {
 		this.Data["json"] = &map[string]interface{}{"status": "ERROR", "errorMsg": err.Error()}
 	}
-	handleEditWorkObserver(work_id)
 	this.ServeJSON()
 }
 
@@ -132,7 +129,6 @@ func (this *WorkController) RefactorWorkStepInfo() {
 	} else {
 		this.Data["json"] = &map[string]interface{}{"status": "ERROR", "errorMsg": err.Error()}
 	}
-	handleEditWorkObserver(work_id)
 	this.ServeJSON()
 }
 
@@ -147,7 +143,6 @@ func (this *WorkController) BatchChangeIndent() {
 	} else {
 		this.Data["json"] = &map[string]interface{}{"status": "ERROR", "errorMsg": err.Error()}
 	}
-	handleEditWorkObserver(work_id)
 	this.ServeJSON()
 }
 
@@ -167,7 +162,6 @@ func (this *WorkController) EditWorkStepParamInfo() {
 	} else {
 		this.Data["json"] = &map[string]interface{}{"status": "ERROR", "errorMsg": err.Error()}
 	}
-	handleEditWorkObserver(work_id)
 	this.ServeJSON()
 }
 
