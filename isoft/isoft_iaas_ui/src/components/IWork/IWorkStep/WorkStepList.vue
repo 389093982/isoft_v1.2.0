@@ -273,6 +273,7 @@
         const result = await ChangeWorkStepOrder(this.$route.query.work_id, work_step_id, type);
         if(result.status == "SUCCESS"){
           this.refreshWorkStepList();
+          this.$Message.success('换位成功!');
         }else{
           this.$Message.error(result.errorMsg);
         }
