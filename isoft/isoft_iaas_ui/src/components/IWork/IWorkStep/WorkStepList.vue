@@ -78,7 +78,7 @@
           {
             title: '步骤编号',
             key: 'work_step_id',
-            width: 250,
+            width: 300,
             render: (h,params)=>{
               return h('div', {
                     on:{
