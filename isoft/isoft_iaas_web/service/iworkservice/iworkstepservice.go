@@ -5,7 +5,6 @@ import (
 	"errors"
 	"fmt"
 	"github.com/astaxie/beego/orm"
-	"isoft/isoft/common/stringutil"
 	"isoft/isoft_iaas_web/core/iworkconst"
 	"isoft/isoft_iaas_web/core/iworkdata/block"
 	"isoft/isoft_iaas_web/core/iworkdata/schema"
@@ -175,7 +174,7 @@ func AddWorkStepService(serviceArgs map[string]interface{}) error {
 	}
 	step := &iwork.WorkStep{
 		WorkId:          work_id,
-		WorkStepName:    work_step_type + stringutil.RandomUUID(),
+		WorkStepName:    work_step_type + "_" + fmt.Sprintf("%v", time.Now().Unix()),
 		WorkStepType:    work_step_type,
 		WorkStepDesc:    "",
 		IsDefer:         "false", // 默认不延迟执行
