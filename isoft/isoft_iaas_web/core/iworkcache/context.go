@@ -26,11 +26,13 @@ func UpdateCacheContext(work_id int64, orderFunc GetBlockStepExecuteOrder, param
 var mutex2 sync.Mutex
 
 func GetCacheContext(work_id int64, orderFunc GetBlockStepExecuteOrder, paramInputSchemaFunc GetCacheParamInputSchemaFunc) *CacheContext {
-	mutex2.Lock()
-	defer mutex2.Unlock()
-	if _, ok := cacheContextMap[work_id]; !ok {
-		UpdateCacheContext(work_id, orderFunc, paramInputSchemaFunc)
-	}
+	// 先临时强制更新
+	UpdateCacheContext(work_id, orderFunc, paramInputSchemaFunc)
+	//mutex2.Lock()
+	//defer mutex2.Unlock()
+	//if _, ok := cacheContextMap[work_id]; !ok {
+	//	UpdateCacheContext(work_id, orderFunc, paramInputSchemaFunc)
+	//}
 	return cacheContextMap[work_id]
 }
 
