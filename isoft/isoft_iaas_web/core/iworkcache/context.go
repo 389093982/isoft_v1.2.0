@@ -17,18 +17,19 @@ type GetCacheParamInputSchemaFunc func(step *iwork.WorkStep) *iworkmodels.ParamI
 
 func UpdateCacheContext(work_id int64, orderFunc GetBlockStepExecuteOrder, paramInputSchemaFunc GetCacheParamInputSchemaFunc) {
 	mutex.Lock()
+	defer mutex.Unlock()
 	context := &CacheContext{WorkId: work_id}
 	context.LoadCache(orderFunc, paramInputSchemaFunc)
 	cacheContextMap[work_id] = context
-	mutex.Unlock()
+
 }
 
 func GetCacheContext(work_id int64, orderFunc GetBlockStepExecuteOrder, paramInputSchemaFunc GetCacheParamInputSchemaFunc) *CacheContext {
 	mutex.Lock()
+	defer mutex.Unlock()
 	if _, ok := cacheContextMap[work_id]; !ok {
 		UpdateCacheContext(work_id, orderFunc, paramInputSchemaFunc)
 	}
-	mutex.Unlock()
 	return cacheContextMap[work_id]
 }
 
