@@ -17,7 +17,7 @@ import (
 type WorkSubNode struct {
 	BaseNode
 	WorkStep       *iwork.WorkStep
-	WorkSubRunFunc func(work iwork.Work, steps []iwork.WorkStep, dispatcher *entry.Dispatcher) (receiver *entry.Receiver)
+	WorkSubRunFunc func(work_id int64, dispatcher *entry.Dispatcher) (receiver *entry.Receiver)
 }
 
 func (this *WorkSubNode) Execute(trackingId string) {
@@ -27,8 +27,7 @@ func (this *WorkSubNode) Execute(trackingId string) {
 	tmpDataMap := this.FillParamInputSchemaDataToTmp(this.WorkStep)
 	// 运行子流程
 	work, _ := iwork.QueryWorkByName(workSubName, orm.NewOrm())
-	steps, _ := iwork.QueryAllWorkStepByWorkName(workSubName, orm.NewOrm())
-	this.RunOnceSubWork(work, steps, trackingId, tmpDataMap, this.DataStore)
+	this.RunOnceSubWork(work.Id, trackingId, tmpDataMap, this.DataStore)
 }
 
 func (this *WorkSubNode) checkAndGetWorkSubName() string {
@@ -40,9 +39,9 @@ func (this *WorkSubNode) checkAndGetWorkSubName() string {
 	return workSubName
 }
 
-func (this *WorkSubNode) RunOnceSubWork(work iwork.Work, steps []iwork.WorkStep, trackingId string,
+func (this *WorkSubNode) RunOnceSubWork(work_id int64, trackingId string,
 	tmpDataMap map[string]interface{}, dataStore *datastore.DataStore) {
-	receiver := this.WorkSubRunFunc(work, steps, &entry.Dispatcher{TrackingId: trackingId, TmpDataMap: tmpDataMap})
+	receiver := this.WorkSubRunFunc(work_id, &entry.Dispatcher{TrackingId: trackingId, TmpDataMap: tmpDataMap})
 	// 接收子流程数据存入 dataStore
 	for paramName, paramValue := range receiver.TmpDataMap {
 		dataStore.CacheDatas(this.WorkStep.WorkStepName, map[string]interface{}{paramName: paramValue})
