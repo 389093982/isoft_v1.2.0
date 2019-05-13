@@ -36,7 +36,7 @@
               <MenuItem name="1-2"><router-link to="/iwork/filterList">过滤器管理</router-link></MenuItem>
               <MenuItem name="1-3"><router-link to="/iwork/migrateList">表迁移管理</router-link></MenuItem>
               <MenuItem name="1-4">实体类管理</MenuItem>
-              <MenuItem name="1-5">全局变量管理</MenuItem>
+              <MenuItem name="1-5"><router-link to="/iwork/globalVarList">全局变量管理</router-link></MenuItem>
               <MenuItem name="1-6">WorkDL管理</MenuItem>
               <MenuItem name="1-7">项目校验</MenuItem>
             </Submenu>

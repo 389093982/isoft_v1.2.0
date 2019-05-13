@@ -58,4 +58,6 @@ func loadloadIWorkerRouterDetail() {
 	beego.Router("/api/iwork/buildInstanceSql", &iwork.WorkController{}, "post:BuildInstanceSql")
 
 	beego.Router("/api/iwork/loadQuickSqlMeta", &iwork.WorkController{}, "post:LoadQuickSqlMeta")
+
+	beego.Router("/api/iwork/globalVarList", &iwork.WorkController{}, "post:GlobalVarList")
 }
