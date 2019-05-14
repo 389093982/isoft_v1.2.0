@@ -3,6 +3,10 @@
 
     <ISimpleLeftRightRow style="margin-bottom: 10px;margin-right: 10px;">
       <!-- left 插槽部分 -->
+      <IKeyValueForm ref="globalVarForm" slot="left" form-key-label="GlobalVarName" form-value-label="GlobalVarValue"
+                     form-key-placeholder="请输入 GlobalVarName" form-value-placeholder="请输入 GlobalVarValue"
+                     @handleSubmit="editGlobalVar"/>
+
       <!-- right 插槽部分 -->
       <ISimpleSearch slot="right" @handleSimpleSearch="handleSearch"/>
     </ISimpleLeftRightRow>
@@ -17,10 +21,12 @@
   import {GlobalVarList} from "../../../api"
   import ISimpleLeftRightRow from "../../Common/layout/ISimpleLeftRightRow"
   import ISimpleSearch from "../../Common/search/ISimpleSearch"
+  import IKeyValueForm from "../../Common/form/IKeyValueForm"
+  import {EditGlobalVar} from "../../../api"
 
   export default {
     name: "GlobalVarList",
-    components:{ISimpleLeftRightRow,ISimpleSearch},
+    components:{ISimpleLeftRightRow,ISimpleSearch,IKeyValueForm},
     data(){
       return {
         // 当前页
@@ -41,10 +47,41 @@
             title: 'value',
             key: 'value',
           },
+          {
+            title: '操作',
+            key: 'operate',
+            render: (h, params) => {
+              return h('div', [
+                h('Button', {
+                  props: {
+                    type: 'error',
+                    size: 'small'
+                  },
+                  style: {
+                    marginRight: '5px',
+                  },
+                  on: {
+                    click: () => {
+                      this.$refs.globalVarForm.initFormData(this.globalVars[params.index].id, this.globalVars[params.index].name, this.globalVars[params.index].value);
+                    }
+                  }
+                }, '编辑'),
+              ]);
+            }
+          }
         ],
       }
     },
     methods:{
+      editGlobalVar:async function(id, globalVarName, globalVarValue){
+        const result = await EditGlobalVar(id, globalVarName, globalVarValue);
+        if(result.status == "SUCCESS"){
+          this.$refs.globalVarForm.handleSubmitSuccess("提交成功!");
+          this.refreshGlobalVarList();
+        }else{
+          this.$refs.globalVarForm.handleSubmitError("提交失败!");
+        }
+      },
       handleChange(page){
         this.current_page = page;
         this.refreshGlobalVarList();

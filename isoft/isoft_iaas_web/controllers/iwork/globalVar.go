@@ -5,6 +5,7 @@ import (
 	"github.com/astaxie/beego/utils/pagination"
 	"isoft/isoft/common/pageutil"
 	"isoft/isoft_iaas_web/models/iwork"
+	"time"
 )
 
 func (this *WorkController) GlobalVarList() {
@@ -18,6 +19,31 @@ func (this *WorkController) GlobalVarList() {
 			"paginator": pageutil.Paginator(paginator.Page(), paginator.PerPageNums, paginator.Nums())}
 	} else {
 		this.Data["json"] = &map[string]interface{}{"status": "ERROR"}
+	}
+	this.ServeJSON()
+}
+
+func (this *WorkController) EditGlobalVar() {
+	id, err := this.GetInt64("id", -1)
+	globalVarName := this.GetString("globalVarName")
+	globalVarValue := this.GetString("globalVarValue")
+	globalVar := &iwork.GlobalVar{
+		Name:            globalVarName,
+		Value:           globalVarValue,
+		Type:            1,
+		CreatedBy:       "SYSTEM",
+		CreatedTime:     time.Now(),
+		LastUpdatedBy:   "SYSTEM",
+		LastUpdatedTime: time.Now(),
+	}
+	if err == nil && id > 0 {
+		globalVar.Id = id
+	}
+	_, err = iwork.InsertOrUpdateGlobalVar(globalVar, orm.NewOrm())
+	if err == nil {
+		this.Data["json"] = &map[string]interface{}{"status": "SUCCESS"}
+	} else {
+		this.Data["json"] = &map[string]interface{}{"status": "ERROR", "errorMsg": err.Error()}
 	}
 	this.ServeJSON()
 }

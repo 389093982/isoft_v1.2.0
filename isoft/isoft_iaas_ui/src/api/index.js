@@ -228,6 +228,8 @@ export const ParseToMultiValue = (pureText, value) => ajax(BASE_URL+"/iwork/pars
 
 export const GlobalVarList = (offset,current_page, search) => ajax(BASE_URL+"/iwork/globalVarList", {offset,current_page, search},'POST');
 
+export const EditGlobalVar = (id, globalVarName, globalVarValue) => ajax(BASE_URL+"/iwork/editGlobalVar", {id, globalVarName, globalVarValue},'POST');
+
 
 // 跨模块使用,模块化部署时需要使用 nginx 代理
 export const LoginAddr = "/sso/login/";
