@@ -3,10 +3,14 @@
 
     <ISimpleLeftRightRow style="margin-bottom: 10px;margin-right: 10px;">
       <!-- left 插槽部分 -->
-      <IKeyValueForm ref="globalVarForm" slot="left" form-key-label="GlobalVarName" form-value-label="GlobalVarValue"
-                     form-key-placeholder="请输入 GlobalVarName" form-value-placeholder="请输入 GlobalVarValue"
-                     @handleSubmit="editGlobalVar"/>
-
+      <span slot="left">
+        <Button type="success" @click="addGlobalVar">新增</Button>
+        <ISimpleConfirmModal ref="globalVarModal" modal-title="新增/编辑 GlobalVar" :modal-width="600" :footer-hide="true">
+          <IKeyValueForm ref="globalVarForm" form-key-label="GlobalVarName" form-value-label="GlobalVarValue"
+                         form-key-placeholder="请输入 GlobalVarName" form-value-placeholder="请输入 GlobalVarValue"
+                         @handleSubmit="editGlobalVar"/>
+        </ISimpleConfirmModal>
+      </span>
       <!-- right 插槽部分 -->
       <ISimpleSearch slot="right" @handleSimpleSearch="handleSearch"/>
     </ISimpleLeftRightRow>
@@ -23,10 +27,11 @@
   import ISimpleSearch from "../../Common/search/ISimpleSearch"
   import IKeyValueForm from "../../Common/form/IKeyValueForm"
   import {EditGlobalVar} from "../../../api"
+  import ISimpleConfirmModal from "../../Common/modal/ISimpleConfirmModal"
 
   export default {
     name: "GlobalVarList",
-    components:{ISimpleLeftRightRow,ISimpleSearch,IKeyValueForm},
+    components:{ISimpleLeftRightRow,ISimpleSearch,IKeyValueForm,ISimpleConfirmModal},
     data(){
       return {
         // 当前页
@@ -62,6 +67,7 @@
                   },
                   on: {
                     click: () => {
+                      this.$refs.globalVarModal.showModal();
                       this.$refs.globalVarForm.initFormData(this.globalVars[params.index].id, this.globalVars[params.index].name, this.globalVars[params.index].value);
                     }
                   }
@@ -73,10 +79,14 @@
       }
     },
     methods:{
+      addGlobalVar(){
+        this.$refs.globalVarModal.showModal();
+      },
       editGlobalVar:async function(id, globalVarName, globalVarValue){
         const result = await EditGlobalVar(id, globalVarName, globalVarValue);
         if(result.status == "SUCCESS"){
           this.$refs.globalVarForm.handleSubmitSuccess("提交成功!");
+          this.$refs.globalVarModal.hideModal();
           this.refreshGlobalVarList();
         }else{
           this.$refs.globalVarForm.handleSubmitError("提交失败!");
