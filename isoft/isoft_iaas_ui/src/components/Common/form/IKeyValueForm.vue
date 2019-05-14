@@ -34,6 +34,12 @@
         type:String,
         default:'请输入 formValue',
       },
+      formkeyValidator:{
+        type: Function,
+      },
+      formvalueValidator:{
+        type: Function,
+      }
     },
     data(){
       return {
@@ -44,9 +50,11 @@
         },
         ruleValidate: {
           formkey: [
+            { validator: this.formkeyValidator, trigger: 'blur' },
             { required: true, message: 'formkey 不能为空!', trigger: 'blur' }
           ],
           formvalue: [
+            { validator: this.formvalueValidator, trigger: 'blur' },
             { required: true, message: 'formvalue 不能为空!', trigger: 'blur' }
           ],
         },

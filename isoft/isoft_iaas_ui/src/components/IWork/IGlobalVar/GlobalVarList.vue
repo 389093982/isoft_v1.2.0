@@ -8,7 +8,7 @@
         <ISimpleConfirmModal ref="globalVarModal" modal-title="新增/编辑 GlobalVar" :modal-width="600" :footer-hide="true">
           <IKeyValueForm ref="globalVarForm" form-key-label="GlobalVarName" form-value-label="GlobalVarValue"
                          form-key-placeholder="请输入 GlobalVarName" form-value-placeholder="请输入 GlobalVarValue"
-                         @handleSubmit="editGlobalVar"/>
+                         @handleSubmit="editGlobalVar" :formkey-validator="globalVarNameValidator"/>
         </ISimpleConfirmModal>
       </span>
       <!-- right 插槽部分 -->
@@ -28,6 +28,7 @@
   import IKeyValueForm from "../../Common/form/IKeyValueForm"
   import {EditGlobalVar} from "../../../api"
   import ISimpleConfirmModal from "../../Common/modal/ISimpleConfirmModal"
+  import {validateCommonPatternForString} from "../../../tools/index"
 
   export default {
     name: "GlobalVarList",
@@ -112,7 +113,14 @@
           this.globalVars = result.globalVars;
           this.total = result.paginator.totalcount;
         }
-      }
+      },
+      globalVarNameValidator (rule, value, callback) {
+        if (!validateCommonPatternForString(value)) {
+          callback(new Error('存在非法字符，只能包含字母，数字，下划线!'));
+        } else {
+          callback();
+        }
+      },
     },
     mounted: function () {
       this.refreshGlobalVarList();
