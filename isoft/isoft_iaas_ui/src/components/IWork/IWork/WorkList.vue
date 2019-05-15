@@ -2,7 +2,6 @@
   <div style="margin: 10px;">
     <Row type="flex" justify="center">
       <Col span="3"><EntityList/></Col>
-      <Col span="3"><GlobalVarList/></Col>
       <Col span="3"><IWorkDL/></Col>
       <Col span="3"><WorkValidate/></Col>
     </Row>
@@ -36,7 +35,6 @@
   import ISimpleLeftRightRow from "../../Common/layout/ISimpleLeftRightRow"
   import ISimpleSearch from "../../Common/search/ISimpleSearch"
   import EntityList from "../EntityList"
-  import GlobalVarList from "../GlobalVarList"
   import IWorkDL from "../IWorkDL"
   import WorkValidate from "../IValidate/WorkValidate"
   import {EditWork} from "../../../api"
@@ -46,7 +44,7 @@
 
   export default {
     name: "WorkList",
-    components:{ISimpleLeftRightRow,ISimpleSearch,EntityList,GlobalVarList,IWorkDL,WorkValidate,ISimpleConfirmModal,IKeyValueForm},
+    components:{ISimpleLeftRightRow,ISimpleSearch,EntityList,IWorkDL,WorkValidate,ISimpleConfirmModal,IKeyValueForm},
     data(){
       return {
         // 当前页
