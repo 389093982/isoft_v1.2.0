@@ -70,6 +70,7 @@
       },
       handleSubmitSuccess (msg){
         this.$Message.success(msg);
+        this.handleReset('formValidate');
       },
       handleSubmitError (msg){
         this.$Message.error(msg);
