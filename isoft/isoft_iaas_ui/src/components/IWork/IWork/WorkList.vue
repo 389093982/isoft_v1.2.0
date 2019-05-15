@@ -35,7 +35,6 @@
   import {SaveHistory} from "../../../api/index"
   import ISimpleLeftRightRow from "../../Common/layout/ISimpleLeftRightRow"
   import ISimpleSearch from "../../Common/search/ISimpleSearch"
-  import WorkEdit from "./WorkEdit"
   import EntityList from "../EntityList"
   import GlobalVarList from "../GlobalVarList"
   import IWorkDL from "../IWorkDL"
@@ -47,7 +46,7 @@
 
   export default {
     name: "WorkList",
-    components:{ISimpleLeftRightRow,ISimpleSearch,WorkEdit,EntityList,GlobalVarList,IWorkDL,WorkValidate,ISimpleConfirmModal,IKeyValueForm},
+    components:{ISimpleLeftRightRow,ISimpleSearch,EntityList,GlobalVarList,IWorkDL,WorkValidate,ISimpleConfirmModal,IKeyValueForm},
     data(){
       return {
         // 当前页
