@@ -9,7 +9,15 @@
 
     <ISimpleLeftRightRow style="margin-bottom: 10px;margin-right: 10px;">
       <!-- left 插槽部分 -->
-      <WorkEdit ref="workEdit" slot="left" @handleSuccess="refreshWorkList"/>
+      <span slot="left">
+        <Button type="success" @click="addWork">新增</Button>
+        <ISimpleConfirmModal ref="workEditModal" modal-title="新增/编辑 Work" :modal-width="600" :footer-hide="true">
+          <IKeyValueForm ref="workEditForm" form-key-label="work_name" form-value-label="work_desc"
+                         form-key-placeholder="请输入 work_name" form-value-placeholder="请输入 work_desc"
+                         @handleSubmit="editWork" :formkey-validator="workNameValidator"/>
+        </ISimpleConfirmModal>
+      </span>
+
       <!-- right 插槽部分 -->
       <ISimpleSearch slot="right" @handleSimpleSearch="handleSearch"/>
     </ISimpleLeftRightRow>
@@ -32,10 +40,14 @@
   import GlobalVarList from "../GlobalVarList"
   import IWorkDL from "../IWorkDL"
   import WorkValidate from "../IValidate/WorkValidate"
+  import {EditWork} from "../../../api"
+  import ISimpleConfirmModal from "../../Common/modal/ISimpleConfirmModal"
+  import IKeyValueForm from "../../Common/form/IKeyValueForm"
+  import {validateCommonPatternForString} from "../../../tools/index"
 
   export default {
     name: "WorkList",
-    components:{ISimpleLeftRightRow,ISimpleSearch,WorkEdit,EntityList,GlobalVarList,IWorkDL,WorkValidate},
+    components:{ISimpleLeftRightRow,ISimpleSearch,WorkEdit,EntityList,GlobalVarList,IWorkDL,WorkValidate,ISimpleConfirmModal,IKeyValueForm},
     data(){
       return {
         // 当前页
@@ -73,7 +85,8 @@
                   },
                   on: {
                     click: () => {
-                      this.$refs.workEdit.triggerWorkEdit(this.works[params.index]);
+                      this.$refs.workEditModal.showModal();
+                      this.$refs.workEditForm.initFormData(this.works[params.index].id, this.works[params.index].work_name, this.works[params.index].work_desc);
                     }
                   }
                 }, '编辑'),
@@ -181,8 +194,18 @@
           this.refreshWorkList();
         }
       },
-      editWork:function (id, work_name) {
-        this.$router.push({ path: '/iwork/workstepList', query: { work_id: id, work_name: work_name }});
+      addWork:function(){
+        this.$refs.workEditModal.showModal();
+      },
+      editWork:async function (work_id, work_name, work_desc) {
+        const result = await EditWork(work_id, work_name, work_desc);
+        if(result.status == "SUCCESS"){
+          this.$refs.workEditForm.handleSubmitSuccess("提交成功!");
+          this.$refs.workEditModal.hideModal();
+          this.refreshWorkList();
+        }else{
+          this.$refs.workEditForm.handleSubmitError("提交失败!");
+        }
       },
       runWork:async function (work_id) {
         const result = await RunWork(work_id);
@@ -195,7 +218,16 @@
         if(result.status == "SUCCESS"){
           this.$Message.success("保存成功!");
         }
-      }
+      },
+      workNameValidator (rule, value, callback){
+        if (value === '') {
+          callback(new Error('字段值不能为空!'));
+        } else if (!validateCommonPatternForString(value)) {
+          callback(new Error('存在非法字符，只能包含字母，数字，下划线!'));
+        } else {
+          callback();
+        }
+      },
     },
     mounted: function () {
       this.refreshWorkList();
