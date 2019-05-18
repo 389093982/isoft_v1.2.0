@@ -23,6 +23,7 @@
 
 <script>
   import {GlobalVarList} from "../../../api"
+  import {DeleteGlobalVarById} from "../../../api"
   import ISimpleLeftRightRow from "../../Common/layout/ISimpleLeftRightRow"
   import ISimpleSearch from "../../Common/search/ISimpleSearch"
   import IKeyValueForm from "../../Common/form/IKeyValueForm"
@@ -60,7 +61,7 @@
               return h('div', [
                 h('Button', {
                   props: {
-                    type: 'error',
+                    type: 'success',
                     size: 'small'
                   },
                   style: {
@@ -73,6 +74,20 @@
                     }
                   }
                 }, '编辑'),
+                h('Button', {
+                  props: {
+                    type: 'error',
+                    size: 'small'
+                  },
+                  style: {
+                    marginRight: '5px',
+                  },
+                  on: {
+                    click: () => {
+                      this.deleteGlobalVar(this.globalVars[params.index].id);
+                    }
+                  }
+                }, '删除'),
               ]);
             }
           }
@@ -119,6 +134,14 @@
           callback(new Error('存在非法字符，只能包含字母，数字，下划线!'));
         } else {
           callback();
+        }
+      },
+      deleteGlobalVar:async function (id){
+        const result = await DeleteGlobalVarById(id);
+        if(result.status == "SUCCESS"){
+          this.refreshGlobalVarList();
+        }else{
+          this.$Message.error(result.errorMsg);
         }
       },
     },

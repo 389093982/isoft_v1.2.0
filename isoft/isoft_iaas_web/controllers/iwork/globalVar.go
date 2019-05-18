@@ -47,3 +47,14 @@ func (this *WorkController) EditGlobalVar() {
 	}
 	this.ServeJSON()
 }
+
+func (this *WorkController) DeleteGlobalVarById() {
+	id, _ := this.GetInt64("id")
+	err := iwork.DeleteGlobalVarById(id)
+	if err == nil {
+		this.Data["json"] = &map[string]interface{}{"status": "SUCCESS"}
+	} else {
+		this.Data["json"] = &map[string]interface{}{"status": "ERROR", "errorMsg": err.Error()}
+	}
+	this.ServeJSON()
+}

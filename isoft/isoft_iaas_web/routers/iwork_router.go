@@ -61,4 +61,5 @@ func loadloadIWorkerRouterDetail() {
 
 	beego.Router("/api/iwork/globalVarList", &iwork.WorkController{}, "post:GlobalVarList")
 	beego.Router("/api/iwork/editGlobalVar", &iwork.WorkController{}, "post:EditGlobalVar")
+	beego.Router("/api/iwork/deleteGlobalVarById", &iwork.WorkController{}, "post:DeleteGlobalVarById")
 }

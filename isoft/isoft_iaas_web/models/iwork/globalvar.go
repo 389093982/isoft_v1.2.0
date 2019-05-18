@@ -25,6 +25,12 @@ func QueryGlobalVarByName(name string) (gv GlobalVar, err error) {
 	return
 }
 
+func DeleteGlobalVarById(id int64) error {
+	o := orm.NewOrm()
+	_, err := o.QueryTable("global_var").Filter("id", id).Delete()
+	return err
+}
+
 func InsertOrUpdateGlobalVar(globalVar *GlobalVar, o orm.Ormer) (id int64, err error) {
 	if globalVar.Id > 0 {
 		id, err = o.Update(globalVar)
