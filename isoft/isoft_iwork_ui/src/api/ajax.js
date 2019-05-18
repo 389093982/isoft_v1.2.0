@@ -4,26 +4,6 @@ ajax请求函数模块
  */
 import axios from 'axios'
 import Qs from 'qs'
-import store from "../store";
-
-// 允许带认证信息的配置
-axios.defaults.withCredentials=true;
-
-// axios 拦截器拦截 401 异常跳往登录页面
-axios.interceptors.response.use(
-  response => {
-    return response;
-  },
-  error => {
-    if (error.response) {
-      switch (error.response.status) {
-        case 401:
-          window.location.href = "/sso/login/?redirectUrl=" + window.location.href;
-      }
-    }
-    return Promise.reject(error.response.data)   // 返回接口返回的错误信息
-  }
-);
 
 export default function ajax (url, data={}, type='GET') {
   return new Promise(function (resolve, reject) {
