@@ -9,20 +9,16 @@ import (
 	"isoft/isoft_iwork_web/controllers/ilearning"
 	"isoft/isoft_iwork_web/controllers/monitor"
 	"isoft/isoft_iwork_web/controllers/share"
-	"strings"
 )
 
 func loadIaasRouter() {
-	// ilearning 模块
-	if strings.Contains(beego.AppConfig.String("open.modules"), "ilearning") {
-		initIBlogRouter()
-		initILearningRouter()
-		initCMSRouter()
-		initShareRouter()
-		initCommonRouter()
-		initMonitorRouter()
-		initIFileRouter()
-	}
+	initIBlogRouter()
+	initILearningRouter()
+	initCMSRouter()
+	initShareRouter()
+	initCommonRouter()
+	initMonitorRouter()
+	initIFileRouter()
 }
 
 func initIFileRouter() {

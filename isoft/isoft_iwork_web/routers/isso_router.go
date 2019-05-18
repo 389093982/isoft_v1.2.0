@@ -3,14 +3,11 @@ package routers
 import (
 	"github.com/astaxie/beego"
 	"isoft/isoft_iwork_web/controllers/sso"
-	"strings"
 )
 
 func loadISSORouter() {
-	// sso 模块
-	if strings.Contains(beego.AppConfig.String("open.modules"), "sso") {
-		loadISSORouterDetail()
-	}
+	loadISSORouterDetail()
+
 }
 
 func loadISSORouterDetail() {

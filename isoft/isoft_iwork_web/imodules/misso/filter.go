@@ -4,12 +4,12 @@ import (
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/context"
 	"isoft/isoft/ssofilter"
-	"isoft/isoft_iwork_web/imodules"
 )
 
 func ssoFilterFunc(ctx *context.Context) {
 	filter := new(ssofilter.LoginFilter)
 	filter.LoginWhiteList = &[]string{"/api/sso/user/login", "/api/sso/user/regist", "/api/sso/user/checkOrInValidateTokenString"}
+	filter.PrefixWhiteList = &[]string{"/api/iwork"}
 	filter.LoginUrl = ctx.Input.URL()
 	filter.Ctx = ctx
 	filter.SsoAddress = beego.AppConfig.String("isoft.sso.web.addr")
@@ -20,7 +20,5 @@ func ssoFilterFunc(ctx *context.Context) {
 }
 
 func RegisterISSOFilter() {
-	if imodules.CheckModule("sso") {
-		beego.InsertFilter("/api/*", beego.BeforeExec, ssoFilterFunc)
-	}
+	beego.InsertFilter("/api/*", beego.BeforeExec, ssoFilterFunc)
 }

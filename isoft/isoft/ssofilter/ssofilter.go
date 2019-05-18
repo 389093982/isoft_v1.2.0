@@ -30,11 +30,12 @@ func init() {
 }
 
 type LoginFilter struct {
-	LoginWhiteList *[]string
-	LoginUrl       string
-	Ctx            *context.Context
-	SsoAddress     string
-	ErrorFunc      func()
+	LoginWhiteList  *[]string
+	PrefixWhiteList *[]string
+	LoginUrl        string
+	Ctx             *context.Context
+	SsoAddress      string
+	ErrorFunc       func()
 }
 
 func (this *LoginFilter) Filter() {
@@ -52,6 +53,11 @@ func (this *LoginFilter) Filter() {
 func (this *LoginFilter) checkWhiteList() bool {
 	for _, url := range *this.LoginWhiteList {
 		if url == this.LoginUrl {
+			return true
+		}
+	}
+	for _, url := range *this.PrefixWhiteList {
+		if strings.HasPrefix(this.LoginUrl, url) {
 			return true
 		}
 	}

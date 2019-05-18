@@ -3,7 +3,6 @@ package task
 import (
 	"errors"
 	"github.com/astaxie/beego/toolbox"
-	"isoft/isoft_iwork_web/imodules"
 	"isoft/isoft_iwork_web/models/monitor"
 	"net/http"
 )
@@ -17,9 +16,7 @@ func startILearningCronTask() {
 }
 
 func getHeartBeatTask() (*toolbox.Task, error) {
-	if imodules.CheckModule("ilearning") {
-		return toolbox.NewTask("heartBeatTask", "0 * * * * *", heartBeatTaskFunc), nil
-	}
+	return toolbox.NewTask("heartBeatTask", "0 * * * * *", heartBeatTaskFunc), nil
 	return nil, errors.New("ilearning moudle is not open!")
 }
 

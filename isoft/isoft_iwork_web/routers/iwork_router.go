@@ -3,13 +3,10 @@ package routers
 import (
 	"github.com/astaxie/beego"
 	"isoft/isoft_iwork_web/controllers/iwork"
-	"strings"
 )
 
 func loadIWorkerRouter() {
-	if strings.Contains(beego.AppConfig.String("open.modules"), "iwork") {
-		loadloadIWorkerRouterDetail()
-	}
+	loadloadIWorkerRouterDetail()
 }
 
 func loadloadIWorkerRouterDetail() {

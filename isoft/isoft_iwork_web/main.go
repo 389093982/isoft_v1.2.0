@@ -10,8 +10,8 @@ import (
 )
 
 func init() {
-	logger.ConfigureLogInfo()
-	db.ConfigureDBInfo()
+	logger.InitLog()
+	db.InitDb()
 
 }
 
