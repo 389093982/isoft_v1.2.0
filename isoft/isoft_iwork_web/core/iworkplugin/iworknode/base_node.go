@@ -86,10 +86,12 @@ func (this *BaseNode) FillParamInputSchemaDataToTmp(workStep *iwork.WorkStep) ma
 
 func (this *BaseNode) FillParamInputSchemaItemDataToTmp(pureTextTmpDataMap map[string]string, tmpDataMap map[string]interface{}, item iworkmodels.ParamInputSchemaItem) {
 	parser := &ParamInputSchemaItemDataParser{
-		DataStore: this.DataStore,
-		item:      item,
+		DataStore:          this.DataStore,
+		item:               item,
+		pureTextTmpDataMap: pureTextTmpDataMap,
+		tmpDataMap:         tmpDataMap,
 	}
-	parser.FillParamInputSchemaItemDataToTmp(pureTextTmpDataMap, tmpDataMap)
+	parser.FillParamInputSchemaItemDataToTmp()
 }
 
 // 提交输出数据至数据中心,此类数据能直接从 tmpDataMap 中获取,而不依赖于计算,只适用于 WORK_START、WORK_END 节点
@@ -103,56 +105,17 @@ func (this *BaseNode) SubmitParamOutputSchemaDataToDataStore(workStep *iwork.Wor
 	dataStore.CacheDatas(workStep.WorkStepName, paramMap)
 }
 
+//
+//
+//
+//
+//
+// iworkmodels.ParamInputSchemaItem 解析类
 type ParamInputSchemaItemDataParser struct {
-	DataStore *datastore.DataStore
-	item      iworkmodels.ParamInputSchemaItem
-}
-
-// paramValue 来源于 iwork 模块
-func (this *ParamInputSchemaItemDataParser) parseAndFillParamVauleWithResource(paramVaule string) interface{} {
-	resource, err := iwork.QueryResourceByName(strings.Replace(paramVaule, "$RESOURCE.", "", -1))
-	if err == nil {
-		if resource.ResourceType == "db" {
-			return resource.ResourceDsn
-		} else if resource.ResourceType == "sftp" || resource.ResourceType == "ssh" {
-			return resource
-		}
-	}
-	return ""
-}
-
-// paramValue 来源于前置节点
-func (this *ParamInputSchemaItemDataParser) parseAndFillParamVauleWithPrefixNode(paramName, paramVaule string) interface{} {
-	// 格式校验
-	if !strings.HasPrefix(paramVaule, "$") {
-		panic(errors.New(fmt.Sprintf("%s ~ %s is not start with $", paramName, paramVaule)))
-	}
-	resolver := param.ParamVauleParser{ParamValue: paramVaule}
-	nodeName := resolver.GetNodeNameFromParamValue()
-	paramName = resolver.GetParamNameFromParamValue()
-	paramValue := this.DataStore.GetData(nodeName, paramName) // 作为直接对象, dataStore 里面可以直接获取
-	if paramValue != nil {
-		return paramValue
-	}
-	_paramName := paramName[:strings.LastIndex(paramName, ".")]
-	datas := this.DataStore.GetData(nodeName, _paramName) // 作为对象属性
-	attr := paramName[strings.LastIndex(paramName, ".")+1:]
-	if reflect.TypeOf(datas).Kind() == reflect.Slice {
-		return reflect.ValueOf(datas).Index(0).Interface().(map[string]interface{})[attr]
-	}
-	return datas.(map[string]interface{})[attr]
-}
-
-func (this *ParamInputSchemaItemDataParser) parseAndFillParamVauleWithReplaceProviderNode(paramVaule string, replaceMap ...map[string]interface{}) interface{} {
-	for replaceProviderNodeName, replaceProviderData := range replaceMap[0] {
-		replaceProviderNodeName = strings.ReplaceAll(replaceProviderNodeName, ";", "")
-		if strings.HasPrefix(paramVaule, replaceProviderNodeName) {
-			attr := strings.Replace(paramVaule, replaceProviderNodeName+".", "", 1)
-			attr = strings.ReplaceAll(attr, ";", "")
-			return replaceProviderData.(map[string]interface{})[attr]
-		}
-	}
-	return nil
+	DataStore          *datastore.DataStore
+	item               iworkmodels.ParamInputSchemaItem
+	pureTextTmpDataMap map[string]string
+	tmpDataMap         map[string]interface{}
 }
 
 // 去除不合理的字符
@@ -180,12 +143,11 @@ func (this *ParamInputSchemaItemDataParser) getRepeatDatas(tmpDataMap map[string
 	return repeatDatas
 }
 
-func (this *ParamInputSchemaItemDataParser) FillParamInputSchemaItemDataToTmp(pureTextTmpDataMap map[string]string, tmpDataMap map[string]interface{}) {
-
-	pureTextTmpDataMap[this.item.ParamName] = this.item.ParamValue
+func (this *ParamInputSchemaItemDataParser) FillParamInputSchemaItemDataToTmp() {
+	this.pureTextTmpDataMap[this.item.ParamName] = this.item.ParamValue
 	// tmpDataMap 存储解析值
 	if this.item.PureText {
-		tmpDataMap[this.item.ParamName] = this.item.ParamValue
+		this.tmpDataMap[this.item.ParamName] = this.item.ParamValue
 		return
 	}
 	// 对参数进行非空校验
@@ -194,28 +156,28 @@ func (this *ParamInputSchemaItemDataParser) FillParamInputSchemaItemDataToTmp(pu
 	}
 	// 判断当前参数是否是 repeat 参数
 	if !this.item.Repeatable {
-		tmpDataMap[this.item.ParamName] = this.ParseAndGetParamVaule(this.item.ParamName, this.item.ParamValue) // 输入数据存临时
+		this.tmpDataMap[this.item.ParamName] = this.ParseAndGetParamVaule(this.item.ParamName, this.item.ParamValue) // 输入数据存临时
 		return
 	}
-	this.FillParamInputSchemaItemDataToTmpWithForeach(tmpDataMap, pureTextTmpDataMap)
+	this.FillParamInputSchemaItemDataToTmpWithForeach()
 }
 
-func (this *ParamInputSchemaItemDataParser) FillParamInputSchemaItemDataToTmpWithForeach(tmpDataMap map[string]interface{}, pureTextTmpDataMap map[string]string) {
-	repeatDatas := this.getRepeatDatas(tmpDataMap)
+func (this *ParamInputSchemaItemDataParser) FillParamInputSchemaItemDataToTmpWithForeach() {
+	repeatDatas := this.getRepeatDatas(this.tmpDataMap)
 	if len(repeatDatas) > 0 {
 		paramValues := make([]interface{}, 0)
 		for _, repeatData := range repeatDatas {
 			// 替代的节点名称
-			replaceProviderNodeName := strings.ReplaceAll(strings.TrimSpace(pureTextTmpDataMap[this.item.RepeatRefer]), ";", "")
+			replaceProviderNodeName := strings.ReplaceAll(strings.TrimSpace(this.pureTextTmpDataMap[this.item.RepeatRefer]), ";", "")
 			// 替代的对象
 			replaceProviderData := repeatData
 			replaceMap := map[string]interface{}{replaceProviderNodeName: replaceProviderData}
 			paramValue := this.ParseAndGetParamVaule(this.item.ParamName, this.item.ParamValue, replaceMap) // 输入数据存临时
 			paramValues = append(paramValues, paramValue)
 		}
-		tmpDataMap[this.item.ParamName] = paramValues // 所得值则是个切片
+		this.tmpDataMap[this.item.ParamName] = paramValues // 所得值则是个切片
 	} else {
-		tmpDataMap[this.item.ParamName] = this.ParseAndGetParamVaule(this.item.ParamName, this.item.ParamValue) // 输入数据存临时
+		this.tmpDataMap[this.item.ParamName] = this.ParseAndGetParamVaule(this.item.ParamName, this.item.ParamValue) // 输入数据存临时
 	}
 }
 
@@ -312,4 +274,51 @@ func (this *ParamInputSchemaItemDataParser) parseAndGetSingleParamVaule(paramNam
 		lastFuncResult = result
 	}
 	return lastFuncResult
+}
+
+// paramValue 来源于 iwork 模块
+func (this *ParamInputSchemaItemDataParser) parseAndFillParamVauleWithResource(paramVaule string) interface{} {
+	resource, err := iwork.QueryResourceByName(strings.Replace(paramVaule, "$RESOURCE.", "", -1))
+	if err == nil {
+		if resource.ResourceType == "db" {
+			return resource.ResourceDsn
+		} else if resource.ResourceType == "sftp" || resource.ResourceType == "ssh" {
+			return resource
+		}
+	}
+	return ""
+}
+
+// paramValue 来源于前置节点
+func (this *ParamInputSchemaItemDataParser) parseAndFillParamVauleWithPrefixNode(paramName, paramVaule string) interface{} {
+	// 格式校验
+	if !strings.HasPrefix(paramVaule, "$") {
+		panic(errors.New(fmt.Sprintf("%s ~ %s is not start with $", paramName, paramVaule)))
+	}
+	resolver := param.ParamVauleParser{ParamValue: paramVaule}
+	nodeName := resolver.GetNodeNameFromParamValue()
+	paramName = resolver.GetParamNameFromParamValue()
+	paramValue := this.DataStore.GetData(nodeName, paramName) // 作为直接对象, dataStore 里面可以直接获取
+	if paramValue != nil {
+		return paramValue
+	}
+	_paramName := paramName[:strings.LastIndex(paramName, ".")]
+	datas := this.DataStore.GetData(nodeName, _paramName) // 作为对象属性
+	attr := paramName[strings.LastIndex(paramName, ".")+1:]
+	if reflect.TypeOf(datas).Kind() == reflect.Slice {
+		return reflect.ValueOf(datas).Index(0).Interface().(map[string]interface{})[attr]
+	}
+	return datas.(map[string]interface{})[attr]
+}
+
+func (this *ParamInputSchemaItemDataParser) parseAndFillParamVauleWithReplaceProviderNode(paramVaule string, replaceMap ...map[string]interface{}) interface{} {
+	for replaceProviderNodeName, replaceProviderData := range replaceMap[0] {
+		replaceProviderNodeName = strings.ReplaceAll(replaceProviderNodeName, ";", "")
+		if strings.HasPrefix(paramVaule, replaceProviderNodeName) {
+			attr := strings.Replace(paramVaule, replaceProviderNodeName+".", "", 1)
+			attr = strings.ReplaceAll(attr, ";", "")
+			return replaceProviderData.(map[string]interface{})[attr]
+		}
+	}
+	return nil
 }
