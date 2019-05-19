@@ -82,7 +82,7 @@ func LoadPreNodeOutputService(serviceArgs map[string]interface{}) (result map[st
 		allSteps, _ := iwork.QueryAllWorkStepInfo(work_id, orm.NewOrm())
 		parser := &block.BlockParser{Steps: allSteps}
 		_, blockStepMapper := parser.ParseToBlockSteps()
-		currentBlockStep := blockStepMapper[currentWorkStep.Id]
+		currentBlockStep := blockStepMapper[currentWorkStep.WorkStepId]
 		for _, step := range steps {
 			// 判断前置 step 在块范围内是否是可访问的,且是否非 defer 步骤
 			if block.CheckBlockAccessble(currentBlockStep, step.WorkStepId) && step.IsDefer != "true" {

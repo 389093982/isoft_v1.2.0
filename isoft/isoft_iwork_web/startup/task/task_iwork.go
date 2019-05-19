@@ -23,5 +23,7 @@ type iworkJob struct {
 
 func (this *iworkJob) Run() {
 	paramMap := make(map[string]interface{}, 0)
-	httputil.DoPost(fmt.Sprintf("http://localhost:8086/api/iwork/httpservice/%s", this.meta.TaskName), paramMap)
+	headerMap := make(map[string]interface{}, 0)
+	url := fmt.Sprintf("http://localhost:8086/api/iwork/httpservice/%s", this.meta.TaskName)
+	httputil.DoHttpRequest(url, "post", paramMap, headerMap)
 }
