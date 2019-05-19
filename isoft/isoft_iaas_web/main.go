@@ -18,6 +18,5 @@ func init() {
 func main() {
 	misso.RegisterISSOFilter()
 	task.RegisterCronTask()
-	task.InitialIWorkGlobalVar()		// 初始化全局变量
 	beego.Run()
 }
