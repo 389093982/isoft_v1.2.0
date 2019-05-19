@@ -35,7 +35,10 @@ func (this *SQLQueryNode) Execute(trackingId string) {
 	// 存储 datacounts
 	paramMap[iworkconst.NUMBER_PREFIX+"datacounts"] = datacounts
 	// 数组对象整体存储在 rows 里面
-	paramMap[iworkconst.MULTI_PREFIX+"rows"] = rowDatas
+	paramMap["rows"] = rowDatas
+	if len(rowDatas) > 0 {
+		paramMap["row"] = rowDatas[0]
+	}
 	this.DataStore.CacheDatas(this.WorkStep.WorkStepName, paramMap)
 }
 
@@ -204,7 +207,10 @@ func (this *SQLQueryPageNode) Execute(trackingId string) {
 	// 存储 datacounts
 	paramMap[iworkconst.NUMBER_PREFIX+"datacounts"] = datacounts
 	// 数组对象整体存储在 rows 里面
-	paramMap[iworkconst.MULTI_PREFIX+"rows"] = rowDatas
+	paramMap["rows"] = rowDatas
+	if len(rowDatas) > 0 {
+		paramMap["row"] = rowDatas[0]
+	}
 	// 存储分页信息
 	pageIndex, pageSize := getPageIndexAndPageSize(tmpDataMap)
 	paginator := pageutil.Paginator(pageIndex, pageSize, totalcount)
@@ -344,7 +350,11 @@ func getMetaDataForQuery(step *iwork.WorkStep) *iworkmodels.ParamOutputSchema {
 	items := make([]iworkmodels.ParamOutputSchemaItem, 0)
 	for _, paramName := range paramNames {
 		items = append(items, iworkmodels.ParamOutputSchemaItem{
-			ParentPath: iworkconst.MULTI_PREFIX + "rows",
+			ParentPath: "rows",
+			ParamName:  paramName,
+		})
+		items = append(items, iworkmodels.ParamOutputSchemaItem{
+			ParentPath: "row",
 			ParamName:  paramName,
 		})
 	}

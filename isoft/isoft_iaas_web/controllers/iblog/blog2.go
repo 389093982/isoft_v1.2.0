@@ -21,7 +21,11 @@ func (this *BlogController) BlogList2() {
 				if err == nil {
 					blogs := responseMap["result"].(map[string]interface{})["blogs"]
 					paginator := responseMap["result"].(map[string]interface{})["paginator"]
-					this.Data["json"] = &map[string]interface{}{"status": "SUCCESS", "blogs": &blogs, "paginator": &paginator}
+					this.Data["json"] = &map[string]interface{}{
+						"status":    "SUCCESS",
+						"blogs":     &blogs,
+						"paginator": &paginator,
+					}
 				}
 			}
 		}

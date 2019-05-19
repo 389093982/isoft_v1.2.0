@@ -144,7 +144,11 @@ func (this *BlogController) BlogList() {
 		this.Data["json"] = &map[string]interface{}{"status": "ERROR"}
 	} else {
 		paginatorMap := pageutil.Paginator(paginator.Page(), paginator.PerPageNums, paginator.Nums())
-		this.Data["json"] = &map[string]interface{}{"status": "SUCCESS", "blogs": &blogs, "paginator": &paginatorMap}
+		this.Data["json"] = &map[string]interface{}{
+			"status":    "SUCCESS",
+			"blogs":     &blogs,
+			"paginator": &paginatorMap,
+		}
 	}
 	this.ServeJSON()
 }
