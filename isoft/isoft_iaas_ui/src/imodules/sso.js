@@ -20,7 +20,7 @@ export const checkSSOLogin = function (to, from, next) {
   }
 };
 
-function checkNotLogin(){
+export const checkNotLogin = function (){
   if(checkContainsInString(window.location.href, "/sso/login") || checkContainsInString(window.location.href, "/sso/regist")){
     return true;
   }

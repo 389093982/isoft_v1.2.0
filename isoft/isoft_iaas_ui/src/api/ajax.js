@@ -4,7 +4,7 @@ ajax请求函数模块
  */
 import axios from 'axios'
 import Qs from 'qs'
-import store from "../store";
+import {checkNotLogin} from "../imodules/sso"
 
 // 允许带认证信息的配置
 axios.defaults.withCredentials=true;
@@ -18,7 +18,9 @@ axios.interceptors.response.use(
     if (error.response) {
       switch (error.response.status) {
         case 401:
-          window.location.href = "/sso/login/?redirectUrl=" + window.location.href;
+          if(!checkNotLogin()){
+            window.location.href = "/sso/login/?redirectUrl=" + window.location.href;
+          }
       }
     }
     return Promise.reject(error.response.data)   // 返回接口返回的错误信息
