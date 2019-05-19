@@ -24,7 +24,7 @@ func (this *MapperNode) GetRuntimeParamInputSchema() *iworkmodels.ParamInputSche
 	json.Unmarshal([]byte(this.WorkStep.WorkStepParamMapping), &paramMappingsArr)
 	items := make([]iworkmodels.ParamInputSchemaItem, 0)
 	for _, paramMapping := range paramMappingsArr {
-		items = append(items, iworkmodels.ParamInputSchemaItem{ParamName: paramMapping.ParamMappingName})
+		items = append(items, iworkmodels.ParamInputSchemaItem{ParamName: paramMapping.ParamMappingName, ParamType: paramMapping.ParamMappingType})
 	}
 	return &iworkmodels.ParamInputSchema{ParamInputSchemaItems: items}
 }
