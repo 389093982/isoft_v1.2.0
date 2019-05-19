@@ -84,7 +84,7 @@ export const GetRelativeWork = (work_id) => ajax(BASE_URL+"/iwork/getRelativeWor
 export const FilterPageEntity = (search, offset,current_page) => ajax(BASE_URL+"/iwork/filterPageEntity", {search, offset,current_page},'POST');
 
 // 编辑 entity
-export const EditEntity = (entity_id,entity_name,entity_field_str) => ajax(BASE_URL+"/iwork/editEntity", {entity_id,entity_name,entity_field_str},'POST');
+export const EditEntity = (entity_id,entity_name,entity_type) => ajax(BASE_URL+"/iwork/editEntity", {entity_id,entity_name,entity_type},'POST');
 
 // 删除 entity
 export const DeleteEntity = (entity_id) => ajax(BASE_URL+"/iwork/deleteEntity", {entity_id},'POST');

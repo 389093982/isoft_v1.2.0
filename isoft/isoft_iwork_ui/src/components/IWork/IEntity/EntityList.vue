@@ -3,7 +3,12 @@
     <ISimpleLeftRightRow style="margin-bottom: 10px;margin-right: 10px;">
       <!-- left 插槽部分 -->
       <span slot="left">
-        <Button type="success">新增</Button>
+        <Button type="success" @click="addEntity">新增</Button>
+        <ISimpleConfirmModal ref="entityEditModal" modal-title="新增/编辑 Entity" :modal-width="600" :footer-hide="true">
+          <IKeyValueForm ref="entityEditForm" form-key-label="entity_name" form-value-label="entity_type"
+                         form-key-placeholder="请输入 entity_name" form-value-placeholder="请输入 entity_type"
+                         @handleSubmit="editEntity" :formkey-validator="entityNameValidator"/>
+        </ISimpleConfirmModal>
       </span>
 
       <!-- right 插槽部分 -->
@@ -18,12 +23,16 @@
 
 <script>
   import {FilterPageEntity} from "../../../api"
+  import {EditEntity} from "../../../api"
   import ISimpleSearch from "../../Common/search/ISimpleSearch"
   import ISimpleLeftRightRow from "../../Common/layout/ISimpleLeftRightRow"
+  import {validateCommonPatternForString} from "../../../tools/index"
+  import ISimpleConfirmModal from "../../Common/modal/ISimpleConfirmModal"
+  import IKeyValueForm from "../../Common/form/IKeyValueForm"
 
   export default {
     name: "EntityList",
-    components:{ISimpleSearch,ISimpleLeftRightRow},
+    components:{ISimpleSearch,ISimpleLeftRightRow,ISimpleConfirmModal,IKeyValueForm},
     data(){
       return {
         // 当前页
@@ -71,6 +80,28 @@
       }
     },
     methods:{
+      entityNameValidator(rule, value, callback){
+        if (value === '') {
+          callback(new Error('字段值不能为空!'));
+        } else if (!validateCommonPatternForString(value)) {
+          callback(new Error('存在非法字符，只能包含字母，数字，下划线!'));
+        } else {
+          callback();
+        }
+      },
+      addEntity:function(){
+        this.$refs.entityEditModal.showModal();
+      },
+      editEntity:async function (entity_id, entity_name, entity_type) {
+        const result = await EditEntity(entity_id, entity_name, entity_type);
+        if(result.status == "SUCCESS"){
+          this.$refs.entityEditForm.handleSubmitSuccess("提交成功!");
+          this.$refs.entityEditModal.hideModal();
+          this.refreshEntityList();
+        }else{
+          this.$refs.entityEditForm.handleSubmitError("提交失败!");
+        }
+      },
       refreshEntityList:async function () {
         const result = await FilterPageEntity(this.search, this.offset, this.current_page);
         if(result.status=="SUCCESS"){
