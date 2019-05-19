@@ -5,6 +5,11 @@ import (
 	"encoding/xml"
 )
 
+type ParamMapping struct {
+	ParamMappingName string `json:"paramMappingName"`
+	ParamMappingType string `json:"paramMappingType"`
+}
+
 type ParamInputSchemaItem struct {
 	XMLName      xml.Name `xml:"paramInputSchemaItem" json:"-"`
 	ParamName    string   `xml:"paramName"`

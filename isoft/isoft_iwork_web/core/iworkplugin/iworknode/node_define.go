@@ -38,12 +38,12 @@ func (this *DefineVarNode) Execute(trackingId string) {
 }
 
 func (this *DefineVarNode) GetRuntimeParamInputSchema() *iworkmodels.ParamInputSchema {
-	var paramMappingsArr []string
+	var paramMappingsArr []iworkmodels.ParamMapping
 	json.Unmarshal([]byte(this.WorkStep.WorkStepParamMapping), &paramMappingsArr)
 	items := make([]iworkmodels.ParamInputSchemaItem, 0)
 	for _, paramMapping := range paramMappingsArr {
 		items = append(items, iworkmodels.ParamInputSchemaItem{
-			ParamName: paramMapping,
+			ParamName: paramMapping.ParamMappingName,
 			ParamChoices: []string{
 				"`string`",
 				"`interface{}`",

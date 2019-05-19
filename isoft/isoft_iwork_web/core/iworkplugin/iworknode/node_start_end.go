@@ -35,11 +35,11 @@ func (this *WorkStartNode) Execute(trackingId string) {
 }
 
 func (this *WorkStartNode) GetRuntimeParamInputSchema() *iworkmodels.ParamInputSchema {
-	var paramMappingsArr []string
+	var paramMappingsArr []iworkmodels.ParamMapping
 	json.Unmarshal([]byte(this.WorkStep.WorkStepParamMapping), &paramMappingsArr)
 	items := make([]iworkmodels.ParamInputSchemaItem, 0)
 	for _, paramMapping := range paramMappingsArr {
-		items = append(items, iworkmodels.ParamInputSchemaItem{ParamName: paramMapping})
+		items = append(items, iworkmodels.ParamInputSchemaItem{ParamName: paramMapping.ParamMappingName})
 	}
 	return &iworkmodels.ParamInputSchema{ParamInputSchemaItems: items}
 }
@@ -69,11 +69,11 @@ func (this *WorkEndNode) Execute(trackingId string) {
 }
 
 func (this *WorkEndNode) GetRuntimeParamInputSchema() *iworkmodels.ParamInputSchema {
-	var paramMappingsArr []string
+	var paramMappingsArr []iworkmodels.ParamMapping
 	json.Unmarshal([]byte(this.WorkStep.WorkStepParamMapping), &paramMappingsArr)
 	items := make([]iworkmodels.ParamInputSchemaItem, 0)
 	for _, paramMapping := range paramMappingsArr {
-		items = append(items, iworkmodels.ParamInputSchemaItem{ParamName: paramMapping})
+		items = append(items, iworkmodels.ParamInputSchemaItem{ParamName: paramMapping.ParamMappingName})
 	}
 	return &iworkmodels.ParamInputSchema{ParamInputSchemaItems: items}
 }

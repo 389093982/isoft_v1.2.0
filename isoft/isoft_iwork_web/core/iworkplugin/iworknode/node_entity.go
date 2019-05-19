@@ -43,7 +43,7 @@ func (this *EntityParserNode) Execute(trackingId string) {
 }
 
 func (this *EntityParserNode) GetRuntimeParamInputSchema() *iworkmodels.ParamInputSchema {
-	var paramMappingsArr []string
+	var paramMappingsArr []iworkmodels.ParamMapping
 	json.Unmarshal([]byte(this.WorkStep.WorkStepParamMapping), &paramMappingsArr)
 	items := make([]iworkmodels.ParamInputSchemaItem, 0)
 	for _, paramMapping := range paramMappingsArr {

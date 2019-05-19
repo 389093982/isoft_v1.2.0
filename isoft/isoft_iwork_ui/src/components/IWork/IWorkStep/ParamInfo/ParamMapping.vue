@@ -4,9 +4,9 @@
       <ParamMappingAdd @handleSubmit="paramMappingAdd"/>
       <div v-for="paramMapping in paramMappings">
         <Row>
-          <Col span="12">{{paramMapping}}</Col>
+          <Col span="12">{{paramMapping.paramMappingName}} -- {{paramMapping.paramMappingType}}</Col>
           <Col span="12" style="text-align: right;">
-            <Button type="success" size="small" @click="handleDelete(paramMapping)" style="margin-left: 6px">删除</Button>
+            <Button type="success" size="small" @click="handleDelete(paramMapping.paramMappingName)" style="margin-left: 6px">删除</Button>
           </Col>
         </Row>
         <hr/>
@@ -17,8 +17,6 @@
 
 <script>
   import ParamMappingAdd from "./ParamMappingAdd"
-  import {oneOf} from "../../../../tools/index"
-  import {strSplit} from "../../../../tools/index"
 
   export default {
     name: "ParamMapping",
@@ -30,18 +28,25 @@
       }
     },
     methods:{
-      paramMappingAdd:function (data) {
-        var strs = strSplit(data, ",");
-        for(var i=0; i<strs.length; i++){
-          if(!oneOf(strs[i].trim(), this.paramMappings)){
-            this.paramMappings.push(strs[i].trim());
+      paramMappingAdd:function (paramMappingName, paramMappingType) {
+        var exist = false;
+        for(var i=0; i<this.paramMappings.length; i++){
+          var paramMapping = this.paramMappings[i];
+          if(paramMapping.paramMappingName == paramMappingName){
+            exist = true;
+            paramMapping.paramMappingType = paramMappingType;
+            this.paramMappings[i] = paramMapping;
           }
         }
+        if(!exist){
+          this.paramMappings.push({"paramMappingName":paramMappingName, "paramMappingType":paramMappingType});
+        }
       },
-      handleDelete:function (data) {
-        for(var i=0; i< this.paramMappings.length; i++){
-          if(this.paramMappings[i] == data){
-            this.paramMappings.splice(i,1);
+      handleDelete:function (paramMappingName) {
+        for(var i=0; i<this.paramMappings.length; i++){
+          var paramMapping = this.paramMappings[i];
+          if(paramMapping.paramMappingName == paramMappingName){
+            this.paramMappings.splice(i, 1);
           }
         }
       }

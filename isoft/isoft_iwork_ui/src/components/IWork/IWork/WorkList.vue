@@ -1,7 +1,6 @@
 <template>
   <div style="margin: 10px;">
     <Row type="flex" justify="center">
-      <Col span="3"><EntityList/></Col>
       <Col span="3"><IWorkDL/></Col>
       <Col span="3"><WorkValidate/></Col>
     </Row>
@@ -43,7 +42,7 @@
 
   export default {
     name: "WorkList",
-    components:{ISimpleLeftRightRow,ISimpleSearch,EntityList,IWorkDL,WorkValidate,ISimpleConfirmModal,IKeyValueForm},
+    components:{ISimpleLeftRightRow,ISimpleSearch,IWorkDL,WorkValidate,ISimpleConfirmModal,IKeyValueForm},
     data(){
       return {
         // 当前页

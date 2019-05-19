@@ -118,7 +118,7 @@ func LoadWorkStepInfoService(serviceArgs map[string]interface{}) (result map[str
 	if err != nil {
 		return nil, err
 	}
-	var paramMappingsArr []string
+	var paramMappingsArr []iworkmodels.ParamMapping
 	json.Unmarshal([]byte(step.WorkStepParamMapping), &paramMappingsArr)
 	result["step"] = step
 	result["paramInputSchema"] = schema.GetCacheParamInputSchema(&step, &iworknode.WorkStepFactory{WorkStep: &step})
