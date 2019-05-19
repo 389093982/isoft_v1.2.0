@@ -34,7 +34,6 @@
   import {SaveHistory} from "../../../api/index"
   import ISimpleLeftRightRow from "../../Common/layout/ISimpleLeftRightRow"
   import ISimpleSearch from "../../Common/search/ISimpleSearch"
-  import EntityList from "../EntityList"
   import IWorkDL from "../IWorkDL"
   import WorkValidate from "../IValidate/WorkValidate"
   import {EditWork} from "../../../api"
