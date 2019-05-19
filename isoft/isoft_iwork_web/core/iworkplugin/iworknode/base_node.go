@@ -197,6 +197,10 @@ func (this *ParamInputSchemaItemDataParser) FillParamInputSchemaItemDataToTmp(pu
 		tmpDataMap[this.item.ParamName] = this.ParseAndGetParamVaule(this.item.ParamName, this.item.ParamValue) // 输入数据存临时
 		return
 	}
+	this.FillParamInputSchemaItemDataToTmpWithForeach(tmpDataMap, pureTextTmpDataMap)
+}
+
+func (this *ParamInputSchemaItemDataParser) FillParamInputSchemaItemDataToTmpWithForeach(tmpDataMap map[string]interface{}, pureTextTmpDataMap map[string]string) {
 	repeatDatas := this.getRepeatDatas(tmpDataMap)
 	if len(repeatDatas) > 0 {
 		paramValues := make([]interface{}, 0)
