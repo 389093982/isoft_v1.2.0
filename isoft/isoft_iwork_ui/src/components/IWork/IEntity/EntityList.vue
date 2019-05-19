@@ -24,6 +24,7 @@
 <script>
   import {FilterPageEntity} from "../../../api"
   import {EditEntity} from "../../../api"
+  import {DeleteEntity} from "../../../api"
   import ISimpleSearch from "../../Common/search/ISimpleSearch"
   import ISimpleLeftRightRow from "../../Common/layout/ISimpleLeftRightRow"
   import {validateCommonPatternForString} from "../../../tools/index"
@@ -76,6 +77,20 @@
                     }
                   }
                 }, '编辑'),
+                h('Button', {
+                  props: {
+                    type: 'success',
+                    size: 'small'
+                  },
+                  style: {
+                    marginRight: '5px',
+                  },
+                  on: {
+                    click: () => {
+                      this.deleteEntityId(this.entities[params.index]['id']);
+                    }
+                  }
+                }, '删除'),
               ]);
             }
           }
@@ -83,6 +98,12 @@
       }
     },
     methods:{
+      deleteEntityId: async function(id){
+        const result = await DeleteEntity(id);
+        if(result.status=="SUCCESS"){
+          this.refreshEntityList();
+        }
+      },
       entityNameValidator(rule, value, callback){
         if (value === '') {
           callback(new Error('字段值不能为空!'));
