@@ -125,7 +125,7 @@
                   },
                   on: {
                     click: () => {
-                      this.editWork(this.works[params.index]['id'], this.works[params.index]['work_name']);
+                      this.editWorkSteps(this.works[params.index]['id'], this.works[params.index]['work_name']);
                     }
                   }
                 }, '编辑步骤'),
@@ -215,6 +215,9 @@
         if(result.status == "SUCCESS"){
           this.$Message.success("保存成功!");
         }
+      },
+      editWorkSteps:function (id, work_name) {
+        this.$router.push({ path: '/iwork/workstepList', query: { work_id: id, work_name: work_name }});
       },
       workNameValidator (rule, value, callback){
         if (value === '') {

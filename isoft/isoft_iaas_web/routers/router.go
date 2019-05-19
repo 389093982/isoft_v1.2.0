@@ -88,17 +88,31 @@ func initILearningRouter() {
 }
 
 func initIBlogRouter() {
+	// v1
 	beego.Router("/api/catalog/edit", &iblog.CatalogController{}, "get:Edit;post:PostEdit")
 	beego.Router("/api/catalog/getMyCatalogs", &iblog.CatalogController{}, "get:GetMyCatalogs")
 	beego.Router("/api/catalog/delete", &iblog.CatalogController{}, "post:PostDelete")
 
 	beego.Router("/api/blog/edit", &iblog.BlogController{}, "get:Edit;post:PostEdit")
-	beego.Router("/api/blog/blogList", &iblog.BlogController{}, "get:BlogList")
+	//beego.Router("/api/blog/blogList", &iblog.BlogController{}, "get:BlogList")
 	beego.Router("/api/blog/getMyBlogs", &iblog.BlogController{}, "get:GetMyBlogs")
 	beego.Router("/api/blog/delete", &iblog.BlogController{}, "post:PostDelete")
 	beego.Router("/api/blog/search", &iblog.BlogController{}, "get:Search")
 	beego.Router("/api/blog/publish", &iblog.BlogController{}, "post:PostPublish")
 	beego.Router("/api/blog/showBlogDetail", &iblog.BlogController{}, "get:ShowBlogDetail")
+
+	// v2
+	//beego.Router("/api/catalog/edit", &iblog.CatalogController{}, "get:Edit;post:PostEdit2")
+	//beego.Router("/api/catalog/getMyCatalogs", &iblog.CatalogController{}, "get:GetMyCatalogs2")
+	//beego.Router("/api/catalog/delete", &iblog.CatalogController{}, "post:PostDelete2")
+	//
+	//beego.Router("/api/blog/edit", &iblog.BlogController{}, "get:Edit;post:PostEdit2")
+	beego.Router("/api/blog/blogList", &iblog.BlogController{}, "get:BlogList2")
+	//beego.Router("/api/blog/getMyBlogs", &iblog.BlogController{}, "get:GetMyBlogs2")
+	//beego.Router("/api/blog/delete", &iblog.BlogController{}, "post:PostDelete2")
+	//beego.Router("/api/blog/search", &iblog.BlogController{}, "get:Search2")
+	//beego.Router("/api/blog/publish", &iblog.BlogController{}, "post:PostPublish2")
+	//beego.Router("/api/blog/showBlogDetail", &iblog.BlogController{}, "get:ShowBlogDetail2")
 }
 
 func loadISSORouter() {
