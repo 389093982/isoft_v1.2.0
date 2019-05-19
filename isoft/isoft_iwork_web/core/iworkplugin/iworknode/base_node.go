@@ -182,35 +182,66 @@ func (this *ParamInputSchemaItemDataParser) FillParamInputSchemaItemDataToTmpWit
 }
 
 // 解析 paramVaule 并从 dataStore 中获取实际值
+// 可能的情况有多种：单值 interface{}, 多值 []interface{}, 对象值 map[string]interface{}
 func (this *ParamInputSchemaItemDataParser) ParseAndGetParamVaule(paramName, paramVaule string, replaceMap ...map[string]interface{}) interface{} {
-	values := this.parseParamValueToMulti(paramVaule)
-	// 单值
-	if len(values) == 1 {
-		return this.parseAndGetSingleParamVaule(paramName, values[0], replaceMap...)
-	}
-	// 多值
+	// 将 paramValue 解析成 []*AttrObjects
+	attrObjects := this.parseParamValueToAttrObjects(paramVaule)
+	// 存储 []*AttrObjects 转换后的 map[string]interface{}
+	resultObjectMap := make(map[string]interface{}, 0)
+	// 存储 []*AttrObjects 转换后的 []interface{}
 	results := make([]interface{}, 0)
-	for _, value := range values {
-		result := this.parseAndGetSingleParamVaule(paramName, value, replaceMap...)
-		results = append(results, result)
+	for _, attrResult := range attrObjects {
+		value := this.parseAndGetSingleParamVaule(paramName, attrResult.attrValue, replaceMap...)
+		resultObjectMap[attrResult.attrName] = value
+		results = append(results, value)
 	}
-	return results
+	// 对象值, 将 []*AttrObjects 转换成 map[string]interface{}
+	if this.item.ParamType == "objects" {
+		return resultObjectMap
+	} else {
+		// 单值
+		if len(results) == 1 {
+			return results[0]
+		}
+		return results
+	}
 }
 
-func (this *ParamInputSchemaItemDataParser) parseParamValueToMulti(paramVaule string) []string {
-	results := make([]string, 0)
+func (this *ParamInputSchemaItemDataParser) parseAttrNameAndValueWithSingleParamValue(index int, paramValue string) (attrName string, value string) {
+	if strings.Contains(paramValue, "::") {
+		attrName := paramValue[:strings.Index(paramValue, "::")]
+		value := paramValue[strings.Index(paramValue, "::")+2:]
+		return attrName, value
+	} else if strings.Contains(paramValue, "$") {
+		attrName := strings.ReplaceAll(paramValue[strings.LastIndex(paramValue, ".")+1:], ";", "")
+		return attrName, paramValue
+	} else {
+		return string(index), paramValue
+	}
+}
+
+type AttrObject struct {
+	index     int
+	attrName  string
+	attrValue string
+}
+
+// 将 paramVaule 转行成 对象值 map[string]interface{}, 即 []*AttrObject
+func (this *ParamInputSchemaItemDataParser) parseParamValueToAttrObjects(paramVaule string) []*AttrObject {
+	attrObjects := make([]*AttrObject, 0)
 	// 对转义字符 \, \; \( \) 等进行编码
 	paramVaule = iworkfunc.EncodeSpecialForParamVaule(paramVaule)
 	multiVals, err := iworkfunc.SplitWithLexerAnalysis(paramVaule)
 	if err != nil {
 		panic(err)
 	}
-	for _, value := range multiVals {
+	for index, value := range multiVals {
 		if _value := this.trim(value); strings.TrimSpace(_value) != "" {
-			results = append(results, strings.TrimSpace(_value))
+			attrName, value := this.parseAttrNameAndValueWithSingleParamValue(index, strings.TrimSpace(_value))
+			attrObjects = append(attrObjects, &AttrObject{index: index, attrName: attrName, attrValue: value})
 		}
 	}
-	return results
+	return attrObjects
 }
 
 func (this *ParamInputSchemaItemDataParser) callParseAndGetSingleParamVaule(paramName, paramVaule string, replaceMap ...map[string]interface{}) interface{} {

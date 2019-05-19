@@ -56,15 +56,17 @@ func (this *NodeAssign) CalculateSlice() (interface{}, error) {
 	if this.AssignOperate != `[]interface{}Assign` {
 		return nil, errors.New(fmt.Sprintf("unsupport operateType for %s", this.AssignOperate))
 	}
-	sliceData := this.AssignData.([]interface{})
-	if data, ok := this.AssignData.([]interface{}); ok {
+	sliceData := this.AssignVar.([]interface{})
+	if data, ok := this.AssignData.(map[string]interface{}); ok {
+		sliceData = append(sliceData, data)
+	} else if data, ok := this.AssignData.([]interface{}); ok {
 		for _, _data := range data {
 			sliceData = append(sliceData, _data)
 		}
-		return sliceData, nil
 	} else {
 		return nil, errors.New(fmt.Sprintf(`unsupport data for %v`, this.AssignData))
 	}
+	return sliceData, nil
 }
 
 func (this *NodeAssign) CalculateString() (interface{}, error) {
