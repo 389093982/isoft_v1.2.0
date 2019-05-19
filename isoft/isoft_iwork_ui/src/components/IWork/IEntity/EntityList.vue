@@ -70,6 +70,9 @@
                   },
                   on: {
                     click: () => {
+                      this.$refs.entityEditModal.showModal();
+                      this.$refs.entityEditForm.initFormData(this.entities[params.index].id, this.entities[params.index].entity_name, this.entities[params.index].entity_type);
+
                     }
                   }
                 }, '编辑'),
