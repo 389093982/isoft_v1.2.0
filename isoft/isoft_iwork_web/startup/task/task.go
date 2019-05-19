@@ -7,7 +7,6 @@ import (
 )
 
 func RegisterCronTask() {
-	startILearningCronTask()
 
 	startIWorkCronTask()
 }

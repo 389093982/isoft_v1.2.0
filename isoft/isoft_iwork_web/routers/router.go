@@ -18,6 +18,4 @@ func init() {
 	beego.Router("/", &controllers.MainController{})
 
 	loadIWorkerRouter()
-	loadISSORouter()
-	loadIaasRouter()
 }
