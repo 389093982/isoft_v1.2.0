@@ -81,7 +81,7 @@ export const GetLastRunLogDetail = (tracking_id) => ajax(BASE_URL+"/iwork/getLas
 export const GetRelativeWork = (work_id) => ajax(BASE_URL+"/iwork/getRelativeWork", {work_id},'POST');
 
 // 分页查询 entity 信息
-export const FilterPageEntity = (offset,current_page) => ajax(BASE_URL+"/iwork/filterPageEntity", {offset,current_page},'POST');
+export const FilterPageEntity = (search, offset,current_page) => ajax(BASE_URL+"/iwork/filterPageEntity", {search, offset,current_page},'POST');
 
 // 编辑 entity
 export const EditEntity = (entity_id,entity_name,entity_field_str) => ajax(BASE_URL+"/iwork/editEntity", {entity_id,entity_name,entity_field_str},'POST');

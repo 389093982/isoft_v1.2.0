@@ -56,15 +56,15 @@ func DecodeBase64String(encodeString string) (bytes []byte) {
 }
 
 func GetParamValueForEntity(paramValue string) string {
-	paramValue = strings.TrimSpace(paramValue)
-	paramValue = strings.Replace(paramValue, ";", "", -1)
-	if !strings.HasPrefix(paramValue, "$Entity.") {
-		return paramValue
-	}
-	entity_name := strings.Replace(paramValue, "$Entity.", "", -1)
-	if entity, err := iwork.QueryEntityByEntityName(entity_name); err == nil {
-		return entity.EntityFieldStr
-	}
+	//paramValue = strings.TrimSpace(paramValue)
+	//paramValue = strings.Replace(paramValue, ";", "", -1)
+	//if !strings.HasPrefix(paramValue, "$Entity.") {
+	//	return paramValue
+	//}
+	//entity_name := strings.Replace(paramValue, "$Entity.", "", -1)
+	//if entity, err := iwork.QueryEntityByEntityName(entity_name); err == nil {
+	//	return entity.EntityFieldStr
+	//}
 	return ""
 }
 

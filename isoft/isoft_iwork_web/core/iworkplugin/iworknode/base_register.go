@@ -25,7 +25,6 @@ func init() {
 		FileDeleteNode{},
 		HrefParserNode{},
 		EntityParserNode{},
-		DBParserNode{},
 		MemoryMapCacheNode{},
 		CalHashNode{},
 		SetEnvNode{},

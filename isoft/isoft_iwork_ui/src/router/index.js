@@ -13,6 +13,7 @@ import MigrateList from "../components/IWork/IMigrate/MigrateList"
 import EditMigrate from "../components/IWork/IMigrate/EditMigrate"
 import QuickSql from "../components/IWork/IAssistant/QuickSql"
 import GlobalVarList from "../components/IWork/IGlobalVar/GlobalVarList"
+import EntityList from "../components/IWork/IEntity/EntityList"
 
 Vue.use(Router);
 
@@ -36,6 +37,7 @@ const IWorkRouter = [
       {path: 'editMigrate',component: EditMigrate},
       {path: 'quickSql',component: QuickSql},
       {path: 'globalVarList',component: GlobalVarList},
+      {path: 'entityList',component: EntityList},
     ]
   }
 ];

@@ -24,7 +24,7 @@ func (this *WorkController) EditEntity() {
 		entity.Id = entity_id
 	}
 	entity.EntityName = this.GetString("entity_name")
-	entity.EntityFieldStr = this.GetString("entity_field_str")
+	entity.EntityType = this.GetString("entity_type")
 	entity.CreatedBy = "SYSTEM"
 	entity.CreatedTime = time.Now()
 	entity.LastUpdatedBy = "SYSTEM"
@@ -38,9 +38,11 @@ func (this *WorkController) EditEntity() {
 }
 
 func (this *WorkController) FilterPageEntity() {
+	search := this.GetString("search")
 	offset, _ := this.GetInt("offset", 10)            // 每页记录数
 	current_page, _ := this.GetInt("current_page", 1) // 当前页
-	entities, count, err := iwork.QueryEntity(current_page, offset)
+	condArr := map[string]string{"search": search}
+	entities, count, err := iwork.QueryEntity(condArr, current_page, offset)
 	paginator := pagination.SetPaginator(this.Ctx, offset, count)
 	if err == nil {
 		this.Data["json"] = &map[string]interface{}{"status": "SUCCESS", "entities": entities,
