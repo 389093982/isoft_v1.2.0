@@ -22,16 +22,35 @@ type PisItemDataParser struct {
 	TmpDataMap         map[string]interface{}
 }
 
-// 去除不合理的字符
-func (this *PisItemDataParser) trim(paramValue string) string {
-	// 先进行初次的 trim
-	paramValue = strings.TrimSpace(paramValue)
-	// 去除前后的 \n
-	paramValue = strings.TrimPrefix(paramValue, "\n")
-	paramValue = strings.TrimSuffix(paramValue, "\n")
-	// 再进行二次 trim
-	paramValue = strings.TrimSpace(paramValue)
-	return paramValue
+func (this *PisItemDataParser) FillPisItemDataToTmp() {
+	this.checkEmpty()
+	this.FillPisItemDataToPureTmp()
+	this.FillPisItemDataToNPureTmp()
+}
+
+func (this *PisItemDataParser) FillPisItemDataToPureTmp() {
+	this.PureTextTmpDataMap[this.Item.ParamName] = this.Item.ParamValue
+}
+
+func (this *PisItemDataParser) checkEmpty() {
+	// 对参数进行非空校验
+	if ok, checkResults := iworkvalid.CheckEmptyForItem(this.Item); !ok {
+		panic(strings.Join(checkResults, ";"))
+	}
+}
+
+func (this *PisItemDataParser) FillPisItemDataToNPureTmp() {
+	// tmpDataMap 存储解析值
+	if this.Item.PureText {
+		this.TmpDataMap[this.Item.ParamName] = this.Item.ParamValue
+		return
+	}
+	// 判断当前参数是否是 repeat 参数
+	if !this.Item.Repeatable {
+		this.TmpDataMap[this.Item.ParamName] = this.ParseAndGetParamVaule(this.Item.ParamName, this.Item.ParamValue) // 输入数据存临时
+		return
+	}
+	this.FillPisItemDataToTmpWithForeach()
 }
 
 func (this *PisItemDataParser) getRepeatDatas(tmpDataMap map[string]interface{}) []interface{} {
@@ -45,25 +64,6 @@ func (this *PisItemDataParser) getRepeatDatas(tmpDataMap map[string]interface{})
 		}
 	}
 	return repeatDatas
-}
-
-func (this *PisItemDataParser) FillPisItemDataToTmp() {
-	this.PureTextTmpDataMap[this.Item.ParamName] = this.Item.ParamValue
-	// tmpDataMap 存储解析值
-	if this.Item.PureText {
-		this.TmpDataMap[this.Item.ParamName] = this.Item.ParamValue
-		return
-	}
-	// 对参数进行非空校验
-	if ok, checkResults := iworkvalid.CheckEmptyForItem(this.Item); !ok {
-		panic(strings.Join(checkResults, ";"))
-	}
-	// 判断当前参数是否是 repeat 参数
-	if !this.Item.Repeatable {
-		this.TmpDataMap[this.Item.ParamName] = this.ParseAndGetParamVaule(this.Item.ParamName, this.Item.ParamValue) // 输入数据存临时
-		return
-	}
-	this.FillPisItemDataToTmpWithForeach()
 }
 
 func (this *PisItemDataParser) FillPisItemDataToTmpWithForeach() {
@@ -256,4 +256,16 @@ func (this *PisItemDataParser) parseAndFillParamVauleWithReplaceProviderNode(par
 		}
 	}
 	return nil
+}
+
+// 去除不合理的字符
+func (this *PisItemDataParser) trim(paramValue string) string {
+	// 先进行初次的 trim
+	paramValue = strings.TrimSpace(paramValue)
+	// 去除前后的 \n
+	paramValue = strings.TrimPrefix(paramValue, "\n")
+	paramValue = strings.TrimSuffix(paramValue, "\n")
+	// 再进行二次 trim
+	paramValue = strings.TrimSpace(paramValue)
+	return paramValue
 }
