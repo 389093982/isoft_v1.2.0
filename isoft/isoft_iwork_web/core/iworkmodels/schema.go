@@ -15,7 +15,7 @@ type ParamInputSchemaItem struct {
 	ParamName    string   `xml:"paramName"`
 	ParamDesc    string   `xml:"paramDesc"` // 使用说明信息
 	Repeatable   bool     `xml:"repeatable"`
-	RepeatRefer  string   `xml:"repeatRefer"`
+	ForeachRefer string   `xml:"foreachRefer"`
 	ParamChoices []string `xml:"paramChoices"`
 	PureText     bool     `xml:"pureText"`
 	ParamValue   string   `xml:"paramValue"`

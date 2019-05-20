@@ -50,14 +50,14 @@ func (this *PisItemDataParser) FillPisItemDataToNPureTmp() {
 		this.TmpDataMap[this.Item.ParamName] = this.ParseAndGetParamVaule(this.Item.ParamName, this.Item.ParamValue) // 输入数据存临时
 		return
 	}
-	this.FillPisItemDataToTmpWithForeach()
+	this.ForeachFillPisItemDataToTmp()
 }
 
 func (this *PisItemDataParser) getRepeatDatas(tmpDataMap map[string]interface{}) []interface{} {
 	repeatDatas := make([]interface{}, 0)
-	// 获取 item.RepeatRefer 对应的 repeat 切片数据,作为迭代参数,而不再从前置节点输出获取
-	t := reflect.TypeOf(tmpDataMap[this.Item.RepeatRefer])
-	v := reflect.ValueOf(tmpDataMap[this.Item.RepeatRefer])
+	// 获取 item.ForeachRefer 对应的 repeat 切片数据,作为迭代参数,而不再从前置节点输出获取
+	t := reflect.TypeOf(tmpDataMap[this.Item.ForeachRefer])
+	v := reflect.ValueOf(tmpDataMap[this.Item.ForeachRefer])
 	if t.Kind() == reflect.Slice {
 		for i := 0; i < v.Len(); i++ {
 			repeatDatas = append(repeatDatas, v.Index(i).Interface())
@@ -66,13 +66,13 @@ func (this *PisItemDataParser) getRepeatDatas(tmpDataMap map[string]interface{})
 	return repeatDatas
 }
 
-func (this *PisItemDataParser) FillPisItemDataToTmpWithForeach() {
+func (this *PisItemDataParser) ForeachFillPisItemDataToTmp() {
 	repeatDatas := this.getRepeatDatas(this.TmpDataMap)
 	if len(repeatDatas) > 0 {
 		paramValues := make([]interface{}, 0)
 		for _, repeatData := range repeatDatas {
 			// 替代的节点名称
-			replaceProviderNodeName := strings.ReplaceAll(strings.TrimSpace(this.PureTextTmpDataMap[this.Item.RepeatRefer]), ";", "")
+			replaceProviderNodeName := strings.ReplaceAll(strings.TrimSpace(this.PureTextTmpDataMap[this.Item.ForeachRefer]), ";", "")
 			// 替代的对象
 			replaceProviderData := repeatData
 			replaceMap := map[string]interface{}{replaceProviderNodeName: replaceProviderData}

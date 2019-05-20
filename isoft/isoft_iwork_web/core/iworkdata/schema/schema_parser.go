@@ -69,7 +69,7 @@ func BuildParamInputSchemaWithDefaultMap(paramMap map[int][]string) *iworkmodels
 		for _, paramExtra := range _paramMap[1:] {
 			if strings.HasPrefix(paramExtra, "repeatable__") {
 				item.Repeatable = true
-				item.RepeatRefer = strings.Replace(paramExtra, "repeatable__", "", 1)
+				item.ForeachRefer = strings.Replace(paramExtra, "repeatable__", "", 1)
 			}
 		}
 		items = append(items, item)
