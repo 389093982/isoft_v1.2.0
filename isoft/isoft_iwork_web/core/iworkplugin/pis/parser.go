@@ -43,14 +43,14 @@ func (this *PisItemDataParser) FillPisItemDataToNPureTmp() {
 	// tmpDataMap 存储解析值
 	if this.Item.PureText {
 		this.TmpDataMap[this.Item.ParamName] = this.Item.ParamValue
-		return
+	} else {
+		// 判断当前参数是否是 repeat 参数
+		if !this.Item.Repeatable {
+			this.TmpDataMap[this.Item.ParamName] = this.ParseAndGetParamVaule(this.Item.ParamName, this.Item.ParamValue) // 输入数据存临时
+		} else {
+			this.ForeachFillPisItemDataToTmp()
+		}
 	}
-	// 判断当前参数是否是 repeat 参数
-	if !this.Item.Repeatable {
-		this.TmpDataMap[this.Item.ParamName] = this.ParseAndGetParamVaule(this.Item.ParamName, this.Item.ParamValue) // 输入数据存临时
-		return
-	}
-	this.ForeachFillPisItemDataToTmp()
 }
 
 func (this *PisItemDataParser) getRepeatDatas(tmpDataMap map[string]interface{}) []interface{} {
