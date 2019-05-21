@@ -135,7 +135,8 @@ func (this *PisItemDataParser) parseToObjectAttrs(paramVaule string) []*ObjectAt
 	return objectAttrs
 }
 
-func (this *PisItemDataParser) callParseAndGetSingleParamVaule(paramName, paramVaule string, replaceMap ...map[string]interface{}) interface{} {
+// 是直接参数,不需要函数进行特殊处理
+func (this *PisItemDataParser) parseParamValue(paramName, paramVaule string, replaceMap ...map[string]interface{}) interface{} {
 	paramVaule = iworkfunc.DncodeSpecialForParamVaule(paramVaule)
 	// 变量
 	if strings.HasPrefix(strings.ToUpper(paramVaule), "$RESOURCE.") {
@@ -175,7 +176,7 @@ func (this *PisItemDataParser) parseParamVaule(paramName, paramVaule string, rep
 	}
 	if callers == nil || len(callers) == 0 {
 		// 是直接参数,不需要函数进行特殊处理
-		return this.callParseAndGetSingleParamVaule(paramName, paramVaule, replaceMap...)
+		return this.parseParamValue(paramName, paramVaule, replaceMap...)
 	} else {
 		return this.parseParamVauleWithCallers(callers, paramName, replaceMap...)
 	}
@@ -193,7 +194,7 @@ func (this *PisItemDataParser) parseParamVauleWithCallers(callers []*iworkfunc.F
 			if _arg, ok := historyFuncResultMap[arg]; ok {
 				args = append(args, _arg)
 			} else {
-				args = append(args, this.callParseAndGetSingleParamVaule(paramName, arg, replaceMap...))
+				args = append(args, this.parseParamValue(paramName, arg, replaceMap...))
 			}
 		}
 		// 执行函数并记录结果,供下一个函数执行使用
