@@ -8,6 +8,7 @@ import (
 	"isoft/isoft_iwork_web/core/iworkfunc"
 	"isoft/isoft_iwork_web/core/iworkmodels"
 	"isoft/isoft_iwork_web/core/iworkutil"
+	"isoft/isoft_iwork_web/core/iworkutil/datatypeutil"
 	"isoft/isoft_iwork_web/core/iworkvalid"
 	"isoft/isoft_iwork_web/models/iwork"
 	"reflect"
@@ -53,29 +54,15 @@ func (this *PisItemDataParser) FillPisItemDataToNPureTmp() {
 	}
 }
 
-func (this *PisItemDataParser) getRepeatDatas(tmpDataMap map[string]interface{}) []interface{} {
-	repeatDatas := make([]interface{}, 0)
-	// 获取 item.ForeachRefer 对应的 repeat 切片数据,作为迭代参数,而不再从前置节点输出获取
-	t := reflect.TypeOf(tmpDataMap[this.Item.ForeachRefer])
-	v := reflect.ValueOf(tmpDataMap[this.Item.ForeachRefer])
-	if t.Kind() == reflect.Slice {
-		for i := 0; i < v.Len(); i++ {
-			repeatDatas = append(repeatDatas, v.Index(i).Interface())
-		}
-	}
-	return repeatDatas
-}
-
 func (this *PisItemDataParser) ForeachFillPisItemDataToTmp() {
-	repeatDatas := this.getRepeatDatas(this.TmpDataMap)
+	// 获取 item.ForeachRefer 对应的 repeat 切片数据,作为迭代参数,而不再从前置节点输出获取
+	repeatDatas := datatypeutil.InterfaceConvertToSlice(this.TmpDataMap[this.Item.ForeachRefer])
 	if len(repeatDatas) > 0 {
 		paramValues := make([]interface{}, 0)
 		for _, repeatData := range repeatDatas {
-			// 替代的节点名称
+			// 替代的节点名称、替代的对象
 			replaceProviderNodeName := strings.ReplaceAll(strings.TrimSpace(this.PureTextTmpDataMap[this.Item.ForeachRefer]), ";", "")
-			// 替代的对象
-			replaceProviderData := repeatData
-			replaceMap := map[string]interface{}{replaceProviderNodeName: replaceProviderData}
+			replaceMap := map[string]interface{}{replaceProviderNodeName: repeatData}
 			paramValue := this.ParseAndGetParamVaule(this.Item.ParamName, this.Item.ParamValue, replaceMap) // 输入数据存临时
 			paramValues = append(paramValues, paramValue)
 		}
