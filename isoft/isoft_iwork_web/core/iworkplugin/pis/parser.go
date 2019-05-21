@@ -78,24 +78,22 @@ func (this *PisItemDataParser) ParseAndGetParamVaule(paramName, paramVaule strin
 	// 将 paramValue 解析成对象值 []*OobjectAttrs
 	objectAttrs := this.parseToObjectAttrs(paramVaule)
 	// 存储 []*OobjectAttrs 转换后的 map[string]interface{}
-	resultObjectMap := make(map[string]interface{}, 0)
+	objectMap := make(map[string]interface{}, 0)
 	// 存储 []*AttrObjects 转换后的 []interface{}
-	results := make([]interface{}, 0)
+	parseValues := make([]interface{}, 0)
 	for _, objectAttr := range objectAttrs {
-		value := this.parseAndGetSingleParamVaule(paramName, objectAttr.attrPureValue, replaceMap...)
-		resultObjectMap[objectAttr.attrName] = value
-		results = append(results, value)
+		objectAttr.attrParseValue = this.parseAndGetSingleParamVaule(paramName, objectAttr.attrPureValue, replaceMap...)
+		parseValues, objectMap[objectAttr.attrName] = append(parseValues, objectAttr.attrParseValue), objectAttr.attrParseValue
 	}
 	// 对象值, 将 []*AttrObjects 转换成 map[string]interface{}
 	if this.Item.ParamType == "objects" {
-		return resultObjectMap
-	} else {
-		// 单值
-		if len(results) == 1 {
-			return results[0]
-		}
-		return results
+		return objectMap
 	}
+	// 单值
+	if len(parseValues) == 1 {
+		return parseValues[0]
+	}
+	return parseValues
 }
 
 func (this *PisItemDataParser) parseAttrNameAndValueWithSingleParamValue(index int, paramValue string) (attrName string, value string) {
@@ -112,9 +110,10 @@ func (this *PisItemDataParser) parseAttrNameAndValueWithSingleParamValue(index i
 }
 
 type ObjectAttr struct {
-	index         int
-	attrName      string
-	attrPureValue string
+	index          int
+	attrName       string      // 对象属性名
+	attrPureValue  string      // 对象属性纯文本值
+	attrParseValue interface{} // 对象属性解析值
 }
 
 // 将 paramVaule 转行成 对象值 map[string]interface{}, 即 []*ObjectAttr
@@ -163,7 +162,8 @@ func (this *PisItemDataParser) callParseAndGetSingleParamVaule(paramName, paramV
 func (this *PisItemDataParser) parseAndGetSingleParamVaule(paramName, paramVaule string, replaceMap ...map[string]interface{}) interface{} {
 	defer func() {
 		if err := recover(); err != nil {
-			panic(fmt.Sprintf("<span style='color:red;'>execute func with expression is %s, error msg is :%s</span>", paramVaule, err.(error).Error()))
+			str := "<span style='color:red;'>execute func with expression is %s, error msg is :%s</span>"
+			panic(fmt.Sprintf(str, paramVaule, err.(error).Error()))
 		}
 	}()
 	// 对单个 paramVaule 进行特殊字符编码
