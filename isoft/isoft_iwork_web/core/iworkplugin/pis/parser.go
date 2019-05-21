@@ -76,13 +76,13 @@ func (this *PisItemDataParser) ForeachFillPisItemDataToTmp() {
 // 可能的情况有多种：单值 interface{}, 多值 []interface{}, 对象值 map[string]interface{}
 func (this *PisItemDataParser) ParseAndGetParamVaule(paramName, paramVaule string, replaceMap ...map[string]interface{}) interface{} {
 	// 将 paramValue 解析成对象值 []*OobjectAttrs
-	objectAttrs := this.parseParamValueToObjectAttrs(paramVaule)
+	objectAttrs := this.parseToObjectAttrs(paramVaule)
 	// 存储 []*OobjectAttrs 转换后的 map[string]interface{}
 	resultObjectMap := make(map[string]interface{}, 0)
 	// 存储 []*AttrObjects 转换后的 []interface{}
 	results := make([]interface{}, 0)
 	for _, objectAttr := range objectAttrs {
-		value := this.parseAndGetSingleParamVaule(paramName, objectAttr.attrValue, replaceMap...)
+		value := this.parseAndGetSingleParamVaule(paramName, objectAttr.attrPureValue, replaceMap...)
 		resultObjectMap[objectAttr.attrName] = value
 		results = append(results, value)
 	}
@@ -112,13 +112,13 @@ func (this *PisItemDataParser) parseAttrNameAndValueWithSingleParamValue(index i
 }
 
 type ObjectAttr struct {
-	index     int
-	attrName  string
-	attrValue string
+	index         int
+	attrName      string
+	attrPureValue string
 }
 
 // 将 paramVaule 转行成 对象值 map[string]interface{}, 即 []*ObjectAttr
-func (this *PisItemDataParser) parseParamValueToObjectAttrs(paramVaule string) []*ObjectAttr {
+func (this *PisItemDataParser) parseToObjectAttrs(paramVaule string) []*ObjectAttr {
 	objectAttrs := make([]*ObjectAttr, 0)
 	// 对转义字符 \, \; \( \) 等进行编码
 	paramVaule = iworkfunc.EncodeSpecialForParamVaule(paramVaule)
@@ -128,8 +128,8 @@ func (this *PisItemDataParser) parseParamValueToObjectAttrs(paramVaule string) [
 	}
 	for index, value := range multiVals {
 		if _value := this.trim(value); strings.TrimSpace(_value) != "" {
-			attrName, attrValue := this.parseAttrNameAndValueWithSingleParamValue(index, strings.TrimSpace(_value))
-			objectAttrs = append(objectAttrs, &ObjectAttr{index: index, attrName: attrName, attrValue: attrValue})
+			attrName, attrPureValue := this.parseAttrNameAndValueWithSingleParamValue(index, strings.TrimSpace(_value))
+			objectAttrs = append(objectAttrs, &ObjectAttr{index: index, attrName: attrName, attrPureValue: attrPureValue})
 		}
 	}
 	return objectAttrs
