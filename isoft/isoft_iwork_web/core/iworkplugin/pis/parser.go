@@ -82,7 +82,7 @@ func (this *PisItemDataParser) ParseAndGetParamVaule(paramName, paramVaule strin
 	// 存储 []*AttrObjects 转换后的 []interface{}
 	parseValues := make([]interface{}, 0)
 	for _, objectAttr := range objectAttrs {
-		objectAttr.attrParseValue = this.parseAndGetSingleParamVaule(paramName, objectAttr.attrPureValue, replaceMap...)
+		objectAttr.attrParseValue = this.parseParamVaule(paramName, objectAttr.attrPureValue, replaceMap...)
 		parseValues, objectMap[objectAttr.attrName] = append(parseValues, objectAttr.attrParseValue), objectAttr.attrParseValue
 	}
 	// 对象值, 将 []*AttrObjects 转换成 map[string]interface{}
@@ -160,7 +160,7 @@ func (this *PisItemDataParser) callParseAndGetSingleParamVaule(paramName, paramV
 	}
 }
 
-func (this *PisItemDataParser) parseAndGetSingleParamVaule(paramName, paramVaule string, replaceMap ...map[string]interface{}) interface{} {
+func (this *PisItemDataParser) parseParamVaule(paramName, paramVaule string, replaceMap ...map[string]interface{}) interface{} {
 	defer func() {
 		if err := recover(); err != nil {
 			str := "<span style='color:red;'>execute func with expression is %s, error msg is :%s</span>"
@@ -176,7 +176,12 @@ func (this *PisItemDataParser) parseAndGetSingleParamVaule(paramName, paramVaule
 	if callers == nil || len(callers) == 0 {
 		// 是直接参数,不需要函数进行特殊处理
 		return this.callParseAndGetSingleParamVaule(paramName, paramVaule, replaceMap...)
+	} else {
+		return this.parseParamVauleWithCallers(callers, paramName, replaceMap...)
 	}
+}
+
+func (this *PisItemDataParser) parseParamVauleWithCallers(callers []*iworkfunc.FuncCaller, paramName string, replaceMap ...map[string]interface{}) interface{} {
 	historyFuncResultMap := make(map[string]interface{}, 0)
 	var lastFuncResult interface{}
 	// 按照顺序依次执行函数
