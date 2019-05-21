@@ -96,17 +96,18 @@ func (this *PisItemDataParser) ParseAndGetParamVaule(paramName, paramVaule strin
 	return parseValues
 }
 
-func (this *PisItemDataParser) parseAttrNameAndValueWithSingleParamValue(index int, paramValue string) (attrName string, value string) {
+func (this *PisItemDataParser) parseToObjectAttr(index int, paramValue string) *ObjectAttr {
+	var attrName, attrPureValue string
 	if strings.Contains(paramValue, "::") {
-		attrName := paramValue[:strings.Index(paramValue, "::")]
-		value := paramValue[strings.Index(paramValue, "::")+2:]
-		return attrName, value
+		attrName = paramValue[:strings.Index(paramValue, "::")]
+		attrPureValue = paramValue[strings.Index(paramValue, "::")+2:]
 	} else if strings.Contains(paramValue, "$") {
-		attrName := strings.ReplaceAll(paramValue[strings.LastIndex(paramValue, ".")+1:], ";", "")
-		return attrName, paramValue
+		attrName = strings.ReplaceAll(paramValue[strings.LastIndex(paramValue, ".")+1:], ";", "")
+		attrPureValue = paramValue
 	} else {
-		return string(index), paramValue
+		attrName, attrPureValue = string(index), paramValue
 	}
+	return &ObjectAttr{index: index, attrName: attrName, attrPureValue: attrPureValue}
 }
 
 type ObjectAttr struct {
@@ -127,8 +128,8 @@ func (this *PisItemDataParser) parseToObjectAttrs(paramVaule string) []*ObjectAt
 	}
 	for index, value := range multiVals {
 		if _value := this.trim(value); strings.TrimSpace(_value) != "" {
-			attrName, attrPureValue := this.parseAttrNameAndValueWithSingleParamValue(index, strings.TrimSpace(_value))
-			objectAttrs = append(objectAttrs, &ObjectAttr{index: index, attrName: attrName, attrPureValue: attrPureValue})
+			objectAttr := this.parseToObjectAttr(index, strings.TrimSpace(_value))
+			objectAttrs = append(objectAttrs, objectAttr)
 		}
 	}
 	return objectAttrs
