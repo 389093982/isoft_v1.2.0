@@ -75,15 +75,15 @@ func (this *PisItemDataParser) ForeachFillPisItemDataToTmp() {
 // 解析 paramVaule 并从 dataStore 中获取实际值
 // 可能的情况有多种：单值 interface{}, 多值 []interface{}, 对象值 map[string]interface{}
 func (this *PisItemDataParser) ParseAndGetParamVaule(paramName, paramVaule string, replaceMap ...map[string]interface{}) interface{} {
-	// 将 paramValue 解析成 []*AttrObjects
-	attrObjects := this.parseParamValueToAttrObjects(paramVaule)
-	// 存储 []*AttrObjects 转换后的 map[string]interface{}
+	// 将 paramValue 解析成对象值 []*OobjectAttrs
+	objectAttrs := this.parseParamValueToObjectAttrs(paramVaule)
+	// 存储 []*OobjectAttrs 转换后的 map[string]interface{}
 	resultObjectMap := make(map[string]interface{}, 0)
 	// 存储 []*AttrObjects 转换后的 []interface{}
 	results := make([]interface{}, 0)
-	for _, attrResult := range attrObjects {
-		value := this.parseAndGetSingleParamVaule(paramName, attrResult.attrValue, replaceMap...)
-		resultObjectMap[attrResult.attrName] = value
+	for _, objectAttr := range objectAttrs {
+		value := this.parseAndGetSingleParamVaule(paramName, objectAttr.attrValue, replaceMap...)
+		resultObjectMap[objectAttr.attrName] = value
 		results = append(results, value)
 	}
 	// 对象值, 将 []*AttrObjects 转换成 map[string]interface{}
@@ -111,15 +111,15 @@ func (this *PisItemDataParser) parseAttrNameAndValueWithSingleParamValue(index i
 	}
 }
 
-type AttrObject struct {
+type ObjectAttr struct {
 	index     int
 	attrName  string
 	attrValue string
 }
 
-// 将 paramVaule 转行成 对象值 map[string]interface{}, 即 []*AttrObject
-func (this *PisItemDataParser) parseParamValueToAttrObjects(paramVaule string) []*AttrObject {
-	attrObjects := make([]*AttrObject, 0)
+// 将 paramVaule 转行成 对象值 map[string]interface{}, 即 []*ObjectAttr
+func (this *PisItemDataParser) parseParamValueToObjectAttrs(paramVaule string) []*ObjectAttr {
+	objectAttrs := make([]*ObjectAttr, 0)
 	// 对转义字符 \, \; \( \) 等进行编码
 	paramVaule = iworkfunc.EncodeSpecialForParamVaule(paramVaule)
 	multiVals, err := iworkfunc.SplitWithLexerAnalysis(paramVaule)
@@ -128,11 +128,11 @@ func (this *PisItemDataParser) parseParamValueToAttrObjects(paramVaule string) [
 	}
 	for index, value := range multiVals {
 		if _value := this.trim(value); strings.TrimSpace(_value) != "" {
-			attrName, value := this.parseAttrNameAndValueWithSingleParamValue(index, strings.TrimSpace(_value))
-			attrObjects = append(attrObjects, &AttrObject{index: index, attrName: attrName, attrValue: value})
+			attrName, attrValue := this.parseAttrNameAndValueWithSingleParamValue(index, strings.TrimSpace(_value))
+			objectAttrs = append(objectAttrs, &ObjectAttr{index: index, attrName: attrName, attrValue: attrValue})
 		}
 	}
-	return attrObjects
+	return objectAttrs
 }
 
 func (this *PisItemDataParser) callParseAndGetSingleParamVaule(paramName, paramVaule string, replaceMap ...map[string]interface{}) interface{} {
