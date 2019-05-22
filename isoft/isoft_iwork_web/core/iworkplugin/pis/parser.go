@@ -135,32 +135,6 @@ func (this *PisItemDataParser) parseToObjectAttrs(paramVaule string) []*ObjectAt
 	return objectAttrs
 }
 
-// 是直接参数,不需要函数进行特殊处理
-func (this *PisItemDataParser) parseParamValue(paramName, paramVaule string, replaceMap ...map[string]interface{}) interface{} {
-	paramVaule = iworkfunc.DncodeSpecialForParamVaule(paramVaule)
-	// 变量
-	if strings.HasPrefix(strings.ToUpper(paramVaule), "$RESOURCE.") {
-		return this.parseAndFillParamVauleWithResource(paramVaule)
-	} else if strings.HasPrefix(strings.ToUpper(paramVaule), "$WORK.") {
-		return iworkutil.GetWorkSubNameFromParamValue(paramVaule)
-	} else if strings.HasPrefix(strings.ToUpper(paramVaule), "$ENTITY.") {
-		return iworkutil.GetParamValueForEntity(paramVaule)
-	} else if strings.HasPrefix(strings.ToUpper(paramVaule), "$") {
-		if len(replaceMap) > 0 {
-			if paramVaule := this.parseAndFillParamVauleWithReplaceProviderNode(paramVaule, replaceMap...); paramVaule != nil {
-				return paramVaule
-			}
-		}
-		return this.parseAndFillParamVauleWithPrefixNode(paramName, paramVaule)
-	} else if strings.HasPrefix(paramVaule, "`") && strings.HasSuffix(paramVaule, "`") {
-		// 字符串
-		return paramVaule[1 : len(paramVaule)-1]
-	} else {
-		// 数字
-		return paramVaule
-	}
-}
-
 func (this *PisItemDataParser) parseParamVaule(paramName, paramVaule string, replaceMap ...map[string]interface{}) interface{} {
 	defer func() {
 		if err := recover(); err != nil {
@@ -176,7 +150,12 @@ func (this *PisItemDataParser) parseParamVaule(paramName, paramVaule string, rep
 	}
 	if callers == nil || len(callers) == 0 {
 		// 是直接参数,不需要函数进行特殊处理
-		return this.parseParamValue(paramName, paramVaule, replaceMap...)
+		parser := &SimpleParser{
+			paramName:  paramName,
+			paramVaule: paramVaule,
+			DataStore:  this.DataStore,
+		}
+		return parser.parseParamValue(replaceMap...)
 	} else {
 		return this.parseParamVauleWithCallers(callers, paramName, replaceMap...)
 	}
@@ -187,69 +166,34 @@ func (this *PisItemDataParser) parseParamVauleWithCallers(callers []*iworkfunc.F
 	var lastFuncResult interface{}
 	// 按照顺序依次执行函数
 	for _, caller := range callers {
-		args := make([]interface{}, 0)
-		// 函数参数替换成实际意义上的值
-		for _, arg := range caller.FuncArgs {
-			// 判断参数是否来源于 historyFuncResultMap
-			if _arg, ok := historyFuncResultMap[arg]; ok {
-				args = append(args, _arg)
-			} else {
-				args = append(args, this.parseParamValue(paramName, arg, replaceMap...))
-			}
-		}
+		args := this.getCallerArgs(caller, historyFuncResultMap, paramName, replaceMap...)
 		// 执行函数并记录结果,供下一个函数执行使用
 		result := iworkfunc.ExecuteFuncCaller(caller, args)
-		historyFuncResultMap["$func."+caller.FuncUUID] = result
-		lastFuncResult = result
+		historyFuncResultMap["$func."+caller.FuncUUID], lastFuncResult = result, result
 	}
 	return lastFuncResult
 }
 
-// paramValue 来源于 iwork 模块
-func (this *PisItemDataParser) parseAndFillParamVauleWithResource(paramVaule string) interface{} {
-	resource, err := iwork.QueryResourceByName(strings.Replace(paramVaule, "$RESOURCE.", "", -1))
-	if err == nil {
-		if resource.ResourceType == "db" {
-			return resource.ResourceDsn
-		} else if resource.ResourceType == "sftp" || resource.ResourceType == "ssh" {
-			return resource
+// 函数参数替换成实际意义上的值
+func (this *PisItemDataParser) getCallerArgs(caller *iworkfunc.FuncCaller,
+	historyFuncResultMap map[string]interface{}, paramName string, replaceMap ...map[string]interface{}) []interface{} {
+	args := make([]interface{}, 0)
+	for _, arg := range caller.FuncArgs {
+		// 判断参数是否来源于 historyFuncResultMap
+		if _arg, ok := historyFuncResultMap[arg]; ok {
+			args = append(args, _arg)
+		} else {
+			// 是直接参数,不需要函数进行特殊处理
+			parser := &SimpleParser{
+				paramName:  paramName,
+				paramVaule: arg,
+				DataStore:  this.DataStore,
+			}
+			_arg := parser.parseParamValue(replaceMap...)
+			args = append(args, _arg)
 		}
 	}
-	return ""
-}
-
-// paramValue 来源于前置节点
-func (this *PisItemDataParser) parseAndFillParamVauleWithPrefixNode(paramName, paramVaule string) interface{} {
-	// 格式校验
-	if !strings.HasPrefix(paramVaule, "$") {
-		panic(errors.New(fmt.Sprintf("%s ~ %s is not start with $", paramName, paramVaule)))
-	}
-	resolver := param.ParamVauleParser{ParamValue: paramVaule}
-	nodeName := resolver.GetNodeNameFromParamValue()
-	paramName = resolver.GetParamNameFromParamValue()
-	paramValue := this.DataStore.GetData(nodeName, paramName) // 作为直接对象, dataStore 里面可以直接获取
-	if paramValue != nil {
-		return paramValue
-	}
-	_paramName := paramName[:strings.LastIndex(paramName, ".")]
-	datas := this.DataStore.GetData(nodeName, _paramName) // 作为对象属性
-	attr := paramName[strings.LastIndex(paramName, ".")+1:]
-	if reflect.TypeOf(datas).Kind() == reflect.Slice {
-		return reflect.ValueOf(datas).Index(0).Interface().(map[string]interface{})[attr]
-	}
-	return datas.(map[string]interface{})[attr]
-}
-
-func (this *PisItemDataParser) parseAndFillParamVauleWithReplaceProviderNode(paramVaule string, replaceMap ...map[string]interface{}) interface{} {
-	for replaceProviderNodeName, replaceProviderData := range replaceMap[0] {
-		replaceProviderNodeName = strings.ReplaceAll(replaceProviderNodeName, ";", "")
-		if strings.HasPrefix(paramVaule, replaceProviderNodeName) {
-			attr := strings.Replace(paramVaule, replaceProviderNodeName+".", "", 1)
-			attr = strings.ReplaceAll(attr, ";", "")
-			return replaceProviderData.(map[string]interface{})[attr]
-		}
-	}
-	return nil
+	return args
 }
 
 // 去除不合理的字符
@@ -262,4 +206,83 @@ func (this *PisItemDataParser) trim(paramValue string) string {
 	// 再进行二次 trim
 	paramValue = strings.TrimSpace(paramValue)
 	return paramValue
+}
+
+type SimpleParser struct {
+	paramName  string
+	paramVaule string
+	DataStore  *datastore.DataStore
+}
+
+func (this *SimpleParser) parseParamVauleWithReplaceProviderNode(replaceMap ...map[string]interface{}) interface{} {
+	for replaceProviderNodeName, replaceProviderData := range replaceMap[0] {
+		replaceProviderNodeName = strings.ReplaceAll(replaceProviderNodeName, ";", "")
+		if strings.HasPrefix(this.paramVaule, replaceProviderNodeName) {
+			attr := strings.Replace(this.paramVaule, replaceProviderNodeName+".", "", 1)
+			attr = strings.ReplaceAll(attr, ";", "")
+			return replaceProviderData.(map[string]interface{})[attr]
+		}
+	}
+	return nil
+}
+
+// paramValue 来源于前置节点
+func (this *SimpleParser) parseParamVauleWithPrefixNode() interface{} {
+	// 格式校验
+	if !strings.HasPrefix(this.paramVaule, "$") {
+		panic(errors.New(fmt.Sprintf("%s ~ %s is not start with $", this.paramName, this.paramVaule)))
+	}
+	resolver := param.ParamVauleParser{ParamValue: this.paramVaule}
+	nodeName := resolver.GetNodeNameFromParamValue()
+	this.paramName = resolver.GetParamNameFromParamValue()
+	paramValue := this.DataStore.GetData(nodeName, this.paramName) // 作为直接对象, dataStore 里面可以直接获取
+	if paramValue != nil {
+		return paramValue
+	}
+	_paramName := this.paramName[:strings.LastIndex(this.paramName, ".")]
+	datas := this.DataStore.GetData(nodeName, _paramName) // 作为对象属性
+	attr := this.paramName[strings.LastIndex(this.paramName, ".")+1:]
+	if reflect.TypeOf(datas).Kind() == reflect.Slice {
+		return reflect.ValueOf(datas).Index(0).Interface().(map[string]interface{})[attr]
+	}
+	return datas.(map[string]interface{})[attr]
+}
+
+// paramValue 来源于 iwork 模块
+func (this *SimpleParser) parseParamVauleWithResource(paramVaule string) interface{} {
+	resource, err := iwork.QueryResourceByName(strings.Replace(paramVaule, "$RESOURCE.", "", -1))
+	if err == nil {
+		if resource.ResourceType == "db" {
+			return resource.ResourceDsn
+		} else if resource.ResourceType == "sftp" || resource.ResourceType == "ssh" {
+			return resource
+		}
+	}
+	return ""
+}
+
+// 是直接参数,不需要函数进行特殊处理
+func (this *SimpleParser) parseParamValue(replaceMap ...map[string]interface{}) interface{} {
+	this.paramVaule = iworkfunc.DncodeSpecialForParamVaule(this.paramVaule)
+	// 变量
+	if strings.HasPrefix(strings.ToUpper(this.paramVaule), "$RESOURCE.") {
+		return this.parseParamVauleWithResource(this.paramVaule)
+	} else if strings.HasPrefix(strings.ToUpper(this.paramVaule), "$WORK.") {
+		return iworkutil.GetWorkSubNameFromParamValue(this.paramVaule)
+	} else if strings.HasPrefix(strings.ToUpper(this.paramVaule), "$ENTITY.") {
+		return iworkutil.GetParamValueForEntity(this.paramVaule)
+	} else if strings.HasPrefix(strings.ToUpper(this.paramVaule), "$") {
+		if len(replaceMap) > 0 {
+			if paramVaule := this.parseParamVauleWithReplaceProviderNode(replaceMap...); paramVaule != nil {
+				return paramVaule
+			}
+		}
+		return this.parseParamVauleWithPrefixNode()
+	} else if strings.HasPrefix(this.paramVaule, "`") && strings.HasSuffix(this.paramVaule, "`") {
+		// 字符串
+		return this.paramVaule[1 : len(this.paramVaule)-1]
+	} else {
+		// 数字
+		return this.paramVaule
+	}
 }
