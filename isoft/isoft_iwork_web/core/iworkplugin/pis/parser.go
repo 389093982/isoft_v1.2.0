@@ -248,9 +248,9 @@ func (this *SimpleParser) parseParamVauleWithPrefixNode() interface{} {
 	return datas.(map[string]interface{})[attr]
 }
 
-// paramValue 来源于 iwork 模块
 func (this *SimpleParser) parseParamVauleWithResource() interface{} {
-	resource, err := iwork.QueryResourceByName(strings.Replace(this.paramVaule, "$RESOURCE.", "", -1))
+	resource_name := strings.TrimPrefix(this.paramVaule, "$RESOURCE.")
+	resource, err := iwork.QueryResourceByName(resource_name)
 	if err == nil {
 		if resource.ResourceType == "db" {
 			return resource.ResourceDsn
