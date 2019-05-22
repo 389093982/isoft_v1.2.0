@@ -249,8 +249,8 @@ func (this *SimpleParser) parseParamVauleWithPrefixNode() interface{} {
 }
 
 // paramValue 来源于 iwork 模块
-func (this *SimpleParser) parseParamVauleWithResource(paramVaule string) interface{} {
-	resource, err := iwork.QueryResourceByName(strings.Replace(paramVaule, "$RESOURCE.", "", -1))
+func (this *SimpleParser) parseParamVauleWithResource() interface{} {
+	resource, err := iwork.QueryResourceByName(strings.Replace(this.paramVaule, "$RESOURCE.", "", -1))
 	if err == nil {
 		if resource.ResourceType == "db" {
 			return resource.ResourceDsn
@@ -266,7 +266,7 @@ func (this *SimpleParser) parseParamValue(replaceMap ...map[string]interface{}) 
 	this.paramVaule = iworkfunc.DncodeSpecialForParamVaule(this.paramVaule)
 	// 变量
 	if strings.HasPrefix(strings.ToUpper(this.paramVaule), "$RESOURCE.") {
-		return this.parseParamVauleWithResource(this.paramVaule)
+		return this.parseParamVauleWithResource()
 	} else if strings.HasPrefix(strings.ToUpper(this.paramVaule), "$WORK.") {
 		return iworkutil.GetWorkSubNameFromParamValue(this.paramVaule)
 	} else if strings.HasPrefix(strings.ToUpper(this.paramVaule), "$ENTITY.") {
