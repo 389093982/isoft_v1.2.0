@@ -155,12 +155,12 @@ func ErrorAccountLogin(username string, ip string, origin string, referer string
 }
 
 func GetRedirectUrl(referer string) string {
-	referers := strings.Split(referer, "/sso/login?redirectUrl=")
-	if len(referers) == 2 {
-		return GetUnescapeString(referers[1])
+	redirectUrl := referer
+	redirect := "redirectUrl="
+	if strings.Contains(referer, redirect) {
+		redirectUrl = referer[strings.Index(referer, redirect)+len(redirect):]
 	}
-	// 不含 redirectURL 场景
-	return GetUnescapeString(referers[0])
+	return GetUnescapeString(redirectUrl)
 }
 
 // 进行编解码
@@ -171,9 +171,15 @@ func GetUnescapeString(s string) string {
 	return s
 }
 
+func getOrigin(referer string) string {
+	origin := strings.ReplaceAll(referer, "//", "__sep__")
+	origin = strings.Split(origin, "/")[0]
+	origin = strings.ReplaceAll(origin, "__sep__", "//")
+	return origin
+}
+
 func CommonUserLogin(referer string, origin string, username string, passwd string, ip string) (loginSuccess bool, loginStatus, tokenString string, err error) {
-	referers := strings.Split(referer, "/sso/login?redirectUrl=")
-	if CheckOrigin(origin) && len(referers) == 2 && CheckOrigin(referers[0]) && IsValidRedirectUrl(GetRedirectUrl(referer)) {
+	if CheckOrigin(origin) && CheckOrigin(getOrigin(referer)) && IsValidRedirectUrl(GetRedirectUrl(referer)) {
 		user, err := sso.QueryUser(username, passwd)
 		if err == nil && &user != nil {
 			return SuccessedLogin(username, ip, origin, referer, user)
