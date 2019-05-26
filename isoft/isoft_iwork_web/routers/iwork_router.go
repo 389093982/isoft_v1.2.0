@@ -36,7 +36,7 @@ func loadloadIWorkerRouterDetail() {
 	beego.Router("/api/iwork/loadPreNodeOutput", &iwork.WorkController{}, "post:LoadPreNodeOutput")
 	beego.Router("/api/iwork/filterPageLogRecord", &iwork.WorkController{}, "post:FilterPageLogRecord")
 	beego.Router("/api/iwork/getLastRunLogDetail", &iwork.WorkController{}, "post:GetLastRunLogDetail")
-	beego.Router("/api/iwork/httpservice/:work_name", &iwork.WorkController{}, "get,post:PublishAsSerivce")
+	beego.Router("/api/iwork/httpservice/:work_name", &iwork.WorkController{}, "get,post:PublishSerivce")
 	beego.Router("/api/iwork/getRelativeWork", &iwork.WorkController{}, "post:GetRelativeWork")
 	beego.Router("/api/iwork/filterPageEntity", &iwork.WorkController{}, "post:FilterPageEntity")
 	beego.Router("/api/iwork/editEntity", &iwork.WorkController{}, "post:EditEntity")

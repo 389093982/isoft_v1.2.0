@@ -16,8 +16,7 @@ type WorkStartNode struct {
 }
 
 func (this *WorkStartNode) Execute(trackingId string) {
-	// 节点中间数据
-	tmpDataMap := this.FillParamInputSchemaDataToTmp(this.WorkStep)
+	tmpDataMap := make(map[string]interface{})
 	// dispatcher 非空时替换成父流程参数
 	if this.Dispatcher != nil && len(this.Dispatcher.TmpDataMap) > 0 {
 		// 从父流程中获取值,即从 Dispatcher 中获取值
@@ -26,6 +25,9 @@ func (this *WorkStartNode) Execute(trackingId string) {
 				tmpDataMap[key] = value
 			}
 		}
+	} else {
+		// 节点中间数据
+		tmpDataMap = this.FillParamInputSchemaDataToTmp(this.WorkStep)
 	}
 	for key, value := range tmpDataMap {
 		this.LogWriter.Write(trackingId, fmt.Sprintf("fill param with for %s:%s", key, value))

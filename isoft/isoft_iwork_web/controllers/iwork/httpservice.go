@@ -12,7 +12,7 @@ import (
 )
 
 // 示例地址: http://localhost:8086/api/iwork/httpservice/test_iblog_table_migrate?author0=admin1234567
-func (this *WorkController) PublishAsSerivce() {
+func (this *WorkController) PublishSerivce() {
 	start := time.Now()
 	defer func() {
 		if err := recover(); err != nil {
@@ -34,7 +34,7 @@ func (this *WorkController) PublishAsSerivce() {
 	receiver := iworkrun.RunOneWork(work.Id, &entry.Dispatcher{TmpDataMap: mapData})
 	costTime := time.Now().Sub(start).Nanoseconds() / 1e6
 	if receiver != nil {
-		this.Data["json"] = &map[string]interface{}{"status": "SUCCESS", "result": receiver.TmpDataMap, "cost(ms)": costTime}
+		this.Data["json"] = &map[string]interface{}{"status": "SUCCESS", "result": receiver.TmpDataMap, "cost_ms": costTime}
 	} else {
 		this.Data["json"] = &map[string]interface{}{"status": "SUCCESS", "cost(ms)": costTime}
 	}
@@ -52,6 +52,7 @@ func (this *WorkController) ParseParam(steps []iwork.WorkStep) map[string]interf
 					mapData[item.ParamName] = paramValue
 				}
 			}
+			break
 		}
 	}
 	return mapData
