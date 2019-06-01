@@ -5,18 +5,39 @@ import (
 	"github.com/astaxie/beego/orm"
 	"isoft/isoft_iwork_web/core/iworkdata/block"
 	"isoft/isoft_iwork_web/core/iworkmodels"
+	"isoft/isoft_iwork_web/core/iworkutil/datatypeutil"
 	"isoft/isoft_iwork_web/models/iwork"
 	"sync"
 )
+
+func getBlockStepExecuteOrder(blockSteps []*block.BlockStep) []*block.BlockStep {
+	order := make([]*block.BlockStep, 0)
+	deferOrder := make([]*block.BlockStep, 0)
+	var end *block.BlockStep
+	for _, blockStep := range blockSteps {
+		if blockStep.Step.IsDefer == "true" {
+			deferOrder = append(deferOrder, blockStep)
+		} else if blockStep.Step.WorkStepType == "work_end" {
+			end = blockStep
+		} else {
+			order = append(order, blockStep)
+		}
+	}
+	// is_defer 和 work_end 都是需要延迟执行
+	order = append(order, datatypeutil.ReverseSlice(deferOrder).([]*block.BlockStep)...)
+	if end != nil {
+		order = append(order, end)
+	}
+	return order
+}
 
 var cacheContextMap = make(map[int64]*CacheContext, 0)
 
 var mutex sync.Mutex
 
-type GetBlockStepExecuteOrder func(blockSteps []*block.BlockStep) []*block.BlockStep
 type GetCacheParamInputSchemaFunc func(step *iwork.WorkStep) *iworkmodels.ParamInputSchema
 
-func UpdateCacheContext(work_id int64, orderFunc GetBlockStepExecuteOrder, paramInputSchemaFunc GetCacheParamInputSchemaFunc) (err error) {
+func UpdateCacheContext(work_id int64, paramInputSchemaFunc GetCacheParamInputSchemaFunc) (err error) {
 	mutex.Lock()
 	defer mutex.Unlock()
 	defer func() {
@@ -26,7 +47,7 @@ func UpdateCacheContext(work_id int64, orderFunc GetBlockStepExecuteOrder, param
 	}()
 	context := &CacheContext{WorkId: work_id}
 	cacheContextMap[work_id] = context
-	context.FlushCache(orderFunc, paramInputSchemaFunc)
+	context.FlushCache(paramInputSchemaFunc)
 	return nil
 }
 
@@ -55,7 +76,7 @@ type CacheContext struct {
 	err                 error
 }
 
-func (this *CacheContext) FlushCache(orderFunc GetBlockStepExecuteOrder, paramInputSchemaFunc GetCacheParamInputSchemaFunc) {
+func (this *CacheContext) FlushCache(paramInputSchemaFunc GetCacheParamInputSchemaFunc) {
 	o := orm.NewOrm()
 	// 缓存 work
 	this.Work, this.err = iwork.QueryWorkById(this.WorkId, o)
@@ -63,14 +84,14 @@ func (this *CacheContext) FlushCache(orderFunc GetBlockStepExecuteOrder, paramIn
 	// 缓存 workSteps
 	this.Steps, this.err = iwork.QueryAllWorkStepInfo(this.WorkId, o)
 	checkError(this.err)
-	blockSteps := orderFunc(block.ParseToBlockStep(this.Steps))
+	blockSteps := getBlockStepExecuteOrder(block.ParseToBlockStep(this.Steps))
 	// 缓存 blockStepOrder
 	this.BlockStepOrdersMap = map[int64][]*block.BlockStep{
 		-1: blockSteps,
 	}
 	// 缓存子节点 blockStepOrder
 	for _, blockStep := range blockSteps {
-		this.loadChildrenBlockStepOrders(blockStep, orderFunc)
+		this.loadChildrenBlockStepOrders(blockStep)
 	}
 	// 缓存 paramInputSchema
 	this.ParamInputSchemaMap = make(map[int64]*iworkmodels.ParamInputSchema, 0)
@@ -80,12 +101,12 @@ func (this *CacheContext) FlushCache(orderFunc GetBlockStepExecuteOrder, paramIn
 	}
 }
 
-func (this *CacheContext) loadChildrenBlockStepOrders(blockStep *block.BlockStep, orderFunc GetBlockStepExecuteOrder) {
+func (this *CacheContext) loadChildrenBlockStepOrders(blockStep *block.BlockStep) {
 	if blockStep.ChildBlockSteps != nil && len(blockStep.ChildBlockSteps) > 0 {
-		childrenBlockSteps := orderFunc(blockStep.ChildBlockSteps)
+		childrenBlockSteps := getBlockStepExecuteOrder(blockStep.ChildBlockSteps)
 		this.BlockStepOrdersMap[blockStep.Step.WorkStepId] = childrenBlockSteps
 		for _, childrenBlockStep := range childrenBlockSteps {
-			this.loadChildrenBlockStepOrders(childrenBlockStep, orderFunc)
+			this.loadChildrenBlockStepOrders(childrenBlockStep)
 		}
 	}
 }

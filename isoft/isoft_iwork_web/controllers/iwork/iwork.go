@@ -4,7 +4,6 @@ import (
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/orm"
 	"isoft/isoft_iwork_web/core/iworkcache"
-	"isoft/isoft_iwork_web/core/iworkplugin/iworknode"
 	"isoft/isoft_iwork_web/core/iworkrun"
 	"isoft/isoft_iwork_web/models/iwork"
 	"isoft/isoft_iwork_web/service"
@@ -146,7 +145,7 @@ func (this *WorkController) FlushCache() {
 	works := iwork.QueryAllWorkInfo(orm.NewOrm())
 	var err error
 	for _, work := range works {
-		err = iworkcache.UpdateCacheContext(work.Id, iworknode.GetBlockStepExecuteOrder, iworkrun.GetCacheParamInputSchemaFunc)
+		err = iworkcache.UpdateCacheContext(work.Id, iworkrun.GetCacheParamInputSchemaFunc)
 		if err != nil {
 			break
 		}

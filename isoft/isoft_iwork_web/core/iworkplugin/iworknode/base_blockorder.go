@@ -3,34 +3,11 @@ package iworknode
 import (
 	"isoft/isoft/common/stringutil"
 	"isoft/isoft_iwork_web/core/iworkcache"
-	"isoft/isoft_iwork_web/core/iworkdata/block"
 	"isoft/isoft_iwork_web/core/iworkdata/datastore"
 	"isoft/isoft_iwork_web/core/iworkdata/entry"
 	"isoft/isoft_iwork_web/core/iworklog"
 	"isoft/isoft_iwork_web/core/iworkplugin/iworkprotocol"
-	"isoft/isoft_iwork_web/core/iworkutil/datatypeutil"
 )
-
-func GetBlockStepExecuteOrder(blockSteps []*block.BlockStep) []*block.BlockStep {
-	order := make([]*block.BlockStep, 0)
-	deferOrder := make([]*block.BlockStep, 0)
-	var end *block.BlockStep
-	for _, blockStep := range blockSteps {
-		if blockStep.Step.IsDefer == "true" {
-			deferOrder = append(deferOrder, blockStep)
-		} else if blockStep.Step.WorkStepType == "work_end" {
-			end = blockStep
-		} else {
-			order = append(order, blockStep)
-		}
-	}
-	// is_defer 和 work_end 都是需要延迟执行
-	order = append(order, datatypeutil.ReverseSlice(deferOrder).([]*block.BlockStep)...)
-	if end != nil {
-		order = append(order, end)
-	}
-	return order
-}
 
 type BlockStepOrdersRunner struct {
 	ParentStepId int64
