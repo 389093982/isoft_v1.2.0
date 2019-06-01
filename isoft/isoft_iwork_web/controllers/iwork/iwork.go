@@ -2,6 +2,10 @@ package iwork
 
 import (
 	"github.com/astaxie/beego"
+	"github.com/astaxie/beego/orm"
+	"isoft/isoft_iwork_web/core/iworkcache"
+	"isoft/isoft_iwork_web/core/iworkplugin/iworknode"
+	"isoft/isoft_iwork_web/core/iworkrun"
 	"isoft/isoft_iwork_web/models/iwork"
 	"isoft/isoft_iwork_web/service"
 	"isoft/isoft_iwork_web/service/iworkservice"
@@ -133,6 +137,24 @@ func (this *WorkController) DeleteWorkById() {
 		this.Data["json"] = &map[string]interface{}{"status": "SUCCESS"}
 	} else {
 		this.Data["json"] = &map[string]interface{}{"status": "ERROR"}
+	}
+	this.ServeJSON()
+}
+
+// 使缓存立即生效
+func (this *WorkController) FlushCache() {
+	works := iwork.QueryAllWorkInfo(orm.NewOrm())
+	var err error
+	for _, work := range works {
+		err = iworkcache.UpdateCacheContext(work.Id, iworknode.GetBlockStepExecuteOrder, iworkrun.GetCacheParamInputSchemaFunc)
+		if err != nil {
+			break
+		}
+	}
+	if err == nil {
+		this.Data["json"] = &map[string]interface{}{"status": "SUCCESS"}
+	} else {
+		this.Data["json"] = &map[string]interface{}{"status": "ERROR", "errorMsg": err.Error()}
 	}
 	this.ServeJSON()
 }

@@ -119,3 +119,5 @@ export const EditGlobalVar = (id, globalVarName, globalVarValue) => ajax(BASE_UR
 
 export const DeleteGlobalVarById = (id) => ajax(BASE_URL+"/iwork/deleteGlobalVarById", {id},'POST');
 
+export const FlushCache = () => ajax(BASE_URL+"/iwork/flushCache", {},'POST');
+

@@ -7,6 +7,7 @@
       <Col span="2"><Button type="warning" size="small" @click="showRefactorModal">重构流程</Button></Col>
       <Col span="2"><Button type="info" size="small" @click="batchChangeIndent('left', null)">向左缩进</Button></Col>
       <Col span="2"><Button type="error" size="small" @click="batchChangeIndent('right', null)">向右缩进</Button></Col>
+      <Col span="2"><Button type="info" size="small" @click="flushCache">刷新缓存</Button></Col>
       <Col span="2"><Button type="warning" size="small" @click="runWork">运行流程</Button></Col>
       <Col span="2"><Button type="info" size="small" @click="showRunLogList">运行日志</Button></Col>
       <Col span="2"><WorkValidate /></Col>
@@ -57,6 +58,7 @@
   import ISimpleConfirmModal from "../../Common/modal/ISimpleConfirmModal"
   import {getRepeatStr} from "../../../tools/index"
   import {GetRelativeWork} from "../../../api/index"
+  import {FlushCache} from "../../../api/index"
 
   export default {
     name: "WorkStepList",
@@ -375,6 +377,12 @@
         const result = await RunWork(this.$route.query.work_id);
         if(result.status == "SUCCESS"){
           this.$Message.success("运行任务已触发!");
+        }
+      },
+      flushCache: async function(){
+        const result = await FlushCache();
+        if(result.status == "SUCCESS"){
+          this.$Message.success("刷新成功！");
         }
       },
       // 前往锚点方法
