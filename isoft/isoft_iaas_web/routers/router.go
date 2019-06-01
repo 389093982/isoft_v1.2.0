@@ -89,7 +89,7 @@ func initILearningRouter() {
 
 func initIBlogRouter() {
 	// v1
-	beego.Router("/api/catalog/edit", &iblog.CatalogController{}, "get:Edit;post:PostEdit")
+	//beego.Router("/api/catalog/edit", &iblog.CatalogController{}, "get:Edit;post:PostCatalogEdit")
 	beego.Router("/api/catalog/getMyCatalogs", &iblog.CatalogController{}, "get:GetMyCatalogs")
 	beego.Router("/api/catalog/delete", &iblog.CatalogController{}, "post:PostDelete")
 
@@ -102,7 +102,7 @@ func initIBlogRouter() {
 	beego.Router("/api/blog/showBlogDetail", &iblog.BlogController{}, "get:ShowBlogDetail")
 
 	// v2
-	//beego.Router("/api/catalog/edit", &iblog.CatalogController{}, "get:Edit;post:PostEdit2")
+	beego.Router("/api/catalog/edit", &iblog.CatalogController{}, "get:Edit;post:PostCatalogEdit2")
 	//beego.Router("/api/catalog/getMyCatalogs", &iblog.CatalogController{}, "get:GetMyCatalogs2")
 	//beego.Router("/api/catalog/delete", &iblog.CatalogController{}, "post:PostDelete2")
 	//

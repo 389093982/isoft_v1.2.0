@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/utils/pagination"
+	"isoft/isoft/common/beegoutil"
 	"isoft/isoft/common/pageutil"
 	"isoft/isoft_iaas_web/models/iblog"
 	"time"
@@ -38,15 +39,15 @@ func (this *CatalogController) Edit() {
 	this.TplName = "catalog/catalog_edit.html"
 }
 
-func (this *CatalogController) PostEdit() {
+func (this *CatalogController) PostCatalogEdit() {
 	this.Data["json"] = &map[string]interface{}{"status": "ERROR"}
 	user_name := this.Ctx.Input.Session("UserName").(string)
-
-	catalog_id, err := this.GetInt64("catalog_id")
+	catalog_id := beegoutil.GetInt64(this, "catalog_id", -1)
 	catalog_name := this.GetString("catalog_name")
 	catalog_desc := this.GetString("catalog_desc")
 	var catalog iblog.Catalog
-	if err == nil && catalog_id > 0 {
+	var err error
+	if catalog_id > 0 {
 		catalog, err = iblog.QueryCatalogById(catalog_id)
 		if err == nil {
 			catalog.CatalogName = catalog_name
@@ -61,8 +62,9 @@ func (this *CatalogController) PostEdit() {
 	_, err = iblog.InsertOrUpdateCatalog(&catalog)
 	if err == nil {
 		this.Data["json"] = &map[string]interface{}{"status": "SUCCESS"}
+	} else {
+		this.Data["json"] = &map[string]interface{}{"status": "ERROR", "errorMsg": err.Error()}
 	}
-
 	this.ServeJSON()
 }
 
