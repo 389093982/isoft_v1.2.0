@@ -4,13 +4,15 @@ import (
 	"encoding/json"
 	"github.com/pkg/errors"
 	"io/ioutil"
+	"isoft/isoft/common/beegoutil"
 	"isoft/isoft/common/httputil"
+	"isoft/isoft_iaas_web/controllers/utils"
 	"net/http"
 )
 
 type BlogListResult struct {
 	Status string `json:"status"`
-	Cost   string `json:"int64"`
+	Cost   int64  `json:"cost_ms"`
 	Result struct {
 		Blogs     interface{} `json:"blogs"`
 		Paginator interface{} `json:"paginator"`
@@ -18,15 +20,11 @@ type BlogListResult struct {
 }
 
 func (this *BlogController) BlogList2() {
-	offset, _ := this.GetInt("offset", 10)            // 每页记录数
-	current_page, _ := this.GetInt("current_page", 1) // 当前页
-	catalog_id, _ := this.GetInt64("catalog_id", -1)
-	search_text := this.GetString("search_text")
 	paramMap := map[string]interface{}{
-		"offset":       offset,
-		"current_page": current_page,
-		"catalog_id":   catalog_id,
-		"search_text":  search_text,
+		"offset":       beegoutil.GetInt64(this, "offset", 10),      // 每页记录数
+		"current_page": beegoutil.GetInt64(this, "current_page", 1), // 当前页
+		"catalog_id":   beegoutil.GetInt64(this, "catalog_id", -1),
+		"search_text":  this.GetString("search_text"),
 	}
 	var err error
 	url := "http://localhost:8086/api/iwork/httpservice/BlogList2"
