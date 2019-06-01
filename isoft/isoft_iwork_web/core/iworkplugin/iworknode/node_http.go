@@ -3,11 +3,12 @@ package iworknode
 import (
 	"fmt"
 	"github.com/pkg/errors"
+	"io/ioutil"
+	"isoft/isoft/common/httputil"
 	"isoft/isoft_iwork_web/core/iworkconst"
 	"isoft/isoft_iwork_web/core/iworkdata/schema"
 	"isoft/isoft_iwork_web/core/iworkmodels"
 	"isoft/isoft_iwork_web/core/iworkutil"
-	"isoft/isoft_iwork_web/core/iworkutil/httputil"
 	"isoft/isoft_iwork_web/models/iwork"
 	"net/http"
 	"strings"
@@ -33,13 +34,22 @@ func (this *HttpRequestNode) Execute(trackingId string) {
 	headerMap := fillParamMapData(tmpDataMap, iworkconst.MULTI_PREFIX+"request_headers?")
 
 	dataMap := make(map[string]interface{}, 0)
-	responsebytes := httputil.DoHttpRequestWithParserFunc(request_url, request_method, paramMap, headerMap, func(resp *http.Response) {
+
+	err := httputil.DoHttpRequestWithParserFunc(request_url, request_method, paramMap, headerMap, func(resp *http.Response) {
 		dataMap[iworkconst.NUMBER_PREFIX+"StatusCode"] = resp.StatusCode
 		dataMap[iworkconst.STRING_PREFIX+"ContentType"] = resp.Header.Get("content-type")
+		responsebytes, err := ioutil.ReadAll(resp.Body)
+		if err != nil {
+			panic(err)
+		} else {
+			dataMap[iworkconst.STRING_PREFIX+"response_data"] = string(responsebytes)
+			dataMap[iworkconst.BYTE_ARRAY_PREFIX+"response_data"] = responsebytes
+			dataMap[iworkconst.BASE64STRING_PREFIX+"response_data"] = iworkutil.EncodeToBase64String(responsebytes)
+		}
 	})
-	dataMap[iworkconst.STRING_PREFIX+"response_data"] = string(responsebytes)
-	dataMap[iworkconst.BYTE_ARRAY_PREFIX+"response_data"] = responsebytes
-	dataMap[iworkconst.BASE64STRING_PREFIX+"response_data"] = iworkutil.EncodeToBase64String(responsebytes)
+	if err != nil {
+		panic(err)
+	}
 	this.DataStore.CacheDatas(this.WorkStep.WorkStepName, dataMap,
 		iworkconst.STRING_PREFIX+"response_data", iworkconst.BYTE_ARRAY_PREFIX+"response_data", iworkconst.BASE64STRING_PREFIX+"response_data")
 }

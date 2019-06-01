@@ -1,13 +1,41 @@
 package httputil
 
 import (
+	"encoding/json"
 	"fmt"
+	"github.com/pkg/errors"
+	"io/ioutil"
 	"net/http"
 	"strings"
 )
 
+func DoHttpRequestAndParseToObj(url string, method string, paramMap map[string]interface{},
+	headerMap map[string]interface{}, v interface{}) (err error) {
+	responseCode, _, responseBody, err := DoHttpRequest(url, method, paramMap, headerMap)
+	if err != nil {
+		return err
+	}
+	if responseCode != 200 {
+		return errors.New("internal error, responseCode != 200")
+	}
+	err = json.Unmarshal(responseBody, v)
+	return
+}
+
+func DoHttpRequest(url string, method string, paramMap map[string]interface{},
+	headerMap map[string]interface{}) (responseCode int, responseData string, responseBody []byte, err error) {
+	err = DoHttpRequestWithParserFunc(url, method, paramMap, headerMap, func(resp *http.Response) {
+		responseCode = resp.StatusCode
+		responseBody, err = ioutil.ReadAll(resp.Body)
+		if err == nil {
+			responseData = string(responseBody)
+		}
+	})
+	return
+}
+
 func DoHttpRequestWithParserFunc(url string, method string, paramMap map[string]interface{},
-	headerMap map[string]interface{}, parseFunc func(resp *http.Response) error) (err error) {
+	headerMap map[string]interface{}, parseFunc func(resp *http.Response)) error {
 	client := &http.Client{}
 	req, err := http.NewRequest(checkMethod(method), url, GetParamReader(paramMap))
 	if err != nil {
@@ -19,8 +47,8 @@ func DoHttpRequestWithParserFunc(url string, method string, paramMap map[string]
 		return err
 	}
 	defer resp.Body.Close()
-	err = parseFunc(resp)
-	return
+	parseFunc(resp)
+	return nil
 }
 
 func setHeaderParameter(req *http.Request, headerMap map[string]interface{}) {
@@ -60,14 +88,11 @@ func GetParamReader(paramMap map[string]interface{}) *strings.Reader {
 
 func checkMethod(method string) string {
 	method = strings.TrimSpace(method)
-	if method == "" {
-		return "GET"
-	}
 	defaultMethods := []string{"GET", "POST", "PUT", "DELETE"}
 	for _, dm := range defaultMethods {
 		if strings.ToUpper(method) == dm {
 			return dm
 		}
 	}
-	panic(fmt.Sprintf("unsupport method : %s", method))
+	return "GET"
 }
