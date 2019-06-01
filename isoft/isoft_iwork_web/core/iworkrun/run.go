@@ -24,7 +24,7 @@ func GetCacheParamInputSchemaFunc(workStep *iwork.WorkStep) *iworkmodels.ParamIn
 func RunOneWork(work_id int64, dispatcher *entry.Dispatcher) (receiver *entry.Receiver) {
 	logwriter := new(iworklog.CacheLoggerWriter)
 	defer logwriter.Close()
-	cacheContext, err := iworkcache.GetCacheContext(work_id, iworknode.GetBlockStepExecuteOrder, GetCacheParamInputSchemaFunc)
+	cacheContext, err := iworkcache.GetCacheContext(work_id)
 	// 为当前流程创建新的 trackingId, 前提条件 cacheContext.Work 一定存在
 	trackingId := createNewTrackingIdForWork(dispatcher, cacheContext.Work)
 	if err != nil {

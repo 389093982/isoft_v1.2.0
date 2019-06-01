@@ -1,6 +1,7 @@
 package iworkcache
 
 import (
+	"errors"
 	"github.com/astaxie/beego/orm"
 	"isoft/isoft_iwork_web/core/iworkdata/block"
 	"isoft/isoft_iwork_web/core/iworkmodels"
@@ -25,21 +26,18 @@ func UpdateCacheContext(work_id int64, orderFunc GetBlockStepExecuteOrder, param
 	}()
 	context := &CacheContext{WorkId: work_id}
 	cacheContextMap[work_id] = context
-	context.LoadCache(orderFunc, paramInputSchemaFunc)
+	context.FlushCache(orderFunc, paramInputSchemaFunc)
 	return nil
 }
 
 var mutex2 sync.Mutex
 
-func GetCacheContext(work_id int64, orderFunc GetBlockStepExecuteOrder, paramInputSchemaFunc GetCacheParamInputSchemaFunc) (*CacheContext, error) {
-	// 先临时强制更新
-	err := UpdateCacheContext(work_id, orderFunc, paramInputSchemaFunc)
-	//mutex2.Lock()
-	//defer mutex2.Unlock()
-	//if _, ok := cacheContextMap[work_id]; !ok {
-	//	UpdateCacheContext(work_id, orderFunc, paramInputSchemaFunc)
-	//}
-	return cacheContextMap[work_id], err
+func GetCacheContext(work_id int64) (*CacheContext, error) {
+	if cache, ok := cacheContextMap[work_id]; ok {
+		return cache, nil
+	} else {
+		return nil, errors.New("cache was not exist")
+	}
 }
 
 func checkError(err error) {
@@ -57,7 +55,7 @@ type CacheContext struct {
 	err                 error
 }
 
-func (this *CacheContext) LoadCache(orderFunc GetBlockStepExecuteOrder, paramInputSchemaFunc GetCacheParamInputSchemaFunc) {
+func (this *CacheContext) FlushCache(orderFunc GetBlockStepExecuteOrder, paramInputSchemaFunc GetCacheParamInputSchemaFunc) {
 	o := orm.NewOrm()
 	// 缓存 work
 	this.Work, this.err = iwork.QueryWorkById(this.WorkId, o)
