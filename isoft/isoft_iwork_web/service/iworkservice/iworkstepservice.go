@@ -44,6 +44,14 @@ func LoadWorkInfo() *iworkmodels.ParamOutputSchema {
 	return pos
 }
 
+func LoadErrorInfo() *iworkmodels.ParamOutputSchema {
+	pos := &iworkmodels.ParamOutputSchema{
+		ParamOutputSchemaItems: []iworkmodels.ParamOutputSchemaItem{},
+	}
+	pos.ParamOutputSchemaItems = append(pos.ParamOutputSchemaItems, iworkmodels.ParamOutputSchemaItem{ParamName: "errorMsg"})
+	return pos
+}
+
 func LoadEntityInfo() *iworkmodels.ParamOutputSchema {
 	pos := &iworkmodels.ParamOutputSchema{
 		ParamOutputSchemaItems: []iworkmodels.ParamOutputSchemaItem{},
@@ -73,6 +81,10 @@ func LoadPreNodeOutputService(serviceArgs map[string]interface{}) (result map[st
 	// 加载 entity 参数
 	pos = LoadEntityInfo()
 	preParamOutputSchemaTreeNodeArr = append(preParamOutputSchemaTreeNodeArr, pos.RenderToTreeNodes("$Entity"))
+
+	// 加载 error 参数
+	pos = LoadErrorInfo()
+	preParamOutputSchemaTreeNodeArr = append(preParamOutputSchemaTreeNodeArr, pos.RenderToTreeNodes("$Error"))
 
 	// 加载前置步骤输出
 	if steps, err := iwork.QueryAllPreStepInfo(work_id, work_step_id, o); err == nil {

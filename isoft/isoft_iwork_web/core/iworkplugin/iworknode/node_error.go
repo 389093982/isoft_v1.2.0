@@ -18,6 +18,7 @@ func (this *PanicErrorNode) Execute(trackingId string) {
 	expression := tmpDataMap[iworkconst.BOOL_PREFIX+"panic_expression"].(bool)
 	if expression {
 		errorMsg := tmpDataMap[iworkconst.STRING_PREFIX+"panic_errorMsg?"].(string)
+		this.DataStore.CacheDatas("Error", map[string]interface{}{"errorMsg": errorMsg})
 		panic(errors.New(errorMsg))
 	}
 }

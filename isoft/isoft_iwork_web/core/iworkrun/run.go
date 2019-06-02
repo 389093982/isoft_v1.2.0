@@ -11,7 +11,6 @@ import (
 	"isoft/isoft_iwork_web/core/iworkmodels"
 	"isoft/isoft_iwork_web/core/iworkplugin/iworknode"
 	"isoft/isoft_iwork_web/core/iworkplugin/iworkprotocol"
-	"isoft/isoft_iwork_web/core/iworkutil/errorutil"
 	"isoft/isoft_iwork_web/models/iwork"
 	"time"
 )
@@ -31,17 +30,7 @@ func RunOneWork(work_id int64, dispatcher *entry.Dispatcher) (receiver *entry.Re
 	if err != nil {
 		logwriter.Write(trackingId, fmt.Sprintf("<span style='color:red;'>internal error:%s</span>", err.Error()))
 	}
-
 	defer logwriter.RecordCostTimeLog("execute work", trackingId, time.Now())
-	defer func() {
-		if err := recover(); err != nil {
-			// 记录 4 kb大小的堆栈信息
-			logwriter.Write(trackingId, "~~~~~~~~~~~~~~~~~~~~~~~~ internal error trace stack ~~~~~~~~~~~~~~~~~~~~~~~~~~")
-			logwriter.Write(trackingId, string(errorutil.PanicTrace(4)))
-			logwriter.Write(trackingId, fmt.Sprintf("<span style='color:red;'>internal error:%s</span>", err))
-			logwriter.Write(trackingId, "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
-		}
-	}()
 	// 记录日志详细
 	logwriter.Write(trackingId, fmt.Sprintf("~~~~~~~~~~start execute work:%s~~~~~~~~~~", workCache.Work.WorkName))
 
