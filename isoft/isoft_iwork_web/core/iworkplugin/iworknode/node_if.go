@@ -31,7 +31,7 @@ func (this *IFNode) Execute(trackingId string) {
 			ParentStepId: this.WorkStep.WorkStepId,
 			WorkCache:    this.WorkCache,
 			TrackingId:   trackingId,
-			Logwriter:    this.LogWriter,
+			LogWriter:    this.LogWriter,
 			Store:        this.DataStore, // 获取数据中心
 			Dispatcher:   nil,
 			RunOneStep:   this.BlockStepRunFunc,
@@ -76,7 +76,7 @@ func (this *ElIfNode) Execute(trackingId string) {
 			ParentStepId: this.WorkStep.WorkStepId,
 			WorkCache:    this.WorkCache,
 			TrackingId:   trackingId,
-			Logwriter:    this.LogWriter,
+			LogWriter:    this.LogWriter,
 			Store:        this.DataStore, // 获取数据中心
 			Dispatcher:   nil,
 			RunOneStep:   this.BlockStepRunFunc,
@@ -115,7 +115,7 @@ func (this *ElseNode) Execute(trackingId string) {
 			ParentStepId: this.WorkStep.WorkStepId,
 			WorkCache:    this.WorkCache,
 			TrackingId:   trackingId,
-			Logwriter:    this.LogWriter,
+			LogWriter:    this.LogWriter,
 			Store:        this.DataStore, // 获取数据中心
 			Dispatcher:   nil,
 			RunOneStep:   this.BlockStepRunFunc,

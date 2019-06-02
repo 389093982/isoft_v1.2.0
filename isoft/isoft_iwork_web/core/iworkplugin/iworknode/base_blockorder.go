@@ -15,7 +15,7 @@ type BlockStepOrdersRunner struct {
 	ParentStepId int64
 	WorkCache    *iworkcache.WorkCache
 	TrackingId   string
-	Logwriter    *iworklog.CacheLoggerWriter
+	LogWriter    *iworklog.CacheLoggerWriter
 	Store        *datastore.DataStore
 	Dispatcher   *entry.Dispatcher
 	RunOneStep   iworkprotocol.RunOneStep
@@ -26,10 +26,10 @@ func (this *BlockStepOrdersRunner) Run() (receiver *entry.Receiver) {
 	defer func() {
 		if err := recover(); err != nil {
 			// 记录 4 kb大小的堆栈信息
-			this.Logwriter.Write(this.TrackingId, "~~~~~~~~~~~~~~~~~~~~~~~~ internal error trace stack ~~~~~~~~~~~~~~~~~~~~~~~~~~")
-			this.Logwriter.Write(this.TrackingId, string(errorutil.PanicTrace(4)))
-			this.Logwriter.Write(this.TrackingId, fmt.Sprintf("<span style='color:red;'>internal error:%s</span>", err))
-			this.Logwriter.Write(this.TrackingId, "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+			this.LogWriter.Write(this.TrackingId, "~~~~~~~~~~~~~~~~~~~~~~~~ internal error trace stack ~~~~~~~~~~~~~~~~~~~~~~~~~~")
+			this.LogWriter.Write(this.TrackingId, string(errorutil.PanicTrace(4)))
+			this.LogWriter.Write(this.TrackingId, fmt.Sprintf("<span style='color:red;'>internal error:%s</span>", err))
+			this.LogWriter.Write(this.TrackingId, "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
 			// 重置 parentStepId,并执行 end 节点
 			this.ParentStepId = parentStepId
 			receiver = this.runDetail(true)
@@ -50,7 +50,7 @@ func (this *BlockStepOrdersRunner) runDetail(runEnd ...bool) (receiver *entry.Re
 		}
 		args := &iworkprotocol.RunOneStepArgs{
 			TrackingId: this.TrackingId,
-			Logwriter:  this.Logwriter,
+			Logwriter:  this.LogWriter,
 			BlockStep:  blockStep,
 			Datastore:  this.Store,
 			Dispatcher: this.Dispatcher,

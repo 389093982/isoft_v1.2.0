@@ -38,7 +38,7 @@ func RunOneWork(work_id int64, dispatcher *entry.Dispatcher) (receiver *entry.Re
 		ParentStepId: -1,
 		WorkCache:    workCache,
 		TrackingId:   trackingId,
-		Logwriter:    logwriter,
+		LogWriter:    logwriter,
 		Store:        datastore.InitDataStore(trackingId, logwriter), // 获取数据中心
 		Dispatcher:   dispatcher,
 		RunOneStep:   RunOneStep,
