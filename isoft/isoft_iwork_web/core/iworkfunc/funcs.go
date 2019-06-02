@@ -122,6 +122,22 @@ func (this *IWorkFuncProxy) GetDirPath(args []interface{}) string {
 	return filepath.Dir(args[0].(string))
 }
 
+func (this *IWorkFuncProxy) TernaryOperator(args []interface{}) interface{} {
+	if args[0] == nil { // 参数为空条件为假
+		return args[2]
+	} else {
+		if bol, ok := args[0].(bool); ok {
+			if bol {
+				return args[1] // bool 值且 true
+			} else {
+				return args[2] // bool 值且 false
+			}
+		} else { // 非空且不是 bool 值为真
+			return args[1]
+		}
+	}
+}
+
 func checkArgsAmount(sargs []int64, amount int) {
 	if len(sargs) < amount {
 		panic(errors.New("参数个数不足或者参数类型有误！"))

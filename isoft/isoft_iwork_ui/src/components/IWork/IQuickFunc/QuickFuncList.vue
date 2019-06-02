@@ -40,6 +40,7 @@
           {funcDemo:"uuid()",funcDesc:"生成随机UUID信息",},
           {funcDemo:"isempty($var)",funcDesc:"判断变量或者字符串是否为空",},
           {funcDemo:"getDirPath($filepath)",funcDesc:"获取当前文件父级目录的绝对路径",},
+          {funcDemo:"ternaryOperator($condition,$var1,$var2)",funcDesc:"三目运算符,条件满足返回$var1,不满足返回$var2",},
         ],
         columns1: [
           {

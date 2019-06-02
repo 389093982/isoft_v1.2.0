@@ -239,13 +239,17 @@ func (this *SimpleParser) parseParamVauleWithPrefixNode() interface{} {
 	if paramValue != nil {
 		return paramValue
 	}
-	_paramName := this.paramName[:strings.LastIndex(this.paramName, ".")]
-	datas := this.DataStore.GetData(nodeName, _paramName) // 作为对象属性
-	attr := this.paramName[strings.LastIndex(this.paramName, ".")+1:]
-	if reflect.TypeOf(datas).Kind() == reflect.Slice {
-		return reflect.ValueOf(datas).Index(0).Interface().(map[string]interface{})[attr]
+	if strings.Contains(this.paramName, ".") {
+		_paramName := this.paramName[:strings.LastIndex(this.paramName, ".")]
+		datas := this.DataStore.GetData(nodeName, _paramName) // 作为对象属性
+		attr := this.paramName[strings.LastIndex(this.paramName, ".")+1:]
+		if reflect.TypeOf(datas).Kind() == reflect.Slice {
+			return reflect.ValueOf(datas).Index(0).Interface().(map[string]interface{})[attr]
+		}
+		return datas.(map[string]interface{})[attr]
+	} else {
+		return paramValue
 	}
-	return datas.(map[string]interface{})[attr]
 }
 
 func (this *SimpleParser) parseParamVauleWithResource() interface{} {
