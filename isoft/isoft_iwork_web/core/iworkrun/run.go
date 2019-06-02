@@ -5,7 +5,6 @@ import (
 	"isoft/isoft_iwork_web/core/iworkcache"
 	"isoft/isoft_iwork_web/core/iworkdata/datastore"
 	"isoft/isoft_iwork_web/core/iworkdata/entry"
-	"isoft/isoft_iwork_web/core/iworkdata/memory"
 	"isoft/isoft_iwork_web/core/iworkdata/schema"
 	"isoft/isoft_iwork_web/core/iworklog"
 	"isoft/isoft_iwork_web/core/iworkmodels"
@@ -44,9 +43,6 @@ func RunOneWork(work_id int64, dispatcher *entry.Dispatcher) (receiver *entry.Re
 		RunOneStep:   RunOneStep,
 	}
 	receiver = bsoRunner.Run()
-
-	// 注销 MemoryCache,无需注册,不存在时会自动注册
-	memory.UnRegistMemoryCache(trackingId)
 	logwriter.Write(trackingId, fmt.Sprintf("~~~~~~~~~~end execute work:%s~~~~~~~~~~", workCache.Work.WorkName))
 	return
 }

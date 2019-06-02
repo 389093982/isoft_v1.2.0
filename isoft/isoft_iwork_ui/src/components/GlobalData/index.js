@@ -18,7 +18,6 @@ const default_work_step_types=[
   {"name":"file_sync","icon":"md-paper"},
   {"name":"href_parser","icon":"ios-ionitron-outline"},
   {"name":"entity_parser","icon":"ios-refresh-circle-outline"},
-  {"name":"memorymap_cache","icon":"ios-color-filter-outline"},
   {"name":"set_env","icon":"ios-nuclear-outline"},
   {"name":"get_env","icon":"ios-nuclear"},
   {"name":"cal_hash","icon":"ios-flower-outline"},
