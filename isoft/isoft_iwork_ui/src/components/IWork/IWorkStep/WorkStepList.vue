@@ -59,6 +59,7 @@
   import {getRepeatStr} from "../../../tools/index"
   import {GetRelativeWork} from "../../../api/index"
   import {FlushCache} from "../../../api/index"
+  import {EditWorkStepBaseInfo} from "../../../api/index"
 
   export default {
     name: "WorkStepList",
@@ -241,14 +242,50 @@
             key: 'work_step_name',
             width: 250,
             render: (h, params) => {
-              return h('div', [
-                h('span', {
-                  style: {
-                    // work_step_name 根据缩进级别进行缩进,不同级别使用不同颜色
-                    color: ['green','blue','grey','red'][params.row.work_step_indent],
+              var _this = this; // vue 实例
+              // 可编辑模式
+              if(params.row.$isEdit){
+                return h('input', {
+                  domProps: {
+                    value: params.row.work_step_name,
                   },
-                }, getRepeatStr('\xa0\xa0\xa0\xa0\xa0', params.row.work_step_indent) + this.worksteps[params.index]['work_step_name']),
-              ]);
+                  on: {
+                    input: function (event) {
+                      params.row.work_step_name = event.target.value
+                    },
+                    blur: async function (event) {
+                      // 发生过修改
+                      const result = await EditWorkStepBaseInfo(params.row.work_id, params.row.work_step_id,
+                        params.row.work_step_name,params.row.work_step_desc, params.row.work_step_type, params.row.is_defer);
+                      if(result.status == "SUCCESS"){
+                        _this.$Message.success('修改成功!');
+                      }else{
+                        _this.$Message.error('修改失败！');
+                      }
+                      // 刷新组件
+                      _this.refreshWorkStepList();
+                    }
+                  }
+                });
+              }else{
+                // 非可编辑模式
+                return h('div', [
+                  h('span', {
+                    style: {
+                      // work_step_name 根据缩进级别进行缩进,不同级别使用不同颜色
+                      color: ['green','blue','grey','red'][params.row.work_step_indent],
+                    },
+                    on: {
+                      // click 变成可编辑模式
+                      click:function (event) {
+                        var workstep = _this.worksteps[params.index];
+                        workstep.$isEdit = true;
+                        _this.$set(_this.worksteps[params.index], workstep);  // 刷新界面
+                      }
+                    }
+                  }, getRepeatStr('\xa0\xa0\xa0\xa0\xa0', params.row.work_step_indent) + this.worksteps[params.index]['work_step_name']),
+                ]);
+              }
             }
           },
           {
