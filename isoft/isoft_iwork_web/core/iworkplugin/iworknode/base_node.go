@@ -61,7 +61,7 @@ func (this *BaseNode) GetOrmer() orm.Ormer {
 func (this *BaseNode) FillPureTextParamInputSchemaDataToTmp(workStep *iwork.WorkStep) map[string]interface{} {
 	// 存储节点中间数据
 	tmpDataMap := make(map[string]interface{})
-	parser := schema.WorkStepSchemaParser{WorkStep: workStep, ParamSchemaParser: &WorkStepFactory{WorkStep: workStep}}
+	parser := schema.WorkStepFactorySchemaParser{WorkStep: workStep, ParamSchemaParser: &WorkStepFactory{WorkStep: workStep}}
 	paramInputSchema := parser.GetCacheParamInputSchema()
 	for _, item := range paramInputSchema.ParamInputSchemaItems {
 		// tmpDataMap 存储引用值 pureText
@@ -94,7 +94,7 @@ func (this *BaseNode) FillParamInputSchemaItemDataToTmp(pureTextTmpDataMap map[s
 
 // 提交输出数据至数据中心,此类数据能直接从 tmpDataMap 中获取,而不依赖于计算,只适用于 WORK_START、WORK_END 节点
 func (this *BaseNode) SubmitParamOutputSchemaDataToDataStore(workStep *iwork.WorkStep, dataStore *datastore.DataStore, tmpDataMap map[string]interface{}) {
-	parser := schema.WorkStepSchemaParser{WorkStep: workStep, ParamSchemaParser: &WorkStepFactory{WorkStep: workStep}}
+	parser := schema.WorkStepFactorySchemaParser{WorkStep: workStep, ParamSchemaParser: &WorkStepFactory{WorkStep: workStep}}
 	paramOutputSchema := parser.GetCacheParamOutputSchema()
 	paramMap := make(map[string]interface{})
 	for _, item := range paramOutputSchema.ParamOutputSchemaItems {

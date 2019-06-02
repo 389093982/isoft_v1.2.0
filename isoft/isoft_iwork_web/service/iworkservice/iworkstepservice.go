@@ -86,7 +86,7 @@ func LoadPreNodeOutputService(serviceArgs map[string]interface{}) (result map[st
 		for _, step := range steps {
 			// 判断前置 step 在块范围内是否是可访问的,且是否非 defer 步骤
 			if block.CheckBlockAccessble(currentBlockStep, step.WorkStepId) && step.IsDefer != "true" {
-				parser := schema.WorkStepSchemaParser{WorkStep: &step, ParamSchemaParser: &iworknode.WorkStepFactory{WorkStep: &step}}
+				parser := schema.WorkStepFactorySchemaParser{WorkStep: &step, ParamSchemaParser: &iworknode.WorkStepFactory{WorkStep: &step}}
 				pos := parser.GetCacheParamOutputSchema()
 				preParamOutputSchemaTreeNodeArr = append(preParamOutputSchemaTreeNodeArr, pos.RenderToTreeNodes("$"+step.WorkStepName))
 			}
@@ -122,7 +122,7 @@ func LoadWorkStepInfoService(serviceArgs map[string]interface{}) (result map[str
 	var paramMappingsArr []iworkmodels.ParamMapping
 	json.Unmarshal([]byte(step.WorkStepParamMapping), &paramMappingsArr)
 	result["step"] = step
-	parser := schema.WorkStepSchemaParser{WorkStep: &step, ParamSchemaParser: &iworknode.WorkStepFactory{WorkStep: &step}}
+	parser := schema.WorkStepFactorySchemaParser{WorkStep: &step, ParamSchemaParser: &iworknode.WorkStepFactory{WorkStep: &step}}
 	result["paramInputSchema"] = parser.GetCacheParamInputSchema()
 	result["paramOutputSchema"] = parser.GetCacheParamOutputSchema()
 	result["paramOutputSchemaTreeNode"] = parser.GetCacheParamOutputSchema().RenderToTreeNodes("output")
@@ -482,7 +482,7 @@ func BuildDynamicInput(work_id int64, work_step_id int64, o orm.Ormer) {
 	if err != nil {
 		panic(err)
 	}
-	parser := schema.WorkStepSchemaParser{WorkStep: &step, ParamSchemaParser: &iworknode.WorkStepFactory{WorkStep: &step, O: o}}
+	parser := schema.WorkStepFactorySchemaParser{WorkStep: &step, ParamSchemaParser: &iworknode.WorkStepFactory{WorkStep: &step, O: o}}
 	// 获取默认数据
 	defaultParamInputSchema := parser.GetDefaultParamInputSchema()
 	// 获取动态数据
@@ -512,7 +512,7 @@ func BuildDynamicOutput(work_id int64, work_step_id int64, o orm.Ormer) {
 	if err != nil {
 		panic(err)
 	}
-	parser := schema.WorkStepSchemaParser{WorkStep: &step, ParamSchemaParser: &iworknode.WorkStepFactory{WorkStep: &step}}
+	parser := schema.WorkStepFactorySchemaParser{WorkStep: &step, ParamSchemaParser: &iworknode.WorkStepFactory{WorkStep: &step}}
 	runtimeParamOutputSchema := parser.GetRuntimeParamOutputSchema()
 	defaultParamOutputSchema := parser.GetDefaultParamOutputSchema()
 	defaultParamOutputSchema.ParamOutputSchemaItems = append(defaultParamOutputSchema.ParamOutputSchemaItems, runtimeParamOutputSchema.ParamOutputSchemaItems...)
@@ -550,7 +550,7 @@ func BuildAutoCreateSubWork(work_id int64, work_step_id int64, o orm.Ormer) {
 	if step.WorkStepType != "work_sub" {
 		return
 	}
-	parser := schema.WorkStepSchemaParser{WorkStep: &step, ParamSchemaParser: &iworknode.WorkStepFactory{WorkStep: &step}}
+	parser := schema.WorkStepFactorySchemaParser{WorkStep: &step, ParamSchemaParser: &iworknode.WorkStepFactory{WorkStep: &step}}
 	paramInputSchema := parser.GetCacheParamInputSchema()
 	for index, item := range paramInputSchema.ParamInputSchemaItems {
 		if item.ParamName == iworkconst.STRING_PREFIX+"work_sub" {

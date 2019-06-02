@@ -61,7 +61,7 @@ func (this *ForeachNode) GetDefaultParamInputSchema() *iworkmodels.ParamInputSch
 
 func (this *ForeachNode) GetRuntimeParamOutputSchema() *iworkmodels.ParamOutputSchema {
 	items := make([]iworkmodels.ParamOutputSchemaItem, 0)
-	parser := schema.WorkStepSchemaParser{WorkStep: this.WorkStep, ParamSchemaParser: &WorkStepFactory{WorkStep: this.WorkStep}}
+	parser := schema.WorkStepFactorySchemaParser{WorkStep: this.WorkStep, ParamSchemaParser: &WorkStepFactory{WorkStep: this.WorkStep}}
 	inputSchema := parser.GetCacheParamInputSchema()
 
 	var foreach_data string

@@ -31,7 +31,7 @@ func (this *MapperNode) GetRuntimeParamInputSchema() *iworkmodels.ParamInputSche
 
 func (this *MapperNode) GetRuntimeParamOutputSchema() *iworkmodels.ParamOutputSchema {
 	items := make([]iworkmodels.ParamOutputSchemaItem, 0)
-	parser := schema.WorkStepSchemaParser{WorkStep: this.WorkStep, ParamSchemaParser: &WorkStepFactory{WorkStep: this.WorkStep}}
+	parser := schema.WorkStepFactorySchemaParser{WorkStep: this.WorkStep, ParamSchemaParser: &WorkStepFactory{WorkStep: this.WorkStep}}
 	inputSchema := parser.GetCacheParamInputSchema()
 	for _, item := range inputSchema.ParamInputSchemaItems {
 		items = append(items, iworkmodels.ParamOutputSchemaItem{ParamName: item.ParamName})
