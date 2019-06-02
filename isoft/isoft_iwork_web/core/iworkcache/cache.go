@@ -31,11 +31,11 @@ func getBlockStepExecuteOrder(blockSteps []*block.BlockStep) []*block.BlockStep 
 	return order
 }
 
+type GetCacheParamInputSchemaFunc func(step *iwork.WorkStep) *iworkmodels.ParamInputSchema
+
 var workCacheMap = make(map[int64]*WorkCache, 0)
 
 var mutex sync.Mutex
-
-type GetCacheParamInputSchemaFunc func(step *iwork.WorkStep) *iworkmodels.ParamInputSchema
 
 func UpdateWorkCache(work_id int64, paramInputSchemaFunc GetCacheParamInputSchemaFunc) (err error) {
 	mutex.Lock()
@@ -48,7 +48,7 @@ func UpdateWorkCache(work_id int64, paramInputSchemaFunc GetCacheParamInputSchem
 	cache := &WorkCache{WorkId: work_id}
 	workCacheMap[work_id] = cache
 	cache.FlushCache(paramInputSchemaFunc)
-	return nil
+	return
 }
 
 var mutex2 sync.Mutex
@@ -94,7 +94,7 @@ func (this *WorkCache) FlushCache(paramInputSchemaFunc GetCacheParamInputSchemaF
 	}
 	// 缓存子节点 blockStepOrder
 	for _, blockStep := range blockSteps {
-		this.loadChildrenBlockStepOrders(blockStep)
+		this.cacheChildrenBlockStepOrders(blockStep)
 	}
 	// 缓存 paramInputSchema
 	this.ParamInputSchemaMap = make(map[int64]*iworkmodels.ParamInputSchema, 0)
@@ -104,12 +104,14 @@ func (this *WorkCache) FlushCache(paramInputSchemaFunc GetCacheParamInputSchemaF
 	}
 }
 
-func (this *WorkCache) loadChildrenBlockStepOrders(blockStep *block.BlockStep) {
+func (this *WorkCache) cacheChildrenBlockStepOrders(blockStep *block.BlockStep) {
 	if blockStep.ChildBlockSteps != nil && len(blockStep.ChildBlockSteps) > 0 {
+		// 获取并记录 order
 		childrenBlockSteps := getBlockStepExecuteOrder(blockStep.ChildBlockSteps)
 		this.BlockStepOrdersMap[blockStep.Step.WorkStepId] = childrenBlockSteps
+		// 循环递归
 		for _, childrenBlockStep := range childrenBlockSteps {
-			this.loadChildrenBlockStepOrders(childrenBlockStep)
+			this.cacheChildrenBlockStepOrders(childrenBlockStep)
 		}
 	}
 }
