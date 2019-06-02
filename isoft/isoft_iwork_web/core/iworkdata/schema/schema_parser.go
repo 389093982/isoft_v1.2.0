@@ -2,7 +2,6 @@ package schema
 
 import (
 	"encoding/json"
-	"github.com/astaxie/beego/orm"
 	"isoft/isoft_iwork_web/core/iworkmodels"
 	"isoft/isoft_iwork_web/core/iworkplugin/iworkprotocol"
 	"isoft/isoft_iwork_web/models/iwork"
@@ -12,7 +11,6 @@ import (
 type WorkStepFactorySchemaParser struct {
 	WorkStep          *iwork.WorkStep
 	ParamSchemaParser iworkprotocol.IParamSchemaParser
-	O                 *orm.Ormer
 }
 
 // 获取缓存的出参 schema,即从 DB 中读取

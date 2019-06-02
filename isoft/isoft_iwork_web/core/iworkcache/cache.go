@@ -53,12 +53,15 @@ func UpdateWorkCache(work_id int64, paramInputSchemaFunc GetCacheParamInputSchem
 
 var mutex2 sync.Mutex
 
-func GetWorkCache(work_id int64) (*WorkCache, error) {
+func GetWorkCache(work_id int64, paramInputSchemaFunc GetCacheParamInputSchemaFunc) (*WorkCache, error) {
 	if cache, ok := workCacheMap[work_id]; ok {
 		return cache, nil
-	} else {
-		return nil, errors.New("cache was not exist")
 	}
+	UpdateWorkCache(work_id, paramInputSchemaFunc)
+	if cache, ok := workCacheMap[work_id]; ok {
+		return cache, nil
+	}
+	return nil, errors.New("cache was not exist")
 }
 
 func checkError(err error) {
