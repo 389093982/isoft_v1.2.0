@@ -37,7 +37,7 @@ func (this *ForeachNode) Execute(trackingId string) {
 
 			bsoRunner := BlockStepOrdersRunner{
 				ParentStepId: this.WorkStep.WorkStepId,
-				CacheContext: this.CacheContext,
+				WorkCache:    this.WorkCache,
 				TrackingId:   trackingId,
 				Logwriter:    this.LogWriter,
 				Store:        this.DataStore, // 获取数据中心

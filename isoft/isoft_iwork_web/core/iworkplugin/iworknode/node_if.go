@@ -29,7 +29,7 @@ func (this *IFNode) Execute(trackingId string) {
 		this.BlockStep.AfterJudgeInterrupt = true // if 条件满足, AfterJudgeInterrupt 属性变为 true
 		bsoRunner := BlockStepOrdersRunner{
 			ParentStepId: this.WorkStep.WorkStepId,
-			CacheContext: this.CacheContext,
+			WorkCache:    this.WorkCache,
 			TrackingId:   trackingId,
 			Logwriter:    this.LogWriter,
 			Store:        this.DataStore, // 获取数据中心
@@ -74,7 +74,7 @@ func (this *ElIfNode) Execute(trackingId string) {
 		this.BlockStep.AfterJudgeInterrupt = true // if 条件满足, AfterJudgeInterrupt 属性变为 true
 		bsoRunner := BlockStepOrdersRunner{
 			ParentStepId: this.WorkStep.WorkStepId,
-			CacheContext: this.CacheContext,
+			WorkCache:    this.WorkCache,
 			TrackingId:   trackingId,
 			Logwriter:    this.LogWriter,
 			Store:        this.DataStore, // 获取数据中心
@@ -113,7 +113,7 @@ func (this *ElseNode) Execute(trackingId string) {
 	if this.BlockStep.HasChildren {
 		bsoRunner := BlockStepOrdersRunner{
 			ParentStepId: this.WorkStep.WorkStepId,
-			CacheContext: this.CacheContext,
+			WorkCache:    this.WorkCache,
 			TrackingId:   trackingId,
 			Logwriter:    this.LogWriter,
 			Store:        this.DataStore, // 获取数据中心

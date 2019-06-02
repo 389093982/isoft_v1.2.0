@@ -31,13 +31,13 @@ func getBlockStepExecuteOrder(blockSteps []*block.BlockStep) []*block.BlockStep 
 	return order
 }
 
-var cacheContextMap = make(map[int64]*CacheContext, 0)
+var workCacheMap = make(map[int64]*WorkCache, 0)
 
 var mutex sync.Mutex
 
 type GetCacheParamInputSchemaFunc func(step *iwork.WorkStep) *iworkmodels.ParamInputSchema
 
-func UpdateCacheContext(work_id int64, paramInputSchemaFunc GetCacheParamInputSchemaFunc) (err error) {
+func UpdateWorkCache(work_id int64, paramInputSchemaFunc GetCacheParamInputSchemaFunc) (err error) {
 	mutex.Lock()
 	defer mutex.Unlock()
 	defer func() {
@@ -45,16 +45,16 @@ func UpdateCacheContext(work_id int64, paramInputSchemaFunc GetCacheParamInputSc
 			err = err1.(error)
 		}
 	}()
-	context := &CacheContext{WorkId: work_id}
-	cacheContextMap[work_id] = context
-	context.FlushCache(paramInputSchemaFunc)
+	cache := &WorkCache{WorkId: work_id}
+	workCacheMap[work_id] = cache
+	cache.FlushCache(paramInputSchemaFunc)
 	return nil
 }
 
 var mutex2 sync.Mutex
 
-func GetCacheContext(work_id int64) (*CacheContext, error) {
-	if cache, ok := cacheContextMap[work_id]; ok {
+func GetWorkCache(work_id int64) (*WorkCache, error) {
+	if cache, ok := workCacheMap[work_id]; ok {
 		return cache, nil
 	} else {
 		return nil, errors.New("cache was not exist")
@@ -67,7 +67,7 @@ func checkError(err error) {
 	}
 }
 
-type CacheContext struct {
+type WorkCache struct {
 	WorkId              int64
 	Work                iwork.Work
 	Steps               []iwork.WorkStep
@@ -76,7 +76,7 @@ type CacheContext struct {
 	err                 error
 }
 
-func (this *CacheContext) FlushCache(paramInputSchemaFunc GetCacheParamInputSchemaFunc) {
+func (this *WorkCache) FlushCache(paramInputSchemaFunc GetCacheParamInputSchemaFunc) {
 	o := orm.NewOrm()
 	// 缓存 work
 	this.Work, this.err = iwork.QueryWorkById(this.WorkId, o)
@@ -101,7 +101,7 @@ func (this *CacheContext) FlushCache(paramInputSchemaFunc GetCacheParamInputSche
 	}
 }
 
-func (this *CacheContext) loadChildrenBlockStepOrders(blockStep *block.BlockStep) {
+func (this *WorkCache) loadChildrenBlockStepOrders(blockStep *block.BlockStep) {
 	if blockStep.ChildBlockSteps != nil && len(blockStep.ChildBlockSteps) > 0 {
 		childrenBlockSteps := getBlockStepExecuteOrder(blockStep.ChildBlockSteps)
 		this.BlockStepOrdersMap[blockStep.Step.WorkStepId] = childrenBlockSteps

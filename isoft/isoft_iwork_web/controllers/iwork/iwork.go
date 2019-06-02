@@ -145,7 +145,7 @@ func (this *WorkController) FlushCache() {
 	works := iwork.QueryAllWorkInfo(orm.NewOrm())
 	var err error
 	for _, work := range works {
-		err = iworkcache.UpdateCacheContext(work.Id, iworkrun.GetCacheParamInputSchemaFunc)
+		err = iworkcache.UpdateWorkCache(work.Id, iworkrun.GetCacheParamInputSchemaFunc)
 		if err != nil {
 			break
 		}

@@ -28,7 +28,7 @@ type WorkStepFactory struct {
 	DataStore        *datastore.DataStore
 	O                orm.Ormer
 	LogWriter        *iworklog.CacheLoggerWriter
-	CacheContext     *iworkcache.CacheContext
+	WorkCache        *iworkcache.WorkCache
 }
 
 func (this *WorkStepFactory) Execute(trackingId string) {
@@ -51,7 +51,7 @@ func GetIWorkStep(workStepType string) iworkprotocol.IWorkStep {
 func (this *WorkStepFactory) getProxy() iworkprotocol.IWorkStep {
 	fieldMap := map[string]interface{}{
 		"WorkStep":         this.WorkStep,
-		"BaseNode":         BaseNode{DataStore: this.DataStore, o: this.O, LogWriter: this.LogWriter, CacheContext: this.CacheContext},
+		"BaseNode":         BaseNode{DataStore: this.DataStore, o: this.O, LogWriter: this.LogWriter, WorkCache: this.WorkCache},
 		"Dispatcher":       this.Dispatcher,
 		"Receiver":         this.Receiver,
 		"WorkSubRunFunc":   this.WorkSubRunFunc,

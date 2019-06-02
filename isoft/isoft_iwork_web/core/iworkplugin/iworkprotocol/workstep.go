@@ -32,12 +32,12 @@ type OrmerProvider interface {
 }
 
 type RunOneStepArgs struct {
-	TrackingId   string
-	Logwriter    *iworklog.CacheLoggerWriter
-	Datastore    *datastore.DataStore
-	BlockStep    *block.BlockStep
-	Dispatcher   *entry.Dispatcher
-	CacheContext *iworkcache.CacheContext
+	TrackingId string
+	Logwriter  *iworklog.CacheLoggerWriter
+	Datastore  *datastore.DataStore
+	BlockStep  *block.BlockStep
+	Dispatcher *entry.Dispatcher
+	WorkCache  *iworkcache.WorkCache
 }
 
 type RunOneStep func(args *RunOneStepArgs) (receiver *entry.Receiver)

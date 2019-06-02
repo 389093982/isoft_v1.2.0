@@ -24,9 +24,9 @@ func GetCacheParamInputSchemaFunc(workStep *iwork.WorkStep) *iworkmodels.ParamIn
 func RunOneWork(work_id int64, dispatcher *entry.Dispatcher) (receiver *entry.Receiver) {
 	logwriter := new(iworklog.CacheLoggerWriter)
 	defer logwriter.Close()
-	cacheContext, err := iworkcache.GetCacheContext(work_id)
+	workCache, err := iworkcache.GetWorkCache(work_id)
 	// 为当前流程创建新的 trackingId, 前提条件 cacheContext.Work 一定存在
-	trackingId := createNewTrackingIdForWork(dispatcher, cacheContext.Work)
+	trackingId := createNewTrackingIdForWork(dispatcher, workCache.Work)
 	if err != nil {
 		logwriter.Write(trackingId, fmt.Sprintf("<span style='color:red;'>internal error:%s</span>", err.Error()))
 	}
@@ -42,11 +42,11 @@ func RunOneWork(work_id int64, dispatcher *entry.Dispatcher) (receiver *entry.Re
 		}
 	}()
 	// 记录日志详细
-	logwriter.Write(trackingId, fmt.Sprintf("~~~~~~~~~~start execute work:%s~~~~~~~~~~", cacheContext.Work.WorkName))
+	logwriter.Write(trackingId, fmt.Sprintf("~~~~~~~~~~start execute work:%s~~~~~~~~~~", workCache.Work.WorkName))
 
 	bsoRunner := iworknode.BlockStepOrdersRunner{
 		ParentStepId: -1,
-		CacheContext: cacheContext,
+		WorkCache:    workCache,
 		TrackingId:   trackingId,
 		Logwriter:    logwriter,
 		Store:        datastore.InitDataStore(trackingId, logwriter), // 获取数据中心
@@ -57,7 +57,7 @@ func RunOneWork(work_id int64, dispatcher *entry.Dispatcher) (receiver *entry.Re
 
 	// 注销 MemoryCache,无需注册,不存在时会自动注册
 	memory.UnRegistMemoryCache(trackingId)
-	logwriter.Write(trackingId, fmt.Sprintf("~~~~~~~~~~end execute work:%s~~~~~~~~~~", cacheContext.Work.WorkName))
+	logwriter.Write(trackingId, fmt.Sprintf("~~~~~~~~~~end execute work:%s~~~~~~~~~~", workCache.Work.WorkName))
 	return
 }
 
@@ -78,7 +78,7 @@ func RunOneStep(args *iworkprotocol.RunOneStepArgs) (receiver *entry.Receiver) {
 		LogWriter:        args.Logwriter,
 		BlockStepRunFunc: RunOneStep,
 		WorkSubRunFunc:   RunOneWork,
-		CacheContext:     args.CacheContext,
+		WorkCache:        args.WorkCache,
 	}
 	factory.Execute(args.TrackingId)
 	// 记录结束执行日志

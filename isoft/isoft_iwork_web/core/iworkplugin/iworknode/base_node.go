@@ -19,10 +19,10 @@ import (
 // 所有 node 的基类
 type BaseNode struct {
 	iworkprotocol.IWorkStep
-	DataStore    *datastore.DataStore
-	o            orm.Ormer
-	LogWriter    *iworklog.CacheLoggerWriter
-	CacheContext *iworkcache.CacheContext
+	DataStore *datastore.DataStore
+	o         orm.Ormer
+	LogWriter *iworklog.CacheLoggerWriter
+	WorkCache *iworkcache.WorkCache
 }
 
 func (this *BaseNode) GetDefaultParamInputSchema() *iworkmodels.ParamInputSchema {
@@ -74,7 +74,7 @@ func (this *BaseNode) FillParamInputSchemaDataToTmp(workStep *iwork.WorkStep) ma
 	// 存储节点中间数据
 	tmpDataMap := make(map[string]interface{})
 	pureTextTmpDataMap := make(map[string]string)
-	paramInputSchema := this.CacheContext.ParamInputSchemaMap[workStep.WorkStepId]
+	paramInputSchema := this.WorkCache.ParamInputSchemaMap[workStep.WorkStepId]
 	for _, item := range paramInputSchema.ParamInputSchemaItems {
 		this.FillParamInputSchemaItemDataToTmp(pureTextTmpDataMap, tmpDataMap, item)
 	}

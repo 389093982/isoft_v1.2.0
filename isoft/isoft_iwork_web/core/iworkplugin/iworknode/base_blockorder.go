@@ -11,7 +11,7 @@ import (
 
 type BlockStepOrdersRunner struct {
 	ParentStepId int64
-	CacheContext *iworkcache.CacheContext
+	WorkCache    *iworkcache.WorkCache
 	TrackingId   string
 	Logwriter    *iworklog.CacheLoggerWriter
 	Store        *datastore.DataStore
@@ -22,18 +22,18 @@ type BlockStepOrdersRunner struct {
 func (this *BlockStepOrdersRunner) Run() (receiver *entry.Receiver) {
 	// 存储前置步骤 afterJudgeInterrupt 属性
 	afterJudgeInterrupt := false
-	for _, blockStep := range this.CacheContext.BlockStepOrdersMap[this.ParentStepId] {
+	for _, blockStep := range this.WorkCache.BlockStepOrdersMap[this.ParentStepId] {
 		if blockStep.Step.WorkStepType == "empty" {
 			continue
 		}
 
 		args := &iworkprotocol.RunOneStepArgs{
-			TrackingId:   this.TrackingId,
-			Logwriter:    this.Logwriter,
-			BlockStep:    blockStep,
-			Datastore:    this.Store,
-			Dispatcher:   this.Dispatcher,
-			CacheContext: this.CacheContext,
+			TrackingId: this.TrackingId,
+			Logwriter:  this.Logwriter,
+			BlockStep:  blockStep,
+			Datastore:  this.Store,
+			Dispatcher: this.Dispatcher,
+			WorkCache:  this.WorkCache,
 		}
 
 		if blockStep.Step.WorkStepType == "if" { // 遇到 if 必定可以执行
