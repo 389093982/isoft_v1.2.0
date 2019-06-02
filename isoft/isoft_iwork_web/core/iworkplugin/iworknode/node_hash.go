@@ -3,7 +3,6 @@ package iworknode
 import (
 	"isoft/isoft/common/hashutil"
 	"isoft/isoft_iwork_web/core/iworkconst"
-	"isoft/isoft_iwork_web/core/iworkdata/schema"
 	"isoft/isoft_iwork_web/core/iworkmodels"
 	"isoft/isoft_iwork_web/models/iwork"
 )
@@ -25,9 +24,9 @@ func (this *CalHashNode) GetDefaultParamInputSchema() *iworkmodels.ParamInputSch
 	paramMap := map[int][]string{
 		1: {iworkconst.STRING_PREFIX + "str_data", "需要计算hash值的字符串"},
 	}
-	return schema.BuildParamInputSchemaWithDefaultMap(paramMap)
+	return this.BuildParamInputSchemaWithDefaultMap(paramMap)
 }
 
 func (this *CalHashNode) GetDefaultParamOutputSchema() *iworkmodels.ParamOutputSchema {
-	return schema.BuildParamOutputSchemaWithSlice([]string{iworkconst.STRING_PREFIX + "hash"})
+	return this.BuildParamOutputSchemaWithSlice([]string{iworkconst.STRING_PREFIX + "hash"})
 }

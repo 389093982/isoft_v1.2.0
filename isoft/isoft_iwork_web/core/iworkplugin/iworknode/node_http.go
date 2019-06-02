@@ -6,7 +6,6 @@ import (
 	"io/ioutil"
 	"isoft/isoft/common/httputil"
 	"isoft/isoft_iwork_web/core/iworkconst"
-	"isoft/isoft_iwork_web/core/iworkdata/schema"
 	"isoft/isoft_iwork_web/core/iworkmodels"
 	"isoft/isoft_iwork_web/core/iworkutil"
 	"isoft/isoft_iwork_web/models/iwork"
@@ -61,11 +60,11 @@ func (this *HttpRequestNode) GetDefaultParamInputSchema() *iworkmodels.ParamInpu
 		3: {iworkconst.MULTI_PREFIX + "request_params?", "可选参数,请求参数,格式参考：key=value"},
 		4: {iworkconst.MULTI_PREFIX + "request_headers?", "可选参数,请求头参数,格式参考：key=value"},
 	}
-	return schema.BuildParamInputSchemaWithDefaultMap(paramMap)
+	return this.BuildParamInputSchemaWithDefaultMap(paramMap)
 }
 
 func (this *HttpRequestNode) GetDefaultParamOutputSchema() *iworkmodels.ParamOutputSchema {
-	return schema.BuildParamOutputSchemaWithSlice([]string{
+	return this.BuildParamOutputSchemaWithSlice([]string{
 		iworkconst.STRING_PREFIX + "response_data",
 		iworkconst.BYTE_ARRAY_PREFIX + "response_data",
 		iworkconst.BASE64STRING_PREFIX + "response_data",

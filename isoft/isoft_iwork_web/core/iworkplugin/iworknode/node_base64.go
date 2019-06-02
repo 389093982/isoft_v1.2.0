@@ -3,7 +3,6 @@ package iworknode
 import (
 	"encoding/base64"
 	"isoft/isoft_iwork_web/core/iworkconst"
-	"isoft/isoft_iwork_web/core/iworkdata/schema"
 	"isoft/isoft_iwork_web/core/iworkmodels"
 	"isoft/isoft_iwork_web/models/iwork"
 )
@@ -25,11 +24,11 @@ func (this *Base64EncodeNode) GetDefaultParamInputSchema() *iworkmodels.ParamInp
 	paramMap := map[int][]string{
 		1: {iworkconst.STRING_PREFIX + "input", "待编码的输入字符串"},
 	}
-	return schema.BuildParamInputSchemaWithDefaultMap(paramMap)
+	return this.BuildParamInputSchemaWithDefaultMap(paramMap)
 }
 
 func (this *Base64EncodeNode) GetDefaultParamOutputSchema() *iworkmodels.ParamOutputSchema {
-	return schema.BuildParamOutputSchemaWithSlice([]string{iworkconst.STRING_PREFIX + "encode_data"})
+	return this.BuildParamOutputSchemaWithSlice([]string{iworkconst.STRING_PREFIX + "encode_data"})
 }
 
 type Base64DecodeNode struct {
@@ -56,9 +55,9 @@ func (this *Base64DecodeNode) GetDefaultParamInputSchema() *iworkmodels.ParamInp
 	paramMap := map[int][]string{
 		1: {iworkconst.STRING_PREFIX + "input", "待解码的输入字符串"},
 	}
-	return schema.BuildParamInputSchemaWithDefaultMap(paramMap)
+	return this.BuildParamInputSchemaWithDefaultMap(paramMap)
 }
 
 func (this *Base64DecodeNode) GetDefaultParamOutputSchema() *iworkmodels.ParamOutputSchema {
-	return schema.BuildParamOutputSchemaWithSlice([]string{iworkconst.STRING_PREFIX + "decode_data", iworkconst.BYTE_ARRAY_PREFIX + "decode_data"})
+	return this.BuildParamOutputSchemaWithSlice([]string{iworkconst.STRING_PREFIX + "decode_data", iworkconst.BYTE_ARRAY_PREFIX + "decode_data"})
 }

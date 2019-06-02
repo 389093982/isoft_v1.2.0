@@ -52,7 +52,7 @@ func (this *WorkSubNode) GetDefaultParamInputSchema() *iworkmodels.ParamInputSch
 	paramMap := map[int][]string{
 		1: {iworkconst.STRING_PREFIX + "work_sub", "子流程信息"},
 	}
-	return schema.BuildParamInputSchemaWithDefaultMap(paramMap)
+	return this.BuildParamInputSchemaWithDefaultMap(paramMap)
 }
 
 // 获取动态输入值

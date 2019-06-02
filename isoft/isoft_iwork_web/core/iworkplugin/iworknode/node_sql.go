@@ -5,7 +5,6 @@ import (
 	"isoft/isoft/common/pageutil"
 	"isoft/isoft_iwork_web/core/iworkconst"
 	"isoft/isoft_iwork_web/core/iworkdata/param"
-	"isoft/isoft_iwork_web/core/iworkdata/schema"
 	"isoft/isoft_iwork_web/core/iworkfunc"
 	"isoft/isoft_iwork_web/core/iworkmodels"
 	"isoft/isoft_iwork_web/core/iworkutil/sqlutil"
@@ -49,11 +48,11 @@ func (this *SQLQueryNode) GetDefaultParamInputSchema() *iworkmodels.ParamInputSc
 		3: {iworkconst.MULTI_PREFIX + "sql_binding?", "sql绑定数据,个数必须和当前执行sql语句中的占位符参数个数相同"},
 		4: {iworkconst.STRING_PREFIX + "db_conn", "数据库连接信息,需要使用 $RESOURCE 全局参数"},
 	}
-	return schema.BuildParamInputSchemaWithDefaultMap(paramMap)
+	return this.BuildParamInputSchemaWithDefaultMap(paramMap)
 }
 
 func (this *SQLQueryNode) GetDefaultParamOutputSchema() *iworkmodels.ParamOutputSchema {
-	return schema.BuildParamOutputSchemaWithSlice([]string{iworkconst.NUMBER_PREFIX + "datacounts"})
+	return this.BuildParamOutputSchemaWithSlice([]string{iworkconst.NUMBER_PREFIX + "datacounts"})
 }
 
 func (this *SQLQueryNode) GetRuntimeParamOutputSchema() *iworkmodels.ParamOutputSchema {
@@ -161,11 +160,11 @@ func (this *SQLExecuteNode) GetDefaultParamInputSchema() *iworkmodels.ParamInput
 		3: {iworkconst.MULTI_PREFIX + "sql_binding?", "sql绑定数据,个数必须和当前执行sql语句中的占位符参数个数相同", "repeatable__" + iworkconst.FOREACH_PREFIX + "batch_data?"},
 		4: {iworkconst.STRING_PREFIX + "db_conn", "数据库连接信息,需要使用 $RESOURCE 全局参数"},
 	}
-	return schema.BuildParamInputSchemaWithDefaultMap(paramMap)
+	return this.BuildParamInputSchemaWithDefaultMap(paramMap)
 }
 
 func (this *SQLExecuteNode) GetDefaultParamOutputSchema() *iworkmodels.ParamOutputSchema {
-	return schema.BuildParamOutputSchemaWithSlice([]string{iworkconst.NUMBER_PREFIX + "affected"})
+	return this.BuildParamOutputSchemaWithSlice([]string{iworkconst.NUMBER_PREFIX + "affected"})
 }
 
 func (this *SQLExecuteNode) ValidateCustom() (checkResult []string) {
@@ -248,7 +247,7 @@ func (this *SQLQueryPageNode) GetDefaultParamInputSchema() *iworkmodels.ParamInp
 		6: {iworkconst.NUMBER_PREFIX + "page_size", "每页数据量"},
 		7: {iworkconst.STRING_PREFIX + "db_conn", "数据库连接信息,需要使用 $RESOURCE 全局参数"},
 	}
-	return schema.BuildParamInputSchemaWithDefaultMap(paramMap)
+	return this.BuildParamInputSchemaWithDefaultMap(paramMap)
 }
 
 func (this *SQLQueryPageNode) GetRuntimeParamInputSchema() *iworkmodels.ParamInputSchema {

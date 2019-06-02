@@ -7,7 +7,6 @@ import (
 	"isoft/isoft_iwork_web/core/iworkconst"
 	"isoft/isoft_iwork_web/core/iworkdata/block"
 	"isoft/isoft_iwork_web/core/iworkdata/entry"
-	"isoft/isoft_iwork_web/core/iworkdata/schema"
 	"isoft/isoft_iwork_web/core/iworkmodels"
 	"isoft/isoft_iwork_web/core/iworkplugin/iworkprotocol"
 	"isoft/isoft_iwork_web/models/iwork"
@@ -47,11 +46,11 @@ func (this *IFNode) GetDefaultParamInputSchema() *iworkmodels.ParamInputSchema {
 	paramMap := map[int][]string{
 		1: {iworkconst.BOOL_PREFIX + "expression", "if条件表达式,值为 bool 类型!"},
 	}
-	return schema.BuildParamInputSchemaWithDefaultMap(paramMap)
+	return this.BuildParamInputSchemaWithDefaultMap(paramMap)
 }
 
 func (this *IFNode) GetDefaultParamOutputSchema() *iworkmodels.ParamOutputSchema {
-	return schema.BuildParamOutputSchemaWithSlice([]string{iworkconst.BOOL_PREFIX + "expression"})
+	return this.BuildParamOutputSchemaWithSlice([]string{iworkconst.BOOL_PREFIX + "expression"})
 }
 
 type ElIfNode struct {
@@ -92,11 +91,11 @@ func (this *ElIfNode) GetDefaultParamInputSchema() *iworkmodels.ParamInputSchema
 	paramMap := map[int][]string{
 		1: {iworkconst.BOOL_PREFIX + "expression", "if条件表达式,值为 bool 类型!"},
 	}
-	return schema.BuildParamInputSchemaWithDefaultMap(paramMap)
+	return this.BuildParamInputSchemaWithDefaultMap(paramMap)
 }
 
 func (this *ElIfNode) GetDefaultParamOutputSchema() *iworkmodels.ParamOutputSchema {
-	return schema.BuildParamOutputSchemaWithSlice([]string{iworkconst.BOOL_PREFIX + "expression"})
+	return this.BuildParamOutputSchemaWithSlice([]string{iworkconst.BOOL_PREFIX + "expression"})
 }
 
 type ElseNode struct {

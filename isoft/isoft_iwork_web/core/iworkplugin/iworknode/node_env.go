@@ -2,7 +2,6 @@ package iworknode
 
 import (
 	"isoft/isoft_iwork_web/core/iworkconst"
-	"isoft/isoft_iwork_web/core/iworkdata/schema"
 	"isoft/isoft_iwork_web/core/iworkmodels"
 	"isoft/isoft_iwork_web/models/iwork"
 	"os"
@@ -24,11 +23,11 @@ func (this *GetEnvNode) GetDefaultParamInputSchema() *iworkmodels.ParamInputSche
 	paramMap := map[int][]string{
 		1: {iworkconst.STRING_PREFIX + "env_var_name", "环境变量名称"},
 	}
-	return schema.BuildParamInputSchemaWithDefaultMap(paramMap)
+	return this.BuildParamInputSchemaWithDefaultMap(paramMap)
 }
 
 func (this *GetEnvNode) GetDefaultParamOutputSchema() *iworkmodels.ParamOutputSchema {
-	return schema.BuildParamOutputSchemaWithSlice([]string{iworkconst.STRING_PREFIX + "env_var_value"})
+	return this.BuildParamOutputSchemaWithSlice([]string{iworkconst.STRING_PREFIX + "env_var_value"})
 }
 
 type SetEnvNode struct {
@@ -51,5 +50,5 @@ func (this *SetEnvNode) GetDefaultParamInputSchema() *iworkmodels.ParamInputSche
 		1: {iworkconst.STRING_PREFIX + "env_var_name", "环境变量名称"},
 		2: {iworkconst.STRING_PREFIX + "env_var_value", "环境变量值"},
 	}
-	return schema.BuildParamInputSchemaWithDefaultMap(paramMap)
+	return this.BuildParamInputSchemaWithDefaultMap(paramMap)
 }

@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"isoft/isoft_iwork_web/core/iworkconst"
 	"isoft/isoft_iwork_web/core/iworkdata/param"
-	"isoft/isoft_iwork_web/core/iworkdata/schema"
 	"isoft/isoft_iwork_web/core/iworkmodels"
 	"isoft/isoft_iwork_web/models/iwork"
 	"strings"
@@ -30,11 +29,11 @@ func (this *JsonRenderNode) GetDefaultParamInputSchema() *iworkmodels.ParamInput
 	paramMap := map[int][]string{
 		1: {iworkconst.COMPLEX_PREFIX + "json_data", "需要传入json对象"},
 	}
-	return schema.BuildParamInputSchemaWithDefaultMap(paramMap)
+	return this.BuildParamInputSchemaWithDefaultMap(paramMap)
 }
 
 func (this *JsonRenderNode) GetDefaultParamOutputSchema() *iworkmodels.ParamOutputSchema {
-	return schema.BuildParamOutputSchemaWithSlice([]string{iworkconst.STRING_PREFIX + "json_data"})
+	return this.BuildParamOutputSchemaWithSlice([]string{iworkconst.STRING_PREFIX + "json_data"})
 }
 
 type JsonParserNode struct {
@@ -68,7 +67,7 @@ func (this *JsonParserNode) GetDefaultParamInputSchema() *iworkmodels.ParamInput
 		1: {iworkconst.STRING_PREFIX + "json_data", "需要转换成json对象的字符串"},
 		2: {"json_fields", "json对象的字段列表"},
 	}
-	return schema.BuildParamInputSchemaWithDefaultMap(paramMap)
+	return this.BuildParamInputSchemaWithDefaultMap(paramMap)
 }
 
 func (this *JsonParserNode) GetRuntimeParamOutputSchema() *iworkmodels.ParamOutputSchema {

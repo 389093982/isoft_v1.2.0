@@ -3,7 +3,6 @@ package iworknode
 import (
 	"isoft/isoft_iwork_web/core/iworkconst"
 	"isoft/isoft_iwork_web/core/iworkdata/memory"
-	"isoft/isoft_iwork_web/core/iworkdata/schema"
 	"isoft/isoft_iwork_web/core/iworkmodels"
 	"isoft/isoft_iwork_web/models/iwork"
 	"strings"
@@ -56,9 +55,9 @@ func (this *MemoryMapCacheNode) GetDefaultParamInputSchema() *iworkmodels.ParamI
 		4: []string{iworkconst.STRING_PREFIX + "cachemap_key_put?", "存储的键值"},
 		5: []string{iworkconst.STRING_PREFIX + "cachemap_val_put?", "存储的value值"},
 	}
-	return schema.BuildParamInputSchemaWithDefaultMap(paramMap)
+	return this.BuildParamInputSchemaWithDefaultMap(paramMap)
 }
 
 func (this *MemoryMapCacheNode) GetDefaultParamOutputSchema() *iworkmodels.ParamOutputSchema {
-	return schema.BuildParamOutputSchemaWithSlice([]string{iworkconst.STRING_PREFIX + "cachemap_val_get"})
+	return this.BuildParamOutputSchemaWithSlice([]string{iworkconst.STRING_PREFIX + "cachemap_val_get"})
 }

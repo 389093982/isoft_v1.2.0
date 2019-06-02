@@ -3,7 +3,6 @@ package iworknode
 import (
 	"isoft/isoft/common/stringutil"
 	"isoft/isoft_iwork_web/core/iworkconst"
-	"isoft/isoft_iwork_web/core/iworkdata/schema"
 	"isoft/isoft_iwork_web/core/iworkmodels"
 	"isoft/isoft_iwork_web/core/iworkutil/htmlutil"
 	"isoft/isoft_iwork_web/models/iwork"
@@ -35,9 +34,9 @@ func (this *HrefParserNode) GetDefaultParamInputSchema() *iworkmodels.ParamInput
 	paramMap := map[int][]string{
 		1: []string{iworkconst.STRING_PREFIX + "url", "需要分析资源的url地址"},
 	}
-	return schema.BuildParamInputSchemaWithDefaultMap(paramMap)
+	return this.BuildParamInputSchemaWithDefaultMap(paramMap)
 }
 
 func (this *HrefParserNode) GetDefaultParamOutputSchema() *iworkmodels.ParamOutputSchema {
-	return schema.BuildParamOutputSchemaWithSlice([]string{iworkconst.MULTI_PREFIX + "hrefs", iworkconst.NUMBER_PREFIX + "href_amounts"})
+	return this.BuildParamOutputSchemaWithSlice([]string{iworkconst.MULTI_PREFIX + "hrefs", iworkconst.NUMBER_PREFIX + "href_amounts"})
 }

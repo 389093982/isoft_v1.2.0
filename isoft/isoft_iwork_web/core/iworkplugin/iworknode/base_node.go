@@ -10,7 +10,10 @@ import (
 	"isoft/isoft_iwork_web/core/iworkmodels"
 	"isoft/isoft_iwork_web/core/iworkplugin/iworkprotocol"
 	"isoft/isoft_iwork_web/core/iworkplugin/pis"
+	"isoft/isoft_iwork_web/core/iworkutil/datatypeutil"
 	"isoft/isoft_iwork_web/models/iwork"
+	"sort"
+	"strings"
 )
 
 // 所有 node 的基类
@@ -97,4 +100,36 @@ func (this *BaseNode) SubmitParamOutputSchemaDataToDataStore(workStep *iwork.Wor
 	}
 	// 将数据数据存储到数据中心
 	dataStore.CacheDatas(workStep.WorkStepName, paramMap)
+}
+
+// 根据传入的 paramMap 构建 ParamInputSchema 对象
+func (this *BaseNode) BuildParamInputSchemaWithDefaultMap(paramMap map[int][]string) *iworkmodels.ParamInputSchema {
+	keys := datatypeutil.GetMapKeySlice(paramMap, []int{}).([]int)
+	sort.Ints(keys)
+	items := make([]iworkmodels.ParamInputSchemaItem, 0)
+	for _, key := range keys {
+		_paramMap := paramMap[key]
+		// 前两位分别是名称和描述
+		paramName := _paramMap[0]
+		paramDesc := _paramMap[1]
+		item := iworkmodels.ParamInputSchemaItem{ParamName: paramName, ParamDesc: paramDesc}
+		// 后面字段为 extra 字段
+		for _, paramExtra := range _paramMap[1:] {
+			if strings.HasPrefix(paramExtra, "repeatable__") {
+				item.Repeatable = true
+				item.ForeachRefer = strings.Replace(paramExtra, "repeatable__", "", 1)
+			}
+		}
+		items = append(items, item)
+	}
+	return &iworkmodels.ParamInputSchema{ParamInputSchemaItems: items}
+}
+
+// 根据传入的 paramNames 构建 ParamOutputSchema 对象
+func (this *BaseNode) BuildParamOutputSchemaWithSlice(paramNames []string) *iworkmodels.ParamOutputSchema {
+	items := make([]iworkmodels.ParamOutputSchemaItem, 0)
+	for _, paramName := range paramNames {
+		items = append(items, iworkmodels.ParamOutputSchemaItem{ParamName: paramName})
+	}
+	return &iworkmodels.ParamOutputSchema{ParamOutputSchemaItems: items}
 }

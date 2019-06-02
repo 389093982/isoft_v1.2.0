@@ -2,7 +2,6 @@ package iworknode
 
 import (
 	"isoft/isoft_iwork_web/core/iworkconst"
-	"isoft/isoft_iwork_web/core/iworkdata/schema"
 	"isoft/isoft_iwork_web/core/iworkmodels"
 	"isoft/isoft_iwork_web/core/iworkutil/fileutil"
 	"isoft/isoft_iwork_web/models/iwork"
@@ -36,11 +35,11 @@ func (this *IniReadNode) GetDefaultParamInputSchema() *iworkmodels.ParamInputSch
 		2: {iworkconst.STRING_PREFIX + "section_name?", "section 名称,可为空"},
 		3: {iworkconst.STRING_PREFIX + "key", "key 值"},
 	}
-	return schema.BuildParamInputSchemaWithDefaultMap(paramMap)
+	return this.BuildParamInputSchemaWithDefaultMap(paramMap)
 }
 
 func (this *IniReadNode) GetDefaultParamOutputSchema() *iworkmodels.ParamOutputSchema {
-	return schema.BuildParamOutputSchemaWithSlice([]string{iworkconst.STRING_PREFIX + "value"})
+	return this.BuildParamOutputSchemaWithSlice([]string{iworkconst.STRING_PREFIX + "value"})
 }
 
 type IniWriteNode struct {
@@ -71,5 +70,5 @@ func (this *IniWriteNode) GetDefaultParamInputSchema() *iworkmodels.ParamInputSc
 		3: {iworkconst.STRING_PREFIX + "key", "key 值"},
 		4: {iworkconst.STRING_PREFIX + "value", "value 值"},
 	}
-	return schema.BuildParamInputSchemaWithDefaultMap(paramMap)
+	return this.BuildParamInputSchemaWithDefaultMap(paramMap)
 }

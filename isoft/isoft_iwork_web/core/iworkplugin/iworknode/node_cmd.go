@@ -3,7 +3,6 @@ package iworknode
 import (
 	"fmt"
 	"isoft/isoft_iwork_web/core/iworkconst"
-	"isoft/isoft_iwork_web/core/iworkdata/schema"
 	"isoft/isoft_iwork_web/core/iworklog"
 	"isoft/isoft_iwork_web/core/iworkmodels"
 	"isoft/isoft_iwork_web/core/iworkutil/cmdutil"
@@ -72,9 +71,9 @@ func (this *RunCmdNode) GetDefaultParamInputSchema() *iworkmodels.ParamInputSche
 		2: {iworkconst.STRING_PREFIX + "command_name", "执行命令"},
 		3: {iworkconst.STRING_PREFIX + "command_args", "执行命令参数列表"},
 	}
-	return schema.BuildParamInputSchemaWithDefaultMap(paramMap)
+	return this.BuildParamInputSchemaWithDefaultMap(paramMap)
 }
 
 func (this *RunCmdNode) GetDefaultParamOutputSchema() *iworkmodels.ParamOutputSchema {
-	return schema.BuildParamOutputSchemaWithSlice([]string{iworkconst.STRING_PREFIX + "command_result"})
+	return this.BuildParamOutputSchemaWithSlice([]string{iworkconst.STRING_PREFIX + "command_result"})
 }

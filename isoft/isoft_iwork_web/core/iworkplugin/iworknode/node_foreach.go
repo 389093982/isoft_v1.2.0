@@ -56,7 +56,7 @@ func (this *ForeachNode) GetDefaultParamInputSchema() *iworkmodels.ParamInputSch
 		1: {iworkconst.FOREACH_PREFIX + "foreach_data", "迭代的元素"},
 		2: {iworkconst.COMPLEX_PREFIX + "foreach_data_attr", "迭代元素属性值"},
 	}
-	return schema.BuildParamInputSchemaWithDefaultMap(paramMap)
+	return this.BuildParamInputSchemaWithDefaultMap(paramMap)
 }
 
 func (this *ForeachNode) GetRuntimeParamOutputSchema() *iworkmodels.ParamOutputSchema {
@@ -87,5 +87,5 @@ func (this *ForeachNode) GetRuntimeParamOutputSchema() *iworkmodels.ParamOutputS
 }
 
 func (this *ForeachNode) GetDefaultParamOutputSchema() *iworkmodels.ParamOutputSchema {
-	return schema.BuildParamOutputSchemaWithSlice([]string{iworkconst.NUMBER_PREFIX + "foreach_index"})
+	return this.BuildParamOutputSchemaWithSlice([]string{iworkconst.NUMBER_PREFIX + "foreach_index"})
 }

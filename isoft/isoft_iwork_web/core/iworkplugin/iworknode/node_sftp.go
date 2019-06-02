@@ -3,7 +3,6 @@ package iworknode
 import (
 	"isoft/isoft/common/fileutil"
 	"isoft/isoft_iwork_web/core/iworkconst"
-	"isoft/isoft_iwork_web/core/iworkdata/schema"
 	"isoft/isoft_iwork_web/core/iworkmodels"
 	"isoft/isoft_iwork_web/core/iworkutil/sftputil"
 	"isoft/isoft_iwork_web/models/iwork"
@@ -36,9 +35,9 @@ func (this *SftpUploadNode) GetDefaultParamInputSchema() *iworkmodels.ParamInput
 		2: {iworkconst.STRING_PREFIX + "local_file_path", "本地文件路径"},
 		3: {iworkconst.STRING_PREFIX + "remote_dir_path", "远程文件夹路径"},
 	}
-	return schema.BuildParamInputSchemaWithDefaultMap(paramMap)
+	return this.BuildParamInputSchemaWithDefaultMap(paramMap)
 }
 
 func (this *SftpUploadNode) GetDefaultParamOutputSchema() *iworkmodels.ParamOutputSchema {
-	return schema.BuildParamOutputSchemaWithSlice([]string{iworkconst.STRING_PREFIX + "remote_file_path"})
+	return this.BuildParamOutputSchemaWithSlice([]string{iworkconst.STRING_PREFIX + "remote_file_path"})
 }

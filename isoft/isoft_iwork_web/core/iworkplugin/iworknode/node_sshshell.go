@@ -3,7 +3,6 @@ package iworknode
 import (
 	"fmt"
 	"isoft/isoft_iwork_web/core/iworkconst"
-	"isoft/isoft_iwork_web/core/iworkdata/schema"
 	"isoft/isoft_iwork_web/core/iworklog"
 	"isoft/isoft_iwork_web/core/iworkmodels"
 	"isoft/isoft_iwork_web/core/iworkutil/sshutil"
@@ -71,5 +70,5 @@ func (this *SSHShellNode) GetDefaultParamInputSchema() *iworkmodels.ParamInputSc
 		2: {iworkconst.STRING_PREFIX + "ssh_command", "远程执行的命令,耗时的命令建议使用 nohup xxx > command.log & 格式"},
 		3: {iworkconst.NUMBER_PREFIX + "command_timeout?", "执行命令超时时间"},
 	}
-	return schema.BuildParamInputSchemaWithDefaultMap(paramMap)
+	return this.BuildParamInputSchemaWithDefaultMap(paramMap)
 }
