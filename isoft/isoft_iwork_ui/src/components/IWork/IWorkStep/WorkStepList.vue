@@ -244,7 +244,7 @@
             render: (h, params) => {
               var _this = this; // vue 实例
               // 可编辑模式
-              if(params.row.$isEdit){
+              if(params.row.$isEdit && !oneOf(params.row.work_step_name, ["start", "end"])){
                 return h('input', {
                   domProps: {
                     value: params.row.work_step_name,
