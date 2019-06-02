@@ -17,7 +17,8 @@ import (
 )
 
 func GetCacheParamInputSchemaFunc(workStep *iwork.WorkStep) *iworkmodels.ParamInputSchema {
-	return schema.GetCacheParamInputSchema(workStep, &iworknode.WorkStepFactory{WorkStep: workStep})
+	parser := schema.WorkStepSchemaParser{WorkStep: workStep, ParamSchemaParser: &iworknode.WorkStepFactory{WorkStep: workStep}}
+	return parser.GetCacheParamInputSchema()
 }
 
 // dispatcher 为父流程遗传下来的参数
