@@ -46,6 +46,7 @@ func init() {
 		AssignVarNode{},
 		MapNode{},
 		ForeachNode{},
+		PanicErrorNode{},
 	}
 	for _, v := range vs {
 		t := reflect.ValueOf(v).Type()
