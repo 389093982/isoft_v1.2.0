@@ -6,6 +6,7 @@ import (
 	"isoft/isoft/common/stringutil"
 	"regexp"
 	"strings"
+	"sync"
 )
 
 // 正则表达式 ~ 正则表达式对应的词语
@@ -20,22 +21,23 @@ var regexMap = map[string]string{
 	"^[a-zA-Z0-9]+\\::": "name::",
 }
 
-func isUUIDFuncVar(s string) bool {
-	if !strings.HasPrefix(s, "$func.") {
-		return false
-	}
-	return len(stringutil.GetNoRepeatSubStringWithRegexp(s, "^\\$[a-zA-Z_0-9]+\\.[a-zA-Z0-9\\-]+$")) == 1
-}
+var funcCallersMap sync.Map
 
-func isStringNumberOrVar(s string) bool {
-	if _, lexers, err := analysisLexer(s); err == nil && len(lexers) == 1 {
-		return true
+// 将结果存储到 sync.Map 中去
+func ParseToFuncCallers(expression string) ([]*FuncCaller, error) {
+	if callers, ok := funcCallersMap.Load(expression); ok {
+		return callers.([]*FuncCaller), nil
 	}
-	return false
+	callers, err := ParseAndCacheFuncCallers(expression)
+	if err != nil {
+		return nil, err
+	}
+	funcCallersMap.Store(expression, callers)
+	return ParseToFuncCallers(expression)
 }
 
 // 返回 uuid 和 funcCaller
-func ParseToFuncCallers(expression string) ([]*FuncCaller, error) {
+func ParseAndCacheFuncCallers(expression string) ([]*FuncCaller, error) {
 	callers := make([]*FuncCaller, 0)
 	for {
 		if isUUIDFuncVar(expression) {
@@ -46,8 +48,8 @@ func ParseToFuncCallers(expression string) ([]*FuncCaller, error) {
 		if err != nil {
 			return callers, err
 		}
-		// 提取 func
-		caller, err := GetPriorityFuncExecutorFromLexersExpression(strings.Join(metas, ""), strings.Join(lexers, ""))
+		// 提取优先级最高的 func
+		caller, err := GetPriorityFuncCaller(strings.Join(metas, ""), strings.Join(lexers, ""))
 		if err != nil { // 提取失败
 			return callers, err
 		}
@@ -57,24 +59,35 @@ func ParseToFuncCallers(expression string) ([]*FuncCaller, error) {
 			}
 			return nil, nil
 		}
-		// 函数左边部分
-		funcLeft := metas[:lexerAt(lexers, caller.FuncLeftIndex)]
-		// 函数右边部分
-		funcRight := metas[lexerAt(lexers, caller.FuncRightIndex)+1:]
-		// 函数部分
-		funcArea := metas[lexerAt(lexers, caller.FuncLeftIndex) : lexerAt(lexers, caller.FuncRightIndex)+1]
-		// 将 caller 函数替换成 $func.uuid,以便下一轮提取 func 使用
-		expression = strings.Join(funcLeft, "") + "$func." + caller.FuncUUID + strings.Join(funcRight, "")
-		caller.FuncName = strings.Replace(funcArea[0], "(", "", -1)                        // 去除函数名中的 (
-		caller.FuncArgs = stringutil.RemoveItemFromSlice(funcArea[1:len(funcArea)-1], ",") // 参数需要过滤掉 ,
-		for _, arg := range caller.FuncArgs {
-			if !isStringNumberOrVar(arg) {
-				return nil, errors.New(fmt.Sprintf(`%s 词法解析失败,格式不正确!`, arg))
-			}
+		// 填充 func 额外参数
+		if err := fillFuncCallerExtra(metas, lexers, caller, expression); err != nil {
+			return nil, err
 		}
 		callers = append(callers, caller)
 	}
 	return callers, nil
+}
+
+// 填充 func 额外参数
+func fillFuncCallerExtra(metas []string, lexers []string, caller *FuncCaller, expression string) error {
+	// 函数左边部分
+	funcLeft := metas[:lexerAt(lexers, caller.FuncLeftIndex)]
+	// 函数右边部分
+	funcRight := metas[lexerAt(lexers, caller.FuncRightIndex)+1:]
+	// 函数部分
+	funcArea := metas[lexerAt(lexers, caller.FuncLeftIndex) : lexerAt(lexers, caller.FuncRightIndex)+1]
+	// 将 caller 函数替换成 $func.uuid,以便下一轮提取 func 使用
+	expression = strings.Join(funcLeft, "") + "$func." + caller.FuncUUID + strings.Join(funcRight, "")
+	// 去除函数名中的 (
+	caller.FuncName = strings.Replace(funcArea[0], "(", "", -1)
+	// 参数需要过滤掉 ,
+	caller.FuncArgs = stringutil.RemoveItemFromSlice(funcArea[1:len(funcArea)-1], ",")
+	for _, arg := range caller.FuncArgs {
+		if !isStringNumberOrVar(arg) {
+			return errors.New(fmt.Sprintf(`%s 词法解析失败,格式不正确!`, arg))
+		}
+	}
+	return nil
 }
 
 // 判断当前索引在整个 lexers 切片中的位置
@@ -155,4 +168,18 @@ func SplitWithLexerAnalysis(expression string) ([]string, error) {
 		}
 	}
 	return multiExpressions, nil
+}
+
+func isUUIDFuncVar(s string) bool {
+	if !strings.HasPrefix(s, "$func.") {
+		return false
+	}
+	return len(stringutil.GetNoRepeatSubStringWithRegexp(s, "^\\$[a-zA-Z_0-9]+\\.[a-zA-Z0-9\\-]+$")) == 1
+}
+
+func isStringNumberOrVar(s string) bool {
+	if _, lexers, err := analysisLexer(s); err == nil && len(lexers) == 1 {
+		return true
+	}
+	return false
 }

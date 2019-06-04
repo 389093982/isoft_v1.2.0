@@ -19,7 +19,7 @@ type FuncCaller struct {
 
 // 获取优先级最高的函数执行体
 // 含有 func( 必然有优先函数执行体
-func GetPriorityFuncExecutorFromLexersExpression(metasExpression, lexersExpression string) (*FuncCaller, error) {
+func GetPriorityFuncCaller(metasExpression, lexersExpression string) (*FuncCaller, error) {
 	if !strings.Contains(lexersExpression, "func(") && !strings.Contains(lexersExpression, ")") {
 		// 非函数类型表达式值
 		return nil, nil
