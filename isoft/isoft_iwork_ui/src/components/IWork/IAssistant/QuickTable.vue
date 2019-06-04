@@ -114,7 +114,16 @@
         this.customSqls.splice(index,1);
       },
       renderSql:function () {
-        alert(this.appendSqlElements.join(" "));
+        this.$Modal.info({
+          title: "sql 预览",
+          width: 500,
+          content: this.appendSqlElements.join(" "),
+          render:(h)=>{
+            return h('div',{
+              style:'word-break: break-all;',
+            }, this.appendSqlElements.join(" "));
+          }
+        });
       },
       deleteElement:function (event) {
         event.preventDefault();
