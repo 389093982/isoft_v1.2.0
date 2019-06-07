@@ -1,21 +1,21 @@
 <template>
   <span>
     <Row style="margin-bottom: 100px;">
-      <ParamMappingAdd @handleSubmit="paramMappingAdd"/>
       <div v-for="paramMapping in paramMappings">
         <table>
           <tr>
             <td>
-              <Input type="text" v-model="paramMapping.paramMappingName"/>
+              <Input style="width: 200px;" size="small" type="text" v-model="paramMapping.paramMappingName"/>
             </td>
             <td>
-              <Select v-model="paramMapping.paramMappingType">
+              <Select style="width: 100px;" size="small" v-model="paramMapping.paramMappingType">
                 <Option value="default">default</Option>
                 <Option value="objects">objects</Option>
               </Select>
             </td>
             <td>
               <Button type="success" size="small" @click="handleDelete(paramMapping.paramMappingName)" style="margin-left: 6px">删除</Button>
+              <ParamMappingAdd @handleSubmit="paramMappingAdd"/>
             </td>
           </tr>
         </table>
