@@ -17,11 +17,11 @@
         <Row style="margin-right: 5px;">
           <Col span="14">
             <FormItem label="work_step_input" prop="work_step_input">
-              <Tabs type="card" :animated="false">
-                <TabPane label="ParamMapping" v-if="showParamMapping">
+              <Tabs type="card" :animated="false" value="edit">
+                <TabPane label="ParamMapping" name="ParamMapping" v-if="showParamMapping">
                   <ParamMapping :paramMappings="paramMappings"/>
                 </TabPane>
-                <TabPane label="edit">
+                <TabPane label="edit" name="edit" v-if="showEdit">
                   <ParamInputEdit :paramInputSchemaItems="paramInputSchema.ParamInputSchemaItems"/>
                 </TabPane>
               </Tabs>
@@ -78,6 +78,7 @@
         paramOutputSchemaTreeNode:null,
         // 显示效果
         showParamMapping:false,
+        showEdit:false,
         // 参数映射
         paramMappings:[],
         default_work_step_types: this.GLOBAL.default_work_step_types,
@@ -132,6 +133,7 @@
           }else{
             this.showParamMapping = false;
           }
+          this.showEdit = true; // tab 都是用 v-if 是为了解决排序错乱问题
 
           // 入参渲染
           this.paramInputSchema = result.paramInputSchema;
