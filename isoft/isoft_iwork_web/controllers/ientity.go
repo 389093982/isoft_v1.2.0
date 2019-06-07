@@ -1,4 +1,4 @@
-package iwork
+package controllers
 
 import (
 	"github.com/astaxie/beego/utils/pagination"

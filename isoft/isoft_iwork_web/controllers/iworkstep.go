@@ -1,4 +1,4 @@
-package iwork
+package controllers
 
 import (
 	"isoft/isoft_iwork_web/core/iworkfunc"

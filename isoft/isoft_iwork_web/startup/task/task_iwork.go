@@ -8,7 +8,7 @@ import (
 )
 
 func startIWorkCronTask() {
-	if metas, err := iwork.QueryAllCronMeta(); err == nil {
+	if metas, err := iwork.QueryAllCronMeta(true); err == nil {
 		c := cron.New()
 		for _, meta := range metas {
 			c.AddJob(meta.CronStr, &iworkJob{meta: &meta})
