@@ -12,6 +12,7 @@ import ResourceList from "../components/IWork/IResource/ResourceList"
 import MigrateList from "../components/IWork/IMigrate/MigrateList"
 import EditMigrate from "../components/IWork/IMigrate/EditMigrate"
 import QuickSql from "../components/IWork/IAssistant/QuickSql"
+import Format from "../components/IWork/IAssistant/Format"
 import GlobalVarList from "../components/IWork/IGlobalVar/GlobalVarList"
 import EntityList from "../components/IWork/IEntity/EntityList"
 
@@ -36,6 +37,7 @@ const IWorkRouter = [
       {path: 'migrateList',component: MigrateList},
       {path: 'editMigrate',component: EditMigrate},
       {path: 'quickSql',component: QuickSql},
+      {path: 'format',component: Format},
       {path: 'globalVarList',component: GlobalVarList},
       {path: 'entityList',component: EntityList},
     ]

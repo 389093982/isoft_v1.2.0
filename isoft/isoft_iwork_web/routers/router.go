@@ -17,6 +17,8 @@ func init() {
 
 	beego.Router("/", &controllers.MainController{})
 
+	// 通用代理路由
+	beego.Router("/api/iwork/proxyCall", &controllers.WorkController{}, "post:ProxyCall")
 	loadloadIWorkerRouterDetail()
 }
 
