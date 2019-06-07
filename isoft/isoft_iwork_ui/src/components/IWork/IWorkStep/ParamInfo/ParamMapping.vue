@@ -1,6 +1,6 @@
 <template>
   <span>
-    <Row style="margin-bottom: 100px;">
+    <Row>
       <div v-for="paramMapping in paramMappings">
         <table>
           <tr>
@@ -8,7 +8,7 @@
               <Input style="width: 200px;" size="small" type="text" v-model="paramMapping.paramMappingName"/>
             </td>
             <td>
-              <Select style="width: 100px;" size="small" v-model="paramMapping.paramMappingType">
+              <Select style="width: 100px;" size="small" v-model="paramMapping.paramMappingType" transfer="true">
                 <Option value="default">default</Option>
                 <Option value="objects">objects</Option>
               </Select>
