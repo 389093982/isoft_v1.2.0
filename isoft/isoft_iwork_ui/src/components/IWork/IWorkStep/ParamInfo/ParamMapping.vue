@@ -1,15 +1,24 @@
 <template>
   <span>
-    <Row>
+    <Row style="margin-bottom: 100px;">
       <ParamMappingAdd @handleSubmit="paramMappingAdd"/>
       <div v-for="paramMapping in paramMappings">
-        <Row>
-          <Col span="12">{{paramMapping.paramMappingName}} -- {{paramMapping.paramMappingType}}</Col>
-          <Col span="12" style="text-align: right;">
-            <Button type="success" size="small" @click="handleDelete(paramMapping.paramMappingName)" style="margin-left: 6px">删除</Button>
-          </Col>
-        </Row>
-        <hr/>
+        <table>
+          <tr>
+            <td>
+              <Input type="text" v-model="paramMapping.paramMappingName"/>
+            </td>
+            <td>
+              <Select v-model="paramMapping.paramMappingType">
+                <Option value="default">default</Option>
+                <Option value="objects">objects</Option>
+              </Select>
+            </td>
+            <td>
+              <Button type="success" size="small" @click="handleDelete(paramMapping.paramMappingName)" style="margin-left: 6px">删除</Button>
+            </td>
+          </tr>
+        </table>
       </div>
     </Row>
   </span>
