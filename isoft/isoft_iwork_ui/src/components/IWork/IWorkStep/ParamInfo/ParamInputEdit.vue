@@ -3,11 +3,18 @@
     <table>
       <div v-for="(item,index) in paramInputSchemaItems">
         <tr>
-          <td style="width: 150px;">
-            <span style="color: green;">{{item.ParamName}}</span>
-            <Icon type="ios-book-outline" size="18" style="margin-left: 3px;" @click="showParamDesc(item.ParamDesc)"/>
+          <td>
+            <!--white-space: nowrap; //不换行-->
+            <!--text-overflow: ellipsis; //超出部分用....代替-->
+            <!--overflow: hidden; //超出隐藏-->
+            <!--鼠标移动过去的时候显示全部文字,也很简单,给title赋值就可以了-->
+            <div style="width: 100px;color: green;text-align: right;white-space: nowrap;text-overflow: ellipsis;overflow: hidden;"
+              :title="item.ParamName">
+              {{item.ParamName}}
+            </div>
           </td>
           <td>
+            <Icon type="ios-book-outline" size="18" style="margin-left: 3px;" @click="showParamDesc(item.ParamDesc)"/>
             <!-- transfer="true" 表示是否将弹层放置于 body 内,
               在 Tabs、带有 fixed 的 Table 列内使用时,建议添加此属性,它将不受父级样式影响,从而达到更好的效果-->
             <Select style="width: 200px;" v-if="item.ParamChoices" v-model="item.ParamValue" :transfer="true">
