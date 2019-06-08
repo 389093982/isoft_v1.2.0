@@ -40,10 +40,15 @@
           </ul>
         </span>
         <div v-show="showMultiVals" style="margin-top: 20px;">
-          <span v-for="(val,index) in multiVals">
-            参数 {{index}}
-            <Input type="textarea" :value="val" readonly="true"/>
-          </span>
+          <Scroll height="350">
+            <table style="width: 100%;">
+              <tr v-for="(val,index) in multiVals">
+                <td style="width: 10%;">参数 {{index}}</td>
+                <td><Input type="textarea" :value="val" :readonly="true"/></td>
+              </tr>
+            </table>
+
+          </Scroll>
         </div>
         <Input v-show="showMultiVals == false" v-model="inputTextData" type="textarea" :rows="15" placeholder="Enter something..." />
       </Col>
