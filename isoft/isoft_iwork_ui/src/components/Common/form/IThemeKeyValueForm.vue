@@ -25,7 +25,9 @@
     props:{
       formthemes:{
         type:Array,
-        default:['test1','test2'],
+        default: function () {
+          return ['test1','test2'];
+        },
       },
       formThemeLabel:{
         type:String,
