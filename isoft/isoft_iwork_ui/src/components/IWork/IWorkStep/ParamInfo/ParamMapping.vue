@@ -1,6 +1,7 @@
 <template>
   <span>
     <Row>
+      <ParamMappingAdd @handleSubmit="paramMappingAdd" v-show="paramMappings.length == 0"/>
       <div v-for="paramMapping in paramMappings">
         <table>
           <tr>
