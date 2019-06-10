@@ -1,7 +1,7 @@
 <template>
   <ISimpleBtnTriggerModal ref="triggerModal" btn-text="新增" btn-size="small" modal-title="新增" :modal-width="500">
     <Input style="margin-bottom: 20px;" v-model.trim="paramMappingName" placeholder="请输入新增的字段名称"></Input>
-    <Select v-model="paramMappingType" transfer="true">  <!-- transfer="true" 解决下拉被隐藏的问题 -->
+    <Select v-model="paramMappingType" :transfer="true">  <!-- transfer="true" 解决下拉被隐藏的问题 -->
       <Option value="default">default</Option>
       <Option value="objects">objects</Option>
     </Select>
