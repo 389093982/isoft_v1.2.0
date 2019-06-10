@@ -18,4 +18,5 @@ func RegisterModel() {
 	orm.RegisterModel(new(iwork.WorkHistory))
 	orm.RegisterModel(new(iwork.TableMigrate))
 	orm.RegisterModel(new(iwork.GlobalVar))
+	orm.RegisterModel(new(iwork.Template))
 }

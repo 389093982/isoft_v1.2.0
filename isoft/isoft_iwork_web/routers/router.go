@@ -73,5 +73,9 @@ func loadloadIWorkerRouterDetail() {
 	beego.Router("/api/iwork/editGlobalVar", &controllers.WorkController{}, "post:EditGlobalVar")
 	beego.Router("/api/iwork/deleteGlobalVarById", &controllers.WorkController{}, "post:DeleteGlobalVarById")
 
+	beego.Router("/api/iwork/editTemplate", &controllers.WorkController{}, "post:EditTemplate")
+	beego.Router("/api/iwork/templateList", &controllers.WorkController{}, "post:TemplateList")
+	beego.Router("/api/iwork/deleteTemplateById", &controllers.WorkController{}, "post:DeleteTemplateById")
+
 	beego.Router("/api/iwork/flushCache", &controllers.WorkController{}, "post:FlushCache")
 }
