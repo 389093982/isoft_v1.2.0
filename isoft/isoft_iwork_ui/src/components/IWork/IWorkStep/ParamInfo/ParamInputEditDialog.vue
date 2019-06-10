@@ -19,26 +19,28 @@
         <Button @click="appendData('children')" style="margin-top: 10px;"><Icon type="ios-arrow-forward"></Icon>选择子节点</Button>
       </Col>
       <Col span="14">
-        <h3 style="color: #1600ff;">参数({{paramIndex}}):{{inputLabel}}</h3>
-        <span class="operate_link">
+        <div class="operate_link">
           <ul>
-            <li>
+            <li style="float: left;">
+              <h3 style="color: #1600ff;">参数({{paramIndex}}):{{inputLabel}}</h3>
+            </li>
+            <li style="float: right;">
               <router-link :to="{ path: '/iwork/quickSql' }" tag="a" target="_blank">
-                <Icon type="ios-cube-outline" size="18" style=" float: right;"/>
+                <Button type="warning" size="small">辅助工具</Button>
               </router-link>
             </li>
-            <li>
+            <li style="float: right;">
               <QuickFuncList ref="quickFuncList" @chooseFunc="chooseFunc"/>
-              <Icon type="md-copy" size="18" style="float: right;" @click="showQuickFunc()"/>
+              <Button type="success" size="small" @click="showQuickFunc()">快捷函数</Button>
             </li>
-            <li>
-              <Checkbox v-model="pureText" style="float: right;">纯文本值</Checkbox>
+            <li style="float: right;">
+              <Button type="info" size="small" @click="parseToMultiValue()">多值预览</Button>
             </li>
-            <li>
-              <a @click="parseToMultiValue">多值预览</a>
+            <li style="float: right;">
+              <Checkbox v-model="pureText">纯文本值</Checkbox>
             </li>
           </ul>
-        </span>
+        </div>
         <div v-show="showMultiVals" style="margin-top: 20px;">
           <Scroll height="350">
             <table style="width: 100%;">
@@ -222,6 +224,6 @@
   .operate_link ul li{
    display: inline-block;
    margin-left: 10px;
-   float: right;
+   margin-bottom: 5px;
  }
 </style>
