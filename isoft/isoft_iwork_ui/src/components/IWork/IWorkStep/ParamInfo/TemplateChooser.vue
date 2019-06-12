@@ -7,7 +7,7 @@
     :transfer="false"
     :mask-closable="false"
     :styles="{top: '20px'}">
-    <Template/>
+    <Template :show-chooser-btn="true" @chooseTemplate="chooseTemplate"/>
   </Modal>
 </template>
 
@@ -25,6 +25,12 @@
     methods:{
       showModal:function () {
         this.showTemplateModal = true;
+      },
+      chooseTemplate:function (template) {
+        this.$emit('chooseTemplate',template);
+      },
+      hideModal:function () {
+        this.showTemplateModal = false;
       }
     }
   }

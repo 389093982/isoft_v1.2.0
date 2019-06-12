@@ -36,6 +36,12 @@
   export default {
     name: "Template",
     components:{ISimpleLeftRightRow,ISimpleConfirmModal,IThemeKeyValueForm,ISimpleSearch},
+    props: {
+      showChooserBtn: {
+        type: Boolean,
+        default: false
+      },
+    },
     data(){
       return {
         // 当前页
@@ -91,6 +97,7 @@
                   },
                   style: {
                     marginRight: '5px',
+                    display: this.showChooserBtn ? undefined : 'none',
                   },
                   on: {
                     click: () => {
@@ -98,6 +105,20 @@
                     }
                   }
                 }, '删除'),
+                h('Button', {
+                  props: {
+                    type: 'info',
+                    size: 'small'
+                  },
+                  style: {
+                    marginRight: '5px',
+                  },
+                  on: {
+                    click: () => {
+                      this.$emit('chooseTemplate', this.templates[params.index]);
+                    }
+                  }
+                }, '选择'),
               ]);
             }
           }

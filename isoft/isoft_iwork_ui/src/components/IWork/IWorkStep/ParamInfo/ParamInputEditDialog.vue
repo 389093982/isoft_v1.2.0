@@ -40,7 +40,7 @@
               </router-link>
             </li>
             <li>
-              <TemplateChooser ref="templateModal"/>
+              <TemplateChooser ref="templateModal" @chooseTemplate="chooseTemplate"/>
               <Button type="success" size="small" @click="$refs.templateModal.showModal()">模板文字</Button>
             </li>
           </ul>
@@ -191,6 +191,10 @@
             this.appendDataWithPrefix(item.title,item, chooseType);
           }
         }
+      },
+      chooseTemplate:function (template) {
+        this.inputTextData = this.inputTextData + template.template_value;
+        this.$refs.templateModal.hideModal();
       }
     },
     computed:{
