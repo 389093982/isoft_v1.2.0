@@ -7,7 +7,9 @@
     :transfer="false"
     :mask-closable="false"
     :styles="{top: '20px'}">
-    <Template :show-chooser-btn="true" @chooseTemplate="chooseTemplate"/>
+    <div style="min-height: 380px;">
+      <Template :show-chooser-btn="true" @chooseTemplate="chooseTemplate"/>
+    </div>
   </Modal>
 </template>
 
