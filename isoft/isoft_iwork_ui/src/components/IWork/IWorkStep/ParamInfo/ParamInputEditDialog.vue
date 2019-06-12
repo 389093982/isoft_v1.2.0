@@ -25,6 +25,10 @@
               <h3 style="color: #1600ff;">参数({{paramIndex}}):{{inputLabel}}</h3>
             </li>
             <li style="float: right;">
+              <TemplateChooser ref="templateModal"/>
+              <Button type="success" size="small" @click="$refs.templateModal.showModal()">模板文字</Button>
+            </li>
+            <li style="float: right;">
               <router-link :to="{ path: '/iwork/quickSql' }" tag="a" target="_blank">
                 <Button type="warning" size="small">辅助工具</Button>
               </router-link>
@@ -69,10 +73,11 @@
   import ISimpleBtnTriggerModal from "../../../Common/modal/ISimpleBtnTriggerModal"
   import QuickFuncList from "../../IQuickFunc/QuickFuncList"
   import {ParseToMultiValue} from "../../../../api"
+  import TemplateChooser from "./TemplateChooser"
 
   export default {
     name: "ParamInputEditDialog",
-    components:{ISimpleBtnTriggerModal,QuickFuncList},
+    components:{ISimpleBtnTriggerModal,QuickFuncList,TemplateChooser},
     data(){
       return {
         showFormModal:false,
