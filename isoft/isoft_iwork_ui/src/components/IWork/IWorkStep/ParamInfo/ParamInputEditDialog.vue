@@ -21,27 +21,27 @@
       <Col span="14">
         <div class="operate_link">
           <ul>
-            <li style="float: left;">
+            <li>
               <h3 style="color: #1600ff;">参数({{paramIndex}}):{{inputLabel}}</h3>
             </li>
-            <li style="float: right;">
-              <TemplateChooser ref="templateModal"/>
-              <Button type="success" size="small" @click="$refs.templateModal.showModal()">模板文字</Button>
+            <li>
+              <Checkbox v-model="pureText">纯文本值</Checkbox>
             </li>
-            <li style="float: right;">
+            <li>
+              <Button type="info" size="small" @click="parseToMultiValue()">多值预览</Button>
+            </li>
+            <li>
+              <QuickFuncList ref="quickFuncList" @chooseFunc="chooseFunc"/>
+              <Button type="success" size="small" @click="showQuickFunc()">快捷函数</Button>
+            </li>
+            <li>
               <router-link :to="{ path: '/iwork/quickSql' }" tag="a" target="_blank">
                 <Button type="warning" size="small">辅助工具</Button>
               </router-link>
             </li>
-            <li style="float: right;">
-              <QuickFuncList ref="quickFuncList" @chooseFunc="chooseFunc"/>
-              <Button type="success" size="small" @click="showQuickFunc()">快捷函数</Button>
-            </li>
-            <li style="float: right;">
-              <Button type="info" size="small" @click="parseToMultiValue()">多值预览</Button>
-            </li>
-            <li style="float: right;">
-              <Checkbox v-model="pureText">纯文本值</Checkbox>
+            <li>
+              <TemplateChooser ref="templateModal"/>
+              <Button type="success" size="small" @click="$refs.templateModal.showModal()">模板文字</Button>
             </li>
           </ul>
         </div>
