@@ -17,12 +17,12 @@
             <Icon type="ios-book-outline" size="18" style="margin-left: 3px;" @click="showParamDesc(item.ParamDesc)"/>
             <!-- transfer="true" 表示是否将弹层放置于 body 内,
               在 Tabs、带有 fixed 的 Table 列内使用时,建议添加此属性,它将不受父级样式影响,从而达到更好的效果-->
-            <Select style="width: 200px;" v-if="item.ParamChoices" v-model="item.ParamValue" :transfer="true">
+            <Select style="width: 350px;" v-if="item.ParamChoices" v-model="item.ParamValue" :transfer="true">
               <Option v-for="choice in item.ParamChoices" :value="choice" :key="choice">
                 {{choice}}
               </Option>
             </Select>
-            <Input style="width: 200px;" v-else size="small" v-model.trim="item.ParamValue" readonly type="text" placeholder="small size"/>
+            <Input style="width: 350px;" v-else size="small" v-model.trim="item.ParamValue" readonly type="text" placeholder="small size"/>
           </td>
           <td>
             <Button v-if="!item.ParamChoices" type="success" size="small" @click="handleReload(index)">查看/编辑</Button>
