@@ -5,7 +5,7 @@ import (
 	"github.com/astaxie/beego/orm"
 	_ "github.com/go-sql-driver/mysql" // _ 的作用,并不需要把整个包都导入进来,仅仅是是希望它执行init()函数而已
 	_ "github.com/mattn/go-sqlite3"
-	"isoft/isoft_iwork_web/imodules/miwork"
+	"isoft/isoft_iwork_web/models/iwork"
 )
 
 // 数据库同步模式,支持 FLYWAY 和 AUTO
@@ -50,7 +50,19 @@ func InitDb() {
 }
 
 func registerModel() {
-	miwork.RegisterModel()
+	orm.RegisterModel(new(iwork.CronMeta))
+	orm.RegisterModel(new(iwork.Resource))
+	orm.RegisterModel(new(iwork.Work))
+	orm.RegisterModel(new(iwork.WorkStep))
+	orm.RegisterModel(new(iwork.RunLogRecord))
+	orm.RegisterModel(new(iwork.RunLogDetail))
+	orm.RegisterModel(new(iwork.Entity))
+	orm.RegisterModel(new(iwork.ValidateLogRecord))
+	orm.RegisterModel(new(iwork.ValidateLogDetail))
+	orm.RegisterModel(new(iwork.WorkHistory))
+	orm.RegisterModel(new(iwork.TableMigrate))
+	orm.RegisterModel(new(iwork.GlobalVar))
+	orm.RegisterModel(new(iwork.Template))
 }
 
 // 自动建表
