@@ -14,27 +14,25 @@
             <h2 style='font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;'>步骤名称:{{formValidate.work_step_name}},步骤类型:{{formValidate.work_step_type}}</h2>
           </Col>
         </Row>
-        <Row style="margin-right: 5px;">
+        <Row style="margin-right: 5px;" :gutter="16">
           <Col span="14">
-            <FormItem label="work_step_input" prop="work_step_input">
-              <Tabs type="card" :animated="false" value="edit">
-                <TabPane label="ParamMapping" name="ParamMapping" v-if="showParamMapping">
-                  <ParamMapping :paramMappings="paramMappings"/>
-                </TabPane>
-                <TabPane label="edit" name="edit" v-if="showEdit">
-                  <ParamInputEdit :paramInputSchemaItems="paramInputSchema.ParamInputSchemaItems"/>
-                </TabPane>
-              </Tabs>
-            </FormItem>
+            <Tabs type="card" :animated="false" value="edit">
+              <TabPane label="ParamMapping" name="ParamMapping" v-if="showParamMapping">
+                <ParamMapping :paramMappings="paramMappings"/>
+              </TabPane>
+              <TabPane label="edit" name="edit" v-if="showEdit">
+                <ParamInputEdit :paramInputSchemaItems="paramInputSchema.ParamInputSchemaItems"/>
+              </TabPane>
+              <Button size="small" slot="extra">input</Button>
+            </Tabs>
           </Col>
           <Col span="10">
-            <FormItem label="work_step_output" prop="work_step_output">
-              <Tabs type="card" :animated="false">
-                <TabPane label="Tree">
-                  <PreParamOutputTree v-if="paramOutputSchemaTreeNode" :paramOutputSchemaTreeNode="paramOutputSchemaTreeNode"/>
-                </TabPane>
-              </Tabs>
-            </FormItem>
+            <Tabs type="card" :animated="false">
+              <TabPane label="Tree">
+                <PreParamOutputTree v-if="paramOutputSchemaTreeNode" :paramOutputSchemaTreeNode="paramOutputSchemaTreeNode"/>
+              </TabPane>
+              <Button size="small" slot="extra">output</Button>
+            </Tabs>
           </Col>
         </Row>
         <FormItem>
