@@ -11,7 +11,7 @@ import (
 // 数据库同步模式,支持 FLYWAY 和 AUTO
 const RunSyncdbMode = "AUTO"
 
-func InitDb() {
+func init() {
 	orm.RegisterDriver("sqlite", orm.DRSqlite)
 	orm.RegisterDataBase("default", "sqlite3", "iwork.db") // iwork 项目使用
 

@@ -9,7 +9,7 @@ import (
 	"os"
 )
 
-func InitLog() {
+func init() {
 	var logDir string
 	if beego.BConfig.RunMode == "dev" || beego.BConfig.RunMode == "local" {
 		logDir = "../../../isoft_iwork_web_log"
