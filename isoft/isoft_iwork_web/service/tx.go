@@ -5,44 +5,48 @@ import (
 	"github.com/pkg/errors"
 )
 
+func renderError(err interface{}) error {
+	if errorMsg, ok := err.(string); ok {
+		return errors.New(errorMsg)
+	} else if _, ok := err.(error); ok {
+		return err.(error)
+	}
+	panic(err)
+}
+
 func ExecuteServiceWithTx(serviceArgs map[string]interface{}, serviceFunc func(args map[string]interface{}) error) (err error) {
 	o := orm.NewOrm()
 	err = o.Begin()
-	if err != nil {
-		return err
-	}
-	defer func() {
-		if err1 := recover(); err1 != nil {
-			o.Rollback()
-			if errorMsg, ok := err1.(string); ok {
-				err = errors.New(errorMsg)
-			} else if _, ok := err1.(error); ok {
-				err = err1.(error)
+	if err == nil {
+		defer o.Rollback()
+		defer func() {
+			if err1 := recover(); err1 != nil {
+				err = renderError(err1)
 			}
+		}()
+		serviceArgs["o"] = o
+		if err = serviceFunc(serviceArgs); err == nil {
+			o.Commit()
 		}
-	}()
-	serviceArgs["o"] = o
-	if err = serviceFunc(serviceArgs); err != nil {
-		o.Rollback()
-		return err
 	}
-	o.Commit()
-	return nil
+	return
 }
 
 func ExecuteResultServiceWithTx(serviceArgs map[string]interface{},
-	serviceFunc func(args map[string]interface{}) (map[string]interface{}, error)) (map[string]interface{}, error) {
+	serviceFunc func(args map[string]interface{}) (map[string]interface{}, error)) (result map[string]interface{}, err error) {
 	o := orm.NewOrm()
-	err := o.Begin()
-	if err != nil {
-		return nil, err
+	err = o.Begin()
+	if err == nil {
+		defer o.Rollback()
+		defer func() {
+			if err1 := recover(); err1 != nil {
+				err = renderError(err1)
+			}
+		}()
+		serviceArgs["o"] = o
+		if result, err = serviceFunc(serviceArgs); err == nil {
+			o.Commit()
+		}
 	}
-	serviceArgs["o"] = o
-	result, err := serviceFunc(serviceArgs)
-	if err != nil {
-		o.Rollback()
-		return nil, err
-	}
-	o.Commit()
-	return result, nil
+	return
 }
