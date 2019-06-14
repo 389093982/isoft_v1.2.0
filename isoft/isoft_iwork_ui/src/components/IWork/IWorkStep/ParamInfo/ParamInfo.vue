@@ -7,43 +7,39 @@
     :mask-closable="false"
     :styles="{top: '10px'}">
     <Scroll height="450" style="position: relative;">
-      <!-- 表单信息 -->
-      <Form ref="formValidate" :model="formValidate" :rules="ruleValidate" :label-width="140">
-        <Row style="margin-bottom: 20px;text-align: center;color: green;">
-          <Col span="16">
-            <h2 style='font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;'>步骤名称:{{formValidate.work_step_name}},步骤类型:{{formValidate.work_step_type}}</h2>
-          </Col>
-        </Row>
-        <Row style="margin-right: 5px;margin-left:20px;" :gutter="16">
-          <Col span="16">
-            <Tabs type="card" :animated="false" value="edit">
-              <TabPane label="ParamMapping" name="ParamMapping" v-if="showParamMapping">
-                <ParamMapping :paramMappings="paramMappings"/>
-              </TabPane>
-              <TabPane label="edit" name="edit" v-if="showEdit">
-                <ParamInputEdit :paramInputSchemaItems="paramInputSchema.ParamInputSchemaItems"/>
-              </TabPane>
-              <Button size="small" slot="extra">input</Button>
-            </Tabs>
-          </Col>
-          <Col span="8">
-            <Tabs type="card" :animated="false">
-              <TabPane label="Tree">
-                <PreParamOutputTree v-if="paramOutputSchemaTreeNode" :paramOutputSchemaTreeNode="paramOutputSchemaTreeNode"/>
-              </TabPane>
-              <Button size="small" slot="extra">output</Button>
-            </Tabs>
-          </Col>
-        </Row>
-        <FormItem>
-          <Row>
-            <Button type="success" size="small" @click="handleSubmit('formValidate')">Submit</Button>
+    <!-- 表单信息 -->
+      <Row style="margin-bottom: 20px;text-align: center;color: green;">
+        <Col span="16">
+          <h2 style='font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;'>步骤名称:{{workStepParamInfo.work_step_name}},步骤类型:{{workStepParamInfo.work_step_type}}</h2>
+        </Col>
+      </Row>
+      <Row style="margin-right: 5px;margin-left:20px;" :gutter="16">
+        <Col span="16">
+          <Tabs type="card" :animated="false" value="edit">
+            <TabPane label="ParamMapping" name="ParamMapping" v-if="showParamMapping">
+              <ParamMapping :paramMappings="paramMappings"/>
+            </TabPane>
+            <TabPane label="edit" name="edit" v-if="showEdit">
+              <ParamInputEdit :paramInputSchemaItems="paramInputSchema.ParamInputSchemaItems"/>
+            </TabPane>
+            <Button size="small" slot="extra">input</Button>
+          </Tabs>
+          <Row style="padding-left: 130px;margin-top: 20px;">
+            <Button type="success" size="small" @click="handleSubmit">Submit</Button>
             <Button type="warning" size="small" @click="showNext(-1)">Load Last</Button>
             <Button type="warning" size="small" @click="showNext(1)">Load Next</Button>
             <Button type="info" size="small" @click="closeModal">Close</Button>
           </Row>
-        </FormItem>
-      </Form>
+        </Col>
+        <Col span="8">
+          <Tabs type="card" :animated="false">
+            <TabPane label="Tree">
+              <PreParamOutputTree v-if="paramOutputSchemaTreeNode" :paramOutputSchemaTreeNode="paramOutputSchemaTreeNode"/>
+            </TabPane>
+            <Button size="small" slot="extra">output</Button>
+          </Tabs>
+        </Col>
+      </Row>
     </Scroll>
   </Modal>
 </template>
@@ -80,51 +76,36 @@
         // 参数映射
         paramMappings:[],
         default_work_step_types: this.GLOBAL.default_work_step_types,
-        formValidate: {
+        workStepParamInfo: {
           work_id: this.workId,
           work_step_id: 0,
           work_step_name: '',
           work_step_type: '',
         },
-        ruleValidate: {
-          work_step_id: [
-            { required: true, type: 'number', message: 'work_step_id 必须为数字且不能为空!', trigger: 'blur' },
-          ],
-          work_step_name: [
-            { required: true, message: 'work_step_name 不能为空!', trigger: 'blur' }
-          ],
-          work_step_type: [
-            { required: true, message: 'work_step_type 不能为空!', trigger: 'blur' }
-          ],
-        },
       }
     },
     methods:{
-      handleSubmit (name) {
-        this.$refs[name].validate(async (valid) => {
-          if (valid) {
-            const paramInputSchemaStr = JSON.stringify(this.paramInputSchema);
-            const paramMappingsStr = JSON.stringify(this.paramMappings);
-            const result = await EditWorkStepParamInfo(this.formValidate.work_id, this.formValidate.work_step_id, paramInputSchemaStr, paramMappingsStr);
-            if(result.status == "SUCCESS"){
-              this.$Message.success('提交成功!');
-              // 通知父组件添加成功
-              this.$emit('handleSuccess');
-              // 直接刷新不关闭
-              this.showWorkStepParamInfo(this.formValidate.work_id, this.formValidate.work_step_id);
-            }else{
-              this.$Message.error('提交失败!' + result.errorMsg);
-            }
-          }
-        })
+      handleSubmit:async function() {
+        const paramInputSchemaStr = JSON.stringify(this.paramInputSchema);
+        const paramMappingsStr = JSON.stringify(this.paramMappings);
+        const result = await EditWorkStepParamInfo(this.workStepParamInfo.work_id, this.workStepParamInfo.work_step_id, paramInputSchemaStr, paramMappingsStr);
+        if(result.status == "SUCCESS"){
+          this.$Message.success('提交成功!');
+          // 通知父组件添加成功
+          this.$emit('handleSuccess');
+          // 直接刷新不关闭
+          this.showWorkStepParamInfo(this.workStepParamInfo.work_id, this.workStepParamInfo.work_step_id);
+        }else{
+          this.$Message.error('提交失败!' + result.errorMsg);
+        }
       },
       loadWorkStepInfo:async function(){
-        const result = await LoadWorkStepInfo(this.formValidate.work_id,this.formValidate.work_step_id);
+        const result = await LoadWorkStepInfo(this.workStepParamInfo.work_id,this.workStepParamInfo.work_step_id);
         if(result.status == "SUCCESS"){
-          this.formValidate.work_id = result.step.work_id;
-          this.formValidate.work_step_id = result.step.work_step_id;
-          this.formValidate.work_step_name = result.step.work_step_name;
-          this.formValidate.work_step_type = result.step.work_step_type;
+          this.workStepParamInfo.work_id = result.step.work_id;
+          this.workStepParamInfo.work_step_id = result.step.work_step_id;
+          this.workStepParamInfo.work_step_name = result.step.work_step_name;
+          this.workStepParamInfo.work_step_type = result.step.work_step_type;
 
           if(oneOf(result.step.work_step_type, ["work_start","work_end","mapper","entity_parser","goto_condition","define_var","assign_var"])){
             this.showParamMapping = true;
@@ -147,21 +128,20 @@
         }else{
           // 加载失败
           this.$Message.error('加载失败!');
-          this.handleReset('formValidate');
         }
       },
       showNext: function(num){
-        if((this.formValidate.work_step_type == "work_end" && num > 0) || (this.formValidate.work_step_type == "work_start" && num < 0)){
+        if((this.workStepParamInfo.work_step_type == "work_end" && num > 0) || (this.workStepParamInfo.work_step_type == "work_start" && num < 0)){
           return;
         }
-        this.showWorkStepParamInfo(this.formValidate.work_id,this.formValidate.work_step_id + num);
+        this.showWorkStepParamInfo(this.workStepParamInfo.work_id,this.workStepParamInfo.work_step_id + num);
       },
       closeModal: function(){
         this.showFormModal = false;
       },
       showWorkStepParamInfo:function (work_id, work_step_id) {
-        this.formValidate.work_id = work_id;
-        this.formValidate.work_step_id = work_step_id;
+        this.workStepParamInfo.work_id = work_id;
+        this.workStepParamInfo.work_step_id = work_step_id;
         this.loadWorkStepInfo();
       },
     },
