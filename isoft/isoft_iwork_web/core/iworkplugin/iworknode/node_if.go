@@ -8,7 +8,7 @@ import (
 	"isoft/isoft_iwork_web/core/iworkdata/block"
 	"isoft/isoft_iwork_web/core/iworkdata/entry"
 	"isoft/isoft_iwork_web/core/iworkmodels"
-	"isoft/isoft_iwork_web/core/iworkplugin/iworkprotocol"
+	"isoft/isoft_iwork_web/core/iworkplugin/interfaces"
 	"isoft/isoft_iwork_web/models/iwork"
 )
 
@@ -16,7 +16,7 @@ type IFNode struct {
 	BaseNode
 	WorkStep         *iwork.WorkStep
 	BlockStep        *block.BlockStep
-	BlockStepRunFunc func(args *iworkprotocol.RunOneStepArgs) (receiver *entry.Receiver)
+	BlockStepRunFunc func(args *interfaces.RunOneStepArgs) (receiver *entry.Receiver)
 }
 
 func (this *IFNode) Execute(trackingId string) {
@@ -57,7 +57,7 @@ type ElIfNode struct {
 	BaseNode
 	WorkStep         *iwork.WorkStep
 	BlockStep        *block.BlockStep
-	BlockStepRunFunc func(args *iworkprotocol.RunOneStepArgs) (receiver *entry.Receiver)
+	BlockStepRunFunc func(args *interfaces.RunOneStepArgs) (receiver *entry.Receiver)
 }
 
 func (this *ElIfNode) Execute(trackingId string) {
@@ -102,7 +102,7 @@ type ElseNode struct {
 	BaseNode
 	WorkStep         *iwork.WorkStep
 	BlockStep        *block.BlockStep
-	BlockStepRunFunc func(args *iworkprotocol.RunOneStepArgs) (receiver *entry.Receiver)
+	BlockStepRunFunc func(args *interfaces.RunOneStepArgs) (receiver *entry.Receiver)
 }
 
 func (this *ElseNode) Execute(trackingId string) {

@@ -7,7 +7,7 @@ import (
 	"isoft/isoft_iwork_web/core/iworkdata/entry"
 	"isoft/isoft_iwork_web/core/iworkdata/schema"
 	"isoft/isoft_iwork_web/core/iworkmodels"
-	"isoft/isoft_iwork_web/core/iworkplugin/iworkprotocol"
+	"isoft/isoft_iwork_web/core/iworkplugin/interfaces"
 	"isoft/isoft_iwork_web/models/iwork"
 	"strings"
 )
@@ -16,7 +16,7 @@ type ForeachNode struct {
 	BaseNode
 	WorkStep         *iwork.WorkStep
 	BlockStep        *block.BlockStep
-	BlockStepRunFunc func(args *iworkprotocol.RunOneStepArgs) (receiver *entry.Receiver)
+	BlockStepRunFunc func(args *interfaces.RunOneStepArgs) (receiver *entry.Receiver)
 }
 
 func (this *ForeachNode) Execute(trackingId string) {

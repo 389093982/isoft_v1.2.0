@@ -10,7 +10,7 @@ import (
 	"isoft/isoft_iwork_web/core/iworkdata/entry"
 	"isoft/isoft_iwork_web/core/iworklog"
 	"isoft/isoft_iwork_web/core/iworkmodels"
-	"isoft/isoft_iwork_web/core/iworkplugin/iworkprotocol"
+	"isoft/isoft_iwork_web/core/iworkplugin/interfaces"
 	"isoft/isoft_iwork_web/core/iworkutil/reflectutil"
 	"isoft/isoft_iwork_web/models/iwork"
 	"reflect"
@@ -22,7 +22,7 @@ type WorkStepFactory struct {
 	WorkStep         *iwork.WorkStep                                                              // 普通步骤执行时使用的参数
 	BlockStep        *block.BlockStep                                                             // 块步骤执行时使用的参数
 	WorkSubRunFunc   func(work_id int64, dispatcher *entry.Dispatcher) (receiver *entry.Receiver) // 执行步骤时遇到子流程时的回调函数
-	BlockStepRunFunc func(args *iworkprotocol.RunOneStepArgs) (receiver *entry.Receiver)          // 执行步骤时使用 BlockStep 时的回调函数
+	BlockStepRunFunc func(args *interfaces.RunOneStepArgs) (receiver *entry.Receiver)             // 执行步骤时使用 BlockStep 时的回调函数
 	Dispatcher       *entry.Dispatcher
 	Receiver         *entry.Receiver // 代理了 Receiver,值从 work_end 节点获取
 	DataStore        *datastore.DataStore
@@ -39,16 +39,16 @@ func (this *WorkStepFactory) Execute(trackingId string) {
 	}
 }
 
-func GetIWorkStep(workStepType string) iworkprotocol.IWorkStep {
+func GetIWorkStep(workStepType string) interfaces.IWorkStep {
 	// 调整 workStepType
 	_workStepType := strings.ToUpper(strings.Replace(workStepType, "_", "", -1) + "NODE")
 	if t, ok := typeMap[_workStepType]; ok {
-		return reflect.New(t).Interface().(iworkprotocol.IWorkStep)
+		return reflect.New(t).Interface().(interfaces.IWorkStep)
 	}
 	panic(fmt.Sprintf("invalid workStepType for %s", workStepType))
 }
 
-func (this *WorkStepFactory) getProxy() iworkprotocol.IWorkStep {
+func (this *WorkStepFactory) getProxy() interfaces.IWorkStep {
 	fieldMap := map[string]interface{}{
 		"WorkStep":         this.WorkStep,
 		"BaseNode":         BaseNode{DataStore: this.DataStore, o: this.O, LogWriter: this.LogWriter, WorkCache: this.WorkCache},

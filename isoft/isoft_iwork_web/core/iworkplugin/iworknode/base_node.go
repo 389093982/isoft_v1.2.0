@@ -8,7 +8,7 @@ import (
 	"isoft/isoft_iwork_web/core/iworkdata/schema"
 	"isoft/isoft_iwork_web/core/iworklog"
 	"isoft/isoft_iwork_web/core/iworkmodels"
-	"isoft/isoft_iwork_web/core/iworkplugin/iworkprotocol"
+	"isoft/isoft_iwork_web/core/iworkplugin/interfaces"
 	"isoft/isoft_iwork_web/core/iworkplugin/pis"
 	"isoft/isoft_iwork_web/core/iworkutil/datatypeutil"
 	"isoft/isoft_iwork_web/models/iwork"
@@ -18,7 +18,7 @@ import (
 
 // 所有 node 的基类
 type BaseNode struct {
-	iworkprotocol.IWorkStep
+	interfaces.IWorkStep
 	DataStore *datastore.DataStore
 	o         orm.Ormer
 	LogWriter *iworklog.CacheLoggerWriter

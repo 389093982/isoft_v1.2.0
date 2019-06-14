@@ -1,4 +1,4 @@
-package iworkprotocol
+package interfaces
 
 import (
 	"github.com/astaxie/beego/orm"

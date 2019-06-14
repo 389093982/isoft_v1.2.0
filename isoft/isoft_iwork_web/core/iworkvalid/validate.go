@@ -4,13 +4,13 @@ import (
 	"fmt"
 	"isoft/isoft_iwork_web/core/iworkdata/schema"
 	"isoft/isoft_iwork_web/core/iworkmodels"
-	"isoft/isoft_iwork_web/core/iworkplugin/iworkprotocol"
+	"isoft/isoft_iwork_web/core/iworkplugin/interfaces"
 	"isoft/isoft_iwork_web/models/iwork"
 	"strings"
 )
 
 // 对必须参数进行非空校验
-func CheckEmpty(step *iwork.WorkStep, paramSchemaParser iworkprotocol.IParamSchemaParser) (checkResult []string) {
+func CheckEmpty(step *iwork.WorkStep, paramSchemaParser interfaces.IParamSchemaParser) (checkResult []string) {
 	if strings.TrimSpace(step.WorkStepName) == "" || strings.TrimSpace(step.WorkStepType) == "" {
 		checkResult = append(checkResult, fmt.Sprintf("Empty workStepName or empty workStepType was found!"))
 		return

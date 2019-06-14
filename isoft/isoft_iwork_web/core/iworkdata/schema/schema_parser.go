@@ -3,14 +3,14 @@ package schema
 import (
 	"encoding/json"
 	"isoft/isoft_iwork_web/core/iworkmodels"
-	"isoft/isoft_iwork_web/core/iworkplugin/iworkprotocol"
+	"isoft/isoft_iwork_web/core/iworkplugin/interfaces"
 	"isoft/isoft_iwork_web/models/iwork"
 	"strings"
 )
 
 type WorkStepFactorySchemaParser struct {
 	WorkStep          *iwork.WorkStep
-	ParamSchemaParser iworkprotocol.IParamSchemaParser
+	ParamSchemaParser interfaces.IParamSchemaParser
 }
 
 // 获取缓存的出参 schema,即从 DB 中读取

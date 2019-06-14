@@ -7,7 +7,7 @@ import (
 	"isoft/isoft_iwork_web/core/iworkdata/datastore"
 	"isoft/isoft_iwork_web/core/iworkdata/entry"
 	"isoft/isoft_iwork_web/core/iworklog"
-	"isoft/isoft_iwork_web/core/iworkplugin/iworkprotocol"
+	"isoft/isoft_iwork_web/core/iworkplugin/interfaces"
 	"isoft/isoft_iwork_web/core/iworkutil/errorutil"
 )
 
@@ -18,7 +18,7 @@ type BlockStepOrdersRunner struct {
 	LogWriter    *iworklog.CacheLoggerWriter
 	Store        *datastore.DataStore
 	Dispatcher   *entry.Dispatcher
-	RunOneStep   iworkprotocol.RunOneStep
+	RunOneStep   interfaces.RunOneStep
 }
 
 func (this *BlockStepOrdersRunner) Run() (receiver *entry.Receiver) {
@@ -48,7 +48,7 @@ func (this *BlockStepOrdersRunner) runDetail(runEnd ...bool) (receiver *entry.Re
 		if blockStep.Step.WorkStepType == "empty" {
 			continue
 		}
-		args := &iworkprotocol.RunOneStepArgs{
+		args := &interfaces.RunOneStepArgs{
 			TrackingId: this.TrackingId,
 			Logwriter:  this.LogWriter,
 			BlockStep:  blockStep,
