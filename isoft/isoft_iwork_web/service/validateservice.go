@@ -1,4 +1,4 @@
-package iworkservice
+package service
 
 import "isoft/isoft_iwork_web/models/iwork"
 

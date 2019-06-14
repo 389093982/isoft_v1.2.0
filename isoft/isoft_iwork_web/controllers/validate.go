@@ -12,13 +12,12 @@ import (
 	"isoft/isoft_iwork_web/core/iworkvalid"
 	"isoft/isoft_iwork_web/models/iwork"
 	"isoft/isoft_iwork_web/service"
-	"isoft/isoft_iwork_web/service/iworkservice"
 	"strings"
 	"time"
 )
 
 func (this *WorkController) LoadValidateResult() {
-	if result, err := service.ExecuteResultServiceWithTx(map[string]interface{}{}, iworkservice.LoadValidateResultService); err == nil {
+	if result, err := service.ExecuteResultServiceWithTx(map[string]interface{}{}, service.LoadValidateResultService); err == nil {
 		this.Data["json"] = &map[string]interface{}{"status": "SUCCESS", "details": result["details"]}
 	} else {
 		this.Data["json"] = &map[string]interface{}{"status": "ERROR", "errorMsg": err.Error()}
