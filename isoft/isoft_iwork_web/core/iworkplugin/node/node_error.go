@@ -1,4 +1,4 @@
-package iworknode
+package node
 
 import (
 	"github.com/pkg/errors"

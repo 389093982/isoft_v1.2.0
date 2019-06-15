@@ -1,4 +1,4 @@
-package iworknode
+package node
 
 import (
 	"encoding/json"

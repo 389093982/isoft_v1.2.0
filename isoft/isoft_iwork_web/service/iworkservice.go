@@ -8,7 +8,7 @@ import (
 	"isoft/isoft/common/pageutil"
 	"isoft/isoft_iwork_web/core/iworkconst"
 	"isoft/isoft_iwork_web/core/iworkdata/schema"
-	"isoft/isoft_iwork_web/core/iworkplugin/iworknode"
+	"isoft/isoft_iwork_web/core/iworkplugin/node"
 	"isoft/isoft_iwork_web/core/iworkrun"
 	"isoft/isoft_iwork_web/models/iwork"
 	"strings"
@@ -176,7 +176,7 @@ func ChangeReferencesWorkName(work_id int64, oldWorkName, workName string, o orm
 			if step.WorkStepType != "work_sub" {
 				continue
 			}
-			parser := schema.WorkStepFactorySchemaParser{WorkStep: &step, ParamSchemaParser: &iworknode.WorkStepFactory{WorkStep: &step}}
+			parser := schema.WorkStepFactorySchemaParser{WorkStep: &step, ParamSchemaParser: &node.WorkStepFactory{WorkStep: &step}}
 			inputSchema := parser.GetCacheParamInputSchema()
 			for index, item := range inputSchema.ParamInputSchemaItems {
 				if item.ParamName == iworkconst.STRING_PREFIX+"work_sub" && strings.Contains(item.ParamValue, oldWorkName) {

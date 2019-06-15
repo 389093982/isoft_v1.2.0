@@ -1,4 +1,4 @@
-package iworknode
+package node
 
 import (
 	"isoft/isoft_iwork_web/core/iworkconst"

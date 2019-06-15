@@ -9,13 +9,13 @@ import (
 	"isoft/isoft_iwork_web/core/iworklog"
 	"isoft/isoft_iwork_web/core/iworkmodels"
 	"isoft/isoft_iwork_web/core/iworkplugin/interfaces"
-	"isoft/isoft_iwork_web/core/iworkplugin/iworknode"
+	"isoft/isoft_iwork_web/core/iworkplugin/node"
 	"isoft/isoft_iwork_web/models/iwork"
 	"time"
 )
 
 func GetCacheParamInputSchemaFunc(workStep *iwork.WorkStep) *iworkmodels.ParamInputSchema {
-	parser := schema.WorkStepFactorySchemaParser{WorkStep: workStep, ParamSchemaParser: &iworknode.WorkStepFactory{WorkStep: workStep}}
+	parser := schema.WorkStepFactorySchemaParser{WorkStep: workStep, ParamSchemaParser: &node.WorkStepFactory{WorkStep: workStep}}
 	return parser.GetCacheParamInputSchema()
 }
 
@@ -33,7 +33,7 @@ func RunOneWork(work_id int64, dispatcher *entry.Dispatcher) (receiver *entry.Re
 	// 记录日志详细
 	logwriter.Write(trackingId, fmt.Sprintf("~~~~~~~~~~start execute work:%s~~~~~~~~~~", workCache.Work.WorkName))
 
-	bsoRunner := iworknode.BlockStepOrdersRunner{
+	bsoRunner := node.BlockStepOrdersRunner{
 		ParentStepId: -1,
 		WorkCache:    workCache,
 		TrackingId:   trackingId,
@@ -55,7 +55,7 @@ func RunOneStep(args *interfaces.RunOneStepArgs) (receiver *entry.Receiver) {
 	log := "start execute blockStep: >>>>>>>>>> [[<span style='color:blue;'>%s<span>]]"
 	args.Logwriter.Write(args.TrackingId, fmt.Sprintf(log, args.BlockStep.Step.WorkStepName))
 	// 由工厂代为执行步骤
-	factory := &iworknode.WorkStepFactory{
+	factory := &node.WorkStepFactory{
 		WorkStep:         args.BlockStep.Step,
 		Dispatcher:       args.Dispatcher,
 		Receiver:         receiver,

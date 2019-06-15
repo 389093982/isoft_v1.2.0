@@ -4,7 +4,7 @@ import (
 	"github.com/astaxie/beego/orm"
 	"isoft/isoft_iwork_web/core/iworkdata/entry"
 	"isoft/isoft_iwork_web/core/iworkdata/schema"
-	"isoft/isoft_iwork_web/core/iworkplugin/iworknode"
+	"isoft/isoft_iwork_web/core/iworkplugin/node"
 	"isoft/isoft_iwork_web/core/iworkrun"
 	"isoft/isoft_iwork_web/models/iwork"
 	"strings"
@@ -45,7 +45,7 @@ func (this *WorkController) ParseParam(steps []iwork.WorkStep) map[string]interf
 	mapData := map[string]interface{}{}
 	for _, step := range steps {
 		if step.WorkStepType == "work_start" {
-			parser := schema.WorkStepFactorySchemaParser{WorkStep: &step, ParamSchemaParser: &iworknode.WorkStepFactory{WorkStep: &step}}
+			parser := schema.WorkStepFactorySchemaParser{WorkStep: &step, ParamSchemaParser: &node.WorkStepFactory{WorkStep: &step}}
 			inputSchema := parser.GetCacheParamInputSchema()
 			for _, item := range inputSchema.ParamInputSchemaItems {
 				// 默认参数类型都当成 string 类型

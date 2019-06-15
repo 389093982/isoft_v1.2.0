@@ -6,7 +6,7 @@ import (
 	"isoft/isoft/common/stringutil"
 	"isoft/isoft_iwork_web/core/iworkdata/schema"
 	"isoft/isoft_iwork_web/core/iworkmodels"
-	"isoft/isoft_iwork_web/core/iworkplugin/iworknode"
+	"isoft/isoft_iwork_web/core/iworkplugin/node"
 	"isoft/isoft_iwork_web/core/iworkutil"
 	"isoft/isoft_iwork_web/core/iworkutil/errorutil"
 	"isoft/isoft_iwork_web/core/iworkvalid"
@@ -156,7 +156,7 @@ func validateStep(step *iwork.WorkStep, logCh chan *iwork.ValidateLogDetail, ste
 
 func CheckStep(step *iwork.WorkStep) (checkResult []string) {
 	// 校验 step 中的参数是否为空
-	checkResults1 := iworkvalid.CheckEmpty(step, &iworknode.WorkStepFactory{WorkStep: step})
+	checkResults1 := iworkvalid.CheckEmpty(step, &node.WorkStepFactory{WorkStep: step})
 	checkResults2 := checkVariableRelationShip(step)
 	// 定制化校验
 	checkResults3 := CheckCustom(step)
@@ -167,13 +167,13 @@ func CheckStep(step *iwork.WorkStep) (checkResult []string) {
 }
 
 func CheckCustom(step *iwork.WorkStep) (checkResult []string) {
-	factory := &iworknode.WorkStepFactory{WorkStep: step}
+	factory := &node.WorkStepFactory{WorkStep: step}
 	return factory.ValidateCustom()
 }
 
 // 校验变量的引用关系
 func checkVariableRelationShip(step *iwork.WorkStep) (checkResult []string) {
-	parser := schema.WorkStepFactorySchemaParser{WorkStep: step, ParamSchemaParser: &iworknode.WorkStepFactory{WorkStep: step}}
+	parser := schema.WorkStepFactorySchemaParser{WorkStep: step, ParamSchemaParser: &node.WorkStepFactory{WorkStep: step}}
 	inputSchema := parser.GetCacheParamInputSchema()
 	for _, item := range inputSchema.ParamInputSchemaItems {
 		result := checkVariableRelationShipDetail(item, step.WorkId, step.WorkStepId)
@@ -205,7 +205,7 @@ func checkVariableRelationShipDetail(item iworkmodels.ParamInputSchemaItem, work
 
 		// 判断字段名称是否有效
 		if step, err := iwork.QueryWorkStepByStepName(work_id, referNodeName, orm.NewOrm()); err == nil {
-			parser := schema.WorkStepFactorySchemaParser{WorkStep: &step, ParamSchemaParser: &iworknode.WorkStepFactory{WorkStep: &step}}
+			parser := schema.WorkStepFactorySchemaParser{WorkStep: &step, ParamSchemaParser: &node.WorkStepFactory{WorkStep: &step}}
 			outputSchema := parser.GetCacheParamOutputSchema()
 			exist := false
 			for _, item := range outputSchema.ParamOutputSchemaItems {
