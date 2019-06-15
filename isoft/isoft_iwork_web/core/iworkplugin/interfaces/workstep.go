@@ -1,7 +1,6 @@
 package interfaces
 
 import (
-	"github.com/astaxie/beego/orm"
 	"isoft/isoft_iwork_web/core/iworkcache"
 	"isoft/isoft_iwork_web/core/iworkdata/block"
 	"isoft/isoft_iwork_web/core/iworkdata/datastore"
@@ -25,10 +24,6 @@ type IWorkStep interface {
 	IParamSchemaParser
 	// 节点定制化校验函数,校验不通过会触发 panic
 	ValidateCustom() (checkResult []string)
-}
-
-type OrmerProvider interface {
-	GetOrmer() orm.Ormer
 }
 
 type RunOneStepArgs struct {

@@ -56,6 +56,13 @@ func (this *WorkSubNode) GetDefaultParamInputSchema() *iworkmodels.ParamInputSch
 	return this.BuildParamInputSchemaWithDefaultMap(paramMap)
 }
 
+func (this *WorkSubNode) getOrmer() orm.Ormer {
+	if this.o == nil {
+		this.o = orm.NewOrm()
+	}
+	return this.o
+}
+
 // 获取动态输入值
 func (this *WorkSubNode) GetRuntimeParamInputSchema() *iworkmodels.ParamInputSchema {
 	items := make([]iworkmodels.ParamInputSchemaItem, 0)
@@ -63,7 +70,7 @@ func (this *WorkSubNode) GetRuntimeParamInputSchema() *iworkmodels.ParamInputSch
 	workSubName := this.getWorkSubName()
 	if strings.TrimSpace(workSubName) != "" {
 		// 获取子流程所有步骤
-		subSteps, err := iwork.QueryAllWorkStepByWorkName(workSubName, this.GetOrmer())
+		subSteps, err := iwork.QueryAllWorkStepByWorkName(workSubName, this.getOrmer())
 		if err != nil {
 			panic(err)
 		}

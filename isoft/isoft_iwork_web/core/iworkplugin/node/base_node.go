@@ -50,13 +50,6 @@ func (this *BaseNode) ValidateCustom() (checkResult []string) {
 	return
 }
 
-func (this *BaseNode) GetOrmer() orm.Ormer {
-	if this.o == nil {
-		this.o = orm.NewOrm()
-	}
-	return this.o
-}
-
 // 存储 pureText 值
 func (this *BaseNode) FillPureTextParamInputSchemaDataToTmp(workStep *iwork.WorkStep) map[string]interface{} {
 	// 存储节点中间数据
