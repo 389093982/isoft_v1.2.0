@@ -1,4 +1,4 @@
-package pis
+package params
 
 import (
 	"errors"

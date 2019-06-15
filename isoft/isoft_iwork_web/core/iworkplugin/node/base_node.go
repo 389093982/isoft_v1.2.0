@@ -9,7 +9,7 @@ import (
 	"isoft/isoft_iwork_web/core/iworklog"
 	"isoft/isoft_iwork_web/core/iworkmodels"
 	"isoft/isoft_iwork_web/core/iworkplugin/interfaces"
-	"isoft/isoft_iwork_web/core/iworkplugin/pis"
+	"isoft/isoft_iwork_web/core/iworkplugin/params"
 	"isoft/isoft_iwork_web/core/iworkutil/datatypeutil"
 	"isoft/isoft_iwork_web/models/iwork"
 	"sort"
@@ -76,7 +76,7 @@ func (this *BaseNode) FillParamInputSchemaDataToTmp(workStep *iwork.WorkStep) ma
 }
 
 func (this *BaseNode) FillParamInputSchemaItemDataToTmp(pureTextTmpDataMap map[string]string, tmpDataMap map[string]interface{}, item iworkmodels.ParamInputSchemaItem) {
-	parser := &pis.PisItemDataParser{
+	parser := &params.PisItemDataParser{
 		DataStore:          this.DataStore,
 		Item:               item,
 		PureTextTmpDataMap: pureTextTmpDataMap,
