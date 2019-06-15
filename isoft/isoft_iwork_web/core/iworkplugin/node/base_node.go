@@ -65,24 +65,8 @@ func (this *BaseNode) FillPureTextParamInputSchemaDataToTmp(workStep *iwork.Work
 
 // 将 ParamInputSchema 填充数据并返回临时的数据中心 tmpDataMap
 func (this *BaseNode) FillParamInputSchemaDataToTmp(workStep *iwork.WorkStep) map[string]interface{} {
-	// 存储节点中间数据
-	tmpDataMap := make(map[string]interface{})
-	pureTextTmpDataMap := make(map[string]string)
-	paramInputSchema := this.WorkCache.ParamInputSchemaMap[workStep.WorkStepId]
-	for _, item := range paramInputSchema.ParamInputSchemaItems {
-		this.FillParamInputSchemaItemDataToTmp(pureTextTmpDataMap, tmpDataMap, item)
-	}
-	return tmpDataMap
-}
-
-func (this *BaseNode) FillParamInputSchemaItemDataToTmp(pureTextTmpDataMap map[string]string, tmpDataMap map[string]interface{}, item iworkmodels.ParamInputSchemaItem) {
-	parser := &params.PisItemDataParser{
-		DataStore:          this.DataStore,
-		Item:               item,
-		PureTextTmpDataMap: pureTextTmpDataMap,
-		TmpDataMap:         tmpDataMap,
-	}
-	parser.FillPisItemDataToTmp()
+	pis := this.WorkCache.ParamInputSchemaMap[workStep.WorkStepId]
+	return params.FillParamInputSchemaDataToTmp(pis, this.DataStore)
 }
 
 // 提交输出数据至数据中心,此类数据能直接从 tmpDataMap 中获取,而不依赖于计算,只适用于 WORK_START、WORK_END 节点
