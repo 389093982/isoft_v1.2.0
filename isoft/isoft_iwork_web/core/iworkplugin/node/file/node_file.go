@@ -1,9 +1,10 @@
-package node
+package file
 
 import (
 	"io/ioutil"
 	"isoft/isoft_iwork_web/core/iworkconst"
 	"isoft/isoft_iwork_web/core/iworkmodels"
+	"isoft/isoft_iwork_web/core/iworkplugin/node"
 	"isoft/isoft_iwork_web/core/iworkutil/fileutil"
 	"isoft/isoft_iwork_web/core/iworkutil/stringutil"
 	"isoft/isoft_iwork_web/models"
@@ -12,7 +13,7 @@ import (
 )
 
 type FileReadNode struct {
-	BaseNode
+	node.BaseNode
 	WorkStep *models.WorkStep
 }
 
@@ -40,7 +41,7 @@ func (this *FileReadNode) GetDefaultParamOutputSchema() *iworkmodels.ParamOutput
 }
 
 type FileWriteNode struct {
-	BaseNode
+	node.BaseNode
 	WorkStep *models.WorkStep
 }
 
@@ -88,7 +89,7 @@ func (this *FileWriteNode) GetDefaultParamOutputSchema() *iworkmodels.ParamOutpu
 }
 
 type FileSyncNode struct {
-	BaseNode
+	node.BaseNode
 	WorkStep *models.WorkStep
 }
 
@@ -119,7 +120,7 @@ func (this *FileSyncNode) GetDefaultParamInputSchema() *iworkmodels.ParamInputSc
 }
 
 type FileDeleteNode struct {
-	BaseNode
+	node.BaseNode
 	WorkStep *models.WorkStep
 }
 

@@ -2,6 +2,7 @@ package main
 
 import (
 	"github.com/astaxie/beego"
+	"isoft/isoft_iwork_web/core/iworkplugin/node/regist"
 	"isoft/isoft_iwork_web/core/iworkpool"
 	_ "isoft/isoft_iwork_web/routers"
 	_ "isoft/isoft_iwork_web/startup/db"
@@ -11,6 +12,7 @@ import (
 
 func main() {
 	iworkpool.LoadAndCachePool()
+	regist.RegistNodes()
 	task.RegisterCronTask()
 	task.InitialIWorkGlobalVar()		// 初始化全局变量
 	beego.Run()

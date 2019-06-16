@@ -15,7 +15,17 @@ import (
 	"isoft/isoft_iwork_web/models"
 	"reflect"
 	"strings"
+	"sync"
 )
+
+var RegistTypeMap map[string]reflect.Type
+
+func Regist(m map[string]reflect.Type) {
+	once := &sync.Once{}
+	once.Do(func() {
+		RegistTypeMap = m
+	})
+}
 
 type WorkStepFactory struct {
 	Work             *models.Work
@@ -47,7 +57,7 @@ func (this *WorkStepFactory) Execute(trackingId string) {
 func GetIWorkStep(workStepType string) interfaces.IWorkStep {
 	// 调整 workStepType
 	_workStepType := strings.ToUpper(strings.Replace(workStepType, "_", "", -1) + "NODE")
-	if t, ok := typeMap[_workStepType]; ok {
+	if t, ok := RegistTypeMap[_workStepType]; ok {
 		return reflect.New(t).Interface().(interfaces.IWorkStep)
 	}
 	panic(fmt.Sprintf("invalid workStepType for %s", workStepType))
