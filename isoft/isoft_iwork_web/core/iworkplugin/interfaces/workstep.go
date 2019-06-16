@@ -7,6 +7,7 @@ import (
 	"isoft/isoft_iwork_web/core/iworkdata/entry"
 	"isoft/isoft_iwork_web/core/iworklog"
 	"isoft/isoft_iwork_web/core/iworkmodels"
+	"isoft/isoft_iwork_web/models/iwork"
 )
 
 // 使用接口来解决循环依赖问题
@@ -19,6 +20,8 @@ type IParamSchemaParser interface {
 }
 
 type IWorkStep interface {
+	// 填充数据
+	FillParamInputSchemaDataToTmp(workStep *iwork.WorkStep)
 	// 节点执行的方法
 	Execute(trackingId string)
 	IParamSchemaParser

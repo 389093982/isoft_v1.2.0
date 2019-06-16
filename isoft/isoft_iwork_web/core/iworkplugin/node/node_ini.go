@@ -13,14 +13,12 @@ type IniReadNode struct {
 }
 
 func (this *IniReadNode) Execute(trackingId string) {
-	// 节点中间数据
-	tmpDataMap := this.FillParamInputSchemaDataToTmp(this.WorkStep)
-	file_path := tmpDataMap[iworkconst.STRING_PREFIX+"file_path"].(string)
+	file_path := this.TmpDataMap[iworkconst.STRING_PREFIX+"file_path"].(string)
 	var section_name string
-	if _section_name, ok := tmpDataMap[iworkconst.STRING_PREFIX+"section_name?"].(string); ok {
+	if _section_name, ok := this.TmpDataMap[iworkconst.STRING_PREFIX+"section_name?"].(string); ok {
 		section_name = _section_name
 	}
-	key := tmpDataMap[iworkconst.STRING_PREFIX+"key"].(string)
+	key := this.TmpDataMap[iworkconst.STRING_PREFIX+"key"].(string)
 	value, err := fileutil.ReadBeegoIniFile(file_path, section_name, key)
 	if err == nil {
 		this.DataStore.CacheDatas(this.WorkStep.WorkStepName, map[string]interface{}{iworkconst.STRING_PREFIX + "value": value})
@@ -48,15 +46,13 @@ type IniWriteNode struct {
 }
 
 func (this *IniWriteNode) Execute(trackingId string) {
-	// 节点中间数据
-	tmpDataMap := this.FillParamInputSchemaDataToTmp(this.WorkStep)
-	file_path := tmpDataMap[iworkconst.STRING_PREFIX+"file_path"].(string)
+	file_path := this.TmpDataMap[iworkconst.STRING_PREFIX+"file_path"].(string)
 	var section_name string
-	if _section_name, ok := tmpDataMap[iworkconst.STRING_PREFIX+"section_name?"].(string); ok {
+	if _section_name, ok := this.TmpDataMap[iworkconst.STRING_PREFIX+"section_name?"].(string); ok {
 		section_name = _section_name
 	}
-	key := tmpDataMap[iworkconst.STRING_PREFIX+"key"].(string)
-	value := tmpDataMap[iworkconst.STRING_PREFIX+"value"].(string)
+	key := this.TmpDataMap[iworkconst.STRING_PREFIX+"key"].(string)
+	value := this.TmpDataMap[iworkconst.STRING_PREFIX+"value"].(string)
 	err := fileutil.WriteBeegoIniFile(file_path, section_name, key, value)
 	if err != nil {
 		panic(err)

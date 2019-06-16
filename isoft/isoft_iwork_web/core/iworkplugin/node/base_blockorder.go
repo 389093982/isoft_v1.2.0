@@ -21,15 +21,19 @@ type BlockStepOrdersRunner struct {
 	RunOneStep   interfaces.RunOneStep
 }
 
+func (this *BlockStepOrdersRunner) recordLog(err interface{}) {
+	// 记录 4 kb大小的堆栈信息
+	this.LogWriter.Write(this.TrackingId, "~~~~~~~~~~~~~~~~~~~~~~~~ internal error trace stack ~~~~~~~~~~~~~~~~~~~~~~~~~~")
+	this.LogWriter.Write(this.TrackingId, string(errorutil.PanicTrace(4)))
+	this.LogWriter.Write(this.TrackingId, fmt.Sprintf("<span style='color:red;'>internal error:%s</span>", err))
+	this.LogWriter.Write(this.TrackingId, "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+}
+
 func (this *BlockStepOrdersRunner) Run() (receiver *entry.Receiver) {
 	parentStepId := this.ParentStepId // 记录当前的 parentStepId
 	defer func() {
 		if err := recover(); err != nil {
-			// 记录 4 kb大小的堆栈信息
-			this.LogWriter.Write(this.TrackingId, "~~~~~~~~~~~~~~~~~~~~~~~~ internal error trace stack ~~~~~~~~~~~~~~~~~~~~~~~~~~")
-			this.LogWriter.Write(this.TrackingId, string(errorutil.PanicTrace(4)))
-			this.LogWriter.Write(this.TrackingId, fmt.Sprintf("<span style='color:red;'>internal error:%s</span>", err))
-			this.LogWriter.Write(this.TrackingId, "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+			this.recordLog(err)
 			// 重置 parentStepId,并执行 end 节点
 			this.ParentStepId = parentStepId
 			receiver = this.runDetail(true)
@@ -39,6 +43,13 @@ func (this *BlockStepOrdersRunner) Run() (receiver *entry.Receiver) {
 }
 
 func (this *BlockStepOrdersRunner) runDetail(runEnd ...bool) (receiver *entry.Receiver) {
+	if len(runEnd) > 0 { // end 节点异常暂不抛出
+		defer func() {
+			if err := recover(); err != nil {
+				this.recordLog(err)
+			}
+		}()
+	}
 	// 存储前置步骤 afterJudgeInterrupt 属性
 	afterJudgeInterrupt := false
 	for _, blockStep := range this.WorkCache.BlockStepOrdersMap[this.ParentStepId] {

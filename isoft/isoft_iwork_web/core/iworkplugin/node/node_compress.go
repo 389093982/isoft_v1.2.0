@@ -13,10 +13,8 @@ type TarGzUnCompressNode struct {
 }
 
 func (this *TarGzUnCompressNode) Execute(trackingId string) {
-	// 节点中间数据
-	tmpDataMap := this.FillParamInputSchemaDataToTmp(this.WorkStep)
-	targz_file_path := tmpDataMap[iworkconst.STRING_PREFIX+"targz_file_path"].(string)
-	dest_path := tmpDataMap[iworkconst.STRING_PREFIX+"dest_dir_path"].(string)
+	targz_file_path := this.TmpDataMap[iworkconst.STRING_PREFIX+"targz_file_path"].(string)
+	dest_path := this.TmpDataMap[iworkconst.STRING_PREFIX+"dest_dir_path"].(string)
 	if err := compressutil.DeCompress(targz_file_path, dest_path); err == nil {
 		this.DataStore.CacheDatas(this.WorkStep.WorkStepName, map[string]interface{}{iworkconst.STRING_PREFIX + "dest_dir_path": dest_path})
 	} else {
@@ -42,10 +40,8 @@ type TarGzCompressNode struct {
 }
 
 func (this *TarGzCompressNode) Execute(trackingId string) {
-	// 节点中间数据
-	tmpDataMap := this.FillParamInputSchemaDataToTmp(this.WorkStep)
-	dir_file_path := tmpDataMap[iworkconst.STRING_PREFIX+"src_dir_path"].(string)
-	dest_file_path := tmpDataMap[iworkconst.STRING_PREFIX+"dest_file_path"].(string)
+	dir_file_path := this.TmpDataMap[iworkconst.STRING_PREFIX+"src_dir_path"].(string)
+	dest_file_path := this.TmpDataMap[iworkconst.STRING_PREFIX+"dest_file_path"].(string)
 	if err := compressutil.CompressDir(dir_file_path, dest_file_path); err == nil {
 		this.DataStore.CacheDatas(this.WorkStep.WorkStepName, map[string]interface{}{iworkconst.STRING_PREFIX + "dest_file_path": dest_file_path})
 	} else {

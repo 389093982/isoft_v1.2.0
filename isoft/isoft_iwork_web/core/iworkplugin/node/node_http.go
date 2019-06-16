@@ -19,18 +19,16 @@ type HttpRequestNode struct {
 }
 
 func (this *HttpRequestNode) Execute(trackingId string) {
-	// 节点中间数据
-	tmpDataMap := this.FillParamInputSchemaDataToTmp(this.WorkStep)
 	// 参数准备
 	var request_url, request_method string
-	if _request_url, ok := tmpDataMap[iworkconst.STRING_PREFIX+"request_url"].(string); ok {
+	if _request_url, ok := this.TmpDataMap[iworkconst.STRING_PREFIX+"request_url"].(string); ok {
 		request_url = _request_url
 	}
-	if _request_method, ok := tmpDataMap[iworkconst.STRING_PREFIX+"request_method?"].(string); ok {
+	if _request_method, ok := this.TmpDataMap[iworkconst.STRING_PREFIX+"request_method?"].(string); ok {
 		request_method = _request_method
 	}
-	paramMap := fillParamMapData(tmpDataMap, iworkconst.MULTI_PREFIX+"request_params?")
-	headerMap := fillParamMapData(tmpDataMap, iworkconst.MULTI_PREFIX+"request_headers?")
+	paramMap := fillParamMapData(this.TmpDataMap, iworkconst.MULTI_PREFIX+"request_params?")
+	headerMap := fillParamMapData(this.TmpDataMap, iworkconst.MULTI_PREFIX+"request_headers?")
 
 	dataMap := make(map[string]interface{}, 0)
 

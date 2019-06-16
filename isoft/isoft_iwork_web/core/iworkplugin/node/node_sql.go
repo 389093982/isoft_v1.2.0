@@ -22,12 +22,10 @@ type SQLQueryNode struct {
 
 func (this *SQLQueryNode) Execute(trackingId string) {
 	paramMap := make(map[string]interface{}, 0)
-	// 节点中间数据
-	tmpDataMap := this.FillParamInputSchemaDataToTmp(this.WorkStep)
-	sql := tmpDataMap[iworkconst.STRING_PREFIX+"sql"].(string)
-	dataSourceName := tmpDataMap[iworkconst.STRING_PREFIX+"db_conn"].(string)
+	sql := this.TmpDataMap[iworkconst.STRING_PREFIX+"sql"].(string)
+	dataSourceName := this.TmpDataMap[iworkconst.STRING_PREFIX+"db_conn"].(string)
 	// sql_binding 参数获取
-	sql_binding := getSqlBinding(tmpDataMap)
+	sql_binding := getSqlBinding(this.TmpDataMap)
 	sql = strings.ReplaceAll(sql, "{{", "")
 	sql = strings.ReplaceAll(sql, "}}", "")
 	datacounts, rowDatas := sqlutil.Query(sql, sql_binding, dataSourceName)
@@ -112,14 +110,12 @@ type SQLExecuteNode struct {
 }
 
 func (this *SQLExecuteNode) Execute(trackingId string) {
-	// 节点中间数据
-	tmpDataMap := this.FillParamInputSchemaDataToTmp(this.WorkStep)
-	sql := tmpDataMap[iworkconst.STRING_PREFIX+"sql"].(string)
-	dataSourceName := tmpDataMap[iworkconst.STRING_PREFIX+"db_conn"].(string)
+	sql := this.TmpDataMap[iworkconst.STRING_PREFIX+"sql"].(string)
+	dataSourceName := this.TmpDataMap[iworkconst.STRING_PREFIX+"db_conn"].(string)
 	// insert 语句且有批量操作时整改 sql 语句
-	sql = this.modifySqlInsertWithBatch(tmpDataMap, sql)
+	sql = this.modifySqlInsertWithBatch(this.TmpDataMap, sql)
 	// sql_binding 参数获取
-	sql_binding := getSqlBinding(tmpDataMap)
+	sql_binding := getSqlBinding(this.TmpDataMap)
 	affected := sqlutil.Execute(sql, sql_binding, dataSourceName)
 	// 将数据数据存储到数据中心
 	// 存储 affected
@@ -180,22 +176,20 @@ type SQLQueryPageNode struct {
 func (this *SQLQueryPageNode) Execute(trackingId string) {
 	// 需要存储的中间数据
 	paramMap := make(map[string]interface{}, 0)
-	// 节点中间数据
-	tmpDataMap := this.FillParamInputSchemaDataToTmp(this.WorkStep)
-	sql := tmpDataMap[iworkconst.STRING_PREFIX+"sql"].(string)
+	sql := this.TmpDataMap[iworkconst.STRING_PREFIX+"sql"].(string)
 	var total_sql string
-	if _total_sql, ok := tmpDataMap[iworkconst.STRING_PREFIX+"total_sql?"].(string); ok && strings.TrimSpace(_total_sql) != "" {
+	if _total_sql, ok := this.TmpDataMap[iworkconst.STRING_PREFIX+"total_sql?"].(string); ok && strings.TrimSpace(_total_sql) != "" {
 		total_sql = _total_sql
 	} else {
 		total_sql = getTotalSqlFromQuery(sql)
 	}
-	dataSourceName := tmpDataMap[iworkconst.STRING_PREFIX+"db_conn"].(string)
+	dataSourceName := this.TmpDataMap[iworkconst.STRING_PREFIX+"db_conn"].(string)
 	// sql_binding 参数获取
-	sql_binding := getSqlBinding(tmpDataMap)
+	sql_binding := getSqlBinding(this.TmpDataMap)
 	totalcount := sqlutil.QuerySelectCount(total_sql, sql_binding, dataSourceName)
 	sql = fmt.Sprintf(`%s limit ?,?`, sql) // 追加 limit 语句
-	current_page := tmpDataMap[iworkconst.NUMBER_PREFIX+"current_page"].(string)
-	page_size := tmpDataMap[iworkconst.NUMBER_PREFIX+"page_size"].(string)
+	current_page := this.TmpDataMap[iworkconst.NUMBER_PREFIX+"current_page"].(string)
+	page_size := this.TmpDataMap[iworkconst.NUMBER_PREFIX+"page_size"].(string)
 	_current_page, _ := strconv.Atoi(current_page)
 	_page_size, _ := strconv.Atoi(page_size)
 	sql_binding = append(sql_binding, (_current_page-1)*_page_size, _page_size)
@@ -211,7 +205,7 @@ func (this *SQLQueryPageNode) Execute(trackingId string) {
 		paramMap["row"] = rowDatas[0]
 	}
 	// 存储分页信息
-	pageIndex, pageSize := getPageIndexAndPageSize(tmpDataMap)
+	pageIndex, pageSize := getPageIndexAndPageSize(this.TmpDataMap)
 	paginator := pageutil.Paginator(pageIndex, pageSize, totalcount)
 	paramMap[iworkconst.COMPLEX_PREFIX+"paginator"] = paginator
 

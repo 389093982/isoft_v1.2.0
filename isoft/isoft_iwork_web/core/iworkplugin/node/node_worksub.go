@@ -23,11 +23,9 @@ type WorkSubNode struct {
 func (this *WorkSubNode) Execute(trackingId string) {
 	// 获取子流程流程名称
 	workSubName := this.checkAndGetWorkSubName()
-	// 节点中间数据
-	tmpDataMap := this.FillParamInputSchemaDataToTmp(this.WorkStep)
 	// 运行子流程
 	work, _ := iwork.QueryWorkByName(workSubName, orm.NewOrm())
-	this.RunOnceSubWork(work.Id, trackingId, tmpDataMap, this.DataStore)
+	this.RunOnceSubWork(work.Id, trackingId, this.TmpDataMap, this.DataStore)
 }
 
 func (this *WorkSubNode) checkAndGetWorkSubName() string {

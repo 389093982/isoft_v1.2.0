@@ -34,13 +34,11 @@ type SSHShellNode struct {
 }
 
 func (this *SSHShellNode) Execute(trackingId string) {
-	// 节点中间数据
-	tmpDataMap := this.FillParamInputSchemaDataToTmp(this.WorkStep)
-	sshResource := tmpDataMap[iworkconst.STRING_PREFIX+"ssh_conn"].(iwork.Resource)
-	ssh_command := tmpDataMap[iworkconst.STRING_PREFIX+"ssh_command"].(string)
+	sshResource := this.TmpDataMap[iworkconst.STRING_PREFIX+"ssh_conn"].(iwork.Resource)
+	ssh_command := this.TmpDataMap[iworkconst.STRING_PREFIX+"ssh_command"].(string)
 
 	var timeout int64
-	if _timeout, ok := tmpDataMap[iworkconst.NUMBER_PREFIX+"command_timeout?"].(string); ok {
+	if _timeout, ok := this.TmpDataMap[iworkconst.NUMBER_PREFIX+"command_timeout?"].(string); ok {
 		if _timeout, err := strconv.ParseInt(_timeout, 10, 64); err == nil {
 			timeout = _timeout
 		}

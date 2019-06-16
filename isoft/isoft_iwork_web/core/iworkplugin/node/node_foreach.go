@@ -20,10 +20,8 @@ type ForeachNode struct {
 }
 
 func (this *ForeachNode) Execute(trackingId string) {
-	// 节点中间数据
-	tmpDataMap := this.FillParamInputSchemaDataToTmp(this.WorkStep)
 	if this.BlockStep.HasChildren {
-		foreach_datas := tmpDataMap[iworkconst.FOREACH_PREFIX+"foreach_data"].([]map[string]interface{})
+		foreach_datas := this.TmpDataMap[iworkconst.FOREACH_PREFIX+"foreach_data"].([]map[string]interface{})
 		paramMap := make(map[string]interface{})
 		for index, foreach_data := range foreach_datas {
 			paramMap[iworkconst.NUMBER_PREFIX+"foreach_index"] = index

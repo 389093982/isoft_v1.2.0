@@ -15,11 +15,9 @@ type SftpUploadNode struct {
 }
 
 func (this *SftpUploadNode) Execute(trackingId string) {
-	// 节点中间数据
-	tmpDataMap := this.FillParamInputSchemaDataToTmp(this.WorkStep)
-	sftpResource := tmpDataMap[iworkconst.STRING_PREFIX+"sftp_conn"].(iwork.Resource)
-	local_file_path := tmpDataMap[iworkconst.STRING_PREFIX+"local_file_path"].(string)
-	remote_dir_path := tmpDataMap[iworkconst.STRING_PREFIX+"remote_dir_path"].(string)
+	sftpResource := this.TmpDataMap[iworkconst.STRING_PREFIX+"sftp_conn"].(iwork.Resource)
+	local_file_path := this.TmpDataMap[iworkconst.STRING_PREFIX+"local_file_path"].(string)
+	remote_dir_path := this.TmpDataMap[iworkconst.STRING_PREFIX+"remote_dir_path"].(string)
 	err := sftputil.SFTPFileCopy(sftpResource.ResourceUsername, sftpResource.ResourcePassword, sftpResource.ResourceDsn, 22, local_file_path, remote_dir_path)
 	if err == nil {
 		remote_file_path := fileutil.ChangeToLinuxSeparator(filepath.Join(remote_dir_path, filepath.Base(local_file_path)))

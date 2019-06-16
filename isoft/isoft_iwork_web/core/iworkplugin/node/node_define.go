@@ -15,10 +15,8 @@ type DefineVarNode struct {
 }
 
 func (this *DefineVarNode) Execute(trackingId string) {
-	// 节点中间数据
-	tmpDataMap := this.FillParamInputSchemaDataToTmp(this.WorkStep)
 	dataMap := make(map[string]interface{}, 0)
-	for paramName, paramType := range tmpDataMap {
+	for paramName, paramType := range this.TmpDataMap {
 		var paramValue interface{}
 		switch paramType {
 		case `string`:

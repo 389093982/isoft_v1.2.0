@@ -18,9 +18,7 @@ type FileReadNode struct {
 
 func (this *FileReadNode) Execute(trackingId string) {
 	paramMap := make(map[string]interface{}, 0)
-	// 节点中间数据
-	tmpDataMap := this.FillParamInputSchemaDataToTmp(this.WorkStep)
-	file_path := tmpDataMap[iworkconst.STRING_PREFIX+"file_path"].(string)
+	file_path := this.TmpDataMap[iworkconst.STRING_PREFIX+"file_path"].(string)
 	paramMap[iworkconst.STRING_PREFIX+"file_path"] = file_path
 	if bytes, err := ioutil.ReadFile(file_path); err == nil {
 		paramMap[iworkconst.STRING_PREFIX+"data"] = string(bytes)
@@ -54,23 +52,21 @@ func checkAppend(tmpDataMap map[string]interface{}) bool {
 }
 
 func (this *FileWriteNode) Execute(trackingId string) {
-	// 节点中间数据
-	tmpDataMap := this.FillParamInputSchemaDataToTmp(this.WorkStep)
-	file_path := tmpDataMap[iworkconst.STRING_PREFIX+"file_path"].(string)
+	file_path := this.TmpDataMap[iworkconst.STRING_PREFIX+"file_path"].(string)
 	var strdata string
 	// 写字符串
-	if data, ok := tmpDataMap[iworkconst.STRING_PREFIX+"data?"].(string); ok {
+	if data, ok := this.TmpDataMap[iworkconst.STRING_PREFIX+"data?"].(string); ok {
 		strdata = data
 	}
 	// 写字节数组
-	if bytes, ok := tmpDataMap[iworkconst.BYTE_ARRAY_PREFIX+"data?"].([]byte); ok {
+	if bytes, ok := this.TmpDataMap[iworkconst.BYTE_ARRAY_PREFIX+"data?"].([]byte); ok {
 		strdata = string(bytes)
 	}
 	// 判断是否需要添加行分隔符
-	if linesep, ok := tmpDataMap[iworkconst.BOOL_PREFIX+"linesep?"].(string); ok && strings.TrimSpace(linesep) != "" {
+	if linesep, ok := this.TmpDataMap[iworkconst.BOOL_PREFIX+"linesep?"].(string); ok && strings.TrimSpace(linesep) != "" {
 		strdata += "\n"
 	}
-	if err := fileutil.WriteFile(file_path, []byte(strdata), checkAppend(tmpDataMap)); err != nil {
+	if err := fileutil.WriteFile(file_path, []byte(strdata), checkAppend(this.TmpDataMap)); err != nil {
 		panic(err)
 	}
 	this.DataStore.CacheDatas(this.WorkStep.WorkStepName, map[string]interface{}{iworkconst.STRING_PREFIX + "file_path": file_path})
@@ -97,11 +93,9 @@ type FileSyncNode struct {
 }
 
 func (this *FileSyncNode) Execute(trackingId string) {
-	// 节点中间数据
-	tmpDataMap := this.FillParamInputSchemaDataToTmp(this.WorkStep)
-	sync_mod := stringutil.GetString(tmpDataMap[iworkconst.STRING_PREFIX+"sync_mod?"], "copy", true)
-	file_path := tmpDataMap[iworkconst.STRING_PREFIX+"file_path"].(string)
-	new_file_path := tmpDataMap[iworkconst.STRING_PREFIX+"new_file_path"].(string)
+	sync_mod := stringutil.GetString(this.TmpDataMap[iworkconst.STRING_PREFIX+"sync_mod?"], "copy", true)
+	file_path := this.TmpDataMap[iworkconst.STRING_PREFIX+"file_path"].(string)
+	new_file_path := this.TmpDataMap[iworkconst.STRING_PREFIX+"new_file_path"].(string)
 	var err error
 	if sync_mod == "copy" {
 		err = fileutil.CopyFile(file_path, new_file_path)
@@ -130,9 +124,7 @@ type FileDeleteNode struct {
 }
 
 func (this *FileDeleteNode) Execute(trackingId string) {
-	// 节点中间数据
-	tmpDataMap := this.FillParamInputSchemaDataToTmp(this.WorkStep)
-	delete_file_path := tmpDataMap[iworkconst.STRING_PREFIX+"delete_file_path"].(string)
+	delete_file_path := this.TmpDataMap[iworkconst.STRING_PREFIX+"delete_file_path"].(string)
 	err := os.RemoveAll(delete_file_path)
 	if err != nil {
 		panic(err)

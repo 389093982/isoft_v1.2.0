@@ -5,6 +5,7 @@ import (
 	"github.com/astaxie/beego/orm"
 	"isoft/isoft_iwork_web/core/iworkcache"
 	"isoft/isoft_iwork_web/core/iworkdata/datastore"
+	"isoft/isoft_iwork_web/core/iworkdata/entry"
 	"isoft/isoft_iwork_web/core/iworkdata/schema"
 	"isoft/isoft_iwork_web/core/iworklog"
 	"isoft/isoft_iwork_web/core/iworkmodels"
@@ -19,10 +20,12 @@ import (
 // 所有 node 的基类
 type BaseNode struct {
 	interfaces.IWorkStep
-	DataStore *datastore.DataStore
-	o         orm.Ormer
-	LogWriter *iworklog.CacheLoggerWriter
-	WorkCache *iworkcache.WorkCache
+	DataStore  *datastore.DataStore
+	o          orm.Ormer
+	LogWriter  *iworklog.CacheLoggerWriter
+	WorkCache  *iworkcache.WorkCache
+	TmpDataMap map[string]interface{}
+	Dispatcher *entry.Dispatcher
 }
 
 func (this *BaseNode) GetDefaultParamInputSchema() *iworkmodels.ParamInputSchema {
@@ -64,9 +67,20 @@ func (this *BaseNode) FillPureTextParamInputSchemaDataToTmp(workStep *iwork.Work
 }
 
 // 将 ParamInputSchema 填充数据并返回临时的数据中心 tmpDataMap
-func (this *BaseNode) FillParamInputSchemaDataToTmp(workStep *iwork.WorkStep) map[string]interface{} {
-	pis := this.WorkCache.ParamInputSchemaMap[workStep.WorkStepId]
-	return params.FillParamInputSchemaDataToTmp(pis, this.DataStore)
+func (this *BaseNode) FillParamInputSchemaDataToTmp(workStep *iwork.WorkStep) {
+	tmpDataMap := make(map[string]interface{})
+	// dispatcher 非空时替换成父流程参数
+	if this.Dispatcher != nil && len(this.Dispatcher.TmpDataMap) > 0 {
+		// 从父流程中获取值,即从 Dispatcher 中获取值
+		for key, value := range this.Dispatcher.TmpDataMap {
+			if value != "__default__" { // __default__ 则表示不用替换,还是使用子流程默认值参数
+				tmpDataMap[key] = value
+			}
+		}
+	} else {
+		pis := this.WorkCache.ParamInputSchemaMap[workStep.WorkStepId]
+		this.TmpDataMap = params.FillParamInputSchemaDataToTmp(pis, this.DataStore)
+	}
 }
 
 // 提交输出数据至数据中心,此类数据能直接从 tmpDataMap 中获取,而不依赖于计算,只适用于 WORK_START、WORK_END 节点

@@ -33,6 +33,9 @@ type WorkStepFactory struct {
 
 func (this *WorkStepFactory) Execute(trackingId string) {
 	proxy := this.getProxy()
+	// 将 ParamInputSchema 填充数据并返回临时的数据中心 tmpDataMap
+	proxy.FillParamInputSchemaDataToTmp(this.WorkStep)
+	// 执行任务
 	proxy.Execute(trackingId)
 	if endNode, ok := proxy.(*WorkEndNode); ok {
 		this.Receiver = endNode.Receiver
@@ -51,8 +54,7 @@ func GetIWorkStep(workStepType string) interfaces.IWorkStep {
 func (this *WorkStepFactory) getProxy() interfaces.IWorkStep {
 	fieldMap := map[string]interface{}{
 		"WorkStep":         this.WorkStep,
-		"BaseNode":         BaseNode{DataStore: this.DataStore, o: this.O, LogWriter: this.LogWriter, WorkCache: this.WorkCache},
-		"Dispatcher":       this.Dispatcher,
+		"BaseNode":         BaseNode{DataStore: this.DataStore, o: this.O, LogWriter: this.LogWriter, WorkCache: this.WorkCache, Dispatcher: this.Dispatcher},
 		"Receiver":         this.Receiver,
 		"WorkSubRunFunc":   this.WorkSubRunFunc,
 		"BlockStep":        this.BlockStep,

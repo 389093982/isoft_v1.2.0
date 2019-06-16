@@ -34,10 +34,7 @@ type RunCmdNode struct {
 }
 
 func (this *RunCmdNode) Execute(trackingId string) {
-	// 节点中间数据
-	tmpDataMap := this.FillParamInputSchemaDataToTmp(this.WorkStep)
-
-	if cd := tmpDataMap[iworkconst.STRING_PREFIX+"cd?"].(string); cd != "" {
+	if cd := this.TmpDataMap[iworkconst.STRING_PREFIX+"cd?"].(string); cd != "" {
 		if err := os.Chdir(cd); err != nil {
 			panic(err)
 		}
@@ -54,8 +51,8 @@ func (this *RunCmdNode) Execute(trackingId string) {
 		TrackingId: trackingId,
 	}
 
-	command_name := tmpDataMap[iworkconst.STRING_PREFIX+"command_name"].(string)
-	command_args := tmpDataMap[iworkconst.STRING_PREFIX+"command_args"].(string)
+	command_name := this.TmpDataMap[iworkconst.STRING_PREFIX+"command_name"].(string)
+	command_args := this.TmpDataMap[iworkconst.STRING_PREFIX+"command_args"].(string)
 	args := strings.Split(command_args, " ")
 	// 记录当前正在执行的命令
 	this.LogWriter.Write(trackingId, fmt.Sprintf("current cmd command is ==> %s %s", command_name, strings.Join(args, " ")))

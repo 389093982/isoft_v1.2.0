@@ -20,9 +20,7 @@ type IFNode struct {
 }
 
 func (this *IFNode) Execute(trackingId string) {
-	// 节点中间数据
-	tmpDataMap := this.FillParamInputSchemaDataToTmp(this.WorkStep)
-	expression := tmpDataMap[iworkconst.BOOL_PREFIX+"expression"].(bool)
+	expression := this.TmpDataMap[iworkconst.BOOL_PREFIX+"expression"].(bool)
 	this.DataStore.CacheDatas(this.WorkStep.WorkStepName, map[string]interface{}{iworkconst.BOOL_PREFIX + "expression": expression})
 
 	if expression && this.BlockStep.HasChildren {
@@ -65,9 +63,7 @@ func (this *ElIfNode) Execute(trackingId string) {
 		!stringutil.CheckContains(this.BlockStep.PreviousBlockStep.Step.WorkStepType, []string{"if", "elif"}) {
 		panic(errors.New(fmt.Sprintf(`previous step is not if or elif node for %s`, this.BlockStep.Step.WorkStepName)))
 	}
-	// 节点中间数据
-	tmpDataMap := this.FillParamInputSchemaDataToTmp(this.WorkStep)
-	expression := tmpDataMap[iworkconst.BOOL_PREFIX+"expression"].(bool)
+	expression := this.TmpDataMap[iworkconst.BOOL_PREFIX+"expression"].(bool)
 	this.DataStore.CacheDatas(this.WorkStep.WorkStepName, map[string]interface{}{iworkconst.BOOL_PREFIX + "expression": expression})
 
 	if expression && this.BlockStep.HasChildren {

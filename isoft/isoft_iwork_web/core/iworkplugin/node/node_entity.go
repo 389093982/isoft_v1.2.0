@@ -17,8 +17,6 @@ type EntityParserNode struct {
 }
 
 func (this *EntityParserNode) Execute(trackingId string) {
-	// 节点中间数据
-	tmpDataMap := this.FillParamInputSchemaDataToTmp(this.WorkStep)
 	parser := schema.WorkStepFactorySchemaParser{WorkStep: this.WorkStep, ParamSchemaParser: &WorkStepFactory{WorkStep: this.WorkStep}}
 	inputSchema := parser.GetCacheParamInputSchema()
 	for _, item := range inputSchema.ParamInputSchemaItems {
@@ -26,12 +24,12 @@ func (this *EntityParserNode) Execute(trackingId string) {
 			entityName := getEntityNameWithRemovePrefixAndSuffix(item.ParamName)
 			// 从 tmpDataMap 中获取入参实体类数据
 			entityDataMap := make(map[string]interface{})
-			if dataMap, ok := tmpDataMap[iworkconst.COMPLEX_PREFIX+entityName+"_data"].([]map[string]interface{}); ok && len(dataMap) > 0 {
+			if dataMap, ok := this.TmpDataMap[iworkconst.COMPLEX_PREFIX+entityName+"_data"].([]map[string]interface{}); ok && len(dataMap) > 0 {
 				entityDataMap = dataMap[0]
-			} else if dataMap, ok := tmpDataMap[iworkconst.COMPLEX_PREFIX+entityName+"_data"].(map[string]interface{}); ok {
+			} else if dataMap, ok := this.TmpDataMap[iworkconst.COMPLEX_PREFIX+entityName+"_data"].(map[string]interface{}); ok {
 				entityDataMap = dataMap
 			}
-			entityFieldStr := tmpDataMap[iworkconst.STRING_PREFIX+entityName+"_entity"].(string)
+			entityFieldStr := this.TmpDataMap[iworkconst.STRING_PREFIX+entityName+"_entity"].(string)
 			paramMap := make(map[string]interface{}, 0)
 			for _, entityField := range strings.Split(entityFieldStr, ",") {
 				// 将数据数据存储到数据中心

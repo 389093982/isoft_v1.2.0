@@ -14,10 +14,8 @@ type HrefParserNode struct {
 }
 
 func (this *HrefParserNode) Execute(trackingId string) {
-	// 节点中间数据
-	tmpDataMap := this.FillParamInputSchemaDataToTmp(this.WorkStep)
 	hrefs := make([]interface{}, 0)
-	if url, ok := tmpDataMap[iworkconst.STRING_PREFIX+"url"].(string); ok {
+	if url, ok := this.TmpDataMap[iworkconst.STRING_PREFIX+"url"].(string); ok {
 		if _hrefs := htmlutil.GetAllHref(url); len(_hrefs) > 0 {
 			// 将 []string 转换成 []interface{}
 			hrefs = stringutil.ChangeStringsToInterfaces(_hrefs)
