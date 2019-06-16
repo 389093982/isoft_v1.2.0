@@ -1,15 +1,16 @@
-package node
+package html
 
 import (
 	"isoft/isoft/common/stringutil"
 	"isoft/isoft_iwork_web/core/iworkconst"
 	"isoft/isoft_iwork_web/core/iworkmodels"
+	"isoft/isoft_iwork_web/core/iworkplugin/node"
 	"isoft/isoft_iwork_web/core/iworkutil/htmlutil"
 	"isoft/isoft_iwork_web/models"
 )
 
 type HrefParserNode struct {
-	BaseNode
+	node.BaseNode
 	WorkStep *models.WorkStep
 }
 

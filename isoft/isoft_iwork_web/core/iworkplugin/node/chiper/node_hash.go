@@ -1,14 +1,15 @@
-package node
+package chiper
 
 import (
 	"isoft/isoft/common/hashutil"
 	"isoft/isoft_iwork_web/core/iworkconst"
 	"isoft/isoft_iwork_web/core/iworkmodels"
+	"isoft/isoft_iwork_web/core/iworkplugin/node"
 	"isoft/isoft_iwork_web/models"
 )
 
 type CalHashNode struct {
-	BaseNode
+	node.BaseNode
 	WorkStep *models.WorkStep
 }
 

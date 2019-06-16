@@ -1,4 +1,4 @@
-package node
+package framework
 
 import (
 	"fmt"
@@ -9,11 +9,12 @@ import (
 	"isoft/isoft_iwork_web/core/iworkdata/entry"
 	"isoft/isoft_iwork_web/core/iworkmodels"
 	"isoft/isoft_iwork_web/core/iworkplugin/interfaces"
+	"isoft/isoft_iwork_web/core/iworkplugin/node"
 	"isoft/isoft_iwork_web/models"
 )
 
 type IFNode struct {
-	BaseNode
+	node.BaseNode
 	WorkStep         *models.WorkStep
 	BlockStep        *block.BlockStep
 	BlockStepRunFunc func(args *interfaces.RunOneStepArgs) (receiver *entry.Receiver)
@@ -25,7 +26,7 @@ func (this *IFNode) Execute(trackingId string) {
 
 	if expression && this.BlockStep.HasChildren {
 		this.BlockStep.AfterJudgeInterrupt = true // if 条件满足, AfterJudgeInterrupt 属性变为 true
-		bsoRunner := BlockStepOrdersRunner{
+		bsoRunner := node.BlockStepOrdersRunner{
 			ParentStepId: this.WorkStep.WorkStepId,
 			WorkCache:    this.WorkCache,
 			TrackingId:   trackingId,
@@ -52,7 +53,7 @@ func (this *IFNode) GetDefaultParamOutputSchema() *iworkmodels.ParamOutputSchema
 }
 
 type ElIfNode struct {
-	BaseNode
+	node.BaseNode
 	WorkStep         *models.WorkStep
 	BlockStep        *block.BlockStep
 	BlockStepRunFunc func(args *interfaces.RunOneStepArgs) (receiver *entry.Receiver)
@@ -68,7 +69,7 @@ func (this *ElIfNode) Execute(trackingId string) {
 
 	if expression && this.BlockStep.HasChildren {
 		this.BlockStep.AfterJudgeInterrupt = true // if 条件满足, AfterJudgeInterrupt 属性变为 true
-		bsoRunner := BlockStepOrdersRunner{
+		bsoRunner := node.BlockStepOrdersRunner{
 			ParentStepId: this.WorkStep.WorkStepId,
 			WorkCache:    this.WorkCache,
 			TrackingId:   trackingId,
@@ -95,7 +96,7 @@ func (this *ElIfNode) GetDefaultParamOutputSchema() *iworkmodels.ParamOutputSche
 }
 
 type ElseNode struct {
-	BaseNode
+	node.BaseNode
 	WorkStep         *models.WorkStep
 	BlockStep        *block.BlockStep
 	BlockStepRunFunc func(args *interfaces.RunOneStepArgs) (receiver *entry.Receiver)
@@ -107,7 +108,7 @@ func (this *ElseNode) Execute(trackingId string) {
 		panic(errors.New(fmt.Sprintf(`previous step is not if or elif node for %s`, this.BlockStep.Step.WorkStepName)))
 	}
 	if this.BlockStep.HasChildren {
-		bsoRunner := BlockStepOrdersRunner{
+		bsoRunner := node.BlockStepOrdersRunner{
 			ParentStepId: this.WorkStep.WorkStepId,
 			WorkCache:    this.WorkCache,
 			TrackingId:   trackingId,

@@ -1,10 +1,11 @@
-package node
+package bash
 
 import (
 	"fmt"
 	"isoft/isoft_iwork_web/core/iworkconst"
 	"isoft/isoft_iwork_web/core/iworklog"
 	"isoft/isoft_iwork_web/core/iworkmodels"
+	"isoft/isoft_iwork_web/core/iworkplugin/node"
 	"isoft/isoft_iwork_web/core/iworkutil/sshutil"
 	"isoft/isoft_iwork_web/models"
 	"strconv"
@@ -29,7 +30,7 @@ func (this *SSHShellLogWriter) Write(p []byte) (n int, err error) {
 }
 
 type SSHShellNode struct {
-	BaseNode
+	node.BaseNode
 	WorkStep *models.WorkStep
 }
 

@@ -1,14 +1,15 @@
-package node
+package framework
 
 import (
 	"github.com/pkg/errors"
 	"isoft/isoft_iwork_web/core/iworkconst"
 	"isoft/isoft_iwork_web/core/iworkmodels"
+	"isoft/isoft_iwork_web/core/iworkplugin/node"
 	"isoft/isoft_iwork_web/models"
 )
 
 type PanicErrorNode struct {
-	BaseNode
+	node.BaseNode
 	WorkStep *models.WorkStep
 }
 

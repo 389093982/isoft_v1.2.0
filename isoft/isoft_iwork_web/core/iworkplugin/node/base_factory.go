@@ -49,9 +49,9 @@ func (this *WorkStepFactory) Execute(trackingId string) {
 	proxy.FillPureTextParamInputSchemaDataToTmp(this.WorkStep)
 	// 执行任务
 	proxy.Execute(trackingId)
-	if endNode, ok := proxy.(*WorkEndNode); ok {
-		this.Receiver = endNode.Receiver
-	}
+	//if endNode, ok := proxy.(*WorkEndNode); ok {
+	//	this.Receiver = endNode.Receiver
+	//}			TODO
 }
 
 func GetIWorkStep(workStepType string) interfaces.IWorkStep {
@@ -66,7 +66,7 @@ func GetIWorkStep(workStepType string) interfaces.IWorkStep {
 func (this *WorkStepFactory) getProxy() interfaces.IWorkStep {
 	fieldMap := map[string]interface{}{
 		"WorkStep":         this.WorkStep,
-		"BaseNode":         BaseNode{DataStore: this.DataStore, o: this.O, LogWriter: this.LogWriter, WorkCache: this.WorkCache, Dispatcher: this.Dispatcher},
+		"BaseNode":         BaseNode{DataStore: this.DataStore, O: this.O, LogWriter: this.LogWriter, WorkCache: this.WorkCache, Dispatcher: this.Dispatcher},
 		"Receiver":         this.Receiver,
 		"WorkSubRunFunc":   this.WorkSubRunFunc,
 		"BlockStep":        this.BlockStep,

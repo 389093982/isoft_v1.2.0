@@ -1,4 +1,4 @@
-package node
+package json
 
 import (
 	"encoding/json"
@@ -6,12 +6,13 @@ import (
 	"isoft/isoft_iwork_web/core/iworkconst"
 	"isoft/isoft_iwork_web/core/iworkdata/param"
 	"isoft/isoft_iwork_web/core/iworkmodels"
+	"isoft/isoft_iwork_web/core/iworkplugin/node"
 	"isoft/isoft_iwork_web/models"
 	"strings"
 )
 
 type JsonRenderNode struct {
-	BaseNode
+	node.BaseNode
 	WorkStep *models.WorkStep
 }
 
@@ -35,7 +36,7 @@ func (this *JsonRenderNode) GetDefaultParamOutputSchema() *iworkmodels.ParamOutp
 }
 
 type JsonParserNode struct {
-	BaseNode
+	node.BaseNode
 	WorkStep *models.WorkStep
 }
 

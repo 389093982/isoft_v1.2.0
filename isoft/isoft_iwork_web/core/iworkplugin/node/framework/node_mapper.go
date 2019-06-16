@@ -1,14 +1,15 @@
-package node
+package framework
 
 import (
 	"encoding/json"
 	"isoft/isoft_iwork_web/core/iworkdata/schema"
 	"isoft/isoft_iwork_web/core/iworkmodels"
+	"isoft/isoft_iwork_web/core/iworkplugin/node"
 	"isoft/isoft_iwork_web/models"
 )
 
 type MapperNode struct {
-	BaseNode
+	node.BaseNode
 	WorkStep *models.WorkStep
 }
 
@@ -29,7 +30,7 @@ func (this *MapperNode) GetRuntimeParamInputSchema() *iworkmodels.ParamInputSche
 
 func (this *MapperNode) GetRuntimeParamOutputSchema() *iworkmodels.ParamOutputSchema {
 	items := make([]iworkmodels.ParamOutputSchemaItem, 0)
-	parser := schema.WorkStepFactorySchemaParser{WorkStep: this.WorkStep, ParamSchemaParser: &WorkStepFactory{WorkStep: this.WorkStep}}
+	parser := schema.WorkStepFactorySchemaParser{WorkStep: this.WorkStep, ParamSchemaParser: &node.WorkStepFactory{WorkStep: this.WorkStep}}
 	inputSchema := parser.GetCacheParamInputSchema()
 	for _, item := range inputSchema.ParamInputSchemaItems {
 		items = append(items, iworkmodels.ParamOutputSchemaItem{ParamName: item.ParamName})

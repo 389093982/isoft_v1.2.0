@@ -1,4 +1,4 @@
-package node
+package html
 
 import (
 	"fmt"
@@ -7,6 +7,7 @@ import (
 	"isoft/isoft/common/httputil"
 	"isoft/isoft_iwork_web/core/iworkconst"
 	"isoft/isoft_iwork_web/core/iworkmodels"
+	"isoft/isoft_iwork_web/core/iworkplugin/node"
 	"isoft/isoft_iwork_web/core/iworkutil"
 	"isoft/isoft_iwork_web/models"
 	"net/http"
@@ -14,7 +15,7 @@ import (
 )
 
 type HttpRequestNode struct {
-	BaseNode
+	node.BaseNode
 	WorkStep *models.WorkStep
 }
 

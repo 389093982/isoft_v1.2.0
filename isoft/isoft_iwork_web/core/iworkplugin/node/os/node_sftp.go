@@ -1,16 +1,17 @@
-package node
+package os
 
 import (
 	"isoft/isoft/common/fileutil"
 	"isoft/isoft_iwork_web/core/iworkconst"
 	"isoft/isoft_iwork_web/core/iworkmodels"
+	"isoft/isoft_iwork_web/core/iworkplugin/node"
 	"isoft/isoft_iwork_web/core/iworkutil/sftputil"
 	"isoft/isoft_iwork_web/models"
 	"path/filepath"
 )
 
 type SftpUploadNode struct {
-	BaseNode
+	node.BaseNode
 	WorkStep *models.WorkStep
 }
 

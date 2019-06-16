@@ -1,4 +1,4 @@
-package node
+package sql
 
 import (
 	"fmt"
@@ -7,6 +7,7 @@ import (
 	"isoft/isoft_iwork_web/core/iworkdata/param"
 	"isoft/isoft_iwork_web/core/iworkfunc"
 	"isoft/isoft_iwork_web/core/iworkmodels"
+	"isoft/isoft_iwork_web/core/iworkplugin/node"
 	"isoft/isoft_iwork_web/core/iworkpool"
 	"isoft/isoft_iwork_web/core/iworkutil/sqlutil"
 	"isoft/isoft_iwork_web/models"
@@ -17,7 +18,7 @@ import (
 )
 
 type SQLQueryNode struct {
-	BaseNode
+	node.BaseNode
 	WorkStep *models.WorkStep
 }
 
@@ -106,7 +107,7 @@ func getSqlBinding(tmpDataMap map[string]interface{}) []interface{} {
 }
 
 type SQLExecuteNode struct {
-	BaseNode
+	node.BaseNode
 	WorkStep *models.WorkStep
 }
 
@@ -170,7 +171,7 @@ func (this *SQLExecuteNode) ValidateCustom() (checkResult []string) {
 }
 
 type SQLQueryPageNode struct {
-	BaseNode
+	node.BaseNode
 	WorkStep *models.WorkStep
 }
 

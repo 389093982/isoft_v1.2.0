@@ -1,14 +1,15 @@
-package node
+package os
 
 import (
 	"isoft/isoft_iwork_web/core/iworkconst"
 	"isoft/isoft_iwork_web/core/iworkmodels"
+	"isoft/isoft_iwork_web/core/iworkplugin/node"
 	"isoft/isoft_iwork_web/models"
 	"os"
 )
 
 type GetEnvNode struct {
-	BaseNode
+	node.BaseNode
 	WorkStep *models.WorkStep
 }
 
@@ -29,7 +30,7 @@ func (this *GetEnvNode) GetDefaultParamOutputSchema() *iworkmodels.ParamOutputSc
 }
 
 type SetEnvNode struct {
-	BaseNode
+	node.BaseNode
 	WorkStep *models.WorkStep
 }
 

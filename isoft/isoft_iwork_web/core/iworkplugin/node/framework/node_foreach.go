@@ -1,4 +1,4 @@
-package node
+package framework
 
 import (
 	"github.com/pkg/errors"
@@ -8,12 +8,13 @@ import (
 	"isoft/isoft_iwork_web/core/iworkdata/schema"
 	"isoft/isoft_iwork_web/core/iworkmodels"
 	"isoft/isoft_iwork_web/core/iworkplugin/interfaces"
+	"isoft/isoft_iwork_web/core/iworkplugin/node"
 	"isoft/isoft_iwork_web/models"
 	"strings"
 )
 
 type ForeachNode struct {
-	BaseNode
+	node.BaseNode
 	WorkStep         *models.WorkStep
 	BlockStep        *block.BlockStep
 	BlockStepRunFunc func(args *interfaces.RunOneStepArgs) (receiver *entry.Receiver)
@@ -33,7 +34,7 @@ func (this *ForeachNode) Execute(trackingId string) {
 			}
 			this.DataStore.CacheDatas(this.WorkStep.WorkStepName, paramMap)
 
-			bsoRunner := BlockStepOrdersRunner{
+			bsoRunner := node.BlockStepOrdersRunner{
 				ParentStepId: this.WorkStep.WorkStepId,
 				WorkCache:    this.WorkCache,
 				TrackingId:   trackingId,
@@ -59,7 +60,7 @@ func (this *ForeachNode) GetDefaultParamInputSchema() *iworkmodels.ParamInputSch
 
 func (this *ForeachNode) GetRuntimeParamOutputSchema() *iworkmodels.ParamOutputSchema {
 	items := make([]iworkmodels.ParamOutputSchemaItem, 0)
-	parser := schema.WorkStepFactorySchemaParser{WorkStep: this.WorkStep, ParamSchemaParser: &WorkStepFactory{WorkStep: this.WorkStep}}
+	parser := schema.WorkStepFactorySchemaParser{WorkStep: this.WorkStep, ParamSchemaParser: &node.WorkStepFactory{WorkStep: this.WorkStep}}
 	inputSchema := parser.GetCacheParamInputSchema()
 
 	var foreach_data string

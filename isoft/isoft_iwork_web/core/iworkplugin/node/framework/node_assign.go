@@ -1,17 +1,18 @@
-package node
+package framework
 
 import (
 	"encoding/json"
 	"fmt"
 	"github.com/pkg/errors"
 	"isoft/isoft_iwork_web/core/iworkmodels"
+	"isoft/isoft_iwork_web/core/iworkplugin/node"
 	"isoft/isoft_iwork_web/models"
 	"regexp"
 	"strings"
 )
 
 type AssignVarNode struct {
-	BaseNode
+	node.BaseNode
 	WorkStep *models.WorkStep
 }
 

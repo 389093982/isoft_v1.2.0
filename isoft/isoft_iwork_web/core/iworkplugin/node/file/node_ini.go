@@ -1,14 +1,15 @@
-package node
+package file
 
 import (
 	"isoft/isoft_iwork_web/core/iworkconst"
 	"isoft/isoft_iwork_web/core/iworkmodels"
+	"isoft/isoft_iwork_web/core/iworkplugin/node"
 	"isoft/isoft_iwork_web/core/iworkutil/fileutil"
 	"isoft/isoft_iwork_web/models"
 )
 
 type IniReadNode struct {
-	BaseNode
+	node.BaseNode
 	WorkStep *models.WorkStep
 }
 
@@ -41,7 +42,7 @@ func (this *IniReadNode) GetDefaultParamOutputSchema() *iworkmodels.ParamOutputS
 }
 
 type IniWriteNode struct {
-	BaseNode
+	node.BaseNode
 	WorkStep *models.WorkStep
 }
 

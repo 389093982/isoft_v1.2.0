@@ -1,4 +1,4 @@
-package node
+package framework
 
 import (
 	"encoding/json"
@@ -6,18 +6,19 @@ import (
 	"isoft/isoft_iwork_web/core/iworkconst"
 	"isoft/isoft_iwork_web/core/iworkdata/schema"
 	"isoft/isoft_iwork_web/core/iworkmodels"
+	"isoft/isoft_iwork_web/core/iworkplugin/node"
 	"isoft/isoft_iwork_web/core/iworkutil"
 	"isoft/isoft_iwork_web/models"
 	"strings"
 )
 
 type EntityParserNode struct {
-	BaseNode
+	node.BaseNode
 	WorkStep *models.WorkStep
 }
 
 func (this *EntityParserNode) Execute(trackingId string) {
-	parser := schema.WorkStepFactorySchemaParser{WorkStep: this.WorkStep, ParamSchemaParser: &WorkStepFactory{WorkStep: this.WorkStep}}
+	parser := schema.WorkStepFactorySchemaParser{WorkStep: this.WorkStep, ParamSchemaParser: &node.WorkStepFactory{WorkStep: this.WorkStep}}
 	inputSchema := parser.GetCacheParamInputSchema()
 	for _, item := range inputSchema.ParamInputSchemaItems {
 		if strings.HasSuffix(item.ParamName, "_entity") {
@@ -56,7 +57,7 @@ func (this *EntityParserNode) GetRuntimeParamInputSchema() *iworkmodels.ParamInp
 
 func (this *EntityParserNode) GetRuntimeParamOutputSchema() *iworkmodels.ParamOutputSchema {
 	items := make([]iworkmodels.ParamOutputSchemaItem, 0)
-	parser := schema.WorkStepFactorySchemaParser{WorkStep: this.WorkStep, ParamSchemaParser: &WorkStepFactory{WorkStep: this.WorkStep}}
+	parser := schema.WorkStepFactorySchemaParser{WorkStep: this.WorkStep, ParamSchemaParser: &node.WorkStepFactory{WorkStep: this.WorkStep}}
 	inputSchema := parser.GetCacheParamInputSchema()
 	for _, item := range inputSchema.ParamInputSchemaItems {
 		if !strings.HasSuffix(item.ParamName, "_data") { // _data 需要排除

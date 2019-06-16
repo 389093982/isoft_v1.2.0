@@ -1,14 +1,15 @@
-package node
+package chiper
 
 import (
 	"encoding/base64"
 	"isoft/isoft_iwork_web/core/iworkconst"
 	"isoft/isoft_iwork_web/core/iworkmodels"
+	"isoft/isoft_iwork_web/core/iworkplugin/node"
 	"isoft/isoft_iwork_web/models"
 )
 
 type Base64EncodeNode struct {
-	BaseNode
+	node.BaseNode
 	WorkStep *models.WorkStep
 }
 
@@ -30,7 +31,7 @@ func (this *Base64EncodeNode) GetDefaultParamOutputSchema() *iworkmodels.ParamOu
 }
 
 type Base64DecodeNode struct {
-	BaseNode
+	node.BaseNode
 	WorkStep *models.WorkStep
 }
 

@@ -1,4 +1,4 @@
-package node
+package framework
 
 import (
 	"encoding/json"
@@ -6,11 +6,12 @@ import (
 	"isoft/isoft_iwork_web/core/iworkdata/entry"
 	"isoft/isoft_iwork_web/core/iworkdata/schema"
 	"isoft/isoft_iwork_web/core/iworkmodels"
+	"isoft/isoft_iwork_web/core/iworkplugin/node"
 	"isoft/isoft_iwork_web/models"
 )
 
 type WorkStartNode struct {
-	BaseNode
+	node.BaseNode
 	WorkStep *models.WorkStep
 }
 
@@ -34,7 +35,7 @@ func (this *WorkStartNode) GetRuntimeParamInputSchema() *iworkmodels.ParamInputS
 
 func (this *WorkStartNode) GetRuntimeParamOutputSchema() *iworkmodels.ParamOutputSchema {
 	items := make([]iworkmodels.ParamOutputSchemaItem, 0)
-	parser := schema.WorkStepFactorySchemaParser{WorkStep: this.WorkStep, ParamSchemaParser: &WorkStepFactory{WorkStep: this.WorkStep}}
+	parser := schema.WorkStepFactorySchemaParser{WorkStep: this.WorkStep, ParamSchemaParser: &node.WorkStepFactory{WorkStep: this.WorkStep}}
 	inputSchema := parser.GetCacheParamInputSchema()
 	for _, item := range inputSchema.ParamInputSchemaItems {
 		items = append(items, iworkmodels.ParamOutputSchemaItem{ParamName: item.ParamName})
@@ -43,7 +44,7 @@ func (this *WorkStartNode) GetRuntimeParamOutputSchema() *iworkmodels.ParamOutpu
 }
 
 type WorkEndNode struct {
-	BaseNode
+	node.BaseNode
 	WorkStep *models.WorkStep
 	Receiver *entry.Receiver
 }
@@ -67,7 +68,7 @@ func (this *WorkEndNode) GetRuntimeParamInputSchema() *iworkmodels.ParamInputSch
 
 func (this *WorkEndNode) GetRuntimeParamOutputSchema() *iworkmodels.ParamOutputSchema {
 	items := make([]iworkmodels.ParamOutputSchemaItem, 0)
-	parser := schema.WorkStepFactorySchemaParser{WorkStep: this.WorkStep, ParamSchemaParser: &WorkStepFactory{WorkStep: this.WorkStep}}
+	parser := schema.WorkStepFactorySchemaParser{WorkStep: this.WorkStep, ParamSchemaParser: &node.WorkStepFactory{WorkStep: this.WorkStep}}
 	inputSchema := parser.GetCacheParamInputSchema()
 	for _, item := range inputSchema.ParamInputSchemaItems {
 		items = append(items, iworkmodels.ParamOutputSchemaItem{ParamName: item.ParamName})

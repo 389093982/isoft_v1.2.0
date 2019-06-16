@@ -21,7 +21,7 @@ import (
 type BaseNode struct {
 	interfaces.IWorkStep
 	DataStore          *datastore.DataStore
-	o                  orm.Ormer
+	O                  orm.Ormer
 	LogWriter          *iworklog.CacheLoggerWriter
 	WorkCache          *iworkcache.WorkCache
 	TmpDataMap         map[string]interface{}

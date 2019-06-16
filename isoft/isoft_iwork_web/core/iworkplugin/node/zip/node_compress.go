@@ -1,14 +1,15 @@
-package node
+package zip
 
 import (
 	"isoft/isoft_iwork_web/core/iworkconst"
 	"isoft/isoft_iwork_web/core/iworkmodels"
+	"isoft/isoft_iwork_web/core/iworkplugin/node"
 	"isoft/isoft_iwork_web/core/iworkutil/compressutil"
 	"isoft/isoft_iwork_web/models"
 )
 
 type TarGzUnCompressNode struct {
-	BaseNode
+	node.BaseNode
 	WorkStep *models.WorkStep
 }
 
@@ -35,7 +36,7 @@ func (this *TarGzUnCompressNode) GetDefaultParamOutputSchema() *iworkmodels.Para
 }
 
 type TarGzCompressNode struct {
-	BaseNode
+	node.BaseNode
 	WorkStep *models.WorkStep
 }
 
