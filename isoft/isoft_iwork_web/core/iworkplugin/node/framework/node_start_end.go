@@ -66,6 +66,10 @@ func (this *WorkEndNode) GetRuntimeParamInputSchema() *iworkmodels.ParamInputSch
 	return &iworkmodels.ParamInputSchema{ParamInputSchemaItems: items}
 }
 
+func (this *WorkEndNode) GetReceiver() *entry.Receiver {
+	return this.Receiver
+}
+
 func (this *WorkEndNode) GetRuntimeParamOutputSchema() *iworkmodels.ParamOutputSchema {
 	items := make([]iworkmodels.ParamOutputSchemaItem, 0)
 	parser := schema.WorkStepFactorySchemaParser{WorkStep: this.WorkStep, ParamSchemaParser: &node.WorkStepFactory{WorkStep: this.WorkStep}}

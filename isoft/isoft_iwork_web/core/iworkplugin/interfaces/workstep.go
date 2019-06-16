@@ -24,6 +24,7 @@ type IWorkStep interface {
 	FillParamInputSchemaDataToTmp(workStep *models.WorkStep)
 	// 填充 pureText 数据
 	FillPureTextParamInputSchemaDataToTmp(workStep *models.WorkStep)
+	GetReceiver() *entry.Receiver
 	// 节点执行的方法
 	Execute(trackingId string)
 	IParamSchemaParser

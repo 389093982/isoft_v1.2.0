@@ -54,6 +54,10 @@ func (this *BaseNode) ValidateCustom() (checkResult []string) {
 	return
 }
 
+func (this *BaseNode) GetReceiver() *entry.Receiver {
+	return nil
+}
+
 // 存储 pureText 值
 func (this *BaseNode) FillPureTextParamInputSchemaDataToTmp(workStep *models.WorkStep) {
 	// 存储节点中间数据
