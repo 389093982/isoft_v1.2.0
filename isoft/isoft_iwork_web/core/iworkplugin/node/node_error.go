@@ -4,12 +4,12 @@ import (
 	"github.com/pkg/errors"
 	"isoft/isoft_iwork_web/core/iworkconst"
 	"isoft/isoft_iwork_web/core/iworkmodels"
-	"isoft/isoft_iwork_web/models/iwork"
+	"isoft/isoft_iwork_web/models"
 )
 
 type PanicErrorNode struct {
 	BaseNode
-	WorkStep *iwork.WorkStep
+	WorkStep *models.WorkStep
 }
 
 func (this *PanicErrorNode) Execute(trackingId string) {

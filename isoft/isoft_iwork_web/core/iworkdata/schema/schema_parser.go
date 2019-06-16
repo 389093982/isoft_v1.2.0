@@ -4,12 +4,12 @@ import (
 	"encoding/json"
 	"isoft/isoft_iwork_web/core/iworkmodels"
 	"isoft/isoft_iwork_web/core/iworkplugin/interfaces"
-	"isoft/isoft_iwork_web/models/iwork"
+	"isoft/isoft_iwork_web/models"
 	"strings"
 )
 
 type WorkStepFactorySchemaParser struct {
-	WorkStep          *iwork.WorkStep
+	WorkStep          *models.WorkStep
 	ParamSchemaParser interfaces.IParamSchemaParser
 }
 

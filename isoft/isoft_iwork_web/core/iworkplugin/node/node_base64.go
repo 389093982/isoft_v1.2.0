@@ -4,12 +4,12 @@ import (
 	"encoding/base64"
 	"isoft/isoft_iwork_web/core/iworkconst"
 	"isoft/isoft_iwork_web/core/iworkmodels"
-	"isoft/isoft_iwork_web/models/iwork"
+	"isoft/isoft_iwork_web/models"
 )
 
 type Base64EncodeNode struct {
 	BaseNode
-	WorkStep *iwork.WorkStep
+	WorkStep *models.WorkStep
 }
 
 func (this *Base64EncodeNode) Execute(trackingId string) {
@@ -31,7 +31,7 @@ func (this *Base64EncodeNode) GetDefaultParamOutputSchema() *iworkmodels.ParamOu
 
 type Base64DecodeNode struct {
 	BaseNode
-	WorkStep *iwork.WorkStep
+	WorkStep *models.WorkStep
 }
 
 func (this *Base64DecodeNode) Execute(trackingId string) {

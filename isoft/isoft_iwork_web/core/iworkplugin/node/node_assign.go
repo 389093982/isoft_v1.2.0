@@ -5,14 +5,14 @@ import (
 	"fmt"
 	"github.com/pkg/errors"
 	"isoft/isoft_iwork_web/core/iworkmodels"
-	"isoft/isoft_iwork_web/models/iwork"
+	"isoft/isoft_iwork_web/models"
 	"regexp"
 	"strings"
 )
 
 type AssignVarNode struct {
 	BaseNode
-	WorkStep *iwork.WorkStep
+	WorkStep *models.WorkStep
 }
 
 // 检测赋值引用字段格式是否满足正则

@@ -7,7 +7,7 @@ import (
 	"isoft/isoft_iwork_web/core/iworkconst"
 	"isoft/isoft_iwork_web/core/iworkdata/block"
 	"isoft/isoft_iwork_web/core/iworkmodels"
-	"isoft/isoft_iwork_web/models/iwork"
+	"isoft/isoft_iwork_web/models"
 	"strings"
 )
 
@@ -62,7 +62,7 @@ func GetParamValueForEntity(paramValue string) string {
 	//	return paramValue
 	//}
 	//entity_name := strings.Replace(paramValue, "$Entity.", "", -1)
-	//if entity, err := iwork.QueryEntityByEntityName(entity_name); err == nil {
+	//if entity, err := models.QueryEntityByEntityName(entity_name); err == nil {
 	//	return entity.EntityFieldStr
 	//}
 	return ""
@@ -70,12 +70,12 @@ func GetParamValueForEntity(paramValue string) string {
 
 func GetAllPreStepNodeName(work_id, work_step_id int64) []string {
 	result := make([]string, 0)
-	steps, err := iwork.QueryAllPreStepInfo(work_id, work_step_id, orm.NewOrm())
+	steps, err := models.QueryAllPreStepInfo(work_id, work_step_id, orm.NewOrm())
 	if err == nil {
 		// 当前步骤信息
-		currentWorkStep, _ := iwork.QueryWorkStepInfo(work_id, work_step_id, orm.NewOrm())
+		currentWorkStep, _ := models.QueryWorkStepInfo(work_id, work_step_id, orm.NewOrm())
 		// 所有步骤信息
-		allSteps, _ := iwork.QueryAllWorkStepInfo(work_id, orm.NewOrm())
+		allSteps, _ := models.QueryAllWorkStepInfo(work_id, orm.NewOrm())
 		parser := block.BlockParser{Steps: allSteps}
 		_, blockStepMapper := parser.ParseToBlockSteps()
 		currentBlockStep := blockStepMapper[currentWorkStep.Id]

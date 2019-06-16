@@ -10,13 +10,13 @@ import (
 	"isoft/isoft_iwork_web/core/iworkdata/schema"
 	"isoft/isoft_iwork_web/core/iworkmodels"
 	"isoft/isoft_iwork_web/core/iworkutil"
-	"isoft/isoft_iwork_web/models/iwork"
+	"isoft/isoft_iwork_web/models"
 	"strings"
 )
 
 type WorkSubNode struct {
 	BaseNode
-	WorkStep       *iwork.WorkStep
+	WorkStep       *models.WorkStep
 	WorkSubRunFunc func(work_id int64, dispatcher *entry.Dispatcher) (receiver *entry.Receiver)
 }
 
@@ -24,7 +24,7 @@ func (this *WorkSubNode) Execute(trackingId string) {
 	// 获取子流程流程名称
 	workSubName := this.checkAndGetWorkSubName()
 	// 运行子流程
-	work, _ := iwork.QueryWorkByName(workSubName, orm.NewOrm())
+	work, _ := models.QueryWorkByName(workSubName, orm.NewOrm())
 	this.RunOnceSubWork(work.Id, trackingId, this.TmpDataMap, this.DataStore)
 }
 
@@ -68,7 +68,7 @@ func (this *WorkSubNode) GetRuntimeParamInputSchema() *iworkmodels.ParamInputSch
 	workSubName := this.getWorkSubName()
 	if strings.TrimSpace(workSubName) != "" {
 		// 获取子流程所有步骤
-		subSteps, err := iwork.QueryAllWorkStepByWorkName(workSubName, this.getOrmer())
+		subSteps, err := models.QueryAllWorkStepByWorkName(workSubName, this.getOrmer())
 		if err != nil {
 			panic(err)
 		}
@@ -105,7 +105,7 @@ func (this *WorkSubNode) GetRuntimeParamOutputSchema() *iworkmodels.ParamOutputS
 	workSubName := iworkutil.GetWorkSubNameForWorkSubNode(paramInputSchema)
 	if strings.TrimSpace(workSubName) != "" {
 		// 获取子流程所有步骤
-		subSteps, err := iwork.QueryAllWorkStepByWorkName(workSubName, orm.NewOrm())
+		subSteps, err := models.QueryAllWorkStepByWorkName(workSubName, orm.NewOrm())
 		if err != nil {
 			panic(err)
 		}
@@ -130,13 +130,13 @@ func (this *WorkSubNode) ValidateCustom() (checkResult []string) {
 		checkResult = append(checkResult, fmt.Sprintf("Empty workSubName was found!"))
 		return
 	}
-	work, err := iwork.QueryWorkByName(workSubName, orm.NewOrm())
+	work, err := models.QueryWorkByName(workSubName, orm.NewOrm())
 	if err != nil {
 		checkResult = append(checkResult, fmt.Sprintf("WorkSubName for %s was not found!", workSubName))
 		return
 	}
 
-	if startStep, err := iwork.QueryWorkStepByStepName(work.Id, "start", orm.NewOrm()); err == nil {
+	if startStep, err := models.QueryWorkStepByStepName(work.Id, "start", orm.NewOrm()); err == nil {
 		parser := schema.WorkStepFactorySchemaParser{WorkStep: this.WorkStep, ParamSchemaParser: &WorkStepFactory{WorkStep: this.WorkStep}}
 		workSubInputSchema := parser.GetCacheParamInputSchema()
 		parser2 := schema.WorkStepFactorySchemaParser{WorkStep: &startStep, ParamSchemaParser: &WorkStepFactory{WorkStep: &startStep}}

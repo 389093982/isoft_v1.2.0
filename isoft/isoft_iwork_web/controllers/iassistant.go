@@ -3,7 +3,7 @@ package controllers
 import (
 	"fmt"
 	"isoft/isoft_iwork_web/core/iworkutil/sqlutil"
-	"isoft/isoft_iwork_web/models/iwork"
+	"isoft/isoft_iwork_web/models"
 	"strings"
 )
 
@@ -11,7 +11,7 @@ func (this *WorkController) LoadQuickSqlMeta() {
 	resource_id, _ := this.GetInt64("resource_id")
 	var err error
 	// 查询所有的数据库信息
-	resource, _ := iwork.QueryResourceById(resource_id)
+	resource, _ := models.QueryResourceById(resource_id)
 	tableColumnsMap := make(map[string]interface{}, 0)
 	tableSqlMap := make(map[string]interface{}, 0)
 	tableNames := sqlutil.GetAllTableNames(resource.ResourceDsn)

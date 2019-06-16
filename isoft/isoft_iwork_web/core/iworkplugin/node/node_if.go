@@ -9,12 +9,12 @@ import (
 	"isoft/isoft_iwork_web/core/iworkdata/entry"
 	"isoft/isoft_iwork_web/core/iworkmodels"
 	"isoft/isoft_iwork_web/core/iworkplugin/interfaces"
-	"isoft/isoft_iwork_web/models/iwork"
+	"isoft/isoft_iwork_web/models"
 )
 
 type IFNode struct {
 	BaseNode
-	WorkStep         *iwork.WorkStep
+	WorkStep         *models.WorkStep
 	BlockStep        *block.BlockStep
 	BlockStepRunFunc func(args *interfaces.RunOneStepArgs) (receiver *entry.Receiver)
 }
@@ -53,7 +53,7 @@ func (this *IFNode) GetDefaultParamOutputSchema() *iworkmodels.ParamOutputSchema
 
 type ElIfNode struct {
 	BaseNode
-	WorkStep         *iwork.WorkStep
+	WorkStep         *models.WorkStep
 	BlockStep        *block.BlockStep
 	BlockStepRunFunc func(args *interfaces.RunOneStepArgs) (receiver *entry.Receiver)
 }
@@ -96,7 +96,7 @@ func (this *ElIfNode) GetDefaultParamOutputSchema() *iworkmodels.ParamOutputSche
 
 type ElseNode struct {
 	BaseNode
-	WorkStep         *iwork.WorkStep
+	WorkStep         *models.WorkStep
 	BlockStep        *block.BlockStep
 	BlockStepRunFunc func(args *interfaces.RunOneStepArgs) (receiver *entry.Receiver)
 }

@@ -2,25 +2,25 @@ package iworklog
 
 import (
 	"fmt"
-	"isoft/isoft_iwork_web/models/iwork"
+	"isoft/isoft_iwork_web/models"
 	"time"
 )
 
 const cacheLen = 10
 
 type CacheLoggerWriter struct {
-	caches []*iwork.RunLogDetail
+	caches []*models.RunLogDetail
 }
 
 func (this *CacheLoggerWriter) cleanCaches() {
-	this.caches = make([]*iwork.RunLogDetail, 0)
+	this.caches = make([]*models.RunLogDetail, 0)
 }
 
 func (this *CacheLoggerWriter) Write(trackingId, detail string) {
 	if this.caches == nil {
 		this.cleanCaches()
 	}
-	log := &iwork.RunLogDetail{
+	log := &models.RunLogDetail{
 		TrackingId:      trackingId,
 		Detail:          detail,
 		CreatedBy:       "SYSTEM",
@@ -36,7 +36,7 @@ func (this *CacheLoggerWriter) Write(trackingId, detail string) {
 }
 
 func (this *CacheLoggerWriter) Flush() {
-	if _, err := iwork.InsertMultiRunLogDetail(this.caches); err != nil {
+	if _, err := models.InsertMultiRunLogDetail(this.caches); err != nil {
 		fmt.Println(err.Error())
 	}
 }

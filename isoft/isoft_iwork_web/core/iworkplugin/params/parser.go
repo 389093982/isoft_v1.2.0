@@ -10,7 +10,7 @@ import (
 	"isoft/isoft_iwork_web/core/iworkutil"
 	"isoft/isoft_iwork_web/core/iworkutil/datatypeutil"
 	"isoft/isoft_iwork_web/core/iworkvalid"
-	"isoft/isoft_iwork_web/models/iwork"
+	"isoft/isoft_iwork_web/models"
 	"reflect"
 	"strings"
 )
@@ -254,7 +254,7 @@ func (this *SimpleParser) parseParamVauleWithPrefixNode() interface{} {
 
 func (this *SimpleParser) parseParamVauleWithResource() interface{} {
 	resource_name := strings.TrimPrefix(this.paramVaule, "$RESOURCE.")
-	resource, err := iwork.QueryResourceByName(resource_name)
+	resource, err := models.QueryResourceByName(resource_name)
 	if err == nil {
 		if resource.ResourceType == "db" {
 			return resource.ResourceDsn

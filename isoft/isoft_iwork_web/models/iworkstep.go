@@ -1,4 +1,4 @@
-package iwork
+package models
 
 import (
 	"fmt"

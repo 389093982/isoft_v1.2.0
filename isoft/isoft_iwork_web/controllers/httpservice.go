@@ -6,7 +6,7 @@ import (
 	"isoft/isoft_iwork_web/core/iworkdata/schema"
 	"isoft/isoft_iwork_web/core/iworkplugin/node"
 	"isoft/isoft_iwork_web/core/iworkrun"
-	"isoft/isoft_iwork_web/models/iwork"
+	"isoft/isoft_iwork_web/models"
 	"strings"
 	"time"
 )
@@ -22,11 +22,11 @@ func (this *WorkController) PublishSerivce() {
 		}
 	}()
 	work_name := this.Ctx.Input.Param(":work_name")
-	work, err := iwork.QueryWorkByName(work_name, orm.NewOrm())
+	work, err := models.QueryWorkByName(work_name, orm.NewOrm())
 	if err != nil {
 		panic(err)
 	}
-	steps, err := iwork.QueryAllWorkStepByWorkName(work_name, orm.NewOrm())
+	steps, err := models.QueryAllWorkStepByWorkName(work_name, orm.NewOrm())
 	if err != nil {
 		panic(err)
 	}
@@ -41,7 +41,7 @@ func (this *WorkController) PublishSerivce() {
 	this.ServeJSON()
 }
 
-func (this *WorkController) ParseParam(steps []iwork.WorkStep) map[string]interface{} {
+func (this *WorkController) ParseParam(steps []models.WorkStep) map[string]interface{} {
 	mapData := map[string]interface{}{}
 	for _, step := range steps {
 		if step.WorkStepType == "work_start" {

@@ -3,13 +3,13 @@ package controllers
 import (
 	"github.com/astaxie/beego/utils/pagination"
 	"isoft/isoft/common/pageutil"
-	"isoft/isoft_iwork_web/models/iwork"
+	"isoft/isoft_iwork_web/models"
 	"time"
 )
 
 func (this *WorkController) DeleteEntity() {
 	entity_id, _ := this.GetInt64("entity_id", -1)
-	if err := iwork.DeleteEntityById(entity_id); err == nil {
+	if err := models.DeleteEntityById(entity_id); err == nil {
 		this.Data["json"] = &map[string]interface{}{"status": "SUCCESS"}
 	} else {
 		this.Data["json"] = &map[string]interface{}{"status": "ERROR"}
@@ -18,7 +18,7 @@ func (this *WorkController) DeleteEntity() {
 }
 
 func (this *WorkController) EditEntity() {
-	var entity iwork.Entity
+	var entity models.Entity
 	entity_id, err := this.GetInt64("entity_id", -1)
 	if err == nil && entity_id > 0 {
 		entity.Id = entity_id
@@ -29,7 +29,7 @@ func (this *WorkController) EditEntity() {
 	entity.CreatedTime = time.Now()
 	entity.LastUpdatedBy = "SYSTEM"
 	entity.LastUpdatedTime = time.Now()
-	if _, err := iwork.InsertOrUpdateEntity(&entity); err == nil {
+	if _, err := models.InsertOrUpdateEntity(&entity); err == nil {
 		this.Data["json"] = &map[string]interface{}{"status": "SUCCESS"}
 	} else {
 		this.Data["json"] = &map[string]interface{}{"status": "ERROR"}
@@ -42,7 +42,7 @@ func (this *WorkController) FilterPageEntity() {
 	offset, _ := this.GetInt("offset", 10)            // 每页记录数
 	current_page, _ := this.GetInt("current_page", 1) // 当前页
 	condArr := map[string]string{"search": search}
-	entities, count, err := iwork.QueryEntity(condArr, current_page, offset)
+	entities, count, err := models.QueryEntity(condArr, current_page, offset)
 	paginator := pagination.SetPaginator(this.Ctx, offset, count)
 	if err == nil {
 		this.Data["json"] = &map[string]interface{}{"status": "SUCCESS", "entities": entities,

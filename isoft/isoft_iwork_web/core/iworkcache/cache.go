@@ -6,7 +6,7 @@ import (
 	"isoft/isoft_iwork_web/core/iworkdata/block"
 	"isoft/isoft_iwork_web/core/iworkmodels"
 	"isoft/isoft_iwork_web/core/iworkutil/datatypeutil"
-	"isoft/isoft_iwork_web/models/iwork"
+	"isoft/isoft_iwork_web/models"
 	"sync"
 )
 
@@ -31,7 +31,7 @@ func getBlockStepExecuteOrder(blockSteps []*block.BlockStep) []*block.BlockStep 
 	return order
 }
 
-type GetCacheParamInputSchemaFunc func(step *iwork.WorkStep) *iworkmodels.ParamInputSchema
+type GetCacheParamInputSchemaFunc func(step *models.WorkStep) *iworkmodels.ParamInputSchema
 
 var workCacheMap = make(map[int64]*WorkCache, 0)
 
@@ -72,8 +72,8 @@ func checkError(err error) {
 
 type WorkCache struct {
 	WorkId              int64
-	Work                iwork.Work
-	Steps               []iwork.WorkStep
+	Work                models.Work
+	Steps               []models.WorkStep
 	BlockStepOrdersMap  map[int64][]*block.BlockStep // key 为父节点 StepId
 	ParamInputSchemaMap map[int64]*iworkmodels.ParamInputSchema
 	err                 error
@@ -82,10 +82,10 @@ type WorkCache struct {
 func (this *WorkCache) FlushCache(paramInputSchemaFunc GetCacheParamInputSchemaFunc) {
 	o := orm.NewOrm()
 	// 缓存 work
-	this.Work, this.err = iwork.QueryWorkById(this.WorkId, o)
+	this.Work, this.err = models.QueryWorkById(this.WorkId, o)
 	checkError(this.err)
 	// 缓存 workSteps
-	this.Steps, this.err = iwork.QueryAllWorkStepInfo(this.WorkId, o)
+	this.Steps, this.err = models.QueryAllWorkStepInfo(this.WorkId, o)
 	checkError(this.err)
 	blockSteps := getBlockStepExecuteOrder(block.ParseToBlockStep(this.Steps))
 	// 缓存 blockStepOrder

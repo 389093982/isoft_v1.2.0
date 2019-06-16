@@ -8,7 +8,7 @@ import (
 	"isoft/isoft/common/hashutil"
 	"isoft/isoft/common/stringutil"
 	"isoft/isoft_iwork_web/core/iworkutil/datatypeutil"
-	"isoft/isoft_iwork_web/models/iwork"
+	"isoft/isoft_iwork_web/models"
 	"strconv"
 	"strings"
 )
@@ -18,7 +18,7 @@ type MigrateExecutor struct {
 	db         *sql.DB
 	TrackingId string
 	ForceClean bool
-	migrates   []iwork.TableMigrate
+	migrates   []models.TableMigrate
 }
 
 func (this *MigrateExecutor) ping() (err error) {
@@ -90,7 +90,7 @@ func (this *MigrateExecutor) record(flag, hash, sql, tracking_detail string) err
 }
 
 func (this *MigrateExecutor) loadAllMigrate() (err error) {
-	this.migrates, err = iwork.QueryAllMigrate()
+	this.migrates, err = models.QueryAllMigrate()
 	return
 }
 
@@ -98,11 +98,11 @@ func (this *MigrateExecutor) migrate() (err error) {
 	for _, migrate := range this.migrates {
 		if err = this.migrateOne(migrate); err != nil {
 			migrate.ValidateResult = "FAILED"
-			iwork.InsertOrUpdateTableMigrate(&migrate)
+			models.InsertOrUpdateTableMigrate(&migrate)
 			return err
 		} else {
 			migrate.ValidateResult = "SUCCESS"
-			iwork.InsertOrUpdateTableMigrate(&migrate)
+			models.InsertOrUpdateTableMigrate(&migrate)
 		}
 	}
 	return
@@ -119,7 +119,7 @@ func (this *MigrateExecutor) checkExecuted(hash string) bool {
 	return false
 }
 
-func (this *MigrateExecutor) getMigrate(migrateId int64) *iwork.TableMigrate {
+func (this *MigrateExecutor) getMigrate(migrateId int64) *models.TableMigrate {
 	for _, migrate := range this.migrates {
 		if migrate.Id == migrateId {
 			return &migrate
@@ -141,7 +141,7 @@ func (this *MigrateExecutor) checkMigrate() error {
 	return nil
 }
 
-func (this *MigrateExecutor) migrateOne(migrate iwork.TableMigrate) error {
+func (this *MigrateExecutor) migrateOne(migrate models.TableMigrate) error {
 	if strings.TrimSpace(migrate.TableMigrateSql) != "" {
 		// 优先使用用户自定义 sql
 		migrate.TableAutoSql = strings.TrimSpace(migrate.TableMigrateSql)

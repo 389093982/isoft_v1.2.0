@@ -4,13 +4,13 @@ import (
 	"fmt"
 	"isoft/isoft/common/stringutil"
 	"isoft/isoft_iwork_web/core/iworkdata/entry"
-	"isoft/isoft_iwork_web/models/iwork"
+	"isoft/isoft_iwork_web/models"
 	"strings"
 	"time"
 )
 
 // 获取当前 work 需要的 trakingId
-func createNewTrackingIdForWork(dispatcher *entry.Dispatcher, work iwork.Work) string {
+func createNewTrackingIdForWork(dispatcher *entry.Dispatcher, work models.Work) string {
 	// 生成当前流程的 trackingId
 	trackingId := stringutil.RandomUUID()
 	// 调度者不为空时代表有父级流程
@@ -20,7 +20,7 @@ func createNewTrackingIdForWork(dispatcher *entry.Dispatcher, work iwork.Work) s
 		trackingId = optimizeTrackingId(dispatcher.TrackingId, trackingId)
 	}
 	// 记录日志
-	iwork.InsertRunLogRecord(&iwork.RunLogRecord{
+	models.InsertRunLogRecord(&models.RunLogRecord{
 		TrackingId:      trackingId,
 		WorkName:        work.WorkName,
 		CreatedBy:       "SYSTEM",

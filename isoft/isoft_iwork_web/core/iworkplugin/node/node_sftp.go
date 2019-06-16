@@ -5,17 +5,17 @@ import (
 	"isoft/isoft_iwork_web/core/iworkconst"
 	"isoft/isoft_iwork_web/core/iworkmodels"
 	"isoft/isoft_iwork_web/core/iworkutil/sftputil"
-	"isoft/isoft_iwork_web/models/iwork"
+	"isoft/isoft_iwork_web/models"
 	"path/filepath"
 )
 
 type SftpUploadNode struct {
 	BaseNode
-	WorkStep *iwork.WorkStep
+	WorkStep *models.WorkStep
 }
 
 func (this *SftpUploadNode) Execute(trackingId string) {
-	sftpResource := this.TmpDataMap[iworkconst.STRING_PREFIX+"sftp_conn"].(iwork.Resource)
+	sftpResource := this.TmpDataMap[iworkconst.STRING_PREFIX+"sftp_conn"].(models.Resource)
 	local_file_path := this.TmpDataMap[iworkconst.STRING_PREFIX+"local_file_path"].(string)
 	remote_dir_path := this.TmpDataMap[iworkconst.STRING_PREFIX+"remote_dir_path"].(string)
 	err := sftputil.SFTPFileCopy(sftpResource.ResourceUsername, sftpResource.ResourcePassword, sftpResource.ResourceDsn, 22, local_file_path, remote_dir_path)

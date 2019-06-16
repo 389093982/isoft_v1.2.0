@@ -8,13 +8,13 @@ import (
 	"isoft/isoft_iwork_web/core/iworkdata/schema"
 	"isoft/isoft_iwork_web/core/iworkmodels"
 	"isoft/isoft_iwork_web/core/iworkplugin/interfaces"
-	"isoft/isoft_iwork_web/models/iwork"
+	"isoft/isoft_iwork_web/models"
 	"strings"
 )
 
 type ForeachNode struct {
 	BaseNode
-	WorkStep         *iwork.WorkStep
+	WorkStep         *models.WorkStep
 	BlockStep        *block.BlockStep
 	BlockStepRunFunc func(args *interfaces.RunOneStepArgs) (receiver *entry.Receiver)
 }

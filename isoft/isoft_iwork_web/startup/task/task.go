@@ -2,7 +2,7 @@ package task
 
 import (
 	"github.com/astaxie/beego/orm"
-	"isoft/isoft_iwork_web/models/iwork"
+	"isoft/isoft_iwork_web/models"
 	"time"
 )
 
@@ -13,8 +13,8 @@ func RegisterCronTask() {
 
 func InitialIWorkGlobalVar() {
 	for _, name := range []string{"env_name", "env_address"} {
-		if _, err := iwork.QueryGlobalVarByName(name); err != nil {
-			gv := &iwork.GlobalVar{
+		if _, err := models.QueryGlobalVarByName(name); err != nil {
+			gv := &models.GlobalVar{
 				Name:            name,
 				Value:           "",
 				Type:            0,
@@ -23,7 +23,7 @@ func InitialIWorkGlobalVar() {
 				LastUpdatedBy:   "SYSTEM",
 				LastUpdatedTime: time.Now(),
 			}
-			iwork.InsertOrUpdateGlobalVar(gv, orm.NewOrm())
+			models.InsertOrUpdateGlobalVar(gv, orm.NewOrm())
 		}
 	}
 }

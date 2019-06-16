@@ -5,7 +5,7 @@ import (
 	"github.com/astaxie/beego/orm"
 	_ "github.com/go-sql-driver/mysql" // _ 的作用,并不需要把整个包都导入进来,仅仅是是希望它执行init()函数而已
 	_ "github.com/mattn/go-sqlite3"
-	"isoft/isoft_iwork_web/models/iwork"
+	"isoft/isoft_iwork_web/models"
 )
 
 // 数据库同步模式,支持 FLYWAY 和 AUTO
@@ -50,19 +50,19 @@ func init() {
 }
 
 func registerModel() {
-	orm.RegisterModel(new(iwork.CronMeta))
-	orm.RegisterModel(new(iwork.Resource))
-	orm.RegisterModel(new(iwork.Work))
-	orm.RegisterModel(new(iwork.WorkStep))
-	orm.RegisterModel(new(iwork.RunLogRecord))
-	orm.RegisterModel(new(iwork.RunLogDetail))
-	orm.RegisterModel(new(iwork.Entity))
-	orm.RegisterModel(new(iwork.ValidateLogRecord))
-	orm.RegisterModel(new(iwork.ValidateLogDetail))
-	orm.RegisterModel(new(iwork.WorkHistory))
-	orm.RegisterModel(new(iwork.TableMigrate))
-	orm.RegisterModel(new(iwork.GlobalVar))
-	orm.RegisterModel(new(iwork.Template))
+	orm.RegisterModel(new(models.CronMeta))
+	orm.RegisterModel(new(models.Resource))
+	orm.RegisterModel(new(models.Work))
+	orm.RegisterModel(new(models.WorkStep))
+	orm.RegisterModel(new(models.RunLogRecord))
+	orm.RegisterModel(new(models.RunLogDetail))
+	orm.RegisterModel(new(models.Entity))
+	orm.RegisterModel(new(models.ValidateLogRecord))
+	orm.RegisterModel(new(models.ValidateLogDetail))
+	orm.RegisterModel(new(models.WorkHistory))
+	orm.RegisterModel(new(models.TableMigrate))
+	orm.RegisterModel(new(models.GlobalVar))
+	orm.RegisterModel(new(models.Template))
 }
 
 // 自动建表

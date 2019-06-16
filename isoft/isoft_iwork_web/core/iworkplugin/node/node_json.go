@@ -6,13 +6,13 @@ import (
 	"isoft/isoft_iwork_web/core/iworkconst"
 	"isoft/isoft_iwork_web/core/iworkdata/param"
 	"isoft/isoft_iwork_web/core/iworkmodels"
-	"isoft/isoft_iwork_web/models/iwork"
+	"isoft/isoft_iwork_web/models"
 	"strings"
 )
 
 type JsonRenderNode struct {
 	BaseNode
-	WorkStep *iwork.WorkStep
+	WorkStep *models.WorkStep
 }
 
 func (this *JsonRenderNode) Execute(trackingId string) {
@@ -36,7 +36,7 @@ func (this *JsonRenderNode) GetDefaultParamOutputSchema() *iworkmodels.ParamOutp
 
 type JsonParserNode struct {
 	BaseNode
-	WorkStep *iwork.WorkStep
+	WorkStep *models.WorkStep
 }
 
 func (this *JsonParserNode) Execute(trackingId string) {

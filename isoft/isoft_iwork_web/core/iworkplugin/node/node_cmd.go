@@ -6,7 +6,7 @@ import (
 	"isoft/isoft_iwork_web/core/iworklog"
 	"isoft/isoft_iwork_web/core/iworkmodels"
 	"isoft/isoft_iwork_web/core/iworkutil/cmdutil"
-	"isoft/isoft_iwork_web/models/iwork"
+	"isoft/isoft_iwork_web/models"
 	"os"
 	"strings"
 )
@@ -30,7 +30,7 @@ func (this *RunCmdLogWriter) Write(p []byte) (n int, err error) {
 
 type RunCmdNode struct {
 	BaseNode
-	WorkStep *iwork.WorkStep
+	WorkStep *models.WorkStep
 }
 
 func (this *RunCmdNode) Execute(trackingId string) {

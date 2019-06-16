@@ -4,11 +4,11 @@ import (
 	"fmt"
 	"github.com/robfig/cron"
 	"isoft/isoft/common/httputil"
-	"isoft/isoft_iwork_web/models/iwork"
+	"isoft/isoft_iwork_web/models"
 )
 
 func startIWorkCronTask() {
-	if metas, err := iwork.QueryAllCronMeta(true); err == nil {
+	if metas, err := models.QueryAllCronMeta(true); err == nil {
 		c := cron.New()
 		for _, meta := range metas {
 			c.AddJob(meta.CronStr, &iworkJob{meta: &meta})
@@ -18,7 +18,7 @@ func startIWorkCronTask() {
 }
 
 type iworkJob struct {
-	meta *iwork.CronMeta
+	meta *models.CronMeta
 }
 
 func (this *iworkJob) Run() {

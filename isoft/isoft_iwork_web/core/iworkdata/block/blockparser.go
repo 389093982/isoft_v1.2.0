@@ -4,13 +4,13 @@ import (
 	"fmt"
 	"github.com/pkg/errors"
 	"isoft/isoft_iwork_web/core/iworkutil/datatypeutil"
-	"isoft/isoft_iwork_web/models/iwork"
+	"isoft/isoft_iwork_web/models"
 	"sort"
 )
 
 type BlockParser struct {
-	ReferWork *iwork.Work
-	Steps     []iwork.WorkStep
+	ReferWork *models.Work
+	Steps     []models.WorkStep
 }
 
 func (this *BlockParser) CheckInvalidWorkSteps(blockStepMapper map[int64]*BlockStep) {
@@ -30,7 +30,7 @@ func (this *BlockParser) ParseToBlockSteps() ([]*BlockStep, map[int64]*BlockStep
 }
 
 // 获取 prefixIndex 和 suffixIndex 之间的所有 workStep 信息
-func (this *BlockParser) filterStepsBetweenIndex(prefixIndex, suffixIndex int) []iwork.WorkStep {
+func (this *BlockParser) filterStepsBetweenIndex(prefixIndex, suffixIndex int) []models.WorkStep {
 	if prefixIndex < 0 || suffixIndex < 0 {
 		return this.Steps
 	}
@@ -94,7 +94,7 @@ func (this *BlockParser) ParseToChildrenBlockSteps(blockSteps []*BlockStep, bloc
 }
 
 // 获取同批最小缩进值索引
-func (this *BlockParser) getMinIndentIndex(steps []iwork.WorkStep) (int, []int) {
+func (this *BlockParser) getMinIndentIndex(steps []models.WorkStep) (int, []int) {
 	indentMap := make(map[int][]int, 0)
 	for _, step := range steps {
 		if _, ok := indentMap[step.WorkStepIndent]; !ok {

@@ -10,11 +10,11 @@ import (
 	"isoft/isoft_iwork_web/core/iworkmodels"
 	"isoft/isoft_iwork_web/core/iworkplugin/interfaces"
 	"isoft/isoft_iwork_web/core/iworkplugin/node"
-	"isoft/isoft_iwork_web/models/iwork"
+	"isoft/isoft_iwork_web/models"
 	"time"
 )
 
-func GetCacheParamInputSchemaFunc(workStep *iwork.WorkStep) *iworkmodels.ParamInputSchema {
+func GetCacheParamInputSchemaFunc(workStep *models.WorkStep) *iworkmodels.ParamInputSchema {
 	parser := schema.WorkStepFactorySchemaParser{WorkStep: workStep, ParamSchemaParser: &node.WorkStepFactory{WorkStep: workStep}}
 	return parser.GetCacheParamInputSchema()
 }

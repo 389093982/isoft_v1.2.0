@@ -6,14 +6,14 @@ import (
 	"isoft/isoft_iwork_web/core/iworkmodels"
 	"isoft/isoft_iwork_web/core/iworkutil/fileutil"
 	"isoft/isoft_iwork_web/core/iworkutil/stringutil"
-	"isoft/isoft_iwork_web/models/iwork"
+	"isoft/isoft_iwork_web/models"
 	"os"
 	"strings"
 )
 
 type FileReadNode struct {
 	BaseNode
-	WorkStep *iwork.WorkStep
+	WorkStep *models.WorkStep
 }
 
 func (this *FileReadNode) Execute(trackingId string) {
@@ -41,7 +41,7 @@ func (this *FileReadNode) GetDefaultParamOutputSchema() *iworkmodels.ParamOutput
 
 type FileWriteNode struct {
 	BaseNode
-	WorkStep *iwork.WorkStep
+	WorkStep *models.WorkStep
 }
 
 func checkAppend(tmpDataMap map[string]interface{}) bool {
@@ -89,7 +89,7 @@ func (this *FileWriteNode) GetDefaultParamOutputSchema() *iworkmodels.ParamOutpu
 
 type FileSyncNode struct {
 	BaseNode
-	WorkStep *iwork.WorkStep
+	WorkStep *models.WorkStep
 }
 
 func (this *FileSyncNode) Execute(trackingId string) {
@@ -120,7 +120,7 @@ func (this *FileSyncNode) GetDefaultParamInputSchema() *iworkmodels.ParamInputSc
 
 type FileDeleteNode struct {
 	BaseNode
-	WorkStep *iwork.WorkStep
+	WorkStep *models.WorkStep
 }
 
 func (this *FileDeleteNode) Execute(trackingId string) {

@@ -6,12 +6,12 @@ import (
 	"isoft/isoft_iwork_web/core/iworkdata/entry"
 	"isoft/isoft_iwork_web/core/iworkdata/schema"
 	"isoft/isoft_iwork_web/core/iworkmodels"
-	"isoft/isoft_iwork_web/models/iwork"
+	"isoft/isoft_iwork_web/models"
 )
 
 type WorkStartNode struct {
 	BaseNode
-	WorkStep *iwork.WorkStep
+	WorkStep *models.WorkStep
 }
 
 func (this *WorkStartNode) Execute(trackingId string) {
@@ -44,7 +44,7 @@ func (this *WorkStartNode) GetRuntimeParamOutputSchema() *iworkmodels.ParamOutpu
 
 type WorkEndNode struct {
 	BaseNode
-	WorkStep *iwork.WorkStep
+	WorkStep *models.WorkStep
 	Receiver *entry.Receiver
 }
 

@@ -10,7 +10,7 @@ import (
 	"isoft/isoft_iwork_web/core/iworkdata/schema"
 	"isoft/isoft_iwork_web/core/iworkplugin/node"
 	"isoft/isoft_iwork_web/core/iworkrun"
-	"isoft/isoft_iwork_web/models/iwork"
+	"isoft/isoft_iwork_web/models"
 	"strings"
 	"time"
 )
@@ -20,18 +20,18 @@ func GetRelativeWorkService(serviceArgs map[string]interface{}) (result map[stri
 	work_id := serviceArgs["work_id"].(int64)
 	o := serviceArgs["o"].(orm.Ormer)
 
-	_, parentWorks, _, err := iwork.QueryParentWorks(work_id, o)
+	_, parentWorks, _, err := models.QueryParentWorks(work_id, o)
 	if err != nil {
 		return nil, err
 	}
-	subWorks := make([]iwork.Work, 0)
-	steps, err := iwork.QueryAllWorkStepInfo(work_id, o)
+	subWorks := make([]models.Work, 0)
+	steps, err := models.QueryAllWorkStepInfo(work_id, o)
 	if err != nil {
 		return nil, err
 	}
 	for _, step := range steps {
 		if step.WorkSubId > 0 {
-			subwork, err := iwork.QueryWorkById(step.WorkSubId, o)
+			subwork, err := models.QueryWorkById(step.WorkSubId, o)
 			if err != nil {
 				return nil, err
 			}
@@ -55,7 +55,7 @@ func FilterPageLogRecord(serviceArgs map[string]interface{}) (result map[string]
 	offset := serviceArgs["offset"].(int)
 	current_page := serviceArgs["current_page"].(int)
 	ctx := serviceArgs["ctx"].(*context.Context)
-	runLogRecords, count, err := iwork.QueryRunLogRecord(work_id, current_page, offset)
+	runLogRecords, count, err := models.QueryRunLogRecord(work_id, current_page, offset)
 	if err != nil {
 		return nil, err
 	}
@@ -75,7 +75,7 @@ func FilterPageWorkService(serviceArgs map[string]interface{}) (result map[strin
 	current_page := serviceArgs["current_page"].(int)
 	ctx := serviceArgs["ctx"].(*context.Context)
 	o := serviceArgs["o"].(orm.Ormer)
-	works, count, err := iwork.QueryWork(condArr, current_page, offset, o)
+	works, count, err := models.QueryWork(condArr, current_page, offset, o)
 	if err != nil {
 		return nil, err
 	}
@@ -93,7 +93,7 @@ func getOldWorkInfoById(id int64, o orm.Ormer) (oldWorkName string, oldWorkId in
 	if id <= 0 {
 		return
 	}
-	if work, err := iwork.QueryWorkById(id, o); err == nil {
+	if work, err := models.QueryWorkById(id, o); err == nil {
 		oldWorkName = work.WorkName
 		oldWorkId = work.Id
 	}
@@ -101,11 +101,11 @@ func getOldWorkInfoById(id int64, o orm.Ormer) (oldWorkName string, oldWorkId in
 }
 
 func EditWorkService(serviceArgs map[string]interface{}) error {
-	work := serviceArgs["work"].(iwork.Work)
+	work := serviceArgs["work"].(models.Work)
 	o := serviceArgs["o"].(orm.Ormer)
 	oldWorkName, oldWorkId := getOldWorkInfoById(work.Id, o)
 	// 插入或者更新 work 信息
-	if _, err := iwork.InsertOrUpdateWork(&work, o); err != nil {
+	if _, err := models.InsertOrUpdateWork(&work, o); err != nil {
 		return err
 	}
 	if oldWorkName == "" {
@@ -122,7 +122,7 @@ func EditWorkService(serviceArgs map[string]interface{}) error {
 			return err
 		}
 		var oldMetaId int64
-		if meta, err := iwork.QueryCronMetaByName(oldWorkName); err != nil {
+		if meta, err := models.QueryCronMetaByName(oldWorkName); err != nil {
 			oldMetaId = -1
 		} else {
 			oldMetaId = meta.Id
@@ -135,7 +135,7 @@ func EditWorkService(serviceArgs map[string]interface{}) error {
 }
 
 func InsertOrUpdateAutoCronMeta(task_name string, meta_id int64, o orm.Ormer) (id int64, err error) {
-	meta := &iwork.CronMeta{
+	meta := &models.CronMeta{
 		TaskName:        task_name,
 		TaskType:        "iwork_quartz",
 		CronStr:         "0 * * * * ?",
@@ -148,30 +148,30 @@ func InsertOrUpdateAutoCronMeta(task_name string, meta_id int64, o orm.Ormer) (i
 	if meta_id > 0 {
 		meta.Id = meta_id
 	}
-	id, err = iwork.InsertOrUpdateCronMeta(meta, o)
+	id, err = models.InsertOrUpdateCronMeta(meta, o)
 	return
 }
 
 func DeleteWorkByIdService(serviceArgs map[string]interface{}) error {
 	id := serviceArgs["id"].(int64)
 	o := serviceArgs["o"].(orm.Ormer)
-	if work, err := iwork.QueryWorkById(id, o); err == nil {
+	if work, err := models.QueryWorkById(id, o); err == nil {
 		// cronMeta 可以提前删除,删除失败不影响功能
-		iwork.DeleteCronMetaByTaskName(work.WorkName, o)
+		models.DeleteCronMetaByTaskName(work.WorkName, o)
 	}
-	return iwork.DeleteWorkById(id, o)
+	return models.DeleteWorkById(id, o)
 }
 
 func ChangeReferencesWorkName(work_id int64, oldWorkName, workName string, o orm.Ormer) error {
 	if oldWorkName == workName {
 		return nil
 	}
-	_, parentWorks, _, err := iwork.QueryParentWorks(work_id, o)
+	_, parentWorks, _, err := models.QueryParentWorks(work_id, o)
 	if err != nil {
 		return nil
 	}
 	for _, parentWork := range parentWorks {
-		steps, _ := iwork.QueryAllWorkStepInfo(parentWork.Id, o)
+		steps, _ := models.QueryAllWorkStepInfo(parentWork.Id, o)
 		for _, step := range steps {
 			if step.WorkStepType != "work_sub" {
 				continue
@@ -184,7 +184,7 @@ func ChangeReferencesWorkName(work_id int64, oldWorkName, workName string, o orm
 				}
 			}
 			step.WorkStepInput = inputSchema.RenderToJson()
-			iwork.InsertOrUpdateWorkStep(&step, o)
+			models.InsertOrUpdateWorkStep(&step, o)
 		}
 	}
 	return nil
@@ -192,7 +192,7 @@ func ChangeReferencesWorkName(work_id int64, oldWorkName, workName string, o orm
 
 func InsertStartEndWorkStepNode(work_id int64, o orm.Ormer) error {
 	insertDefaultWorkStepNodeFunc := func(nodeName string, work_step_id int64) error {
-		step := &iwork.WorkStep{
+		step := &models.WorkStep{
 			WorkId:          work_id,
 			WorkStepId:      work_step_id,
 			WorkStepName:    nodeName,
@@ -204,7 +204,7 @@ func InsertStartEndWorkStepNode(work_id int64, o orm.Ormer) error {
 			LastUpdatedBy:   "SYSTEM",
 			LastUpdatedTime: time.Now(),
 		}
-		if _, err := iwork.InsertOrUpdateWorkStep(step, o); err != nil {
+		if _, err := models.InsertOrUpdateWorkStep(step, o); err != nil {
 			return err
 		}
 		return nil

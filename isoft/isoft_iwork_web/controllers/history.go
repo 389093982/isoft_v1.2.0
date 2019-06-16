@@ -5,14 +5,14 @@ import (
 	"github.com/astaxie/beego/orm"
 	"github.com/astaxie/beego/utils/pagination"
 	"isoft/isoft/common/pageutil"
-	"isoft/isoft_iwork_web/models/iwork"
+	"isoft/isoft_iwork_web/models"
 	"time"
 )
 
 func (this *WorkController) SaveHistory() {
 	work_id, _ := this.GetInt64("work_id")
-	work, _ := iwork.QueryWorkById(work_id, orm.NewOrm())
-	steps, _ := iwork.QueryAllWorkStepInfo(work_id, orm.NewOrm())
+	work, _ := models.QueryWorkById(work_id, orm.NewOrm())
+	steps, _ := models.QueryAllWorkStepInfo(work_id, orm.NewOrm())
 
 	historyMap := make(map[string]interface{})
 	historyMap["work"] = work
@@ -21,7 +21,7 @@ func (this *WorkController) SaveHistory() {
 	var err error
 	workHistory, err := json.MarshalIndent(historyMap, "", "\t")
 	if err == nil {
-		history := &iwork.WorkHistory{
+		history := &models.WorkHistory{
 			WorkId:          work.Id,
 			WorkName:        work.WorkName,
 			WorkDesc:        work.WorkDesc,
@@ -31,7 +31,7 @@ func (this *WorkController) SaveHistory() {
 			LastUpdatedBy:   "SYSTEM",
 			LastUpdatedTime: time.Now(),
 		}
-		_, err = iwork.InsertOrUpdateWorkHistory(history)
+		_, err = models.InsertOrUpdateWorkHistory(history)
 	}
 	if err == nil {
 		this.Data["json"] = &map[string]interface{}{"status": "SUCCESS"}
@@ -45,7 +45,7 @@ func (this *WorkController) FilterPageWorkHistory() {
 	offset, _ := this.GetInt("offset", 10)            // 每页记录数
 	current_page, _ := this.GetInt("current_page", 1) // 当前页
 	condArr := map[string]string{}
-	histories, count, err := iwork.QueryWorkHistory(condArr, current_page, offset, orm.NewOrm())
+	histories, count, err := models.QueryWorkHistory(condArr, current_page, offset, orm.NewOrm())
 	if err == nil {
 		paginator := pagination.SetPaginator(this.Ctx, offset, count)
 		this.Data["json"] = &map[string]interface{}{

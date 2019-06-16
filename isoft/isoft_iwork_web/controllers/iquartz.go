@@ -4,7 +4,7 @@ import (
 	"github.com/astaxie/beego/orm"
 	"github.com/astaxie/beego/utils/pagination"
 	"isoft/isoft/common/pageutil"
-	"isoft/isoft_iwork_web/models/iwork"
+	"isoft/isoft_iwork_web/models"
 	"time"
 )
 
@@ -13,15 +13,15 @@ func (this *WorkController) EditQuartz() {
 	operate := this.GetString("operate")
 	var err error
 	if operate == "delete" {
-		err = iwork.DeleteCronMetaByTaskName(task_name, orm.NewOrm())
+		err = models.DeleteCronMetaByTaskName(task_name, orm.NewOrm())
 	} else {
-		meta, _ := iwork.QueryCronMetaByName(task_name)
+		meta, _ := models.QueryCronMetaByName(task_name)
 		if operate == "start" {
 			meta.Enable = true
 		} else if operate == "stop" {
 			meta.Enable = false
 		}
-		_, err = iwork.InsertOrUpdateCronMeta(&meta, orm.NewOrm())
+		_, err = models.InsertOrUpdateCronMeta(&meta, orm.NewOrm())
 	}
 	if err == nil {
 		this.Data["json"] = &map[string]interface{}{"status": "SUCCESS"}
@@ -32,7 +32,7 @@ func (this *WorkController) EditQuartz() {
 }
 
 func (this *WorkController) AddQuartz() {
-	var meta iwork.CronMeta
+	var meta models.CronMeta
 	meta.TaskName = this.Input().Get("task_name")
 	meta.TaskType = this.Input().Get("task_type")
 	meta.CronStr = this.Input().Get("cron_str")
@@ -41,7 +41,7 @@ func (this *WorkController) AddQuartz() {
 	meta.CreatedTime = time.Now()
 	meta.LastUpdatedBy = "SYSTEM"
 	meta.LastUpdatedTime = time.Now()
-	if _, err := iwork.InsertOrUpdateCronMeta(&meta, orm.NewOrm()); err == nil {
+	if _, err := models.InsertOrUpdateCronMeta(&meta, orm.NewOrm()); err == nil {
 		this.Data["json"] = &map[string]interface{}{"status": "SUCCESS"}
 	} else {
 		this.Data["json"] = &map[string]interface{}{"status": "ERROR"}
@@ -56,7 +56,7 @@ func (this *WorkController) FilterPageQuartz() {
 	if search := this.GetString("search"); search != "" {
 		condArr["search"] = search
 	}
-	quartzs, count, err := iwork.QueryCronMeta(condArr, current_page, offset)
+	quartzs, count, err := models.QueryCronMeta(condArr, current_page, offset)
 	paginator := pagination.SetPaginator(this.Ctx, offset, count)
 	if err == nil {
 		this.Data["json"] = &map[string]interface{}{"status": "SUCCESS", "quartzs": quartzs,

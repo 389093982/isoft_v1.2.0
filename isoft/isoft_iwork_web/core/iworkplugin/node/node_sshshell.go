@@ -6,7 +6,7 @@ import (
 	"isoft/isoft_iwork_web/core/iworklog"
 	"isoft/isoft_iwork_web/core/iworkmodels"
 	"isoft/isoft_iwork_web/core/iworkutil/sshutil"
-	"isoft/isoft_iwork_web/models/iwork"
+	"isoft/isoft_iwork_web/models"
 	"strconv"
 	"strings"
 )
@@ -30,11 +30,11 @@ func (this *SSHShellLogWriter) Write(p []byte) (n int, err error) {
 
 type SSHShellNode struct {
 	BaseNode
-	WorkStep *iwork.WorkStep
+	WorkStep *models.WorkStep
 }
 
 func (this *SSHShellNode) Execute(trackingId string) {
-	sshResource := this.TmpDataMap[iworkconst.STRING_PREFIX+"ssh_conn"].(iwork.Resource)
+	sshResource := this.TmpDataMap[iworkconst.STRING_PREFIX+"ssh_conn"].(models.Resource)
 	ssh_command := this.TmpDataMap[iworkconst.STRING_PREFIX+"ssh_command"].(string)
 
 	var timeout int64

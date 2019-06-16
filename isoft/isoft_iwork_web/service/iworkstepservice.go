@@ -13,7 +13,7 @@ import (
 	"isoft/isoft_iwork_web/core/iworkutil"
 	"isoft/isoft_iwork_web/core/iworkutil/datatypeutil"
 	"isoft/isoft_iwork_web/core/iworkvalid"
-	"isoft/isoft_iwork_web/models/iwork"
+	"isoft/isoft_iwork_web/models"
 	"strings"
 	"time"
 )
@@ -22,7 +22,7 @@ func LoadResourceInfo() *iworkmodels.ParamOutputSchema {
 	pos := &iworkmodels.ParamOutputSchema{
 		ParamOutputSchemaItems: []iworkmodels.ParamOutputSchemaItem{},
 	}
-	resources := iwork.QueryAllResource()
+	resources := models.QueryAllResource()
 	for _, resource := range resources {
 		pos.ParamOutputSchemaItems = append(pos.ParamOutputSchemaItems, iworkmodels.ParamOutputSchemaItem{
 			ParamName: resource.ResourceName,
@@ -35,7 +35,7 @@ func LoadWorkInfo() *iworkmodels.ParamOutputSchema {
 	pos := &iworkmodels.ParamOutputSchema{
 		ParamOutputSchemaItems: []iworkmodels.ParamOutputSchemaItem{},
 	}
-	works := iwork.QueryAllWorkInfo(orm.NewOrm())
+	works := models.QueryAllWorkInfo(orm.NewOrm())
 	for _, work := range works {
 		pos.ParamOutputSchemaItems = append(pos.ParamOutputSchemaItems, iworkmodels.ParamOutputSchemaItem{
 			ParamName: work.WorkName,
@@ -56,7 +56,7 @@ func LoadEntityInfo() *iworkmodels.ParamOutputSchema {
 	pos := &iworkmodels.ParamOutputSchema{
 		ParamOutputSchemaItems: []iworkmodels.ParamOutputSchemaItem{},
 	}
-	entities := iwork.QueryAllEntityInfo()
+	entities := models.QueryAllEntityInfo()
 	for _, entity := range entities {
 		pos.ParamOutputSchemaItems = append(pos.ParamOutputSchemaItems, iworkmodels.ParamOutputSchemaItem{
 			ParamName: entity.EntityName,
@@ -87,11 +87,11 @@ func LoadPreNodeOutputService(serviceArgs map[string]interface{}) (result map[st
 	preParamOutputSchemaTreeNodeArr = append(preParamOutputSchemaTreeNodeArr, pos.RenderToTreeNodes("$Error"))
 
 	// 加载前置步骤输出
-	if steps, err := iwork.QueryAllPreStepInfo(work_id, work_step_id, o); err == nil {
+	if steps, err := models.QueryAllPreStepInfo(work_id, work_step_id, o); err == nil {
 		// 当前步骤信息
-		currentWorkStep, _ := iwork.QueryWorkStepInfo(work_id, work_step_id, orm.NewOrm())
+		currentWorkStep, _ := models.QueryWorkStepInfo(work_id, work_step_id, orm.NewOrm())
 		// 所有步骤信息
-		allSteps, _ := iwork.QueryAllWorkStepInfo(work_id, orm.NewOrm())
+		allSteps, _ := models.QueryAllWorkStepInfo(work_id, orm.NewOrm())
 		parser := &block.BlockParser{Steps: allSteps}
 		_, blockStepMapper := parser.ParseToBlockSteps()
 		currentBlockStep := blockStepMapper[currentWorkStep.WorkStepId]
@@ -113,7 +113,7 @@ func GetAllWorkStepInfoService(serviceArgs map[string]interface{}) (result map[s
 	result = make(map[string]interface{}, 0)
 	work_id := serviceArgs["work_id"].(int64)
 	o := serviceArgs["o"].(orm.Ormer)
-	steps, err := iwork.QueryAllWorkStepInfo(work_id, o)
+	steps, err := models.QueryAllWorkStepInfo(work_id, o)
 	if err != nil {
 		return nil, err
 	}
@@ -127,7 +127,7 @@ func LoadWorkStepInfoService(serviceArgs map[string]interface{}) (result map[str
 	work_step_id := serviceArgs["work_step_id"].(int64)
 	o := serviceArgs["o"].(orm.Ormer)
 	// 读取 work_step 信息
-	step, err := iwork.QueryWorkStepInfo(work_id, work_step_id, o)
+	step, err := models.QueryWorkStepInfo(work_id, work_step_id, o)
 	if err != nil {
 		return nil, err
 	}
@@ -146,12 +146,12 @@ func DeleteWorkStepByWorkStepIdService(serviceArgs map[string]interface{}) error
 	work_id := serviceArgs["work_id"].(int64)
 	work_step_id := serviceArgs["work_step_id"].(int64)
 	o := serviceArgs["o"].(orm.Ormer)
-	if step, err := iwork.QueryWorkStepInfo(work_id, work_step_id, o); err == nil {
+	if step, err := models.QueryWorkStepInfo(work_id, work_step_id, o); err == nil {
 		if step.WorkStepType == "work_start" || step.WorkStepType == "work_end" {
 			return errors.New("start 节点和 end 节点不能被删除!")
 		}
 	}
-	if err := iwork.DeleteWorkStepByWorkStepId(work_id, work_step_id, o); err != nil {
+	if err := models.DeleteWorkStepByWorkStepId(work_id, work_step_id, o); err != nil {
 		return err
 	}
 	return nil
@@ -162,7 +162,7 @@ func FilterWorkStepService(serviceArgs map[string]interface{}) (result map[strin
 	condArr := make(map[string]interface{})
 	condArr["work_id"] = serviceArgs["work_id"].(int64)
 	o := serviceArgs["o"].(orm.Ormer)
-	worksteps, err := iwork.QueryWorkStep(condArr, o)
+	worksteps, err := models.QueryWorkStep(condArr, o)
 	if err != nil {
 		return nil, err
 	}
@@ -176,17 +176,17 @@ func AddWorkStepService(serviceArgs map[string]interface{}) error {
 	work_step_type := serviceArgs["work_step_type"].(string)
 	o := serviceArgs["o"].(orm.Ormer)
 	// end 节点之后不能添加节点
-	if step, err := iwork.QueryWorkStepInfo(work_id, work_step_id, o); err == nil {
+	if step, err := models.QueryWorkStepInfo(work_id, work_step_id, o); err == nil {
 		if step.WorkStepType == "work_end" {
 			return errors.New("不能再 end 节点后面添加节点!")
 		}
 	}
 	// 将 work_step_id 之后的所有节点后移一位
-	err := iwork.BatchChangeWorkStepIdOrder(work_id, work_step_id, "+", o)
+	err := models.BatchChangeWorkStepIdOrder(work_id, work_step_id, "+", o)
 	if err != nil {
 		return err
 	}
-	step := &iwork.WorkStep{
+	step := &models.WorkStep{
 		WorkId:          work_id,
 		WorkStepName:    work_step_type + "_" + fmt.Sprintf("%v", time.Now().Unix()),
 		WorkStepType:    work_step_type,
@@ -199,7 +199,7 @@ func AddWorkStepService(serviceArgs map[string]interface{}) error {
 		LastUpdatedBy:   "SYSTEM",
 		LastUpdatedTime: time.Now(),
 	}
-	if _, err := iwork.InsertOrUpdateWorkStep(step, o); err != nil {
+	if _, err := models.InsertOrUpdateWorkStep(step, o); err != nil {
 		return err
 	}
 	return nil
@@ -208,12 +208,12 @@ func AddWorkStepService(serviceArgs map[string]interface{}) error {
 // 更改邻近两个节点的顺序
 func changeNearWorkStepOrder(work_id, work_step_id int64, o orm.Ormer, nearStepLength int64) error {
 	// 获取当前步骤
-	step, err := iwork.QueryOneWorkStep(work_id, work_step_id, o)
+	step, err := models.QueryOneWorkStep(work_id, work_step_id, o)
 	if err != nil {
 		return err
 	}
 	// 获取邻近步骤
-	nearStep, err := iwork.QueryOneWorkStep(work_id, work_step_id-nearStepLength, o)
+	nearStep, err := models.QueryOneWorkStep(work_id, work_step_id-nearStepLength, o)
 	if err != nil {
 		return err
 	}
@@ -223,11 +223,11 @@ func changeNearWorkStepOrder(work_id, work_step_id int64, o orm.Ormer, nearStepL
 	nearStep.WorkStepId = nearStep.WorkStepId + nearStepLength
 	step.WorkStepId = step.WorkStepId - nearStepLength
 	// 更新邻近步骤
-	if _, err := iwork.InsertOrUpdateWorkStep(&nearStep, o); err != nil {
+	if _, err := models.InsertOrUpdateWorkStep(&nearStep, o); err != nil {
 		return err
 	}
 	// 更新当前步骤
-	if _, err := iwork.InsertOrUpdateWorkStep(&step, o); err != nil {
+	if _, err := models.InsertOrUpdateWorkStep(&step, o); err != nil {
 		return err
 	}
 	return nil
@@ -248,7 +248,7 @@ func ChangeWorkStepOrderService(serviceArgs map[string]interface{}) error {
 
 func EditWorkStepBaseInfoService(serviceArgs map[string]interface{}) error {
 	o := serviceArgs["o"].(orm.Ormer)
-	step, err := iwork.QueryOneWorkStep(serviceArgs["work_id"].(int64), serviceArgs["work_step_id"].(int64), o)
+	step, err := models.QueryOneWorkStep(serviceArgs["work_id"].(int64), serviceArgs["work_step_id"].(int64), o)
 	if err != nil {
 		return err
 	}
@@ -264,7 +264,7 @@ func EditWorkStepBaseInfoService(serviceArgs map[string]interface{}) error {
 		step.WorkStepInput = ""
 		step.WorkStepOutput = ""
 	}
-	if _, err := iwork.InsertOrUpdateWorkStep(&step, o); err != nil {
+	if _, err := models.InsertOrUpdateWorkStep(&step, o); err != nil {
 		return err
 	}
 	// 级联更改相关联的步骤名称
@@ -278,13 +278,13 @@ func ChangeReferencesWorkStepName(work_id int64, oldWorkStepName, workStepName s
 	if oldWorkStepName == workStepName {
 		return nil
 	}
-	steps, err := iwork.QueryAllWorkStepInfo(work_id, o)
+	steps, err := models.QueryAllWorkStepInfo(work_id, o)
 	if err != nil {
 		return err
 	}
 	for _, step := range steps {
 		step.WorkStepInput = strings.Replace(step.WorkStepInput, "$"+oldWorkStepName, "$"+workStepName, -1)
-		_, err := iwork.InsertOrUpdateWorkStep(&step, o)
+		_, err := models.InsertOrUpdateWorkStep(&step, o)
 		if err != nil {
 			return err
 		}
@@ -294,7 +294,7 @@ func ChangeReferencesWorkStepName(work_id int64, oldWorkStepName, workStepName s
 
 func createSubWork(refactor_worksub_name string, o orm.Ormer) (int64, error) {
 	// 创建子流程
-	subWork := &iwork.Work{
+	subWork := &models.Work{
 		WorkName:        refactor_worksub_name,
 		WorkDesc:        "refactor worksub",
 		CreatedBy:       "SYSTEM",
@@ -302,7 +302,7 @@ func createSubWork(refactor_worksub_name string, o orm.Ormer) (int64, error) {
 		LastUpdatedBy:   "SYSTEM",
 		LastUpdatedTime: time.Now(),
 	}
-	if _, err := iwork.InsertOrUpdateWork(subWork, o); err != nil {
+	if _, err := models.InsertOrUpdateWork(subWork, o); err != nil {
 		return -1, err
 	}
 	// 为子流程添加开始和结束节点
@@ -312,8 +312,8 @@ func createSubWork(refactor_worksub_name string, o orm.Ormer) (int64, error) {
 	return subWork.Id, nil
 }
 
-func getRefactorWorkStep(work_id, work_step_id int64, o orm.Ormer) (step iwork.WorkStep, err error) {
-	step, err = iwork.QueryWorkStepInfo(work_id, int64(work_step_id), o)
+func getRefactorWorkStep(work_id, work_step_id int64, o orm.Ormer) (step models.WorkStep, err error) {
+	step, err = models.QueryWorkStepInfo(work_id, int64(work_step_id), o)
 	if err != nil {
 		return
 	}
@@ -323,28 +323,28 @@ func getRefactorWorkStep(work_id, work_step_id int64, o orm.Ormer) (step iwork.W
 	return step, nil
 }
 
-func refactorSubWork(refactorStep iwork.WorkStep, subWorkId int64, o orm.Ormer) error {
+func refactorSubWork(refactorStep models.WorkStep, subWorkId int64, o orm.Ormer) error {
 	// 将子流程 start 节点后面所有的步骤 id 顺序 + 1
-	err := iwork.BatchChangeWorkStepIdOrder(subWorkId, 1, "+", o)
+	err := models.BatchChangeWorkStepIdOrder(subWorkId, 1, "+", o)
 	if err != nil {
 		return err
 	}
-	newStep := iwork.CopyWorkStepInfo(refactorStep)
+	newStep := models.CopyWorkStepInfo(refactorStep)
 	newStep.WorkId = subWorkId
 	newStep.WorkStepId = 2
 	// 在 2 号步骤位置插入当前步骤
-	if _, err := iwork.InsertOrUpdateWorkStep(newStep, o); err != nil {
+	if _, err := models.InsertOrUpdateWorkStep(newStep, o); err != nil {
 		return err
 	}
 	return nil
 }
 
-func refactorCurrentWorkByDelete(refactorStep iwork.WorkStep, o orm.Ormer) error {
+func refactorCurrentWorkByDelete(refactorStep models.WorkStep, o orm.Ormer) error {
 	_serviceArgs := map[string]interface{}{"work_id": refactorStep.WorkId, "work_step_id": refactorStep.WorkStepId, "o": o}
 	return DeleteWorkStepByWorkStepIdService(_serviceArgs)
 }
 
-func refactorCurrentWorkByChangeToWorkSub(subWorkId int64, refactor_worksub_name string, refactorStep iwork.WorkStep, o orm.Ormer) error {
+func refactorCurrentWorkByChangeToWorkSub(subWorkId int64, refactor_worksub_name string, refactorStep models.WorkStep, o orm.Ormer) error {
 	// 修改 refactorStep 的类型
 	refactorStep.WorkStepType = "work_sub"
 	// 修改 refactorStep 的 subWorkId
@@ -360,7 +360,7 @@ func refactorCurrentWorkByChangeToWorkSub(subWorkId int64, refactor_worksub_name
 		}
 	}
 	refactorStep.WorkStepInput = inputSchema.RenderToJson()
-	if _, err := iwork.InsertOrUpdateWorkStep(&refactorStep, o); err != nil {
+	if _, err := models.InsertOrUpdateWorkStep(&refactorStep, o); err != nil {
 		return err
 	}
 	return nil
@@ -374,13 +374,13 @@ func BatchChangeIndentService(serviceArgs map[string]interface{}) error {
 	var indent_work_step_id_arr []int
 	json.Unmarshal([]byte(indent_work_step_ids), &indent_work_step_id_arr)
 	for _, work_step_id := range indent_work_step_id_arr {
-		if step, err := iwork.QueryWorkStepInfo(work_id, int64(work_step_id), o); err == nil {
+		if step, err := models.QueryWorkStepInfo(work_id, int64(work_step_id), o); err == nil {
 			if mod == "left" && step.WorkStepIndent > 0 {
 				step.WorkStepIndent -= 1
 			} else if mod == "right" {
 				step.WorkStepIndent += 1
 			}
-			if _, err := iwork.InsertOrUpdateWorkStep(&step, o); err != nil {
+			if _, err := models.InsertOrUpdateWorkStep(&step, o); err != nil {
 				return err
 			}
 		}
@@ -435,7 +435,7 @@ func EditWorkStepParamInfoService(serviceArgs map[string]interface{}) error {
 	paramInputSchemaStr := serviceArgs["paramInputSchemaStr"].(string)
 	paramMappingsStr := serviceArgs["paramMappingsStr"].(string)
 	o := serviceArgs["o"].(orm.Ormer)
-	step, err := iwork.QueryOneWorkStep(work_id, work_step_id, o)
+	step, err := models.QueryOneWorkStep(work_id, work_step_id, o)
 	if err != nil {
 		return err
 	}
@@ -458,7 +458,7 @@ func EditWorkStepParamInfoService(serviceArgs map[string]interface{}) error {
 	step.CreatedTime = time.Now()
 	step.LastUpdatedBy = "SYSTEM"
 	step.LastUpdatedTime = time.Now()
-	_, err = iwork.InsertOrUpdateWorkStep(&step, o)
+	_, err = models.InsertOrUpdateWorkStep(&step, o)
 	if err != nil {
 		return err
 	}
@@ -467,7 +467,7 @@ func EditWorkStepParamInfoService(serviceArgs map[string]interface{}) error {
 
 	// 编辑开始或结束节点时需要通知调度流程重新 BuildDynamic
 	if step.WorkStepType == "work_start" || step.WorkStepType == "work_end" {
-		if workSteps, _, _, err := iwork.QueryParentWorks(work_id, o); err == nil {
+		if workSteps, _, _, err := models.QueryParentWorks(work_id, o); err == nil {
 			for _, workStep := range workSteps {
 				BuildDynamic(workStep.WorkId, workStep.WorkStepId, o)
 			}
@@ -490,7 +490,7 @@ func BuildDynamic(work_id int64, work_step_id int64, o orm.Ormer) {
 // 构建动态输入值
 func BuildDynamicInput(work_id int64, work_step_id int64, o orm.Ormer) {
 	// 读取 work_step 信息
-	step, err := iwork.QueryWorkStepInfo(work_id, work_step_id, o)
+	step, err := models.QueryWorkStepInfo(work_id, work_step_id, o)
 	if err != nil {
 		panic(err)
 	}
@@ -512,7 +512,7 @@ func BuildDynamicInput(work_id int64, work_step_id int64, o orm.Ormer) {
 	}
 	paramInputSchema := &iworkmodels.ParamInputSchema{ParamInputSchemaItems: newInputSchemaItems}
 	step.WorkStepInput = paramInputSchema.RenderToJson()
-	if _, err = iwork.InsertOrUpdateWorkStep(&step, o); err != nil {
+	if _, err = models.InsertOrUpdateWorkStep(&step, o); err != nil {
 		panic(err)
 	}
 }
@@ -520,7 +520,7 @@ func BuildDynamicInput(work_id int64, work_step_id int64, o orm.Ormer) {
 // 构建动态输出值
 func BuildDynamicOutput(work_id int64, work_step_id int64, o orm.Ormer) {
 	// 读取 work_step 信息
-	step, err := iwork.QueryWorkStepInfo(work_id, work_step_id, o)
+	step, err := models.QueryWorkStepInfo(work_id, work_step_id, o)
 	if err != nil {
 		panic(err)
 	}
@@ -530,15 +530,15 @@ func BuildDynamicOutput(work_id int64, work_step_id int64, o orm.Ormer) {
 	defaultParamOutputSchema.ParamOutputSchemaItems = append(defaultParamOutputSchema.ParamOutputSchemaItems, runtimeParamOutputSchema.ParamOutputSchemaItems...)
 	// 构建输出参数,使用全新值
 	step.WorkStepOutput = defaultParamOutputSchema.RenderToJson()
-	if _, err = iwork.InsertOrUpdateWorkStep(&step, o); err != nil {
+	if _, err = models.InsertOrUpdateWorkStep(&step, o); err != nil {
 		panic(err)
 	}
 }
 
 func checkAndCreateSubWork(work_name string, o orm.Ormer) {
-	if _, err := iwork.QueryWorkByName(work_name, orm.NewOrm()); err != nil {
+	if _, err := models.QueryWorkByName(work_name, orm.NewOrm()); err != nil {
 		// 不存在 work 则直接创建
-		work := &iwork.Work{
+		work := &models.Work{
 			WorkName:        work_name,
 			WorkDesc:        fmt.Sprintf("自动创建子流程:%s", work_name),
 			CreatedBy:       "SYSTEM",
@@ -546,7 +546,7 @@ func checkAndCreateSubWork(work_name string, o orm.Ormer) {
 			LastUpdatedBy:   "SYSTEM",
 			LastUpdatedTime: time.Now(),
 		}
-		if _, err := iwork.InsertOrUpdateWork(work, o); err == nil {
+		if _, err := models.InsertOrUpdateWork(work, o); err == nil {
 			// 写入 DB 并自动创建开始和结束节点
 			InsertStartEndWorkStepNode(work.Id, o)
 		}
@@ -555,7 +555,7 @@ func checkAndCreateSubWork(work_name string, o orm.Ormer) {
 
 func BuildAutoCreateSubWork(work_id int64, work_step_id int64, o orm.Ormer) {
 	// 读取 work_step 信息
-	step, err := iwork.QueryWorkStepInfo(work_id, work_step_id, o)
+	step, err := models.QueryWorkStepInfo(work_id, work_step_id, o)
 	if err != nil {
 		panic(err)
 	}
@@ -579,12 +579,12 @@ func BuildAutoCreateSubWork(work_id int64, work_step_id int64, o orm.Ormer) {
 			}
 			// 维护 work 的 WorkSubId 属性
 			paramValue = iworkutil.GetSingleRelativeValueWithReg(paramValue) // 去除多余的 ; 等字符
-			subWork, _ := iwork.QueryWorkByName(strings.Replace(paramValue, "$WORK.", "", -1), orm.NewOrm())
+			subWork, _ := models.QueryWorkByName(strings.Replace(paramValue, "$WORK.", "", -1), orm.NewOrm())
 			step.WorkSubId = subWork.Id
 			break
 		}
 	}
-	iwork.InsertOrUpdateWorkStep(&step, o)
+	models.InsertOrUpdateWorkStep(&step, o)
 }
 
 func CheckAndGetItemByParamName(items []iworkmodels.ParamInputSchemaItem, paramName string) (bool, *iworkmodels.ParamInputSchemaItem) {

@@ -3,7 +3,7 @@ package param
 import (
 	"encoding/json"
 	"isoft/isoft_iwork_web/core/iworkmodels"
-	"isoft/isoft_iwork_web/models/iwork"
+	"isoft/isoft_iwork_web/models"
 	"strings"
 )
 
@@ -49,7 +49,7 @@ func (this *ParamVauleParser) GetStaticParamValue() interface{} {
 		resource_name = strings.Replace(resource_name, "$RESOURCE.", "", -1)
 		resource_name = strings.Replace(resource_name, ";", "", -1)
 		resource_name = strings.TrimSpace(resource_name)
-		resource, err := iwork.QueryResourceByName(resource_name)
+		resource, err := models.QueryResourceByName(resource_name)
 		if err == nil {
 			if resource.ResourceType == "db" {
 				return resource.ResourceDsn
@@ -66,7 +66,7 @@ func (this *ParamVauleParser) GetStaticParamValue() interface{} {
 
 type ParamNameParser struct {
 	ParamName string
-	Step      *iwork.WorkStep
+	Step      *models.WorkStep
 }
 
 // 根据 ParamName 获取相对值,真值可能需要 ParamVauleParser 处理一下
@@ -88,7 +88,7 @@ func (this *ParamNameParser) ParseAndGetRelativeParamValue() string {
 }
 
 //根据步骤和参数名称获取静态参数值
-func GetStaticParamValueWithStep(paramName string, step *iwork.WorkStep) interface{} {
+func GetStaticParamValueWithStep(paramName string, step *models.WorkStep) interface{} {
 	paramNameParser := &ParamNameParser{
 		ParamName: paramName,
 		Step:      step,

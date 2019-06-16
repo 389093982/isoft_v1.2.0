@@ -4,12 +4,12 @@ import (
 	"isoft/isoft_iwork_web/core/iworkconst"
 	"isoft/isoft_iwork_web/core/iworkmodels"
 	"isoft/isoft_iwork_web/core/iworkutil/fileutil"
-	"isoft/isoft_iwork_web/models/iwork"
+	"isoft/isoft_iwork_web/models"
 )
 
 type IniReadNode struct {
 	BaseNode
-	WorkStep *iwork.WorkStep
+	WorkStep *models.WorkStep
 }
 
 func (this *IniReadNode) Execute(trackingId string) {
@@ -42,7 +42,7 @@ func (this *IniReadNode) GetDefaultParamOutputSchema() *iworkmodels.ParamOutputS
 
 type IniWriteNode struct {
 	BaseNode
-	WorkStep *iwork.WorkStep
+	WorkStep *models.WorkStep
 }
 
 func (this *IniWriteNode) Execute(trackingId string) {

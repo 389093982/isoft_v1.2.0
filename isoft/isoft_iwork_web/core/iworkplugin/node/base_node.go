@@ -12,7 +12,7 @@ import (
 	"isoft/isoft_iwork_web/core/iworkplugin/interfaces"
 	"isoft/isoft_iwork_web/core/iworkplugin/params"
 	"isoft/isoft_iwork_web/core/iworkutil/datatypeutil"
-	"isoft/isoft_iwork_web/models/iwork"
+	"isoft/isoft_iwork_web/models"
 	"sort"
 	"strings"
 )
@@ -55,7 +55,7 @@ func (this *BaseNode) ValidateCustom() (checkResult []string) {
 }
 
 // 存储 pureText 值
-func (this *BaseNode) FillPureTextParamInputSchemaDataToTmp(workStep *iwork.WorkStep) {
+func (this *BaseNode) FillPureTextParamInputSchemaDataToTmp(workStep *models.WorkStep) {
 	// 存储节点中间数据
 	tmpDataMap := make(map[string]interface{})
 	parser := schema.WorkStepFactorySchemaParser{WorkStep: workStep, ParamSchemaParser: &WorkStepFactory{WorkStep: workStep}}
@@ -68,7 +68,7 @@ func (this *BaseNode) FillPureTextParamInputSchemaDataToTmp(workStep *iwork.Work
 }
 
 // 将 ParamInputSchema 填充数据并返回临时的数据中心 tmpDataMap
-func (this *BaseNode) FillParamInputSchemaDataToTmp(workStep *iwork.WorkStep) {
+func (this *BaseNode) FillParamInputSchemaDataToTmp(workStep *models.WorkStep) {
 
 	// dispatcher 非空时替换成父流程参数
 	if this.Dispatcher != nil && len(this.Dispatcher.TmpDataMap) > 0 {
@@ -87,7 +87,7 @@ func (this *BaseNode) FillParamInputSchemaDataToTmp(workStep *iwork.WorkStep) {
 }
 
 // 提交输出数据至数据中心,此类数据能直接从 tmpDataMap 中获取,而不依赖于计算,只适用于 WORK_START、WORK_END 节点
-func (this *BaseNode) SubmitParamOutputSchemaDataToDataStore(workStep *iwork.WorkStep, dataStore *datastore.DataStore, tmpDataMap map[string]interface{}) {
+func (this *BaseNode) SubmitParamOutputSchemaDataToDataStore(workStep *models.WorkStep, dataStore *datastore.DataStore, tmpDataMap map[string]interface{}) {
 	parser := schema.WorkStepFactorySchemaParser{WorkStep: workStep, ParamSchemaParser: &WorkStepFactory{WorkStep: workStep}}
 	paramOutputSchema := parser.GetCacheParamOutputSchema()
 	paramMap := make(map[string]interface{})

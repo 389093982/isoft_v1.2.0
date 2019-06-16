@@ -4,7 +4,7 @@ import (
 	"github.com/astaxie/beego/orm"
 	"github.com/astaxie/beego/utils/pagination"
 	"isoft/isoft/common/pageutil"
-	"isoft/isoft_iwork_web/models/iwork"
+	"isoft/isoft_iwork_web/models"
 	"time"
 )
 
@@ -12,7 +12,7 @@ func (this *WorkController) GlobalVarList() {
 	offset, _ := this.GetInt("offset", 10)            // 每页记录数
 	current_page, _ := this.GetInt("current_page", 1) // 当前页
 	condArr := map[string]string{"search": this.GetString("search")}
-	globalVars, count, err := iwork.QueryGlobalVar(condArr, current_page, offset, orm.NewOrm())
+	globalVars, count, err := models.QueryGlobalVar(condArr, current_page, offset, orm.NewOrm())
 	paginator := pagination.SetPaginator(this.Ctx, offset, count)
 	if err == nil {
 		this.Data["json"] = &map[string]interface{}{"status": "SUCCESS", "globalVars": globalVars,
@@ -27,7 +27,7 @@ func (this *WorkController) EditGlobalVar() {
 	id, err := this.GetInt64("id", -1)
 	globalVarName := this.GetString("globalVarName")
 	globalVarValue := this.GetString("globalVarValue")
-	globalVar := &iwork.GlobalVar{
+	globalVar := &models.GlobalVar{
 		Name:            globalVarName,
 		Value:           globalVarValue,
 		Type:            1,
@@ -39,7 +39,7 @@ func (this *WorkController) EditGlobalVar() {
 	if err == nil && id > 0 {
 		globalVar.Id = id
 	}
-	_, err = iwork.InsertOrUpdateGlobalVar(globalVar, orm.NewOrm())
+	_, err = models.InsertOrUpdateGlobalVar(globalVar, orm.NewOrm())
 	if err == nil {
 		this.Data["json"] = &map[string]interface{}{"status": "SUCCESS"}
 	} else {
@@ -50,7 +50,7 @@ func (this *WorkController) EditGlobalVar() {
 
 func (this *WorkController) DeleteGlobalVarById() {
 	id, _ := this.GetInt64("id")
-	err := iwork.DeleteGlobalVarById(id)
+	err := models.DeleteGlobalVarById(id)
 	if err == nil {
 		this.Data["json"] = &map[string]interface{}{"status": "SUCCESS"}
 	} else {

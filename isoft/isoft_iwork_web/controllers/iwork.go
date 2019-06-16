@@ -5,7 +5,7 @@ import (
 	"github.com/astaxie/beego/orm"
 	"isoft/isoft_iwork_web/core/iworkcache"
 	"isoft/isoft_iwork_web/core/iworkrun"
-	"isoft/isoft_iwork_web/models/iwork"
+	"isoft/isoft_iwork_web/models"
 	"isoft/isoft_iwork_web/service"
 	"time"
 )
@@ -49,7 +49,7 @@ func (this *WorkController) GetRelativeWork() {
 
 func (this *WorkController) GetLastRunLogDetail() {
 	tracking_id := this.GetString("tracking_id")
-	runLogDetails, err := iwork.QueryLastRunLogDetail(tracking_id)
+	runLogDetails, err := models.QueryLastRunLogDetail(tracking_id)
 	if err == nil {
 		this.Data["json"] = &map[string]interface{}{"status": "SUCCESS", "runLogDetails": runLogDetails}
 	} else {
@@ -88,7 +88,7 @@ func (this *WorkController) RunWork() {
 
 func (this *WorkController) EditWork() {
 	// 将请求参数封装成 work
-	var work iwork.Work
+	var work models.Work
 	work_id, err := this.GetInt64("work_id", -1)
 	if err == nil && work_id > 0 {
 		work.Id = work_id
@@ -141,7 +141,7 @@ func (this *WorkController) DeleteWorkById() {
 
 // 使缓存立即生效
 func (this *WorkController) FlushCache() {
-	works := iwork.QueryAllWorkInfo(orm.NewOrm())
+	works := models.QueryAllWorkInfo(orm.NewOrm())
 	var err error
 	for _, work := range works {
 		err = iworkcache.UpdateWorkCache(work.Id, iworkrun.GetCacheParamInputSchemaFunc)

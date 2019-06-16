@@ -4,7 +4,7 @@ import (
 	"github.com/astaxie/beego/orm"
 	"github.com/astaxie/beego/utils/pagination"
 	"isoft/isoft/common/pageutil"
-	"isoft/isoft_iwork_web/models/iwork"
+	"isoft/isoft_iwork_web/models"
 	"time"
 )
 
@@ -13,7 +13,7 @@ func (this *WorkController) EditTemplate() {
 	templateTheme := this.GetString("template_theme")
 	templateName := this.GetString("template_name")
 	templateValue := this.GetString("template_value")
-	template := &iwork.Template{
+	template := &models.Template{
 		TemplateTheme:   templateTheme,
 		TemplateName:    templateName,
 		TemplateValue:   templateValue,
@@ -25,7 +25,7 @@ func (this *WorkController) EditTemplate() {
 	if err == nil && id > 0 {
 		template.Id = id
 	}
-	_, err = iwork.InsertOrUpdateTemplate(template, orm.NewOrm())
+	_, err = models.InsertOrUpdateTemplate(template, orm.NewOrm())
 	if err == nil {
 		this.Data["json"] = &map[string]interface{}{"status": "SUCCESS"}
 	} else {
@@ -38,7 +38,7 @@ func (this *WorkController) TemplateList() {
 	offset, _ := this.GetInt("offset", 10)            // 每页记录数
 	current_page, _ := this.GetInt("current_page", 1) // 当前页
 	condArr := map[string]string{"search": this.GetString("search")}
-	templates, count, err := iwork.QueryTemplate(condArr, current_page, offset, orm.NewOrm())
+	templates, count, err := models.QueryTemplate(condArr, current_page, offset, orm.NewOrm())
 	paginator := pagination.SetPaginator(this.Ctx, offset, count)
 	if err == nil {
 		this.Data["json"] = &map[string]interface{}{"status": "SUCCESS", "templates": templates,
@@ -51,7 +51,7 @@ func (this *WorkController) TemplateList() {
 
 func (this *WorkController) DeleteTemplateById() {
 	id, _ := this.GetInt64("id")
-	err := iwork.DeleteTemplateById(id)
+	err := models.DeleteTemplateById(id)
 	if err == nil {
 		this.Data["json"] = &map[string]interface{}{"status": "SUCCESS"}
 	} else {

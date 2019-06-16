@@ -6,12 +6,12 @@ import (
 	"isoft/isoft_iwork_web/core/iworkutil/sftputil"
 	"isoft/isoft_iwork_web/core/iworkutil/sqlutil"
 	"isoft/isoft_iwork_web/core/iworkutil/sshutil"
-	"isoft/isoft_iwork_web/models/iwork"
+	"isoft/isoft_iwork_web/models"
 	"time"
 )
 
 func (this *WorkController) AddResource() {
-	var resource iwork.Resource
+	var resource models.Resource
 	resource.ResourceName = this.GetString("resource_name")
 	resource.ResourceType = this.GetString("resource_type")
 	resource.ResourceUrl = this.GetString("resource_url")
@@ -22,7 +22,7 @@ func (this *WorkController) AddResource() {
 	resource.CreatedTime = time.Now()
 	resource.LastUpdatedBy = "SYSTEM"
 	resource.LastUpdatedTime = time.Now()
-	if _, err := iwork.InsertOrUpdateResource(&resource); err == nil {
+	if _, err := models.InsertOrUpdateResource(&resource); err == nil {
 		this.Data["json"] = &map[string]interface{}{"status": "SUCCESS"}
 	} else {
 		this.Data["json"] = &map[string]interface{}{"status": "ERROR"}
@@ -32,7 +32,7 @@ func (this *WorkController) AddResource() {
 
 func (this *WorkController) GetAllResource() {
 	resource_type := this.GetString("resource_type")
-	resources := iwork.QueryAllResource(resource_type)
+	resources := models.QueryAllResource(resource_type)
 	this.Data["json"] = &map[string]interface{}{"status": "SUCCESS", "resources": resources}
 	this.ServeJSON()
 }
@@ -44,7 +44,7 @@ func (this *WorkController) FilterPageResource() {
 	if search := this.GetString("search"); search != "" {
 		condArr["search"] = search
 	}
-	resources, count, err := iwork.QueryResource(condArr, current_page, offset)
+	resources, count, err := models.QueryResource(condArr, current_page, offset)
 	paginator := pagination.SetPaginator(this.Ctx, offset, count)
 	if err == nil {
 		this.Data["json"] = &map[string]interface{}{"status": "SUCCESS", "resources": resources,
@@ -57,7 +57,7 @@ func (this *WorkController) FilterPageResource() {
 
 func (this *WorkController) DeleteResource() {
 	id, _ := this.GetInt64("id")
-	err := iwork.DeleteResource(id)
+	err := models.DeleteResource(id)
 	if err == nil {
 		this.Data["json"] = &map[string]interface{}{"status": "SUCCESS"}
 	} else {
@@ -69,7 +69,7 @@ func (this *WorkController) DeleteResource() {
 func (this *WorkController) ValidateResource() {
 	var err error
 	id, _ := this.GetInt64("id")
-	resource, err := iwork.QueryResourceById(id)
+	resource, err := models.QueryResourceById(id)
 	if err == nil {
 		switch resource.ResourceType {
 		case "db":

@@ -4,12 +4,12 @@ import (
 	"isoft/isoft_iwork_web/core/iworkconst"
 	"isoft/isoft_iwork_web/core/iworkmodels"
 	"isoft/isoft_iwork_web/core/iworkutil/compressutil"
-	"isoft/isoft_iwork_web/models/iwork"
+	"isoft/isoft_iwork_web/models"
 )
 
 type TarGzUnCompressNode struct {
 	BaseNode
-	WorkStep *iwork.WorkStep
+	WorkStep *models.WorkStep
 }
 
 func (this *TarGzUnCompressNode) Execute(trackingId string) {
@@ -36,7 +36,7 @@ func (this *TarGzUnCompressNode) GetDefaultParamOutputSchema() *iworkmodels.Para
 
 type TarGzCompressNode struct {
 	BaseNode
-	WorkStep *iwork.WorkStep
+	WorkStep *models.WorkStep
 }
 
 func (this *TarGzCompressNode) Execute(trackingId string) {
