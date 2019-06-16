@@ -22,6 +22,8 @@ type IParamSchemaParser interface {
 type IWorkStep interface {
 	// 填充数据
 	FillParamInputSchemaDataToTmp(workStep *iwork.WorkStep)
+	// 填充 pureText 数据
+	FillPureTextParamInputSchemaDataToTmp(workStep *iwork.WorkStep)
 	// 节点执行的方法
 	Execute(trackingId string)
 	IParamSchemaParser

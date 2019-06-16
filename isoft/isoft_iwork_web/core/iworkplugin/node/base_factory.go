@@ -18,7 +18,7 @@ import (
 )
 
 type WorkStepFactory struct {
-	Work             iwork.Work
+	Work             *iwork.Work
 	WorkStep         *iwork.WorkStep                                                              // 普通步骤执行时使用的参数
 	BlockStep        *block.BlockStep                                                             // 块步骤执行时使用的参数
 	WorkSubRunFunc   func(work_id int64, dispatcher *entry.Dispatcher) (receiver *entry.Receiver) // 执行步骤时遇到子流程时的回调函数
@@ -35,6 +35,8 @@ func (this *WorkStepFactory) Execute(trackingId string) {
 	proxy := this.getProxy()
 	// 将 ParamInputSchema 填充数据并返回临时的数据中心 tmpDataMap
 	proxy.FillParamInputSchemaDataToTmp(this.WorkStep)
+	// 存储 pureText 值
+	proxy.FillPureTextParamInputSchemaDataToTmp(this.WorkStep)
 	// 执行任务
 	proxy.Execute(trackingId)
 	if endNode, ok := proxy.(*WorkEndNode); ok {

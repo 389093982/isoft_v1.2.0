@@ -20,12 +20,13 @@ import (
 // 所有 node 的基类
 type BaseNode struct {
 	interfaces.IWorkStep
-	DataStore  *datastore.DataStore
-	o          orm.Ormer
-	LogWriter  *iworklog.CacheLoggerWriter
-	WorkCache  *iworkcache.WorkCache
-	TmpDataMap map[string]interface{}
-	Dispatcher *entry.Dispatcher
+	DataStore          *datastore.DataStore
+	o                  orm.Ormer
+	LogWriter          *iworklog.CacheLoggerWriter
+	WorkCache          *iworkcache.WorkCache
+	TmpDataMap         map[string]interface{}
+	PureTextTmpDataMap map[string]interface{}
+	Dispatcher         *entry.Dispatcher
 }
 
 func (this *BaseNode) GetDefaultParamInputSchema() *iworkmodels.ParamInputSchema {
@@ -54,7 +55,7 @@ func (this *BaseNode) ValidateCustom() (checkResult []string) {
 }
 
 // 存储 pureText 值
-func (this *BaseNode) FillPureTextParamInputSchemaDataToTmp(workStep *iwork.WorkStep) map[string]interface{} {
+func (this *BaseNode) FillPureTextParamInputSchemaDataToTmp(workStep *iwork.WorkStep) {
 	// 存储节点中间数据
 	tmpDataMap := make(map[string]interface{})
 	parser := schema.WorkStepFactorySchemaParser{WorkStep: workStep, ParamSchemaParser: &WorkStepFactory{WorkStep: workStep}}
@@ -63,20 +64,22 @@ func (this *BaseNode) FillPureTextParamInputSchemaDataToTmp(workStep *iwork.Work
 		// tmpDataMap 存储引用值 pureText
 		tmpDataMap[item.ParamName] = item.ParamValue
 	}
-	return tmpDataMap
+	this.PureTextTmpDataMap = tmpDataMap
 }
 
 // 将 ParamInputSchema 填充数据并返回临时的数据中心 tmpDataMap
 func (this *BaseNode) FillParamInputSchemaDataToTmp(workStep *iwork.WorkStep) {
-	tmpDataMap := make(map[string]interface{})
+
 	// dispatcher 非空时替换成父流程参数
 	if this.Dispatcher != nil && len(this.Dispatcher.TmpDataMap) > 0 {
+		tmpDataMap := make(map[string]interface{})
 		// 从父流程中获取值,即从 Dispatcher 中获取值
 		for key, value := range this.Dispatcher.TmpDataMap {
 			if value != "__default__" { // __default__ 则表示不用替换,还是使用子流程默认值参数
 				tmpDataMap[key] = value
 			}
 		}
+		this.TmpDataMap = tmpDataMap
 	} else {
 		pis := this.WorkCache.ParamInputSchemaMap[workStep.WorkStepId]
 		this.TmpDataMap = params.FillParamInputSchemaDataToTmp(pis, this.DataStore)
