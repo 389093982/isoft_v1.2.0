@@ -1,11 +1,12 @@
 package sqlutil
 
+import "isoft/isoft_iwork_web/core/iworkpool"
+
 func Execute(sqlstring string, sql_binding []interface{}, dataSourceName string) int64 {
-	db, err := GetConnForMysql("mysql", dataSourceName)
+	db, err := iworkpool.GetDBConn("mysql", dataSourceName)
 	if err != nil {
 		panic(err)
 	}
-	defer db.Close()
 	// 使用预编译 sql 防止 sql 注入
 	stmt, err := db.Prepare(sqlstring)
 	if err != nil {

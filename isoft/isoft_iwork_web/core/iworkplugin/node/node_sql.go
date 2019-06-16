@@ -7,6 +7,7 @@ import (
 	"isoft/isoft_iwork_web/core/iworkdata/param"
 	"isoft/isoft_iwork_web/core/iworkfunc"
 	"isoft/isoft_iwork_web/core/iworkmodels"
+	"isoft/isoft_iwork_web/core/iworkpool"
 	"isoft/isoft_iwork_web/core/iworkutil/sqlutil"
 	"isoft/isoft_iwork_web/models"
 	"reflect"
@@ -328,7 +329,7 @@ func validateAndGetDataStoreName(step *models.WorkStep) string {
 	if strings.TrimSpace(dataSourceName) == "" {
 		panic("Invalid param for db_conn! Can't resolve it!")
 	}
-	db, err := sqlutil.GetConnForMysql("mysql", dataSourceName)
+	db, err := iworkpool.GetDBConn("mysql", dataSourceName)
 	if err != nil {
 		panic(fmt.Sprintf("Can't get DB connection for %s!", dataSourceName))
 	}

@@ -3,8 +3,8 @@ package controllers
 import (
 	"github.com/astaxie/beego/utils/pagination"
 	"isoft/isoft/common/pageutil"
+	"isoft/isoft_iwork_web/core/iworkpool"
 	"isoft/isoft_iwork_web/core/iworkutil/sftputil"
-	"isoft/isoft_iwork_web/core/iworkutil/sqlutil"
 	"isoft/isoft_iwork_web/core/iworkutil/sshutil"
 	"isoft/isoft_iwork_web/models"
 	"time"
@@ -73,7 +73,7 @@ func (this *WorkController) ValidateResource() {
 	if err == nil {
 		switch resource.ResourceType {
 		case "db":
-			db, err1 := sqlutil.GetConnForMysql("mysql", resource.ResourceDsn)
+			db, err1 := iworkpool.GetConnForMysql("mysql", resource.ResourceDsn)
 			if err1 == nil {
 				defer db.Close()
 			}

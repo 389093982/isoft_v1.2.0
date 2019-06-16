@@ -2,14 +2,14 @@ package sqlutil
 
 import (
 	"database/sql"
+	"isoft/isoft_iwork_web/core/iworkpool"
 )
 
 func GetMetaDatas(sql, dataSourceName string) (colNames []string) {
-	db, err := GetConnForMysql("mysql", dataSourceName)
+	db, err := iworkpool.GetDBConn("mysql", dataSourceName)
 	if err != nil {
 		return
 	}
-	defer db.Close()
 	rows, err := db.Query(sql)
 	if err != nil {
 		return
@@ -24,11 +24,10 @@ func GetMetaDatas(sql, dataSourceName string) (colNames []string) {
 
 func Query(sqlstring string, sql_binding []interface{}, dataSourceName string) (
 	datacounts int64, rowDatas []map[string]interface{}) {
-	db, err := GetConnForMysql("mysql", dataSourceName)
+	db, err := iworkpool.GetDBConn("mysql", dataSourceName)
 	if err != nil {
 		panic(err)
 	}
-	defer db.Close()
 	// 使用预编译 sql 防止 sql 注入
 	stmt, err := db.Prepare(sqlstring)
 	if err != nil {
@@ -74,11 +73,10 @@ func scanRowData(rows *sql.Rows, colSize int) []sql.RawBytes {
 
 // 查询sql总数据量
 func QuerySelectCount(sqlstring string, sql_binding []interface{}, dataSourceName string) (datacounts int64) {
-	db, err := GetConnForMysql("mysql", dataSourceName)
+	db, err := iworkpool.GetDBConn("mysql", dataSourceName)
 	if err != nil {
 		panic(err)
 	}
-	defer db.Close()
 	stmt, err := db.Prepare(sqlstring)
 	if err != nil {
 		panic(err)
