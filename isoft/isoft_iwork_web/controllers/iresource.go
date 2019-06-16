@@ -73,11 +73,12 @@ func (this *WorkController) ValidateResource() {
 	if err == nil {
 		switch resource.ResourceType {
 		case "db":
-			db, err1 := iworkpool.GetConnForMysql("mysql", resource.ResourceDsn)
+			db, err1 := iworkpool.GetDBConn("mysql", resource.ResourceDsn)
 			if err1 == nil {
-				defer db.Close()
+				err = db.Ping()
+			} else {
+				err = err1
 			}
-			err = err1
 		case "sftp":
 			sshClient, sftpClient, err1 := sftputil.SFTPConnect(resource.ResourceUsername, resource.ResourcePassword, resource.ResourceDsn, 22)
 			if err1 == nil {

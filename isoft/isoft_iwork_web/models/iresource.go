@@ -3,8 +3,19 @@ package models
 import (
 	"github.com/astaxie/beego/orm"
 	"strings"
+	"sync"
 	"time"
 )
+
+var openConnFunc func(driverName, dataSourceName string) (err error)
+
+// 注册打开连接函数
+func RegisterOpenConnFunc(f func(driverName, dataSourceName string) (err error)) {
+	var once = &sync.Once{}
+	once.Do(func() {
+		openConnFunc = f
+	})
+}
 
 type Resource struct {
 	Id               int64     `json:"id"`
@@ -26,6 +37,9 @@ func InsertOrUpdateResource(resource *Resource) (id int64, err error) {
 		id, err = o.Update(resource)
 	} else {
 		id, err = o.Insert(resource)
+	}
+	if err == nil && resource.ResourceType == "db" && openConnFunc != nil {
+		openConnFunc("mysql", resource.ResourceDsn)
 	}
 	return
 }
