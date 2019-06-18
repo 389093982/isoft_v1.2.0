@@ -429,6 +429,20 @@ func RefactorWorkStepInfoService(serviceArgs map[string]interface{}) error {
 	return nil
 }
 
+func formatChecker(paramInputSchema *iworkmodels.ParamInputSchema) error {
+	for _, item := range paramInputSchema.ParamInputSchemaItems {
+		formatChecker := iworkvalid.ParamValueFormatChecker{
+			ParamName:  item.ParamName,
+			PureText:   item.PureText,
+			ParamValue: item.ParamValue,
+		}
+		if ok, err := formatChecker.Check(); !ok && err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
 func EditWorkStepParamInfoService(serviceArgs map[string]interface{}) error {
 	work_id := serviceArgs["work_id"].(int64)
 	work_step_id := serviceArgs["work_step_id"].(int64)
@@ -442,24 +456,17 @@ func EditWorkStepParamInfoService(serviceArgs map[string]interface{}) error {
 	var paramInputSchema iworkmodels.ParamInputSchema
 	json.Unmarshal([]byte(paramInputSchemaStr), &paramInputSchema)
 
-	for _, item := range paramInputSchema.ParamInputSchemaItems {
-		formatChecker := iworkvalid.ParamValueFormatChecker{
-			ParamName:  item.ParamName,
-			PureText:   item.PureText,
-			ParamValue: item.ParamValue,
-		}
-		if ok, err := formatChecker.Check(); !ok && err != nil {
-			return err
-		}
+	if err := formatChecker(&paramInputSchema); err != nil {
+		return err
 	}
+
 	step.WorkStepInput = paramInputSchema.RenderToJson()
 	step.WorkStepParamMapping = paramMappingsStr
 	step.CreatedBy = "SYSTEM"
 	step.CreatedTime = time.Now()
 	step.LastUpdatedBy = "SYSTEM"
 	step.LastUpdatedTime = time.Now()
-	_, err = models.InsertOrUpdateWorkStep(&step, o)
-	if err != nil {
+	if _, err = models.InsertOrUpdateWorkStep(&step, o); err != nil {
 		return err
 	}
 	// 保存完静态参数后自动构建获动态参数并保存
