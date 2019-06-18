@@ -444,13 +444,16 @@ func formatChecker(paramInputSchema *iworkmodels.ParamInputSchema) error {
 }
 
 func EditWorkStepParamInfoService(serviceArgs map[string]interface{}) error {
+	var (
+		step models.WorkStep
+		err  error
+	)
 	work_id := serviceArgs["work_id"].(int64)
 	work_step_id := serviceArgs["work_step_id"].(int64)
 	paramInputSchemaStr := serviceArgs["paramInputSchemaStr"].(string)
 	paramMappingsStr := serviceArgs["paramMappingsStr"].(string)
 	o := serviceArgs["o"].(orm.Ormer)
-	step, err := models.QueryOneWorkStep(work_id, work_step_id, o)
-	if err != nil {
+	if step, err = models.QueryOneWorkStep(work_id, work_step_id, o); err != nil {
 		return err
 	}
 	var paramInputSchema iworkmodels.ParamInputSchema
