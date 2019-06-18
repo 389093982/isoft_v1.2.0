@@ -110,7 +110,7 @@ func (this *WorkController) LoadPreNodeOutput() {
 	work_step_id, _ := this.GetInt64("work_step_id")
 	serviceArgs := map[string]interface{}{"work_id": work_id, "work_step_id": work_step_id}
 	if result, err := service.ExecuteResultServiceWithTx(serviceArgs, service.LoadPreNodeOutputService); err == nil {
-		this.Data["json"] = &map[string]interface{}{"status": "SUCCESS", "preParamOutputSchemaTreeNodeArr": result["preParamOutputSchemaTreeNodeArr"]}
+		this.Data["json"] = &map[string]interface{}{"status": "SUCCESS", "prePosTreeNodeArr": result["prePosTreeNodeArr"]}
 	} else {
 		this.Data["json"] = &map[string]interface{}{"status": "ERROR", "errorMsg": err.Error()}
 	}

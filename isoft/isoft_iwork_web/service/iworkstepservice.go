@@ -71,20 +71,20 @@ func LoadPreNodeOutputService(serviceArgs map[string]interface{}) (result map[st
 	work_id := serviceArgs["work_id"].(int64)
 	work_step_id := serviceArgs["work_step_id"].(int64)
 	o := serviceArgs["o"].(orm.Ormer)
-	preParamOutputSchemaTreeNodeArr := make([]*iworkmodels.TreeNode, 0)
+	prePosTreeNodeArr := make([]*iworkmodels.TreeNode, 0)
 	// 加载 resource 参数
 	pos := LoadResourceInfo()
-	preParamOutputSchemaTreeNodeArr = append(preParamOutputSchemaTreeNodeArr, pos.RenderToTreeNodes("$RESOURCE"))
+	prePosTreeNodeArr = append(prePosTreeNodeArr, pos.RenderToTreeNodes("$RESOURCE"))
 	// 加载 work 参
 	pos = LoadWorkInfo()
-	preParamOutputSchemaTreeNodeArr = append(preParamOutputSchemaTreeNodeArr, pos.RenderToTreeNodes("$WORK"))
+	prePosTreeNodeArr = append(prePosTreeNodeArr, pos.RenderToTreeNodes("$WORK"))
 	// 加载 entity 参数
 	pos = LoadEntityInfo()
-	preParamOutputSchemaTreeNodeArr = append(preParamOutputSchemaTreeNodeArr, pos.RenderToTreeNodes("$Entity"))
+	prePosTreeNodeArr = append(prePosTreeNodeArr, pos.RenderToTreeNodes("$Entity"))
 
 	// 加载 error 参数
 	pos = LoadErrorInfo()
-	preParamOutputSchemaTreeNodeArr = append(preParamOutputSchemaTreeNodeArr, pos.RenderToTreeNodes("$Error"))
+	prePosTreeNodeArr = append(prePosTreeNodeArr, pos.RenderToTreeNodes("$Error"))
 
 	// 加载前置步骤输出
 	if steps, err := models.QueryAllPreStepInfo(work_id, work_step_id, o); err == nil {
@@ -100,12 +100,12 @@ func LoadPreNodeOutputService(serviceArgs map[string]interface{}) (result map[st
 			if block.CheckBlockAccessble(currentBlockStep, step.WorkStepId) && step.IsDefer != "true" {
 				parser := schema.WorkStepFactorySchemaParser{WorkStep: &step, ParamSchemaParser: &node.WorkStepFactory{WorkStep: &step}}
 				pos := parser.GetCacheParamOutputSchema()
-				preParamOutputSchemaTreeNodeArr = append(preParamOutputSchemaTreeNodeArr, pos.RenderToTreeNodes("$"+step.WorkStepName))
+				prePosTreeNodeArr = append(prePosTreeNodeArr, pos.RenderToTreeNodes("$"+step.WorkStepName))
 			}
 		}
 	}
 	// 返回结果
-	result["preParamOutputSchemaTreeNodeArr"] = preParamOutputSchemaTreeNodeArr
+	result["prePosTreeNodeArr"] = prePosTreeNodeArr
 	return
 }
 
@@ -467,14 +467,18 @@ func EditWorkStepParamInfoService(serviceArgs map[string]interface{}) error {
 
 	// 编辑开始或结束节点时需要通知调度流程重新 BuildDynamic
 	if step.WorkStepType == "work_start" || step.WorkStepType == "work_end" {
-		if workSteps, _, _, err := models.QueryParentWorks(work_id, o); err == nil {
-			for _, workStep := range workSteps {
-				BuildDynamic(workStep.WorkId, workStep.WorkStepId, o)
-			}
-		}
+		BuildParentWork(work_id, o)
 	}
 
 	return nil
+}
+
+func BuildParentWork(work_id int64, o orm.Ormer) {
+	if workSteps, _, _, err := models.QueryParentWorks(work_id, o); err == nil {
+		for _, workStep := range workSteps {
+			BuildDynamic(workStep.WorkId, workStep.WorkStepId, o)
+		}
+	}
 }
 
 // 构建动态值

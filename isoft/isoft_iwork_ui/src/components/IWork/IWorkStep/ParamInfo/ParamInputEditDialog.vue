@@ -89,7 +89,7 @@
         showMultiVals:false,  // 默认非多值视图
         multiVals:[],         // 存储多值列表
         paramIndex:1,
-        preParamOutputSchemaTreeNodeArr:[],
+        prePosTreeNodeArr:[],
       }
     },
     methods:{
@@ -154,7 +154,7 @@
       refreshPreNodeOutput:async function () {
         const result = await LoadPreNodeOutput(this.$store.state.current_work_id, this.$store.state.current_work_step_id);
         if(result.status == "SUCCESS"){
-          this.preParamOutputSchemaTreeNodeArr = result.preParamOutputSchemaTreeNodeArr;
+          this.prePosTreeNodeArr = result.prePosTreeNodeArr;
         }
       },
       appendDataWithPrefix:function(prefix, item, chooseType){
@@ -214,8 +214,8 @@
         };
         // tree 对应的 arr
         let treeArr = [];
-        for(var i=0; i<this.preParamOutputSchemaTreeNodeArr.length; i++){
-          let preParamOutputSchemaTreeNode = this.preParamOutputSchemaTreeNodeArr[i];
+        for(var i=0; i<this.prePosTreeNodeArr.length; i++){
+          let preParamOutputSchemaTreeNode = this.prePosTreeNodeArr[i];
           const topTreeNode = {
             title: preParamOutputSchemaTreeNode.NodeName,
             expand: false,
