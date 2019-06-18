@@ -27,21 +27,24 @@ func BuildAutoCreateSubWork(step models.WorkStep, o orm.Ormer, insertStartEndWor
 	}
 	paramInputSchema := getPisItems(step)
 	for index, item := range paramInputSchema.ParamInputSchemaItems {
+		// 参数名称代表 work_sub
 		if item.ParamName == iworkconst.STRING_PREFIX+iworkconst.NODE_TYPE_WORK_SUB {
-			paramValue := strings.TrimSpace(item.ParamValue)
-			if !strings.HasPrefix(paramValue, "$WORK.") {
+			// work_sub 名称支持纯文本和 $WORK.xxx 两种格式,统一转换成 $WORK.xxx 格式
+			workSubNameRef := strings.TrimSpace(item.ParamValue)
+			if !strings.HasPrefix(workSubNameRef, "$WORK.") {
 				// 修改值并同步到数据库
 				paramInputSchema.ParamInputSchemaItems[index] = iworkmodels.ParamInputSchemaItem{
 					ParamName:  item.ParamName,
-					ParamValue: strings.Join([]string{"$WORK.", paramValue}, ""),
+					ParamValue: strings.Join([]string{"$WORK.", workSubNameRef}, ""),
 				}
 				step.WorkStepInput = paramInputSchema.RenderToJson()
-				// 自动创建子流程
-				checkAndCreateSubWork(paramValue, o, insertStartEndWorkStepNodeFunc)
 			}
+			// 自动创建子流程
+			createOrUpdateSubWork(workSubNameRef, o, insertStartEndWorkStepNodeFunc)
+			workSubNameRef = iworkutil.GetSingleRelativeValueWithReg(workSubNameRef) // 去除多余的 ; 等字符
+			workSubName := strings.Replace(workSubNameRef, "$WORK.", "", -1)         // 去除前缀和多余的其它字符
 			// 维护 work 的 WorkSubId 属性
-			paramValue = iworkutil.GetSingleRelativeValueWithReg(paramValue) // 去除多余的 ; 等字符
-			subWork, _ := models.QueryWorkByName(strings.Replace(paramValue, "$WORK.", "", -1), orm.NewOrm())
+			subWork, _ := models.QueryWorkByName(workSubName, o)
 			step.WorkSubId = subWork.Id
 			break
 		}
@@ -49,7 +52,7 @@ func BuildAutoCreateSubWork(step models.WorkStep, o orm.Ormer, insertStartEndWor
 	models.InsertOrUpdateWorkStep(&step, o)
 }
 
-func checkAndCreateSubWork(work_name string, o orm.Ormer, insertStartEndWorkStepNodeFunc func(work_id int64, o orm.Ormer) error) {
+func createOrUpdateSubWork(work_name string, o orm.Ormer, insertStartEndWorkStepNodeFunc func(work_id int64, o orm.Ormer) error) error {
 	if _, err := models.QueryWorkByName(work_name, orm.NewOrm()); err != nil {
 		// 不存在 work 则直接创建
 		work := &models.Work{
@@ -62,7 +65,8 @@ func checkAndCreateSubWork(work_name string, o orm.Ormer, insertStartEndWorkStep
 		}
 		if _, err := models.InsertOrUpdateWork(work, o); err == nil {
 			// 写入 DB 并自动创建开始和结束节点
-			insertStartEndWorkStepNodeFunc(work.Id, o)
+			return insertStartEndWorkStepNodeFunc(work.Id, o)
 		}
 	}
+	return nil
 }
