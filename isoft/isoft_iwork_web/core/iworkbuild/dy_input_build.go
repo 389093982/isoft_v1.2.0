@@ -1,0 +1,46 @@
+package iworkbuild
+
+import (
+	"github.com/astaxie/beego/orm"
+	"isoft/isoft_iwork_web/core/iworkdata/schema"
+	"isoft/isoft_iwork_web/core/iworkmodels"
+	"isoft/isoft_iwork_web/core/iworkplugin/node"
+	"isoft/isoft_iwork_web/models"
+)
+
+// 构建动态输入值
+func BuildDynamicInput(step models.WorkStep, o orm.Ormer) {
+	parser := schema.WorkStepFactorySchemaParser{
+		WorkStep:          &step,
+		ParamSchemaParser: &node.WorkStepFactory{WorkStep: &step, O: o},
+	}
+	// 获取默认数据
+	defaultParamInputSchema := parser.GetDefaultParamInputSchema()
+	// 获取动态数据
+	runtimeParamInputSchema := parser.GetRuntimeParamInputSchema()
+	// 合并默认数据和动态数据作为新数据
+	newInputSchemaItems := append(defaultParamInputSchema.ParamInputSchemaItems, runtimeParamInputSchema.ParamInputSchemaItems...)
+	// 获取历史数据
+	historyParamInputSchema := parser.GetCacheParamInputSchema()
+	for index, newInputSchemaItem := range newInputSchemaItems {
+		// 存在则不添加且沿用旧值
+		if exist, item := CheckAndGetItemByParamName(historyParamInputSchema.ParamInputSchemaItems, newInputSchemaItem.ParamName); exist {
+			newInputSchemaItems[index].ParamValue = item.ParamValue
+			newInputSchemaItems[index].PureText = item.PureText
+		}
+	}
+	paramInputSchema := &iworkmodels.ParamInputSchema{ParamInputSchemaItems: newInputSchemaItems}
+	step.WorkStepInput = paramInputSchema.RenderToJson()
+	if _, err := models.InsertOrUpdateWorkStep(&step, o); err != nil {
+		panic(err)
+	}
+}
+
+func CheckAndGetItemByParamName(items []iworkmodels.ParamInputSchemaItem, paramName string) (bool, *iworkmodels.ParamInputSchemaItem) {
+	for _, _item := range items {
+		if _item.ParamName == paramName {
+			return true, &_item
+		}
+	}
+	return false, nil
+}
