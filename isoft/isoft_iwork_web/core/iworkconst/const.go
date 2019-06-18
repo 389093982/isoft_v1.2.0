@@ -19,3 +19,7 @@ const NUMBER_PREFIX = "number_"
 const FIELD_PREFIX = "field_"
 
 const COMPLEX_PREFIX = "complex_"
+
+const NODE_TYPE_WORK_START = "work_start"
+const NODE_TYPE_WORK_END = "work_end"
+const NODE_TYPE_WORK_SUB = "work_sub"

@@ -459,7 +459,7 @@ func EditWorkStepParamInfoService(serviceArgs map[string]interface{}) error {
 	var paramInputSchema iworkmodels.ParamInputSchema
 	json.Unmarshal([]byte(paramInputSchemaStr), &paramInputSchema)
 
-	if err := formatChecker(&paramInputSchema); err != nil {
+	if err = formatChecker(&paramInputSchema); err != nil {
 		return err
 	}
 
@@ -473,28 +473,27 @@ func EditWorkStepParamInfoService(serviceArgs map[string]interface{}) error {
 		return err
 	}
 	// 保存完静态参数后自动构建获动态参数并保存
-	BuildDynamic(work_id, work_step_id, o)
+	BuildDynamic(work_id, work_step_id, step, o)
 
 	// 编辑开始或结束节点时需要通知调度流程重新 BuildDynamic
 	if step.WorkStepType == "work_start" || step.WorkStepType == "work_end" {
-		BuildParentWork(work_id, o)
+		BuildParentWork(work_id, step, o)
 	}
-
 	return nil
 }
 
-func BuildParentWork(work_id int64, o orm.Ormer) {
+func BuildParentWork(work_id int64, step models.WorkStep, o orm.Ormer) {
 	if workSteps, _, _, err := models.QueryParentWorks(work_id, o); err == nil {
 		for _, workStep := range workSteps {
-			BuildDynamic(workStep.WorkId, workStep.WorkStepId, o)
+			BuildDynamic(workStep.WorkId, workStep.WorkStepId, step, o)
 		}
 	}
 }
 
 // 构建动态值
-func BuildDynamic(work_id int64, work_step_id int64, o orm.Ormer) {
+func BuildDynamic(work_id int64, work_step_id int64, step models.WorkStep, o orm.Ormer) {
 	// 自动创建子流程
-	BuildAutoCreateSubWork(work_id, work_step_id, o)
+	BuildAutoCreateSubWork(work_id, work_step_id, step, o)
 	// 构建动态输入值
 	BuildDynamicInput(work_id, work_step_id, o)
 	// 构建动态输出值
@@ -567,13 +566,8 @@ func checkAndCreateSubWork(work_name string, o orm.Ormer) {
 	}
 }
 
-func BuildAutoCreateSubWork(work_id int64, work_step_id int64, o orm.Ormer) {
-	// 读取 work_step 信息
-	step, err := models.QueryWorkStepInfo(work_id, work_step_id, o)
-	if err != nil {
-		panic(err)
-	}
-	if step.WorkStepType != "work_sub" {
+func BuildAutoCreateSubWork(work_id int64, work_step_id int64, step models.WorkStep, o orm.Ormer) {
+	if step.WorkStepType != iworkconst.NODE_TYPE_WORK_SUB {
 		return
 	}
 	parser := schema.WorkStepFactorySchemaParser{WorkStep: &step, ParamSchemaParser: &node.WorkStepFactory{WorkStep: &step}}
