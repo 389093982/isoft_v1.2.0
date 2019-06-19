@@ -456,10 +456,8 @@ func EditWorkStepParamInfoService(serviceArgs map[string]interface{}) error {
 	if step, err = models.QueryOneWorkStep(work_id, work_step_id, o); err != nil {
 		return err
 	}
-	var paramInputSchema iworkmodels.ParamInputSchema
-	json.Unmarshal([]byte(paramInputSchemaStr), &paramInputSchema)
-
-	if err = formatChecker(&paramInputSchema); err != nil {
+	paramInputSchema, _ := iworkmodels.ParseToParamInputSchema(paramInputSchemaStr)
+	if err = formatChecker(paramInputSchema); err != nil {
 		return err
 	}
 

@@ -38,11 +38,11 @@ func (this *WorkStepFactoryParamSchemaParser) GetDefaultParamOutputSchema() *iwo
 func (this *WorkStepFactoryParamSchemaParser) GetCacheParamInputSchema() *iworkmodels.ParamInputSchema {
 	// 从缓存(数据库字段)中获取
 	if strings.TrimSpace(this.WorkStep.WorkStepInput) != "" {
-		var paramInputSchema *iworkmodels.ParamInputSchema
-		if err := json.Unmarshal([]byte(this.WorkStep.WorkStepInput), &paramInputSchema); err == nil {
+		if paramInputSchema, err := iworkmodels.ParseToParamInputSchema(this.WorkStep.WorkStepInput); err == nil {
 			return paramInputSchema
 		}
 	}
+
 	// 获取当前 work_step 对应的 paramInputSchema
 	return this.ParamSchemaParser.GetDefaultParamInputSchema()
 }
