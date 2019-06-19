@@ -98,7 +98,7 @@ func LoadPreNodeOutputService(serviceArgs map[string]interface{}) (result map[st
 		for _, step := range steps {
 			// 判断前置 step 在块范围内是否是可访问的,且是否非 defer 步骤
 			if block.CheckBlockAccessble(currentBlockStep, step.WorkStepId) && step.IsDefer != "true" {
-				parser := schema.WorkStepFactorySchemaParser{WorkStep: &step, ParamSchemaParser: &node.WorkStepFactory{WorkStep: &step}}
+				parser := schema.WorkStepFactoryParamSchemaParser{WorkStep: &step, ParamSchemaParser: &node.WorkStepFactory{WorkStep: &step}}
 				pos := parser.GetCacheParamOutputSchema()
 				prePosTreeNodeArr = append(prePosTreeNodeArr, pos.RenderToTreeNodes("$"+step.WorkStepName))
 			}
@@ -134,7 +134,7 @@ func LoadWorkStepInfoService(serviceArgs map[string]interface{}) (result map[str
 	var paramMappingsArr []iworkmodels.ParamMapping
 	json.Unmarshal([]byte(step.WorkStepParamMapping), &paramMappingsArr)
 	result["step"] = step
-	parser := schema.WorkStepFactorySchemaParser{WorkStep: &step, ParamSchemaParser: &node.WorkStepFactory{WorkStep: &step}}
+	parser := schema.WorkStepFactoryParamSchemaParser{WorkStep: &step, ParamSchemaParser: &node.WorkStepFactory{WorkStep: &step}}
 	result["paramInputSchema"] = parser.GetCacheParamInputSchema()
 	result["paramOutputSchema"] = parser.GetCacheParamOutputSchema()
 	result["paramOutputSchemaTreeNode"] = parser.GetCacheParamOutputSchema().RenderToTreeNodes("output")

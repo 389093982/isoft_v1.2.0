@@ -8,13 +8,13 @@ import (
 	"strings"
 )
 
-type WorkStepFactorySchemaParser struct {
+type WorkStepFactoryParamSchemaParser struct {
 	WorkStep          *models.WorkStep
 	ParamSchemaParser interfaces.IParamSchemaParser
 }
 
 // 获取缓存的出参 schema,即从 DB 中读取
-func (this *WorkStepFactorySchemaParser) GetCacheParamOutputSchema() *iworkmodels.ParamOutputSchema {
+func (this *WorkStepFactoryParamSchemaParser) GetCacheParamOutputSchema() *iworkmodels.ParamOutputSchema {
 	// 从缓存(数据库字段)中获取
 	if strings.TrimSpace(this.WorkStep.WorkStepOutput) != "" {
 		var paramOutputSchema *iworkmodels.ParamOutputSchema
@@ -26,16 +26,16 @@ func (this *WorkStepFactorySchemaParser) GetCacheParamOutputSchema() *iworkmodel
 }
 
 // 获取出参 schema
-func (this *WorkStepFactorySchemaParser) GetRuntimeParamOutputSchema() *iworkmodels.ParamOutputSchema {
+func (this *WorkStepFactoryParamSchemaParser) GetRuntimeParamOutputSchema() *iworkmodels.ParamOutputSchema {
 	return this.ParamSchemaParser.GetRuntimeParamOutputSchema()
 }
 
-func (this *WorkStepFactorySchemaParser) GetDefaultParamOutputSchema() *iworkmodels.ParamOutputSchema {
+func (this *WorkStepFactoryParamSchemaParser) GetDefaultParamOutputSchema() *iworkmodels.ParamOutputSchema {
 	return this.ParamSchemaParser.GetDefaultParamOutputSchema()
 }
 
 // 获取入参 schema
-func (this *WorkStepFactorySchemaParser) GetCacheParamInputSchema() *iworkmodels.ParamInputSchema {
+func (this *WorkStepFactoryParamSchemaParser) GetCacheParamInputSchema() *iworkmodels.ParamInputSchema {
 	// 从缓存(数据库字段)中获取
 	if strings.TrimSpace(this.WorkStep.WorkStepInput) != "" {
 		var paramInputSchema *iworkmodels.ParamInputSchema
@@ -48,11 +48,11 @@ func (this *WorkStepFactorySchemaParser) GetCacheParamInputSchema() *iworkmodels
 }
 
 // 获取默认入参 schema
-func (this *WorkStepFactorySchemaParser) GetDefaultParamInputSchema() *iworkmodels.ParamInputSchema {
+func (this *WorkStepFactoryParamSchemaParser) GetDefaultParamInputSchema() *iworkmodels.ParamInputSchema {
 	return this.ParamSchemaParser.GetDefaultParamInputSchema()
 }
 
 // 获取入参 schema
-func (this *WorkStepFactorySchemaParser) GetRuntimeParamInputSchema() *iworkmodels.ParamInputSchema {
+func (this *WorkStepFactoryParamSchemaParser) GetRuntimeParamInputSchema() *iworkmodels.ParamInputSchema {
 	return this.ParamSchemaParser.GetRuntimeParamInputSchema()
 }

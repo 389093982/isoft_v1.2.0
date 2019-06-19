@@ -173,7 +173,7 @@ func CheckCustom(step *models.WorkStep) (checkResult []string) {
 
 // 校验变量的引用关系
 func checkVariableRelationShip(step *models.WorkStep) (checkResult []string) {
-	parser := schema.WorkStepFactorySchemaParser{WorkStep: step, ParamSchemaParser: &node.WorkStepFactory{WorkStep: step}}
+	parser := schema.WorkStepFactoryParamSchemaParser{WorkStep: step, ParamSchemaParser: &node.WorkStepFactory{WorkStep: step}}
 	inputSchema := parser.GetCacheParamInputSchema()
 	for _, item := range inputSchema.ParamInputSchemaItems {
 		result := checkVariableRelationShipDetail(item, step.WorkId, step.WorkStepId)
@@ -205,7 +205,7 @@ func checkVariableRelationShipDetail(item iworkmodels.ParamInputSchemaItem, work
 
 		// 判断字段名称是否有效
 		if step, err := models.QueryWorkStepByStepName(work_id, referNodeName, orm.NewOrm()); err == nil {
-			parser := schema.WorkStepFactorySchemaParser{WorkStep: &step, ParamSchemaParser: &node.WorkStepFactory{WorkStep: &step}}
+			parser := schema.WorkStepFactoryParamSchemaParser{WorkStep: &step, ParamSchemaParser: &node.WorkStepFactory{WorkStep: &step}}
 			outputSchema := parser.GetCacheParamOutputSchema()
 			exist := false
 			for _, item := range outputSchema.ParamOutputSchemaItems {

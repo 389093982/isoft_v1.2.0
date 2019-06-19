@@ -176,7 +176,7 @@ func ChangeReferencesWorkName(work_id int64, oldWorkName, workName string, o orm
 			if step.WorkStepType != "work_sub" {
 				continue
 			}
-			parser := schema.WorkStepFactorySchemaParser{WorkStep: &step, ParamSchemaParser: &node.WorkStepFactory{WorkStep: &step}}
+			parser := schema.WorkStepFactoryParamSchemaParser{WorkStep: &step, ParamSchemaParser: &node.WorkStepFactory{WorkStep: &step}}
 			inputSchema := parser.GetCacheParamInputSchema()
 			for index, item := range inputSchema.ParamInputSchemaItems {
 				if item.ParamName == iworkconst.STRING_PREFIX+"work_sub" && strings.Contains(item.ParamValue, oldWorkName) {

@@ -14,7 +14,7 @@ import (
 )
 
 func getPisItems(step models.WorkStep) *iworkmodels.ParamInputSchema {
-	parser := schema.WorkStepFactorySchemaParser{
+	parser := schema.WorkStepFactoryParamSchemaParser{
 		WorkStep:          &step,
 		ParamSchemaParser: &node.WorkStepFactory{WorkStep: &step},
 	}

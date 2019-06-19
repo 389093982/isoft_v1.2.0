@@ -45,7 +45,7 @@ func (this *WorkController) ParseParam(steps []models.WorkStep) map[string]inter
 	mapData := map[string]interface{}{}
 	for _, step := range steps {
 		if step.WorkStepType == "work_start" {
-			parser := schema.WorkStepFactorySchemaParser{WorkStep: &step, ParamSchemaParser: &node.WorkStepFactory{WorkStep: &step}}
+			parser := schema.WorkStepFactoryParamSchemaParser{WorkStep: &step, ParamSchemaParser: &node.WorkStepFactory{WorkStep: &step}}
 			inputSchema := parser.GetCacheParamInputSchema()
 			for _, item := range inputSchema.ParamInputSchemaItems {
 				// 默认参数类型都当成 string 类型

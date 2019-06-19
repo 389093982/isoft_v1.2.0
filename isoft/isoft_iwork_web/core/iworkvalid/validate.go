@@ -15,7 +15,7 @@ func CheckEmpty(step *models.WorkStep, paramSchemaParser interfaces.IParamSchema
 		checkResult = append(checkResult, fmt.Sprintf("Empty workStepName or empty workStepType was found!"))
 		return
 	}
-	parser := schema.WorkStepFactorySchemaParser{WorkStep: step, ParamSchemaParser: paramSchemaParser}
+	parser := schema.WorkStepFactoryParamSchemaParser{WorkStep: step, ParamSchemaParser: paramSchemaParser}
 	paramInputSchema := parser.GetCacheParamInputSchema()
 	for _, item := range paramInputSchema.ParamInputSchemaItems {
 		// work_start 节点参数由调度者提供,不做非空校验

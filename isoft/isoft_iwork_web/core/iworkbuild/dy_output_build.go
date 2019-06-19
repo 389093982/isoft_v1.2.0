@@ -9,7 +9,7 @@ import (
 
 // 构建动态输出值
 func BuildDynamicOutput(step models.WorkStep, o orm.Ormer) {
-	parser := schema.WorkStepFactorySchemaParser{WorkStep: &step, ParamSchemaParser: &node.WorkStepFactory{WorkStep: &step}}
+	parser := schema.WorkStepFactoryParamSchemaParser{WorkStep: &step, ParamSchemaParser: &node.WorkStepFactory{WorkStep: &step}}
 	runtimeParamOutputSchema := parser.GetRuntimeParamOutputSchema()
 	defaultParamOutputSchema := parser.GetDefaultParamOutputSchema()
 	defaultParamOutputSchema.ParamOutputSchemaItems = append(defaultParamOutputSchema.ParamOutputSchemaItems, runtimeParamOutputSchema.ParamOutputSchemaItems...)

@@ -15,7 +15,7 @@ import (
 )
 
 func GetCacheParamInputSchemaFunc(workStep *models.WorkStep) *iworkmodels.ParamInputSchema {
-	parser := schema.WorkStepFactorySchemaParser{WorkStep: workStep, ParamSchemaParser: &node.WorkStepFactory{WorkStep: workStep}}
+	parser := schema.WorkStepFactoryParamSchemaParser{WorkStep: workStep, ParamSchemaParser: &node.WorkStepFactory{WorkStep: workStep}}
 	return parser.GetCacheParamInputSchema()
 }
 
