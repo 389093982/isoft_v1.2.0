@@ -8,6 +8,7 @@ import (
 	"isoft/isoft_iwork_web/core/iworkdata/block"
 	"isoft/isoft_iwork_web/core/iworkdata/datastore"
 	"isoft/isoft_iwork_web/core/iworkdata/entry"
+	"isoft/isoft_iwork_web/core/iworkdata/schema"
 	"isoft/isoft_iwork_web/core/iworklog"
 	"isoft/isoft_iwork_web/core/iworkmodels"
 	"isoft/isoft_iwork_web/core/iworkplugin/interfaces"
@@ -65,8 +66,15 @@ func GetIWorkStep(workStepType string) interfaces.IWorkStep {
 
 func (this *WorkStepFactory) getProxy() interfaces.IWorkStep {
 	fieldMap := map[string]interface{}{
-		"WorkStep":         this.WorkStep,
-		"BaseNode":         BaseNode{DataStore: this.DataStore, O: this.O, LogWriter: this.LogWriter, WorkCache: this.WorkCache, Dispatcher: this.Dispatcher},
+		"WorkStep": this.WorkStep,
+		"BaseNode": BaseNode{
+			DataStore:              this.DataStore,
+			O:                      this.O,
+			LogWriter:              this.LogWriter,
+			WorkCache:              this.WorkCache,
+			Dispatcher:             this.Dispatcher,
+			ParamSchemaCacheParser: &schema.WorkStepFactoryParamSchemaParser{WorkStep: this.WorkStep, ParamSchemaParser: &WorkStepFactory{WorkStep: this.WorkStep}},
+		},
 		"Receiver":         this.Receiver,
 		"WorkSubRunFunc":   this.WorkSubRunFunc,
 		"BlockStep":        this.BlockStep,

@@ -5,7 +5,6 @@ import (
 	"isoft/isoft_iwork_web/core/iworkconst"
 	"isoft/isoft_iwork_web/core/iworkdata/block"
 	"isoft/isoft_iwork_web/core/iworkdata/entry"
-	"isoft/isoft_iwork_web/core/iworkdata/schema"
 	"isoft/isoft_iwork_web/core/iworkmodels"
 	"isoft/isoft_iwork_web/core/iworkplugin/interfaces"
 	"isoft/isoft_iwork_web/core/iworkplugin/node"
@@ -60,8 +59,7 @@ func (this *ForeachNode) GetDefaultParamInputSchema() *iworkmodels.ParamInputSch
 
 func (this *ForeachNode) GetRuntimeParamOutputSchema() *iworkmodels.ParamOutputSchema {
 	items := make([]iworkmodels.ParamOutputSchemaItem, 0)
-	parser := schema.WorkStepFactoryParamSchemaParser{WorkStep: this.WorkStep, ParamSchemaParser: &node.WorkStepFactory{WorkStep: this.WorkStep}}
-	inputSchema := parser.GetCacheParamInputSchema()
+	inputSchema := this.ParamSchemaCacheParser.GetCacheParamInputSchema()
 
 	var foreach_data string
 	var foreach_data_attr string

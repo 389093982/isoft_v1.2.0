@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"isoft/isoft_iwork_web/core/iworkconst"
-	"isoft/isoft_iwork_web/core/iworkdata/schema"
 	"isoft/isoft_iwork_web/core/iworkmodels"
 	"isoft/isoft_iwork_web/core/iworkplugin/node"
 	"isoft/isoft_iwork_web/core/iworkutil"
@@ -18,8 +17,7 @@ type EntityParserNode struct {
 }
 
 func (this *EntityParserNode) Execute(trackingId string) {
-	parser := schema.WorkStepFactoryParamSchemaParser{WorkStep: this.WorkStep, ParamSchemaParser: &node.WorkStepFactory{WorkStep: this.WorkStep}}
-	inputSchema := parser.GetCacheParamInputSchema()
+	inputSchema := this.ParamSchemaCacheParser.GetCacheParamInputSchema()
 	for _, item := range inputSchema.ParamInputSchemaItems {
 		if strings.HasSuffix(item.ParamName, "_entity") {
 			entityName := getEntityNameWithRemovePrefixAndSuffix(item.ParamName)
@@ -57,8 +55,7 @@ func (this *EntityParserNode) GetRuntimeParamInputSchema() *iworkmodels.ParamInp
 
 func (this *EntityParserNode) GetRuntimeParamOutputSchema() *iworkmodels.ParamOutputSchema {
 	items := make([]iworkmodels.ParamOutputSchemaItem, 0)
-	parser := schema.WorkStepFactoryParamSchemaParser{WorkStep: this.WorkStep, ParamSchemaParser: &node.WorkStepFactory{WorkStep: this.WorkStep}}
-	inputSchema := parser.GetCacheParamInputSchema()
+	inputSchema := this.ParamSchemaCacheParser.GetCacheParamInputSchema()
 	for _, item := range inputSchema.ParamInputSchemaItems {
 		if !strings.HasSuffix(item.ParamName, "_data") { // _data 需要排除
 			// 从用户输入值中提取实体类字段详细信息

@@ -10,6 +10,7 @@ import (
 type WorkStepFactoryParamSchemaParser struct {
 	WorkStep          *models.WorkStep
 	ParamSchemaParser interfaces.IParamSchemaParser
+	interfaces.IParamSchemaCacheParser
 }
 
 // 获取缓存的出参 schema,即从 DB 中读取
@@ -33,7 +34,10 @@ func (this *WorkStepFactoryParamSchemaParser) GetDefaultParamOutputSchema() *iwo
 }
 
 // 获取入参 schema
-func (this *WorkStepFactoryParamSchemaParser) GetCacheParamInputSchema() *iworkmodels.ParamInputSchema {
+func (this *WorkStepFactoryParamSchemaParser) GetCacheParamInputSchema(replaceStep ...*models.WorkStep) *iworkmodels.ParamInputSchema {
+	if len(replaceStep) > 0 {
+		this.WorkStep = replaceStep[0]
+	}
 	// 从缓存(数据库字段)中获取
 	if strings.TrimSpace(this.WorkStep.WorkStepInput) != "" {
 		if paramInputSchema, err := iworkmodels.ParseToParamInputSchema(this.WorkStep.WorkStepInput); err == nil {

@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"isoft/isoft_iwork_web/core/iworkdata/entry"
-	"isoft/isoft_iwork_web/core/iworkdata/schema"
 	"isoft/isoft_iwork_web/core/iworkmodels"
 	"isoft/isoft_iwork_web/core/iworkplugin/node"
 	"isoft/isoft_iwork_web/models"
@@ -35,8 +34,7 @@ func (this *WorkStartNode) GetRuntimeParamInputSchema() *iworkmodels.ParamInputS
 
 func (this *WorkStartNode) GetRuntimeParamOutputSchema() *iworkmodels.ParamOutputSchema {
 	items := make([]iworkmodels.ParamOutputSchemaItem, 0)
-	parser := schema.WorkStepFactoryParamSchemaParser{WorkStep: this.WorkStep, ParamSchemaParser: &node.WorkStepFactory{WorkStep: this.WorkStep}}
-	inputSchema := parser.GetCacheParamInputSchema()
+	inputSchema := this.ParamSchemaCacheParser.GetCacheParamInputSchema()
 	for _, item := range inputSchema.ParamInputSchemaItems {
 		items = append(items, iworkmodels.ParamOutputSchemaItem{ParamName: item.ParamName})
 	}
@@ -72,8 +70,7 @@ func (this *WorkEndNode) GetReceiver() *entry.Receiver {
 
 func (this *WorkEndNode) GetRuntimeParamOutputSchema() *iworkmodels.ParamOutputSchema {
 	items := make([]iworkmodels.ParamOutputSchemaItem, 0)
-	parser := schema.WorkStepFactoryParamSchemaParser{WorkStep: this.WorkStep, ParamSchemaParser: &node.WorkStepFactory{WorkStep: this.WorkStep}}
-	inputSchema := parser.GetCacheParamInputSchema()
+	inputSchema := this.ParamSchemaCacheParser.GetCacheParamInputSchema()
 	for _, item := range inputSchema.ParamInputSchemaItems {
 		items = append(items, iworkmodels.ParamOutputSchemaItem{ParamName: item.ParamName})
 	}

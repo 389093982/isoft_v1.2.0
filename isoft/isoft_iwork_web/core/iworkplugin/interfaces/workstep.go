@@ -19,6 +19,15 @@ type IParamSchemaParser interface {
 	GetRuntimeParamOutputSchema() *iworkmodels.ParamOutputSchema
 }
 
+type IParamSchemaCacheParser interface {
+	GetCacheParamInputSchema(replaceStep ...*models.WorkStep) *iworkmodels.ParamInputSchema
+	GetDefaultParamInputSchema() *iworkmodels.ParamInputSchema
+	GetRuntimeParamInputSchema() *iworkmodels.ParamInputSchema
+	GetCacheParamOutputSchema() *iworkmodels.ParamOutputSchema
+	GetDefaultParamOutputSchema() *iworkmodels.ParamOutputSchema
+	GetRuntimeParamOutputSchema() *iworkmodels.ParamOutputSchema
+}
+
 type IWorkStep interface {
 	// 填充数据
 	FillParamInputSchemaDataToTmp(workStep *models.WorkStep)

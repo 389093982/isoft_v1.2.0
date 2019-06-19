@@ -6,7 +6,6 @@ import (
 	"isoft/isoft_iwork_web/core/iworkcache"
 	"isoft/isoft_iwork_web/core/iworkdata/datastore"
 	"isoft/isoft_iwork_web/core/iworkdata/entry"
-	"isoft/isoft_iwork_web/core/iworkdata/schema"
 	"isoft/isoft_iwork_web/core/iworklog"
 	"isoft/isoft_iwork_web/core/iworkmodels"
 	"isoft/isoft_iwork_web/core/iworkplugin/interfaces"
@@ -20,13 +19,14 @@ import (
 // 所有 node 的基类
 type BaseNode struct {
 	interfaces.IWorkStep
-	DataStore          *datastore.DataStore
-	O                  orm.Ormer
-	LogWriter          *iworklog.CacheLoggerWriter
-	WorkCache          *iworkcache.WorkCache
-	TmpDataMap         map[string]interface{}
-	PureTextTmpDataMap map[string]interface{}
-	Dispatcher         *entry.Dispatcher
+	DataStore              *datastore.DataStore
+	O                      orm.Ormer
+	LogWriter              *iworklog.CacheLoggerWriter
+	WorkCache              *iworkcache.WorkCache
+	TmpDataMap             map[string]interface{}
+	PureTextTmpDataMap     map[string]interface{}
+	Dispatcher             *entry.Dispatcher
+	ParamSchemaCacheParser interfaces.IParamSchemaCacheParser
 }
 
 func (this *BaseNode) GetDefaultParamInputSchema() *iworkmodels.ParamInputSchema {
@@ -62,8 +62,7 @@ func (this *BaseNode) GetReceiver() *entry.Receiver {
 func (this *BaseNode) FillPureTextParamInputSchemaDataToTmp(workStep *models.WorkStep) {
 	// 存储节点中间数据
 	tmpDataMap := make(map[string]interface{})
-	parser := schema.WorkStepFactoryParamSchemaParser{WorkStep: workStep, ParamSchemaParser: &WorkStepFactory{WorkStep: workStep}}
-	paramInputSchema := parser.GetCacheParamInputSchema()
+	paramInputSchema := this.ParamSchemaCacheParser.GetCacheParamInputSchema()
 	for _, item := range paramInputSchema.ParamInputSchemaItems {
 		// tmpDataMap 存储引用值 pureText
 		tmpDataMap[item.ParamName] = item.ParamValue
@@ -92,8 +91,7 @@ func (this *BaseNode) FillParamInputSchemaDataToTmp(workStep *models.WorkStep) {
 
 // 提交输出数据至数据中心,此类数据能直接从 tmpDataMap 中获取,而不依赖于计算,只适用于 WORK_START、WORK_END 节点
 func (this *BaseNode) SubmitParamOutputSchemaDataToDataStore(workStep *models.WorkStep, dataStore *datastore.DataStore, tmpDataMap map[string]interface{}) {
-	parser := schema.WorkStepFactoryParamSchemaParser{WorkStep: workStep, ParamSchemaParser: &WorkStepFactory{WorkStep: workStep}}
-	paramOutputSchema := parser.GetCacheParamOutputSchema()
+	paramOutputSchema := this.ParamSchemaCacheParser.GetCacheParamOutputSchema()
 	paramMap := make(map[string]interface{})
 	for _, item := range paramOutputSchema.ParamOutputSchemaItems {
 		paramMap[item.ParamName] = tmpDataMap[item.ParamName]

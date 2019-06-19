@@ -6,7 +6,6 @@ import (
 	"isoft/isoft_iwork_web/core/iworkconst"
 	"isoft/isoft_iwork_web/core/iworkdata/datastore"
 	"isoft/isoft_iwork_web/core/iworkdata/entry"
-	"isoft/isoft_iwork_web/core/iworkdata/schema"
 	"isoft/isoft_iwork_web/core/iworkmodels"
 	"isoft/isoft_iwork_web/core/iworkplugin/node"
 	"isoft/isoft_iwork_web/core/iworkutil"
@@ -66,8 +65,7 @@ func (this *WorkSubNode) GetRuntimeParamInputSchema() *iworkmodels.ParamInputSch
 			// 找到子流程起始节点
 			if strings.ToUpper(subStep.WorkStepType) == "WORK_START" {
 				// 子流程起始节点输入参数
-				parser := schema.WorkStepFactoryParamSchemaParser{WorkStep: this.WorkStep, ParamSchemaParser: &node.WorkStepFactory{WorkStep: this.WorkStep}}
-				subItems := parser.GetCacheParamInputSchema()
+				subItems := this.ParamSchemaCacheParser.GetCacheParamInputSchema()
 				for _, subItem := range subItems.ParamInputSchemaItems {
 					items = append(items, iworkmodels.ParamInputSchemaItem{ParamName: subItem.ParamName})
 				}
@@ -79,8 +77,7 @@ func (this *WorkSubNode) GetRuntimeParamInputSchema() *iworkmodels.ParamInputSch
 
 func (this *WorkSubNode) getWorkSubName() string {
 	// 读取历史输入值
-	parser := schema.WorkStepFactoryParamSchemaParser{WorkStep: this.WorkStep, ParamSchemaParser: &node.WorkStepFactory{WorkStep: this.WorkStep}}
-	paramInputSchema := parser.GetCacheParamInputSchema()
+	paramInputSchema := this.ParamSchemaCacheParser.GetCacheParamInputSchema()
 	// 从历史输入值中获取子流程名称
 	workSubName := iworkutil.GetWorkSubNameForWorkSubNode(paramInputSchema)
 	return workSubName
@@ -89,8 +86,7 @@ func (this *WorkSubNode) getWorkSubName() string {
 func (this *WorkSubNode) GetRuntimeParamOutputSchema() *iworkmodels.ParamOutputSchema {
 	items := make([]iworkmodels.ParamOutputSchemaItem, 0)
 	// 读取静态输入值
-	parser := schema.WorkStepFactoryParamSchemaParser{WorkStep: this.WorkStep, ParamSchemaParser: &node.WorkStepFactory{WorkStep: this.WorkStep}}
-	paramInputSchema := parser.GetCacheParamInputSchema()
+	paramInputSchema := this.ParamSchemaCacheParser.GetCacheParamInputSchema()
 	// 从静态输入值中获取子流程名称
 	workSubName := iworkutil.GetWorkSubNameForWorkSubNode(paramInputSchema)
 	if strings.TrimSpace(workSubName) != "" {
@@ -103,8 +99,7 @@ func (this *WorkSubNode) GetRuntimeParamOutputSchema() *iworkmodels.ParamOutputS
 			// 找到子流程结束节点
 			if strings.ToUpper(subStep.WorkStepType) == "WORK_END" {
 				// 子流程结束节点输出参数
-				parser := schema.WorkStepFactoryParamSchemaParser{WorkStep: this.WorkStep, ParamSchemaParser: &node.WorkStepFactory{WorkStep: this.WorkStep}}
-				subItems := parser.GetCacheParamOutputSchema()
+				subItems := this.ParamSchemaCacheParser.GetCacheParamOutputSchema()
 				for _, subItem := range subItems.ParamOutputSchemaItems {
 					items = append(items, iworkmodels.ParamOutputSchemaItem{ParamName: subItem.ParamName})
 				}
@@ -127,10 +122,8 @@ func (this *WorkSubNode) ValidateCustom() (checkResult []string) {
 	}
 
 	if startStep, err := models.QueryWorkStepByStepName(work.Id, "start", orm.NewOrm()); err == nil {
-		parser := schema.WorkStepFactoryParamSchemaParser{WorkStep: this.WorkStep, ParamSchemaParser: &node.WorkStepFactory{WorkStep: this.WorkStep}}
-		workSubInputSchema := parser.GetCacheParamInputSchema()
-		parser2 := schema.WorkStepFactoryParamSchemaParser{WorkStep: &startStep, ParamSchemaParser: &node.WorkStepFactory{WorkStep: &startStep}}
-		inputSchema := parser2.GetCacheParamInputSchema()
+		workSubInputSchema := this.ParamSchemaCacheParser.GetCacheParamInputSchema()
+		inputSchema := this.ParamSchemaCacheParser.GetCacheParamInputSchema(&startStep)
 		for _, item := range inputSchema.ParamInputSchemaItems {
 			exist := false
 			for _, workSubItem := range workSubInputSchema.ParamInputSchemaItems {
