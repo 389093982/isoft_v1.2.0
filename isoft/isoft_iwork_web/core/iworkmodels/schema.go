@@ -58,6 +58,11 @@ func (this *ParamOutputSchema) RenderToJson() string {
 	return ""
 }
 
+func ParseToParamOutputSchema(workStepOutput string) (paramOutputSchema *ParamOutputSchema, err error) {
+	err = json.Unmarshal([]byte(workStepOutput), &paramOutputSchema)
+	return
+}
+
 // 输出参数转换成 TreeNode 用于树形结构展示
 type TreeNode struct {
 	NodeName      string

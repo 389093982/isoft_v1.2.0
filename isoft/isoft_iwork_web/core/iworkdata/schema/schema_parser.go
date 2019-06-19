@@ -1,7 +1,6 @@
 package schema
 
 import (
-	"encoding/json"
 	"isoft/isoft_iwork_web/core/iworkmodels"
 	"isoft/isoft_iwork_web/core/iworkplugin/interfaces"
 	"isoft/isoft_iwork_web/models"
@@ -17,8 +16,7 @@ type WorkStepFactoryParamSchemaParser struct {
 func (this *WorkStepFactoryParamSchemaParser) GetCacheParamOutputSchema() *iworkmodels.ParamOutputSchema {
 	// 从缓存(数据库字段)中获取
 	if strings.TrimSpace(this.WorkStep.WorkStepOutput) != "" {
-		var paramOutputSchema *iworkmodels.ParamOutputSchema
-		if err := json.Unmarshal([]byte(this.WorkStep.WorkStepOutput), &paramOutputSchema); err == nil {
+		if paramOutputSchema, err := iworkmodels.ParseToParamOutputSchema(this.WorkStep.WorkStepOutput); err == nil {
 			return paramOutputSchema
 		}
 	}
