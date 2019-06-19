@@ -34,6 +34,11 @@ func (this *ParamInputSchema) RenderToJson() string {
 	return ""
 }
 
+func ParseToParamInputSchema(workStepInput string) (paramInputSchema *ParamInputSchema, err error) {
+	err = json.Unmarshal([]byte(workStepInput), &paramInputSchema)
+	return
+}
+
 type ParamOutputSchemaItem struct {
 	XMLName    xml.Name `xml:"paramOutputSchemaItem" json:"-"`
 	ParentPath string   `xml:"parentPath"`

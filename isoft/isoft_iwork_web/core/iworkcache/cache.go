@@ -1,7 +1,6 @@
 package iworkcache
 
 import (
-	"encoding/json"
 	"errors"
 	"github.com/astaxie/beego/orm"
 	"isoft/isoft_iwork_web/core/iworkconst"
@@ -129,11 +128,7 @@ func (this *WorkCache) cacheChildrenBlockStepOrders(blockStep *block.BlockStep) 
 }
 
 func (this *WorkCache) getWorkSubName(workStep *models.WorkStep) (string, error) {
-	var (
-		paramInputSchema *iworkmodels.ParamInputSchema
-		err              error
-	)
-	err = json.Unmarshal([]byte(workStep.WorkStepInput), &paramInputSchema)
+	paramInputSchema, err := iworkmodels.ParseToParamInputSchema(workStep.WorkStepInput)
 	if err == nil {
 		workSubName := iworkutil.GetWorkSubNameForWorkSubNode(paramInputSchema)
 		if strings.TrimSpace(workSubName) == "" {
