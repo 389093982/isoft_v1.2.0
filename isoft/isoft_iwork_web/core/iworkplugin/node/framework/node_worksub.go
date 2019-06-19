@@ -3,7 +3,6 @@ package framework
 import (
 	"fmt"
 	"github.com/astaxie/beego/orm"
-	"github.com/pkg/errors"
 	"isoft/isoft_iwork_web/core/iworkconst"
 	"isoft/isoft_iwork_web/core/iworkdata/datastore"
 	"isoft/isoft_iwork_web/core/iworkdata/entry"
@@ -23,20 +22,10 @@ type WorkSubNode struct {
 
 func (this *WorkSubNode) Execute(trackingId string) {
 	// 获取子流程流程名称
-	workSubName := this.checkAndGetWorkSubName()
+	workSubName := this.WorkCache.SubWorkNameMap[this.WorkStep.WorkStepId]
 	// 运行子流程
 	work, _ := models.QueryWorkByName(workSubName, orm.NewOrm())
 	this.RunOnceSubWork(work.Id, trackingId, this.TmpDataMap, this.DataStore)
-}
-
-func (this *WorkSubNode) checkAndGetWorkSubName() string {
-	parser := schema.WorkStepFactoryParamSchemaParser{WorkStep: this.WorkStep, ParamSchemaParser: &node.WorkStepFactory{WorkStep: this.WorkStep}}
-	workSubName := iworkutil.GetWorkSubNameForWorkSubNode(
-		parser.GetCacheParamInputSchema())
-	if strings.TrimSpace(workSubName) == "" {
-		panic(errors.New("invalid workSubName"))
-	}
-	return workSubName
 }
 
 func (this *WorkSubNode) RunOnceSubWork(work_id int64, trackingId string,

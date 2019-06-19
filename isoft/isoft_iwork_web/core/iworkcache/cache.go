@@ -1,12 +1,16 @@
 package iworkcache
 
 import (
+	"encoding/json"
 	"errors"
 	"github.com/astaxie/beego/orm"
+	"isoft/isoft_iwork_web/core/iworkconst"
 	"isoft/isoft_iwork_web/core/iworkdata/block"
 	"isoft/isoft_iwork_web/core/iworkmodels"
+	"isoft/isoft_iwork_web/core/iworkutil"
 	"isoft/isoft_iwork_web/core/iworkutil/datatypeutil"
 	"isoft/isoft_iwork_web/models"
+	"strings"
 	"sync"
 )
 
@@ -74,8 +78,9 @@ type WorkCache struct {
 	WorkId              int64
 	Work                models.Work
 	Steps               []models.WorkStep
-	BlockStepOrdersMap  map[int64][]*block.BlockStep // key 为父节点 StepId
-	ParamInputSchemaMap map[int64]*iworkmodels.ParamInputSchema
+	BlockStepOrdersMap  map[int64][]*block.BlockStep            // key 为父节点 StepId
+	ParamInputSchemaMap map[int64]*iworkmodels.ParamInputSchema // key 为 WorkStepId
+	SubWorkNameMap      map[int64]string                        // key 为 WorkStepId
 	err                 error
 }
 
@@ -102,6 +107,13 @@ func (this *WorkCache) FlushCache(paramInputSchemaFunc GetCacheParamInputSchemaF
 		paramInputSchema := paramInputSchemaFunc(&workStep)
 		this.ParamInputSchemaMap[workStep.WorkStepId] = paramInputSchema
 	}
+	// 缓存 subWorkName
+	this.SubWorkNameMap = make(map[int64]string, 0)
+	for _, workStep := range this.Steps {
+		if workStep.WorkStepType == iworkconst.NODE_TYPE_WORK_SUB {
+			this.SubWorkNameMap[workStep.WorkStepId], _ = this.getWorkSubName(&workStep)
+		}
+	}
 }
 
 func (this *WorkCache) cacheChildrenBlockStepOrders(blockStep *block.BlockStep) {
@@ -114,4 +126,20 @@ func (this *WorkCache) cacheChildrenBlockStepOrders(blockStep *block.BlockStep) 
 			this.cacheChildrenBlockStepOrders(childrenBlockStep)
 		}
 	}
+}
+
+func (this *WorkCache) getWorkSubName(workStep *models.WorkStep) (string, error) {
+	var (
+		paramInputSchema *iworkmodels.ParamInputSchema
+		err              error
+	)
+	err = json.Unmarshal([]byte(workStep.WorkStepInput), &paramInputSchema)
+	if err == nil {
+		workSubName := iworkutil.GetWorkSubNameForWorkSubNode(paramInputSchema)
+		if strings.TrimSpace(workSubName) == "" {
+			return "", errors.New("empty workSubName was found!")
+		}
+		return workSubName, nil
+	}
+	return "", err
 }
