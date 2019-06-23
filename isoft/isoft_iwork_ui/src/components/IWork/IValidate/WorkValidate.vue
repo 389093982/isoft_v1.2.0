@@ -36,10 +36,17 @@
           {
             title: 'detail',
             key: 'detail',
+            width: 400,
             render: (h,params)=>{
               return h('span',{
                 style: {
                   color: checkEmpty(this.details[params.index]['work_step_name']) ? 'green': 'red',
+                  overflow: 'hidden',         // 内容超出不换行
+                  textOverflow: 'ellipsis',
+                  whiteSpace: 'nowrap',
+                },
+                attrs:{
+                  title: this.details[params.index]['detail'],
                 },
               },this.details[params.index]['detail']
               )
