@@ -284,6 +284,11 @@
                       }
                     }
                   }, getRepeatStr('\xa0\xa0\xa0\xa0\xa0', params.row.work_step_indent) + this.worksteps[params.index]['work_step_name']),
+                  h('span',{
+                    style:{
+                      color: 'red',
+                    }
+                  }, _this.getExtraStr(this.worksteps[params.index])),
                 ]);
               }
             }
@@ -436,6 +441,18 @@
       },
       showWorkStepBaseInfo:function (work_step_id) {
         this.$refs.workStepBaseInfo.showWorkStepBaseInfo(this.$route.query.work_id, work_step_id);
+      },
+      getExtraStr:function (workstep) { // 显示额外信息
+        if(workstep.work_step_input != ""){
+          var paramInputSchema = JSON.parse(workstep.work_step_input);
+          for(var i=0; i<paramInputSchema.ParamInputSchemaItems.length; i++){
+            var item = paramInputSchema.ParamInputSchemaItems[i];
+            if(item.ParamName == "bool_expression"){
+              return "(" + item.ParamValue + ")";
+            }
+          }
+        }
+        return "";
       }
     },
     mounted: function () {
