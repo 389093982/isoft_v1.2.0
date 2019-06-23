@@ -240,7 +240,7 @@
           {
             title: 'work_step_name',
             key: 'work_step_name',
-            width: 250,
+            width: 300,
             render: (h, params) => {
               var _this = this; // vue 实例
               // 可编辑模式
@@ -268,6 +268,11 @@
                   }
                 });
               }else{
+                // 显示名称
+                let work_step_name_str = getRepeatStr('\xa0\xa0\xa0\xa0\xa0', params.row.work_step_indent) + this.worksteps[params.index]['work_step_name'];
+                // 显示的额外信息
+                let extraStr = getRepeatStr('\xa0\xa0\xa0\xa0\xa0', 1) + _this.getExtraStr(this.worksteps[params.index]);
+
                 // 非可编辑模式
                 return h('div', {
                   style:{
@@ -289,12 +294,15 @@
                         _this.$set(_this.worksteps[params.index], workstep);  // 刷新界面
                       }
                     }
-                  }, getRepeatStr('\xa0\xa0\xa0\xa0\xa0', params.row.work_step_indent) + this.worksteps[params.index]['work_step_name']),
+                  }, work_step_name_str),
                   h('span',{
                     style:{
                       color: 'red',
+                    },
+                    attrs:{
+                      title: extraStr,
                     }
-                  }, _this.getExtraStr(this.worksteps[params.index])),
+                  }, extraStr),
                 ]);
               }
             }
@@ -454,7 +462,7 @@
           for(var i=0; i<paramInputSchema.ParamInputSchemaItems.length; i++){
             var item = paramInputSchema.ParamInputSchemaItems[i];
             if(item.ParamName == "bool_expression"){
-              return "(" + item.ParamValue + ")";
+              return item.ParamValue;
             }
           }
         }
