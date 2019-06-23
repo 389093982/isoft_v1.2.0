@@ -40,11 +40,7 @@ func getBlockStepExecuteOrder(blockSteps []*block.BlockStep) []*block.BlockStep 
 
 var workCacheMap = new(sync.Map)
 
-var mutex sync.Mutex
-
 func UpdateWorkCache(work_id int64, paramSchemaCacheParser IParamSchemaCacheParser) (err error) {
-	mutex.Lock()
-	defer mutex.Unlock()
 	defer func() {
 		if err1 := recover(); err1 != nil {
 			err = err1.(error)
@@ -60,11 +56,11 @@ func GetWorkCache(work_id int64, paramSchemaCacheParser IParamSchemaCacheParser)
 	if cache, ok := workCacheMap.Load(work_id); ok {
 		return cache.(*WorkCache), nil
 	}
-	UpdateWorkCache(work_id, paramSchemaCacheParser)
-	if cache, ok := workCacheMap.Load(work_id); ok {
-		return cache.(*WorkCache), nil
+	if err := UpdateWorkCache(work_id, paramSchemaCacheParser); err != nil {
+		return nil, err
+	} else {
+		return GetWorkCache(work_id, paramSchemaCacheParser)
 	}
-	return nil, errors.New("cache was not exist")
 }
 
 func checkError(err error) {
