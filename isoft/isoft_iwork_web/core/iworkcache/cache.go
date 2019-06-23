@@ -51,12 +51,10 @@ func UpdateWorkCache(work_id int64, paramSchemaCacheParser IParamSchemaCachePars
 		}
 	}()
 	cache := &WorkCache{WorkId: work_id}
-	workCacheMap.Store(work_id, &cache)
 	cache.FlushCache(paramSchemaCacheParser)
+	workCacheMap.Store(work_id, cache)
 	return
 }
-
-var mutex2 sync.Mutex
 
 func GetWorkCache(work_id int64, paramSchemaCacheParser IParamSchemaCacheParser) (*WorkCache, error) {
 	if cache, ok := workCacheMap.Load(work_id); ok {
