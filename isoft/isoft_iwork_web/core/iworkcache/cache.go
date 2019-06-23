@@ -13,6 +13,10 @@ import (
 	"sync"
 )
 
+type IParamSchemaCacheParser interface {
+	GetCacheParamInputSchema(replaceStep ...*models.WorkStep) *iworkmodels.ParamInputSchema
+}
+
 func getBlockStepExecuteOrder(blockSteps []*block.BlockStep) []*block.BlockStep {
 	order := make([]*block.BlockStep, 0)
 	deferOrder := make([]*block.BlockStep, 0)
@@ -34,13 +38,11 @@ func getBlockStepExecuteOrder(blockSteps []*block.BlockStep) []*block.BlockStep 
 	return order
 }
 
-type GetCacheParamInputSchemaFunc func(step *models.WorkStep) *iworkmodels.ParamInputSchema
-
 var workCacheMap = make(map[int64]*WorkCache, 0)
 
 var mutex sync.Mutex
 
-func UpdateWorkCache(work_id int64, paramInputSchemaFunc GetCacheParamInputSchemaFunc) (err error) {
+func UpdateWorkCache(work_id int64, paramSchemaCacheParser IParamSchemaCacheParser) (err error) {
 	mutex.Lock()
 	defer mutex.Unlock()
 	defer func() {
@@ -50,17 +52,17 @@ func UpdateWorkCache(work_id int64, paramInputSchemaFunc GetCacheParamInputSchem
 	}()
 	cache := &WorkCache{WorkId: work_id}
 	workCacheMap[work_id] = cache
-	cache.FlushCache(paramInputSchemaFunc)
+	cache.FlushCache(paramSchemaCacheParser)
 	return
 }
 
 var mutex2 sync.Mutex
 
-func GetWorkCache(work_id int64, paramInputSchemaFunc GetCacheParamInputSchemaFunc) (*WorkCache, error) {
+func GetWorkCache(work_id int64, paramSchemaCacheParser IParamSchemaCacheParser) (*WorkCache, error) {
 	if cache, ok := workCacheMap[work_id]; ok {
 		return cache, nil
 	}
-	UpdateWorkCache(work_id, paramInputSchemaFunc)
+	UpdateWorkCache(work_id, paramSchemaCacheParser)
 	if cache, ok := workCacheMap[work_id]; ok {
 		return cache, nil
 	}
@@ -83,7 +85,8 @@ type WorkCache struct {
 	err                 error
 }
 
-func (this *WorkCache) FlushCache(paramInputSchemaFunc GetCacheParamInputSchemaFunc) {
+func (this *WorkCache) FlushCache(paramSchemaCacheParser IParamSchemaCacheParser) {
+
 	o := orm.NewOrm()
 	// 缓存 work
 	this.Work, this.err = models.QueryWorkById(this.WorkId, o)
@@ -103,7 +106,7 @@ func (this *WorkCache) FlushCache(paramInputSchemaFunc GetCacheParamInputSchemaF
 	// 缓存 paramInputSchema
 	this.ParamInputSchemaMap = make(map[int64]*iworkmodels.ParamInputSchema, 0)
 	for _, workStep := range this.Steps {
-		paramInputSchema := paramInputSchemaFunc(&workStep)
+		paramInputSchema := paramSchemaCacheParser.GetCacheParamInputSchema(&workStep)
 		this.ParamInputSchemaMap[workStep.WorkStepId] = paramInputSchema
 	}
 	// 缓存 subWorkName

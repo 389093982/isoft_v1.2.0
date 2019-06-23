@@ -7,23 +7,17 @@ import (
 	"isoft/isoft_iwork_web/core/iworkdata/entry"
 	"isoft/isoft_iwork_web/core/iworkdata/schema"
 	"isoft/isoft_iwork_web/core/iworklog"
-	"isoft/isoft_iwork_web/core/iworkmodels"
 	"isoft/isoft_iwork_web/core/iworkplugin/interfaces"
 	"isoft/isoft_iwork_web/core/iworkplugin/node"
-	"isoft/isoft_iwork_web/models"
 	"time"
 )
-
-func GetCacheParamInputSchemaFunc(workStep *models.WorkStep) *iworkmodels.ParamInputSchema {
-	parser := schema.WorkStepFactoryParamSchemaParser{WorkStep: workStep, ParamSchemaParser: &node.WorkStepFactory{WorkStep: workStep}}
-	return parser.GetCacheParamInputSchema()
-}
 
 // dispatcher 为父流程遗传下来的参数
 func RunOneWork(work_id int64, dispatcher *entry.Dispatcher) (receiver *entry.Receiver) {
 	logwriter := new(iworklog.CacheLoggerWriter)
 	defer logwriter.Close()
-	workCache, err := iworkcache.GetWorkCache(work_id, GetCacheParamInputSchemaFunc)
+	parser := schema.WorkStepFactoryParamSchemaParser{}
+	workCache, err := iworkcache.GetWorkCache(work_id, &parser)
 	// 为当前流程创建新的 trackingId, 前提条件 cacheContext.Work 一定存在
 	trackingId := createNewTrackingIdForWork(dispatcher, workCache.Work)
 	if err != nil {
