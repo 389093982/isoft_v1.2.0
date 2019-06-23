@@ -269,7 +269,13 @@
                 });
               }else{
                 // 非可编辑模式
-                return h('div', [
+                return h('div', {
+                  style:{
+                    overflow: 'hidden',         // 内容超出不换行
+                    textOverflow: 'ellipsis',
+                    whiteSpace: 'nowrap',
+                  },
+                },[
                   h('span', {
                     style: {
                       // work_step_name 根据缩进级别进行缩进,不同级别使用不同颜色
