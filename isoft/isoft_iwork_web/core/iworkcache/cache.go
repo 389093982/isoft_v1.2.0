@@ -2,12 +2,14 @@ package iworkcache
 
 import (
 	"errors"
+	"fmt"
 	"github.com/astaxie/beego/orm"
 	"isoft/isoft_iwork_web/core/iworkconst"
 	"isoft/isoft_iwork_web/core/iworkdata/block"
 	"isoft/isoft_iwork_web/core/iworkmodels"
 	"isoft/isoft_iwork_web/core/iworkutil"
 	"isoft/isoft_iwork_web/core/iworkutil/datatypeutil"
+	"isoft/isoft_iwork_web/core/iworkutil/errorutil"
 	"isoft/isoft_iwork_web/models"
 	"strings"
 	"sync"
@@ -38,11 +40,12 @@ func getBlockStepExecuteOrder(blockSteps []*block.BlockStep) []*block.BlockStep 
 	return order
 }
 
-var workCacheMap = new(sync.Map)
+var workCacheMap sync.Map
 
 func UpdateWorkCache(work_id int64, paramSchemaCacheParser IParamSchemaCacheParser) (err error) {
 	defer func() {
 		if err1 := recover(); err1 != nil {
+			fmt.Println(string(errorutil.PanicTrace(4)))
 			err = err1.(error)
 		}
 	}()

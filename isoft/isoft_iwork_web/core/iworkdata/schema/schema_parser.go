@@ -44,9 +44,12 @@ func (this *WorkStepFactoryParamSchemaParser) GetCacheParamInputSchema(replaceSt
 			return paramInputSchema
 		}
 	}
-
-	// 获取当前 work_step 对应的 paramInputSchema
-	return this.ParamSchemaParser.GetDefaultParamInputSchema()
+	if this.ParamSchemaParser != nil {
+		// 获取当前 work_step 对应的 paramInputSchema
+		return this.ParamSchemaParser.GetDefaultParamInputSchema()
+	} else {
+		return &iworkmodels.ParamInputSchema{}
+	}
 }
 
 // 获取默认入参 schema
