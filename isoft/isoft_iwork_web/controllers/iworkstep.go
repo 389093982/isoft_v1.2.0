@@ -39,10 +39,10 @@ func (this *WorkController) EditWorkStepBaseInfo() {
 	this.ServeJSON()
 }
 
-func (this *WorkController) FilterWorkStep() {
+func (this *WorkController) WorkStepList() {
 	work_id, _ := this.GetInt64("work_id")
 	serviceArgs := map[string]interface{}{"work_id": work_id}
-	if result, err := service.ExecuteResultServiceWithTx(serviceArgs, service.FilterWorkStepService); err == nil {
+	if result, err := service.ExecuteResultServiceWithTx(serviceArgs, service.WorkStepListService); err == nil {
 		this.Data["json"] = &map[string]interface{}{"status": "SUCCESS", "worksteps": result["worksteps"]}
 	} else {
 		this.Data["json"] = &map[string]interface{}{"status": "ERROR", "errorMsg": err.Error()}

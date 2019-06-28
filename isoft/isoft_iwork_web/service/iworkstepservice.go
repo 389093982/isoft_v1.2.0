@@ -157,7 +157,7 @@ func DeleteWorkStepByWorkStepIdService(serviceArgs map[string]interface{}) error
 	return nil
 }
 
-func FilterWorkStepService(serviceArgs map[string]interface{}) (result map[string]interface{}, err error) {
+func WorkStepListService(serviceArgs map[string]interface{}) (result map[string]interface{}, err error) {
 	result = make(map[string]interface{}, 0)
 	condArr := make(map[string]interface{})
 	condArr["work_id"] = serviceArgs["work_id"].(int64)
