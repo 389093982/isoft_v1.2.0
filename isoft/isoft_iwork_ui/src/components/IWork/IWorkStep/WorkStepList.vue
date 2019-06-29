@@ -53,7 +53,6 @@
   import BaseInfo from "./BaseInfo/BaseInfo"
   import RelativeWork from "./RelativeWork/RelativeWork"
   import {oneOf} from "../../../tools/index"
-  import {checkContainsInString} from "../../../tools/index"
   import WorkValidate from "../IValidate/WorkValidate"
   import ISimpleConfirmModal from "../../Common/modal/ISimpleConfirmModal"
   import {getRepeatStr} from "../../../tools/index"
@@ -74,6 +73,7 @@
         refactor_worksub_name:'',
         default_work_step_types: this.GLOBAL.default_work_step_types,
         worksteps: [],
+        showEdit:true,
         columns1: [
           {
             type: 'selection',
@@ -81,9 +81,27 @@
             align: 'center',
           },
           {
-            title: '步骤编号',
             key: 'work_step_id',
             width: 300,
+            renderHeader: (h,params)=>{
+              return h('div',[
+                h('Icon',{
+                  props:{
+                    type: this.showEdit ? 'ios-eye-outline' : "ios-eye-off-outline",
+                    size: '25',
+                  },
+                  style:{
+                    marginRight: '5px',
+                  },
+                  on:{
+                    click:function () {
+                      _this.showEdit = !_this.showEdit;
+                    }
+                  }
+                }),
+                h('strong', '步骤编号'),
+              ])
+            },
             render: (h,params)=>{
               return h('div', {
                   on:{
@@ -101,12 +119,12 @@
                   h('span', params.row.work_step_id),
                   h(WorkStepEditBtns,{
                     props:{
-                      showArrow: !oneOf(this.worksteps[params.index]['work_step_type'], ["work_start","work_end"]),
-                      showEdit: !oneOf(this.worksteps[params.index]['work_step_type'], ["work_start","work_end"]),
-                      showParam: true,
-                      showDelete: !oneOf(this.worksteps[params.index]['work_step_type'], ["work_start","work_end"]),
-                      showDetail: oneOf(this.worksteps[params.index]['work_step_type'], ["work_sub"]),
-                      showRefer: oneOf(this.worksteps[params.index]['work_step_type'], ["work_start"]),
+                      showArrow: this.showEdit && !oneOf(this.worksteps[params.index]['work_step_type'], ["work_start","work_end"]),
+                      showEdit: this.showEdit && !oneOf(this.worksteps[params.index]['work_step_type'], ["work_start","work_end"]),
+                      showParam: this.showEdit && true,
+                      showDelete: this.showEdit && !oneOf(this.worksteps[params.index]['work_step_type'], ["work_start","work_end"]),
+                      showDetail: this.showEdit && oneOf(this.worksteps[params.index]['work_step_type'], ["work_sub"]),
+                      showRefer: this.showEdit && oneOf(this.worksteps[params.index]['work_step_type'], ["work_start"]),
                     },
                     on: {
                       handleClick:function (clickType) {
