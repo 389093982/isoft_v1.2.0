@@ -60,11 +60,13 @@
   import {GetRelativeWork} from "../../../api/index"
   import {FlushCache} from "../../../api/index"
   import {EditWorkStepBaseInfo} from "../../../api/index"
+  import WorkStepEditBtns from "./WorkStepEditBtns"
 
   export default {
     name: "WorkStepList",
-    components:{ParamInfo,ISimpleLeftRightRow,BaseInfo,RelativeWork,WorkValidate,ISimpleConfirmModal},
+    components:{ParamInfo,ISimpleLeftRightRow,BaseInfo,RelativeWork,WorkValidate,ISimpleConfirmModal,WorkStepEditBtns},
     data(){
+      var _this = this;
       return {
         // 默认不显示组件
         showComponet:false,
@@ -97,142 +99,51 @@
                   }
                 }, [
                   h('span', params.row.work_step_id),
-                  h('Icon', {
-                    props: {
-                      type: 'md-arrow-round-up',
-                      size: 15,
-                    },
-                    style: {
-                      marginLeft: '5px',
-                      display: !oneOf(this.worksteps[params.index]['work_step_type'], ["work_start","work_end"]) ? undefined : 'none',
-                    },
-                    on: {
-                      click: () => {
-                        this.changeWorkStepOrder(this.worksteps[params.index]['work_step_id'], "up");
-                      },
-                    }
-                  }),
-                  h('Icon', {
-                    props: {
-                      type: 'md-arrow-round-down',
-                      size: 15,
-                    },
-                    style: {
-                      marginLeft: '5px',
-                      display: !oneOf(this.worksteps[params.index]['work_step_type'], ["work_start","work_end"]) ? undefined : 'none',
+                  h(WorkStepEditBtns,{
+                    props:{
+                      showArrow: !oneOf(this.worksteps[params.index]['work_step_type'], ["work_start","work_end"]),
+                      showEdit: !oneOf(this.worksteps[params.index]['work_step_type'], ["work_start","work_end"]),
+                      showParam: true,
+                      showDelete: !oneOf(this.worksteps[params.index]['work_step_type'], ["work_start","work_end"]),
+                      showDetail: oneOf(this.worksteps[params.index]['work_step_type'], ["work_sub"]),
+                      showRefer: oneOf(this.worksteps[params.index]['work_step_type'], ["work_start"]),
                     },
                     on: {
-                      click: () => {
-                        this.changeWorkStepOrder(this.worksteps[params.index]['work_step_id'], "down");
-                      }
-                    }
-                  }),
-                  h('Icon', {
-                    props: {
-                      type: 'md-arrow-round-back',
-                      size: 15,
-                    },
-                    style: {
-                      marginLeft: '5px',
-                      display: !oneOf(this.worksteps[params.index]['work_step_type'], ["work_start","work_end"]) ? undefined : 'none',
-                    },
-                    on: {
-                      click: () => {
-                        this.batchChangeIndent('left', [this.worksteps[params.index]['work_step_id']]);
-                      }
-                    }
-                  }),
-                  h('Icon', {
-                    props: {
-                      type: 'md-arrow-round-forward',
-                      size: 15,
-                    },
-                    style: {
-                      marginLeft: '5px',
-                      display: !oneOf(this.worksteps[params.index]['work_step_type'], ["work_start","work_end"]) ? undefined : 'none',
-                    },
-                    on: {
-                      click: () => {
-                        this.batchChangeIndent('right', [this.worksteps[params.index]['work_step_id']]);
-                      }
-                    }
-                  }),
-                  h('Button', {
-                    props: {
-                      type: 'error',
-                      size: 'small'
-                    },
-                    style: {
-                      marginLeft: '5px',
-                      display: !oneOf(this.worksteps[params.index]['work_step_type'], ["work_start","work_end"])  ? undefined : 'none',
-                    },
-                    on: {
-                      click: () => {
-                        this.showWorkStepBaseInfo(this.worksteps[params.index]['work_step_id']);
-                      },
-                    }
-                  }, '编辑'),
-                  h('Button', {
-                    props: {
-                      type: 'info',
-                      size: 'small'
-                    },
-                    style: {
-                      marginLeft: '5px',
-                    },
-                    on: {
-                      click: () => {
-                        if (this.worksteps[params.index]['work_step_type']){
-                          this.$refs.workStepParamInfo.showWorkStepParamInfo(this.$route.query.work_id, this.worksteps[params.index]['work_step_id']);
+                      handleClick:function (clickType) {
+                        switch (clickType) {
+                          case "up":
+                            _this.changeWorkStepOrder(params.row.work_step_id, "up");
+                            break;
+                          case "down":
+                            _this.changeWorkStepOrder(params.row.work_step_id, "down");
+                            break;
+                          case "back":
+                            _this.batchChangeIndent('left', [params.row.work_step_id]);
+                            break;
+                          case "forward":
+                            _this.batchChangeIndent('right', [params.row.work_step_id]);
+                            break;
+                          case "edit":
+                            _this.showWorkStepBaseInfo(params.row.work_step_id);
+                            break;
+                          case "param":
+                            if (params.row.work_step_type){
+                              _this.$refs.workStepParamInfo.showWorkStepParamInfo(_this.$route.query.work_id, params.row.work_step_id);
+                            }
+                            break;
+                          case "delete":
+                            _this.deleteWorkStepByWorkStepId(_this.$route.query.work_id, params.row.work_step_id);
+                            break;
+                          case "detail":
+                            _this.showWorkSubDetail(params.row);
+                            break;
+                          case "refer":
+                            _this.goAnchor('#relativeWork');
+                            break;
                         }
                       }
                     }
-                  }, '参数'),
-                  h('Button', {
-                    props: {
-                      type: 'success',
-                      size: 'small'
-                    },
-                    style: {
-                      marginLeft: '5px',
-                      display: !oneOf(this.worksteps[params.index]['work_step_type'], ["work_start","work_end"])  ? undefined : 'none'
-                    },
-                    on: {
-                      click: () => {
-                        this.deleteWorkStepByWorkStepId(this.worksteps[params.index]['work_id'], this.worksteps[params.index]['work_step_id']);
-                      }
-                    }
-                  }, '删除'),
-                  h('Button', {
-                    props: {
-                      type: 'warning',
-                      size: 'small'
-                    },
-                    style: {
-                      marginLeft: '5px',
-                      display: oneOf(this.worksteps[params.index]['work_step_type'], ["work_sub"]) ? undefined : 'none'
-                    },
-                    on: {
-                      click: () => {
-                        this.showWorkSubDetail(this.worksteps[params.index]);
-                      }
-                    }
-                  }, '详情'),
-                  h('Button', {
-                    props: {
-                      type: 'warning',
-                      size: 'small'
-                    },
-                    style: {
-                      marginLeft: '5px',
-                      display: oneOf(this.worksteps[params.index]['work_step_type'], ["work_start"]) ? undefined : 'none'
-                    },
-                    on: {
-                      click: () => {
-                        this.goAnchor('#relativeWork');
-                      }
-                    }
-                  }, '关联流程'),
+                  }),
                 ]
               )
             }
