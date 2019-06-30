@@ -26,7 +26,7 @@
             <Input type="text" v-model="formInline.linked_refer" placeholder="linked_refer" style="width: 80%;"/>
           </FormItem>
           <FormItem>
-            <Button type="primary" @click="handleSubmit('formInline')">Signin</Button>
+            <Button type="primary" @click="handleSubmit('formInline')">提交</Button>
           </FormItem>
         </Col>
       </Row>
@@ -67,6 +67,11 @@
             title: 'title',
             key: 'title',
             width:200
+          },
+          {
+            title: 'image_path',
+            key: 'image_path',
+            width:400
           },
           {
             title: 'content',
