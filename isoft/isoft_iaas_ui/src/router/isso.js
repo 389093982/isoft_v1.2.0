@@ -3,9 +3,8 @@ import Regist from "../components/SSO/Login/Regist"
 import AppRegist from "../components/SSO/AppRegist"
 import LoginRecord from "../components/SSO/LoginRecord"
 import ISSOLayout from "../components/ILayout/ISSOLayout"
-import {modulesCheck} from "../imodules";
 
-const ISSOReouter = {
+export const ISSOReouter = [{
   path: '/sso',
   component: ISSOLayout,
   children: [
@@ -14,11 +13,6 @@ const ISSOReouter = {
     {path: 'appRegist',component: AppRegist},
     {path: 'loginRecord',component: LoginRecord},
   ]
-};
+}];
 
-export const getISSORouters = function () {
-  if (modulesCheck("sso")){
-    return [ISSOReouter];
-  }
-  return [];
-};
+

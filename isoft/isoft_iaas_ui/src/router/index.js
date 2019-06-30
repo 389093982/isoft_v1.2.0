@@ -1,27 +1,23 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-import {getISSORouters} from "./isso"
-import {getILearningRouters} from "./ilearning"
-import {modulesCheck} from "../imodules";
+import {ISSOReouter} from "./isso"
+import {ILearningRouters} from "./ilearning"
 
 Vue.use(Router);
 
 function getRootRouters () {
-  if(modulesCheck("ilearning")){
-    return [{
-      path: '/',
-      redirect: '/ilearning/index'
-    }]
-  }
-  return [];
+  return [{
+    path: '/',
+    redirect: '/ilearning/index'
+  }]
 };
 
 
 function getAllRouters() {
   let allRouters = [];
-  [].push.apply(allRouters, getILearningRouters());
-  [].push.apply(allRouters, getISSORouters());
+  [].push.apply(allRouters, ILearningRouters);
+  [].push.apply(allRouters, ISSOReouter);
   [].push.apply(allRouters, getRootRouters());
   return allRouters;
 }

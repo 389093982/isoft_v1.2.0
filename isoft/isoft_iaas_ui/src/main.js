@@ -5,7 +5,7 @@ import App from './App'
 import router from './router'
 import store from './store'
 
-import {CheckSSOLogin} from "./imodules"
+import {CheckSSOLogin} from "./tools"
 
 // 引用全局静态数据
 import global_ from './components/GlobalData'     //引用文件

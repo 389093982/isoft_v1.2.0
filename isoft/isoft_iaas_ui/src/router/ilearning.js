@@ -19,7 +19,6 @@ import ShareDetail from "../components/Share/ShareDetail"
 import HeartBeat from "../components/Monitor/HeartBeat"
 import CommonLinkList from "../components/CMS/CommonLinkList"
 import ILayout from "../components/ILayout/ILayout"
-import {modulesCheck} from "../imodules";
 
 const IBlogRouter = {
   path: '/iblog',
@@ -124,10 +123,5 @@ const CMSRouter = {
   ]
 };
 
-export const getILearningRouters = function () {
-  if (modulesCheck("ilearning")) {
-    return [IBlogRouter, IFileRouter, ILearningRouter, ShareListRouter, MonitorRouter, CMSRouter];
-  }
-  return [];
-}
+export const ILearningRouters = [IBlogRouter, IFileRouter, ILearningRouter, ShareListRouter, MonitorRouter, CMSRouter];
 

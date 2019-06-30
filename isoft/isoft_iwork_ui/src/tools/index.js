@@ -1,4 +1,5 @@
 import cronValidate from "./cron"
+import {getILearningRouters} from "../../../isoft_iaas_ui/src/router/ilearning";
 
 // 获取 cookie 值
 export const getCookie = function getCookie(c_name) {
@@ -128,4 +129,9 @@ export function getRepeatStr(str, n){
 export function swapArray(arr, index1, index2) {
   arr[index1] = arr.splice(index2, 1, arr[index1])[0];
   return arr;
+}
+
+export function joinArray(arr1, arr2) {
+  [].push.apply(arr1, arr2);
+  return arr1;
 }
