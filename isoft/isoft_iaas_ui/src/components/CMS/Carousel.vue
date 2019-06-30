@@ -4,34 +4,31 @@
       <Row>
         <Col span="12">
           <FormItem label="占位符">
-            <Select v-model="formInline.select" style="width: 80%;">
+            <Select v-model="formInline.placement" style="width: 80%;">
               <Option value="beijing">New York</Option>
               <Option value="shanghai">London</Option>
               <Option value="shenzhen">Sydney</Option>
             </Select>
           </FormItem>
-          <FormItem prop="user" label="图片">
-            <Input type="text" v-model="formInline.user" placeholder="Username" style="width: 80%;"/>
+          <FormItem prop="title" label="标题">
+            <Input type="text" v-model="formInline.title" placeholder="title" style="width: 80%;"/>
           </FormItem>
-          <FormItem prop="password"  label="标题">
-            <Input type="password" v-model="formInline.password" placeholder="Password" style="width: 80%;"/>
+          <FormItem prop="content"  label="内容">
+            <Input type="text" v-model="formInline.content" placeholder="content" style="width: 80%;"/>
           </FormItem>
         </Col>
         <Col span="12">
-          <FormItem prop="password"  label="内容">
-            <Input type="password" v-model="formInline.password" placeholder="Password" style="width: 80%;"/>
+          <FormItem prop="image"  label="图片">
+            <Input type="text" v-model="formInline.image" placeholder="image" style="width: 80%;"/>
           </FormItem>
-          <FormItem prop="password"  label="图片">
-            <Input type="password" v-model="formInline.password" placeholder="Password" style="width: 80%;"/>
+          <FormItem prop="linked_refer"  label="链接关键词">
+            <Input type="text" v-model="formInline.linked_refer" placeholder="linked_refer" style="width: 80%;"/>
           </FormItem>
-          <FormItem prop="password"  label="链接关键词">
-            <Input type="password" v-model="formInline.password" placeholder="Password" style="width: 80%;"/>
+          <FormItem>
+            <Button type="primary" @click="handleSubmit('formInline')">Signin</Button>
           </FormItem>
         </Col>
       </Row>
-      <FormItem>
-        <Button type="primary" @click="handleSubmit('formInline')">Signin</Button>
-      </FormItem>
     </Form>
 
     <Table :columns="columns1" :data="carousels" size="small"></Table>
@@ -42,6 +39,7 @@
 
 <script>
   import {FilterCarousels} from "../../api"
+  import {AddCarousel} from "../../api"
 
   export default {
     name: "Carousel",
@@ -79,25 +77,33 @@
           },
         ],
         formInline: {
-         select:'',
-          user: '',
-          password: ''
+          placement:'',
+          title: '',
+          content: '',
+          image: '',
+          linked_refer: '',
         },
         ruleInline: {
-          user: [
-            { required: true, message: 'Please fill in the user name', trigger: 'blur' }
+          title: [
+            { required: true, message: 'Please fill in the title.', trigger: 'blur' },
           ],
-          password: [
-            { required: true, message: 'Please fill in the password.', trigger: 'blur' },
-            { type: 'string', min: 6, message: 'The password length cannot be less than 6 bits', trigger: 'blur' }
+          content: [
+            { required: true, message: 'Please fill in the content.', trigger: 'blur' },
+          ],
+          linked_refer: [
+            { required: true, message: 'Please fill in the linked_refer.', trigger: 'blur' },
           ]
         }
       }
     },
     methods: {
       handleSubmit(name) {
-        this.$refs[name].validate((valid) => {
+        this.$refs[name].validate(async (valid) => {
           if (valid) {
+            const result = await AddCarousel(this.formInline.placement, this.formInline.title, this.formInline.content, this.formInline.linked_refer);
+            if(result.status=="SUCCESS"){
+             this.refreshCarouselList();
+            }
             this.$Message.success('Success!');
           } else {
             this.$Message.error('Fail!');

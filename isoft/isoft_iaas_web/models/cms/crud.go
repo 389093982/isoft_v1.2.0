@@ -86,3 +86,9 @@ func FilterCarousels(condArr map[string]string, page int, offset int) (carousels
 	qs.All(&carousels)
 	return
 }
+
+func AddCarousel(carousel *Carousel) (id int64, err error) {
+	o := orm.NewOrm()
+	id, err = o.Insert(carousel)
+	return
+}

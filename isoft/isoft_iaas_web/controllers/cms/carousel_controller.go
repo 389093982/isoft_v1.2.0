@@ -4,6 +4,7 @@ import (
 	"github.com/astaxie/beego/utils/pagination"
 	"isoft/isoft/common/pageutil"
 	"isoft/isoft_iaas_web/models/cms"
+	"time"
 )
 
 func (this *CMSController) FilterCarousels() {
@@ -21,6 +22,31 @@ func (this *CMSController) FilterCarousels() {
 	} else {
 		paginatorMap := pageutil.Paginator(paginator.Page(), paginator.PerPageNums, paginator.Nums())
 		this.Data["json"] = &map[string]interface{}{"status": "SUCCESS", "carousels": &carousels, "paginator": &paginatorMap}
+	}
+	this.ServeJSON()
+}
+
+// 增加通用连接地址
+func (this *CMSController) AddCarousel() {
+	placement := this.GetString("placement")
+	title := this.GetString("title")
+	content := this.GetString("content")
+	linked_refer := this.GetString("linked_refer")
+	carousel := &cms.Carousel{
+		Placement:       placement,
+		Title:           title,
+		Content:         content,
+		LinkedRefer:     linked_refer,
+		CreatedBy:       "SYSTEM",
+		CreatedTime:     time.Now(),
+		LastUpdatedBy:   "SYSTEM",
+		LastUpdatedTime: time.Now(),
+	}
+	_, err := cms.AddCarousel(carousel)
+	if err != nil {
+		this.Data["json"] = &map[string]interface{}{"status": "ERROR"}
+	} else {
+		this.Data["json"] = &map[string]interface{}{"status": "SUCCESS"}
 	}
 	this.ServeJSON()
 }
