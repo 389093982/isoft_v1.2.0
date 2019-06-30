@@ -83,6 +83,8 @@ export const FilterCommonLinks = (offset,current_page,search) => ajax(BASE_URL+'
 // 添加友情链接地址
 export const AddCommonLink = (link_type, link_name, link_addr) => ajax(BASE_URL+'/cms/addCommonLink',{link_type, link_name, link_addr},'GET');
 
+export const FilterCarousels = (offset,current_page,search) => ajax(BASE_URL+'/cms/filterCarousels',{offset,current_page,search},'GET');
+
 // 根据 blog_id 查询 blog 详细信息
 export const ShowShareDetail = (share_id) => ajax(BASE_URL+'/share/showShareDetail',{share_id},'GET');
 

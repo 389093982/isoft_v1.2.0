@@ -70,3 +70,19 @@ func AddCommonLink(commonLink *CommonLink) (id int64, err error) {
 	id, err = o.Insert(commonLink)
 	return
 }
+
+func FilterCarousels(condArr map[string]string, page int, offset int) (carousels []Carousel, counts int64, err error) {
+	o := orm.NewOrm()
+	qs := o.QueryTable("carousel")
+	var cond = orm.NewCondition()
+	if search, ok := condArr["search"]; ok && strings.TrimSpace(search) != "" {
+		subCond := orm.NewCondition()
+		subCond = cond.And("placement__contains", search).Or("title__contains", search)
+		cond = cond.AndCond(subCond)
+	}
+	qs = qs.SetCond(cond)
+	counts, _ = qs.Count()
+	qs = qs.Limit(offset, (page-1)*offset)
+	qs.All(&carousels)
+	return
+}

@@ -33,14 +33,51 @@
         <Button type="primary" @click="handleSubmit('formInline')">Signin</Button>
       </FormItem>
     </Form>
+
+    <Table :columns="columns1" :data="carousels" size="small"></Table>
+    <Page :total="total" :page-size="offset" show-total show-sizer :styles="{'text-align': 'center','margin-top': '10px'}"
+          @on-change="handleChange" @on-page-size-change="handlePageSizeChange"/>
   </div>
 </template>
 
 <script>
+  import {FilterCarousels} from "../../api"
+
   export default {
     name: "Carousel",
     data () {
       return {
+        // 当前页
+        current_page:1,
+        // 总页数
+        total:1,
+        // 每页记录数
+        offset:10,
+        // 搜索条件
+        search:"",
+        carousels: [],
+        columns1: [
+          {
+            title: 'placement',
+            key: 'placement',
+            width:180
+          },
+          {
+            title: 'title',
+            key: 'title',
+            width:200
+          },
+          {
+            title: 'content',
+            key: 'content',
+            width:400
+          },
+          {
+            title: 'linked_refer',
+            key: 'linked_refer',
+            width:200
+          },
+        ],
         formInline: {
          select:'',
           user: '',
@@ -66,7 +103,25 @@
             this.$Message.error('Fail!');
           }
         })
-      }
+      },
+      refreshCarouselList:async function () {
+        const result = await FilterCarousels(this.offset, this.current_page, this.search);
+        if(result.status=="SUCCESS"){
+          this.carousels = result.carousels;
+          this.total = result.paginator.totalcount;
+        }
+      },
+      handleChange(page){
+        this.current_page = page;
+        this.refreshCarouselList();
+      },
+      handlePageSizeChange(pageSize){
+        this.offset = pageSize;
+        this.refreshCarouselList();
+      },
+    },
+    mounted(){
+      this.refreshCarouselList();
     }
   }
 </script>
