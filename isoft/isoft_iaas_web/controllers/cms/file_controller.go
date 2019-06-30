@@ -26,9 +26,13 @@ func (this *CMSController) FileUpload() {
 		//关闭上传的文件，不然的话会出现临时文件不能清除的情况
 		f.Close()
 		//保存文件到指定的位置,static/uploadfile,这个是文件的地址,第一个static前面不要有/
-		err = this.SaveToFile("image", path.Join("static/uploadfile", fileName))
+		err = this.SaveToFile("file", path.Join("static/uploadfile", fileName))
 		if err == nil {
-			this.Data["json"] = &map[string]interface{}{"status": "SUCCESS", "Status": 200, "filename": h.Filename, "filepath": h.Filename}
+			this.Data["json"] = &map[string]interface{}{
+				"status":   "SUCCESS",
+				"filename": h.Filename,
+				"filepath": "http://localhost:8087/static/uploadfile/" + h.Filename,
+			}
 		} else {
 			this.Data["json"] = &map[string]string{"status": "ERROR", "errorMsg": err.Error()}
 		}

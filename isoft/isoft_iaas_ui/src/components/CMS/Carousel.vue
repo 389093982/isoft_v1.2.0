@@ -128,7 +128,7 @@
         this.offset = pageSize;
         this.refreshCarouselList();
       },
-      uploadComplete: function () {
+      uploadComplete: function (result) {
         if(result.status == "SUCCESS"){
           this.formInline.image = result.filepath;
         }
