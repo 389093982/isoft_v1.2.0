@@ -7,8 +7,14 @@ import (
 	_ "github.com/go-sql-driver/mysql" // _ 的作用,并不需要把整个包都导入进来,仅仅是是希望它执行init()函数而已
 	_ "github.com/mattn/go-sqlite3"
 	"isoft/isoft/common/flyway"
-	"isoft/isoft_iaas_web/imodules/milearning"
-	"isoft/isoft_iaas_web/imodules/misso"
+	"isoft/isoft_iaas_web/models/cms"
+	"isoft/isoft_iaas_web/models/common"
+	"isoft/isoft_iaas_web/models/iblog"
+	"isoft/isoft_iaas_web/models/ifile"
+	"isoft/isoft_iaas_web/models/ilearning"
+	"isoft/isoft_iaas_web/models/monitor"
+	"isoft/isoft_iaas_web/models/share"
+	"isoft/isoft_iaas_web/models/sso"
 	"net/url"
 )
 
@@ -51,8 +57,28 @@ func InitDb() {
 }
 
 func registerModel() {
-	milearning.RegisterModel()
-	misso.RegisterModel()
+	orm.RegisterModel(new(iblog.Catalog))
+	orm.RegisterModel(new(iblog.Blog))
+	orm.RegisterModel(new(ilearning.Course))
+	orm.RegisterModel(new(ilearning.CourseVideo))
+	orm.RegisterModel(new(ilearning.Favorite))
+	orm.RegisterModel(new(ilearning.CommentTheme))
+	orm.RegisterModel(new(ilearning.CommentReply))
+	orm.RegisterModel(new(ilearning.Note))
+	orm.RegisterModel(new(ifile.IFile))
+	orm.RegisterModel(new(cms.Configuration))
+	orm.RegisterModel(new(cms.CommonLink))
+	orm.RegisterModel(new(share.Share))
+	orm.RegisterModel(new(common.History))
+	orm.RegisterModel(new(monitor.HeartBeat2))
+	orm.RegisterModel(new(monitor.HeartBeatDetail))
+
+	orm.RegisterModel(new(sso.User))
+	orm.RegisterModel(new(sso.AppRegister))
+	orm.RegisterModel(new(sso.LoginRecord))
+	orm.RegisterModel(new(sso.UserToken))
+
+	orm.RegisterModel(new(cms.Carousel))
 }
 
 // 自动建表

@@ -26,3 +26,14 @@ type CommonLink struct {
 	LastUpdatedBy   string    `json:"last_updated_by"`
 	LastUpdatedTime time.Time `json:"last_updated_time"`
 }
+
+type Carousel struct {
+	Placement       string    `json:"placement"`
+	Title           string    `json:"title"`
+	Content         string    `json:"content"`
+	LinkedRefer     string    `json:"linked_refer"`
+	CreatedBy       string    `json:"created_by"`
+	CreatedTime     time.Time `json:"created_time"`
+	LastUpdatedBy   string    `json:"last_updated_by"`
+	LastUpdatedTime time.Time `json:"last_updated_time"`
+}

@@ -1,38 +1,34 @@
 <template>
   <div>
-    <Form ref="formInline" :model="formInline" :rules="ruleInline">
-      <FormItem label="占位符">
-        <Select v-model="formInline.select" style="width: 300px;">
-          <Option value="beijing">New York</Option>
-          <Option value="shanghai">London</Option>
-          <Option value="shenzhen">Sydney</Option>
-        </Select>
-      </FormItem>
-      <FormItem prop="user" label="图片">
-        <Input type="text" v-model="formInline.user" placeholder="Username">
-          <Icon type="ios-person-outline" slot="prepend"></Icon>
-        </Input>
-      </FormItem>
-      <FormItem prop="password"  label="标题">
-        <Input type="password" v-model="formInline.password" placeholder="Password">
-          <Icon type="ios-lock-outline" slot="prepend"></Icon>
-        </Input>
-      </FormItem>
-      <FormItem prop="password"  label="内容">
-        <Input type="password" v-model="formInline.password" placeholder="Password">
-          <Icon type="ios-lock-outline" slot="prepend"></Icon>
-        </Input>
-      </FormItem>
-      <FormItem prop="password"  label="图片">
-        <Input type="password" v-model="formInline.password" placeholder="Password">
-          <Icon type="ios-lock-outline" slot="prepend"></Icon>
-        </Input>
-      </FormItem>
-      <FormItem prop="password"  label="链接关键词">
-        <Input type="password" v-model="formInline.password" placeholder="Password">
-          <Icon type="ios-lock-outline" slot="prepend"></Icon>
-        </Input>
-      </FormItem>
+    <Form ref="formInline" :model="formInline" :rules="ruleInline" :label-width="100">
+      <Row>
+        <Col span="12">
+          <FormItem label="占位符">
+            <Select v-model="formInline.select" style="width: 80%;">
+              <Option value="beijing">New York</Option>
+              <Option value="shanghai">London</Option>
+              <Option value="shenzhen">Sydney</Option>
+            </Select>
+          </FormItem>
+          <FormItem prop="user" label="图片">
+            <Input type="text" v-model="formInline.user" placeholder="Username" style="width: 80%;"/>
+          </FormItem>
+          <FormItem prop="password"  label="标题">
+            <Input type="password" v-model="formInline.password" placeholder="Password" style="width: 80%;"/>
+          </FormItem>
+        </Col>
+        <Col span="12">
+          <FormItem prop="password"  label="内容">
+            <Input type="password" v-model="formInline.password" placeholder="Password" style="width: 80%;"/>
+          </FormItem>
+          <FormItem prop="password"  label="图片">
+            <Input type="password" v-model="formInline.password" placeholder="Password" style="width: 80%;"/>
+          </FormItem>
+          <FormItem prop="password"  label="链接关键词">
+            <Input type="password" v-model="formInline.password" placeholder="Password" style="width: 80%;"/>
+          </FormItem>
+        </Col>
+      </Row>
       <FormItem>
         <Button type="primary" @click="handleSubmit('formInline')">Signin</Button>
       </FormItem>
