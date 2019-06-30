@@ -1,12 +1,12 @@
 <template>
   <div>
-    AAAAAAAAA
+    AAACVVVVVVVVVV
   </div>
 </template>
 
 <script>
   export default {
-    name: "Index"
+    name: "Catalog"
   }
 </script>
 
