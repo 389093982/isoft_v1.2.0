@@ -10,6 +10,8 @@ const hot_course_types=[
   {"course_type":"测试教程","sub_course_types":["Golang基础","Golang入门","Java基础","JavaSE","教程1","教程2","教程3","教程4","教程5","教程6","教程7","Java基础","JavaSE","教程1","教程2","教程3","教程4","教程5","教程6","教程7","Java基础","JavaSE","教程1","教程2","教程3","教程4","教程5","教程6","教程7","Java基础","JavaSE","教程1","教程2","教程3","教程4","教程5","教程6","教程7"]},
 ];
 
+const host_share_carousel = "host_share_carousel";
+
 // 热门分享类型
 const hot_share_type=[
   {
@@ -76,5 +78,5 @@ const hot_share_type=[
 
 export default {
   hot_course_types,
-  hot_share_type,
+  host_share_carousel,
 }

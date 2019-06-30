@@ -75,7 +75,7 @@
         this.$emit('chooseItem',share_name);
       },
       refreshCarousel: async function () {
-        const result = await FilterCarouselByPlacement("demo");
+        const result = await FilterCarouselByPlacement(this.GLOBAL.host_share_carousel);
         if(result.status == "SUCCESS"){
           this.hot_share_type = result.carousels;
         }
