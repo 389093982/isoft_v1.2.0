@@ -3,6 +3,8 @@ import Router from 'vue-router'
 
 import {ISSOReouter} from "./isso"
 import {ILearningRouters} from "./ilearning"
+import {ICMSReouter} from "./icms"
+import {joinArray} from "../tools"
 
 Vue.use(Router);
 
@@ -16,9 +18,10 @@ function getRootRouters () {
 
 function getAllRouters() {
   let allRouters = [];
-  [].push.apply(allRouters, ILearningRouters);
-  [].push.apply(allRouters, ISSOReouter);
-  [].push.apply(allRouters, getRootRouters());
+  allRouters = joinArray(allRouters, ILearningRouters);
+  allRouters = joinArray(allRouters, ISSOReouter);
+  allRouters = joinArray(allRouters, ICMSReouter);
+  allRouters = joinArray(allRouters, getRootRouters());
   return allRouters;
 }
 
