@@ -20,8 +20,8 @@
 </template>
 
 <script>
-  import {Login} from "../../api"
-  import {setCookie} from "../../tools"
+  import {Login} from "../../../api"
+  import {setCookie} from "../../../tools"
 
   export default {
     name: "LoginForm",

@@ -28,14 +28,14 @@
     position: absolute;
     top: 20px;
     left: 150px;
-    background: url('../../assets/sso/welcome_login.png') no-repeat;
+    background: url('../../../assets/sso/welcome_login.png') no-repeat;
   }
   #question{
     display: inline-block;
     width: 18px;
     height: 14px;
     margin: 0 5px;
-    background: url('../../assets/sso/question_icon.png') no-repeat;
+    background: url('../../../assets/sso/question_icon.png') no-repeat;
     overflow: hidden;
     vertical-align: middle;
   }

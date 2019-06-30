@@ -58,10 +58,10 @@
 
 <script>
   import LoginFooter from "./LoginFooter"
-  import {Regist} from "../../api"
-  import {validateUserName} from "../../tools"
-  import {validatePasswd} from "../../tools"
-  import ISimpleSearch from "../Common/search/ISimpleSearch"
+  import {Regist} from "../../../api"
+  import {validateUserName} from "../../../tools"
+  import {validatePasswd} from "../../../tools"
+  import ISimpleSearch from "../../Common/search/ISimpleSearch"
 
   export default {
     name: "Regist",
