@@ -42,11 +42,13 @@ func (this *CMSController) AddCarousel() {
 	placement := this.GetString("placement")
 	title := this.GetString("title")
 	content := this.GetString("content")
+	imgpath := this.GetString("imgpath")
 	linked_refer := this.GetString("linked_refer")
 	carousel := &cms.Carousel{
 		Placement:       placement,
 		Title:           title,
 		Content:         content,
+		ImgPath:         imgpath,
 		LinkedRefer:     linked_refer,
 		CreatedBy:       "SYSTEM",
 		CreatedTime:     time.Now(),

@@ -32,6 +32,7 @@ type Carousel struct {
 	Placement       string    `json:"placement"`
 	Title           string    `json:"title"`
 	Content         string    `json:"content"`
+	ImgPath         string    `json:"image_path"`
 	LinkedRefer     string    `json:"linked_refer"`
 	CreatedBy       string    `json:"created_by"`
 	CreatedTime     time.Time `json:"created_time"`

@@ -85,7 +85,7 @@ export const AddCommonLink = (link_type, link_name, link_addr) => ajax(BASE_URL+
 
 export const FilterCarousels = (offset,current_page,search) => ajax(BASE_URL+'/cms/filterCarousels',{offset,current_page,search},'GET');
 
-export const AddCarousel = (placement, title, content, linked_refer) => ajax(BASE_URL+'/cms/addCarousel',{placement, title, content, linked_refer},'GET');
+export const AddCarousel = (placement, title, content, imgpath, linked_refer) => ajax(BASE_URL+'/cms/addCarousel',{placement, title, content, imgpath, linked_refer},'GET');
 
 export const FilterCarouselByPlacement = (placement) => ajax(BASE_URL+'/cms/filterCarouselByPlacement',{placement},'GET');
 

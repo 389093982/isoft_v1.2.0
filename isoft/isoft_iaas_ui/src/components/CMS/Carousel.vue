@@ -18,8 +18,8 @@
           </FormItem>
         </Col>
         <Col span="12">
-          <FormItem prop="image"  label="图片">
-            <Input type="text" readonly="readonly" v-model="formInline.image" placeholder="image" style="width: 80%;"/>
+          <FormItem prop="imgpath"  label="图片">
+            <Input type="text" readonly="readonly" v-model="formInline.imgpath" placeholder="imgpath" style="width: 80%;"/>
             <IFileUpload @uploadComplete="uploadComplete" action="/api/cms/fileUpload/" uploadLabel="上传"/>
           </FormItem>
           <FormItem prop="linked_refer"  label="链接关键词">
@@ -83,7 +83,7 @@
           placement:'',
           title: '',
           content: '',
-          image: '',
+          imgpath: '',
           linked_refer: '',
         },
         ruleInline: {
@@ -103,7 +103,8 @@
       handleSubmit(name) {
         this.$refs[name].validate(async (valid) => {
           if (valid) {
-            const result = await AddCarousel(this.formInline.placement, this.formInline.title, this.formInline.content, this.formInline.linked_refer);
+            const result = await AddCarousel(this.formInline.placement, this.formInline.title, this.formInline.content,
+              this.formInline.imgpath, this.formInline.linked_refer);
             if(result.status=="SUCCESS"){
              this.refreshCarouselList();
             }
@@ -130,7 +131,7 @@
       },
       uploadComplete: function (result) {
         if(result.status == "SUCCESS"){
-          this.formInline.image = result.filepath;
+          this.formInline.imgpath = result.filepath;
         }
       }
     },
