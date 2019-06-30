@@ -31,7 +31,7 @@
       </Col>
       <Col :span="showComponet ? 18 : 24">
 
-        <Table :height="500" border :columns="columns1" ref="selection" :data="worksteps" size="small"></Table>
+        <Table :loading="loading" :height="500" border :columns="columns1" ref="selection" :data="worksteps" size="small"></Table>
       </Col>
     </Row>
 
@@ -73,7 +73,8 @@
         refactor_worksub_name:'',
         default_work_step_types: this.GLOBAL.default_work_step_types,
         worksteps: [],
-        showEdit:true,
+        showEditBtns:true,
+        loading:false,
         columns1: [
           {
             type: 'selection',
@@ -82,12 +83,12 @@
           },
           {
             key: 'work_step_id',
-            width: 300,
+            width: 60,
             renderHeader: (h,params)=>{
               return h('div',[
                 h('Icon',{
                   props:{
-                    type: this.showEdit ? 'ios-eye-outline' : "ios-eye-off-outline",
+                    type: this.showEditBtns ? 'ios-eye-outline' : "ios-eye-off-outline",
                     size: '25',
                   },
                   style:{
@@ -95,13 +96,18 @@
                   },
                   on:{
                     click:function () {
-                      _this.showEdit = !_this.showEdit;
+                      _this.showEditBtns = !_this.showEditBtns;
                     }
                   }
                 }),
-                h('strong', '步骤编号'),
+                h('strong', 'id'),
               ])
             },
+          },
+          {
+            title: '操作',
+            key: 'work_step_operate',
+            width: 350,
             render: (h,params)=>{
               return h('div', {
                   on:{
@@ -116,15 +122,14 @@
                     dragover: () => this.allowDrop(),
                   }
                 }, [
-                  h('span', params.row.work_step_id),
                   h(WorkStepEditBtns,{
                     props:{
-                      showArrow: this.showEdit && !oneOf(this.worksteps[params.index]['work_step_type'], ["work_start","work_end"]),
-                      showEdit: this.showEdit && !oneOf(this.worksteps[params.index]['work_step_type'], ["work_start","work_end"]),
-                      showParam: this.showEdit && true,
-                      showDelete: this.showEdit && !oneOf(this.worksteps[params.index]['work_step_type'], ["work_start","work_end"]),
-                      showDetail: this.showEdit && oneOf(this.worksteps[params.index]['work_step_type'], ["work_sub"]),
-                      showRefer: this.showEdit && oneOf(this.worksteps[params.index]['work_step_type'], ["work_start"]),
+                      showArrow: this.showEditBtns && !oneOf(this.worksteps[params.index]['work_step_type'], ["work_start","work_end"]),
+                      showEdit: this.showEditBtns && !oneOf(this.worksteps[params.index]['work_step_type'], ["work_start","work_end"]),
+                      showParam: this.showEditBtns && true,
+                      showDelete: this.showEditBtns && !oneOf(this.worksteps[params.index]['work_step_type'], ["work_start","work_end"]),
+                      showDetail: this.showEditBtns && oneOf(this.worksteps[params.index]['work_step_type'], ["work_sub"]),
+                      showRefer: this.showEditBtns && oneOf(this.worksteps[params.index]['work_step_type'], ["work_start"]),
                     },
                     on: {
                       handleClick:function (clickType) {
@@ -167,7 +172,7 @@
             }
           },
           {
-            title: 'work_step_name',
+            title: '步骤名称',
             key: 'work_step_name',
             width: 300,
             render: (h, params) => {
@@ -237,7 +242,7 @@
             }
           },
           {
-            title: 'work_step_type',
+            title: '步骤类型',
             key: 'work_step_type',
             width: 180,
             render: (h, params) => {
@@ -265,7 +270,7 @@
             }
           },
           {
-            title: 'work_step_desc',
+            title: '步骤描述',
             key: 'work_step_desc',
             width: 250,
           },
@@ -274,12 +279,14 @@
     },
     methods:{
       refreshWorkStepList:async function () {
+        this.loading = true;
         const result = await WorkStepList(this.$route.query.work_id);
         if(result.status=="SUCCESS"){
           this.worksteps = result.worksteps;
           // 刷新关联流程信息
           this.$refs.relativeWork.refreshRelativeWork(this.$route.query.work_id);
         }
+        this.loading = false;
       },
       deleteWorkStepByWorkStepId:async function(work_id, work_step_id){
         const result = await DeleteWorkStepByWorkStepId(work_id, work_step_id);
