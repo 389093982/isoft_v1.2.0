@@ -1,5 +1,9 @@
 <template>
   <div>
+    <Chooser ref="placement_chooser">
+      <placement/>
+    </Chooser>
+
     <Form ref="formInline" :model="formInline" :rules="ruleInline" :label-width="100">
       <Row>
         <Col span="12">
@@ -9,6 +13,7 @@
               <Option value="shanghai">London</Option>
               <Option value="shenzhen">Sydney</Option>
             </Select>
+            <Button type="success" @click="$refs.placement_chooser.showModal()">选择</Button>
           </FormItem>
           <FormItem prop="title" label="标题">
             <Input type="text" v-model="formInline.title" placeholder="title" style="width: 80%;"/>
@@ -42,10 +47,12 @@
   import {FilterCarousels} from "../../api"
   import {AddCarousel} from "../../api"
   import IFileUpload from "../IFile/IFileUpload"
+  import Chooser from "./Chooser"
+  import Placement from "./Placement"
 
   export default {
     name: "Carousel",
-    components:{IFileUpload},
+    components:{IFileUpload,Chooser,Placement},
     data () {
       return {
         // 当前页
