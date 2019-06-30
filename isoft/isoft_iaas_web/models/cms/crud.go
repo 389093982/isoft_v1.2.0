@@ -98,3 +98,25 @@ func AddCarousel(carousel *Carousel) (id int64, err error) {
 	id, err = o.Insert(carousel)
 	return
 }
+
+func AddPlacement(placement *Placement) (id int64, err error) {
+	o := orm.NewOrm()
+	id, err = o.Insert(placement)
+	return
+}
+
+func FilterPlacement(condArr map[string]string, page int, offset int) (placements []Placement, counts int64, err error) {
+	o := orm.NewOrm()
+	qs := o.QueryTable("placement")
+	var cond = orm.NewCondition()
+	if search, ok := condArr["search"]; ok && strings.TrimSpace(search) != "" {
+		subCond := orm.NewCondition()
+		subCond = cond.And("placement_name__contains", search).Or("placement_desc__contains", search)
+		cond = cond.AndCond(subCond)
+	}
+	qs = qs.SetCond(cond)
+	counts, _ = qs.Count()
+	qs = qs.Limit(offset, (page-1)*offset)
+	qs.All(&placements)
+	return
+}

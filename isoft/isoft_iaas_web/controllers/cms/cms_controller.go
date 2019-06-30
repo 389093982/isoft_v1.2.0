@@ -118,3 +118,42 @@ func (this *CMSController) AddCommonLink() {
 	}
 	this.ServeJSON()
 }
+
+func (this *CMSController) FilterPlacement() {
+	condArr := make(map[string]string)
+	offset, _ := this.GetInt("offset", 10)            // 每页记录数
+	current_page, _ := this.GetInt("current_page", 1) // 当前页
+	search := this.GetString("search")
+	if search != "" {
+		condArr["search"] = search
+	}
+	placements, count, err := cms.FilterPlacement(condArr, current_page, offset)
+	paginator := pagination.SetPaginator(this.Ctx, offset, count)
+	if err != nil {
+		this.Data["json"] = &map[string]interface{}{"status": "ERROR"}
+	} else {
+		paginatorMap := pageutil.Paginator(paginator.Page(), paginator.PerPageNums, paginator.Nums())
+		this.Data["json"] = &map[string]interface{}{"status": "SUCCESS", "placements": &placements, "paginator": &paginatorMap}
+	}
+	this.ServeJSON()
+}
+
+func (this *CMSController) AddPlacement() {
+	placement_name := this.GetString("placement_name")
+	placement_desc := this.GetString("placement_desc")
+	placement := &cms.Placement{
+		PlacementName:   placement_name,
+		PlacementDesc:   placement_desc,
+		CreatedBy:       "SYSTEM",
+		CreatedTime:     time.Now(),
+		LastUpdatedBy:   "SYSTEM",
+		LastUpdatedTime: time.Now(),
+	}
+	_, err := cms.AddPlacement(placement)
+	if err != nil {
+		this.Data["json"] = &map[string]interface{}{"status": "ERROR"}
+	} else {
+		this.Data["json"] = &map[string]interface{}{"status": "SUCCESS"}
+	}
+	this.ServeJSON()
+}

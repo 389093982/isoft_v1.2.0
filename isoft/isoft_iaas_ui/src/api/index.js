@@ -87,6 +87,10 @@ export const FilterCarousels = (offset,current_page,search) => ajax(BASE_URL+'/c
 
 export const AddCarousel = (placement, title, content, imgpath, linked_refer) => ajax(BASE_URL+'/cms/addCarousel',{placement, title, content, imgpath, linked_refer},'GET');
 
+export const AddPlacement = (placement_name, placement_desc) => ajax(BASE_URL+'/cms/addPlacement',{placement_name, placement_desc},'GET');
+
+export const FilterPlacement = (offset,current_page,search) => ajax(BASE_URL+'/cms/filterPlacement',{offset,current_page,search},'GET');
+
 export const FilterCarouselByPlacement = (placement) => ajax(BASE_URL+'/cms/filterCarouselByPlacement',{placement},'GET');
 
 // 根据 blog_id 查询 blog 详细信息

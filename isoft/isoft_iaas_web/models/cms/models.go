@@ -27,6 +27,7 @@ type CommonLink struct {
 	LastUpdatedTime time.Time `json:"last_updated_time"`
 }
 
+// 轮播图
 type Carousel struct {
 	Id              int64     `json:"id"`
 	Placement       string    `json:"placement"`
@@ -34,6 +35,17 @@ type Carousel struct {
 	Content         string    `json:"content"`
 	ImgPath         string    `json:"image_path"`
 	LinkedRefer     string    `json:"linked_refer"`
+	CreatedBy       string    `json:"created_by"`
+	CreatedTime     time.Time `json:"created_time"`
+	LastUpdatedBy   string    `json:"last_updated_by"`
+	LastUpdatedTime time.Time `json:"last_updated_time"`
+}
+
+// 占位符
+type Placement struct {
+	Id              int64     `json:"id"`
+	PlacementName   string    `json:"placement_name"`
+	PlacementDesc   string    `json:"placement_desc"`
 	CreatedBy       string    `json:"created_by"`
 	CreatedTime     time.Time `json:"created_time"`
 	LastUpdatedBy   string    `json:"last_updated_by"`

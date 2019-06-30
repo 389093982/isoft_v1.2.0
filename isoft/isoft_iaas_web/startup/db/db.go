@@ -79,6 +79,7 @@ func registerModel() {
 	orm.RegisterModel(new(sso.UserToken))
 
 	orm.RegisterModel(new(cms.Carousel))
+	orm.RegisterModel(new(cms.Placement))
 }
 
 // 自动建表
