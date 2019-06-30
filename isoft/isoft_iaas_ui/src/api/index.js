@@ -87,6 +87,8 @@ export const FilterCarousels = (offset,current_page,search) => ajax(BASE_URL+'/c
 
 export const AddCarousel = (placement, title, content, linked_refer) => ajax(BASE_URL+'/cms/addCarousel',{placement, title, content, linked_refer},'GET');
 
+export const FilterCarouselByPlacement = (placement) => ajax(BASE_URL+'/cms/filterCarouselByPlacement',{placement},'GET');
+
 // 根据 blog_id 查询 blog 详细信息
 export const ShowShareDetail = (share_id) => ajax(BASE_URL+'/share/showShareDetail',{share_id},'GET');
 

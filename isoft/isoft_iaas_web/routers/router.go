@@ -72,6 +72,7 @@ func initCMSRouter() {
 	beego.Router("/api/cms/addCommonLink", &cms.CMSController{}, "get,post:AddCommonLink")
 	beego.Router("/api/cms/filterCarousels", &cms.CMSController{}, "get,post:FilterCarousels")
 	beego.Router("/api/cms/addCarousel", &cms.CMSController{}, "get,post:AddCarousel")
+	beego.Router("/api/cms/filterCarouselByPlacement", &cms.CMSController{}, "get,post:FilterCarouselByPlacement")
 }
 
 func initILearningRouter() {

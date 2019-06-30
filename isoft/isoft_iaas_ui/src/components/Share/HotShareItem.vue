@@ -4,16 +4,16 @@
       <Col span="2" style="text-align: center;padding-top: 25px;">
         <a href="javascript:;" @click="previous" v-show="showPrevious"><img src="/static/images/arrow_left.png"/></a>
       </Col>
-      <Col span="5" v-for="share_type in getCurrentPage">
-        <a href="javascript:;" style="color: #999;" @click="chooseItem(share_type.name)">
+      <Col span="5" v-for="carousel in getCurrentPage">
+        <a href="javascript:;" style="color: #999;" @click="chooseItem(carousel.linked_refer)">
           <div class="item" style="padding:10px; height: 100px;">
             <Row>
               <Col span="6">
-                <img :src="share_type.img" :alt="share_type.name"/>
+                <img :src="carousel.img" :alt="carousel.title"/>
               </Col>
               <Col span="18" style="padding-left: 5px;">
-                <p class="share_type_name">{{share_type.name}}</p>
-                <p style="font-size: 12px;">{{share_type.detail}}</p>
+                <p class="share_type_name">{{carousel.title}}</p>
+                <p style="font-size: 12px;">{{carousel.content}}</p>
               </Col>
             </Row>
           </div>
@@ -27,12 +27,14 @@
 </template>
 
 <script>
+  import {FilterCarouselByPlacement} from "../../api"
+
   export default {
     name: "HotShareItem",
     data(){
       return {
         // 热门分享类型
-        hot_share_type: this.GLOBAL.hot_share_type,
+        hot_share_type: [],
         // 当前页
         currentPageNo:1,
       }
@@ -71,7 +73,16 @@
       },
       chooseItem:function (share_name) {
         this.$emit('chooseItem',share_name);
+      },
+      refreshCarousel: async function () {
+        const result = await FilterCarouselByPlacement("demo");
+        if(result.status == "SUCCESS"){
+          this.hot_share_type = result.carousels;
+        }
       }
+    },
+    mounted(){
+      this.refreshCarousel();
     }
   }
 </script>

@@ -7,6 +7,17 @@ import (
 	"time"
 )
 
+func (this *CMSController) FilterCarouselByPlacement() {
+	placement := this.GetString("placement")
+	carousels, err := cms.FilterCarouselByPlacement(placement)
+	if err != nil {
+		this.Data["json"] = &map[string]interface{}{"status": "ERROR"}
+	} else {
+		this.Data["json"] = &map[string]interface{}{"status": "SUCCESS", "carousels": &carousels}
+	}
+	this.ServeJSON()
+}
+
 func (this *CMSController) FilterCarousels() {
 	condArr := make(map[string]string)
 	offset, _ := this.GetInt("offset", 10)            // 每页记录数

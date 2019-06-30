@@ -87,6 +87,12 @@ func FilterCarousels(condArr map[string]string, page int, offset int) (carousels
 	return
 }
 
+func FilterCarouselByPlacement(placement string) (carousels []Carousel, err error) {
+	o := orm.NewOrm()
+	_, err = o.QueryTable("carousel").Filter("placement", placement).All(&carousels)
+	return
+}
+
 func AddCarousel(carousel *Carousel) (id int64, err error) {
 	o := orm.NewOrm()
 	id, err = o.Insert(carousel)
