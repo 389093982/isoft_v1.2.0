@@ -9,7 +9,6 @@ import (
 	"isoft/isoft/common/flyway"
 	"isoft/isoft_iaas_web/imodules/milearning"
 	"isoft/isoft_iaas_web/imodules/misso"
-	"isoft/isoft_iwork_web/imodules/miwork"
 	"net/url"
 )
 
@@ -54,7 +53,6 @@ func InitDb() {
 func registerModel() {
 	milearning.RegisterModel()
 	misso.RegisterModel()
-	miwork.RegisterModel()
 }
 
 // 自动建表
