@@ -198,6 +198,7 @@
                       params.row.work_step_name = event.target.value
                     },
                     blur: async function (event) {
+                      var oldValue = event.currentTarget.title;
                       // 发生过修改
                       const result = await EditWorkStepBaseInfo(params.row.work_id, params.row.work_step_id,
                         params.row.work_step_name,params.row.work_step_desc, params.row.work_step_type, params.row.is_defer);
