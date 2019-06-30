@@ -31,7 +31,17 @@
       </Col>
       <Col :span="showComponet ? 18 : 24">
 
-        <Table :loading="loading" :height="500" border :columns="columns1" ref="selection" :data="worksteps" size="small"></Table>
+        <div style="text-align: right;margin-bottom: 10px;">
+          显示操作<i-switch v-model="showEditBtns" size="small" style="margin-right: 5px"></i-switch>
+          显示复选框<i-switch v-model="showCheckbox" size="small" style="margin-right: 5px"></i-switch>
+          显示编号<i-switch v-model="showIndex" size="small" style="margin-right: 5px"></i-switch>
+          显示边框<i-switch v-model="showBorder" size="small" style="margin-right: 5px"></i-switch>
+          显示间隔<i-switch v-model="showStripe" size="small" style="margin-right: 5px"></i-switch>
+          显示表头<i-switch v-model="showHeader" size="small" style="margin-right: 5px"></i-switch>
+        </div>
+
+        <Table :loading="loading" :height="500" border :columns="columns1" ref="selection" :data="worksteps" size="small"
+               :border="showBorder" :stripe="showStripe" :show-header="showHeader"></Table>
       </Col>
     </Row>
 
@@ -73,38 +83,35 @@
         refactor_worksub_name:'',
         default_work_step_types: this.GLOBAL.default_work_step_types,
         worksteps: [],
-        showEditBtns:true,
+
         loading:false,
-        columns1: [
-          {
+        showEditBtns:false,
+        showBorder: true,
+        showStripe: true,
+        showHeader: true,
+        showIndex: true,
+        showCheckbox: true,
+      }
+    },
+    computed:{
+      columns1(){
+        let columns = [];
+        if(this.showCheckbox){
+          columns.push({
             type: 'selection',
             width: 60,
             align: 'center',
-          },
-          {
+          })
+        }
+        if(this.showIndex){
+          columns.push({
+            title: '步骤编号',
             key: 'work_step_id',
-            width: 60,
-            renderHeader: (h,params)=>{
-              return h('div',[
-                h('Icon',{
-                  props:{
-                    type: this.showEditBtns ? 'ios-eye-outline' : "ios-eye-off-outline",
-                    size: '25',
-                  },
-                  style:{
-                    marginRight: '5px',
-                  },
-                  on:{
-                    click:function () {
-                      _this.showEditBtns = !_this.showEditBtns;
-                    }
-                  }
-                }),
-                h('strong', 'id'),
-              ])
-            },
-          },
-          {
+            width: 100,
+          })
+        }
+        if(this.showEditBtns){
+          columns.push({
             title: '操作',
             key: 'work_step_operate',
             width: 350,
@@ -170,11 +177,14 @@
                 ]
               )
             }
-          },
+          })
+        }
+        // push 其余列
+        [].push.apply(columns,[
           {
             title: '步骤名称',
             key: 'work_step_name',
-            width: 300,
+            width: 400,
             render: (h, params) => {
               var _this = this; // vue 实例
               // 可编辑模式
@@ -272,10 +282,11 @@
           {
             title: '步骤描述',
             key: 'work_step_desc',
-            width: 250,
+            width: 400,
           },
-        ],
-      }
+        ]);
+        return columns;
+      },
     },
     methods:{
       refreshWorkStepList:async function () {
