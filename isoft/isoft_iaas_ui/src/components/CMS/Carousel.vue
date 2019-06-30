@@ -19,7 +19,8 @@
         </Col>
         <Col span="12">
           <FormItem prop="image"  label="图片">
-            <Input type="text" v-model="formInline.image" placeholder="image" style="width: 80%;"/>
+            <Input type="text" readonly="readonly" v-model="formInline.image" placeholder="image" style="width: 80%;"/>
+            <IFileUpload @uploadComplete="uploadComplete" action="/api/cms/fileUpload/" uploadLabel="上传"/>
           </FormItem>
           <FormItem prop="linked_refer"  label="链接关键词">
             <Input type="text" v-model="formInline.linked_refer" placeholder="linked_refer" style="width: 80%;"/>
@@ -40,9 +41,11 @@
 <script>
   import {FilterCarousels} from "../../api"
   import {AddCarousel} from "../../api"
+  import IFileUpload from "../IFile/IFileUpload"
 
   export default {
     name: "Carousel",
+    components:{IFileUpload},
     data () {
       return {
         // 当前页
@@ -125,6 +128,11 @@
         this.offset = pageSize;
         this.refreshCarouselList();
       },
+      uploadComplete: function () {
+        if(result.status == "SUCCESS"){
+          this.formInline.image = result.filepath;
+        }
+      }
     },
     mounted(){
       this.refreshCarouselList();

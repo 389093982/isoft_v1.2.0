@@ -2,7 +2,7 @@
   <div>
     <Row style="margin-bottom: 10px;">
       <Col span="12">
-        <IFileUpload @refreshTable="refreshIFileList" action="/api/ifile/fileUpload/" uploadLabel="上传到文件服务器"/>
+        <IFileUpload @uploadComplete="refreshIFileList" action="/api/ifile/fileUpload/" uploadLabel="上传到文件服务器"/>
       </Col>
       <Col span="12">
         <Input v-model="search_name" search enter-button placeholder="搜索对象名称" @on-search="input_search"/>

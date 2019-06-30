@@ -42,7 +42,7 @@
       uploadComplete(res, file) {
         if(res.status=="SUCCESS"){
           // 父子组件通信
-          this.$emit('refreshTable');
+          this.$emit('uploadComplete');
           this.$Notice.success({
             title: '文件上传成功',
             desc: '文件 ' + file.name + ' 上传成功!'
