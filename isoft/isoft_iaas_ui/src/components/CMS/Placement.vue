@@ -32,6 +32,12 @@
   export default {
     name: "Placement",
     components:{ISimpleLeftRightRow,ISimpleConfirmModal,IKeyValueForm,ISimpleSearch},
+    props:{
+      chooser:{ // 选择一行值
+        type: Boolean,
+        default: false,
+      }
+    },
     data(){
       return {
         // 当前页
@@ -52,13 +58,37 @@
           {
             title: 'placement_name',
             key: 'placement_name',
-            width: 400,
+            width: 300,
           },
           {
             title: 'placement_desc',
             key: 'placement_desc',
-            width: 500,
+            width: 400,
           },
+          {
+            title: '操作',
+            key: 'operate',
+            width: 300,
+            render: (h,params)=> {
+              return h('div',[
+                h('Button', {
+                  props: {
+                    type: 'error',
+                    size: 'small'
+                  },
+                  style: {
+                    marginRight: '5px',
+                    display: this.chooser ? 'undefined': 'none',
+                  },
+                  on: {
+                    click: () => {
+                      this.$emit("choosePlacement", this.placements[params.index].placement_name);
+                    }
+                  }
+                }, '选择'),
+              ]);
+            }
+          }
         ],
       }
     },

@@ -1,18 +1,14 @@
 <template>
   <div>
     <Chooser ref="placement_chooser">
-      <placement/>
+      <placement :chooser="true" @choosePlacement="choosePlacement"/>
     </Chooser>
 
     <Form ref="formInline" :model="formInline" :rules="ruleInline" :label-width="100">
       <Row>
         <Col span="12">
           <FormItem label="占位符">
-            <Select v-model="formInline.placement" style="width: 80%;">
-              <Option value="beijing">New York</Option>
-              <Option value="shanghai">London</Option>
-              <Option value="shenzhen">Sydney</Option>
-            </Select>
+            <Input type="text" readonly="readonly" v-model="formInline.placement" placeholder="placement" style="width: 80%;"/>
             <Button type="success" @click="$refs.placement_chooser.showModal()">选择</Button>
           </FormItem>
           <FormItem prop="title" label="标题">
@@ -145,6 +141,10 @@
         if(result.status == "SUCCESS"){
           this.formInline.imgpath = result.filepath;
         }
+      },
+      choosePlacement:function (placement_name) {
+        this.formInline.placement = placement_name;
+        this.$refs.placement_chooser.hideModal();
       }
     },
     mounted(){
