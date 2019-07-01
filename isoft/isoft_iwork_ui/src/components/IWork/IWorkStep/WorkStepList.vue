@@ -75,7 +75,6 @@
     name: "WorkStepList",
     components:{ParamInfo,ISimpleLeftRightRow,BaseInfo,RelativeWork,WorkValidate,ISimpleConfirmModal,WorkStepEditBtns},
     data(){
-      var _this = this;
       return {
         // 默认不显示组件
         showComponet:false,
@@ -95,6 +94,7 @@
     },
     computed:{
       columns1(){
+        var _this = this;
         let columns = [];
         if(this.showCheckbox){
           columns.push({
