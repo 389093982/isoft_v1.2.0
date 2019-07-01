@@ -93,6 +93,12 @@ func FilterCarouselByPlacement(placement string) (carousels []Carousel, err erro
 	return
 }
 
+func UpdateCarouselStatus(id int64, status int) error {
+	o := orm.NewOrm()
+	_, err := o.QueryTable("carousel").Filter("id", id).Update(orm.Params{"Status": status})
+	return err
+}
+
 func AddCarousel(carousel *Carousel) (id int64, err error) {
 	o := orm.NewOrm()
 	id, err = o.Insert(carousel)

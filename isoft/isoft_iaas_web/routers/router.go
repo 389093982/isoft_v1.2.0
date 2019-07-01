@@ -73,6 +73,7 @@ func initCMSRouter() {
 	beego.Router("/api/cms/filterCarousels", &cms.CMSController{}, "get,post:FilterCarousels")
 	beego.Router("/api/cms/addCarousel", &cms.CMSController{}, "get,post:AddCarousel")
 	beego.Router("/api/cms/filterCarouselByPlacement", &cms.CMSController{}, "get,post:FilterCarouselByPlacement")
+	beego.Router("/api/cms/updateCarouselStatus", &cms.CMSController{}, "get,post:UpdateCarouselStatus")
 	beego.Router("/api/cms/fileUpload", &cms.CMSController{}, "get,post:FileUpload")
 	beego.Router("/api/cms/filterPlacement", &cms.CMSController{}, "get,post:FilterPlacement")
 	beego.Router("/api/cms/addPlacement", &cms.CMSController{}, "get,post:AddPlacement")

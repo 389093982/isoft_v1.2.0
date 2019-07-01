@@ -35,6 +35,7 @@ type Carousel struct {
 	Content         string    `json:"content"`
 	ImgPath         string    `json:"image_path"`
 	LinkedRefer     string    `json:"linked_refer"`
+	Status          int       `json:"status"` // 0 停用,1启用,-1失效
 	CreatedBy       string    `json:"created_by"`
 	CreatedTime     time.Time `json:"created_time"`
 	LastUpdatedBy   string    `json:"last_updated_by"`

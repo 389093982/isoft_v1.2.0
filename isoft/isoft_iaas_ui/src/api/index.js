@@ -84,13 +84,11 @@ export const FilterCommonLinks = (offset,current_page,search) => ajax(BASE_URL+'
 export const AddCommonLink = (link_type, link_name, link_addr) => ajax(BASE_URL+'/cms/addCommonLink',{link_type, link_name, link_addr},'GET');
 
 export const FilterCarousels = (offset,current_page,search) => ajax(BASE_URL+'/cms/filterCarousels',{offset,current_page,search},'GET');
-
 export const AddCarousel = (placement, title, content, imgpath, linked_refer) => ajax(BASE_URL+'/cms/addCarousel',{placement, title, content, imgpath, linked_refer},'GET');
+export const UpdateCarouselStatus = (id, status) => ajax(BASE_URL+'/cms/updateCarouselStatus',{id, status},'GET');
 
 export const AddPlacement = (placement_name, placement_desc) => ajax(BASE_URL+'/cms/addPlacement',{placement_name, placement_desc},'GET');
-
 export const FilterPlacement = (offset,current_page,search) => ajax(BASE_URL+'/cms/filterPlacement',{offset,current_page,search},'GET');
-
 export const FilterCarouselByPlacement = (placement) => ajax(BASE_URL+'/cms/filterCarouselByPlacement',{placement},'GET');
 
 // 根据 blog_id 查询 blog 详细信息
@@ -98,7 +96,6 @@ export const ShowShareDetail = (share_id) => ajax(BASE_URL+'/share/showShareDeta
 
 // 获取ShareList 信息
 export const FilterShareList = (offset,current_page,search_type) => ajax(BASE_URL+'/share/filterShareList',{offset,current_page,search_type},'GET');
-
 
 // 新增共享链接
 export const AddNewShare = (share_type,share_desc,link_href,content) => ajax(BASE_URL+'/share/addNewShare',{share_type,share_desc,link_href,content},'GET');

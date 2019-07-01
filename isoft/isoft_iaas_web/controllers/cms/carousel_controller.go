@@ -50,12 +50,25 @@ func (this *CMSController) AddCarousel() {
 		Content:         content,
 		ImgPath:         imgpath,
 		LinkedRefer:     linked_refer,
+		Status:          0, // 默认停用
 		CreatedBy:       "SYSTEM",
 		CreatedTime:     time.Now(),
 		LastUpdatedBy:   "SYSTEM",
 		LastUpdatedTime: time.Now(),
 	}
 	_, err := cms.AddCarousel(carousel)
+	if err != nil {
+		this.Data["json"] = &map[string]interface{}{"status": "ERROR"}
+	} else {
+		this.Data["json"] = &map[string]interface{}{"status": "SUCCESS"}
+	}
+	this.ServeJSON()
+}
+
+func (this *CMSController) UpdateCarouselStatus() {
+	id, _ := this.GetInt64("id", -1)
+	status, _ := this.GetInt("status", -1)
+	err := cms.UpdateCarouselStatus(id, status)
 	if err != nil {
 		this.Data["json"] = &map[string]interface{}{"status": "ERROR"}
 	} else {

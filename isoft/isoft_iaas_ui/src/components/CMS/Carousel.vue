@@ -42,14 +42,17 @@
 <script>
   import {FilterCarousels} from "../../api"
   import {AddCarousel} from "../../api"
+  import {UpdateCarouselStatus} from "../../api"
   import IFileUpload from "../IFile/IFileUpload"
   import Chooser from "./Chooser"
   import Placement from "./Placement"
+  import MultiClickButton from "../Common/button/MultiClickButton"
 
   export default {
     name: "Carousel",
-    components:{IFileUpload,Chooser,Placement},
+    components:{IFileUpload,Chooser,Placement,MultiClickButton},
     data () {
+      var _this = this;
       return {
         // 当前页
         current_page:1,
@@ -72,6 +75,11 @@
             width:200
           },
           {
+            title: 'status',
+            key: 'status',
+            width:100
+          },
+          {
             title: 'image_path',
             key: 'image_path',
             width:400
@@ -85,6 +93,36 @@
             title: 'linked_refer',
             key: 'linked_refer',
             width:200
+          },
+          {
+            title: '操作',
+            key: 'operate',
+            width:250,
+            render: (h,params)=> {
+              return h('div',[
+                h(MultiClickButton,{
+                  props:{
+                    btnCounts: 3,
+                    btnTypes: ['primary','success','warning'],
+                    btnShows: [true, true, true],
+                    btnBindDatas: [1, 0, -1],
+                    btnTexts: ['启用', '停用', '失效'],
+                  },
+                  on:{
+                    handleClick:async function (index, bindData) {
+                      alert(index);
+                      alert(bindData);
+                      const result = await UpdateCarouselStatus(_this.carousels[params.index].id, bindData);
+                      if(result.status == "SUCCESS"){
+                        _this.refreshCarouselList();
+                      }else{
+                        _this.$Message.error("状态更新失败!");
+                      }
+                    }
+                  }
+                })
+              ]);
+            }
           },
         ],
         formInline: {
