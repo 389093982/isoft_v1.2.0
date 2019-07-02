@@ -89,7 +89,7 @@ func FilterCarousels(condArr map[string]string, page int, offset int) (carousels
 
 func FilterCarouselByPlacement(placement string) (carousels []Carousel, err error) {
 	o := orm.NewOrm()
-	_, err = o.QueryTable("carousel").Filter("placement", placement).All(&carousels)
+	_, err = o.QueryTable("carousel").Filter("placement", placement).Filter("status", 1).All(&carousels)
 	return
 }
 
