@@ -78,4 +78,6 @@ func loadloadIWorkerRouterDetail() {
 	beego.Router("/api/iwork/deleteTemplateById", &controllers.WorkController{}, "post:DeleteTemplateById")
 
 	beego.Router("/api/iwork/flushCache", &controllers.WorkController{}, "post:FlushCache")
+
+	beego.Router("/api/iwork/fileUpload", &controllers.WorkController{}, "post:FileUpload")
 }

@@ -16,6 +16,7 @@ import Format from "../components/IWork/IAssistant/Format"
 import Template from "../components/IWork/IAssistant/Template"
 import GlobalVarList from "../components/IWork/IGlobalVar/GlobalVarList"
 import EntityList from "../components/IWork/IEntity/EntityList"
+import File from "../components/IWork/IFile/File"
 
 Vue.use(Router);
 
@@ -42,6 +43,7 @@ const IWorkRouter = [
       {path: 'template',component: Template},
       {path: 'globalVarList',component: GlobalVarList},
       {path: 'entityList',component: EntityList},
+      {path: 'files',component: File},
     ]
   }
 ];
