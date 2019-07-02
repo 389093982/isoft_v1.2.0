@@ -1,6 +1,10 @@
 <template>
   <div>
-    <IFileUpload @uploadComplete="uploadComplete" action="/api/iwork/fileUpload/" uploadLabel="上传"/>
+    <IFileUpload ref="fileUpload" @uploadComplete="uploadComplete" action="/api/iwork/fileUpload/" uploadLabel="文件上传测试"/>
+
+    <Input :readonly="true" v-model.trim="uploadFilePath" readonly placeholder="上传文件路径"style="width: 300px;"></Input>
+
+    <a :href="uploadFilePath" v-if="uploadFilePath">下载链接地址：{{uploadFilePath}}</a>
   </div>
 </template>
 
@@ -10,10 +14,16 @@
   export default {
     name: "File",
     components:{IFileUpload},
+    data(){
+      return {
+        uploadFilePath: '',
+      }
+    },
     methods:{
       uploadComplete: function (result) {
         if(result.status == "SUCCESS"){
-          alert(result.filepath);
+          this.uploadFilePath = result.filepath;
+          this.$refs.fileUpload.hideModal();
         }
       },
     }

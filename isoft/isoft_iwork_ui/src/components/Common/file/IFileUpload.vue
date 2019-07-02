@@ -54,6 +54,9 @@
           });
         }
       },
+      hideModal(){
+        this.fileUploadModal = false;
+      }
     }
   }
 </script>

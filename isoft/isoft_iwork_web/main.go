@@ -17,7 +17,7 @@ func main() {
 	task.InitialIWorkGlobalVar()		// 初始化全局变量
 
 	fileServerPath := beego.AppConfig.String("file.server")
-	beego.SetStaticPath("/files", fileServerPath)
+	beego.SetStaticPath("/api/files", fileServerPath)
 
 	beego.Run()
 }
