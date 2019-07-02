@@ -77,7 +77,15 @@
           {
             title: 'status',
             key: 'status',
-            width:100
+            width:100,
+            render: (h,params)=> {
+              return h('div', {
+                style:{
+                  color: this.carousels[params.index].status == 1 ?  'green' : (this.carousels[params.index].status == 0 ? 'red' : 'grey'),
+                }
+              },
+              this.carousels[params.index].status == 1 ?  '启用' : (this.carousels[params.index].status == 0 ? '停用' : '失效'))
+            }
           },
           {
             title: 'image_path',
