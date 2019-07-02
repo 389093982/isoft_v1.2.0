@@ -60,16 +60,19 @@ func ParseAndCacheFuncCallers(expression string) ([]*FuncCaller, error) {
 			return nil, nil
 		}
 		// 填充 func 额外参数
-		if err := fillFuncCallerExtra(metas, lexers, caller, expression); err != nil {
+		if _expression, err := fillFuncCallerExtra(metas, lexers, caller, expression); err != nil {
 			return nil, err
+		} else {
+			callers = append(callers, caller)
+			expression = _expression
 		}
-		callers = append(callers, caller)
+
 	}
 	return callers, nil
 }
 
 // 填充 func 额外参数
-func fillFuncCallerExtra(metas []string, lexers []string, caller *FuncCaller, expression string) error {
+func fillFuncCallerExtra(metas []string, lexers []string, caller *FuncCaller, expression string) (string, error) {
 	// 函数左边部分
 	funcLeft := metas[:lexerAt(lexers, caller.FuncLeftIndex)]
 	// 函数右边部分
@@ -84,10 +87,10 @@ func fillFuncCallerExtra(metas []string, lexers []string, caller *FuncCaller, ex
 	caller.FuncArgs = stringutil.RemoveItemFromSlice(funcArea[1:len(funcArea)-1], ",")
 	for _, arg := range caller.FuncArgs {
 		if !isStringNumberOrVar(arg) {
-			return errors.New(fmt.Sprintf(`%s 词法解析失败,格式不正确!`, arg))
+			return "", errors.New(fmt.Sprintf(`%s 词法解析失败,格式不正确!`, arg))
 		}
 	}
-	return nil
+	return expression, nil
 }
 
 // 判断当前索引在整个 lexers 切片中的位置

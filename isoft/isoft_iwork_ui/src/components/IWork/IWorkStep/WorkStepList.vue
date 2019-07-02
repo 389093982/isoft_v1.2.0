@@ -84,7 +84,7 @@
         worksteps: [],
 
         loading:false,
-        showEditBtns:false,
+        showEditBtns:true,
         showBorder: true,
         showStripe: true,
         showHeader: true,
