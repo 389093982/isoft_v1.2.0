@@ -15,5 +15,9 @@ func main() {
 	regist.RegistNodes()
 	task.RegisterCronTask()
 	task.InitialIWorkGlobalVar()		// 初始化全局变量
+
+	fileServerPath := beego.AppConfig.String("file.server")
+	beego.SetStaticPath("/files", fileServerPath)
+
 	beego.Run()
 }
