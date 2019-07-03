@@ -9,10 +9,20 @@
     :styles="{top: '20px'}">
     <Row>
       <Col span="7">
-        <h3>前置节点输出参数</h3>
-        <Scroll height="350">
-          <Tree :data="data1" show-checkbox ref="tree1"></Tree>
-        </Scroll>
+        <Tabs type="card" :value="current_tab" @on-click="currentTabChanged">
+          <TabPane label="前置节点输出参数" name="tab_output">
+            <Scroll height="350">
+              <Tree :data="data1" show-checkbox ref="tree1"></Tree>
+            </Scroll>
+          </TabPane>
+          <TabPane label="快捷函数" name="tab_funcs">
+            <Scroll height="350">
+              <ul>
+                <Tree :data="data2" show-checkbox ref="tree2"></Tree>
+              </ul>
+            </Scroll>
+          </TabPane>
+        </Tabs>
       </Col>
       <Col span="3" style="text-align: center;margin-top: 100px;">
         <Button @click="appendData('parent')" style="margin-top: 10px;"><Icon type="ios-arrow-forward"></Icon>选择父节点</Button>
@@ -90,6 +100,8 @@
         multiVals:[],         // 存储多值列表
         paramIndex:1,
         prePosTreeNodeArr:[],
+        funcs:this.GLOBAL.quick_funcs,
+        current_tab:'tab_output',
       }
     },
     methods:{
@@ -183,6 +195,24 @@
         }
       },
       appendData:function (chooseType) {
+        if(this.current_tab == "tab_output"){
+          this.appendDataWithOutput(chooseType)
+        }else{
+          this.appendDataWithFuncs();
+        }
+      },
+      appendDataWithFuncs: function(){
+        let items = this.$refs.tree2.getCheckedAndIndeterminateNodes();
+        if(items.length > 0){
+          var item = items[0];
+          this.inputTextData = this.inputTextData + item.title + ";\n";
+          if(items.length > 1){
+            this.$Message.warning("只有第一个有效！");
+          }
+        }
+      },
+      appendDataWithOutput:function (chooseType) {
+
         let items = this.$refs.tree1.getCheckedAndIndeterminateNodes();
         for(var i=0; i<items.length; i++){
           let item = items[i];
@@ -195,6 +225,9 @@
       chooseTemplate:function (template) {
         this.inputTextData = this.inputTextData + template.template_value;
         this.$refs.templateModal.hideModal();
+      },
+      currentTabChanged:function (name) {
+        this.current_tab = name;
       }
     },
     computed:{
@@ -222,6 +255,14 @@
           };
           appendChildrens(preParamOutputSchemaTreeNode,topTreeNode);
           treeArr.push(topTreeNode);
+        }
+        return treeArr;
+      },
+      data2:function () {
+        // tree 对应的 arr
+        let treeArr = [];
+        for(var i=0; i<this.funcs.length; i++){
+          treeArr.push({title:this.funcs[i].funcDemo});
         }
         return treeArr;
       }
