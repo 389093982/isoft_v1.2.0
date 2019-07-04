@@ -67,6 +67,9 @@
           </Scroll>
         </div>
         <Input v-show="showMultiVals == false" v-model="inputTextData" type="textarea" :rows="15" placeholder="Enter something..." />
+        <div style="padding: 10px;">
+          占位符：<Tag color="default" v-for="variable in variables" style="margin-right: 10px;">{{variable}}</Tag>
+        </div>
       </Col>
     </Row>
     <Row style="text-align: right;margin-top: 10px;">
@@ -84,6 +87,7 @@
   import QuickFuncList from "../../IQuickFunc/QuickFuncList"
   import {ParseToMultiValue} from "../../../../api"
   import TemplateChooser from "./TemplateChooser"
+  import {getMatchArrForString} from "../../../../tools"
 
   export default {
     name: "ParamInputEditDialog",
@@ -102,6 +106,7 @@
         prePosTreeNodeArr:[],
         funcs:this.GLOBAL.quick_funcs,
         current_tab:'tab_output',
+        variables:[],
       }
     },
     methods:{
@@ -265,6 +270,12 @@
           treeArr.push({title:this.funcs[i].funcDemo});
         }
         return treeArr;
+      },
+    },
+    watch: {
+      inputTextData(val) {
+        // 所有占位符变量
+        this.variables = getMatchArrForString(this.inputTextData, /\$[a-zA-Z0-9]+/g);
       }
     }
   }
