@@ -18,7 +18,7 @@
           <TabPane label="快捷函数" name="tab_funcs">
             <Scroll height="350">
               <ul>
-                <Tree :data="data2" show-checkbox ref="tree2"></Tree>
+                <Tree :data="data2" show-checkbox ref="tree2" :render="renderContent"></Tree>
               </ul>
             </Scroll>
           </TabPane>
@@ -158,7 +158,7 @@
           }
           return getCurrentTitle(_root, parent) + "." + _node.node.title;
         };
-        var data = getCurrentTitle(root, node);
+        var data = getCurrentTitle(root, node)  + ";\n";
         // 传递数据
         event.dataTransfer.setData("Text", data);
       },
@@ -169,7 +169,7 @@
         event.preventDefault();
         var transferText = event.dataTransfer.getData("Text");
         // 将数据添加到右侧
-        this.inputTextData = this.inputTextData + transferText + ";\n";
+        this.inputTextData = this.inputTextData + transferText;
       },
       handleDragover:function(){
         const event = window.event||arguments[0];
