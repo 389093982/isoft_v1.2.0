@@ -12,7 +12,7 @@
         <Tabs type="card" :value="current_tab" @on-click="currentTabChanged">
           <TabPane label="前置节点输出参数" name="tab_output">
             <Scroll height="350">
-              <Tree :data="data1" show-checkbox ref="tree1"></Tree>
+              <Tree :data="data1" show-checkbox ref="tree1" :render="renderContent"></Tree>
             </Scroll>
           </TabPane>
           <TabPane label="快捷函数" name="tab_funcs">
@@ -66,7 +66,8 @@
 
           </Scroll>
         </div>
-        <Input v-show="showMultiVals == false" v-model="inputTextData" type="textarea" :rows="15" placeholder="Enter something..." />
+        <Input v-show="showMultiVals == false" v-model="inputTextData" type="textarea" :rows="15" placeholder="Enter something..."
+               @drop.native="handleDrop" @dragover.native="handleDragover"/>
         <div style="padding: 10px;">
           占位符：<Tag color="default" v-for="variable in variables" style="margin-right: 10px;">{{variable}}</Tag>
         </div>
@@ -110,6 +111,70 @@
       }
     },
     methods:{
+      renderContent (h, { root, node, data }) {
+        return h('span', {
+          style: {
+            display: 'inline-block',
+            width: '100%'
+          },
+          attrs: {
+            draggable:'true'
+          },
+          on:{
+            dragstart: () => this.handleDragStart(root, node, data),
+          }
+        }, [
+          h('span', [
+            h('Icon', {
+              props: {
+                type: 'ios-paper-outline'
+              },
+              style: {
+                marginRight: '8px'
+              }
+            }),
+            h('span', data.title)
+          ]),
+        ]);
+      },
+      handleDragStart(root, node, data){
+        const event = window.event||arguments[0];
+        // 获取父节点
+        var getParent = function (_root, _node) {
+          if(_root.find(el => el === _node)){
+            const parentKey = _root.find(el => el === _node).parent;
+            if(parentKey != null){
+              parent = _root.find(el => el.nodeKey === parentKey);
+              return parent;
+            }
+          }
+          return null;
+        };
+        // 获取当前节点对应的 title
+        var getCurrentTitle = function (_root, _node) {
+          var parent = getParent(_root, _node);
+          if(parent == null){
+            return _node.node.title;
+          }
+          return getCurrentTitle(_root, parent) + "." + _node.node.title;
+        };
+        var data = getCurrentTitle(root, node);
+        // 传递数据
+        event.dataTransfer.setData("Text", data);
+      },
+      handleDrop:function(){
+        const event = window.event||arguments[0];
+        // 取消冒泡
+        event.stopPropagation();
+        event.preventDefault();
+        var transferText = event.dataTransfer.getData("Text");
+        // 将数据添加到右侧
+        this.inputTextData = this.inputTextData + transferText + ";\n";
+      },
+      handleDragover:function(){
+        const event = window.event||arguments[0];
+        event.preventDefault();
+      },
       parseToMultiValue: async function(){
         const result = await ParseToMultiValue(this.pureText, this.inputTextData);
         if(result.status == "SUCCESS"){
