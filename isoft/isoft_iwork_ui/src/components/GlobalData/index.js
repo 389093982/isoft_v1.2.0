@@ -49,7 +49,7 @@ const quick_funcs = [
     {funcDemo:"stringsToUpper($str)",funcDesc:"字符串转大写函数",},
     {funcDemo:"stringsToLower($str)",funcDesc:"字符串转小写函数",},
     {funcDemo:"stringsJoin($str1,$str2)",funcDesc:"字符串拼接函数",},
-    {funcDemo:"stringsJoinWithSep($str1,$str2,-)",funcDesc:"字符串拼接函数",},
+    {funcDemo:"stringsJoinWithSep($str1,$str2)",funcDesc:"字符串拼接函数",},
     {funcDemo:"int64Add($int1,$int2)",funcDesc:"数字相加函数",},
     {funcDemo:"int64Sub($int1,$int2)",funcDesc:"数字相减函数",},
     {funcDemo:"int64Multi($int1,$int2)",funcDesc:"数字相乘函数",},
@@ -65,7 +65,7 @@ const quick_funcs = [
     {funcDemo:"uuid()",funcDesc:"生成随机UUID信息",},
     {funcDemo:"isempty($var)",funcDesc:"判断变量或者字符串是否为空",},
     {funcDemo:"getDirPath($filepath)",funcDesc:"获取当前文件父级目录的绝对路径",},
-    {funcDemo:"ternaryOperator($condition,$var1,$var2)",funcDesc:"三目运算符,条件满足返回$var1,不满足返回$var2",},
+    {funcDemo:"ifThenElse($condition,$var1,$var2)",funcDesc:"三目运算符,条件满足返回$var1,不满足返回$var2",},
   ]
 
 export default {

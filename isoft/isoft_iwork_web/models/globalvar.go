@@ -40,6 +40,12 @@ func InsertOrUpdateGlobalVar(globalVar *GlobalVar, o orm.Ormer) (id int64, err e
 	return
 }
 
+func QueryAllGlobalVar() (globalVars []GlobalVar) {
+	o := orm.NewOrm()
+	o.QueryTable("global_var").All(&globalVars)
+	return
+}
+
 func QueryGlobalVar(condArr map[string]string, page int, offset int, o orm.Ormer) (globalVars []GlobalVar, counts int64, err error) {
 	qs := o.QueryTable("global_var")
 	if search, ok := condArr["search"]; ok && strings.TrimSpace(search) != "" {

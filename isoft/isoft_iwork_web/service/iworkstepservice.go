@@ -44,6 +44,20 @@ func LoadWorkInfo() *iworkmodels.ParamOutputSchema {
 	return pos
 }
 
+func LoadGlobalVarInfo() *iworkmodels.ParamOutputSchema {
+	pos := &iworkmodels.ParamOutputSchema{
+		ParamOutputSchemaItems: []iworkmodels.ParamOutputSchemaItem{},
+	}
+	globalVars := models.QueryAllGlobalVar()
+	for _, globalVar := range globalVars {
+		pos.ParamOutputSchemaItems = append(pos.ParamOutputSchemaItems, iworkmodels.ParamOutputSchemaItem{
+			ParamName: globalVar.Name,
+		})
+	}
+	pos.ParamOutputSchemaItems = append(pos.ParamOutputSchemaItems, iworkmodels.ParamOutputSchemaItem{ParamName: "errorMsg"})
+	return pos
+}
+
 func LoadErrorInfo() *iworkmodels.ParamOutputSchema {
 	pos := &iworkmodels.ParamOutputSchema{
 		ParamOutputSchemaItems: []iworkmodels.ParamOutputSchemaItem{},
@@ -85,6 +99,10 @@ func LoadPreNodeOutputService(serviceArgs map[string]interface{}) (result map[st
 	// 加载 error 参数
 	pos = LoadErrorInfo()
 	prePosTreeNodeArr = append(prePosTreeNodeArr, pos.RenderToTreeNodes("$Error"))
+
+	// 加载 globalVar 参数
+	pos = LoadGlobalVarInfo()
+	prePosTreeNodeArr = append(prePosTreeNodeArr, pos.RenderToTreeNodes("$Global"))
 
 	// 加载前置步骤输出
 	if steps, err := models.QueryAllPreStepInfo(work_id, work_step_id, o); err == nil {

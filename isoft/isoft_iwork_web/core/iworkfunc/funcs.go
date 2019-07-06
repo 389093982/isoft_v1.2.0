@@ -122,7 +122,7 @@ func (this *IWorkFuncProxy) GetDirPath(args []interface{}) string {
 	return filepath.Dir(args[0].(string))
 }
 
-func (this *IWorkFuncProxy) TernaryOperator(args []interface{}) interface{} {
+func (this *IWorkFuncProxy) IfThenElse(args []interface{}) interface{} {
 	if args[0] == nil { // 参数为空条件为假
 		return args[2]
 	} else {
