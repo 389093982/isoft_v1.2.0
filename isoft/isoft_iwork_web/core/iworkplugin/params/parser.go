@@ -252,7 +252,8 @@ func (this *SimpleParser) parseParamVauleWithPrefixNode() interface{} {
 	}
 }
 
-func (this *SimpleParser) parseParamVauleWithResource() interface{} {
+// 尽量从缓存中获取
+func (this *SimpleParser) parseParamVauleFromResource() interface{} {
 	resource_name := strings.TrimPrefix(this.paramVaule, "$RESOURCE.")
 	resource, err := models.QueryResourceByName(resource_name)
 	if err == nil {
@@ -265,12 +266,24 @@ func (this *SimpleParser) parseParamVauleWithResource() interface{} {
 	return ""
 }
 
+// 尽量从缓存中获取
+func (this *SimpleParser) parseParamVauleFromGlobalVar() interface{} {
+	globalVar_name := strings.TrimPrefix(this.paramVaule, "$Global.")
+	gv, err := models.QueryGlobalVarByName(globalVar_name)
+	if err == nil {
+		return gv.Value
+	}
+	return ""
+}
+
 // 是直接参数,不需要函数进行特殊处理
 func (this *SimpleParser) parseParamValue(replaceMap ...map[string]interface{}) interface{} {
 	this.paramVaule = iworkfunc.DncodeSpecialForParamVaule(this.paramVaule)
 	// 变量
-	if strings.HasPrefix(strings.ToUpper(this.paramVaule), "$RESOURCE.") {
-		return this.parseParamVauleWithResource()
+	if strings.HasPrefix(strings.ToUpper(this.paramVaule), "$GLOBAL.") {
+		return this.parseParamVauleFromGlobalVar()
+	} else if strings.HasPrefix(strings.ToUpper(this.paramVaule), "$RESOURCE.") {
+		return this.parseParamVauleFromResource()
 	} else if strings.HasPrefix(strings.ToUpper(this.paramVaule), "$WORK.") {
 		return iworkutil.GetWorkSubNameFromParamValue(this.paramVaule)
 	} else if strings.HasPrefix(strings.ToUpper(this.paramVaule), "$ENTITY.") {
