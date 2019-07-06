@@ -54,9 +54,10 @@
           </Scroll>
         </div>
         <Input v-show="showMultiVals == false" v-model="inputTextData" type="textarea" :rows="15" placeholder="Enter something..."
-               @drop.native="handleDrop" @dragover.native="handleDragover"/>
+               @drop.native="handleInputDrop" @dragover.native="handleDragover"/>
         <div style="padding: 10px;">
-          占位符：<Tag color="default" v-for="variable in variables" style="margin-right: 10px;">{{variable}}</Tag>
+          占位符：<Tag color="default" v-for="(variable,index) in variables" style="margin-right: 10px;"
+                   @drop.native="handlePlaceholderDrop($event, index)" @dragover.native="handleDragover">{{variable}}</Tag>
         </div>
       </Col>
     </Row>
@@ -94,10 +95,23 @@
         paramIndex:1,
         prePosTreeNodeArr:[],
         variables:[],
+        variableConcats:[],
       }
     },
     methods:{
-      handleDrop:function(){
+      handlePlaceholderDrop:function(event, index){
+        // 取消冒泡
+        event.stopPropagation();
+        event.preventDefault();
+        var transferText = event.dataTransfer.getData("Text");
+        this.variables[index] = transferText;     // 将值替换进 variables
+        var _inputTextData = "";
+        for(var i=0; i<this.variableConcats.length; i++){
+          _inputTextData += this.variableConcats[i] + (i == this.variableConcats.length - 1 ? "" : this.variables[i]);
+        }
+        this.inputTextData = _inputTextData.replace(";\n","");
+      },
+      handleInputDrop:function(){
         const event = window.event||arguments[0];
         // 取消冒泡
         event.stopPropagation();
@@ -192,7 +206,8 @@
     watch: {
       inputTextData(val) {
         // 所有占位符变量
-        this.variables = getMatchArrForString(this.inputTextData, /\$[a-zA-Z0-9]+/g);
+        this.variables = getMatchArrForString(this.inputTextData, /\$[a-zA-Z0-9]+.[a-zA-Z0-9]+/g);
+        this.variableConcats = this.inputTextData.split(/\$[a-zA-Z0-9]+.[a-zA-Z0-9]+/g);
       }
     }
   }

@@ -107,14 +107,6 @@
           }
         }, [
           h('span', [
-            h('Icon', {
-              props: {
-                type: 'ios-paper-outline'
-              },
-              style: {
-                marginRight: '8px'
-              }
-            }),
             h('span', data.title)
           ]),
         ]);
