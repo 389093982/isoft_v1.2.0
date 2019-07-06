@@ -28,7 +28,7 @@
               <Button type="info" size="small" @click="parseToMultiValue()">多值预览</Button>
             </li>
             <li>
-              <QuickFuncList ref="quickFuncList" @chooseFunc="chooseFunc"/>
+              <QuickFuncList ref="quickFuncList"/>
               <Button type="success" size="small" @click="showQuickFunc()">快捷函数</Button>
             </li>
             <li>
@@ -166,10 +166,6 @@
       },
       closeModal: function(){
         this.showFormModal = false;
-      },
-      chooseFunc: function(funcDemo){
-        // 将数据复制到右侧
-        this.inputTextData = this.inputTextData + funcDemo + "\n";
       },
       showQuickFunc: function(){
         this.$refs.quickFuncList.showModal();

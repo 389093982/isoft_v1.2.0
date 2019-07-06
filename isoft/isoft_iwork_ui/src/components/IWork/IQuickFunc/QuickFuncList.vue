@@ -30,29 +30,6 @@
             title: 'funcDemo',
             key: 'funcDemo',
           },
-          {
-            title: '操作',
-            key: 'operate',
-            render: (h, params) => {
-              return h('div', [
-                h('Button', {
-                  props: {
-                    type: 'error',
-                    size: 'small'
-                  },
-                  style: {
-                    marginRight: '5px',
-                  },
-                  on: {
-                    click: () => {
-                      this.showFormModal = false;
-                      this.$emit("chooseFunc", this.funcs[params.index]['funcDemo']);
-                    }
-                  }
-                }, '复制'),
-              ]);
-            }
-          }
         ],
       }
     },
