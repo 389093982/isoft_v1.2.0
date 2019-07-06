@@ -42,7 +42,7 @@
             </li>
           </ul>
         </div>
-        <div v-show="showMultiVals" style="margin-top: 20px;">
+        <div v-if="showMultiVals" style="margin-top: 20px;">
           <Scroll height="350">
             <table style="width: 100%;">
               <tr v-for="(val,index) in multiVals">
@@ -53,11 +53,14 @@
 
           </Scroll>
         </div>
-        <Input v-show="showMultiVals == false" v-model="inputTextData" type="textarea" :rows="15" placeholder="Enter something..."
-               @drop.native="handleInputDrop" @dragover.native="handleDragover"/>
-        <div style="padding: 10px;">
-          占位符：<Tag color="default" v-for="(variable,index) in variables" style="margin-right: 10px;"
-                   @drop.native="handlePlaceholderDrop($event, index)" @dragover.native="handleDragover">{{variable}}</Tag>
+        <div v-else>
+          <Input v-model="inputTextData" type="textarea" :rows="12" placeholder="Enter something..."
+                 @drop.native="handleInputDrop" @dragover.native="handleDragover"/>
+          <p style="margin-top: 5px;">变量占位符</p>
+          <Scroll height="100">
+            <Tag color="default" v-for="(variable,index) in variables" style="margin-right: 10px;"
+                 @drop.native="handlePlaceholderDrop($event, index)" @dragover.native="handleDragover">{{variable}}</Tag>
+          </Scroll>
         </div>
       </Col>
     </Row>
@@ -104,12 +107,12 @@
         event.stopPropagation();
         event.preventDefault();
         var transferText = event.dataTransfer.getData("Text");
-        this.variables[index] = transferText;     // 将值替换进 variables
+        this.variables[index] =  transferText.substr(0, transferText.lastIndexOf(";\n"));     // 将值替换进 variables
         var _inputTextData = "";
         for(var i=0; i<this.variableConcats.length; i++){
           _inputTextData += this.variableConcats[i] + (i == this.variableConcats.length - 1 ? "" : this.variables[i]);
         }
-        this.inputTextData = _inputTextData.replace(";\n","");
+        this.inputTextData = _inputTextData;
       },
       handleInputDrop:function(){
         const event = window.event||arguments[0];
