@@ -31,27 +31,10 @@ func InsertRunLogRecord(record *RunLogRecord) (id int64, err error) {
 	return
 }
 
-func insertRunLogDetailData(detail *RunLogDetail) (id int64, err error) {
-	o := orm.NewOrm()
-	id, err = o.Insert(detail)
-	return
-}
-
 func InsertMultiRunLogDetail(details []*RunLogDetail) (num int64, err error) {
 	o := orm.NewOrm()
 	num, err = o.InsertMulti(len(details), &details)
 	return
-}
-
-func InsertRunLogDetail2(trackingId, detail string) {
-	insertRunLogDetailData(&RunLogDetail{
-		TrackingId:      trackingId,
-		Detail:          detail,
-		CreatedBy:       "SYSTEM",
-		CreatedTime:     time.Now(),
-		LastUpdatedBy:   "SYSTEM",
-		LastUpdatedTime: time.Now(),
-	})
 }
 
 func QueryRunLogRecord(work_id int64, page int, offset int) (runLogRecords []RunLogRecord, counts int64, err error) {
@@ -120,7 +103,8 @@ func QueryLastValidateLogRecord() (record ValidateLogRecord, err error) {
 func QueryLastValidateLogDetail() (details []ValidateLogDetail, err error) {
 	if record, err := QueryLastValidateLogRecord(); err == nil {
 		o := orm.NewOrm()
-		_, err = o.QueryTable("validate_log_detail").Filter("tracking_id", record.TrackingId).All(&details)
+		_, err = o.QueryTable("validate_log_detail").
+			Filter("tracking_id", record.TrackingId).OrderBy("-work_id", "work_step_id").All(&details)
 	}
 	return
 }
