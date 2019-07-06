@@ -1,6 +1,6 @@
 <template>
   <ISimpleBtnTriggerModal ref="triggerModal" btn-text="项目校验" btn-size="small" modal-title="查看校验结果" :modal-width="800">
-    <Button type="success" size="small" @click="validateAllWork">校验全部</Button>
+    <Button type="success" size="small" @click="validateWork">校验</Button>
     <Button type="success" size="small" @click="refreshValidateResult">刷新校验结果</Button>
 
     <div style="margin: 20px;min-height: 300px;">
@@ -12,13 +12,19 @@
 
 <script>
   import ISimpleBtnTriggerModal from "../../Common/modal/ISimpleBtnTriggerModal"
-  import {ValidateAllWork} from "../../../api/index"
+  import {ValidateWork} from "../../../api/index"
   import {LoadValidateResult} from "../../../api/index"
   import {checkEmpty} from "../../../tools/index"
 
   export default {
     name: "WorkValidate",
     components:{ISimpleBtnTriggerModal},
+    props:{
+      work_id:{
+        type: Number,
+        default: -1,
+      }
+    },
     data(){
       return {
         validating:false,
@@ -56,12 +62,12 @@
       }
     },
     methods:{
-      validateAllWork:async function () {
+      validateWork:async function () {
         if(this.validating == true){
           this.$Message.error("校验中,请稍后！");
         }else{
           this.validating = true;
-          const result = await ValidateAllWork();
+          const result = await ValidateWork(this.work_id);
           if(result.status == "SUCCESS"){
             this.refreshValidateResult();
           }

@@ -90,7 +90,7 @@ export const EditEntity = (entity_id,entity_name,entity_type) => ajax(BASE_URL+"
 export const DeleteEntity = (entity_id) => ajax(BASE_URL+"/iwork/deleteEntity", {entity_id},'POST');
 
 // 校验整个工程
-export const ValidateAllWork = () => ajax(BASE_URL+"/iwork/validateAllWork", {},'POST');
+export const ValidateWork = (work_id) => ajax(BASE_URL+"/iwork/validateWork", {work_id},'POST');
 
 // 显示校验结果
 export const LoadValidateResult = () => ajax(BASE_URL+"/iwork/loadValidateResult", {},'POST');

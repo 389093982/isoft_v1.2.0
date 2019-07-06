@@ -25,8 +25,10 @@ func (this *WorkController) LoadValidateResult() {
 	this.ServeJSON()
 }
 
-func (this *WorkController) ValidateAllWork() {
-	validateAll()
+func (this *WorkController) ValidateWork() {
+	// 传入 work_id 则只校验单个 work, 否则校验全部
+	work_id, _ := this.GetInt64("work_id", -1)
+	validateAll(work_id)
 	this.Data["json"] = &map[string]interface{}{"status": "SUCCESS"}
 	this.ServeJSON()
 }
@@ -37,7 +39,7 @@ func recordCostTimeLog(trackingId string, start time.Time) {
 		fmt.Sprintf("validate complete! total cost %d ms!", time.Now().Sub(start).Nanoseconds()/1e6)))
 }
 
-func validateAll() {
+func validateAll(work_id int64) {
 	trackingId := stringutil.RandomUUID()
 	// 记录校验耗费时间
 	defer recordCostTimeLog(trackingId, time.Now())
@@ -51,7 +53,14 @@ func validateAll() {
 	})
 	logCh := make(chan *models.ValidateLogDetail)
 	workChan := make(chan int)
-	works := models.QueryAllWorkInfo(orm.NewOrm())
+	// 待校验的所有 work
+	works := make([]models.Work, 0)
+	if work_id > 0 {
+		work, _ := models.QueryWorkById(work_id, orm.NewOrm())
+		works = append(works, work)
+	} else {
+		works = models.QueryAllWorkInfo(orm.NewOrm())
+	}
 
 	for _, work := range works {
 		go func(work models.Work) {

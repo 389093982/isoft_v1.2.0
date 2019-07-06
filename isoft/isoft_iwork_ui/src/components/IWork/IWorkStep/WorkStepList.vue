@@ -10,7 +10,7 @@
       <Col span="2"><Button type="info" size="small" @click="flushCache">刷新缓存</Button></Col>
       <Col span="2"><Button type="warning" size="small" @click="runWork">运行流程</Button></Col>
       <Col span="2"><Button type="info" size="small" @click="showRunLogList">运行日志</Button></Col>
-      <Col span="2"><WorkValidate /></Col>
+      <Col span="2"><WorkValidate :work_id="_work_id"/></Col>
       <Col span="2"><Button type="error" size="small" @click="renderSourceXml">View XML</Button></Col>
 
       <ISimpleConfirmModal ref="refactor_modal" modal-title="重构为子流程" :modal-width="500" @handleSubmit="refactor">
@@ -93,6 +93,9 @@
       }
     },
     computed:{
+      _work_id:function () {
+        return parseInt(this.$route.query.work_id);
+      },
       columns1(){
         var _this = this;
         let columns = [];
