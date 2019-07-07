@@ -27,12 +27,17 @@ func RunOneWork(work_id int64, dispatcher *entry.Dispatcher) (receiver *entry.Re
 	// 记录日志详细
 	logwriter.Write(trackingId, fmt.Sprintf("~~~~~~~~~~start execute work:%s~~~~~~~~~~", workCache.Work.WorkName))
 
+	// 初始化数据中心
+	initDataStore := datastore.InitDataStore(trackingId, logwriter)
+	// 初始化数据中心中的 isNoError 值,出错时会被覆盖
+	initDataStore.CacheDatas("Error", map[string]interface{}{"isNoError": true})
+
 	bsoRunner := node.BlockStepOrdersRunner{
 		ParentStepId: -1,
 		WorkCache:    workCache,
 		TrackingId:   trackingId,
 		LogWriter:    logwriter,
-		Store:        datastore.InitDataStore(trackingId, logwriter), // 获取数据中心
+		Store:        initDataStore, // 获取数据中心
 		Dispatcher:   dispatcher,
 		RunOneStep:   RunOneStep,
 	}
