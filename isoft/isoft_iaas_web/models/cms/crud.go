@@ -105,6 +105,12 @@ func AddCarousel(carousel *Carousel) (id int64, err error) {
 	return
 }
 
+func DeletePlacementById(id int64) (err error) {
+	o := orm.NewOrm()
+	_, err = o.QueryTable("placement").Filter("id", id).Delete()
+	return
+}
+
 func AddPlacement(placement *Placement) (id int64, err error) {
 	o := orm.NewOrm()
 	id, err = o.Insert(placement)

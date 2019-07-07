@@ -78,6 +78,7 @@ func initCMSRouter() {
 	beego.Router("/api/cms/filterPlacement", &cms.CMSController{}, "get,post:FilterPlacement")
 	//beego.Router("/api/cms/addPlacement", &cms.CMSController{}, "get,post:AddPlacement")
 	beego.Router("/api/cms/addPlacement", &cms.CMSController{}, "get,post:AddPlacement2")
+	beego.Router("/api/cms/deletePlacementById", &cms.CMSController{}, "get,post:DeletePlacementById")
 }
 
 func initILearningRouter() {

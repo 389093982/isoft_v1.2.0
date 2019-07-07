@@ -89,6 +89,7 @@ export const UpdateCarouselStatus = (id, status) => ajax(BASE_URL+'/cms/updateCa
 
 export const AddPlacement = (placement_name, placement_desc) => ajax(BASE_URL+'/cms/addPlacement',{placement_name, placement_desc},'GET');
 export const FilterPlacement = (offset,current_page,search) => ajax(BASE_URL+'/cms/filterPlacement',{offset,current_page,search},'GET');
+export const DeletePlacementById = (id) => ajax(BASE_URL+'/cms/deletePlacementById',{id},'GET');
 export const FilterCarouselByPlacement = (placement) => ajax(BASE_URL+'/cms/filterCarouselByPlacement',{placement},'GET');
 
 // 根据 blog_id 查询 blog 详细信息

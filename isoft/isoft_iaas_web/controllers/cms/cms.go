@@ -157,3 +157,14 @@ func (this *CMSController) AddPlacement() {
 	}
 	this.ServeJSON()
 }
+
+func (this *CMSController) DeletePlacementById() {
+	id, _ := this.GetInt64("id")
+	err := cms.DeletePlacementById(id)
+	if err != nil {
+		this.Data["json"] = &map[string]interface{}{"status": "ERROR"}
+	} else {
+		this.Data["json"] = &map[string]interface{}{"status": "SUCCESS"}
+	}
+	this.ServeJSON()
+}

@@ -28,6 +28,7 @@
   import ISimpleSearch from "../Common/search/ISimpleSearch"
   import {AddPlacement} from "../../api"
   import {FilterPlacement} from "../../api"
+  import {DeletePlacementById} from "../../api"
 
   export default {
     name: "Placement",
@@ -73,7 +74,7 @@
               return h('div',[
                 h('Button', {
                   props: {
-                    type: 'error',
+                    type: 'success',
                     size: 'small'
                   },
                   style: {
@@ -86,6 +87,20 @@
                     }
                   }
                 }, '选择'),
+                h('Button', {
+                  props: {
+                    type: 'error',
+                    size: 'small'
+                  },
+                  style: {
+                    marginRight: '5px',
+                  },
+                  on: {
+                    click: () => {
+                      this.deletePlacementById(this.placements[params.index].id);
+                    }
+                  }
+                }, '删除'),
               ]);
             }
           }
@@ -127,6 +142,14 @@
         this.offset = pageSize;
         this.refreshPlacementList();
       },
+      deletePlacementById: async function(id){
+        const result = await DeletePlacementById(id);
+        if(result.status == "SUCCESS"){
+          this.refreshPlacementList();
+        }else{
+          this.$Message.error(result.errorMsg);
+        }
+      }
     },
     mounted(){
       this.refreshPlacementList();
