@@ -9,7 +9,7 @@
             <FormItem label="分享类型" prop="share_type">
               <Row>
                 <Col span="22">
-                  <Input v-model="formValidate.share_type" placeholder="请输入分享类型"></Input>
+                  <Input readonly="readonly" v-model="formValidate.share_type" placeholder="请输入分享类型"></Input>
                 </Col>
                 <Col span="2" style="text-align: right;">
                   <Poptip v-model="visible" placement="left-start" width="420">
