@@ -25,7 +25,7 @@ func (this *WorkController) FileUpload() {
 			this.Data["json"] = &map[string]interface{}{
 				"status":   "SUCCESS",
 				"filename": h.Filename,
-				"filepath": "/api/files/" + h.Filename,
+				"filepath": "http://localhost:8086/api/files/" + h.Filename,
 			}
 		} else {
 			this.Data["json"] = &map[string]string{"status": "ERROR", "errorMsg": err.Error()}

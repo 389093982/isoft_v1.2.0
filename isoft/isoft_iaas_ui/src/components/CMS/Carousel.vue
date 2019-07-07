@@ -21,7 +21,7 @@
         <Col span="12">
           <FormItem prop="imgpath"  label="图片">
             <Input type="text" readonly="readonly" v-model="formInline.imgpath" placeholder="imgpath" style="width: 80%;"/>
-            <IFileUpload @uploadComplete="uploadComplete" action="/api/cms/fileUpload/" uploadLabel="上传"/>
+            <IFileUpload @uploadComplete="uploadComplete" action="http://localhost:8086/api/iwork/fileUpload/" uploadLabel="上传"/>
           </FormItem>
           <FormItem prop="linked_refer"  label="链接关键词">
             <Input type="text" v-model="formInline.linked_refer" placeholder="linked_refer" style="width: 80%;"/>
