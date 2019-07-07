@@ -71,9 +71,9 @@ func AddCommonLink(commonLink *CommonLink) (id int64, err error) {
 	return
 }
 
-func FilterCarousels(condArr map[string]string, page int, offset int) (carousels []Carousel, counts int64, err error) {
+func FilterElements(condArr map[string]string, page int, offset int) (elements []Element, counts int64, err error) {
 	o := orm.NewOrm()
-	qs := o.QueryTable("carousel")
+	qs := o.QueryTable("element")
 	var cond = orm.NewCondition()
 	if search, ok := condArr["search"]; ok && strings.TrimSpace(search) != "" {
 		subCond := orm.NewCondition()
@@ -84,31 +84,31 @@ func FilterCarousels(condArr map[string]string, page int, offset int) (carousels
 	qs = qs.OrderBy("-last_updated_time")
 	counts, _ = qs.Count()
 	qs = qs.Limit(offset, (page-1)*offset)
-	qs.All(&carousels)
+	qs.All(&elements)
 	return
 }
 
-func FilterCarouselByPlacement(placement string) (carousels []Carousel, err error) {
+func FilterElementByPlacement(placement string) (elements []Element, err error) {
 	o := orm.NewOrm()
-	_, err = o.QueryTable("carousel").Filter("placement", placement).Filter("status", 1).All(&carousels)
+	_, err = o.QueryTable("element").Filter("placement", placement).Filter("status", 1).All(&elements)
 	return
 }
 
-func DeleteCarousel(id int64) error {
+func DeleteElement(id int64) error {
 	o := orm.NewOrm()
-	_, err := o.QueryTable("carousel").Filter("id", id).Delete()
+	_, err := o.QueryTable("element").Filter("id", id).Delete()
 	return err
 }
 
-func UpdateCarouselStatus(id int64, status int) error {
+func UpdateElementStatus(id int64, status int) error {
 	o := orm.NewOrm()
-	_, err := o.QueryTable("carousel").Filter("id", id).Update(orm.Params{"Status": status})
+	_, err := o.QueryTable("element").Filter("id", id).Update(orm.Params{"Status": status})
 	return err
 }
 
-func AddCarousel(carousel *Carousel) (id int64, err error) {
+func AddElement(element *Element) (id int64, err error) {
 	o := orm.NewOrm()
-	id, err = o.Insert(carousel)
+	id, err = o.Insert(element)
 	return
 }
 

@@ -4,16 +4,16 @@
       <Col span="2" style="text-align: center;padding-top: 25px;">
         <a href="javascript:;" @click="previous" v-show="showPrevious"><img src="/static/images/arrow_left.png"/></a>
       </Col>
-      <Col span="5" v-for="carousel in getCurrentPage">
-        <a href="javascript:;" style="color: #999;" @click="chooseItem(carousel.linked_refer)">
+      <Col span="5" v-for="element in getCurrentPage">
+        <a href="javascript:;" style="color: #999;" @click="chooseItem(element.linked_refer)">
           <div class="item" style="padding:10px; height: 100px;">
             <Row>
               <Col span="6">
-                <img :src="carousel.image_path" :alt="carousel.title"/>
+                <img :src="element.image_path" :alt="element.title"/>
               </Col>
               <Col span="18" style="padding-left: 5px;">
-                <p class="share_type_name">{{carousel.title}}</p>
-                <p style="font-size: 12px;">{{carousel.content}}</p>
+                <p class="share_type_name">{{element.title}}</p>
+                <p style="font-size: 12px;">{{element.content}}</p>
               </Col>
             </Row>
           </div>
@@ -27,7 +27,7 @@
 </template>
 
 <script>
-  import {FilterCarouselByPlacement} from "../../api"
+  import {FilterElementByPlacement} from "../../api"
 
   export default {
     name: "HotShareItem",
@@ -74,15 +74,15 @@
       chooseItem:function (share_name) {
         this.$emit('chooseItem',share_name);
       },
-      refreshCarousel: async function () {
-        const result = await FilterCarouselByPlacement(this.GLOBAL.host_share_carousel);
+      refreshElement: async function () {
+        const result = await FilterElementByPlacement(this.GLOBAL.host_share_element);
         if(result.status == "SUCCESS"){
-          this.hot_share_type = result.carousels;
+          this.hot_share_type = result.elements;
         }
       }
     },
     mounted(){
-      this.refreshCarousel();
+      this.refreshElement();
     }
   }
 </script>

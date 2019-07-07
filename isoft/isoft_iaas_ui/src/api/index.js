@@ -83,14 +83,14 @@ export const FilterCommonLinks = (offset,current_page,search) => ajax(BASE_URL+'
 // 添加友情链接地址
 export const AddCommonLink = (link_type, link_name, link_addr) => ajax(BASE_URL+'/cms/addCommonLink',{link_type, link_name, link_addr},'GET');
 
-export const FilterCarousels = (offset,current_page,search) => ajax(BASE_URL+'/cms/filterCarousels',{offset,current_page,search},'GET');
-export const AddCarousel = (placement, title, content, imgpath, linked_refer) => ajax(BASE_URL+'/cms/addCarousel',{placement, title, content, imgpath, linked_refer},'GET');
-export const UpdateCarouselStatus = (id, status) => ajax(BASE_URL+'/cms/updateCarouselStatus',{id, status},'GET');
+export const FilterElements = (offset,current_page,search) => ajax(BASE_URL+'/cms/filterElements',{offset,current_page,search},'GET');
+export const AddElement = (placement, title, content, imgpath, linked_refer) => ajax(BASE_URL+'/cms/addElement',{placement, title, content, imgpath, linked_refer},'GET');
+export const UpdateElementStatus = (id, status) => ajax(BASE_URL+'/cms/updateElementStatus',{id, status},'GET');
 
 export const AddPlacement = (placement_name, placement_desc) => ajax(BASE_URL+'/cms/addPlacement',{placement_name, placement_desc},'GET');
 export const FilterPlacement = (offset,current_page,search) => ajax(BASE_URL+'/cms/filterPlacement',{offset,current_page,search},'GET');
 export const DeletePlacementById = (id) => ajax(BASE_URL+'/cms/deletePlacementById',{id},'GET');
-export const FilterCarouselByPlacement = (placement) => ajax(BASE_URL+'/cms/filterCarouselByPlacement',{placement},'GET');
+export const FilterElementByPlacement = (placement) => ajax(BASE_URL+'/cms/filterElementByPlacement',{placement},'GET');
 
 // 根据 blog_id 查询 blog 详细信息
 export const ShowShareDetail = (share_id) => ajax(BASE_URL+'/share/showShareDetail',{share_id},'GET');

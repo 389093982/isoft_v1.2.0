@@ -36,16 +36,16 @@
     <!-- right 插槽部分 -->
     <ISimpleSearch @handleSimpleSearch="handleSearch"/>
 
-    <Table :columns="columns1" :data="carousels" size="small"></Table>
+    <Table :columns="columns1" :data="elements" size="small"></Table>
     <Page :total="total" :page-size="offset" show-total show-sizer :styles="{'text-align': 'center','margin-top': '10px'}"
           @on-change="handleChange" @on-page-size-change="handlePageSizeChange"/>
   </div>
 </template>
 
 <script>
-  import {FilterCarousels} from "../../api"
-  import {AddCarousel} from "../../api"
-  import {UpdateCarouselStatus} from "../../api"
+  import {FilterElements} from "../../api"
+  import {AddElement} from "../../api"
+  import {UpdateElementStatus} from "../../api"
   import IFileUpload from "../IFile/IFileUpload"
   import Chooser from "./Chooser"
   import ISimpleSearch from "../Common/search/ISimpleSearch"
@@ -53,7 +53,7 @@
   import MultiClickButton from "../Common/button/MultiClickButton"
 
   export default {
-    name: "Carousel",
+    name: "Element",
     components:{IFileUpload,Chooser,Placement,MultiClickButton,ISimpleSearch},
     data () {
       var _this = this;
@@ -66,7 +66,7 @@
         offset:10,
         // 搜索条件
         search:"",
-        carousels: [],
+        elements: [],
         columns1: [
           {
             title: 'placement',
@@ -85,10 +85,10 @@
             render: (h,params)=> {
               return h('div', {
                 style:{
-                  color: this.carousels[params.index].status == 1 ?  'green' : (this.carousels[params.index].status == 0 ? 'red' : 'grey'),
+                  color: this.elements[params.index].status == 1 ?  'green' : (this.elements[params.index].status == 0 ? 'red' : 'grey'),
                 }
               },
-              this.carousels[params.index].status == 1 ?  '启用' : (this.carousels[params.index].status == 0 ? '停用' : '失效'))
+              this.elements[params.index].status == 1 ?  '启用' : (this.elements[params.index].status == 0 ? '停用' : '失效'))
             }
           },
           {
@@ -122,9 +122,9 @@
                   },
                   on:{
                     handleClick:async function (index, bindData) {
-                      const result = await UpdateCarouselStatus(_this.carousels[params.index].id, bindData);
+                      const result = await UpdateElementStatus(_this.elements[params.index].id, bindData);
                       if(result.status == "SUCCESS"){
-                        _this.refreshCarouselList();
+                        _this.refreshElementList();
                       }else{
                         _this.$Message.error("状态更新失败!");
                       }
@@ -159,10 +159,10 @@
       handleSubmit(name) {
         this.$refs[name].validate(async (valid) => {
           if (valid) {
-            const result = await AddCarousel(this.formInline.placement, this.formInline.title, this.formInline.content,
+            const result = await AddElement(this.formInline.placement, this.formInline.title, this.formInline.content,
               this.formInline.imgpath, this.formInline.linked_refer);
             if(result.status=="SUCCESS"){
-             this.refreshCarouselList();
+             this.refreshElementList();
             }
             this.$Message.success('Success!');
           } else {
@@ -170,20 +170,20 @@
           }
         })
       },
-      refreshCarouselList:async function () {
-        const result = await FilterCarousels(this.offset, this.current_page, this.search);
+      refreshElementList:async function () {
+        const result = await FilterElements(this.offset, this.current_page, this.search);
         if(result.status=="SUCCESS"){
-          this.carousels = result.carousels;
+          this.elements = result.elements;
           this.total = result.paginator.totalcount;
         }
       },
       handleChange(page){
         this.current_page = page;
-        this.refreshCarouselList();
+        this.refreshElementList();
       },
       handlePageSizeChange(pageSize){
         this.offset = pageSize;
-        this.refreshCarouselList();
+        this.refreshElementList();
       },
       uploadComplete: function (result) {
         if(result.status == "SUCCESS"){
@@ -196,11 +196,11 @@
       },
       handleSearch(data){
         this.search = data;
-        this.refreshCarouselList();
+        this.refreshElementList();
       },
     },
     mounted(){
-      this.refreshCarouselList();
+      this.refreshElementList();
     }
   }
 </script>

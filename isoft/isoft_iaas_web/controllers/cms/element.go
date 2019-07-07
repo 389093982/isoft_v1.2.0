@@ -7,18 +7,18 @@ import (
 	"time"
 )
 
-func (this *CMSController) FilterCarouselByPlacement() {
+func (this *CMSController) FilterElementByPlacement() {
 	placement := this.GetString("placement")
-	carousels, err := cms.FilterCarouselByPlacement(placement)
+	elements, err := cms.FilterElementByPlacement(placement)
 	if err != nil {
 		this.Data["json"] = &map[string]interface{}{"status": "ERROR"}
 	} else {
-		this.Data["json"] = &map[string]interface{}{"status": "SUCCESS", "carousels": &carousels}
+		this.Data["json"] = &map[string]interface{}{"status": "SUCCESS", "elements": &elements}
 	}
 	this.ServeJSON()
 }
 
-func (this *CMSController) FilterCarousels() {
+func (this *CMSController) FilterElements() {
 	condArr := make(map[string]string)
 	offset, _ := this.GetInt("offset", 10)            // 每页记录数
 	current_page, _ := this.GetInt("current_page", 1) // 当前页
@@ -26,25 +26,25 @@ func (this *CMSController) FilterCarousels() {
 	if search != "" {
 		condArr["search"] = search
 	}
-	carousels, count, err := cms.FilterCarousels(condArr, current_page, offset)
+	elements, count, err := cms.FilterElements(condArr, current_page, offset)
 	paginator := pagination.SetPaginator(this.Ctx, offset, count)
 	if err != nil {
 		this.Data["json"] = &map[string]interface{}{"status": "ERROR"}
 	} else {
 		paginatorMap := pageutil.Paginator(paginator.Page(), paginator.PerPageNums, paginator.Nums())
-		this.Data["json"] = &map[string]interface{}{"status": "SUCCESS", "carousels": &carousels, "paginator": &paginatorMap}
+		this.Data["json"] = &map[string]interface{}{"status": "SUCCESS", "elements": &elements, "paginator": &paginatorMap}
 	}
 	this.ServeJSON()
 }
 
 // 增加通用连接地址
-func (this *CMSController) AddCarousel() {
+func (this *CMSController) AddElement() {
 	placement := this.GetString("placement")
 	title := this.GetString("title")
 	content := this.GetString("content")
 	imgpath := this.GetString("imgpath")
 	linked_refer := this.GetString("linked_refer")
-	carousel := &cms.Carousel{
+	element := &cms.Element{
 		Placement:       placement,
 		Title:           title,
 		Content:         content,
@@ -56,7 +56,7 @@ func (this *CMSController) AddCarousel() {
 		LastUpdatedBy:   "SYSTEM",
 		LastUpdatedTime: time.Now(),
 	}
-	_, err := cms.AddCarousel(carousel)
+	_, err := cms.AddElement(element)
 	if err != nil {
 		this.Data["json"] = &map[string]interface{}{"status": "ERROR"}
 	} else {
@@ -65,14 +65,14 @@ func (this *CMSController) AddCarousel() {
 	this.ServeJSON()
 }
 
-func (this *CMSController) UpdateCarouselStatus() {
+func (this *CMSController) UpdateElementStatus() {
 	id, _ := this.GetInt64("id", -1)
 	status, _ := this.GetInt("status", -1)
 	var err error
 	if status == 2 {
-		err = cms.DeleteCarousel(id)
+		err = cms.DeleteElement(id)
 	} else {
-		err = cms.UpdateCarouselStatus(id, status)
+		err = cms.UpdateElementStatus(id, status)
 	}
 	if err != nil {
 		this.Data["json"] = &map[string]interface{}{"status": "ERROR"}

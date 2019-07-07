@@ -78,7 +78,7 @@ func registerModel() {
 	orm.RegisterModel(new(sso.LoginRecord))
 	orm.RegisterModel(new(sso.UserToken))
 
-	orm.RegisterModel(new(cms.Carousel))
+	orm.RegisterModel(new(cms.Element))
 	orm.RegisterModel(new(cms.Placement))
 }
 

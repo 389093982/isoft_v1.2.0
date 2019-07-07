@@ -28,7 +28,7 @@ type CommonLink struct {
 }
 
 // 轮播图
-type Carousel struct {
+type Element struct {
 	Id              int64     `json:"id"`
 	Placement       string    `json:"placement"`
 	Title           string    `json:"title"`

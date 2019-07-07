@@ -33,7 +33,7 @@
                 分类管理
               </template>
               <MenuItem name="1-1"><router-link to="/cms/placement_list">占位符管理</router-link></MenuItem>
-              <MenuItem name="1-2"><router-link to="/cms/carousel_list">轮播图管理</router-link></MenuItem>
+              <MenuItem name="1-2"><router-link to="/cms/element_list">轮播图管理</router-link></MenuItem>
               <MenuItem name="1-3"><router-link to="/cms/catalog_list">列表管理</router-link></MenuItem>
             </Submenu>
             <Submenu name="2">
