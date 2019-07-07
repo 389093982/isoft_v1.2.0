@@ -114,16 +114,14 @@
               return h('div',[
                 h(MultiClickButton,{
                   props:{
-                    btnCounts: 3,
-                    btnTypes: ['primary','success','warning'],
-                    btnShows: [true, true, true],
-                    btnBindDatas: [1, 0, -1],
-                    btnTexts: ['启用', '停用', '失效'],
+                    btnCounts: 4,
+                    btnTypes: ['primary','success','warning',"error"],
+                    btnShows: [true, true, true, true],
+                    btnBindDatas: [1, 0, -1, 2],
+                    btnTexts: ['启用', '停用', '失效', '删除'],
                   },
                   on:{
                     handleClick:async function (index, bindData) {
-                      alert(index);
-                      alert(bindData);
                       const result = await UpdateCarouselStatus(_this.carousels[params.index].id, bindData);
                       if(result.status == "SUCCESS"){
                         _this.refreshCarouselList();

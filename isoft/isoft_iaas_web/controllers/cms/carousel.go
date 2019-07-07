@@ -68,7 +68,12 @@ func (this *CMSController) AddCarousel() {
 func (this *CMSController) UpdateCarouselStatus() {
 	id, _ := this.GetInt64("id", -1)
 	status, _ := this.GetInt("status", -1)
-	err := cms.UpdateCarouselStatus(id, status)
+	var err error
+	if status == 2 {
+		err = cms.DeleteCarousel(id)
+	} else {
+		err = cms.UpdateCarouselStatus(id, status)
+	}
 	if err != nil {
 		this.Data["json"] = &map[string]interface{}{"status": "ERROR"}
 	} else {

@@ -94,6 +94,12 @@ func FilterCarouselByPlacement(placement string) (carousels []Carousel, err erro
 	return
 }
 
+func DeleteCarousel(id int64) error {
+	o := orm.NewOrm()
+	_, err := o.QueryTable("carousel").Filter("id", id).Delete()
+	return err
+}
+
 func UpdateCarouselStatus(id int64, status int) error {
 	o := orm.NewOrm()
 	_, err := o.QueryTable("carousel").Filter("id", id).Update(orm.Params{"Status": status})
