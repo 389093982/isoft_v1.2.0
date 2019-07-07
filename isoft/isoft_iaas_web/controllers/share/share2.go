@@ -6,8 +6,12 @@ import (
 )
 
 type ShowShareDetailResult struct {
-	Status   string `json:"status"`
-	ErrorMsg string `json:"error_msg"`
+	Status string `json:"status"`
+	Cost   int64  `json:"cost_ms"`
+	Result struct {
+		ErrorMsg string      `json:"errorMsg"`
+		Share    interface{} `json:"share"`
+	}
 }
 
 func (this *ShareController) ShowShareDetail2() {
@@ -19,7 +23,7 @@ func (this *ShareController) ShowShareDetail2() {
 	result := new(ShowShareDetailResult)
 	err := httputil.DoHttpRequestAndParseToObj(url, "post", paramMap, headerMap, &result)
 	if err == nil {
-		this.Data["json"] = &map[string]interface{}{"status": "SUCCESS"}
+		this.Data["json"] = &map[string]interface{}{"status": "SUCCESS", "share": result.Result.Share}
 	} else {
 		this.Data["json"] = &map[string]interface{}{"status": "ERROR", "errorMsg": err.Error()}
 	}

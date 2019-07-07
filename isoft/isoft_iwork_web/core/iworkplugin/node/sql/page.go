@@ -176,11 +176,10 @@ func validateAndGetDataStoreName(step *models.WorkStep) string {
 	if strings.TrimSpace(dataSourceName) == "" {
 		panic("Invalid param for db_conn! Can't resolve it!")
 	}
-	db, err := iworkpool.GetDBConn("mysql", dataSourceName)
+	_, err := iworkpool.GetDBConn("mysql", dataSourceName) // 全局 db 不能 Close
 	if err != nil {
 		panic(fmt.Sprintf("Can't get DB connection for %s!", dataSourceName))
 	}
-	defer db.Close()
 	return dataSourceName
 }
 
