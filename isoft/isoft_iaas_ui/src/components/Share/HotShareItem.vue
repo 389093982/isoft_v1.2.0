@@ -34,21 +34,21 @@
     data(){
       return {
         // 热门分享类型
-        hot_share_type: [],
+        hot_share_types: [],
         // 当前页
         currentPageNo:1,
       }
     },
     computed:{
       getCurrentPage:function(){
-        return this.pagination(this.currentPageNo,4,this.hot_share_type);
+        return this.pagination(this.currentPageNo,4,this.hot_share_types);
       },
       showPrevious:function () {
-        const total_page = Math.ceil(this.hot_share_type.length / 4);
+        const total_page = Math.ceil(this.hot_share_types.length / 4);
         return this.currentPageNo > 1;
       },
       showNext:function () {
-        const total_page = Math.ceil(this.hot_share_type.length / 4);
+        const total_page = Math.ceil(this.hot_share_types.length / 4);
         return this.currentPageNo < total_page;
       }
     },
@@ -61,7 +61,7 @@
       },
       // 获取后一页
       next: function(){
-        const total_page = Math.ceil(this.hot_share_type.length / 4);
+        const total_page = Math.ceil(this.hot_share_types.length / 4);
         if(this.currentPageNo < total_page){
           this.currentPageNo = this.currentPageNo + 1;
         }
@@ -77,7 +77,7 @@
       refreshElement: async function () {
         const result = await FilterElementByPlacement(this.GLOBAL.element_host_share_type_carousel);
         if(result.status == "SUCCESS"){
-          this.hot_share_type = result.elements;
+          this.hot_share_types = result.elements;
         }
       }
     },

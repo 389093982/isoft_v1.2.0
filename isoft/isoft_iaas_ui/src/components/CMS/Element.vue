@@ -71,17 +71,17 @@
           {
             title: 'placement',
             key: 'placement',
-            width:180
+            width:250
           },
           {
             title: 'title',
             key: 'title',
-            width:200
+            width:150
           },
           {
             title: 'status',
             key: 'status',
-            width:100,
+            width:80,
             render: (h,params)=> {
               return h('div', {
                 style:{
@@ -94,12 +94,12 @@
           {
             title: 'image_path',
             key: 'image_path',
-            width:400
+            width:200
           },
           {
             title: 'content',
             key: 'content',
-            width:400
+            width:200
           },
           {
             title: 'linked_refer',
@@ -146,12 +146,6 @@
           title: [
             { required: true, message: 'Please fill in the title.', trigger: 'blur' },
           ],
-          content: [
-            { required: true, message: 'Please fill in the content.', trigger: 'blur' },
-          ],
-          linked_refer: [
-            { required: true, message: 'Please fill in the linked_refer.', trigger: 'blur' },
-          ]
         }
       }
     },

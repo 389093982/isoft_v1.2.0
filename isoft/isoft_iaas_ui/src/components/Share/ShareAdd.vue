@@ -15,8 +15,8 @@
                   <Poptip v-model="visible" placement="left-start" width="420">
                     <a href="javascript:;">热门分类</a>
                     <div slot="content">
-                  <span v-for="type in hot_share_type" style="margin: 5px;float: left;">
-                    <Tag><a @click="closePoptip(type.name)">{{type.name}}</a></Tag>
+                  <span v-for="hot_share_type in hot_share_types" style="margin: 5px;float: left;">
+                    <Tag><a @click="closePoptip(hot_share_type.title)">{{hot_share_type.title}}</a></Tag>
                   </span>
                     </div>
                   </Poptip>
@@ -48,6 +48,7 @@
 
 <script>
   import {AddNewShare} from "../../api"
+  import {FilterElementByPlacement} from "../../api"
 
   export default {
     name: "ShareAdd",
@@ -75,7 +76,7 @@
           navigation: true // 导航目录
         },
         visible:false,
-        hot_share_type: this.GLOBAL.hot_share_type,
+        hot_share_types: [],
         formValidate: {
           share_type: '',
           share_desc: '',
@@ -118,7 +119,16 @@
       },
       handleReset (name) {
         this.$refs[name].resetFields();
+      },
+      refreshElement: async function () {
+        const result = await FilterElementByPlacement(this.GLOBAL.element_host_share_type_list);
+        if(result.status == "SUCCESS"){
+          this.hot_share_types = result.elements;
+        }
       }
+    },
+    mounted(){
+      this.refreshElement();
     }
   }
 </script>
