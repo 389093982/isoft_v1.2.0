@@ -81,6 +81,7 @@ func FilterCarousels(condArr map[string]string, page int, offset int) (carousels
 		cond = cond.AndCond(subCond)
 	}
 	qs = qs.SetCond(cond)
+	qs = qs.OrderBy("-last_updated_time")
 	counts, _ = qs.Count()
 	qs = qs.Limit(offset, (page-1)*offset)
 	qs.All(&carousels)

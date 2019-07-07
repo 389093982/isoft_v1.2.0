@@ -33,6 +33,9 @@
       </Row>
     </Form>
 
+    <!-- right 插槽部分 -->
+    <ISimpleSearch @handleSimpleSearch="handleSearch"/>
+
     <Table :columns="columns1" :data="carousels" size="small"></Table>
     <Page :total="total" :page-size="offset" show-total show-sizer :styles="{'text-align': 'center','margin-top': '10px'}"
           @on-change="handleChange" @on-page-size-change="handlePageSizeChange"/>
@@ -45,12 +48,13 @@
   import {UpdateCarouselStatus} from "../../api"
   import IFileUpload from "../IFile/IFileUpload"
   import Chooser from "./Chooser"
+  import ISimpleSearch from "../Common/search/ISimpleSearch"
   import Placement from "./Placement"
   import MultiClickButton from "../Common/button/MultiClickButton"
 
   export default {
     name: "Carousel",
-    components:{IFileUpload,Chooser,Placement,MultiClickButton},
+    components:{IFileUpload,Chooser,Placement,MultiClickButton,ISimpleSearch},
     data () {
       var _this = this;
       return {
@@ -191,7 +195,11 @@
       choosePlacement:function (placement_name) {
         this.formInline.placement = placement_name;
         this.$refs.placement_chooser.hideModal();
-      }
+      },
+      handleSearch(data){
+        this.search = data;
+        this.refreshCarouselList();
+      },
     },
     mounted(){
       this.refreshCarouselList();
