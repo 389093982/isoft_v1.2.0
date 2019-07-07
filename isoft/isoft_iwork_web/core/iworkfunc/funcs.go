@@ -86,7 +86,11 @@ func (this *IWorkFuncProxy) StringsJoinWithSep(args []interface{}) interface{} {
 func (this *IWorkFuncProxy) Or(args []interface{}) interface{} {
 	sargs := make([]bool, 0)
 	for _, arg := range args {
-		sargs = append(sargs, arg.(bool))
+		if arg == nil {
+			sargs = append(sargs, false)
+		} else {
+			sargs = append(sargs, arg.(bool))
+		}
 	}
 	return sargs[0] || sargs[1]
 }
@@ -94,7 +98,11 @@ func (this *IWorkFuncProxy) Or(args []interface{}) interface{} {
 func (this *IWorkFuncProxy) And(args []interface{}) interface{} {
 	sargs := make([]bool, 0)
 	for _, arg := range args {
-		sargs = append(sargs, arg.(bool))
+		if arg == nil {
+			sargs = append(sargs, false)
+		} else {
+			sargs = append(sargs, arg.(bool))
+		}
 	}
 	return sargs[0] && sargs[1]
 }
@@ -102,7 +110,11 @@ func (this *IWorkFuncProxy) And(args []interface{}) interface{} {
 func (this *IWorkFuncProxy) Not(args []interface{}) interface{} {
 	sargs := make([]bool, 0)
 	for _, arg := range args {
-		sargs = append(sargs, arg.(bool))
+		if arg == nil {
+			sargs = append(sargs, false)
+		} else {
+			sargs = append(sargs, arg.(bool))
+		}
 	}
 	return !sargs[0]
 }
