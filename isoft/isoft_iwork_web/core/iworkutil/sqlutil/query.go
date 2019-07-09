@@ -3,6 +3,7 @@ package sqlutil
 import (
 	"database/sql"
 	"isoft/isoft_iwork_web/core/iworkpool"
+	"strings"
 )
 
 func GetMetaDatas(sql, dataSourceName string) (colNames []string) {
@@ -10,7 +11,12 @@ func GetMetaDatas(sql, dataSourceName string) (colNames []string) {
 	if err != nil {
 		return
 	}
-	rows, err := db.Query(sql)
+	count := strings.Count(sql, "?")
+	emptyArgs := make([]interface{}, 0)
+	for i := 0; i < count; i++ {
+		emptyArgs = append(emptyArgs, nil)
+	}
+	rows, err := db.Query(sql, emptyArgs...)
 	if err != nil {
 		return
 	}

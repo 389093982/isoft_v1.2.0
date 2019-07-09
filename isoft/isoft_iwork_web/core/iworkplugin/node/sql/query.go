@@ -7,7 +7,6 @@ import (
 	"isoft/isoft_iwork_web/core/iworkutil/sqlutil"
 	"isoft/isoft_iwork_web/models"
 	"reflect"
-	"strings"
 )
 
 type SQLQueryNode struct {
@@ -21,8 +20,8 @@ func (this *SQLQueryNode) Execute(trackingId string) {
 	dataSourceName := this.TmpDataMap[iworkconst.STRING_PREFIX+"db_conn"].(string)
 	// sql_binding 参数获取
 	sql_binding := getSqlBinding(this.TmpDataMap)
-	sql = strings.ReplaceAll(sql, "{{", "")
-	sql = strings.ReplaceAll(sql, "}}", "")
+	//sql = strings.ReplaceAll(sql, "{{", "")
+	//sql = strings.ReplaceAll(sql, "}}", "")
 	datacounts, rowDatas := sqlutil.Query(sql, sql_binding, dataSourceName)
 	// 存储 datacounts
 	paramMap[iworkconst.NUMBER_PREFIX+"datacounts"] = datacounts

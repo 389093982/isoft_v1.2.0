@@ -11,7 +11,6 @@ import (
 	"isoft/isoft_iwork_web/core/iworkpool"
 	"isoft/isoft_iwork_web/core/iworkutil/sqlutil"
 	"isoft/isoft_iwork_web/models"
-	"regexp"
 	"strconv"
 	"strings"
 )
@@ -41,8 +40,6 @@ func (this *SQLQueryPageNode) Execute(trackingId string) {
 	_current_page, _ := strconv.Atoi(current_page)
 	_page_size, _ := strconv.Atoi(page_size)
 	sql_binding = append(sql_binding, (_current_page-1)*_page_size, _page_size)
-	sql = strings.ReplaceAll(sql, "{{", "")
-	sql = strings.ReplaceAll(sql, "}}", "")
 	datacounts, rowDatas := sqlutil.Query(sql, sql_binding, dataSourceName)
 	// 将数据数据存储到数据中心
 	// 存储 datacounts
@@ -137,37 +134,38 @@ func validateSqlBindingParamCount(step *models.WorkStep) {
 }
 
 func getTotalSqlFromQuery(querySql string) string {
-	reg := regexp.MustCompile("^.+{{.+}}.+{{.+}}.*$")
-	if match := reg.Match([]byte(querySql)); match == false {
-		panic(fmt.Sprintf(`sql 格式不正确,必须使用 {{}} 标识出字段名和表名！`))
-	}
-	totalSql := querySql[:strings.Index(querySql, "{{")] + " count(*) as count " + querySql[strings.Index(querySql, "}}")+2:]
-	totalSql = strings.ReplaceAll(totalSql, "{{", "")
-	totalSql = strings.ReplaceAll(totalSql, "}}", "")
+	//reg := regexp.MustCompile("^.+{{.+}}.+{{.+}}.*$")
+	//if match := reg.Match([]byte(querySql)); match == false {
+	//	panic(fmt.Sprintf(`sql 格式不正确,必须使用 {{}} 标识出字段名和表名！`))
+	//}
+	totalSql := fmt.Sprintf(`select count(*) as count from (%s)`, querySql)
+	//totalSql := querySql[:strings.Index(querySql, "{{")] + " count(*) as count " + querySql[strings.Index(querySql, "}}")+2:]
+	//totalSql = strings.ReplaceAll(totalSql, "{{", "")
+	//totalSql = strings.ReplaceAll(totalSql, "}}", "")
 	return totalSql
 }
 
-func getMetaDataSqlFromQuery(querySql string) string {
-	reg := regexp.MustCompile("^.+{{.+}}.+{{.+}}.*$")
-	if match := reg.Match([]byte(querySql)); match == false {
-		panic(fmt.Sprintf(`sql 格式不正确,必须使用 {{}} 标识出字段名和表名！`))
-	}
-	fieldNames := querySql[strings.Index(querySql, "{{")+2 : strings.Index(querySql, "}}")]
-	tableName := querySql[strings.LastIndex(querySql, "{{")+2 : strings.LastIndex(querySql, "}}")]
-	return fmt.Sprintf(`select %s from %s where 1=0`, fieldNames, tableName)
-}
+//func getMetaDataSqlFromQuery(querySql string) string {
+//reg := regexp.MustCompile("^.+{{.+}}.+{{.+}}.*$")
+//if match := reg.Match([]byte(querySql)); match == false {
+//	panic(fmt.Sprintf(`sql 格式不正确,必须使用 {{}} 标识出字段名和表名！`))
+//}
+//fieldNames := querySql[strings.Index(querySql, "{{")+2 : strings.Index(querySql, "}}")]
+//tableName := querySql[strings.LastIndex(querySql, "{{")+2 : strings.LastIndex(querySql, "}}")]
+//return fmt.Sprintf(`select %s from %s where 1=0`, fieldNames, tableName)
+//}
 
 func validateAndGetMetaDataSql(step *models.WorkStep) string {
 	metadata_sql := param.GetStaticParamValueWithStep(iworkconst.STRING_PREFIX+"metadata_sql", step).(string)
 	if strings.TrimSpace(metadata_sql) == "" {
-		metadata_sql = getMetaDataSqlFromQuery(param.GetStaticParamValueWithStep(iworkconst.STRING_PREFIX+"sql", step).(string))
+		metadata_sql = param.GetStaticParamValueWithStep(iworkconst.STRING_PREFIX+"sql", step).(string)
 	}
 	if strings.TrimSpace(metadata_sql) == "" {
 		panic("Empty paramValue for metadata_sql was found!")
 	}
-	if strings.Contains(metadata_sql, "?") {
-		panic("Invalid paramValue form metadata_sql was found!")
-	}
+	//if strings.Contains(metadata_sql, "?") {
+	//	panic("Invalid paramValue form metadata_sql was found!")
+	//}
 	return strings.TrimSpace(metadata_sql)
 }
 
