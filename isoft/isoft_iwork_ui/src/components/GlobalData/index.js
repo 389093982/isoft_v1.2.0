@@ -5,7 +5,6 @@ const default_work_step_types=[
   {"name":"work_sub","icon":"logo-buffer"},
   // 数据库相关
   {"name":"sql_query","icon":"ios-cube-outline"},
-  {"name":"sql_dynamic_query","icon":"ios-cube-outline"},
   {"name":"sql_query_page","icon":"md-cube"},
   {"name":"sql_execute","icon":"ios-crop-outline"},
   {"name":"db_parser","icon":"ios-map-outline"},

@@ -34,8 +34,9 @@ func (this *SQLQueryNode) Execute(trackingId string) {
 func (this *SQLQueryNode) GetDefaultParamInputSchema() *iworkmodels.ParamInputSchema {
 	paramMap := map[int][]string{
 		1: {iworkconst.STRING_PREFIX + "sql", "查询sql语句"},
-		2: {iworkconst.MULTI_PREFIX + "sql_binding?", "sql绑定数据,个数必须和当前执行sql语句中的占位符参数个数相同"},
-		3: {iworkconst.STRING_PREFIX + "db_conn", "数据库连接信息,需要使用 $RESOURCE 全局参数"},
+		2: {iworkconst.STRING_PREFIX + "columnNames?", "查询结果集列名列表,以逗号分隔,动态sql需要提供"},
+		3: {iworkconst.MULTI_PREFIX + "sql_binding?", "sql绑定数据,个数必须和当前执行sql语句中的占位符参数个数相同"},
+		4: {iworkconst.STRING_PREFIX + "db_conn", "数据库连接信息,需要使用 $RESOURCE 全局参数"},
 	}
 	return this.BuildParamInputSchemaWithDefaultMap(paramMap)
 }

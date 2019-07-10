@@ -25,7 +25,6 @@ func RegistNodes() {
 		sql.SQLExecuteNode{},
 		sql.SQLQueryNode{},
 		sql.SQLQueryPageNode{},
-		sql.SQLDynamicQueryNode{},
 		json.JsonRenderNode{},
 		json.JsonParserNode{},
 		html.HttpRequestNode{},
