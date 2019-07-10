@@ -20,8 +20,6 @@ func (this *SQLQueryNode) Execute(trackingId string) {
 	dataSourceName := this.TmpDataMap[iworkconst.STRING_PREFIX+"db_conn"].(string)
 	// sql_binding 参数获取
 	sql_binding := getSqlBinding(this.TmpDataMap)
-	//sql = strings.ReplaceAll(sql, "{{", "")
-	//sql = strings.ReplaceAll(sql, "}}", "")
 	datacounts, rowDatas := sqlutil.Query(sql, sql_binding, dataSourceName)
 	// 存储 datacounts
 	paramMap[iworkconst.NUMBER_PREFIX+"datacounts"] = datacounts
@@ -35,10 +33,9 @@ func (this *SQLQueryNode) Execute(trackingId string) {
 
 func (this *SQLQueryNode) GetDefaultParamInputSchema() *iworkmodels.ParamInputSchema {
 	paramMap := map[int][]string{
-		1: {iworkconst.STRING_PREFIX + "sql", "查询sql语句,可以使用 {{}} 标识出 metadata 字段名和 tableName 表名,用于自动推断 metadatasql"},
-		2: {iworkconst.STRING_PREFIX + "metadata_sql?", "元数据sql语句,针对复杂查询sql,需要提供类似于select * from blog where 1=0的辅助sql用来构建节点输出"},
-		3: {iworkconst.MULTI_PREFIX + "sql_binding?", "sql绑定数据,个数必须和当前执行sql语句中的占位符参数个数相同"},
-		4: {iworkconst.STRING_PREFIX + "db_conn", "数据库连接信息,需要使用 $RESOURCE 全局参数"},
+		1: {iworkconst.STRING_PREFIX + "sql", "查询sql语句"},
+		2: {iworkconst.MULTI_PREFIX + "sql_binding?", "sql绑定数据,个数必须和当前执行sql语句中的占位符参数个数相同"},
+		3: {iworkconst.STRING_PREFIX + "db_conn", "数据库连接信息,需要使用 $RESOURCE 全局参数"},
 	}
 	return this.BuildParamInputSchemaWithDefaultMap(paramMap)
 }
@@ -53,7 +50,6 @@ func (this *SQLQueryNode) GetRuntimeParamOutputSchema() *iworkmodels.ParamOutput
 
 func (this *SQLQueryNode) ValidateCustom() (checkResult []string) {
 	validateAndGetDataStoreName(this.WorkStep)
-	validateAndGetMetaDataSql(this.WorkStep)
 	validateSqlBindingParamCount(this.WorkStep)
 	return []string{}
 }

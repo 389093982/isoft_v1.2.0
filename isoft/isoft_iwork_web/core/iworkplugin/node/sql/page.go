@@ -78,13 +78,12 @@ func getPageIndexAndPageSize(tmpDataMap map[string]interface{}) (currentPage int
 
 func (this *SQLQueryPageNode) GetDefaultParamInputSchema() *iworkmodels.ParamInputSchema {
 	paramMap := map[int][]string{
-		1: {iworkconst.STRING_PREFIX + "sql", "查询sql语句,可以使用 {{}} 标识出 metadata 字段名和 tableName 表名,用于自动推断 metadatasql, 带分页条件的sql,等价于 ${total_sql} limit ?,?"},
-		2: {iworkconst.STRING_PREFIX + "metadata_sql?", "元数据sql语句,针对复杂查询sql,需要提供类似于select * from blog where 1=0的辅助sql用来构建节点输出"},
-		3: {iworkconst.STRING_PREFIX + "total_sql?", "统计总数sql,返回N页总数据量,格式参考select count(*) as count from blog where xxx"},
-		4: {iworkconst.MULTI_PREFIX + "sql_binding?", "sql绑定数据,个数和sql中的?数量相同,前N-2位参数和total_sql中的?数量相同"},
-		5: {iworkconst.NUMBER_PREFIX + "current_page", "当前页数"},
-		6: {iworkconst.NUMBER_PREFIX + "page_size", "每页数据量"},
-		7: {iworkconst.STRING_PREFIX + "db_conn", "数据库连接信息,需要使用 $RESOURCE 全局参数"},
+		1: {iworkconst.STRING_PREFIX + "sql", "查询sql语句,带分页条件的sql,等价于 ${total_sql} limit ?,?"},
+		2: {iworkconst.STRING_PREFIX + "total_sql?", "统计总数sql,返回N页总数据量,格式参考select count(*) as count from blog where xxx"},
+		3: {iworkconst.MULTI_PREFIX + "sql_binding?", "sql绑定数据,个数和sql中的?数量相同,前N-2位参数和total_sql中的?数量相同"},
+		4: {iworkconst.NUMBER_PREFIX + "current_page", "当前页数"},
+		5: {iworkconst.NUMBER_PREFIX + "page_size", "每页数据量"},
+		6: {iworkconst.STRING_PREFIX + "db_conn", "数据库连接信息,需要使用 $RESOURCE 全局参数"},
 	}
 	return this.BuildParamInputSchemaWithDefaultMap(paramMap)
 }
@@ -110,7 +109,6 @@ func (this *SQLQueryPageNode) GetRuntimeParamOutputSchema() *iworkmodels.ParamOu
 
 func (this *SQLQueryPageNode) ValidateCustom() (checkResult []string) {
 	validateAndGetDataStoreName(this.WorkStep)
-	validateAndGetMetaDataSql(this.WorkStep)
 	validateSqlBindingParamCount(this.WorkStep)
 	validateSqlBindingParamCount(this.WorkStep)
 	validateTotalSqlBindingParamCount(this.WorkStep)
@@ -134,39 +132,8 @@ func validateSqlBindingParamCount(step *models.WorkStep) {
 }
 
 func getTotalSqlFromQuery(querySql string) string {
-	//reg := regexp.MustCompile("^.+{{.+}}.+{{.+}}.*$")
-	//if match := reg.Match([]byte(querySql)); match == false {
-	//	panic(fmt.Sprintf(`sql 格式不正确,必须使用 {{}} 标识出字段名和表名！`))
-	//}
 	totalSql := fmt.Sprintf(`select count(*) as count from (%s)`, querySql)
-	//totalSql := querySql[:strings.Index(querySql, "{{")] + " count(*) as count " + querySql[strings.Index(querySql, "}}")+2:]
-	//totalSql = strings.ReplaceAll(totalSql, "{{", "")
-	//totalSql = strings.ReplaceAll(totalSql, "}}", "")
 	return totalSql
-}
-
-//func getMetaDataSqlFromQuery(querySql string) string {
-//reg := regexp.MustCompile("^.+{{.+}}.+{{.+}}.*$")
-//if match := reg.Match([]byte(querySql)); match == false {
-//	panic(fmt.Sprintf(`sql 格式不正确,必须使用 {{}} 标识出字段名和表名！`))
-//}
-//fieldNames := querySql[strings.Index(querySql, "{{")+2 : strings.Index(querySql, "}}")]
-//tableName := querySql[strings.LastIndex(querySql, "{{")+2 : strings.LastIndex(querySql, "}}")]
-//return fmt.Sprintf(`select %s from %s where 1=0`, fieldNames, tableName)
-//}
-
-func validateAndGetMetaDataSql(step *models.WorkStep) string {
-	metadata_sql := param.GetStaticParamValueWithStep(iworkconst.STRING_PREFIX+"metadata_sql", step).(string)
-	if strings.TrimSpace(metadata_sql) == "" {
-		metadata_sql = param.GetStaticParamValueWithStep(iworkconst.STRING_PREFIX+"sql", step).(string)
-	}
-	if strings.TrimSpace(metadata_sql) == "" {
-		panic("Empty paramValue for metadata_sql was found!")
-	}
-	//if strings.Contains(metadata_sql, "?") {
-	//	panic("Invalid paramValue form metadata_sql was found!")
-	//}
-	return strings.TrimSpace(metadata_sql)
 }
 
 func validateAndGetDataStoreName(step *models.WorkStep) string {
@@ -182,7 +149,7 @@ func validateAndGetDataStoreName(step *models.WorkStep) string {
 }
 
 func getMetaDataForQuery(step *models.WorkStep) *iworkmodels.ParamOutputSchema {
-	metadataSql := validateAndGetMetaDataSql(step)
+	metadataSql := param.GetStaticParamValueWithStep(iworkconst.STRING_PREFIX+"metadata_sql", step).(string)
 	dataSourceName := validateAndGetDataStoreName(step)
 	paramNames := sqlutil.GetMetaDatas(metadataSql, dataSourceName)
 	items := make([]iworkmodels.ParamOutputSchemaItem, 0)
