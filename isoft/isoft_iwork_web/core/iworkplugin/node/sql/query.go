@@ -26,7 +26,7 @@ func (this *SQLQueryNode) Execute(trackingId string) {
 	paramMap := make(map[string]interface{}, 0)
 	// 三种 sql
 	sql := this.TmpDataMap[iworkconst.STRING_PREFIX+"sql"].(string)
-	total_sql := fmt.Sprintf(`select count(*) as count from (%s)`, sql)
+	total_sql := fmt.Sprintf(`select count(*) as count from (%s) ttt`, sql)
 	limit_sql := fmt.Sprintf(`%s limit ?,?`, sql)
 	// 数据源
 	dataSourceName := this.TmpDataMap[iworkconst.STRING_PREFIX+"db_conn"].(string)
@@ -39,8 +39,8 @@ func (this *SQLQueryNode) Execute(trackingId string) {
 		rowDatas   []map[string]interface{} // 查询出来的数据
 	)
 	// 判断是简单查询还是分页查询
-	current_page := this.TmpDataMap[iworkconst.NUMBER_PREFIX+"current_page"]
-	page_size := this.TmpDataMap[iworkconst.NUMBER_PREFIX+"page_size"]
+	current_page := this.TmpDataMap[iworkconst.NUMBER_PREFIX+"current_page?"]
+	page_size := this.TmpDataMap[iworkconst.NUMBER_PREFIX+"page_size?"]
 	if current_page != nil && page_size != nil {
 		_current_page, _ := strconv.Atoi(current_page.(string))
 		_page_size, _ := strconv.Atoi(page_size.(string))

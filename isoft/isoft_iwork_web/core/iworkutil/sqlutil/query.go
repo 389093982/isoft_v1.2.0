@@ -2,6 +2,7 @@ package sqlutil
 
 import (
 	"database/sql"
+	"github.com/pkg/errors"
 	"isoft/isoft_iwork_web/core/iworkpool"
 	"strings"
 )
@@ -85,7 +86,7 @@ func QuerySelectCount(sqlstring string, sql_binding []interface{}, dataSourceNam
 	}
 	stmt, err := db.Prepare(sqlstring)
 	if err != nil {
-		panic(err)
+		panic(errors.Wrapf(err, "[invalid sql:%s]", sqlstring))
 	}
 	row := stmt.QueryRow(sql_binding...)
 	err = row.Scan(&datacounts)
