@@ -29,17 +29,10 @@ func GetMetaDatas(sql, dataSourceName string) (colNames []string) {
 	return colNames
 }
 
-func Query(sqlstring string, sql_binding []interface{}, dataSourceName string) (
+func Query(sql string, sql_binding []interface{}, dataSourceName string) (
 	datacounts int64, rowDatas []map[string]interface{}) {
-	db, err := iworkpool.GetDBConn("mysql", dataSourceName)
-	if err != nil {
-		panic(err)
-	}
-	// 使用预编译 sql 防止 sql 注入
-	stmt, err := db.Prepare(sqlstring)
-	if err != nil {
-		panic(err)
-	}
+	stmt := QueryStmt(sql, dataSourceName)
+	defer stmt.Close()
 	rows, err := stmt.Query(sql_binding...)
 	if err != nil {
 		panic(err)
@@ -79,19 +72,25 @@ func scanRowData(rows *sql.Rows, colSize int) []sql.RawBytes {
 }
 
 // 查询sql总数据量
-func QuerySelectCount(sqlstring string, sql_binding []interface{}, dataSourceName string) (datacounts int64) {
-	db, err := iworkpool.GetDBConn("mysql", dataSourceName)
-	if err != nil {
-		panic(err)
-	}
-	stmt, err := db.Prepare(sqlstring)
-	if err != nil {
-		panic(errors.Wrapf(err, "[invalid sql:%s]", sqlstring))
-	}
-	row := stmt.QueryRow(sql_binding...)
-	err = row.Scan(&datacounts)
+func QuerySelectCount(sql string, binding []interface{}, dataSourceName string) (datacounts int64) {
+	stmt := QueryStmt(sql, dataSourceName)
+	defer stmt.Close()
+	row := stmt.QueryRow(binding...)
+	err := row.Scan(&datacounts)
 	if err != nil {
 		panic(err)
 	}
 	return
+}
+
+func QueryStmt(sql string, dataSourceName string) *sql.Stmt {
+	db, err := iworkpool.GetDBConn("mysql", dataSourceName)
+	if err != nil {
+		panic(err)
+	}
+	stmt, err := db.Prepare(sql)
+	if err != nil {
+		panic(errors.Wrapf(err, "[invalid sql:%s]", sql))
+	}
+	return stmt
 }
