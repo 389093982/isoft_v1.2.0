@@ -1,27 +1,32 @@
 <template>
-  <Drawer title="全部组件" placement="left" :closable="true" :mask="false" v-model="showComponetDrawer">
+  <Drawer title="全部组件" placement="left" :closable="true" :mask="false" v-model="showComponentDrawer">
     <span v-for="default_work_step_type in default_work_step_types" style="margin: 5px;float: left;"
           draggable="true" @dragstart="dragstart($event, default_work_step_type.name)">
-     <Tag>{{default_work_step_type.name}}</Tag>
+     <Tag v-if="showComponent(default_work_step_type.name)">{{default_work_step_type.name}}</Tag>
     </span>
   </Drawer>
 </template>
 
 <script>
+  import {oneOf} from "../../../tools"
+
   export default {
     name: "WorkStepComponent",
     data(){
       return {
-        showComponetDrawer:false,
+        showComponentDrawer:false,
         default_work_step_types: this.GLOBAL.default_work_step_types,
       }
     },
     methods:{
+      showComponent:function(name){
+        return !oneOf(name, ['work_start',"work_end"]);   // 开始和结束节点不能添加和拖拽
+      },
       dragstart:function(event, transferData){
         event.dataTransfer.setData("Text", transferData);
       },
       toggleShow:function () {
-        this.showComponetDrawer = !this.showComponetDrawer;
+        this.showComponentDrawer = !this.showComponentDrawer;
       }
     }
   }
