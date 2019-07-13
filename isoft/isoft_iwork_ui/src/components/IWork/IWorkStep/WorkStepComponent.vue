@@ -1,6 +1,6 @@
 <template>
   <Drawer title="全部组件" placement="left" :closable="true" :mask="false" v-model="showComponentDrawer">
-    <span v-for="default_work_step_type in default_work_step_types" style="margin: 5px;float: left;"
+    <span v-for="default_work_step_type in default_work_step_types"
           draggable="true" @dragstart="dragstart($event, default_work_step_type.name)">
      <Tag v-if="showComponent(default_work_step_type.name)">{{default_work_step_type.name}}</Tag>
     </span>
