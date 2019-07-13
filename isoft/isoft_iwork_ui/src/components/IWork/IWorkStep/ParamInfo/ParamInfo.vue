@@ -20,7 +20,7 @@
           <!-- 表单信息 -->
           <Row style="margin-bottom: 20px;text-align: center;color: green;">
             <Col span="18">
-              <h2 style='font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;'>步骤名称:{{workStepParamInfo.work_step_name}},步骤类型:{{workStepParamInfo.work_step_type}}</h2>
+              <h2>步骤名称:{{workStepParamInfo.work_step_name}},步骤类型:{{workStepParamInfo.work_step_type}}</h2>
             </Col>
           </Row>
           <Row style="margin-right: 5px;margin-left:20px;" :gutter="16">
