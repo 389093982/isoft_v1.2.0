@@ -2,10 +2,10 @@
   <Modal
     v-model="showFormModal"
     width="1200"
-    title="查看/编辑 workstep"
+    title="查看/编辑 workstep 参数"
     :footer-hide="true"
     :mask-closable="false"
-    :styles="{top: '10px'}">
+    :styles="{top: '20px'}">
     <Row>
       <Col span="6">
         <Scroll height="450">

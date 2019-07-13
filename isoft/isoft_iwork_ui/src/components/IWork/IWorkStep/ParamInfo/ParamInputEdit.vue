@@ -30,7 +30,8 @@
         </tr>
       </div>
 
-      <ParamInputEditDialog ref="paramInputEditDialog" @handleSubmit="refreshParamInputSchemaItems" @handleReload="handleReload"/>
+      <ParamInputEditDialog ref="paramInputEditDialog" @handleSubmit="refreshParamInputSchemaItems"
+                           :param-input-schema-items="paramInputSchemaItems" @handleReload="handleReload"/>
     </table>
   </div>
 </template>

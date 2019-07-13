@@ -8,14 +8,22 @@
     :mask-closable="false"
     :styles="{top: '20px'}">
     <Row>
-      <Col span="7">
+      <Col span="6">
         <ParamInputEditDataSource ref="paramInputEditDataSource" :pre-pos-tree-node-arr="prePosTreeNodeArr"/>
       </Col>
       <Col span="3" style="text-align: center;margin-top: 100px;">
         <Button @click="appendData('parent')" style="margin-top: 10px;"><Icon type="ios-arrow-forward"></Icon>选择父节点</Button>
         <Button @click="appendData('children')" style="margin-top: 10px;"><Icon type="ios-arrow-forward"></Icon>选择子节点</Button>
+
+        <Scroll height="250" style="margin: 20px 20px 0px 20px;">
+          <ul>
+            <li style="list-style: none;margin: 2px;" v-for="(item,index) in paramInputSchemaItems">
+              <Button long size="small" @click="handleReload(index)">{{ item.ParamName }}</Button>
+            </li>
+          </ul>
+        </Scroll>
       </Col>
-      <Col span="14">
+      <Col span="15">
         <div class="operate_link">
           <ul>
             <li>
@@ -61,14 +69,13 @@
             <Tag color="default" v-for="(variable,index) in variables" style="margin-right: 10px;"
                  @drop.native="handlePlaceholderDrop($event, index)" @dragover.native="handleDragover">{{variable}}</Tag>
           </Scroll>
+
+          <Row style="text-align: right;margin-top: 10px;">
+            <Button type="success" size="small" @click="handleSubmit">Submit</Button>
+            <Button type="info" size="small" @click="closeModal">Close</Button>
+          </Row>
         </div>
       </Col>
-    </Row>
-    <Row style="text-align: right;margin-top: 10px;">
-      <Button type="success" size="small" @click="handleSubmit">Submit</Button>
-      <Button type="error" size="small" @click="showNext(-1)">Edit Last</Button>
-      <Button type="warning" size="small" @click="showNext(1)">Edit Next</Button>
-      <Button type="info" size="small" @click="closeModal">Close</Button>
     </Row>
   </Modal>
 </template>
@@ -85,6 +92,12 @@
   export default {
     name: "ParamInputEditDialog",
     components:{ISimpleBtnTriggerModal,QuickFuncList,TemplateChooser,ParamInputEditDataSource},
+    props:{
+      paramInputSchemaItems:{
+        type: Array,
+        default: () => [],
+      },
+    },
     data(){
       return {
         showFormModal:false,
@@ -137,7 +150,20 @@
         }
       },
       handleReload: function(paramIndex){
-        this.$emit("handleReload", paramIndex);
+        var _this = this;
+        if(this.checkDrity()){
+          this.$Modal.confirm({
+            title:"确认",
+            content:"是否需要保存上一步操作?",
+            onOk: function () {
+              _this.handleSubmit(function () {
+                _this.$emit("handleReload", paramIndex);
+              });
+            },
+          });
+        }else{
+          this.$emit("handleReload", paramIndex);
+        }
       },
       refreshParamInput: function(index, item){
         this.showFormModal = true;
@@ -149,20 +175,6 @@
         this.showMultiVals = false;
         this.clearDirty();
         this.refreshPreNodeOutput();
-      },
-      showNext: function(num){
-        var _this = this;
-        if(this.checkDrity()){
-          this.$Modal.confirm({
-            title:"确认",
-            content:"是否需要保存上一步操作?",
-            onOk: function () {
-              _this.handleSubmit();
-            },
-          });
-        }else{
-          this.handleReload(this.paramIndex + num);
-        }
       },
       closeModal: function(){
         this.showFormModal = false;
@@ -177,9 +189,12 @@
       checkDrity: function(){
         return this.oldInputTextData != this.inputTextData || this.oldPureText != this.pureText;
       },
-      handleSubmit:function () {
+      handleSubmit:function (callback) {
         this.$emit("handleSubmit", this.inputLabel, this.inputTextData, this.pureText);
         this.clearDirty();
+        if(callback != null && callback != undefined){
+          callback();     // 提交成功后的回调函数
+        }
       },
       refreshPreNodeOutput:async function () {
         const result = await LoadPreNodeOutput(this.$store.state.current_work_id, this.$store.state.current_work_step_id);
