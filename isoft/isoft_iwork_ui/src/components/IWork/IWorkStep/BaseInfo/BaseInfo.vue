@@ -1,19 +1,22 @@
 <template>
   <Modal
     v-model="showFormModal"
-    width="800"
+    width="850"
     title="查看/编辑 workstep"
     :footer-hide="true"
     :mask-closable="false"
     :styles="{top: '20px'}">
     <div>
       <Row>
-        <Col span="5">
-          <p v-for="workstep in worksteps">
-            <Tag><span @click="reloadWorkStepBaseInfo(workstep.work_step_id, workstep.work_step_name)">{{workstep.work_step_name}}</span></Tag>
-          </p>
+        <Col span="8">
+          <Scroll height="450">
+            <p v-for="workstep in worksteps">
+              <Tag><span @click="reloadWorkStepBaseInfo(workstep.work_step_id, workstep.work_step_name)">{{workstep.work_step_name}}</span></Tag>
+            </p>
+          </Scroll>
         </Col>
-        <Col span="19">
+        <Col span="16">
+          <Spin size="large" fix v-if="spinShow"></Spin>
           <!-- 表单信息 -->
           <Form ref="formValidate" :model="formValidate" :rules="ruleValidate" :label-width="140">
             <FormItem label="work_id" prop="work_id">
@@ -89,6 +92,7 @@
         }
       };
       return {
+        spinShow:false,
         showFormModal:false,
         visible:false,
         default_work_step_types: this.GLOBAL.default_work_step_types,
@@ -116,6 +120,7 @@
         this.visible = false;
       },
       loadWorkStepInfo:async function(){
+        this.spinShow = true;
         const result = await LoadWorkStepInfo(this.formValidate.work_id,this.formValidate.work_step_id);
         if(result.status == "SUCCESS"){
           this.formValidate.work_step_name = result.step.work_step_name;
@@ -123,6 +128,7 @@
           this.formValidate.work_step_desc = result.step.work_step_desc;
           this.formValidate.is_defer = result.step.is_defer;
         }
+        this.spinShow = false;
       },
       reloadWorkStepBaseInfo:function(work_step_id, work_step_name){
         if(!oneOf(work_step_name, ['start','end'])){  // start 和 end 禁止修改
