@@ -1,9 +1,11 @@
 <template>
   <div style="margin: 10px;">
+    <WorkStepComponent ref="workStepComponent"/>
+
     <h4 v-if="$route.query.work_name" style="text-align: center;margin-bottom: 10px;">当前流程为：{{$route.query.work_name}}</h4>
 
     <Row type="flex" justify="start" class="code-row-bg" style="margin-bottom: 20px;">
-      <Col span="2"><Button type="error" size="small" @click="showComponet = !showComponet" style="margin-right: 5px;">显示组件</Button></Col>
+      <Col span="2"><Button type="error" size="small" @click="$refs.workStepComponent.toggleShow()" style="margin-right: 5px;">显示组件</Button></Col>
       <Col span="2"><Button type="warning" size="small" @click="showRefactorModal">重构流程</Button></Col>
       <Col span="2"><Button type="info" size="small" @click="batchChangeIndent('left', null)">向左缩进</Button></Col>
       <Col span="2"><Button type="error" size="small" @click="batchChangeIndent('right', null)">向右缩进</Button></Col>
@@ -20,30 +22,17 @@
     <BaseInfo ref="workStepBaseInfo" @reloadWorkStepBaseInfo="showWorkStepBaseInfo" @handleSuccess="refreshWorkStepList" :worksteps="worksteps"/>
     <ParamInfo ref="workStepParamInfo" @handleSuccess="refreshWorkStepList"/>
 
-    <Row type="flex">
-      <Col v-if="showComponet" span="6">
-        <Scroll height="500">
-          <span v-for="default_work_step_type in default_work_step_types" style="margin: 5px;float: left;"
-                draggable="true" @dragstart="dragstart($event, default_work_step_type.name)">
-           <Tag>{{default_work_step_type.name}}</Tag>
-          </span>
-        </Scroll>
-      </Col>
-      <Col :span="showComponet ? 18 : 24">
+    <div style="text-align: right;margin-bottom: 10px;">
+      显示操作<i-switch v-model="showEditBtns" size="small" style="margin-right: 5px"></i-switch>
+      显示复选框<i-switch v-model="showCheckbox" size="small" style="margin-right: 5px"></i-switch>
+      显示编号<i-switch v-model="showIndex" size="small" style="margin-right: 5px"></i-switch>
+      显示边框<i-switch v-model="showBorder" size="small" style="margin-right: 5px"></i-switch>
+      显示间隔<i-switch v-model="showStripe" size="small" style="margin-right: 5px"></i-switch>
+      显示表头<i-switch v-model="showHeader" size="small" style="margin-right: 5px"></i-switch>
+    </div>
 
-        <div style="text-align: right;margin-bottom: 10px;">
-          显示操作<i-switch v-model="showEditBtns" size="small" style="margin-right: 5px"></i-switch>
-          显示复选框<i-switch v-model="showCheckbox" size="small" style="margin-right: 5px"></i-switch>
-          显示编号<i-switch v-model="showIndex" size="small" style="margin-right: 5px"></i-switch>
-          显示边框<i-switch v-model="showBorder" size="small" style="margin-right: 5px"></i-switch>
-          显示间隔<i-switch v-model="showStripe" size="small" style="margin-right: 5px"></i-switch>
-          显示表头<i-switch v-model="showHeader" size="small" style="margin-right: 5px"></i-switch>
-        </div>
-
-        <Table :loading="loading" :height="500" border :columns="columns1" ref="selection" :data="worksteps" size="small"
-               :border="showBorder" :stripe="showStripe" :show-header="showHeader"></Table>
-      </Col>
-    </Row>
+    <Table :loading="loading" :height="500" border :columns="columns1" ref="selection" :data="worksteps" size="small"
+           :border="showBorder" :stripe="showStripe" :show-header="showHeader"></Table>
 
     <!-- 相关流程清单 -->
     <RelativeWork id="relativeWork" ref="relativeWork"/>
@@ -70,14 +59,14 @@
   import {FlushCache} from "../../../api/index"
   import {EditWorkStepBaseInfo} from "../../../api/index"
   import WorkStepEditBtns from "./WorkStepEditBtns"
+  import WorkStepComponent from "./WorkStepComponent"
 
   export default {
     name: "WorkStepList",
-    components:{ParamInfo,ISimpleLeftRightRow,BaseInfo,RelativeWork,WorkValidate,ISimpleConfirmModal,WorkStepEditBtns},
+    components:{ParamInfo,ISimpleLeftRightRow,BaseInfo,RelativeWork,WorkValidate,ISimpleConfirmModal,WorkStepEditBtns,WorkStepComponent},
     data(){
       return {
         // 默认不显示组件
-        showComponet:false,
         showRelativeWorkFlag:false,
         refactor_worksub_name:'',
         default_work_step_types: this.GLOBAL.default_work_step_types,
@@ -396,9 +385,6 @@
       goAnchor: function(selector) {
         var anchor = this.$el.querySelector(selector);
         document.documentElement.scrollTop = anchor.offsetTop;
-      },
-      dragstart:function(event, transferData){
-        event.dataTransfer.setData("Text", transferData);
       },
       allowDrop:function(){
         const event = window.event||arguments[0];
