@@ -1,46 +1,56 @@
 <template>
   <Modal
     v-model="showFormModal"
-    width="1000"
+    width="1200"
     title="查看/编辑 workstep"
     :footer-hide="true"
     :mask-closable="false"
     :styles="{top: '10px'}">
-    <Scroll height="450" style="position: relative;">
-    <!-- 表单信息 -->
-      <Row style="margin-bottom: 20px;text-align: center;color: green;">
-        <Col span="16">
-          <h2 style='font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;'>步骤名称:{{workStepParamInfo.work_step_name}},步骤类型:{{workStepParamInfo.work_step_type}}</h2>
-        </Col>
-      </Row>
-      <Row style="margin-right: 5px;margin-left:20px;" :gutter="16">
-        <Col span="16">
-          <Tabs type="card" :animated="false" value="edit">
-            <TabPane label="ParamMapping" name="ParamMapping" v-if="showParamMapping">
-              <ParamMapping :paramMappings="paramMappings"/>
-            </TabPane>
-            <TabPane label="edit" name="edit" v-if="showEdit">
-              <ParamInputEdit :paramInputSchemaItems="paramInputSchema.ParamInputSchemaItems"/>
-            </TabPane>
-            <Button size="small" slot="extra">input</Button>
-          </Tabs>
-          <Row style="padding-left: 130px;margin-top: 20px;">
-            <Button type="success" size="small" @click="handleSubmit">Submit</Button>
-            <Button type="warning" size="small" @click="showNext(-1)">Load Last</Button>
-            <Button type="warning" size="small" @click="showNext(1)">Load Next</Button>
-            <Button type="info" size="small" @click="closeModal">Close</Button>
+    <Row>
+      <Col span="6">
+        <Scroll height="450">
+          <p v-for="workstep in worksteps">
+            <Tag><span @click="reloadWorkStepParamInfo(workstep.work_step_id, workstep.work_step_name)">{{workstep.work_step_name}}</span></Tag>
+          </p>
+        </Scroll>
+      </Col>
+      <Col span="18">
+        <Spin size="large" fix v-if="spinShow"></Spin>
+        <Scroll height="450" style="position: relative;">
+          <!-- 表单信息 -->
+          <Row style="margin-bottom: 20px;text-align: center;color: green;">
+            <Col span="18">
+              <h2 style='font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;'>步骤名称:{{workStepParamInfo.work_step_name}},步骤类型:{{workStepParamInfo.work_step_type}}</h2>
+            </Col>
           </Row>
-        </Col>
-        <Col span="8">
-          <Tabs type="card" :animated="false">
-            <TabPane label="Tree">
-              <PreParamOutputTree v-if="paramOutputSchemaTreeNode" :paramOutputSchemaTreeNode="paramOutputSchemaTreeNode"/>
-            </TabPane>
-            <Button size="small" slot="extra">output</Button>
-          </Tabs>
-        </Col>
-      </Row>
-    </Scroll>
+          <Row style="margin-right: 5px;margin-left:20px;" :gutter="16">
+            <Col span="18">
+              <Tabs type="card" :animated="false" value="edit">
+                <TabPane label="ParamMapping" name="ParamMapping" v-if="showParamMapping">
+                  <ParamMapping :paramMappings="paramMappings"/>
+                </TabPane>
+                <TabPane label="edit" name="edit" v-if="showEdit">
+                  <ParamInputEdit :paramInputSchemaItems="paramInputSchema.ParamInputSchemaItems"/>
+                </TabPane>
+                <Button size="small" slot="extra">input</Button>
+              </Tabs>
+              <Row style="padding-left: 130px;margin-top: 20px;">
+                <Button type="success" size="small" @click="handleSubmit">Submit</Button>
+                <Button type="info" size="small" @click="closeModal">Close</Button>
+              </Row>
+            </Col>
+            <Col span="6">
+              <Tabs type="card" :animated="false">
+                <TabPane label="Tree">
+                  <PreParamOutputTree v-if="paramOutputSchemaTreeNode" :paramOutputSchemaTreeNode="paramOutputSchemaTreeNode"/>
+                </TabPane>
+                <Button size="small" slot="extra">output</Button>
+              </Tabs>
+            </Col>
+          </Row>
+        </Scroll>
+      </Col>
+    </Row>
   </Modal>
 </template>
 
@@ -61,9 +71,14 @@
         type: Number,
         default: -1
       },
+      worksteps: {
+        type: Array,
+        default: () => [],
+      },
     },
     data(){
       return {
+        spinShow:false,           // 加载中
         showFormModal:false,
         // 输入参数
         paramInputSchema:"",
@@ -85,6 +100,9 @@
       }
     },
     methods:{
+      reloadWorkStepParamInfo:function(work_step_id, work_step_name){
+        this.$emit("reloadWorkStepParamInfo", work_step_id);
+      },
       handleSubmit:async function() {
         const paramInputSchemaStr = JSON.stringify(this.paramInputSchema);
         const paramMappingsStr = JSON.stringify(this.paramMappings);
@@ -100,7 +118,9 @@
         }
       },
       loadWorkStepInfo:async function(){
+        this.spinShow = true;
         const result = await LoadWorkStepInfo(this.workStepParamInfo.work_id,this.workStepParamInfo.work_step_id);
+        this.spinShow = false;
         if(result.status == "SUCCESS"){
           this.workStepParamInfo.work_id = result.step.work_id;
           this.workStepParamInfo.work_step_id = result.step.work_step_id;
@@ -129,12 +149,6 @@
           // 加载失败
           this.$Message.error('加载失败!');
         }
-      },
-      showNext: function(num){
-        if((this.workStepParamInfo.work_step_type == "work_end" && num > 0) || (this.workStepParamInfo.work_step_type == "work_start" && num < 0)){
-          return;
-        }
-        this.showWorkStepParamInfo(this.workStepParamInfo.work_id,this.workStepParamInfo.work_step_id + num);
       },
       closeModal: function(){
         this.showFormModal = false;

@@ -27,7 +27,7 @@
       </ISimpleConfirmModal>
     </Row>
     <BaseInfo ref="workStepBaseInfo" @reloadWorkStepBaseInfo="showWorkStepBaseInfo" @handleSuccess="refreshWorkStepList" :worksteps="worksteps"/>
-    <ParamInfo ref="workStepParamInfo" @handleSuccess="refreshWorkStepList"/>
+    <ParamInfo ref="workStepParamInfo" @reloadWorkStepParamInfo="showWorkStepParamInfo" @handleSuccess="refreshWorkStepList" :worksteps="worksteps"/>
 
     <div style="text-align: right;margin-bottom: 10px;">
       显示操作<i-switch v-model="showEditBtns" size="small" style="margin-right: 5px"></i-switch>
@@ -396,6 +396,9 @@
       allowDrop:function(){
         const event = window.event||arguments[0];
         event.preventDefault();
+      },
+      showWorkStepParamInfo:function(work_step_id){
+        this.$refs.workStepParamInfo.showWorkStepParamInfo(this.$route.query.work_id, work_step_id);
       },
       showWorkStepBaseInfo:function (work_step_id) {
         this.$refs.workStepBaseInfo.showWorkStepBaseInfo(this.$route.query.work_id, work_step_id);

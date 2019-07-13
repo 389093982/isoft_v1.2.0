@@ -92,7 +92,7 @@
         }
       };
       return {
-        spinShow:false,
+        spinShow:false,           // 加载中
         showFormModal:false,
         visible:false,
         default_work_step_types: this.GLOBAL.default_work_step_types,
@@ -122,13 +122,13 @@
       loadWorkStepInfo:async function(){
         this.spinShow = true;
         const result = await LoadWorkStepInfo(this.formValidate.work_id,this.formValidate.work_step_id);
+        this.spinShow = false;
         if(result.status == "SUCCESS"){
           this.formValidate.work_step_name = result.step.work_step_name;
           this.formValidate.work_step_type = result.step.work_step_type;
           this.formValidate.work_step_desc = result.step.work_step_desc;
           this.formValidate.is_defer = result.step.is_defer;
         }
-        this.spinShow = false;
       },
       reloadWorkStepBaseInfo:function(work_step_id, work_step_name){
         if(!oneOf(work_step_name, ['start','end'])){  // start 和 end 禁止修改
