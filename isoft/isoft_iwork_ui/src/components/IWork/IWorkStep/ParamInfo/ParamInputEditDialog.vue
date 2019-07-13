@@ -11,7 +11,12 @@
       <Col span="6">
         <ParamInputEditDataSource ref="paramInputEditDataSource" :pre-pos-tree-node-arr="prePosTreeNodeArr"/>
       </Col>
-      <Col span="3" style="text-align: center;margin-top: 100px;">
+      <Col span="3" style="text-align: center;">
+        <i-circle :percent="editProgress" :size="85">
+          编辑进度
+          <span class="demo-Circle-inner" style="font-size:24px">{{editProgress}}%</span>
+        </i-circle>
+
         <Button @click="appendData('parent')" style="margin-top: 10px;"><Icon type="ios-arrow-forward"></Icon>选择父节点</Button>
         <Button @click="appendData('children')" style="margin-top: 10px;"><Icon type="ios-arrow-forward"></Icon>选择子节点</Button>
 
@@ -88,6 +93,7 @@
   import TemplateChooser from "./TemplateChooser"
   import {getMatchArrForString} from "../../../../tools"
   import ParamInputEditDataSource from "./ParamInputEditDataSource"
+  import {checkEmpty} from "../../../../tools"
 
   export default {
     name: "ParamInputEditDialog",
@@ -112,6 +118,7 @@
         prePosTreeNodeArr:[],
         variables:[],
         variableConcats:[],
+        editProgress: 0,
       }
     },
     methods:{
@@ -165,6 +172,15 @@
           this.$emit("handleReload", paramIndex);
         }
       },
+      refreshEditProgress:function(){
+        var count = 0;
+        for(var i=0; i<this.paramInputSchemaItems.length; i++){
+          if(!checkEmpty(this.paramInputSchemaItems[i].ParamValue)){
+            count ++;
+          }
+        }
+        this.editProgress = Math.floor(count / this.paramInputSchemaItems.length * 100);
+      },
       refreshParamInput: function(index, item){
         this.showFormModal = true;
         this.paramIndex = index;
@@ -175,6 +191,7 @@
         this.showMultiVals = false;
         this.clearDirty();
         this.refreshPreNodeOutput();
+        this.refreshEditProgress();
       },
       closeModal: function(){
         this.showFormModal = false;
