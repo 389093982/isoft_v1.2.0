@@ -25,7 +25,9 @@
       </Col>
       <Col span="15">
         <div class="operate_link">
-          <ul>
+          <TemplateChooser ref="templateModal" @chooseTemplate="chooseTemplate"/>
+          <QuickFuncList ref="quickFuncList"/>
+          <ul style="text-align: right;">
             <li>
               <h3 style="color: #1600ff;">参数({{paramIndex}}):{{inputLabel}}</h3>
             </li>
@@ -36,7 +38,6 @@
               <Button type="info" size="small" @click="parseToMultiValue()">多值预览</Button>
             </li>
             <li>
-              <QuickFuncList ref="quickFuncList"/>
               <Button type="success" size="small" @click="showQuickFunc()">快捷函数</Button>
             </li>
             <li>
@@ -45,7 +46,6 @@
               </router-link>
             </li>
             <li>
-              <TemplateChooser ref="templateModal" @chooseTemplate="chooseTemplate"/>
               <Button type="success" size="small" @click="$refs.templateModal.showModal()">模板文字</Button>
             </li>
           </ul>
