@@ -23,7 +23,7 @@
         <Scroll height="250" style="margin: 20px 20px 0px 20px;">
           <ul>
             <li style="list-style: none;margin: 2px;" v-for="(item,index) in paramInputSchemaItems">
-              <Button long size="small" @click="handleReload(index)">{{ item.ParamName }}</Button>
+              <Button :type="item.ParamValue ? 'success' : 'default'" long size="small" @click="handleReload(index)">{{ item.ParamName }}</Button>
             </li>
           </ul>
         </Scroll>
@@ -175,7 +175,7 @@
       refreshEditProgress:function(){
         var count = 0;
         for(var i=0; i<this.paramInputSchemaItems.length; i++){
-          if(!checkEmpty(this.paramInputSchemaItems[i].ParamValue)){
+          if(!checkEmpty(this.paramInputSchemaItems[i].ParamValue) || this.paramInputSchemaItems[i].ParamName.indexOf("?") > 0){
             count ++;
           }
         }
