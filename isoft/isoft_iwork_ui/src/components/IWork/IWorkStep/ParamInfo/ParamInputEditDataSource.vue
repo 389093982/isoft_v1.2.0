@@ -1,14 +1,14 @@
 <template>
-  <Tabs type="card" :value="current_tab" @on-click="currentTabChanged">
-    <TabPane label="前置节点输出参数" name="tab_output">
+  <Tabs type="card" :value="current_tab" @on-click="currentTabChanged" :animated="false">
+    <TabPane label="前置节点输出参数" name="tab_output" v-if="prePosTreeNodeArr">
       <Scroll height="350">
-        <Tree :data="data1" show-checkbox ref="tree1" :render="renderContent"></Tree>
+        <Tree v-if="data1" :data="data1" show-checkbox ref="tree1" :render="renderContent"></Tree>
       </Scroll>
     </TabPane>
     <TabPane label="快捷函数" name="tab_funcs">
       <Scroll height="350">
         <ul>
-          <Tree :data="data2" show-checkbox ref="tree2" :render="renderContent"></Tree>
+          <Tree v-if="data2" :data="data2" show-checkbox ref="tree2" :render="renderContent"></Tree>
         </ul>
       </Scroll>
     </TabPane>
