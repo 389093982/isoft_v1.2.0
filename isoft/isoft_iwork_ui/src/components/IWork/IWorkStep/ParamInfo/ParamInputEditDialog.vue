@@ -34,7 +34,7 @@
           <QuickFuncList ref="quickFuncList"/>
           <ul style="text-align: right;">
             <li>
-              <h3 style="color: #1600ff;">参数({{paramIndex}}):{{inputLabel}}</h3>
+              <span style="color: #657180;font-size: 14px;">(参数索引-{{paramIndex}}<span v-if="inputLabel.indexOf('?')>0">可选参数</span>) - {{inputLabel}}</span>
             </li>
             <li>
               <Checkbox v-model="pureText">纯文本值</Checkbox>

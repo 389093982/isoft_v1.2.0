@@ -2,13 +2,6 @@
   <div style="margin: 10px;">
     <WorkStepComponent ref="workStepComponent"/>
 
-    <Button @click="showEditDrawer = true" type="primary">Open</Button>
-    <Drawer title="编辑区域" :closable="false" :width="600" v-model="showEditDrawer">
-      <p>Some contents...</p>
-      <p>Some contents...</p>
-      <p>Some contents...</p>
-    </Drawer>
-
     <h4 v-if="$route.query.work_name" style="text-align: center;margin-bottom: 10px;">当前流程为：{{$route.query.work_name}}</h4>
 
     <Row type="flex" justify="start" class="code-row-bg" style="margin-bottom: 20px;">
@@ -73,7 +66,6 @@
     components:{ParamInfo,ISimpleLeftRightRow,BaseInfo,RelativeWork,WorkValidate,ISimpleConfirmModal,WorkStepEditBtns,WorkStepComponent},
     data(){
       return {
-        showEditDrawer:false,
         // 默认不显示组件
         showRelativeWorkFlag:false,
         refactor_worksub_name:'',
