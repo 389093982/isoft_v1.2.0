@@ -22,6 +22,7 @@ func createNewTrackingIdForWork(dispatcher *entry.Dispatcher, work models.Work) 
 	// 记录日志
 	models.InsertRunLogRecord(&models.RunLogRecord{
 		TrackingId:      trackingId,
+		WorkId:          work.Id,
 		WorkName:        work.WorkName,
 		CreatedBy:       "SYSTEM",
 		CreatedTime:     time.Now(),

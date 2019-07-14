@@ -8,6 +8,7 @@ import (
 type RunLogRecord struct {
 	Id              int64     `json:"id"`
 	TrackingId      string    `json:"tracking_id"`
+	WorkId          int64     `json:"work_id"`
 	WorkName        string    `json:"work_name"`
 	CreatedBy       string    `json:"created_by"`
 	CreatedTime     time.Time `json:"created_time" orm:"auto_now_add;type(datetime)"`
@@ -36,6 +37,12 @@ func InsertRunLogRecord(record *RunLogRecord) (id int64, err error) {
 func InsertMultiRunLogDetail(details []*RunLogDetail) (num int64, err error) {
 	o := orm.NewOrm()
 	num, err = o.InsertMulti(len(details), &details)
+	return
+}
+
+func QueryRunLogRecordWithTracking(tracking_id string) (runLogRecord RunLogRecord, err error) {
+	o := orm.NewOrm()
+	err = o.QueryTable("run_log_record").Filter("tracking_id", tracking_id).One(&runLogRecord)
 	return
 }
 

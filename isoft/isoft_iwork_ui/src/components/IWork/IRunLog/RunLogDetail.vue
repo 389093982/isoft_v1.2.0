@@ -1,6 +1,7 @@
 <template>
   <div>
     <div style="text-align: right;margin-bottom: 10px;">
+      <Button type="success" size="small" @click="renderWorkstepList">运行时数据</Button>
       <Button type="error" size="small" @click="highlightError = !highlightError">高亮显示错误</Button>
     </div>
 
@@ -17,6 +18,7 @@
       return {
         highlightError:false,
         runLogDetails:[],
+        runLogRecord: null,
         columns1: [
           {
             title: 'work_step_name',
@@ -60,9 +62,14 @@
       }
     },
     methods:{
+      renderWorkstepList: function(){
+        this.$router.push({ path: '/iwork/workstepList',
+          query: { work_id: this.runLogRecord.work_id, work_name: this.runLogRecord.work_name, tracking_id:this.$route.query.tracking_id }});
+      },
       refreshRunLogDetail:async function () {
         const result = await GetLastRunLogDetail(this.$route.query.tracking_id);
         if(result.status=="SUCCESS"){
+          this.runLogRecord = result.runLogRecord;
           this.runLogDetails = result.runLogDetails;
         }
       },

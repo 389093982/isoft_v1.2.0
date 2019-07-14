@@ -49,9 +49,10 @@ func (this *WorkController) GetRelativeWork() {
 
 func (this *WorkController) GetLastRunLogDetail() {
 	tracking_id := this.GetString("tracking_id")
+	runLogRecord, _ := models.QueryRunLogRecordWithTracking(tracking_id)
 	runLogDetails, err := models.QueryLastRunLogDetail(tracking_id)
 	if err == nil {
-		this.Data["json"] = &map[string]interface{}{"status": "SUCCESS", "runLogDetails": runLogDetails}
+		this.Data["json"] = &map[string]interface{}{"status": "SUCCESS", "runLogDetails": runLogDetails, "runLogRecord": runLogRecord}
 	} else {
 		this.Data["json"] = &map[string]interface{}{"status": "ERROR"}
 	}
