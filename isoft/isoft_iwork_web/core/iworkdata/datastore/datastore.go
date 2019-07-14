@@ -31,7 +31,7 @@ func (this *DataStore) CacheDatas(nodeName string, paramMap map[string]interface
 			logs = append(logs, log)
 		}
 	}
-	this.logwriter.Write(this.TrackingId, strings.Join(logs, "<br/>"))
+	this.logwriter.Write(this.TrackingId, nodeName, strings.Join(logs, "<br/>"))
 }
 
 // 存储字节数据,不用记录日志

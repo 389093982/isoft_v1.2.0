@@ -23,7 +23,7 @@ func (this *RunCmdLogWriter) Write(p []byte) (n int, err error) {
 	messages := strings.Split(message, "\n")
 	for _, messageInfo := range messages {
 		if strings.TrimSpace(messageInfo) != "" {
-			this.logwriter.Write(this.TrackingId, fmt.Sprintf("%s -- %s", this.LogType, strings.TrimSpace(messageInfo)))
+			this.logwriter.Write(this.TrackingId, "", fmt.Sprintf("%s -- %s", this.LogType, strings.TrimSpace(messageInfo)))
 		}
 	}
 	return len(p), nil
@@ -56,7 +56,7 @@ func (this *RunCmdNode) Execute(trackingId string) {
 	command_args := this.TmpDataMap[iworkconst.STRING_PREFIX+"command_args"].(string)
 	args := strings.Split(command_args, " ")
 	// 记录当前正在执行的命令
-	this.LogWriter.Write(trackingId, fmt.Sprintf("current cmd command is ==> %s %s", command_name, strings.Join(args, " ")))
+	this.LogWriter.Write(trackingId, "", fmt.Sprintf("current cmd command is ==> %s %s", command_name, strings.Join(args, " ")))
 	err := cmdutil.RunCommand(stdout, stderr, command_name, args...)
 	if err != nil {
 		panic(err)

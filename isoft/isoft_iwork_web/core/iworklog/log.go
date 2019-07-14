@@ -16,12 +16,13 @@ func (this *CacheLoggerWriter) cleanCaches() {
 	this.caches = make([]*models.RunLogDetail, 0)
 }
 
-func (this *CacheLoggerWriter) Write(trackingId, detail string) {
+func (this *CacheLoggerWriter) Write(trackingId, workStepName, detail string) {
 	if this.caches == nil {
 		this.cleanCaches()
 	}
 	log := &models.RunLogDetail{
 		TrackingId:      trackingId,
+		WorkStepName:    workStepName,
 		Detail:          detail,
 		CreatedBy:       "SYSTEM",
 		CreatedTime:     time.Now(),
@@ -47,6 +48,6 @@ func (this *CacheLoggerWriter) Close() {
 
 // 统计操作所花费的时间方法
 func (this *CacheLoggerWriter) RecordCostTimeLog(operateName, trackingId string, start time.Time) {
-	this.Write(trackingId, fmt.Sprintf(
-		"%s total cost time :%v ms", operateName, time.Now().Sub(start).Nanoseconds()/1e6))
+	this.Write(trackingId, "",
+		fmt.Sprintf("%s total cost time :%v ms", operateName, time.Now().Sub(start).Nanoseconds()/1e6))
 }

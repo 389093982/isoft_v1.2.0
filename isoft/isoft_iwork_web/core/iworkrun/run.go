@@ -21,11 +21,11 @@ func RunOneWork(work_id int64, dispatcher *entry.Dispatcher) (receiver *entry.Re
 	// 为当前流程创建新的 trackingId, 前提条件 cacheContext.Work 一定存在
 	trackingId := createNewTrackingIdForWork(dispatcher, workCache.Work)
 	if err != nil {
-		logwriter.Write(trackingId, fmt.Sprintf("<span style='color:red;'>internal error:%s</span>", err.Error()))
+		logwriter.Write(trackingId, "", fmt.Sprintf("<span style='color:red;'>internal error:%s</span>", err.Error()))
 	}
 	defer logwriter.RecordCostTimeLog("execute work", trackingId, time.Now())
 	// 记录日志详细
-	logwriter.Write(trackingId, fmt.Sprintf("~~~~~~~~~~start execute work:%s~~~~~~~~~~", workCache.Work.WorkName))
+	logwriter.Write(trackingId, "", fmt.Sprintf("~~~~~~~~~~start execute work:%s~~~~~~~~~~", workCache.Work.WorkName))
 
 	// 初始化数据中心
 	initDataStore := datastore.InitDataStore(trackingId, logwriter)
@@ -42,7 +42,7 @@ func RunOneWork(work_id int64, dispatcher *entry.Dispatcher) (receiver *entry.Re
 		RunOneStep:   RunOneStep,
 	}
 	receiver = bsoRunner.Run()
-	logwriter.Write(trackingId, fmt.Sprintf("~~~~~~~~~~end execute work:%s~~~~~~~~~~", workCache.Work.WorkName))
+	logwriter.Write(trackingId, "", fmt.Sprintf("~~~~~~~~~~end execute work:%s~~~~~~~~~~", workCache.Work.WorkName))
 	return
 }
 
@@ -52,7 +52,7 @@ func RunOneStep(args *interfaces.RunOneStepArgs) (receiver *entry.Receiver) {
 	defer args.Logwriter.RecordCostTimeLog(args.BlockStep.Step.WorkStepName, args.TrackingId, time.Now())
 	// 记录开始执行日志
 	log := "start execute blockStep: >>>>>>>>>> [[<span style='color:blue;'>%s<span>]]"
-	args.Logwriter.Write(args.TrackingId, fmt.Sprintf(log, args.BlockStep.Step.WorkStepName))
+	args.Logwriter.Write(args.TrackingId, "", fmt.Sprintf(log, args.BlockStep.Step.WorkStepName))
 	// 由工厂代为执行步骤
 	factory := &node.WorkStepFactory{
 		WorkStep:         args.BlockStep.Step,
@@ -67,7 +67,7 @@ func RunOneStep(args *interfaces.RunOneStepArgs) (receiver *entry.Receiver) {
 	}
 	factory.Execute(args.TrackingId)
 	// 记录结束执行日志
-	args.Logwriter.Write(args.TrackingId, fmt.Sprintf("end execute blockStep: >>>>>>>>>> [[%s]]", args.BlockStep.Step.WorkStepName))
+	args.Logwriter.Write(args.TrackingId, "", fmt.Sprintf("end execute blockStep: >>>>>>>>>> [[%s]]", args.BlockStep.Step.WorkStepName))
 	// factory 节点如果代理的是 work_end 节点,则传递 Receiver 出去
 	return factory.Receiver
 }

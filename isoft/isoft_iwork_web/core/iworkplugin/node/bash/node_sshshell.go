@@ -23,7 +23,7 @@ func (this *SSHShellLogWriter) Write(p []byte) (n int, err error) {
 	messages := strings.Split(message, "\n")
 	for _, messageInfo := range messages {
 		if strings.TrimSpace(messageInfo) != "" {
-			this.logwriter.Write(this.TrackingId, fmt.Sprintf("%s -- %s", this.LogType, strings.TrimSpace(messageInfo)))
+			this.logwriter.Write(this.TrackingId, "", fmt.Sprintf("%s -- %s", this.LogType, strings.TrimSpace(messageInfo)))
 		}
 	}
 	return len(p), nil

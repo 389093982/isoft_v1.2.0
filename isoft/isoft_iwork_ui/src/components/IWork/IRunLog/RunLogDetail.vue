@@ -14,6 +14,11 @@
         runLogDetails:[],
         columns1: [
           {
+            title: 'work_step_name',
+            key: 'work_step_name',
+            width:150,
+          },
+          {
             title: 'detail',
             key: 'detail',
             render: (h,params)=>{

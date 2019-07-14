@@ -23,10 +23,10 @@ type BlockStepOrdersRunner struct {
 
 func (this *BlockStepOrdersRunner) recordLog(err interface{}) {
 	// 记录 4 kb大小的堆栈信息
-	this.LogWriter.Write(this.TrackingId, "~~~~~~~~~~~~~~~~~~~~~~~~ internal error trace stack ~~~~~~~~~~~~~~~~~~~~~~~~~~")
-	this.LogWriter.Write(this.TrackingId, string(errorutil.PanicTrace(4)))
-	this.LogWriter.Write(this.TrackingId, fmt.Sprintf("<span style='color:red;'>internal error:%s</span>", err))
-	this.LogWriter.Write(this.TrackingId, "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+	this.LogWriter.Write(this.TrackingId, "", "~~~~~~~~~~~~~~~~~~~~~~~~ internal error trace stack ~~~~~~~~~~~~~~~~~~~~~~~~~~")
+	this.LogWriter.Write(this.TrackingId, "", string(errorutil.PanicTrace(4)))
+	this.LogWriter.Write(this.TrackingId, "", fmt.Sprintf("<span style='color:red;'>internal error:%s</span>", err))
+	this.LogWriter.Write(this.TrackingId, "", "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
 }
 
 func (this *BlockStepOrdersRunner) Run() (receiver *entry.Receiver) {
