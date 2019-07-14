@@ -35,8 +35,9 @@ func (this *WorkController) ValidateWork() {
 
 // 统计操作所花费的时间方法
 func recordCostTimeLog(trackingId string, start time.Time) {
-	models.InsertValidateLogDetail(getValidateLogDetail(trackingId,
-		fmt.Sprintf("validate complete! total cost %d ms!", time.Now().Sub(start).Nanoseconds()/1e6)))
+	detail := getValidateLogDetail(trackingId,
+		fmt.Sprintf("validate complete! total cost %d ms!", time.Now().Sub(start).Nanoseconds()/1e6))
+	models.InsertMultiValidateLogDetail([]*models.ValidateLogDetail{detail})
 }
 
 func validateAll(work_id int64) {
@@ -76,6 +77,7 @@ func validateAll(work_id int64) {
 		close(logCh)
 	}()
 
+	details := make([]*models.ValidateLogDetail, 0)
 	// 从 logCh 中循环读取校验不通过的信息,并将其写入日志表中去
 	for log := range logCh {
 		work, _ := models.QueryWorkById(log.WorkId, orm.NewOrm())
@@ -87,8 +89,9 @@ func validateAll(work_id int64) {
 		log.LastUpdatedBy = "SYSTEM"
 		log.CreatedTime = time.Now()
 		log.LastUpdatedTime = time.Now()
-		models.InsertValidateLogDetail(log)
+		details = append(details, log)
 	}
+	models.InsertMultiValidateLogDetail(details)
 }
 
 // 校验单个 work

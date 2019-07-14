@@ -97,9 +97,9 @@ func InsertValidateLogRecord(record *ValidateLogRecord) (id int64, err error) {
 	return
 }
 
-func InsertValidateLogDetail(detail *ValidateLogDetail) (id int64, err error) {
+func InsertMultiValidateLogDetail(details []*ValidateLogDetail) (num int64, err error) {
 	o := orm.NewOrm()
-	id, err = o.Insert(detail)
+	num, err = o.InsertMulti(len(details), &details)
 	return
 }
 
