@@ -104,7 +104,7 @@ func validateWork(work *models.Work, logCh chan *models.ValidateLogDetail, workC
 		}(step)
 	}
 
-	for i := 0; i < len(steps); i++ {
+	for i := 0; i < len(steps); i++ { // 阻塞直至所有 step 执行完
 		<-stepChan
 	}
 	// 所有 step 执行完成后就往 workChan 里面发送完成通知
@@ -126,32 +126,33 @@ func checkBeginAndEnd(steps []models.WorkStep, logCh chan *models.ValidateLogDet
 	return
 }
 
+func parseToValidateLogDetail(step *models.WorkStep, err interface{}) *models.ValidateLogDetail {
+	var detail string
+	if _, ok := err.(error); ok {
+		detail = string(errorutil.PanicTrace(4))
+	} else if _err, ok := err.(string); ok {
+		detail = _err
+	} else if _err, ok := err.(models.ValidateLogDetail); ok {
+		detail = _err.Detail
+	}
+	return &models.ValidateLogDetail{
+		WorkId:     step.WorkId,
+		WorkStepId: step.WorkStepId,
+		Detail:     detail,
+	}
+}
+
 // 校验单个 step,并将校验不通过的信息放入 logCh 中
 func validateStep(step *models.WorkStep, logCh chan *models.ValidateLogDetail, stepChan chan int) {
 	defer func() {
 		if err := recover(); err != nil {
-			if _, ok := err.(error); ok {
-				logCh <- &models.ValidateLogDetail{
-					WorkId:     step.WorkId,
-					WorkStepId: step.WorkStepId,
-					Detail:     string(errorutil.PanicTrace(4)),
-				}
-			} else if _err, ok := err.(string); ok {
-				logCh <- &models.ValidateLogDetail{
-					WorkId:     step.WorkId,
-					WorkStepId: step.WorkStepId,
-					Detail:     _err,
-				}
-			} else if _err, ok := err.(models.ValidateLogDetail); ok {
-				logCh <- &_err
-			}
+			logCh <- parseToValidateLogDetail(step, err)
 		}
 		// 每执行完一个 step 就往 stepChan 里面发送完成通知
 		stepChan <- 1
 	}()
 
-	checkResults := CheckStep(step)
-	for _, checkResult := range checkResults {
+	for _, checkResult := range getCheckResultsForStep(step) {
 		logCh <- &models.ValidateLogDetail{
 			WorkId:     step.WorkId,
 			WorkStepId: step.WorkStepId,
@@ -160,7 +161,7 @@ func validateStep(step *models.WorkStep, logCh chan *models.ValidateLogDetail, s
 	}
 }
 
-func CheckStep(step *models.WorkStep) (checkResult []string) {
+func getCheckResultsForStep(step *models.WorkStep) (checkResult []string) {
 	// 校验 step 中的参数是否为空
 	checkResults1 := iworkvalid.CheckEmpty(step, &node.WorkStepFactory{WorkStep: step})
 	checkResults2 := checkVariableRelationShip(step)
