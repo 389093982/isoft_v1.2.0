@@ -42,7 +42,26 @@ type WorkStepFactory struct {
 	WorkCache        *iworkcache.WorkCache
 }
 
+func parseToError(err interface{}) error {
+	if _err, ok := err.(error); ok {
+		return _err
+	} else if _err, ok := err.(string); ok {
+		return errors.New(_err)
+	}
+	return errors.New("error...")
+}
+
 func (this *WorkStepFactory) Execute(trackingId string) {
+	defer func() {
+		if err := recover(); err != nil {
+			wsError := interfaces.WorkStepError{
+				Err:          parseToError(err),
+				WorkStepName: this.WorkStep.WorkStepName,
+			}
+			panic(wsError) // 对已经进行包装,异常不吞掉,继续抛出
+		}
+	}()
+
 	proxy := this.getProxy()
 	// 将 ParamInputSchema 填充数据并返回临时的数据中心 tmpDataMap
 	proxy.FillParamInputSchemaDataToTmp(this.WorkStep)

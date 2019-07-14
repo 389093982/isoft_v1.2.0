@@ -51,3 +51,12 @@ type RunOneStepArgs struct {
 }
 
 type RunOneStep func(args *RunOneStepArgs) (receiver *entry.Receiver)
+
+type WorkStepError struct {
+	Err          error
+	WorkStepName string
+}
+
+func (this *WorkStepError) Error() string {
+	return this.Err.Error()
+}

@@ -72,6 +72,9 @@ func checkError(err error) {
 	}
 }
 
+// 引值计算,节点引用值统计
+type Usage []string
+
 type WorkCache struct {
 	WorkId              int64
 	Work                models.Work
@@ -79,6 +82,7 @@ type WorkCache struct {
 	BlockStepOrdersMap  map[int64][]*block.BlockStep            // key 为父节点 StepId
 	ParamInputSchemaMap map[int64]*iworkmodels.ParamInputSchema // key 为 WorkStepId
 	SubWorkNameMap      map[int64]string                        // key 为 WorkStepId
+	Usage               *Usage
 	err                 error
 }
 
