@@ -1,8 +1,6 @@
 <template>
   <span>
-    <p v-for="runLogDetail in runLogDetails">
-      <span v-html="runLogDetail.detail"></span>
-    </p>
+    <Table :columns="columns1" :data="runLogDetails" size="small"></Table>
   </span>
 </template>
 
@@ -14,6 +12,19 @@
     data(){
       return {
         runLogDetails:[],
+        columns1: [
+          {
+            title: 'detail',
+            key: 'detail',
+            render: (h,params)=>{
+              return h('div',{
+                domProps:{
+                  innerHTML:params.row.detail,
+                }
+              })
+            }
+          },
+        ],
       }
     },
     methods:{

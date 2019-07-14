@@ -27,7 +27,7 @@ func (this *DataStore) CacheDatas(nodeName string, paramMap map[string]interface
 			// 记录日志并存储到 db
 			log := fmt.Sprintf("<span style='color:#FF99FF;'> [%s] </span>"+
 				"<span style='color:#6633FF;'> cache data for $%s.%s: </span>"+
-				"<span style='color:#CC0000;'> %v </span>", this.TrackingId, nodeName, paramName, paramValue)
+				"<span style='color:#19be6b;'> %v </span>", this.TrackingId, nodeName, paramName, paramValue)
 			logs = append(logs, log)
 		}
 	}
