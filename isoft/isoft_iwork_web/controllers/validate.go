@@ -96,7 +96,7 @@ func validateWork(work *models.Work, logCh chan *models.ValidateLogDetail, workC
 	stepChan := make(chan int)
 	steps, _ := models.QueryAllWorkStepInfo(work.Id, orm.NewOrm())
 	// 验证流程必须以 work_start 开始,以 work_end 结束
-	validateWorkStartAndEnd(steps, logCh, work)
+	checkBeginAndEnd(steps, logCh, work)
 
 	for _, step := range steps {
 		go func(step models.WorkStep) {
@@ -111,21 +111,18 @@ func validateWork(work *models.Work, logCh chan *models.ValidateLogDetail, workC
 	workChan <- 1
 }
 
-func validateWorkStartAndEnd(steps []models.WorkStep, logCh chan *models.ValidateLogDetail, work *models.Work) {
-	if steps[0].WorkStepType != "work_start" {
-		logCh <- &models.ValidateLogDetail{
-			WorkId:     work.Id,
-			WorkStepId: steps[0].WorkStepId,
-			Detail:     "work must start with a work_start node!",
+func checkBeginAndEnd(steps []models.WorkStep, logCh chan *models.ValidateLogDetail, work *models.Work) {
+	checkError := func(step *models.WorkStep, workStepName string, errorMsg string) {
+		if step.WorkStepType != workStepName {
+			logCh <- &models.ValidateLogDetail{
+				WorkId:     work.Id,
+				WorkStepId: step.WorkStepId,
+				Detail:     errorMsg,
+			}
 		}
 	}
-	if steps[len(steps)-1].WorkStepType != "work_end" {
-		logCh <- &models.ValidateLogDetail{
-			WorkId:     work.Id,
-			WorkStepId: steps[len(steps)-1].WorkStepId,
-			Detail:     "work must end with a work_end node!",
-		}
-	}
+	checkError(&steps[0], "work_start", "work must start with a work_start node!")
+	checkError(&steps[len(steps)-1], "work_end", "work must end with a work_end node!")
 	return
 }
 
