@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"isoft/isoft/common/stringutil"
 	"isoft/isoft_iwork_web/core/iworkcache"
+	"isoft/isoft_iwork_web/core/iworkconst"
 	"isoft/isoft_iwork_web/core/iworkdata/datastore"
 	"isoft/isoft_iwork_web/core/iworkdata/entry"
 	"isoft/isoft_iwork_web/core/iworklog"
@@ -23,10 +24,10 @@ type BlockStepOrdersRunner struct {
 
 func (this *BlockStepOrdersRunner) recordLog(err interface{}) {
 	// 记录 4 kb大小的堆栈信息
-	this.LogWriter.Write(this.TrackingId, "", "~~~~~~~~~~~~~~~~~~~~~~~~ internal error trace stack ~~~~~~~~~~~~~~~~~~~~~~~~~~")
-	this.LogWriter.Write(this.TrackingId, "", string(errorutil.PanicTrace(4)))
-	this.LogWriter.Write(this.TrackingId, "", fmt.Sprintf("<span style='color:red;'>internal error:%s</span>", err))
-	this.LogWriter.Write(this.TrackingId, "", "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+	this.LogWriter.Write(this.TrackingId, "", iworkconst.LOG_LEVEL_ERROR, "~~~~~~~~~~~~~~~~~~~~~~~~ internal error trace stack ~~~~~~~~~~~~~~~~~~~~~~~~~~")
+	this.LogWriter.Write(this.TrackingId, "", iworkconst.LOG_LEVEL_ERROR, string(errorutil.PanicTrace(4)))
+	this.LogWriter.Write(this.TrackingId, "", iworkconst.LOG_LEVEL_ERROR, fmt.Sprintf("<span style='color:red;'>internal error:%s</span>", err))
+	this.LogWriter.Write(this.TrackingId, "", iworkconst.LOG_LEVEL_ERROR, "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
 }
 
 func (this *BlockStepOrdersRunner) Run() (receiver *entry.Receiver) {

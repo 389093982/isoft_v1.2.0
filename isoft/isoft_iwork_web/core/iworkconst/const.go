@@ -23,3 +23,7 @@ const COMPLEX_PREFIX = "complex_"
 const NODE_TYPE_WORK_START = "work_start"
 const NODE_TYPE_WORK_END = "work_end"
 const NODE_TYPE_WORK_SUB = "work_sub"
+
+const LOG_LEVEL_INFO = "INFO"
+const LOG_LEVEL_SUCCESS = "SUCCESS"
+const LOG_LEVEL_ERROR = "ERROR"

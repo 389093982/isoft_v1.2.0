@@ -3,6 +3,7 @@ package framework
 import (
 	"encoding/json"
 	"fmt"
+	"isoft/isoft_iwork_web/core/iworkconst"
 	"isoft/isoft_iwork_web/core/iworkdata/entry"
 	"isoft/isoft_iwork_web/core/iworkmodels"
 	"isoft/isoft_iwork_web/core/iworkplugin/node"
@@ -16,7 +17,7 @@ type WorkStartNode struct {
 
 func (this *WorkStartNode) Execute(trackingId string) {
 	for key, value := range this.TmpDataMap {
-		this.LogWriter.Write(trackingId, "", fmt.Sprintf("fill param with for %s:%s", key, value))
+		this.LogWriter.Write(trackingId, "", iworkconst.LOG_LEVEL_INFO, fmt.Sprintf("fill param with for %s:%s", key, value))
 	}
 	// 提交输出数据至数据中心,此类数据能直接从 tmpDataMap 中获取,而不依赖于计算,只适用于 WORK_START、WORK_END、Mapper 等节点
 	this.SubmitParamOutputSchemaDataToDataStore(this.WorkStep, this.DataStore, this.TmpDataMap)

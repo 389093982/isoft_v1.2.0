@@ -3,6 +3,7 @@ package datastore
 import (
 	"fmt"
 	"isoft/isoft/common/stringutil"
+	"isoft/isoft_iwork_web/core/iworkconst"
 	"isoft/isoft_iwork_web/core/iworklog"
 	"strings"
 )
@@ -31,7 +32,7 @@ func (this *DataStore) CacheDatas(nodeName string, paramMap map[string]interface
 			logs = append(logs, log)
 		}
 	}
-	this.logwriter.Write(this.TrackingId, nodeName, strings.Join(logs, "<br/>"))
+	this.logwriter.Write(this.TrackingId, nodeName, iworkconst.LOG_LEVEL_SUCCESS, strings.Join(logs, "<br/>"))
 }
 
 // 存储字节数据,不用记录日志
