@@ -78,7 +78,7 @@ func GetAllPreStepNodeName(work_id, work_step_id int64) []string {
 		allSteps, _ := models.QueryAllWorkStepInfo(work_id, orm.NewOrm())
 		parser := block.BlockParser{Steps: allSteps}
 		_, blockStepMapper := parser.ParseToBlockSteps()
-		currentBlockStep := blockStepMapper[currentWorkStep.Id]
+		currentBlockStep := blockStepMapper[currentWorkStep.WorkStepId]
 		for _, step := range steps {
 			// 判断前置 step 在块范围内是否是可访问的
 			if block.CheckBlockAccessble(currentBlockStep, step.WorkStepId) {
