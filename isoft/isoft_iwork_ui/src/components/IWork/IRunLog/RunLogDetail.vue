@@ -24,6 +24,28 @@
             width:150,
           },
           {
+            title: 'log_level',
+            key: 'log_level',
+            width:120,
+            filters: [
+              {
+                label: 'ERROR',
+                value: 'ERROR',
+              },
+              {
+                label: 'ALL',
+                value: 'ALL',
+              }
+            ],
+            filterMultiple: false,
+            filterMethod (value, row) {
+              if (value == "ERROR") {
+                return row.log_level == "ERROR";
+              }
+              return true;
+            }
+          },
+          {
             title: 'detail',
             key: 'detail',
             render: (h,params)=>{
