@@ -6,7 +6,7 @@
   <div style="margin: 20px;min-height: 300px;">
     <p style="color: green;">last tracking_id: {{tracking_id}}</p>
     <Scroll height="350">
-      <Table border :columns="columns1" :data="details" size="small"></Table>
+      <Table border :columns="columns1" :data="validateDetails" size="small"></Table>
     </Scroll>
   </div>
 </ISimpleBtnTriggerModal>
@@ -31,7 +31,7 @@
       return {
         showDetailDialog:false,
         validating:false,
-        details:[],
+        validateDetails:[],
         tracking_id:'',
         columns1: [
           {
@@ -49,15 +49,15 @@
             render: (h,params)=>{
               return h('span',{
                 style: {
-                  color: checkEmpty(this.details[params.index]['work_step_name']) ? 'green': 'red',
+                  color: checkEmpty(this.validateDetails[params.index]['work_step_name']) ? 'green': 'red',
                   overflow: 'hidden',         // 内容超出不换行
                   textOverflow: 'ellipsis',
                   whiteSpace: 'nowrap',
                 },
                 attrs:{
-                  title: this.details[params.index]['detail'],
+                  title: this.validateDetails[params.index]['detail'],
                 },
-              },this.details[params.index]['detail']
+              },this.validateDetails[params.index]['detail']
               )
             }
           },
@@ -106,7 +106,7 @@
       refreshValidateResult: async function () {
         const result = await LoadValidateResult();
         if(result.status == "SUCCESS"){
-          this.details = result.details;
+          this.validateDetails = result.details;
           this.tracking_id = result.details[0].tracking_id;
         }
       }

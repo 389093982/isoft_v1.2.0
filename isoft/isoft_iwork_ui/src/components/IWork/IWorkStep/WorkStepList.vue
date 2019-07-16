@@ -32,7 +32,7 @@
     </div>
 
     <Table :loading="loading" :height="500" border :columns="columns1" ref="selection" :data="worksteps" size="small"
-           :border="showBorder" :stripe="showStripe" :show-header="showHeader"></Table>
+           :border="showBorder" :stripe="showStripe" :show-header="showHeader" :row-class-name="rowClassName"></Table>
 
     <!-- 相关流程清单 -->
     <RelativeWork id="relativeWork" ref="relativeWork"/>
@@ -45,6 +45,7 @@
   import {ChangeWorkStepOrder} from "../../../api/index"
   import {RefactorWorkStepInfo} from "../../../api/index"
   import {BatchChangeIndent} from "../../../api/index"
+  import {LoadValidateResult} from "../../../api/index"
   import {AddWorkStep} from "../../../api/index"
   import {RunWork} from "../../../api/index"
   import ParamInfo from "./ParamInfo/ParamInfo"
@@ -66,6 +67,7 @@
     components:{ParamInfo,ISimpleLeftRightRow,BaseInfo,RelativeWork,WorkValidate,ISimpleConfirmModal,WorkStepEditBtns,WorkStepComponent},
     data(){
       return {
+        validateDetails:[],
         // 默认不显示组件
         showRelativeWorkFlag:false,
         refactor_worksub_name:'',
@@ -281,6 +283,12 @@
       },
     },
     methods:{
+      refreshWorkValidateDetail: async function(){
+        const result = await LoadValidateResult();
+        if(result.status == "SUCCESS"){
+          this.validateDetails = result.details;
+        }
+      },
       refreshWorkStepList:async function () {
         this.loading = true;
         const result = await WorkStepList(this.$route.query.work_id);
@@ -288,6 +296,7 @@
           this.worksteps = result.worksteps;
           // 刷新关联流程信息
           this.$refs.relativeWork.refreshRelativeWork(this.$route.query.work_id);
+          this.refreshWorkValidateDetail();
         }
         this.loading = false;
       },
@@ -406,6 +415,15 @@
           }
         }
         return "";
+      },
+      rowClassName (row, index) {
+        for(var i=0; i<this.validateDetails.length; i++){
+          var validateDetail = this.validateDetails[i];
+          if(this.$route.query.work_id == validateDetail.work_id && row.work_step_id == validateDetail.work_step_id){
+            return 'demo-table-error-row';  // 高亮显示校验结果
+          }
+        }
+        return '';
       }
     },
     mounted: function () {
@@ -420,6 +438,12 @@
   }
 </script>
 
-<style scoped>
-
+<style>
+  /*
+    vue中慎用style的scoped属性
+    scoped肯定是解决了样式私有化的问题,但同时也引入了新的问题,scoped设计的初衷就是让样式变得不可修改
+  */
+  .ivu-table .demo-table-error-row td{
+    background-color: rgba(255, 192, 203, 0.55);
+  }
 </style>
