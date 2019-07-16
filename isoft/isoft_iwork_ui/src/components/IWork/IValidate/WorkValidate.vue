@@ -104,7 +104,7 @@
         }
       },
       refreshValidateResult: async function () {
-        const result = await LoadValidateResult();
+        const result = await LoadValidateResult(this.work_id);
         if(result.status == "SUCCESS"){
           this.validateDetails = result.details;
           this.tracking_id = result.details[0].tracking_id;
