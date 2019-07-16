@@ -27,12 +27,10 @@
       显示复选框<i-switch v-model="showCheckbox" size="small" style="margin-right: 5px"></i-switch>
       显示编号<i-switch v-model="showIndex" size="small" style="margin-right: 5px"></i-switch>
       显示边框<i-switch v-model="showBorder" size="small" style="margin-right: 5px"></i-switch>
-      显示间隔<i-switch v-model="showStripe" size="small" style="margin-right: 5px"></i-switch>
-      显示表头<i-switch v-model="showHeader" size="small" style="margin-right: 5px"></i-switch>
     </div>
 
     <Table :loading="loading" :height="500" border :columns="columns1" ref="selection" :data="worksteps" size="small"
-           :border="showBorder" :stripe="showStripe" :show-header="showHeader" :row-class-name="rowClassName"></Table>
+           :border="showBorder" :row-class-name="rowClassName"></Table>
 
     <!-- 相关流程清单 -->
     <RelativeWork id="relativeWork" ref="relativeWork"/>
@@ -76,8 +74,6 @@
         loading:false,
         showEditBtns:true,
         showBorder: true,
-        showStripe: true,
-        showHeader: true,
         showIndex: true,
         showCheckbox: true,
       }
@@ -284,7 +280,7 @@
     },
     methods:{
       refreshWorkValidateDetail: async function(){
-        const result = await LoadValidateResult();
+        const result = await LoadValidateResult(this.$route.query.work_id);
         if(result.status == "SUCCESS"){
           this.validateDetails = result.details;
         }
@@ -417,10 +413,12 @@
         return "";
       },
       rowClassName (row, index) {
-        for(var i=0; i<this.validateDetails.length; i++){
-          var validateDetail = this.validateDetails[i];
-          if(this.$route.query.work_id == validateDetail.work_id && row.work_step_id == validateDetail.work_step_id){
-            return 'demo-table-error-row';  // 高亮显示校验结果
+        if(this.validateDetails != null){
+          for(var i=0; i<this.validateDetails.length; i++){
+            var validateDetail = this.validateDetails[i];
+            if(this.$route.query.work_id == validateDetail.work_id && row.work_step_id == validateDetail.work_step_id){
+              return 'demo-table-error-row';  // 高亮显示校验结果
+            }
           }
         }
         return '';

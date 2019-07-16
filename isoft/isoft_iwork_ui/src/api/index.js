@@ -93,7 +93,7 @@ export const DeleteEntity = (entity_id) => ajax(BASE_URL+"/iwork/deleteEntity", 
 export const ValidateWork = (work_id) => ajax(BASE_URL+"/iwork/validateWork", {work_id},'POST');
 
 // 显示校验结果
-export const LoadValidateResult = () => ajax(BASE_URL+"/iwork/loadValidateResult", {},'POST');
+export const LoadValidateResult = (work_id) => ajax(BASE_URL+"/iwork/loadValidateResult", {work_id},'POST');
 
 export const RefactorWorkStepInfo = (work_id, refactor_worksub_name,selections) => ajax(BASE_URL+"/iwork/refactorWorkStepInfo", {work_id, refactor_worksub_name,selections},'POST');
 

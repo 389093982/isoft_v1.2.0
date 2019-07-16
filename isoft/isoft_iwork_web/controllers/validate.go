@@ -17,7 +17,10 @@ import (
 )
 
 func (this *WorkController) LoadValidateResult() {
-	if result, err := service.ExecuteResultServiceWithTx(map[string]interface{}{}, service.LoadValidateResultService); err == nil {
+	serviceArgs := make(map[string]interface{}, 0)
+	work_id, _ := this.GetInt64("work_id", -1)
+	serviceArgs["work_id"] = work_id
+	if result, err := service.ExecuteResultServiceWithTx(serviceArgs, service.LoadValidateResultService); err == nil {
 		this.Data["json"] = &map[string]interface{}{"status": "SUCCESS", "details": result["details"]}
 	} else {
 		this.Data["json"] = &map[string]interface{}{"status": "ERROR", "errorMsg": err.Error()}
@@ -47,6 +50,7 @@ func validateAll(work_id int64) {
 	// 记录日志
 	models.InsertValidateLogRecord(&models.ValidateLogRecord{
 		TrackingId:      trackingId,
+		WorkId:          work_id,
 		CreatedBy:       "SYSTEM",
 		CreatedTime:     time.Now(),
 		LastUpdatedBy:   "SYSTEM",
