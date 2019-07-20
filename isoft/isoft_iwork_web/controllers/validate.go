@@ -41,15 +41,15 @@ func validateWorks(workId int64) {
 	trackingId := stringutil.RandomUUID()
 	// 记录校验耗费时间
 	defer recordCostTimeLog(trackingId, time.Now())
+	// 待校验的所有 work 信息
+	workMap := prepareValiateWorks(workId)
 	// 记录日志
 	recordValidateLogRecord(trackingId, workId)
 	logCh := make(chan *models.ValidateLogDetail, 10) // 指定容量
 	go func() {
-		recordValidateLogDetails(logCh, trackingId) // 开协程保证读和写同时进行
+		recordValidateLogDetails(logCh, trackingId, workMap) // 开协程保证读和写同时进行
 		completeFlag <- 1
 	}()
-	// 待校验的所有 work 信息
-	workMap := prepareValiateWorks(workId)
 	var wg sync.WaitGroup
 	for work, workSteps := range workMap {
 		wg.Add(1)
@@ -224,23 +224,21 @@ func checkVariableRelationShipDetail(item iworkmodels.ParamInputSchemaItem, work
 	return
 }
 
-func recordValidateLogDetails(logCh chan *models.ValidateLogDetail, trackingId string) {
+func recordValidateLogDetails(logCh chan *models.ValidateLogDetail, trackingId string, workMap map[models.Work][]models.WorkStep) {
 	workCaches := make(map[string]*models.Work, 0)
 	workStepCaches := make(map[string]*models.WorkStep, 0)
+	for work, steps := range workMap {
+		workCaches[string(work.Id)] = &work
+		for _, step := range steps {
+			workStepCaches[string(work.Id)+"_"+string(step.WorkStepId)] = &step
+		}
+	}
 	details := make([]*models.ValidateLogDetail, 0)
 	// 从 logCh 中循环读取校验不通过的信息,并将其写入日志表中去
 	for log := range logCh {
-		_workCacheKey, _workStepCacheKey := string(log.WorkId), string(log.WorkId)+"_"+string(log.WorkStepId)
-		if _, ok := workCaches[_workCacheKey]; !ok {
-			_work, _ := models.QueryWorkById(log.WorkId, orm.NewOrm())
-			workCaches[_workCacheKey] = &_work
-		}
-		if _, ok := workCaches[_workStepCacheKey]; !ok {
-			_step, _ := models.QueryOneWorkStep(log.WorkId, log.WorkStepId, orm.NewOrm())
-			workStepCaches[_workStepCacheKey] = &_step
-		}
-		work, _ := workCaches[_workCacheKey]
-		step, _ := workStepCaches[_workStepCacheKey]
+		workCacheKey, workStepCacheKey := string(log.WorkId), string(log.WorkId)+"_"+string(log.WorkStepId)
+		work, _ := workCaches[workCacheKey]
+		step, _ := workStepCaches[workStepCacheKey]
 		details = append(details, fillWorkValidateLogDetail(log, trackingId, work, step))
 	}
 	models.InsertMultiValidateLogDetail(details)
