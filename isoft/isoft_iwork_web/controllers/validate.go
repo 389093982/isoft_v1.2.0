@@ -155,19 +155,16 @@ func getCheckResultsForStep(step *models.WorkStep) (checkResult []string) {
 	go func() {
 		defer wg.Done()
 		// 校验 step 中的参数是否为空
-		checkResults1 := iworkvalid.CheckEmpty(step, &node.WorkStepFactory{WorkStep: step})
-		checkResultCh <- checkResults1
+		checkResultCh <- iworkvalid.CheckEmpty(step, &node.WorkStepFactory{WorkStep: step})
 	}()
 	go func() {
 		defer wg.Done()
-		checkResults2 := checkVariableRelationShip(step)
-		checkResultCh <- checkResults2
+		checkResultCh <- checkVariableRelationShip(step)
 	}()
 	go func() {
 		defer wg.Done()
 		// 定制化校验
-		checkResults3 := CheckCustom(step)
-		checkResultCh <- checkResults3
+		checkResultCh <- CheckCustom(step)
 	}()
 	wg.Wait()
 	close(checkResultCh)
