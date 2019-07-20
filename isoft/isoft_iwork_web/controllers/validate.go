@@ -82,9 +82,7 @@ func prepareValiateWorks(workId int64) map[models.Work][]models.WorkStep {
 func validateWork(work *models.Work, steps []models.WorkStep, logCh chan *models.ValidateLogDetail, workChan chan int) {
 	// 验证流程必须以 work_start 开始,以 work_end 结束
 	checkBeginAndEnd(steps, logCh, work)
-
 	var wg sync.WaitGroup
-
 	for _, step := range steps {
 		wg.Add(1)
 		go func(step models.WorkStep) {
