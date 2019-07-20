@@ -13,6 +13,7 @@ import (
 	"isoft/isoft_iwork_web/models"
 	"isoft/isoft_iwork_web/service"
 	"strings"
+	"sync"
 	"time"
 )
 
@@ -29,79 +30,57 @@ func (this *WorkController) LoadValidateResult() {
 }
 
 func (this *WorkController) ValidateWork() {
-	// 传入 work_id 则只校验单个 work, 否则校验全部
-	work_id, _ := this.GetInt64("work_id", -1)
-	validateAll(work_id)
+	workId, _ := this.GetInt64("work_id", -1)
+	validateWorks(workId) // 校验全部或者只校验单个 workId
 	this.Data["json"] = &map[string]interface{}{"status": "SUCCESS"}
 	this.ServeJSON()
 }
 
-// 统计操作所花费的时间方法
-func recordCostTimeLog(trackingId string, start time.Time) {
-	detail := getValidateLogDetail(trackingId,
-		fmt.Sprintf("validate complete! total cost %d ms!", time.Now().Sub(start).Nanoseconds()/1e6))
-	models.InsertMultiValidateLogDetail([]*models.ValidateLogDetail{detail})
-}
-
-func validateAll(work_id int64) {
+func validateWorks(workId int64) {
 	trackingId := stringutil.RandomUUID()
 	// 记录校验耗费时间
 	defer recordCostTimeLog(trackingId, time.Now())
 	// 记录日志
-	models.InsertValidateLogRecord(&models.ValidateLogRecord{
-		TrackingId:      trackingId,
-		WorkId:          work_id,
-		CreatedBy:       "SYSTEM",
-		CreatedTime:     time.Now(),
-		LastUpdatedBy:   "SYSTEM",
-		LastUpdatedTime: time.Now(),
-	})
+	recordValidateLogRecord(trackingId, workId)
+	// 待校验的所有 work 信息
+	workMap := prepareValiateWorks(workId)
 	logCh := make(chan *models.ValidateLogDetail)
 	workChan := make(chan int)
-	// 待校验的所有 work
-	works := make([]models.Work, 0)
-	if work_id > 0 {
-		work, _ := models.QueryWorkById(work_id, orm.NewOrm())
-		works = append(works, work)
-	} else {
-		works = models.QueryAllWorkInfo(orm.NewOrm())
+	for work, workSteps := range workMap {
+		go func(work models.Work, workSteps []models.WorkStep) {
+			validateWork(&work, workSteps, logCh, workChan)
+		}(work, workSteps)
 	}
-
-	for _, work := range works {
-		go func(work models.Work) {
-			validateWork(&work, logCh, workChan)
-		}(work)
-	}
-
 	go func() {
-		for i := 0; i < len(works); i++ {
+		for i := 0; i < len(workMap); i++ {
 			<-workChan
 		}
 		// 所有 work 执行完成后关闭 logCh
 		close(logCh)
 	}()
+	recordValidateLogDetails(logCh, trackingId)
+}
 
-	details := make([]*models.ValidateLogDetail, 0)
-	// 从 logCh 中循环读取校验不通过的信息,并将其写入日志表中去
-	for log := range logCh {
-		work, _ := models.QueryWorkById(log.WorkId, orm.NewOrm())
-		step, _ := models.QueryOneWorkStep(work.Id, log.WorkStepId, orm.NewOrm())
-		log.TrackingId = trackingId
-		log.WorkName = work.WorkName
-		log.WorkStepName = step.WorkStepName
-		log.CreatedBy = "SYSTEM"
-		log.LastUpdatedBy = "SYSTEM"
-		log.CreatedTime = time.Now()
-		log.LastUpdatedTime = time.Now()
-		details = append(details, log)
+func prepareValiateWorks(workId int64) map[models.Work][]models.WorkStep {
+	o := orm.NewOrm()
+	dataMap := make(map[models.Work][]models.WorkStep, 0)
+	if workId > 0 {
+		work, _ := models.QueryWorkById(workId, o)
+		steps, _ := models.QueryAllWorkStepInfo(work.Id, o)
+		dataMap[work] = steps
+	} else {
+		works := models.QueryAllWorkInfo(orm.NewOrm())
+		for _, work := range works {
+			steps, _ := models.QueryAllWorkStepInfo(work.Id, o)
+			dataMap[work] = steps
+		}
 	}
-	models.InsertMultiValidateLogDetail(details)
+	return dataMap
 }
 
 // 校验单个 work
-func validateWork(work *models.Work, logCh chan *models.ValidateLogDetail, workChan chan int) {
+func validateWork(work *models.Work, steps []models.WorkStep, logCh chan *models.ValidateLogDetail, workChan chan int) {
 	stepChan := make(chan int)
-	steps, _ := models.QueryAllWorkStepInfo(work.Id, orm.NewOrm())
 	// 验证流程必须以 work_start 开始,以 work_end 结束
 	checkBeginAndEnd(steps, logCh, work)
 
@@ -150,6 +129,7 @@ func parseToValidateLogDetail(step *models.WorkStep, err interface{}) *models.Va
 }
 
 // 校验单个 step,并将校验不通过的信息放入 logCh 中
+// 校验单个 step,并将校验不通过的信息放入 logCh 中
 func validateStep(step *models.WorkStep, logCh chan *models.ValidateLogDetail, stepChan chan int) {
 	defer func() {
 		if err := recover(); err != nil {
@@ -169,14 +149,31 @@ func validateStep(step *models.WorkStep, logCh chan *models.ValidateLogDetail, s
 }
 
 func getCheckResultsForStep(step *models.WorkStep) (checkResult []string) {
-	// 校验 step 中的参数是否为空
-	checkResults1 := iworkvalid.CheckEmpty(step, &node.WorkStepFactory{WorkStep: step})
-	checkResults2 := checkVariableRelationShip(step)
-	// 定制化校验
-	checkResults3 := CheckCustom(step)
-	checkResult = append(checkResult, checkResults1...)
-	checkResult = append(checkResult, checkResults2...)
-	checkResult = append(checkResult, checkResults3...)
+	checkResultCh := make(chan []string, 10)
+	wg := new(sync.WaitGroup)
+	wg.Add(3)
+	go func() {
+		defer wg.Done()
+		// 校验 step 中的参数是否为空
+		checkResults1 := iworkvalid.CheckEmpty(step, &node.WorkStepFactory{WorkStep: step})
+		checkResultCh <- checkResults1
+	}()
+	go func() {
+		defer wg.Done()
+		checkResults2 := checkVariableRelationShip(step)
+		checkResultCh <- checkResults2
+	}()
+	go func() {
+		defer wg.Done()
+		// 定制化校验
+		checkResults3 := CheckCustom(step)
+		checkResultCh <- checkResults3
+	}()
+	wg.Wait()
+	close(checkResultCh)
+	for _checkResult := range checkResultCh {
+		checkResult = append(checkResult, _checkResult...)
+	}
 	return
 }
 
@@ -236,7 +233,58 @@ func checkVariableRelationShipDetail(item iworkmodels.ParamInputSchemaItem, work
 	return
 }
 
-func getValidateLogDetail(trackingId, detail string) *models.ValidateLogDetail {
+func recordValidateLogDetails(logCh chan *models.ValidateLogDetail, trackingId string) {
+	workCaches := make(map[string]*models.Work, 0)
+	workStepCaches := make(map[string]*models.WorkStep, 0)
+	details := make([]*models.ValidateLogDetail, 0)
+	// 从 logCh 中循环读取校验不通过的信息,并将其写入日志表中去
+	for log := range logCh {
+		_workCacheKey, _workStepCacheKey := string(log.WorkId), string(log.WorkId)+"_"+string(log.WorkStepId)
+		if _, ok := workCaches[_workCacheKey]; !ok {
+			_work, _ := models.QueryWorkById(log.WorkId, orm.NewOrm())
+			workCaches[_workCacheKey] = &_work
+		}
+		if _, ok := workCaches[_workStepCacheKey]; !ok {
+			_step, _ := models.QueryOneWorkStep(log.WorkId, log.WorkStepId, orm.NewOrm())
+			workStepCaches[_workStepCacheKey] = &_step
+		}
+		work, _ := workCaches[_workCacheKey]
+		step, _ := workStepCaches[_workStepCacheKey]
+		details = append(details, fillWorkValidateLogDetail(log, trackingId, work, step))
+	}
+	models.InsertMultiValidateLogDetail(details)
+}
+
+func fillWorkValidateLogDetail(log *models.ValidateLogDetail, trackingId string, work *models.Work, step *models.WorkStep) *models.ValidateLogDetail {
+	log.TrackingId = trackingId
+	log.WorkName = work.WorkName
+	log.WorkStepName = step.WorkStepName
+	log.CreatedBy = "SYSTEM"
+	log.LastUpdatedBy = "SYSTEM"
+	log.CreatedTime = time.Now()
+	log.LastUpdatedTime = time.Now()
+	return log
+}
+
+func recordValidateLogRecord(trackingId string, workId int64) (int64, error) {
+	return models.InsertValidateLogRecord(&models.ValidateLogRecord{
+		TrackingId:      trackingId,
+		WorkId:          workId,
+		CreatedBy:       "SYSTEM",
+		CreatedTime:     time.Now(),
+		LastUpdatedBy:   "SYSTEM",
+		LastUpdatedTime: time.Now(),
+	})
+}
+
+// 统计操作所花费的时间方法
+func recordCostTimeLog(trackingId string, start time.Time) {
+	detail := fmt.Sprintf("validate complete! total cost %d ms!", time.Now().Sub(start).Nanoseconds()/1e6)
+	log := newValidateLogDetail(trackingId, detail)
+	models.InsertMultiValidateLogDetail([]*models.ValidateLogDetail{log})
+}
+
+func newValidateLogDetail(trackingId, detail string) *models.ValidateLogDetail {
 	return &models.ValidateLogDetail{
 		TrackingId:      trackingId,
 		Detail:          detail,
