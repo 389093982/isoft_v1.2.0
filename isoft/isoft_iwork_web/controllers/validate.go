@@ -37,28 +37,29 @@ func (this *WorkController) ValidateWork() {
 }
 
 func validateWorks(workId int64) {
+	completeFlag := make(chan int) // 校验并记录日志完成标识
 	trackingId := stringutil.RandomUUID()
 	// 记录校验耗费时间
 	defer recordCostTimeLog(trackingId, time.Now())
 	// 记录日志
 	recordValidateLogRecord(trackingId, workId)
+	logCh := make(chan *models.ValidateLogDetail, 10) // 指定容量
+	go func() {
+		recordValidateLogDetails(logCh, trackingId) // 开协程保证读和写同时进行
+		completeFlag <- 1
+	}()
 	// 待校验的所有 work 信息
 	workMap := prepareValiateWorks(workId)
-	logCh := make(chan *models.ValidateLogDetail)
-	workChan := make(chan int)
+	var wg sync.WaitGroup
 	for work, workSteps := range workMap {
-		go func(work models.Work, workSteps []models.WorkStep) {
-			validateWork(&work, workSteps, logCh, workChan)
-		}(work, workSteps)
+		wg.Add(1)
+		validateWork(&work, workSteps, logCh, &wg)
 	}
-	go func() {
-		for i := 0; i < len(workMap); i++ {
-			<-workChan
-		}
-		// 所有 work 执行完成后关闭 logCh
-		close(logCh)
-	}()
-	recordValidateLogDetails(logCh, trackingId)
+	wg.Wait()
+	// 所有 work 执行完成后关闭 logCh
+	close(logCh)
+	<-completeFlag
+
 }
 
 func prepareValiateWorks(workId int64) map[models.Work][]models.WorkStep {
@@ -79,20 +80,16 @@ func prepareValiateWorks(workId int64) map[models.Work][]models.WorkStep {
 }
 
 // 校验单个 work
-func validateWork(work *models.Work, steps []models.WorkStep, logCh chan *models.ValidateLogDetail, workChan chan int) {
+func validateWork(work *models.Work, steps []models.WorkStep, logCh chan *models.ValidateLogDetail, workWg *sync.WaitGroup) {
+	defer workWg.Done()
 	// 验证流程必须以 work_start 开始,以 work_end 结束
 	checkBeginAndEnd(steps, logCh, work)
 	var wg sync.WaitGroup
+	wg.Add(len(steps))
 	for _, step := range steps {
-		wg.Add(1)
-		go func(step models.WorkStep) {
-			defer wg.Done()
-			validateStep(&step, logCh)
-		}(step)
+		validateStep(&step, logCh, &wg)
 	}
 	wg.Wait()
-	// 所有 step 执行完成后就往 workChan 里面发送完成通知
-	workChan <- 1
 }
 
 func checkBeginAndEnd(steps []models.WorkStep, logCh chan *models.ValidateLogDetail, work *models.Work) {
@@ -127,7 +124,8 @@ func parseToValidateLogDetail(step *models.WorkStep, err interface{}) *models.Va
 }
 
 // 校验单个 step,并将校验不通过的信息放入 logCh 中
-func validateStep(step *models.WorkStep, logCh chan *models.ValidateLogDetail) {
+func validateStep(step *models.WorkStep, logCh chan *models.ValidateLogDetail, stepWg *sync.WaitGroup) {
+	defer stepWg.Done()
 	defer func() {
 		if err := recover(); err != nil {
 			logCh <- parseToValidateLogDetail(step, err)
@@ -144,6 +142,7 @@ func validateStep(step *models.WorkStep, logCh chan *models.ValidateLogDetail) {
 }
 
 func getCheckResultsForStep(step *models.WorkStep) (checkResult []string) {
+	checkResult = make([]string, 0)
 	checkResultCh := make(chan []string, 10)
 	wg := new(sync.WaitGroup)
 	wg.Add(3)
