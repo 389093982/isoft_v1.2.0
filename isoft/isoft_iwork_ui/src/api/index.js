@@ -125,5 +125,4 @@ export const TemplateList = (offset,current_page, search) => ajax(BASE_URL+"/iwo
 
 export const DeleteTemplateById = (id) => ajax(BASE_URL+"/iwork/deleteTemplateById", {id},'POST');
 
-export const FlushCache = () => ajax(BASE_URL+"/iwork/flushCache", {},'POST');
 

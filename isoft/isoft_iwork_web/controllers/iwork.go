@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"errors"
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/orm"
 	"isoft/isoft_iwork_web/core/iworkcache"
@@ -102,6 +103,8 @@ func (this *WorkController) EditWork() {
 	work.LastUpdatedTime = time.Now()
 	serviceArgs := map[string]interface{}{"work": work}
 	if err := service.ExecuteServiceWithTx(serviceArgs, service.EditWorkService); err == nil {
+		work, _ := models.QueryWorkByName(work.WorkName, orm.NewOrm())
+		go flushCache(work.Id)
 		this.Data["json"] = &map[string]interface{}{"status": "SUCCESS"}
 	} else {
 		this.Data["json"] = &map[string]interface{}{"status": "ERROR", "errorMsg": err.Error()}
@@ -133,7 +136,7 @@ func (this *WorkController) DeleteWorkById() {
 	id, _ := this.GetInt64("id")
 	serviceArgs := map[string]interface{}{"id": id}
 	if err := service.ExecuteServiceWithTx(serviceArgs, service.DeleteWorkByIdService); err == nil {
-		iworkcache.DeleteWorkCache(id)
+		go flushCache(id)
 		this.Data["json"] = &map[string]interface{}{"status": "SUCCESS"}
 	} else {
 		this.Data["json"] = &map[string]interface{}{"status": "ERROR"}
@@ -141,21 +144,29 @@ func (this *WorkController) DeleteWorkById() {
 	this.ServeJSON()
 }
 
-// 使缓存立即生效
-func (this *WorkController) FlushCache() {
-	works := models.QueryAllWorkInfo(orm.NewOrm())
-	var err error
+func flushCache(work_id ...int64) (err error) {
+	works := make([]models.Work, 0)
+	if len(work_id) > 0 {
+		work, err := models.QueryWorkById(work_id[0], orm.NewOrm())
+		if err != nil && errors.As(err, &orm.ErrNoRows) {
+			iworkcache.DeleteWorkCache(work_id[0]) // 不存在则删除
+			return nil
+		} else {
+			serviceArgs := map[string]interface{}{"work_id": work_id[0]}
+			if result, err := service.ExecuteResultServiceWithTx(serviceArgs, service.GetRelativeWorkService); err == nil {
+				works = append(works, result["parentWorks"].([]models.Work)...)
+				works = append(works, result["subworks"].([]models.Work)...)
+			}
+			works = append(works, work)
+		}
+	} else {
+		works = models.QueryAllWorkInfo(orm.NewOrm())
+	}
 	for _, work := range works {
 		parser := schema.WorkStepFactoryParamSchemaParser{}
-		err = iworkcache.UpdateWorkCache(work.Id, &parser)
-		if err != nil {
+		if err = iworkcache.UpdateWorkCache(work.Id, &parser); err != nil {
 			break
 		}
 	}
-	if err == nil {
-		this.Data["json"] = &map[string]interface{}{"status": "SUCCESS"}
-	} else {
-		this.Data["json"] = &map[string]interface{}{"status": "ERROR", "errorMsg": err.Error()}
-	}
-	this.ServeJSON()
+	return
 }

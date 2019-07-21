@@ -206,12 +206,9 @@
       checkDrity: function(){
         return this.oldInputTextData != this.inputTextData || this.oldPureText != this.pureText;
       },
-      handleSubmit:function (callback) {
+      handleSubmit:function () {
         this.$emit("handleSubmit", this.inputLabel, this.inputTextData, this.pureText);
         this.clearDirty();
-        if(callback != null && callback != undefined){
-          callback();     // 提交成功后的回调函数
-        }
       },
       refreshPreNodeOutput:async function () {
         const result = await LoadPreNodeOutput(this.$store.state.current_work_id, this.$store.state.current_work_step_id);
