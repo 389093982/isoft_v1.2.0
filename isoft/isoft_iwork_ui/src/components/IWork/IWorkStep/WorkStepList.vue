@@ -96,6 +96,18 @@
             title: '步骤编号',
             key: 'work_step_id',
             width: 100,
+            render: (h,params)=>{
+              return h('div', {}, [
+                h('span', {}, this.worksteps[params.index]['work_step_id']),
+                h('span', {    // 延迟执行函数显示效果
+                  style: {
+                    marginLeft: '10px',
+                    color: 'green',
+                    display: oneOf(this.worksteps[params.index]['is_defer'], ["true"])  ? undefined : 'none',
+                  },
+                }, 'defer'),
+              ]);
+            },
           })
         }
         if(this.showEditBtns){
@@ -218,6 +230,20 @@
                   },
                 },[
                   h('span', {
+                      attrs: {
+                        title: this.worksteps[params.index]['work_step_type'],
+                      },
+                  }, [h('Icon', {
+                      props: {
+                        type: this.renderWorkStepTypeIcon(this.worksteps[params.index]['work_step_type']),
+                        size: 25,
+                      },
+                      style: {
+                        marginRight: '10px',
+                      },
+                    })]
+                  ),
+                  h('span', {
                     style: {
                       // work_step_name 根据缩进级别进行缩进,不同级别使用不同颜色
                       color: ['green','blue','grey','red'][params.row.work_step_indent],
@@ -241,34 +267,6 @@
                   }, extraStr),
                 ]);
               }
-            }
-          },
-          {
-            title: '步骤类型',
-            key: 'work_step_type',
-            width: 180,
-            render: (h, params) => {
-              return h('div', [
-                h('Icon', {
-                  props: {
-                    type: this.renderWorkStepTypeIcon(this.worksteps[params.index]['work_step_type']),
-                    size: 25,
-                  },
-                  style: {
-                    marginRight: '5px',
-                  },
-                }),
-                h('span', this.worksteps[params.index]['work_step_type']),
-                h('Badge', {    // 延迟执行函数显示效果
-                  props: {
-                    status: "error",
-                  },
-                  style: {
-                    marginLeft: '5px',
-                    display: oneOf(this.worksteps[params.index]['is_defer'], ["true"])  ? undefined : 'none',
-                  },
-                }),
-              ]);
             }
           },
           {
