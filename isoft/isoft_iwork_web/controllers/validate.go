@@ -20,6 +20,7 @@ import (
 func (this *WorkController) LoadValidateResult() {
 	serviceArgs := make(map[string]interface{}, 0)
 	work_id, _ := this.GetInt64("work_id", -1)
+	validateWorks(work_id) // 触发校验
 	serviceArgs["work_id"] = work_id
 	if result, err := service.ExecuteResultServiceWithTx(serviceArgs, service.LoadValidateResultService); err == nil {
 		this.Data["json"] = &map[string]interface{}{"status": "SUCCESS", "details": result["details"]}
@@ -191,7 +192,7 @@ func checkVariableRelationShipDetail(item iworkmodels.ParamInputSchemaItem, work
 		return
 	}
 	preStepNodeNames := iworkutil.GetAllPreStepNodeName(work_id, work_step_id)
-	skipNodeNames := []string{"RESOURCE", "WORK"}
+	skipNodeNames := []string{"RESOURCE", "WORK", "Error"}
 	for _, refer := range refers {
 		referNodeName := refer[1:strings.Index(refer, ".")]
 		referFileName := refer[strings.Index(refer, ".")+1:]
