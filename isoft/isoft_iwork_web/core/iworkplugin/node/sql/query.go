@@ -75,10 +75,11 @@ func (this *SQLQueryNode) GetDefaultParamInputSchema() *iworkmodels.ParamInputSc
 	paramMap := map[int][]string{
 		1: {iworkconst.STRING_PREFIX + "sql", "查询sql语句,带分页条件的sql"},
 		2: {iworkconst.STRING_PREFIX + "columnNames?", "查询结果集列名列表,以逗号分隔,动态sql需要提供"},
-		3: {iworkconst.MULTI_PREFIX + "sql_binding?", "sql绑定数据,个数和sql中的?数量相同"},
-		4: {iworkconst.NUMBER_PREFIX + "current_page?", "当前页数"},
-		5: {iworkconst.NUMBER_PREFIX + "page_size?", "每页数据量"},
-		6: {iworkconst.STRING_PREFIX + "db_conn", "数据库连接信息,需要使用 $RESOURCE 全局参数"},
+		3: {iworkconst.STRING_PREFIX + "metadata_sql?", "查询 metadata 所需 sql"},
+		4: {iworkconst.MULTI_PREFIX + "sql_binding?", "sql绑定数据,个数和sql中的?数量相同"},
+		5: {iworkconst.NUMBER_PREFIX + "current_page?", "当前页数"},
+		6: {iworkconst.NUMBER_PREFIX + "page_size?", "每页数据量"},
+		7: {iworkconst.STRING_PREFIX + "db_conn", "数据库连接信息,需要使用 $RESOURCE 全局参数"},
 	}
 	return this.BuildParamInputSchemaWithDefaultMap(paramMap)
 }
@@ -164,10 +165,13 @@ func renderMetaData(columnNames []string) *iworkmodels.ParamOutputSchema {
 func getMetaDataQuietlyForQuery(step *models.WorkStep) *iworkmodels.ParamOutputSchema {
 	var columnNames []string
 	columnNamesStr := param.GetStaticParamValueWithStep(iworkconst.STRING_PREFIX+"columnNames?", step).(string)
+	metadataSql := param.GetStaticParamValueWithStep(iworkconst.STRING_PREFIX+"metadata_sql?", step).(string)
 	if columnNamesStr != "" {
 		columnNames = strings.Split(columnNamesStr, ",")
 	} else {
-		metadataSql := param.GetStaticParamValueWithStep(iworkconst.STRING_PREFIX+"sql", step).(string)
+		if strings.TrimSpace(metadataSql) == "" {
+			metadataSql = param.GetStaticParamValueWithStep(iworkconst.STRING_PREFIX+"sql", step).(string)
+		}
 		dataSourceName := validateAndGetDataStoreName(step)
 		columnNames = sqlutil.GetMetaDatas(metadataSql, dataSourceName)
 	}
