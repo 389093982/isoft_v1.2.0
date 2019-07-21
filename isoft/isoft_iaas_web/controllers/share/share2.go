@@ -31,8 +31,13 @@ func (this *ShareController) ShowShareDetail2() {
 }
 
 type FilterShareListResult struct {
-	Status   string `json:"status"`
-	ErrorMsg string `json:"error_msg"`
+	Status string `json:"status"`
+	Cost   int64  `json:"cost_ms"`
+	Result struct {
+		ErrorMsg  string      `json:"errorMsg"`
+		Shares    interface{} `json:"shares"`
+		Paginator interface{} `json:"paginator"`
+	}
 }
 
 func (this *ShareController) FilterShareList2() {
@@ -42,12 +47,12 @@ func (this *ShareController) FilterShareList2() {
 		"offset":       beegoutil.GetInt64(this, "offset", 10),
 		"search_type":  this.GetString("search_type"),
 	}
-	url := "http://localhost:8086/api/iwork/httpservice/PostCatalogEdit2"
+	url := "http://localhost:8086/api/iwork/httpservice/FilterShareList2"
 	headerMap := map[string]interface{}{}
 	result := new(FilterShareListResult)
 	err := httputil.DoHttpRequestAndParseToObj(url, "post", paramMap, headerMap, &result)
 	if err == nil {
-		this.Data["json"] = &map[string]interface{}{"status": "SUCCESS"}
+		this.Data["json"] = &map[string]interface{}{"status": "SUCCESS", "shares": &result.Result.Shares, "paginator": &result.Result.Paginator}
 	} else {
 		this.Data["json"] = &map[string]interface{}{"status": "ERROR", "errorMsg": err.Error()}
 	}
