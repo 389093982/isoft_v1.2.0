@@ -1,6 +1,7 @@
 package iworkfunc
 
 import (
+	"fmt"
 	"github.com/pkg/errors"
 	"isoft/isoft/common/stringutil"
 	"path/filepath"
@@ -41,37 +42,37 @@ func (this *IWorkFuncProxy) StringsJoin(args []interface{}) interface{} {
 
 func (this *IWorkFuncProxy) Int64Add(args []interface{}) interface{} {
 	sargs := parseArgsToInt64Arr(args)
-	checkArgsAmount(sargs, 2)
+	checkArgsAmount("Int64Add", sargs, 2)
 	return sargs[0] + sargs[1]
 }
 
 func (this *IWorkFuncProxy) Int64Sub(args []interface{}) interface{} {
 	sargs := parseArgsToInt64Arr(args)
-	checkArgsAmount(sargs, 2)
+	checkArgsAmount("Int64Sub", sargs, 2)
 	return sargs[0] - sargs[1]
 }
 
 func (this *IWorkFuncProxy) Int64Gt(args []interface{}) interface{} {
 	sargs := parseArgsToInt64Arr(args)
-	checkArgsAmount(sargs, 2)
+	checkArgsAmount("Int64Gt", sargs, 2)
 	return sargs[0] > sargs[1]
 }
 
 func (this *IWorkFuncProxy) Int64Lt(args []interface{}) interface{} {
 	sargs := parseArgsToInt64Arr(args)
-	checkArgsAmount(sargs, 2)
+	checkArgsAmount("Int64Lt", sargs, 2)
 	return sargs[0] < sargs[1]
 }
 
 func (this *IWorkFuncProxy) Int64Eq(args []interface{}) interface{} {
 	sargs := parseArgsToInt64Arr(args)
-	checkArgsAmount(sargs, 2)
+	checkArgsAmount("Int64Eq", sargs, 2)
 	return sargs[0] == sargs[1]
 }
 
 func (this *IWorkFuncProxy) Int64Multi(args []interface{}) interface{} {
 	sargs := parseArgsToInt64Arr(args)
-	checkArgsAmount(sargs, 2)
+	checkArgsAmount("Int64Multi", sargs, 2)
 	return sargs[0] * sargs[1]
 }
 
@@ -150,9 +151,9 @@ func (this *IWorkFuncProxy) IfThenElse(args []interface{}) interface{} {
 	}
 }
 
-func checkArgsAmount(sargs []int64, amount int) {
+func checkArgsAmount(funcName string, sargs []int64, amount int) {
 	if len(sargs) < amount {
-		panic(errors.New("参数个数不足或者参数类型有误！"))
+		panic(errors.New(fmt.Sprintf(`%s 函数参数个数不足或者参数类型有误！`, funcName)))
 	}
 }
 
