@@ -57,6 +57,7 @@
   import {EditWorkStepBaseInfo} from "../../../api/index"
   import WorkStepEditBtns from "./WorkStepEditBtns"
   import WorkStepComponent from "./WorkStepComponent"
+  import {startsWith} from "../../../tools"
 
   export default {
     name: "WorkStepList",
@@ -185,14 +186,17 @@
                       params.row.work_step_name = event.target.value
                     },
                     blur: async function (event) {
-                      var oldValue = event.currentTarget.title;
-                      // 发生过修改
-                      const result = await EditWorkStepBaseInfo(params.row.work_id, params.row.work_step_id,
-                        params.row.work_step_name,params.row.work_step_desc, params.row.work_step_type, params.row.is_defer);
-                      if(result.status == "SUCCESS"){
-                        _this.$Message.success('修改成功!');
+                      if(startsWith(params.row.work_step_name, params.row.work_step_type + "_")){
+                        // 发生过修改
+                        const result = await EditWorkStepBaseInfo(params.row.work_id, params.row.work_step_id,
+                          params.row.work_step_name,params.row.work_step_desc, params.row.work_step_type, params.row.is_defer);
+                        if(result.status == "SUCCESS"){
+                          _this.$Message.success('修改成功!');
+                        }else{
+                          _this.$Message.error('修改失败！');
+                        }
                       }else{
-                        _this.$Message.error('修改失败！');
+                        _this.$Message.error('名称不合法！必须以 ' + params.row.work_step_type + '_ 开头');
                       }
                       // 刷新组件
                       _this.refreshWorkStepList();

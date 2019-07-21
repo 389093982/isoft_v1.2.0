@@ -139,3 +139,7 @@ export function joinArray(arr1, arr2) {
 export function getMatchArrForString(str, reg) {
   return str.match(reg);
 }
+
+export function startsWith(str, prifix) {
+  return str.indexOf(prifix) == 0;
+}
