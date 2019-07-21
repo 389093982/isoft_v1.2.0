@@ -55,6 +55,7 @@ func RegistNodes() {
 		framework.MapNode{},
 		framework.ForeachNode{},
 		framework.PanicErrorNode{},
+		framework.TemplateNode{},
 	}
 	for _, v := range vs {
 		t := reflect.ValueOf(v).Type()

@@ -37,6 +37,7 @@ const default_work_step_types=[
   {"name":"map","icon":"md-hammer"},
   {"name":"foreach","icon":"md-hammer"},
   {"name":"panic_error","icon":"md-hammer"},
+  {"name":"template","icon":"md-hammer"},
 ];
 
 const mysql_datatypes = ["varchar","char","text","float","int","date","datetime","decimal","double",
