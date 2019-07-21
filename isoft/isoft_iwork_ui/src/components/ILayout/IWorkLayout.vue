@@ -61,6 +61,7 @@
               </template>
               <MenuItem name="4-1"><router-link to="/iwork/runLogList">日志列表</router-link></MenuItem>
               <MenuItem name="4-1"><router-link to="/iwork/workHistoryList">编辑历史</router-link></MenuItem>
+              <MenuItem name="4-1"><router-link to="/iwork/dashboard">统计仪表盘</router-link></MenuItem>
             </Submenu>
             <Submenu name="5">
               <template slot="title">
