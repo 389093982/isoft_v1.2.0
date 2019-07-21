@@ -29,7 +29,7 @@ func RunOneWork(work_id int64, dispatcher *entry.Dispatcher) (receiver *entry.Re
 	logwriter.Write(trackingId, "", iworkconst.LOG_LEVEL_INFO, fmt.Sprintf("~~~~~~~~~~start execute work:%s~~~~~~~~~~", workCache.Work.WorkName))
 
 	// 初始化数据中心
-	initDataStore := datastore.InitDataStore(trackingId, logwriter)
+	initDataStore := datastore.InitDataStore(trackingId, logwriter, workCache)
 	// 初始化数据中心中的 isNoError 值,出错时会被覆盖
 	initDataStore.CacheDatas("Error", map[string]interface{}{"isNoError": true})
 

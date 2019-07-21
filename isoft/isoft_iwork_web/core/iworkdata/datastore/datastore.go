@@ -3,6 +3,7 @@ package datastore
 import (
 	"fmt"
 	"isoft/isoft/common/stringutil"
+	"isoft/isoft_iwork_web/core/iworkcache"
 	"isoft/isoft_iwork_web/core/iworkconst"
 	"isoft/isoft_iwork_web/core/iworklog"
 	"strings"
@@ -14,6 +15,7 @@ type DataNodeStore struct {
 
 type DataStore struct {
 	TrackingId       string
+	wc               *iworkcache.WorkCache
 	logwriter        *iworklog.CacheLoggerWriter
 	DataNodeStoreMap map[string]*DataNodeStore
 }
@@ -23,6 +25,9 @@ func (this *DataStore) CacheDatas(nodeName string, paramMap map[string]interface
 	logs := make([]string, 0)
 	this.cacheMemory(nodeName, "__output__", paramMap)
 	for paramName, paramValue := range paramMap {
+		if !this.isReferUsage(nodeName, paramName) {
+			break
+		}
 		this.cacheMemory(nodeName, paramName, paramValue)
 		if !stringutil.CheckContains(paramName, byteParamNames) {
 			// 记录日志并存储到 db
@@ -33,6 +38,15 @@ func (this *DataStore) CacheDatas(nodeName string, paramMap map[string]interface
 		}
 	}
 	this.logwriter.Write(this.TrackingId, nodeName, iworkconst.LOG_LEVEL_SUCCESS, strings.Join(logs, "<br/>"))
+}
+
+func (this *DataStore) isReferUsage(nodeName, paramName string) bool {
+	for _, usage := range this.wc.Usage {
+		if usage == fmt.Sprintf(`$%s.%s`, nodeName, paramName) {
+			return true
+		}
+	}
+	return false
 }
 
 // 存储字节数据,不用记录日志
@@ -58,10 +72,11 @@ func (this *DataStore) GetData(nodeName, paramName string) interface{} {
 }
 
 // 获取数据中心
-func InitDataStore(trackingId string, logwriter *iworklog.CacheLoggerWriter) *DataStore {
+func InitDataStore(trackingId string, logwriter *iworklog.CacheLoggerWriter, wc *iworkcache.WorkCache) *DataStore {
 	return &DataStore{
 		TrackingId:       trackingId,
 		logwriter:        logwriter,
+		wc:               wc,
 		DataNodeStoreMap: make(map[string]*DataNodeStore, 0),
 	}
 }

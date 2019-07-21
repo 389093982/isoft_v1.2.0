@@ -82,12 +82,11 @@ type WorkCache struct {
 	BlockStepOrdersMap  map[int64][]*block.BlockStep            // key 为父节点 StepId
 	ParamInputSchemaMap map[int64]*iworkmodels.ParamInputSchema // key 为 WorkStepId
 	SubWorkNameMap      map[int64]string                        // key 为 WorkStepId
-	Usage               *Usage
+	Usage               []string
 	err                 error
 }
 
 func (this *WorkCache) FlushCache(paramSchemaCacheParser IParamSchemaCacheParser) {
-
 	o := orm.NewOrm()
 	// 缓存 work
 	this.Work, this.err = models.QueryWorkById(this.WorkId, o)
@@ -115,6 +114,18 @@ func (this *WorkCache) FlushCache(paramSchemaCacheParser IParamSchemaCacheParser
 	for _, workStep := range this.Steps {
 		if workStep.WorkStepType == iworkconst.NODE_TYPE_WORK_SUB {
 			this.SubWorkNameMap[workStep.WorkStepId], _ = this.getWorkSubName(&workStep)
+		}
+	}
+	// 缓存引值计数
+	this.cacheReferUsage()
+}
+
+func (this *WorkCache) cacheReferUsage() {
+	for _, paramInputSchema := range this.ParamInputSchemaMap {
+		for _, item := range paramInputSchema.ParamInputSchemaItems {
+			// 根据正则找到关联的节点名和字段名
+			refers := iworkutil.GetRelativeValueWithReg(item.ParamValue)
+			this.Usage = append(this.Usage, refers...)
 		}
 	}
 }
