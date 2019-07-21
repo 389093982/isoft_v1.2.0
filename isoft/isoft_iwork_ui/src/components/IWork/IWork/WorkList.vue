@@ -30,7 +30,6 @@
   import {WorkList} from "../../../api/index"
   import {DeleteWorkById} from "../../../api/index"
   import {RunWork} from "../../../api/index"
-  import {SaveHistory} from "../../../api/index"
   import ISimpleLeftRightRow from "../../Common/layout/ISimpleLeftRightRow"
   import ISimpleSearch from "../../Common/search/ISimpleSearch"
   import IWorkDL from "../IWorkDL"
@@ -99,20 +98,6 @@
                     }
                   }
                 }, '删除'),
-                h('Button', {
-                  props: {
-                    type: 'info',
-                    size: 'small'
-                  },
-                  style: {
-                    marginRight: '5px',
-                  },
-                  on: {
-                    click: () => {
-                      this.saveHistory(this.works[params.index]['id']);
-                    }
-                  }
-                }, '保存为历史版本'),
                 h('Button', {
                   props: {
                     type: 'error',
@@ -206,12 +191,6 @@
         const result = await RunWork(work_id);
         if(result.status == "SUCCESS"){
           this.$Message.success("运行任务已触发!");
-        }
-      },
-      saveHistory:async function (work_id) {
-        const result = await SaveHistory(work_id);
-        if(result.status == "SUCCESS"){
-          this.$Message.success("保存成功!");
         }
       },
       editWorkSteps:function (id, work_name) {

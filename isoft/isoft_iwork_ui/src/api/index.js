@@ -47,9 +47,6 @@ export const AddWorkStep = (work_id, work_step_id, work_step_type) => ajax(BASE_
 // 运行 work
 export const RunWork = (work_id) => ajax(BASE_URL+"/iwork/runWork", {work_id},'POST');
 
-// 保存为历史版本
-export const SaveHistory = (work_id) => ajax(BASE_URL+"/iwork/saveHistory", {work_id},'POST');
-
 // 分页查询历史版本信息
 export const FilterPageWorkHistory = (offset,current_page) => ajax(BASE_URL+"/iwork/filterPageWorkHistory", {offset,current_page},'POST');
 

@@ -9,16 +9,12 @@ import (
 	"time"
 )
 
-func (this *WorkController) SaveHistory() {
-	work_id, _ := this.GetInt64("work_id")
+func saveHistory(work_id int64) (err error) {
 	work, _ := models.QueryWorkById(work_id, orm.NewOrm())
 	steps, _ := models.QueryAllWorkStepInfo(work_id, orm.NewOrm())
-
 	historyMap := make(map[string]interface{})
 	historyMap["work"] = work
 	historyMap["steps"] = steps
-
-	var err error
 	workHistory, err := json.MarshalIndent(historyMap, "", "\t")
 	if err == nil {
 		history := &models.WorkHistory{
@@ -33,12 +29,7 @@ func (this *WorkController) SaveHistory() {
 		}
 		_, err = models.InsertOrUpdateWorkHistory(history)
 	}
-	if err == nil {
-		this.Data["json"] = &map[string]interface{}{"status": "SUCCESS"}
-	} else {
-		this.Data["json"] = &map[string]interface{}{"status": "ERROR", "errorMsg": err.Error()}
-	}
-	this.ServeJSON()
+	return
 }
 
 func (this *WorkController) FilterPageWorkHistory() {

@@ -32,7 +32,6 @@ func loadloadIWorkerRouterDetail() {
 	beego.Router("/api/iwork/validateResource", &controllers.WorkController{}, "post:ValidateResource")
 	beego.Router("/api/iwork/getAllResource", &controllers.WorkController{}, "post:GetAllResource")
 
-	beego.Router("/api/iwork/saveHistory", &controllers.WorkController{}, "post:SaveHistory")
 	beego.Router("/api/iwork/filterPageWorkHistory", &controllers.WorkController{}, "post:FilterPageWorkHistory")
 	beego.Router("/api/iwork/filterPageWork", &controllers.WorkController{}, "post:FilterPageWork")
 	beego.Router("/api/iwork/editWork", &controllers.WorkController{}, "post:EditWork")
