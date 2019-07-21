@@ -41,6 +41,9 @@ func (this *DataStore) CacheDatas(nodeName string, paramMap map[string]interface
 }
 
 func (this *DataStore) isReferUsage(nodeName, paramName string) bool {
+	if nodeName == "start" || nodeName == "end" {
+		return true
+	}
 	for _, usage := range this.wc.Usage {
 		if usage == fmt.Sprintf(`$%s.%s`, nodeName, paramName) {
 			return true

@@ -1,7 +1,7 @@
 <template>
   <div>
     <div style="text-align: right;margin-bottom: 10px;">
-      <span style="margin-right:500px;">流程名称: {{ runLogRecord.work_name }}</span>
+      <span style="margin-right:500px;" v-if="runLogRecord">流程名称: {{ runLogRecord.work_name }}</span>
       <Button type="error" size="small" @click="highlightError = !highlightError">高亮显示错误</Button>
     </div>
 
