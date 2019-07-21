@@ -207,7 +207,7 @@ func checkVariableRelationShipDetail(item iworkmodels.ParamInputSchemaItem, work
 	skipNodeNames := []string{"RESOURCE", "WORK", "Error"}
 	for _, refer := range refers {
 		referNodeName := refer[1:strings.Index(refer, ".")]
-		referFileName := refer[strings.Index(refer, ".")+1:]
+		referFiledName := refer[strings.Index(refer, ".")+1:]
 		// 非节点类型直接跳过
 		if stringutil.CheckContains(referNodeName, skipNodeNames) {
 			break
@@ -224,13 +224,13 @@ func checkVariableRelationShipDetail(item iworkmodels.ParamInputSchemaItem, work
 			outputSchema := parser.GetCacheParamOutputSchema()
 			exist := false
 			for _, item := range outputSchema.ParamOutputSchemaItems {
-				if item.ParamName == referFileName {
+				if item.ParamName == referFiledName {
 					exist = true
 					break
 				}
 			}
 			if !exist {
-				checkResult = append(checkResult, fmt.Sprintf("Invalid referFileName relationship for %s was found!", referFileName))
+				checkResult = append(checkResult, fmt.Sprintf("Invalid referFiledName relationship for %s was found!", referFiledName))
 			}
 		}
 	}
