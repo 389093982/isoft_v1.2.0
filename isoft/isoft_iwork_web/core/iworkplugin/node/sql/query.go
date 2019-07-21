@@ -88,7 +88,7 @@ func (this *SQLQueryNode) GetRuntimeParamInputSchema() *iworkmodels.ParamInputSc
 }
 
 func (this *SQLQueryNode) GetDefaultParamOutputSchema() *iworkmodels.ParamOutputSchema {
-	return this.BuildParamOutputSchemaWithSlice([]string{iworkconst.NUMBER_PREFIX + "datacounts"})
+	return this.BuildParamOutputSchemaWithSlice([]string{iworkconst.NUMBER_PREFIX + "datacounts", "rows", "row"})
 }
 
 func (this *SQLQueryNode) GetRuntimeParamOutputSchema() *iworkmodels.ParamOutputSchema {
@@ -99,6 +99,7 @@ func (this *SQLQueryNode) GetRuntimeParamOutputSchema() *iworkmodels.ParamOutput
 	page_size := param.GetStaticParamValueWithStep(iworkconst.NUMBER_PREFIX+"page_size?", this.WorkStep).(string)
 	if current_page != "" && page_size != "" {
 		items := make([]iworkmodels.ParamOutputSchemaItem, 0)
+		items = append(items, iworkmodels.ParamOutputSchemaItem{ParamName: iworkconst.COMPLEX_PREFIX + "paginator"})
 		for _, paginatorField := range pageutil.GetPaginatorFields() {
 			items = append(items, iworkmodels.ParamOutputSchemaItem{
 				ParentPath: iworkconst.COMPLEX_PREFIX + "paginator",
