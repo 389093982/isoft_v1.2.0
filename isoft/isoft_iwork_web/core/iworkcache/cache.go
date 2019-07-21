@@ -42,6 +42,10 @@ func getBlockStepExecuteOrder(blockSteps []*block.BlockStep) []*block.BlockStep 
 
 var workCacheMap sync.Map
 
+func DeleteWorkCache(work_id int64) {
+	workCacheMap.Delete(work_id)
+}
+
 func UpdateWorkCache(work_id int64, paramSchemaCacheParser IParamSchemaCacheParser) (err error) {
 	defer func() {
 		if err1 := recover(); err1 != nil {

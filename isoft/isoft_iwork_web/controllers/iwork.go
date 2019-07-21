@@ -133,6 +133,7 @@ func (this *WorkController) DeleteWorkById() {
 	id, _ := this.GetInt64("id")
 	serviceArgs := map[string]interface{}{"id": id}
 	if err := service.ExecuteServiceWithTx(serviceArgs, service.DeleteWorkByIdService); err == nil {
+		iworkcache.DeleteWorkCache(id)
 		this.Data["json"] = &map[string]interface{}{"status": "SUCCESS"}
 	} else {
 		this.Data["json"] = &map[string]interface{}{"status": "ERROR"}
