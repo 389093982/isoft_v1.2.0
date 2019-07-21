@@ -83,6 +83,13 @@ func prepareValiateWorks(workId int64) map[models.Work][]models.WorkStep {
 // 校验单个 work
 func validateWork(work *models.Work, steps []models.WorkStep, logCh chan *models.ValidateLogDetail, workWg *sync.WaitGroup) {
 	defer workWg.Done()
+	defer func(start time.Time) {
+		logCh <- &models.ValidateLogDetail{
+			WorkId: work.Id,
+			Detail: fmt.Sprintf(`validate %s work cost %d ms!`, work.WorkName, time.Now().Sub(start).Nanoseconds()/1e6),
+		}
+	}(time.Now())
+
 	// 验证流程必须以 work_start 开始,以 work_end 结束
 	checkBeginAndEnd(steps, logCh, work)
 	var wg sync.WaitGroup
@@ -253,11 +260,13 @@ func recordValidateLogDetails(logCh chan *models.ValidateLogDetail, trackingId s
 func fillWorkValidateLogDetail(log *models.ValidateLogDetail, trackingId string, work *models.Work, step *models.WorkStep) *models.ValidateLogDetail {
 	log.TrackingId = trackingId
 	log.WorkName = work.WorkName
-	log.WorkStepName = step.WorkStepName
 	log.CreatedBy = "SYSTEM"
 	log.LastUpdatedBy = "SYSTEM"
 	log.CreatedTime = time.Now()
 	log.LastUpdatedTime = time.Now()
+	if step != nil { // 不一定含有 step
+		log.WorkStepName = step.WorkStepName
+	}
 	return log
 }
 
