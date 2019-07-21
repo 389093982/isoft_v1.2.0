@@ -53,7 +53,7 @@ func (this *SQLQueryNode) Execute(trackingId string) {
 		paramMap[iworkconst.COMPLEX_PREFIX+"paginator"] = paginator
 
 		for key, value := range paginator {
-			paramMap[iworkconst.FIELD_PREFIX+"paginator."+key] = value
+			paramMap[iworkconst.COMPLEX_PREFIX+"paginator."+key] = value
 		}
 	} else {
 		datacounts, rowDatas = sqlutil.Query(sql, sql_binding, dataSourceName)

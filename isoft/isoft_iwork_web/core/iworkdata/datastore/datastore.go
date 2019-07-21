@@ -26,7 +26,7 @@ func (this *DataStore) CacheDatas(nodeName string, paramMap map[string]interface
 	this.cacheMemory(nodeName, "__output__", paramMap)
 	for paramName, paramValue := range paramMap {
 		if !this.isReferUsage(nodeName, paramName) {
-			break
+			continue
 		}
 		this.cacheMemory(nodeName, paramName, paramValue)
 		if !stringutil.CheckContains(paramName, byteParamNames) {
