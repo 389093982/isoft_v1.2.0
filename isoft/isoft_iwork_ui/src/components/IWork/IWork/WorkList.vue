@@ -72,7 +72,7 @@
               return h('div', [
                 h('Button', {
                   props: {
-                    type: 'error',
+                    type: 'success',
                     size: 'small'
                   },
                   style: {
@@ -87,7 +87,7 @@
                 }, '编辑'),
                 h('Button', {
                   props: {
-                    type: 'success',
+                    type: 'error',
                     size: 'small'
                   },
                   style: {
