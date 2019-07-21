@@ -170,6 +170,11 @@ func getCheckResultsForStep(step *models.WorkStep) (checkResult []string) {
 }
 
 func CheckCustom(step *models.WorkStep) (checkResult []string) {
+	defer func() {
+		if err := recover(); err != nil {
+			checkResult = append(checkResult, errorutil.ToError(err).Error())
+		}
+	}()
 	factory := &node.WorkStepFactory{WorkStep: step}
 	return factory.ValidateCustom()
 }

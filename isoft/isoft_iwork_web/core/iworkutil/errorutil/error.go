@@ -2,8 +2,18 @@ package errorutil
 
 import (
 	"bytes"
+	"github.com/pkg/errors"
 	"runtime"
 )
+
+func ToError(err interface{}) error {
+	if _err, ok := err.(error); ok {
+		return _err
+	} else if _err, ok := err.(string); ok {
+		return errors.New(_err)
+	}
+	return errors.New("invalid error")
+}
 
 // 比直接recover()捕获的panic信息更加详尽
 // 比直接放任其panic打印的堆栈信息更精准,第一行就是发生panic的代码行
