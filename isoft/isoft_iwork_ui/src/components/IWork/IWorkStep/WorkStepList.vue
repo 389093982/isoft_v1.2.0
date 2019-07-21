@@ -102,7 +102,8 @@
                 h('span', {    // 延迟执行函数显示效果
                   style: {
                     marginLeft: '10px',
-                    color: 'green',
+                    color: 'blue',
+                    fontStyle: 'italic',
                     display: oneOf(this.worksteps[params.index]['is_defer'], ["true"])  ? undefined : 'none',
                   },
                 }, 'defer'),
