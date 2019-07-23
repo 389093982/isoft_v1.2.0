@@ -1,7 +1,6 @@
 <template>
   <div style="margin: 10px;">
     <WorkStepComponent ref="workStepComponent"/>
-    <WorkStepTree/>
 
     <h4 v-if="$route.query.work_name" style="text-align: center;margin-bottom: 10px;">当前流程为：{{$route.query.work_name}}</h4>
 
@@ -60,11 +59,10 @@
   import WorkStepEditBtns from "./WorkStepEditBtns"
   import WorkStepComponent from "./WorkStepComponent"
   import {startsWith} from "../../../tools"
-  import WorkStepTree from "./WorkStepTree"
 
   export default {
     name: "WorkStepList",
-    components:{ParamInfo,ISimpleLeftRightRow,BaseInfo,RelativeWork,WorkValidate,ISimpleConfirmModal,WorkStepEditBtns,WorkStepComponent,WorkStepTree},
+    components:{ParamInfo,ISimpleLeftRightRow,BaseInfo,RelativeWork,WorkValidate,ISimpleConfirmModal,WorkStepEditBtns,WorkStepComponent},
     data(){
       return {
         validateDetails:[],
