@@ -10,6 +10,7 @@ type RunLogRecord struct {
 	TrackingId      string    `json:"tracking_id"`
 	WorkId          int64     `json:"work_id"`
 	WorkName        string    `json:"work_name"`
+	LogLevel        string    `json:"log_level"`
 	CreatedBy       string    `json:"created_by"`
 	CreatedTime     time.Time `json:"created_time" orm:"auto_now_add;type(datetime)"`
 	LastUpdatedBy   string    `json:"last_updated_by"`
@@ -36,6 +37,12 @@ func InsertRunLogRecord(record *RunLogRecord) (id int64, err error) {
 
 func InsertMultiRunLogDetail(details []*RunLogDetail) (num int64, err error) {
 	o := orm.NewOrm()
+	for _, detail := range details {
+		if detail.LogLevel == "ERROR" {
+			o.QueryTable("run_log_record").Filter("tracking_id", detail.TrackingId).Update(orm.Params{"LogLevel": "ERROR"})
+			break
+		}
+	}
 	num, err = o.InsertMulti(len(details), &details)
 	return
 }
