@@ -31,7 +31,7 @@
     </div>
 
     <Table :loading="loading" :height="500" border :columns="columns1" ref="selection" :data="worksteps" size="small"
-           :border="showBorder" :row-class-name="rowClassName"></Table>
+           :border="showBorder"></Table>
 
     <!-- 相关流程清单 -->
     <RelativeWork id="relativeWork" ref="relativeWork"/>
@@ -102,14 +102,43 @@
             render: (h,params)=>{
               return h('div', {}, [
                 h('span', {}, this.worksteps[params.index]['work_step_id']),
-                h('span', {    // 延迟执行函数显示效果
+                h('a', {    // 延迟执行函数显示效果
                   style: {
                     marginLeft: '10px',
                     color: 'blue',
                     fontStyle: 'italic',
                     display: oneOf(this.worksteps[params.index]['is_defer'], ["true"])  ? undefined : 'none',
                   },
-                }, 'defer'),
+                  on:{
+                    click:function () {
+                      _this.$Modal.confirm({
+                        title:"确认",
+                        width: 400,
+                        content:'defer 延迟执行',
+                      });
+                    }
+                  }
+                }, 'D'),
+                h('a', {    // 校验结果
+                  style: {
+                    marginLeft: '10px',
+                    color: 'red',
+                    fontStyle: 'italic',
+                    display: (_this.validateDetails.filter(validateDetail =>
+                        _this.$route.query.work_id == validateDetail.work_id
+                        && _this.worksteps[params.index]['work_step_id'] == validateDetail.work_step_id).length > 0)
+                      ? undefined : 'none',
+                  },
+                  on:{
+                    click:function () {
+                      _this.$Modal.confirm({
+                        title:"确认",
+                        width: 400,
+                        content:'校验失败',
+                      });
+                    }
+                  }
+                }, 'E'),
               ]);
             },
           })
@@ -128,7 +157,7 @@
                       event.stopPropagation();
                       event.preventDefault();
                       var work_step_type = event.dataTransfer.getData("Text");
-                      this.handleAddWorkStep(params.row.work_step_id, work_step_type);
+                      this.addWorkStep(params.row.work_step_id, work_step_type);
                     },
                     dragover: () => this.allowDrop(),
                   }
@@ -283,9 +312,6 @@
       },
     },
     methods:{
-      handleAddWorkStep: function(work_step_id, work_step_type){
-        this.addWorkStep(work_step_id, work_step_type);
-      },
       refreshWorkValidateDetail: async function(){
         const result = await LoadValidateResult(this.$route.query.work_id);
         if(result.status == "SUCCESS"){
@@ -416,17 +442,6 @@
         }
         return "";
       },
-      rowClassName (row, index) {
-        if(this.validateDetails != null){
-          for(var i=0; i<this.validateDetails.length; i++){
-            var validateDetail = this.validateDetails[i];
-            if(this.$route.query.work_id == validateDetail.work_id && row.work_step_id == validateDetail.work_step_id){
-              return 'demo-table-error-row';  // 高亮显示校验结果
-            }
-          }
-        }
-        return '';
-      }
     },
     mounted: function () {
       this.refreshWorkStepList();
@@ -440,12 +455,6 @@
   }
 </script>
 
-<style>
-  /*
-    vue中慎用style的scoped属性
-    scoped肯定是解决了样式私有化的问题,但同时也引入了新的问题,scoped设计的初衷就是让样式变得不可修改
-  */
-  .ivu-table .demo-table-error-row td{
-    background-color: rgba(255, 192, 203, 0.55);
-  }
+<style scoped>
+
 </style>
