@@ -12,8 +12,6 @@
       <Col span="2"><Button type="warning" size="small" @click="runWork">运行流程</Button></Col>
       <Col span="2"><Button type="info" size="small" @click="showRunLogList">运行日志</Button></Col>
       <Col span="2"><WorkValidate :work_id="_work_id"/></Col>
-      <Col span="2"><Button type="error" size="small" @click="renderSourceXml">View XML</Button></Col>
-      <Col span="2"><Button type="success" size="small" @click="renderAsTree">Render As Tree</Button></Col>
 
       <ISimpleConfirmModal ref="refactor_modal" modal-title="重构为子流程" :modal-width="500" @handleSubmit="refactor">
         <Input v-model.trim="refactor_worksub_name" placeholder="请输入重构的子流程名称"></Input>
@@ -342,12 +340,6 @@
           this.$Message.error(result.errorMsg);
         }
       },
-      renderSourceXml:function () {
-        alert(11111);
-      },
-      renderAsTree:function(){
-        alert(1111111111111);
-      },
       addWorkStep:async function (work_step_id, work_step_type) {
         const result = await AddWorkStep(this.$route.query.work_id, work_step_id, work_step_type);
         if(result.status == "SUCCESS"){
@@ -449,7 +441,7 @@
       '$route' (to, from) {
         this.refreshWorkStepList();
       }
-    }
+    },
   }
 </script>
 
