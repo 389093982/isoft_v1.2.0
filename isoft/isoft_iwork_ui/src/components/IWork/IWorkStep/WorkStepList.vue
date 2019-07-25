@@ -2,8 +2,6 @@
   <div style="margin: 10px;">
     <WorkStepComponent ref="workStepComponent"/>
 
-    <Dashboard :work-id="$route.query.work_id"/>
-
     <h4 v-if="$route.query.work_name" style="text-align: center;margin-bottom: 10px;">当前流程为：{{$route.query.work_name}}</h4>
 
     <Row type="flex" justify="start" class="code-row-bg" style="margin-bottom: 20px;">
@@ -59,12 +57,11 @@
   import WorkStepEditBtns from "./WorkStepEditBtns"
   import WorkStepComponent from "./WorkStepComponent"
   import {startsWith} from "../../../tools"
-  import Dashboard from "./Dashboard"
 
   export default {
     name: "WorkStepList",
     components:{ParamInfo,ISimpleLeftRightRow,BaseInfo,RelativeWork,WorkValidate,ISimpleConfirmModal,
-      WorkStepEditBtns,WorkStepComponent,Dashboard},
+      WorkStepEditBtns,WorkStepComponent},
     data(){
       return {
         validateDetails:[],
