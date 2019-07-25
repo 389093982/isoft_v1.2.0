@@ -16,20 +16,24 @@ func (this *WorkController) PublishSerivce() {
 	start := time.Now()
 	defer func() {
 		if err := recover(); err != nil {
-			costTime := time.Now().Sub(start).Nanoseconds() / 1e6
-			this.Data["json"] = &map[string]interface{}{"status": "ERROR", "errorMsg": err.(error).Error(), "cost(ms)": costTime}
+			this.Data["json"] = &map[string]interface{}{
+				"status":   "ERROR",
+				"errorMsg": err.(error).Error(),
+				"cost(ms)": time.Now().Sub(start).Nanoseconds() / 1e6,
+			}
 			this.ServeJSON()
 		}
 	}()
 	work_name := this.Ctx.Input.Param(":work_name")
-	work, err := models.QueryWorkByName(work_name, orm.NewOrm())
-	if err != nil {
-		panic(err)
-	}
-	steps, err := models.QueryAllWorkStepByWorkName(work_name, orm.NewOrm())
-	if err != nil {
-		panic(err)
-	}
+	var (
+		work  models.Work
+		steps []models.WorkStep
+		err   error
+	)
+	work, err = models.QueryWorkByName(work_name, orm.NewOrm())
+	checkError(err)
+	steps, err = models.QueryAllWorkStepByWorkName(work_name, orm.NewOrm())
+	checkError(err)
 	mapData := this.ParseParam(steps)
 	receiver := iworkrun.RunOneWork(work.Id, &entry.Dispatcher{TmpDataMap: mapData})
 	costTime := time.Now().Sub(start).Nanoseconds() / 1e6
@@ -57,4 +61,10 @@ func (this *WorkController) ParseParam(steps []models.WorkStep) map[string]inter
 		}
 	}
 	return mapData
+}
+
+func checkError(err error) {
+	if err != nil {
+		panic(err)
+	}
 }
