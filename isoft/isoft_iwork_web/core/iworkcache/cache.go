@@ -1,6 +1,7 @@
 package iworkcache
 
 import (
+	"encoding/xml"
 	"errors"
 	"fmt"
 	"github.com/astaxie/beego/orm"
@@ -80,14 +81,23 @@ func checkError(err error) {
 type Usage []string
 
 type WorkCache struct {
-	WorkId              int64
-	Work                models.Work
-	Steps               []models.WorkStep
-	BlockStepOrdersMap  map[int64][]*block.BlockStep            // key 为父节点 StepId
-	ParamInputSchemaMap map[int64]*iworkmodels.ParamInputSchema // key 为 WorkStepId
-	SubWorkNameMap      map[int64]string                        // key 为 WorkStepId
-	Usage               []string
-	err                 error
+	XMLName             xml.Name                                `xml:"workdl"`
+	WorkId              int64                                   `xml:"work_id,attr"`
+	Work                models.Work                             `xml:"work"`
+	Steps               []models.WorkStep                       `xml:"workstep"`
+	BlockStepOrdersMap  map[int64][]*block.BlockStep            `xml:"-"` // key 为父节点 StepId
+	ParamInputSchemaMap map[int64]*iworkmodels.ParamInputSchema `xml:"-"` // key 为 WorkStepId
+	SubWorkNameMap      map[int64]string                        `xml:"-"` // key 为 WorkStepId
+	Usage               []string                                `xml:"-"`
+	err                 error                                   `xml:"-"`
+}
+
+func (this *WorkCache) RenderToString() (s string) {
+	bytes, err := xml.MarshalIndent(this, "", "\t")
+	if err == nil {
+		s = string(bytes)
+	}
+	return
 }
 
 func (this *WorkCache) FlushCache(paramSchemaCacheParser IParamSchemaCacheParser) {

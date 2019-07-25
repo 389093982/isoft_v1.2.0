@@ -1,28 +1,38 @@
 package models
 
 import (
+	"encoding/json"
+	"encoding/xml"
 	"fmt"
 	"github.com/astaxie/beego/orm"
+	"isoft/isoft_iwork_web/core/iworkmodels"
 	"time"
 )
 
+type CDATA struct {
+	Value string `xml:",cdata"`
+}
+
 type WorkStep struct {
-	Id                   int64     `json:"id"`
-	WorkId               int64     `json:"work_id"`
-	WorkStepId           int64     `json:"work_step_id"`
-	WorkSubId            int64     `json:"work_sub_id"` // 子流程 id
-	WorkStepName         string    `json:"work_step_name"`
-	WorkStepDesc         string    `json:"work_step_desc" orm:"type(text)"`
-	WorkStepType         string    `json:"work_step_type"`
-	WorkStepIndent       int       `json:"work_step_indent"` // 调整缩进级别
-	WorkStepInput        string    `json:"work_step_input" orm:"type(text)"`
-	WorkStepOutput       string    `json:"work_step_output" orm:"type(text)"`
-	IsDefer              string    `json:"is_defer"`
-	WorkStepParamMapping string    `json:"work_step_param_mapping" orm:"type(text)"`
-	CreatedBy            string    `json:"created_by"`
-	CreatedTime          time.Time `json:"created_time" orm:"auto_now_add;type(datetime)"`
-	LastUpdatedBy        string    `json:"last_updated_by"`
-	LastUpdatedTime      time.Time `json:"last_updated_time"`
+	Id                      int64     `json:"id"`
+	WorkId                  int64     `json:"work_id"`
+	WorkStepId              int64     `json:"work_step_id"`
+	WorkSubId               int64     `json:"work_sub_id"` // 子流程 id
+	WorkStepName            string    `json:"work_step_name"`
+	WorkStepDesc            string    `json:"work_step_desc" orm:"type(text)"`
+	WorkStepType            string    `json:"work_step_type"`
+	WorkStepIndent          int       `json:"work_step_indent"` // 调整缩进级别
+	WorkStepInput           string    `json:"work_step_input" orm:"type(text)"`
+	WorkStepInputXml        CDATA     `xml:"work_step_input_xml" json:"work_step_input_xml" orm:"-"`
+	WorkStepOutput          string    `json:"work_step_output" orm:"type(text)"`
+	WorkStepOutputXml       CDATA     `xml:"work_step_output_xml" json:"work_step_output_xml" orm:"-"`
+	IsDefer                 string    `json:"is_defer"`
+	WorkStepParamMapping    string    `json:"work_step_param_mapping" orm:"type(text)"`
+	WorkStepParamMappingXml CDATA     `xml:"work_step_param_mapping_xml" json:"work_step_param_mapping_xml" orm:"-"`
+	CreatedBy               string    `json:"created_by"`
+	CreatedTime             time.Time `json:"created_time" orm:"auto_now_add;type(datetime)"`
+	LastUpdatedBy           string    `json:"last_updated_by"`
+	LastUpdatedTime         time.Time `json:"last_updated_time"`
 }
 
 // 多字段唯一键
@@ -63,7 +73,28 @@ func QueryOneWorkStep(work_id int64, work_step_id int64, o orm.Ormer) (step Work
 
 func QueryAllWorkStepInfo(work_id int64, o orm.Ormer) (steps []WorkStep, err error) {
 	_, err = o.QueryTable("work_step").Filter("work_id", work_id).OrderBy("work_step_id").All(&steps)
+	if err == nil {
+		for index, step := range steps {
+			steps[index].WorkStepInputXml = CDATA{Value: Marshal(step.WorkStepInput, new(iworkmodels.ParamInputSchema))}
+			steps[index].WorkStepOutputXml = CDATA{Value: Marshal(step.WorkStepOutput, new(iworkmodels.ParamOutputSchema))}
+			steps[index].WorkStepParamMappingXml = CDATA{Value: Marshal(step.WorkStepParamMapping, new(iworkmodels.ParamMapping))}
+		}
+	}
 	return
+}
+
+func Marshal(s string, v interface{}) string {
+
+	json.Unmarshal([]byte(s), v)
+	bytes, err := xml.MarshalIndent(v, "", "\t")
+	if err != nil {
+		fmt.Println(err)
+	}
+	return string(bytes)
+}
+
+func MarshalJsonToXml(s string) string {
+	return ""
 }
 
 func QueryWorkStepInfo(work_id int64, work_step_id int64, o orm.Ormer) (step WorkStep, err error) {

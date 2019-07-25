@@ -2,12 +2,17 @@ package controllers
 
 import (
 	"errors"
+	"fmt"
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/orm"
+	"isoft/isoft/common/stringutil"
 	"isoft/isoft_iwork_web/core/iworkcache"
 	"isoft/isoft_iwork_web/core/iworkdata/schema"
+	"isoft/isoft_iwork_web/core/iworkutil/fileutil"
 	"isoft/isoft_iwork_web/models"
 	"isoft/isoft_iwork_web/service"
+	"path"
+	"strconv"
 	"time"
 )
 
@@ -170,4 +175,15 @@ func flushCache(work_id ...int64) (err error) {
 		go saveHistory(work.Id)
 	}
 	return
+}
+
+func (this *WorkController) Download() {
+	work_id := this.Ctx.Input.Param(":work_id")
+	workId, _ := strconv.ParseInt(work_id, 10, 64)
+	parser := schema.WorkStepFactoryParamSchemaParser{}
+	workCache, _ := iworkcache.GetWorkCache(workId, &parser)
+	tofile := path.Join(beego.AppConfig.String("file.server"), stringutil.RandomUUID())
+	fileutil.WriteFile(tofile, []byte(workCache.RenderToString()), false)
+	defer fileutil.RemoveFileOrDirectory(tofile)
+	this.Ctx.Output.Download(tofile, fmt.Sprintf(`%s.txt`, workCache.Work.WorkName))
 }

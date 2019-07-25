@@ -100,6 +100,20 @@
                 }, '删除'),
                 h('Button', {
                   props: {
+                    type: 'info',
+                    size: 'small'
+                  },
+                  style: {
+                    marginRight: '5px',
+                  },
+                  on: {
+                    click: () => {
+                      this.download(this.works[params.index]['id']);
+                    }
+                  }
+                }, '下载'),
+                h('Button', {
+                  props: {
                     type: 'error',
                     size: 'small'
                   },
@@ -167,6 +181,9 @@
         this.current_page = 1;
         this.search = data;
         this.refreshWorkList();
+      },
+      download:function(id){
+        window.location.href = "/api/iwork/download/" + id;
       },
       deleteWorkById:async function(id){
         const result = await DeleteWorkById(id);
