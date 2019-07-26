@@ -10,9 +10,7 @@
       :mask-closable="false"
       :styles="{top: '20px'}"
       width="1000">
-      <Scroll height="400">
-        <span>{{workHistory}}</span>
-      </Scroll>
+      <Input type="textarea" :value="workHistory" :readonly="true" :rows="20"/>
     </Modal>
   </span>
 </template>
@@ -73,7 +71,7 @@
                   on: {
                     click: () => {
                       this.modal1 = true;
-                      this.workHistory = this.shiftEnter(this.workHistories[params.index]['work_history']);
+                      this.workHistory = this.workHistories[params.index]['work_history'];
                     }
                   }
                 }, '查看详情'),
@@ -84,21 +82,6 @@
       }
     },
     methods:{
-      // 转义成 html 符号
-      shiftEnter:function(msg){
-        return msg
-          // 转义嵌套 json
-          .replace(/\\\"/g, "&quot;")
-          .replace(/\\\'/g, "&#39;")
-          .replace(/\\n/g, "\\n\\t\\t\\t")        // 控制嵌套 json 缩进
-          .replace(/\\t/g, "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;")
-          .replace(/\\n/g, "<br>")
-          // 转义外层 json
-          .replace(/\"/g, "&quot;")
-          .replace(/\'/g, "&#39;")
-          .replace(/\t/g, "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;")
-          .replace(/\n/g, "<br>");
-      },
       refreshWorkHistoryList:async function(){
         const result = await FilterPageWorkHistory(this.offset,this.current_page);
         if(result.status=="SUCCESS"){
