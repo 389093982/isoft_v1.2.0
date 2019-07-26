@@ -11,7 +11,7 @@
       :styles="{top: '20px'}"
       width="1000">
       <Scroll height="400">
-        <span v-html="workHistory"></span>
+        <span>{{workHistory}}</span>
       </Scroll>
     </Modal>
   </span>

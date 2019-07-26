@@ -1,21 +1,17 @@
 package controllers
 
 import (
-	"encoding/json"
 	"github.com/astaxie/beego/orm"
 	"github.com/astaxie/beego/utils/pagination"
 	"isoft/isoft/common/pageutil"
+	"isoft/isoft_iwork_web/core/iworkcache"
 	"isoft/isoft_iwork_web/models"
 	"time"
 )
 
-func saveHistory(work_id int64) (err error) {
-	work, _ := models.QueryWorkById(work_id, orm.NewOrm())
-	steps, _ := models.QueryAllWorkStepInfo(work_id, orm.NewOrm())
-	historyMap := make(map[string]interface{})
-	historyMap["work"] = work
-	historyMap["steps"] = steps
-	workHistory, err := json.MarshalIndent(historyMap, "", "\t")
+func saveHistory(work_id int64, wc *iworkcache.WorkCache) (err error) {
+	work := wc.Work
+	workHistory := wc.RenderToString()
 	if err == nil {
 		history := &models.WorkHistory{
 			WorkId:          work.Id,

@@ -60,6 +60,14 @@ func UpdateWorkCache(work_id int64, paramSchemaCacheParser IParamSchemaCachePars
 	return
 }
 
+func LoadWorkCache(work_id int64) (*WorkCache, error) {
+	if cache, ok := workCacheMap.Load(work_id); ok {
+		return cache.(*WorkCache), nil
+	} else {
+		return nil, errors.New(fmt.Sprintf(`%d is not exist!`, work_id))
+	}
+}
+
 func GetWorkCache(work_id int64, paramSchemaCacheParser IParamSchemaCacheParser) (*WorkCache, error) {
 	if cache, ok := workCacheMap.Load(work_id); ok {
 		return cache.(*WorkCache), nil

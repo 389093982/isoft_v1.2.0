@@ -172,7 +172,10 @@ func flushCache(work_id ...int64) (err error) {
 		if err = iworkcache.UpdateWorkCache(work.Id, &parser); err != nil {
 			break
 		}
-		go saveHistory(work.Id)
+		if workCache, err := iworkcache.LoadWorkCache(work.Id); err == nil {
+			go saveHistory(work.Id, workCache)
+		}
+
 	}
 	return
 }
