@@ -237,8 +237,8 @@
     watch: {
       inputTextData(val) {
         // 所有占位符变量
-        this.variables = getMatchArrForString(this.inputTextData, /\$[a-zA-Z0-9]+.[a-zA-Z0-9]+/g);
-        this.variableConcats = this.inputTextData.split(/\$[a-zA-Z0-9]+.[a-zA-Z0-9]+/g);
+        this.variables = getMatchArrForString(this.inputTextData, /\$[a-zA-Z0-9]+.[a-zA-Z0-9_]+/g);
+        this.variableConcats = this.inputTextData.split(/\$[a-zA-Z0-9]+.[a-zA-Z0-9_]+/g);
       }
     }
   }
