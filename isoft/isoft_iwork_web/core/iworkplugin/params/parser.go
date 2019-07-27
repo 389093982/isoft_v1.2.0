@@ -55,8 +55,12 @@ func (this *PisItemDataParser) FillPisItemDataToNPureTmp() {
 }
 
 func (this *PisItemDataParser) ForeachFillPisItemDataToTmp() {
-	// 获取 item.ForeachRefer 对应的 repeat 切片数据,作为迭代参数,而不再从前置节点输出获取
-	repeatDatas := datatypeutil.InterfaceConvertToSlice(this.TmpDataMap[this.Item.ForeachRefer])
+	repeatDatas := make([]interface{}, 0)
+	foreachRefer := this.TmpDataMap[this.Item.ForeachRefer]
+	if foreachRefer != nil {
+		// 获取 item.ForeachRefer 对应的 repeat 切片数据,作为迭代参数,而不再从前置节点输出获取
+		repeatDatas = datatypeutil.InterfaceConvertToSlice(foreachRefer)
+	}
 	if len(repeatDatas) > 0 {
 		paramValues := make([]interface{}, 0)
 		for _, repeatData := range repeatDatas {
@@ -92,6 +96,10 @@ func (this *PisItemDataParser) ParseAndGetParamVaule(paramName, paramVaule strin
 	// 单值
 	if len(parseValues) == 1 {
 		return parseValues[0]
+	}
+	// 空值
+	if len(parseValues) == 0 {
+		return nil
 	}
 	return parseValues
 }

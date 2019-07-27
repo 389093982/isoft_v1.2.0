@@ -182,6 +182,10 @@ func getMetaDataQuietlyForQuery(step *models.WorkStep) *iworkmodels.ParamOutputS
 func getSqlBinding(tmpDataMap map[string]interface{}) []interface{} {
 	result := make([]interface{}, 0)
 	sql_binding := tmpDataMap[iworkconst.MULTI_PREFIX+"sql_binding?"]
+	if sql_binding == nil {
+		return result
+	}
+
 	t1 := reflect.TypeOf(sql_binding)
 	v1 := reflect.ValueOf(sql_binding)
 	// 支持单层切片和双层切片
