@@ -75,6 +75,8 @@
                  @drop.native="handlePlaceholderDrop($event, index)" @dragover.native="handleDragover">{{variable}}
                  <Icon type="ios-close" style="margin-left: 10px;" @click="deleteVariable(index)"/>
                  <Icon type="md-create" style="margin-left: 10px;" @click="editVariable(index)"/>
+                 <span><input type="text" v-show="variablesShowEdit[index] == true"
+                  :id="'variablesShowEdit_' + index"></input></span>
             </Tag>
           </Scroll>
 
@@ -123,6 +125,7 @@
         paramIndex:1,
         prePosTreeNodeArr:[],
         variables:[],
+        variablesShowEdit:[],
         variableConcats:[],
         editProgress: 0,
       }
@@ -247,7 +250,14 @@
         this.handleRefillInputTextData();
       },
       editVariable:function (index) {
-        alert(11111);
+        if(this.variablesShowEdit[index] == false){
+          this.$set(this.variablesShowEdit, index, true);  // 刷新界面
+        }else{
+          this.$set(this.variablesShowEdit, index, false);
+          let _variablesShowEdit = document.getElementById("variablesShowEdit_" + index).value;
+          this.$set(this.variables, index,
+            checkEmpty(_variablesShowEdit) == true ? this.variables[index] : _variablesShowEdit);
+        }
       }
     },
     watch: {
@@ -255,6 +265,9 @@
         // 所有占位符变量
         this.variables = getMatchArrForString(this.inputTextData, /\$[a-zA-Z0-9_]+\.[a-zA-Z0-9_]+/g);
         this.variableConcats = this.inputTextData.split(/\$[a-zA-Z0-9_]+\.[a-zA-Z0-9_]+/g);
+        for (var i=0; i<this.variables.length; i++){
+          this.variablesShowEdit[i] = false;
+        }
       }
     }
   }
