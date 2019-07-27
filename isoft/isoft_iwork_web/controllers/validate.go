@@ -204,7 +204,7 @@ func checkVariableRelationShipDetail(item iworkmodels.ParamInputSchemaItem, work
 		return
 	}
 	preStepNodeNames := iworkutil.GetAllPreStepNodeName(work_id, work_step_id)
-	skipNodeNames := []string{"RESOURCE", "WORK", "Error"}
+	skipNodeNames := []string{"RESOURCE", "WORK", "Error", "Global"}
 	for _, refer := range refers {
 		referNodeName := refer[1:strings.Index(refer, ".")]
 		referFiledName := refer[strings.Index(refer, ".")+1:]
