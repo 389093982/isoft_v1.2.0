@@ -72,8 +72,14 @@
           <p style="margin-top: 5px;">变量占位符</p>
           <Scroll height="100">
             <Tag color="default" v-for="(variable,index) in variables" style="margin-right: 10px;"
-                 @drop.native="handlePlaceholderDrop($event, index)" @dragover.native="handleDragover">{{variable}}</Tag>
+                 @drop.native="handlePlaceholderDrop($event, index)" @dragover.native="handleDragover">{{variable}}
+                 <Icon type="ios-close" style="margin-left: 10px;" @click="deleteVariable(index)"/>
+                 <Icon type="md-create" style="margin-left: 10px;" @click="editVariable(index)"/>
+            </Tag>
           </Scroll>
+
+          临时区
+          临时区占位符
 
           <Row style="text-align: right;margin-top: 10px;">
             <Button type="success" size="small" @click="handleSubmit">Submit</Button>
@@ -128,6 +134,9 @@
         event.preventDefault();
         var transferText = event.dataTransfer.getData("Text");
         this.variables[index] =  transferText.substr(0, transferText.lastIndexOf(";\n"));     // 将值替换进 variables
+        this.handleRefillInputTextData();
+      },
+      handleRefillInputTextData:function(){
         var _inputTextData = "";
         for(var i=0; i<this.variableConcats.length; i++){
           _inputTextData += this.variableConcats[i] + (i == this.variableConcats.length - 1 ? "" : this.variables[i]);
@@ -233,6 +242,13 @@
         this.inputTextData = this.inputTextData + template.template_value;
         this.$refs.templateModal.hideModal();
       },
+      deleteVariable:function (index) {
+        this.variables[index] = "";
+        this.handleRefillInputTextData();
+      },
+      editVariable:function (index) {
+        alert(11111);
+      }
     },
     watch: {
       inputTextData(val) {
