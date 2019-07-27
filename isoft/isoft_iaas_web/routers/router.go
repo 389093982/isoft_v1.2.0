@@ -130,7 +130,8 @@ func initIBlogRouter() {
 
 func loadISSORouter() {
 	beego.Router("/api/sso/user/login", &sso.LoginController{}, "post:PostLogin")
-	beego.Router("/api/sso/user/regist", &sso.LoginController{}, "post:PostRegist")
+	//beego.Router("/api/sso/user/regist", &sso.LoginController{}, "post:PostRegist")
+	beego.Router("/api/sso/user/regist", &sso.LoginController{}, "post:PostRegist2")
 	beego.Router("/api/sso/app/appRegisterList", &sso.AppRegisterController{}, "post:AppRegisterList")
 	beego.Router("/api/sso/app/addAppRegister", &sso.AppRegisterController{}, "get,post:AddAppRegister")
 	beego.Router("/api/sso/user/loginRecordList", &sso.LoginRecordController{}, "post:LoginRecordList")
