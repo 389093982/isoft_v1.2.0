@@ -5,39 +5,20 @@ import (
 	"isoft/isoft/common/httputil"
 )
 
-type ShowShareDetailResult struct {
-	Status string `json:"status"`
-	Cost   int64  `json:"cost_ms"`
-	Result struct {
-		ErrorMsg string      `json:"errorMsg"`
-		Share    interface{} `json:"share"`
-	}
-}
-
 func (this *ShareController) ShowShareDetail2() {
 	paramMap := map[string]interface{}{
 		"share_id": beegoutil.GetInt64(this, "share_id", -1),
 	}
 	url := "http://localhost:8086/api/iwork/httpservice/ShowShareDetail2"
 	headerMap := map[string]interface{}{}
-	result := new(ShowShareDetailResult)
+	result := make(map[string]interface{})
 	err := httputil.DoHttpRequestAndParseToObj(url, "post", paramMap, headerMap, &result)
 	if err == nil {
-		this.Data["json"] = &map[string]interface{}{"status": "SUCCESS", "share": result.Result.Share}
+		this.Data["json"] = &result
 	} else {
 		this.Data["json"] = &map[string]interface{}{"status": "ERROR", "errorMsg": err.Error()}
 	}
 	this.ServeJSON()
-}
-
-type FilterShareListResult struct {
-	Status string `json:"status"`
-	Cost   int64  `json:"cost_ms"`
-	Result struct {
-		ErrorMsg  string      `json:"errorMsg"`
-		Shares    interface{} `json:"shares"`
-		Paginator interface{} `json:"paginator"`
-	}
 }
 
 func (this *ShareController) FilterShareList2() {
@@ -49,19 +30,14 @@ func (this *ShareController) FilterShareList2() {
 	}
 	url := "http://localhost:8086/api/iwork/httpservice/FilterShareList2"
 	headerMap := map[string]interface{}{}
-	result := new(FilterShareListResult)
+	result := make(map[string]interface{})
 	err := httputil.DoHttpRequestAndParseToObj(url, "post", paramMap, headerMap, &result)
 	if err == nil {
-		this.Data["json"] = &map[string]interface{}{"status": "SUCCESS", "shares": &result.Result.Shares, "paginator": &result.Result.Paginator}
+		this.Data["json"] = &result
 	} else {
 		this.Data["json"] = &map[string]interface{}{"status": "ERROR", "errorMsg": err.Error()}
 	}
 	this.ServeJSON()
-}
-
-type AddNewShareResult struct {
-	Status   string `json:"status"`
-	ErrorMsg string `json:"error_msg"`
 }
 
 func (this *ShareController) AddNewShare2() {
@@ -74,10 +50,10 @@ func (this *ShareController) AddNewShare2() {
 	}
 	url := "http://localhost:8086/api/iwork/httpservice/AddNewShare2"
 	headerMap := map[string]interface{}{}
-	result := new(AddNewShareResult)
+	result := make(map[string]interface{})
 	err := httputil.DoHttpRequestAndParseToObj(url, "post", paramMap, headerMap, &result)
 	if err == nil {
-		this.Data["json"] = &map[string]interface{}{"status": "SUCCESS"}
+		this.Data["json"] = &result
 	} else {
 		this.Data["json"] = &map[string]interface{}{"status": "ERROR", "errorMsg": err.Error()}
 	}

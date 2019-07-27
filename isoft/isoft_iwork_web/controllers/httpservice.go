@@ -8,18 +8,15 @@ import (
 	"isoft/isoft_iwork_web/core/iworkrun"
 	"isoft/isoft_iwork_web/models"
 	"strings"
-	"time"
 )
 
 // 示例地址: http://localhost:8086/api/iwork/httpservice/test_iblog_table_migrate?author0=admin1234567
 func (this *WorkController) PublishSerivce() {
-	start := time.Now()
 	defer func() {
 		if err := recover(); err != nil {
 			this.Data["json"] = &map[string]interface{}{
 				"status":   "ERROR",
 				"errorMsg": err.(error).Error(),
-				"cost(ms)": time.Now().Sub(start).Nanoseconds() / 1e6,
 			}
 			this.ServeJSON()
 		}
@@ -36,11 +33,10 @@ func (this *WorkController) PublishSerivce() {
 	checkError(err)
 	mapData := this.ParseParam(steps)
 	receiver := iworkrun.RunOneWork(work.Id, &entry.Dispatcher{TmpDataMap: mapData})
-	costTime := time.Now().Sub(start).Nanoseconds() / 1e6
 	if receiver != nil {
-		this.Data["json"] = &map[string]interface{}{"status": "SUCCESS", "result": receiver.TmpDataMap, "cost_ms": costTime}
+		this.Data["json"] = &receiver.TmpDataMap
 	} else {
-		this.Data["json"] = &map[string]interface{}{"status": "SUCCESS", "cost(ms)": costTime}
+		this.Data["json"] = &map[string]interface{}{"status": "ERROR", "errorMsg": "Empty Response"}
 	}
 	this.ServeJSON()
 }
