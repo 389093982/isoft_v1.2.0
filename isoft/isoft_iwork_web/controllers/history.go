@@ -1,15 +1,18 @@
 package controllers
 
 import (
+	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/orm"
 	"github.com/astaxie/beego/utils/pagination"
 	"isoft/isoft/common/pageutil"
 	"isoft/isoft_iwork_web/core/iworkcache"
+	"isoft/isoft_iwork_web/core/iworkutil/fileutil"
 	"isoft/isoft_iwork_web/models"
+	"path"
 	"time"
 )
 
-func saveHistory(work_id int64, wc *iworkcache.WorkCache) (err error) {
+func saveHistory(wc *iworkcache.WorkCache) (err error) {
 	work := wc.Work
 	workHistory := wc.RenderToString()
 	if err == nil {
@@ -25,6 +28,9 @@ func saveHistory(work_id int64, wc *iworkcache.WorkCache) (err error) {
 		}
 		_, err = models.InsertOrUpdateWorkHistory(history)
 	}
+	fileServer := beego.AppConfig.String("work.cache.home")
+	filename := path.Join(fileServer, work.WorkName+".work")
+	fileutil.WriteFile(filename, []byte(workHistory), false)
 	return
 }
 

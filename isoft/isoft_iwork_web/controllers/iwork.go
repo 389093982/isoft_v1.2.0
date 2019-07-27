@@ -173,7 +173,7 @@ func flushCache(work_id ...int64) (err error) {
 			break
 		}
 		if workCache, err := iworkcache.LoadWorkCache(work.Id); err == nil {
-			go saveHistory(work.Id, workCache)
+			go saveHistory(workCache)
 		}
 
 	}
