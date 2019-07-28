@@ -35,32 +35,32 @@ func parseAssignRefer(paramName, assignVar_pureText string) (string, string) {
 }
 
 func (this *AssignVarNode) Execute(trackingId string) {
-	for paramName, paramValue := range this.TmpDataMap {
-		if strings.HasSuffix(paramName, "_operate") {
-			_paramName := paramName[:strings.LastIndex(paramName, "_operate")]
-			assignVar := this.TmpDataMap[_paramName]
-			assignOperate := paramValue.(string)
-			assignVal := this.TmpDataMap[_paramName+"_value"]
-
-			// pureText
-			assignVar_pureText := this.PureTextTmpDataMap[_paramName].(string)
-			assignNodeName, assignDataName := parseAssignRefer(_paramName, assignVar_pureText)
-
-			assign := NodeAssign{
-				AssignVar:     assignVar,
-				AssignOperate: assignOperate,
-				AssignData:    assignVal,
-			}
-			assignVar, err := assign.Calculate()
-			if err != nil {
-				panic(err)
-			}
-			// 重新将值绑定到对应的 assign 节点
-			this.DataStore.CacheDatas(assignNodeName, map[string]interface{}{
-				assignDataName: assignVar,
-			})
-		}
-	}
+	//for paramName, paramValue := range this.TmpDataMap {
+	//	if strings.HasSuffix(paramName, "_operate") {
+	//		_paramName := paramName[:strings.LastIndex(paramName, "_operate")]
+	//		assignVar := this.TmpDataMap[_paramName]
+	//		assignOperate := paramValue.(string)
+	//		assignVal := this.TmpDataMap[_paramName+"_value"]
+	//
+	//		// pureText
+	//		assignVar_pureText := this.PureTextTmpDataMap[_paramName].(string)
+	//		assignNodeName, assignDataName := parseAssignRefer(_paramName, assignVar_pureText)
+	//
+	//		assign := NodeAssign{
+	//			AssignVar:     assignVar,
+	//			AssignOperate: assignOperate,
+	//			AssignData:    assignVal,
+	//		}
+	//		assignVar, err := assign.Calculate()
+	//		if err != nil {
+	//			panic(err)
+	//		}
+	//		// 重新将值绑定到对应的 assign 节点
+	//		this.DataStore.CacheDatas(assignNodeName, map[string]interface{}{
+	//			assignDataName: assignVar,
+	//		})
+	//	}
+	//}
 }
 
 func (this *AssignVarNode) GetRuntimeParamInputSchema() *iworkmodels.ParamInputSchema {
@@ -69,15 +69,6 @@ func (this *AssignVarNode) GetRuntimeParamInputSchema() *iworkmodels.ParamInputS
 	items := make([]iworkmodels.ParamInputSchemaItem, 0)
 	for _, paramMapping := range paramMappingsArr {
 		items = append(items, iworkmodels.ParamInputSchemaItem{ParamName: paramMapping.ParamMappingName})
-		items = append(items, iworkmodels.ParamInputSchemaItem{
-			ParamName: paramMapping.ParamMappingName + "_operate",
-			ParamChoices: []string{
-				"`stringAssign`",
-				"`interface{}Assign`",
-				"`[]interface{}Assign`",
-				"`map[string]interface{}Assign`",
-			},
-		})
 		items = append(items, iworkmodels.ParamInputSchemaItem{ParamName: paramMapping.ParamMappingName + "_value"})
 	}
 	return &iworkmodels.ParamInputSchema{ParamInputSchemaItems: items}

@@ -220,9 +220,69 @@
 		<LastUpdatedTime>2019-07-28T13:32:14+08:00</LastUpdatedTime>
 	</workstep>
 	<workstep>
-		<Id>879</Id>
+		<Id>884</Id>
 		<WorkId>180</WorkId>
 		<WorkStepId>4</WorkStepId>
+		<WorkSubId>0</WorkSubId>
+		<WorkStepName>define_var_context</WorkStepName>
+		<WorkStepDesc></WorkStepDesc>
+		<WorkStepType>define_var</WorkStepType>
+		<WorkStepIndent>0</WorkStepIndent>
+		<WorkStepInput>{&#xA;&#x9;&#34;ParamInputSchemaItems&#34;: [&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;&#34;ParamName&#34;: &#34;str_define_vars&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamDesc&#34;: &#34;待定义的变量&#34;,&#xA;&#x9;&#x9;&#x9;&#34;Repeatable&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ForeachRefer&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamChoices&#34;: null,&#xA;&#x9;&#x9;&#x9;&#34;PureText&#34;: true,&#xA;&#x9;&#x9;&#x9;&#34;ParamValue&#34;: &#34;loginSuccess,loginStatus,tokenString,domain,adminLogin&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamType&#34;: &#34;&#34;&#xA;&#x9;&#x9;}&#xA;&#x9;]&#xA;}</WorkStepInput>
+		<work_step_input_xml><![CDATA[<paramInputSchema>
+	<paramInputSchemaItem>
+		<paramName>str_define_vars</paramName>
+		<paramDesc>待定义的变量</paramDesc>
+		<repeatable>false</repeatable>
+		<foreachRefer></foreachRefer>
+		<pureText>true</pureText>
+		<paramValue>loginSuccess,loginStatus,tokenString,domain,adminLogin</paramValue>
+		<paramType></paramType>
+	</paramInputSchemaItem>
+</paramInputSchema>]]></work_step_input_xml>
+		<WorkStepOutput>{&#xA;&#x9;&#34;ParamOutputSchemaItems&#34;: [&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;&#34;ParentPath&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamName&#34;: &#34;loginSuccess&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamValue&#34;: &#34;&#34;&#xA;&#x9;&#x9;},&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;&#34;ParentPath&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamName&#34;: &#34;loginStatus&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamValue&#34;: &#34;&#34;&#xA;&#x9;&#x9;},&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;&#34;ParentPath&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamName&#34;: &#34;tokenString&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamValue&#34;: &#34;&#34;&#xA;&#x9;&#x9;},&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;&#34;ParentPath&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamName&#34;: &#34;domain&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamValue&#34;: &#34;&#34;&#xA;&#x9;&#x9;},&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;&#34;ParentPath&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamName&#34;: &#34;adminLogin&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamValue&#34;: &#34;&#34;&#xA;&#x9;&#x9;}&#xA;&#x9;]&#xA;}</WorkStepOutput>
+		<work_step_output_xml><![CDATA[<paramOutputSchema>
+	<paramOutputSchemaItem>
+		<parentPath></parentPath>
+		<paramName>loginSuccess</paramName>
+		<paramValue></paramValue>
+	</paramOutputSchemaItem>
+	<paramOutputSchemaItem>
+		<parentPath></parentPath>
+		<paramName>loginStatus</paramName>
+		<paramValue></paramValue>
+	</paramOutputSchemaItem>
+	<paramOutputSchemaItem>
+		<parentPath></parentPath>
+		<paramName>tokenString</paramName>
+		<paramValue></paramValue>
+	</paramOutputSchemaItem>
+	<paramOutputSchemaItem>
+		<parentPath></parentPath>
+		<paramName>domain</paramName>
+		<paramValue></paramValue>
+	</paramOutputSchemaItem>
+	<paramOutputSchemaItem>
+		<parentPath></parentPath>
+		<paramName>adminLogin</paramName>
+		<paramValue></paramValue>
+	</paramOutputSchemaItem>
+</paramOutputSchema>]]></work_step_output_xml>
+		<IsDefer>false</IsDefer>
+		<WorkStepParamMapping>[]</WorkStepParamMapping>
+		<work_step_param_mapping_xml><![CDATA[<ParamMapping>
+	<ParamMappingName></ParamMappingName>
+	<ParamMappingType></ParamMappingType>
+</ParamMapping>]]></work_step_param_mapping_xml>
+		<CreatedBy>SYSTEM</CreatedBy>
+		<CreatedTime>2019-07-28T15:45:35+08:00</CreatedTime>
+		<LastUpdatedBy>SYSTEM</LastUpdatedBy>
+		<LastUpdatedTime>2019-07-28T15:45:35+08:00</LastUpdatedTime>
+	</workstep>
+	<workstep>
+		<Id>879</Id>
+		<WorkId>180</WorkId>
+		<WorkStepId>5</WorkStepId>
 		<WorkSubId>0</WorkSubId>
 		<WorkStepName>if_adminLogin</WorkStepName>
 		<WorkStepDesc></WorkStepDesc>
@@ -260,65 +320,33 @@
 		<LastUpdatedTime>2019-07-28T15:06:50+08:00</LastUpdatedTime>
 	</workstep>
 	<workstep>
-		<Id>882</Id>
+		<Id>885</Id>
 		<WorkId>180</WorkId>
-		<WorkStepId>5</WorkStepId>
+		<WorkStepId>6</WorkStepId>
 		<WorkSubId>0</WorkSubId>
 		<WorkStepName>assign_var_context_admin</WorkStepName>
 		<WorkStepDesc></WorkStepDesc>
 		<WorkStepType>assign_var</WorkStepType>
 		<WorkStepIndent>1</WorkStepIndent>
-		<WorkStepInput>{&#xA;&#x9;&#34;ParamInputSchemaItems&#34;: [&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;&#34;ParamName&#34;: &#34;context&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamDesc&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;Repeatable&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ForeachRefer&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamChoices&#34;: null,&#xA;&#x9;&#x9;&#x9;&#34;PureText&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ParamValue&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamType&#34;: &#34;&#34;&#xA;&#x9;&#x9;},&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;&#34;ParamName&#34;: &#34;context_operate&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamDesc&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;Repeatable&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ForeachRefer&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamChoices&#34;: [&#xA;&#x9;&#x9;&#x9;&#x9;&#34;`stringAssign`&#34;,&#xA;&#x9;&#x9;&#x9;&#x9;&#34;`interface{}Assign`&#34;,&#xA;&#x9;&#x9;&#x9;&#x9;&#34;`[]interface{}Assign`&#34;,&#xA;&#x9;&#x9;&#x9;&#x9;&#34;`map[string]interface{}Assign`&#34;&#xA;&#x9;&#x9;&#x9;],&#xA;&#x9;&#x9;&#x9;&#34;PureText&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ParamValue&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamType&#34;: &#34;&#34;&#xA;&#x9;&#x9;},&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;&#34;ParamName&#34;: &#34;context_value&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamDesc&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;Repeatable&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ForeachRefer&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamChoices&#34;: null,&#xA;&#x9;&#x9;&#x9;&#34;PureText&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ParamValue&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamType&#34;: &#34;&#34;&#xA;&#x9;&#x9;}&#xA;&#x9;]&#xA;}</WorkStepInput>
-		<work_step_input_xml><![CDATA[<paramInputSchema>
-	<paramInputSchemaItem>
-		<paramName>context</paramName>
-		<paramDesc></paramDesc>
-		<repeatable>false</repeatable>
-		<foreachRefer></foreachRefer>
-		<pureText>false</pureText>
-		<paramValue></paramValue>
-		<paramType></paramType>
-	</paramInputSchemaItem>
-	<paramInputSchemaItem>
-		<paramName>context_operate</paramName>
-		<paramDesc></paramDesc>
-		<repeatable>false</repeatable>
-		<foreachRefer></foreachRefer>
-		<paramChoices>`stringAssign`</paramChoices>
-		<paramChoices>`interface{}Assign`</paramChoices>
-		<paramChoices>`[]interface{}Assign`</paramChoices>
-		<paramChoices>`map[string]interface{}Assign`</paramChoices>
-		<pureText>false</pureText>
-		<paramValue></paramValue>
-		<paramType></paramType>
-	</paramInputSchemaItem>
-	<paramInputSchemaItem>
-		<paramName>context_value</paramName>
-		<paramDesc></paramDesc>
-		<repeatable>false</repeatable>
-		<foreachRefer></foreachRefer>
-		<pureText>false</pureText>
-		<paramValue></paramValue>
-		<paramType></paramType>
-	</paramInputSchemaItem>
-</paramInputSchema>]]></work_step_input_xml>
-		<WorkStepOutput>{&#xA;&#x9;&#34;ParamOutputSchemaItems&#34;: null&#xA;}</WorkStepOutput>
+		<WorkStepInput></WorkStepInput>
+		<work_step_input_xml><![CDATA[<paramInputSchema></paramInputSchema>]]></work_step_input_xml>
+		<WorkStepOutput></WorkStepOutput>
 		<work_step_output_xml><![CDATA[<paramOutputSchema></paramOutputSchema>]]></work_step_output_xml>
 		<IsDefer>false</IsDefer>
-		<WorkStepParamMapping>[{&#34;paramMappingName&#34;:&#34;context&#34;,&#34;paramMappingType&#34;:&#34;default&#34;}]</WorkStepParamMapping>
+		<WorkStepParamMapping></WorkStepParamMapping>
 		<work_step_param_mapping_xml><![CDATA[<ParamMapping>
 	<ParamMappingName></ParamMappingName>
 	<ParamMappingType></ParamMappingType>
 </ParamMapping>]]></work_step_param_mapping_xml>
 		<CreatedBy>SYSTEM</CreatedBy>
-		<CreatedTime>2019-07-28T15:11:29+08:00</CreatedTime>
+		<CreatedTime>2019-07-28T15:45:49+08:00</CreatedTime>
 		<LastUpdatedBy>SYSTEM</LastUpdatedBy>
-		<LastUpdatedTime>2019-07-28T15:11:29+08:00</LastUpdatedTime>
+		<LastUpdatedTime>2019-07-28T15:45:49+08:00</LastUpdatedTime>
 	</workstep>
 	<workstep>
 		<Id>880</Id>
 		<WorkId>180</WorkId>
-		<WorkStepId>6</WorkStepId>
+		<WorkStepId>7</WorkStepId>
 		<WorkSubId>0</WorkSubId>
 		<WorkStepName>else_not_adminLogin</WorkStepName>
 		<WorkStepDesc></WorkStepDesc>
@@ -340,9 +368,9 @@
 		<LastUpdatedTime>2019-07-28T15:02:31+08:00</LastUpdatedTime>
 	</workstep>
 	<workstep>
-		<Id>883</Id>
+		<Id>886</Id>
 		<WorkId>180</WorkId>
-		<WorkStepId>7</WorkStepId>
+		<WorkStepId>8</WorkStepId>
 		<WorkSubId>0</WorkSubId>
 		<WorkStepName>assign_var_context_normal</WorkStepName>
 		<WorkStepDesc></WorkStepDesc>
@@ -359,14 +387,14 @@
 	<ParamMappingType></ParamMappingType>
 </ParamMapping>]]></work_step_param_mapping_xml>
 		<CreatedBy>SYSTEM</CreatedBy>
-		<CreatedTime>2019-07-28T15:10:41+08:00</CreatedTime>
+		<CreatedTime>2019-07-28T15:45:52+08:00</CreatedTime>
 		<LastUpdatedBy>SYSTEM</LastUpdatedBy>
-		<LastUpdatedTime>2019-07-28T15:10:41+08:00</LastUpdatedTime>
+		<LastUpdatedTime>2019-07-28T15:45:52+08:00</LastUpdatedTime>
 	</workstep>
 	<workstep>
 		<Id>876</Id>
 		<WorkId>180</WorkId>
-		<WorkStepId>8</WorkStepId>
+		<WorkStepId>9</WorkStepId>
 		<WorkSubId>0</WorkSubId>
 		<WorkStepName>end</WorkStepName>
 		<WorkStepDesc>end节点</WorkStepDesc>
