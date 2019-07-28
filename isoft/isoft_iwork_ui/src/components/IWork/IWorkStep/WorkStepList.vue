@@ -1,6 +1,7 @@
 <template>
   <div style="margin: 10px;">
     <WorkStepComponent ref="workStepComponent"/>
+    <ParamDashboard v-show="showParamDashboard" :worksteps="worksteps"/>
 
     <h4 v-if="$route.query.work_name" style="text-align: center;margin-bottom: 10px;">当前流程为：{{$route.query.work_name}}</h4>
 
@@ -11,6 +12,7 @@
       <Col span="2"><Button type="error" size="small" @click="batchChangeIndent('right', null)">向右缩进</Button></Col>
       <Col span="2"><Button type="warning" size="small" @click="runWork">运行流程</Button></Col>
       <Col span="2"><Button type="info" size="small" @click="showRunLogList">运行日志</Button></Col>
+      <Col span="2"><Button type="warning" size="small" @click="showParamDashboard = !showParamDashboard">参数可视</Button></Col>
       <Col span="2"><WorkValidate :work_id="_work_id"/></Col>
 
       <ISimpleConfirmModal ref="refactor_modal" modal-title="重构为子流程" :modal-width="500" @handleSubmit="refactor">
@@ -56,12 +58,13 @@
   import {EditWorkStepBaseInfo} from "../../../api/index"
   import WorkStepEditBtns from "./WorkStepEditBtns"
   import WorkStepComponent from "./WorkStepComponent"
+  import ParamDashboard from "./ParamDashboard"
   import {startsWith} from "../../../tools"
 
   export default {
     name: "WorkStepList",
     components:{ParamInfo,ISimpleLeftRightRow,BaseInfo,RelativeWork,WorkValidate,ISimpleConfirmModal,
-      WorkStepEditBtns,WorkStepComponent},
+      WorkStepEditBtns,WorkStepComponent,ParamDashboard},
     data(){
       return {
         validateDetails:[],
@@ -75,6 +78,7 @@
         showBorder: true,
         showIndex: true,
         showCheckbox: true,
+        showParamDashboard:false,
       }
     },
     computed:{
