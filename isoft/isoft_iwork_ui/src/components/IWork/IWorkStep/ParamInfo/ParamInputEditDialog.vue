@@ -75,13 +75,12 @@
                  @drop.native="handlePlaceholderDrop($event, index)" @dragover.native="handleDragover">{{variable}}
                  <Icon type="ios-close" style="margin-left: 10px;" @click="deleteVariable(index)"/>
                  <Icon type="md-create" style="margin-left: 10px;" @click="editVariable(index)"/>
-                 <span><input type="text" v-show="variablesShowEdit[index] == true"
-                  :id="'variablesShowEdit_' + index"></input></span>
+                 <span>
+                   <input type="text" v-show="variablesShowEdit[index] == true"
+                      :id="'variablesShowEdit_' + index"></input>
+                 </span>
             </Tag>
           </Scroll>
-
-          临时区
-          临时区占位符
 
           <Row style="text-align: right;margin-top: 10px;">
             <Button type="success" size="small" @click="handleSubmit">Submit</Button>
@@ -257,6 +256,7 @@
           let _variablesShowEdit = document.getElementById("variablesShowEdit_" + index).value;
           this.$set(this.variables, index,
             checkEmpty(_variablesShowEdit) == true ? this.variables[index] : _variablesShowEdit);
+          this.handleRefillInputTextData();
         }
       }
     },
