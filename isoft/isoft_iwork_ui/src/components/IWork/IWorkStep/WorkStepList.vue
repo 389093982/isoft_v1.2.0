@@ -314,7 +314,7 @@
     },
     methods:{
       showParamDashboardFunc:function(){
-        this.showParamDashboard = !this.showParamDashboard;
+        this.showParamDashboard = true;
         this.$refs.paramDashBoard.showParamDashboard(true);
       },
       refreshWorkValidateDetail: async function(){

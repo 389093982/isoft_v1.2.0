@@ -13,12 +13,22 @@
       <Row>
         <Col span="12">
           <ul v-for="pis in paramInputSchema.ParamInputSchemaItems">
-            <li style="list-style: none;">{{pis.ParamName}}</li>
+            <li style="list-style: none;">
+              <Tooltip max-width="400" theme="light">
+                {{pis.ParamName}}
+                <div slot="content" style="word-break: break-all;">{{pis.ParamValue}}</div>
+              </Tooltip>
+            </li>
           </ul>
         </Col>
         <Col span="12">
           <ul v-for="pos in paramOutputSchema.ParamOutputSchemaItems">
-            <li style="list-style: none;">{{pos.ParamName}}</li>
+            <li style="list-style: none;">
+              <Tooltip max-width="400" theme="light">
+                {{pos.ParamName}}
+                <div slot="content" style="word-break: break-all;">{{pos.ParamValue}}</div>
+              </Tooltip>
+            </li>
           </ul>
         </Col>
       </Row>
