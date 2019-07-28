@@ -1,6 +1,6 @@
 <template>
   <span v-if="paramInputSchema != null && paramOutputSchema != null">
-    <Card style="width:350px">
+    <Card style="width:350px;margin: 10px;">
       <p slot="title">
         <Icon type="ios-film-outline"></Icon>
         {{workstep.work_step_name}}

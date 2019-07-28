@@ -1,11 +1,11 @@
 <template>
-  <div>
-    <Row>
-      <Col span="12" v-for="workstep in worksteps">
+  <Modal v-model="showModal" fullscreen title="Fullscreen Modal">
+    <ul>
+      <li v-for="workstep in worksteps" style="float: left;">
         <WorkStepParamDashboard :workstep="workstep"/>
-      </Col>
-    </Row>
-  </div>
+      </li>
+    </ul>
+  </Modal>
 </template>
 
 <script>
@@ -20,6 +20,16 @@
         default:[],
       }
     },
+    data(){
+      return {
+        showModal:true,
+      }
+    },
+    methods:{
+      showParamDashboard:function (flag) {
+        this.showModal = flag;
+      }
+    }
   }
 </script>
 
