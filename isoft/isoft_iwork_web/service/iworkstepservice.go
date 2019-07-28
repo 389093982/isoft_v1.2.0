@@ -513,7 +513,6 @@ func BuildDynamic(work_id int64, work_step_id int64, step models.WorkStep, o orm
 	step, _ = models.QueryWorkStepInfo(work_id, work_step_id, o)
 	// 自动创建子流程
 	iworkbuild.BuildAutoCreateSubWork(step, o, InsertStartEndWorkStepNode)
-
 	step, _ = models.QueryWorkStepInfo(work_id, work_step_id, o)
 	// 构建动态输入值
 	iworkbuild.BuildDynamicInput(step, o)

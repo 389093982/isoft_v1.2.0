@@ -328,20 +328,75 @@
 		<WorkStepDesc></WorkStepDesc>
 		<WorkStepType>assign_var</WorkStepType>
 		<WorkStepIndent>1</WorkStepIndent>
-		<WorkStepInput></WorkStepInput>
-		<work_step_input_xml><![CDATA[<paramInputSchema></paramInputSchema>]]></work_step_input_xml>
-		<WorkStepOutput></WorkStepOutput>
+		<WorkStepInput>{&#xA;&#x9;&#34;ParamInputSchemaItems&#34;: [&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;&#34;ParamName&#34;: &#34;str_assign_obj&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamDesc&#34;: &#34;待赋值的对象&#34;,&#xA;&#x9;&#x9;&#x9;&#34;Repeatable&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ForeachRefer&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamChoices&#34;: null,&#xA;&#x9;&#x9;&#x9;&#34;PureText&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ParamValue&#34;: &#34;$define_var_context;\n&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamType&#34;: &#34;&#34;&#xA;&#x9;&#x9;},&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;&#34;ParamName&#34;: &#34;loginSuccess?&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamDesc&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;Repeatable&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ForeachRefer&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamChoices&#34;: null,&#xA;&#x9;&#x9;&#x9;&#34;PureText&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ParamValue&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamType&#34;: &#34;&#34;&#xA;&#x9;&#x9;},&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;&#34;ParamName&#34;: &#34;loginStatus?&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamDesc&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;Repeatable&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ForeachRefer&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamChoices&#34;: null,&#xA;&#x9;&#x9;&#x9;&#34;PureText&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ParamValue&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamType&#34;: &#34;&#34;&#xA;&#x9;&#x9;},&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;&#34;ParamName&#34;: &#34;tokenString?&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamDesc&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;Repeatable&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ForeachRefer&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamChoices&#34;: null,&#xA;&#x9;&#x9;&#x9;&#34;PureText&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ParamValue&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamType&#34;: &#34;&#34;&#xA;&#x9;&#x9;},&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;&#34;ParamName&#34;: &#34;domain?&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamDesc&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;Repeatable&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ForeachRefer&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamChoices&#34;: null,&#xA;&#x9;&#x9;&#x9;&#34;PureText&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ParamValue&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamType&#34;: &#34;&#34;&#xA;&#x9;&#x9;},&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;&#34;ParamName&#34;: &#34;adminLogin?&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamDesc&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;Repeatable&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ForeachRefer&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamChoices&#34;: null,&#xA;&#x9;&#x9;&#x9;&#34;PureText&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ParamValue&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamType&#34;: &#34;&#34;&#xA;&#x9;&#x9;}&#xA;&#x9;]&#xA;}</WorkStepInput>
+		<work_step_input_xml><![CDATA[<paramInputSchema>
+	<paramInputSchemaItem>
+		<paramName>str_assign_obj</paramName>
+		<paramDesc>待赋值的对象</paramDesc>
+		<repeatable>false</repeatable>
+		<foreachRefer></foreachRefer>
+		<pureText>false</pureText>
+		<paramValue>$define_var_context;&#xA;</paramValue>
+		<paramType></paramType>
+	</paramInputSchemaItem>
+	<paramInputSchemaItem>
+		<paramName>loginSuccess?</paramName>
+		<paramDesc></paramDesc>
+		<repeatable>false</repeatable>
+		<foreachRefer></foreachRefer>
+		<pureText>false</pureText>
+		<paramValue></paramValue>
+		<paramType></paramType>
+	</paramInputSchemaItem>
+	<paramInputSchemaItem>
+		<paramName>loginStatus?</paramName>
+		<paramDesc></paramDesc>
+		<repeatable>false</repeatable>
+		<foreachRefer></foreachRefer>
+		<pureText>false</pureText>
+		<paramValue></paramValue>
+		<paramType></paramType>
+	</paramInputSchemaItem>
+	<paramInputSchemaItem>
+		<paramName>tokenString?</paramName>
+		<paramDesc></paramDesc>
+		<repeatable>false</repeatable>
+		<foreachRefer></foreachRefer>
+		<pureText>false</pureText>
+		<paramValue></paramValue>
+		<paramType></paramType>
+	</paramInputSchemaItem>
+	<paramInputSchemaItem>
+		<paramName>domain?</paramName>
+		<paramDesc></paramDesc>
+		<repeatable>false</repeatable>
+		<foreachRefer></foreachRefer>
+		<pureText>false</pureText>
+		<paramValue></paramValue>
+		<paramType></paramType>
+	</paramInputSchemaItem>
+	<paramInputSchemaItem>
+		<paramName>adminLogin?</paramName>
+		<paramDesc></paramDesc>
+		<repeatable>false</repeatable>
+		<foreachRefer></foreachRefer>
+		<pureText>false</pureText>
+		<paramValue></paramValue>
+		<paramType></paramType>
+	</paramInputSchemaItem>
+</paramInputSchema>]]></work_step_input_xml>
+		<WorkStepOutput>{&#xA;&#x9;&#34;ParamOutputSchemaItems&#34;: null&#xA;}</WorkStepOutput>
 		<work_step_output_xml><![CDATA[<paramOutputSchema></paramOutputSchema>]]></work_step_output_xml>
 		<IsDefer>false</IsDefer>
-		<WorkStepParamMapping></WorkStepParamMapping>
+		<WorkStepParamMapping>[]</WorkStepParamMapping>
 		<work_step_param_mapping_xml><![CDATA[<ParamMapping>
 	<ParamMappingName></ParamMappingName>
 	<ParamMappingType></ParamMappingType>
 </ParamMapping>]]></work_step_param_mapping_xml>
 		<CreatedBy>SYSTEM</CreatedBy>
-		<CreatedTime>2019-07-28T15:45:49+08:00</CreatedTime>
+		<CreatedTime>2019-07-28T16:30:26+08:00</CreatedTime>
 		<LastUpdatedBy>SYSTEM</LastUpdatedBy>
-		<LastUpdatedTime>2019-07-28T15:45:49+08:00</LastUpdatedTime>
+		<LastUpdatedTime>2019-07-28T16:30:26+08:00</LastUpdatedTime>
 	</workstep>
 	<workstep>
 		<Id>880</Id>
@@ -376,20 +431,75 @@
 		<WorkStepDesc></WorkStepDesc>
 		<WorkStepType>assign_var</WorkStepType>
 		<WorkStepIndent>1</WorkStepIndent>
-		<WorkStepInput></WorkStepInput>
-		<work_step_input_xml><![CDATA[<paramInputSchema></paramInputSchema>]]></work_step_input_xml>
-		<WorkStepOutput></WorkStepOutput>
+		<WorkStepInput>{&#xA;&#x9;&#34;ParamInputSchemaItems&#34;: [&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;&#34;ParamName&#34;: &#34;str_assign_obj&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamDesc&#34;: &#34;待赋值的对象&#34;,&#xA;&#x9;&#x9;&#x9;&#34;Repeatable&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ForeachRefer&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamChoices&#34;: null,&#xA;&#x9;&#x9;&#x9;&#34;PureText&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ParamValue&#34;: &#34;$define_var_context;\n&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamType&#34;: &#34;&#34;&#xA;&#x9;&#x9;},&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;&#34;ParamName&#34;: &#34;loginSuccess?&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamDesc&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;Repeatable&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ForeachRefer&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamChoices&#34;: null,&#xA;&#x9;&#x9;&#x9;&#34;PureText&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ParamValue&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamType&#34;: &#34;&#34;&#xA;&#x9;&#x9;},&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;&#34;ParamName&#34;: &#34;loginStatus?&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamDesc&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;Repeatable&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ForeachRefer&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamChoices&#34;: null,&#xA;&#x9;&#x9;&#x9;&#34;PureText&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ParamValue&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamType&#34;: &#34;&#34;&#xA;&#x9;&#x9;},&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;&#34;ParamName&#34;: &#34;tokenString?&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamDesc&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;Repeatable&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ForeachRefer&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamChoices&#34;: null,&#xA;&#x9;&#x9;&#x9;&#34;PureText&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ParamValue&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamType&#34;: &#34;&#34;&#xA;&#x9;&#x9;},&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;&#34;ParamName&#34;: &#34;domain?&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamDesc&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;Repeatable&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ForeachRefer&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamChoices&#34;: null,&#xA;&#x9;&#x9;&#x9;&#34;PureText&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ParamValue&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamType&#34;: &#34;&#34;&#xA;&#x9;&#x9;},&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;&#34;ParamName&#34;: &#34;adminLogin?&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamDesc&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;Repeatable&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ForeachRefer&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamChoices&#34;: null,&#xA;&#x9;&#x9;&#x9;&#34;PureText&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ParamValue&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamType&#34;: &#34;&#34;&#xA;&#x9;&#x9;}&#xA;&#x9;]&#xA;}</WorkStepInput>
+		<work_step_input_xml><![CDATA[<paramInputSchema>
+	<paramInputSchemaItem>
+		<paramName>str_assign_obj</paramName>
+		<paramDesc>待赋值的对象</paramDesc>
+		<repeatable>false</repeatable>
+		<foreachRefer></foreachRefer>
+		<pureText>false</pureText>
+		<paramValue>$define_var_context;&#xA;</paramValue>
+		<paramType></paramType>
+	</paramInputSchemaItem>
+	<paramInputSchemaItem>
+		<paramName>loginSuccess?</paramName>
+		<paramDesc></paramDesc>
+		<repeatable>false</repeatable>
+		<foreachRefer></foreachRefer>
+		<pureText>false</pureText>
+		<paramValue></paramValue>
+		<paramType></paramType>
+	</paramInputSchemaItem>
+	<paramInputSchemaItem>
+		<paramName>loginStatus?</paramName>
+		<paramDesc></paramDesc>
+		<repeatable>false</repeatable>
+		<foreachRefer></foreachRefer>
+		<pureText>false</pureText>
+		<paramValue></paramValue>
+		<paramType></paramType>
+	</paramInputSchemaItem>
+	<paramInputSchemaItem>
+		<paramName>tokenString?</paramName>
+		<paramDesc></paramDesc>
+		<repeatable>false</repeatable>
+		<foreachRefer></foreachRefer>
+		<pureText>false</pureText>
+		<paramValue></paramValue>
+		<paramType></paramType>
+	</paramInputSchemaItem>
+	<paramInputSchemaItem>
+		<paramName>domain?</paramName>
+		<paramDesc></paramDesc>
+		<repeatable>false</repeatable>
+		<foreachRefer></foreachRefer>
+		<pureText>false</pureText>
+		<paramValue></paramValue>
+		<paramType></paramType>
+	</paramInputSchemaItem>
+	<paramInputSchemaItem>
+		<paramName>adminLogin?</paramName>
+		<paramDesc></paramDesc>
+		<repeatable>false</repeatable>
+		<foreachRefer></foreachRefer>
+		<pureText>false</pureText>
+		<paramValue></paramValue>
+		<paramType></paramType>
+	</paramInputSchemaItem>
+</paramInputSchema>]]></work_step_input_xml>
+		<WorkStepOutput>{&#xA;&#x9;&#34;ParamOutputSchemaItems&#34;: null&#xA;}</WorkStepOutput>
 		<work_step_output_xml><![CDATA[<paramOutputSchema></paramOutputSchema>]]></work_step_output_xml>
 		<IsDefer>false</IsDefer>
-		<WorkStepParamMapping></WorkStepParamMapping>
+		<WorkStepParamMapping>[]</WorkStepParamMapping>
 		<work_step_param_mapping_xml><![CDATA[<ParamMapping>
 	<ParamMappingName></ParamMappingName>
 	<ParamMappingType></ParamMappingType>
 </ParamMapping>]]></work_step_param_mapping_xml>
 		<CreatedBy>SYSTEM</CreatedBy>
-		<CreatedTime>2019-07-28T15:45:52+08:00</CreatedTime>
+		<CreatedTime>2019-07-28T16:30:40+08:00</CreatedTime>
 		<LastUpdatedBy>SYSTEM</LastUpdatedBy>
-		<LastUpdatedTime>2019-07-28T15:45:52+08:00</LastUpdatedTime>
+		<LastUpdatedTime>2019-07-28T16:30:40+08:00</LastUpdatedTime>
 	</workstep>
 	<workstep>
 		<Id>876</Id>

@@ -1,37 +1,17 @@
 package framework
 
 import (
-	"encoding/json"
-	"fmt"
-	"github.com/pkg/errors"
+	"isoft/isoft_iwork_web/core/iworkconst"
+	"isoft/isoft_iwork_web/core/iworkdata/param"
 	"isoft/isoft_iwork_web/core/iworkmodels"
 	"isoft/isoft_iwork_web/core/iworkplugin/node"
 	"isoft/isoft_iwork_web/models"
-	"regexp"
 	"strings"
 )
 
 type AssignVarNode struct {
 	node.BaseNode
 	WorkStep *models.WorkStep
-}
-
-// 检测赋值引用字段格式是否满足正则
-func checkAssignReferFormat(paramName, assignVar_pureText string) {
-	reg := regexp.MustCompile("^\\$[a-zA-Z_0-9]+\\.[a-zA-Z0-9\\-]+$")
-	if !reg.MatchString(assignVar_pureText) {
-		panic(errors.New(fmt.Sprintf(`error format assign for %s`, paramName)))
-	}
-}
-
-func parseAssignRefer(paramName, assignVar_pureText string) (string, string) {
-	assignVar_pureText = strings.TrimSpace(strings.ReplaceAll(assignVar_pureText, ";", ""))
-	checkAssignReferFormat(paramName, assignVar_pureText)
-	// 去除 $ 和 . 后面的字符得到 assignNode 名称
-	assignNodeName := assignVar_pureText[1:strings.Index(assignVar_pureText, ".")]
-	// 截取 assignData 名称
-	assignDataName := assignVar_pureText[strings.Index(assignVar_pureText, ".")+1:]
-	return assignNodeName, assignDataName
 }
 
 func (this *AssignVarNode) Execute(trackingId string) {
@@ -63,13 +43,26 @@ func (this *AssignVarNode) Execute(trackingId string) {
 	//}
 }
 
+func (this *AssignVarNode) GetDefaultParamInputSchema() *iworkmodels.ParamInputSchema {
+	paramMap := map[int][]string{
+		1: {iworkconst.STRING_PREFIX + "assign_obj", "待赋值的对象"},
+	}
+	return this.BuildParamInputSchemaWithDefaultMap(paramMap)
+}
+
 func (this *AssignVarNode) GetRuntimeParamInputSchema() *iworkmodels.ParamInputSchema {
-	var paramMappingsArr []iworkmodels.ParamMapping
-	json.Unmarshal([]byte(this.WorkStep.WorkStepParamMapping), &paramMappingsArr)
 	items := make([]iworkmodels.ParamInputSchemaItem, 0)
-	for _, paramMapping := range paramMappingsArr {
-		items = append(items, iworkmodels.ParamInputSchemaItem{ParamName: paramMapping.ParamMappingName})
-		items = append(items, iworkmodels.ParamInputSchemaItem{ParamName: paramMapping.ParamMappingName + "_value"})
+	assign_obj := param.GetStaticParamValueWithStep(iworkconst.STRING_PREFIX+"assign_obj", this.WorkStep).(string)
+	assign_obj_name := assign_obj[strings.LastIndex(assign_obj, "$")+1 : strings.LastIndex(assign_obj, ";")]
+	for _, step := range this.BaseNode.WorkCache.Steps {
+		if step.WorkStepName == assign_obj_name {
+			if paramOutputSchema, err := iworkmodels.ParseToParamOutputSchema(step.WorkStepOutput); err == nil {
+				for _, item := range paramOutputSchema.ParamOutputSchemaItems {
+					items = append(items, iworkmodels.ParamInputSchemaItem{ParamName: item.ParamName + "?"})
+				}
+			}
+			break
+		}
 	}
 	return &iworkmodels.ParamInputSchema{ParamInputSchemaItems: items}
 }
