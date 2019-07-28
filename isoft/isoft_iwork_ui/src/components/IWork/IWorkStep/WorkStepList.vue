@@ -218,7 +218,7 @@
           {
             title: '步骤名称',
             key: 'work_step_name',
-            width: 400,
+            width: 600,
             render: (h, params) => {
               var _this = this; // vue 实例
               // 可编辑模式
@@ -250,10 +250,11 @@
                   }
                 });
               }else{
+                const blankStr = '\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0';
                 // 显示名称
-                let work_step_name_str = getRepeatStr('\xa0\xa0\xa0\xa0\xa0', params.row.work_step_indent) + this.worksteps[params.index]['work_step_name'];
+                let work_step_name_str = getRepeatStr(blankStr, params.row.work_step_indent) + this.worksteps[params.index]['work_step_name'];
                 // 显示的额外信息
-                let extraStr = getRepeatStr('\xa0\xa0\xa0\xa0\xa0', 1) + _this.getExtraStr(this.worksteps[params.index]);
+                let extraStr = getRepeatStr(blankStr, 1) + _this.getExtraStr(this.worksteps[params.index]);
 
                 // 非可编辑模式
                 return h('div', {
