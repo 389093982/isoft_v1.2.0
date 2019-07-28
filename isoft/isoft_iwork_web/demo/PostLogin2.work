@@ -177,9 +177,33 @@
 		<LastUpdatedTime>2019-07-27T23:39:58+08:00</LastUpdatedTime>
 	</workstep>
 	<workstep>
-		<Id>876</Id>
+		<Id>878</Id>
 		<WorkId>180</WorkId>
 		<WorkStepId>3</WorkStepId>
+		<WorkSubId>0</WorkSubId>
+		<WorkStepName>panic_error_no_user_found</WorkStepName>
+		<WorkStepDesc></WorkStepDesc>
+		<WorkStepType>panic_error</WorkStepType>
+		<WorkStepIndent>0</WorkStepIndent>
+		<WorkStepInput></WorkStepInput>
+		<work_step_input_xml><![CDATA[<paramInputSchema></paramInputSchema>]]></work_step_input_xml>
+		<WorkStepOutput></WorkStepOutput>
+		<work_step_output_xml><![CDATA[<paramOutputSchema></paramOutputSchema>]]></work_step_output_xml>
+		<IsDefer>false</IsDefer>
+		<WorkStepParamMapping></WorkStepParamMapping>
+		<work_step_param_mapping_xml><![CDATA[<ParamMapping>
+	<ParamMappingName></ParamMappingName>
+	<ParamMappingType></ParamMappingType>
+</ParamMapping>]]></work_step_param_mapping_xml>
+		<CreatedBy>SYSTEM</CreatedBy>
+		<CreatedTime>2019-07-28T10:45:30+08:00</CreatedTime>
+		<LastUpdatedBy>SYSTEM</LastUpdatedBy>
+		<LastUpdatedTime>2019-07-28T10:45:30+08:00</LastUpdatedTime>
+	</workstep>
+	<workstep>
+		<Id>876</Id>
+		<WorkId>180</WorkId>
+		<WorkStepId>4</WorkStepId>
 		<WorkSubId>0</WorkSubId>
 		<WorkStepName>end</WorkStepName>
 		<WorkStepDesc>end节点</WorkStepDesc>

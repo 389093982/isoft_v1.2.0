@@ -125,7 +125,7 @@
         prePosTreeNodeArr:[],
         variables:[],
         variablesShowEdit:[],
-        variableConcats:[],
+        variableConcats:"",
         editProgress: 0,
       }
     },
@@ -139,9 +139,9 @@
         this.handleRefillInputTextData();
       },
       handleRefillInputTextData:function(){
-        var _inputTextData = "";
-        for(var i=0; i<this.variableConcats.length; i++){
-          _inputTextData += this.variableConcats[i] + (i == this.variableConcats.length - 1 ? "" : this.variables[i]);
+        var _inputTextData = this.variableConcats;
+        for(var i=0; i<this.variables.length; i++){
+          _inputTextData = _inputTextData.replace("__sep__", this.variables[i]);
         }
         this.inputTextData = _inputTextData;
       },
@@ -263,10 +263,15 @@
     watch: {
       inputTextData(val) {
         // 所有占位符变量
-        this.variables = getMatchArrForString(this.inputTextData, /\$[a-zA-Z0-9_]+\.[a-zA-Z0-9_]+/g);
-        this.variableConcats = this.inputTextData.split(/\$[a-zA-Z0-9_]+\.[a-zA-Z0-9_]+/g);
-        for (var i=0; i<this.variables.length; i++){
-          this.variablesShowEdit[i] = false;
+        this.variables = getMatchArrForString(this.inputTextData, /\$[a-zA-Z0-9_]+(\.[a-zA-Z0-9_]+)*/g);
+        this.variableConcats = this.inputTextData;
+        if(this.variables != null){
+          for(var i=0; i<this.variables.length; i++){
+            this.variableConcats = this.variableConcats.replace(this.variables[i], "__sep__");
+          }
+          for (var i=0; i<this.variables.length; i++){
+            this.variablesShowEdit[i] = false;
+          }
         }
       }
     }
