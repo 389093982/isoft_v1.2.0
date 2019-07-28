@@ -34,6 +34,7 @@ func (this *LoginController) PostLogin2() {
 		"CreatedTime":     time.Now(),
 		"LastUpdatedBy":   "SYSTEM",
 		"LastUpdatedTime": time.Now(),
+		"ip":              this.Ctx.Input.IP(),
 	}
 	url := "http://localhost:8086/api/iwork/httpservice/PostLogin2"
 	headerMap := map[string]interface{}{}
