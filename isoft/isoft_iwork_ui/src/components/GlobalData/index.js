@@ -46,7 +46,8 @@ const mysql_datatypes = ["varchar","char","text","float","int","date","datetime"
 
 
 const quick_funcs = [
-    {funcDemo:"stringsToUpper($str)",funcDesc:"字符串转大写函数",},
+    {funcDemo:"StringsEq($str1,$str2)",funcDesc:"字符串转大写函数",},
+    {funcDemo:"stringsToUpper($str)",funcDesc:"字符串相等比较",},
     {funcDemo:"stringsToLower($str)",funcDesc:"字符串转小写函数",},
     {funcDemo:"stringsJoin($str1,$str2)",funcDesc:"字符串拼接函数",},
     {funcDemo:"stringsJoinWithSep($str1,$str2)",funcDesc:"字符串拼接函数",},

@@ -12,6 +12,10 @@ import (
 type IWorkFuncProxy struct {
 }
 
+func (this *IWorkFuncProxy) StringsEq(args []interface{}) interface{} {
+	return args[0].(string) == args[1].(string)
+}
+
 func (this *IWorkFuncProxy) StringsContains(args []interface{}) interface{} {
 	return strings.Contains(args[0].(string), args[1].(string))
 }
