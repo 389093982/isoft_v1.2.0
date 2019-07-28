@@ -15,47 +15,35 @@ type AssignVarNode struct {
 }
 
 func (this *AssignVarNode) Execute(trackingId string) {
-	//for paramName, paramValue := range this.TmpDataMap {
-	//	if strings.HasSuffix(paramName, "_operate") {
-	//		_paramName := paramName[:strings.LastIndex(paramName, "_operate")]
-	//		assignVar := this.TmpDataMap[_paramName]
-	//		assignOperate := paramValue.(string)
-	//		assignVal := this.TmpDataMap[_paramName+"_value"]
-	//
-	//		// pureText
-	//		assignVar_pureText := this.PureTextTmpDataMap[_paramName].(string)
-	//		assignNodeName, assignDataName := parseAssignRefer(_paramName, assignVar_pureText)
-	//
-	//		assign := NodeAssign{
-	//			AssignVar:     assignVar,
-	//			AssignOperate: assignOperate,
-	//			AssignData:    assignVal,
-	//		}
-	//		assignVar, err := assign.Calculate()
-	//		if err != nil {
-	//			panic(err)
-	//		}
-	//		// 重新将值绑定到对应的 assign 节点
-	//		this.DataStore.CacheDatas(assignNodeName, map[string]interface{}{
-	//			assignDataName: assignVar,
-	//		})
-	//	}
-	//}
+	assignNodeName := this.getAssignNodeName()
+	paramMap := make(map[string]interface{})
+	for paramName, paramValue := range this.TmpDataMap {
+		if paramName != iworkconst.STRING_PREFIX+"assign_node" {
+			paramMap[strings.Replace(paramName, "?", "", -1)] = paramValue
+		}
+	}
+	// 重新将值绑定到对应的 assign 节点
+	this.DataStore.CacheDatas(assignNodeName, paramMap)
 }
 
 func (this *AssignVarNode) GetDefaultParamInputSchema() *iworkmodels.ParamInputSchema {
 	paramMap := map[int][]string{
-		1: {iworkconst.STRING_PREFIX + "assign_obj", "待赋值的对象"},
+		1: {iworkconst.STRING_PREFIX + "assign_node", "待赋值的对象"},
 	}
 	return this.BuildParamInputSchemaWithDefaultMap(paramMap)
 }
 
+func (this *AssignVarNode) getAssignNodeName() string {
+	assign_node := param.GetStaticParamValueWithStep(iworkconst.STRING_PREFIX+"assign_node", this.WorkStep).(string)
+	assign_node_name := assign_node[strings.LastIndex(assign_node, "$")+1 : strings.LastIndex(assign_node, ";")]
+	return assign_node_name
+}
+
 func (this *AssignVarNode) GetRuntimeParamInputSchema() *iworkmodels.ParamInputSchema {
 	items := make([]iworkmodels.ParamInputSchemaItem, 0)
-	assign_obj := param.GetStaticParamValueWithStep(iworkconst.STRING_PREFIX+"assign_obj", this.WorkStep).(string)
-	assign_obj_name := assign_obj[strings.LastIndex(assign_obj, "$")+1 : strings.LastIndex(assign_obj, ";")]
+	assignNodeName := this.getAssignNodeName()
 	for _, step := range this.BaseNode.WorkCache.Steps {
-		if step.WorkStepName == assign_obj_name {
+		if step.WorkStepName == assignNodeName {
 			if paramOutputSchema, err := iworkmodels.ParseToParamOutputSchema(step.WorkStepOutput); err == nil {
 				for _, item := range paramOutputSchema.ParamOutputSchemaItems {
 					items = append(items, iworkmodels.ParamInputSchemaItem{ParamName: item.ParamName + "?"})
