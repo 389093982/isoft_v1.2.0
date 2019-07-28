@@ -37,7 +37,7 @@
 </template>
 
 <script>
-  import {LoadWorkStepInfo} from "../../../api/index"
+  import {LoadWorkStepInfo} from "../../../../api/index"
 
   export default {
     name: "WorkStepParamDashboard",

@@ -58,7 +58,7 @@
   import {EditWorkStepBaseInfo} from "../../../api/index"
   import WorkStepEditBtns from "./WorkStepEditBtns"
   import WorkStepComponent from "./WorkStepComponent"
-  import ParamDashboard from "./ParamDashboard"
+  import ParamDashboard from "./DashBoard/ParamDashboard"
   import {startsWith} from "../../../tools"
 
   export default {
