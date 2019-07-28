@@ -1,5 +1,5 @@
 <template>
-  <Modal v-model="showModal" fullscreen title="Fullscreen Modal">
+  <Modal v-model="showModal" fullscreen title="参数可视">
     <ul>
       <li v-for="workstep in worksteps" style="float: left;">
         <WorkStepParamDashboard :workstep="workstep"/>
