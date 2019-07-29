@@ -57,6 +57,7 @@ func RegistNodes() {
 		framework.PanicErrorNode{},
 		framework.TemplateNode{},
 		chiper.CreateJWTNode{},
+		chiper.ParseJWTNode{},
 	}
 	for _, v := range vs {
 		t := reflect.ValueOf(v).Type()

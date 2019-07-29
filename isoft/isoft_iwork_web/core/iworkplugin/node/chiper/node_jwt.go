@@ -57,3 +57,41 @@ func (this *CreateJWTNode) GetRuntimeParamInputSchema() *iworkmodels.ParamInputS
 func (this *CreateJWTNode) GetDefaultParamOutputSchema() *iworkmodels.ParamOutputSchema {
 	return this.BuildParamOutputSchemaWithSlice([]string{iworkconst.STRING_PREFIX + "tokenString"})
 }
+
+type ParseJWTNode struct {
+	node.BaseNode
+	WorkStep *models.WorkStep
+}
+
+func (this *ParseJWTNode) Execute(trackingId string) {
+	tokenString := this.TmpDataMap[iworkconst.STRING_PREFIX+"tokenString"].(string)
+	secretKey := this.TmpDataMap[iworkconst.STRING_PREFIX+"secretKey"].(string)
+	claimsMap, err := chiperutil.ParseJWT(secretKey, tokenString)
+	if err != nil {
+		panic(err)
+	}
+	this.DataStore.CacheDatas(this.WorkStep.WorkStepName, claimsMap)
+}
+
+func (this *ParseJWTNode) GetDefaultParamInputSchema() *iworkmodels.ParamInputSchema {
+	paramMap := map[int][]string{
+		1: {iworkconst.STRING_PREFIX + "tokenString", "密文"},
+		2: {iworkconst.STRING_PREFIX + "secretKey", "密钥"},
+		3: {iworkconst.STRING_PREFIX + "claimsMap", "解密参数,多个参数逗号分隔"},
+	}
+	return this.BuildParamInputSchemaWithDefaultMap(paramMap)
+}
+
+func (this *ParseJWTNode) GetRuntimeParamOutputSchema() *iworkmodels.ParamOutputSchema {
+	pos := &iworkmodels.ParamOutputSchema{}
+	_claimsMap := param.GetStaticParamValueWithStep(iworkconst.STRING_PREFIX+"claimsMap", this.WorkStep).(string)
+	claimArr := strings.Split(_claimsMap, ",")
+	items := make([]iworkmodels.ParamOutputSchemaItem, 0)
+	for _, claim := range claimArr {
+		items = append(items, iworkmodels.ParamOutputSchemaItem{
+			ParamName: strings.TrimSpace(claim),
+		})
+	}
+	pos.ParamOutputSchemaItems = append(pos.ParamOutputSchemaItems, items...)
+	return pos
+}
