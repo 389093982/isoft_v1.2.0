@@ -272,14 +272,16 @@
                       props: {
                         trigger: 'hover',
                         title: '节点类型：' + this.worksteps[params.index]['work_step_type'],
-                        content: 'helloworld...........',
                         placement: "left-start",
                       },
                       style: {
                         marginRight: '10px',
                       },
                   },
-                  [h('Icon', {
+                  [h('div',{
+                    slot:'content',
+                  }, 'helloword..............'),
+                  h('Icon', {
                     props: {
                       type: this.renderWorkStepTypeIcon(this.worksteps[params.index]['work_step_type']),
                       size: 25,
