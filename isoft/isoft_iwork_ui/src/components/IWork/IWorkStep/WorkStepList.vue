@@ -62,12 +62,13 @@
   import WorkStepComponent from "./WorkStepComponent"
   import ParamDashboard from "./DashBoard/ParamDashboard"
   import WorkDashboard from "./DashBoard/WorkDashboard"
+  import WorkStepPoptip from "./WorkStepPoptip"
   import {startsWith} from "../../../tools"
 
   export default {
     name: "WorkStepList",
     components:{ParamInfo,ISimpleLeftRightRow,BaseInfo,RelativeWork,WorkValidate,ISimpleConfirmModal,
-      WorkStepEditBtns,WorkStepComponent,ParamDashboard,WorkDashboard},
+      WorkStepEditBtns,WorkStepComponent,ParamDashboard,WorkDashboard,WorkStepPoptip},
     data(){
       return {
         validateDetails:[],
@@ -271,16 +272,19 @@
                   h('Poptip', {
                       props: {
                         trigger: 'hover',
-                        title: '节点类型：' + this.worksteps[params.index]['work_step_type'],
-                        placement: "left-start",
+                        title: '步骤类型：' + this.worksteps[params.index]['work_step_type'],
+                        placement: "left",
                       },
                       style: {
                         marginRight: '10px',
                       },
                   },
-                  [h('div',{
+                  [h(WorkStepPoptip,{
                     slot:'content',
-                  }, 'helloword..............'),
+                    props:{
+                      workstep: this.worksteps[params.index],
+                    }
+                  }),
                   h('Icon', {
                     props: {
                       type: this.renderWorkStepTypeIcon(this.worksteps[params.index]['work_step_type']),
