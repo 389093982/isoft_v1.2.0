@@ -268,20 +268,26 @@
                     whiteSpace: 'nowrap',
                   },
                 },[
-                  h('span', {
-                      attrs: {
-                        title: this.worksteps[params.index]['work_step_type'],
-                      },
-                  }, [h('Icon', {
+                  h('Poptip', {
                       props: {
-                        type: this.renderWorkStepTypeIcon(this.worksteps[params.index]['work_step_type']),
-                        size: 25,
+                        trigger: 'hover',
+                        title: '节点类型：' + this.worksteps[params.index]['work_step_type'],
+                        content: 'helloworld...........',
+                        placement: "left-start",
                       },
                       style: {
                         marginRight: '10px',
                       },
-                    })]
-                  ),
+                  },
+                  [h('Icon', {
+                    props: {
+                      type: this.renderWorkStepTypeIcon(this.worksteps[params.index]['work_step_type']),
+                      size: 25,
+                    },
+                    style: {
+                      marginRight: '10px',
+                    },
+                  })]),
                   h('span', {
                     style: {
                       // work_step_name 根据缩进级别进行缩进,不同级别使用不同颜色
