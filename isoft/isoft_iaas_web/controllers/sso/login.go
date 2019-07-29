@@ -5,6 +5,7 @@ import (
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/logs"
 	"github.com/pkg/errors"
+	"isoft/isoft/common/chiperutil"
 	"isoft/isoft_iaas_web/models/sso"
 	"net/url"
 	"strings"
@@ -14,6 +15,10 @@ import (
 type LoginController struct {
 	beego.Controller
 }
+
+const (
+	SecretKey = "welcome to wangshubo's blog"
+)
 
 var origin_list string
 
@@ -45,9 +50,9 @@ func (this *LoginController) CheckOrInValidateTokenString() {
 	username := this.GetString("username")
 	operateType := this.GetString("operateType")
 	if operateType == "check" {
-		username, err := ValidateAndParseJWT(tokenString)
+		claimsMap, err := chiperutil.ParseJWT(SecretKey, tokenString)
 		if err == nil {
-			_, err = sso.QueryUserTokenByName(username)
+			_, err = sso.QueryUserTokenByName(claimsMap["username"].(string))
 			if err == nil {
 				this.Data["json"] = &map[string]interface{}{"status": "SUCCESS", "username": username}
 			}
@@ -204,8 +209,7 @@ func SuccessedLogin(username string, ip string, origin string, referer string, u
 	loginLog.LastUpdatedBy = "SYSTEM"
 	loginLog.LastUpdatedTime = time.Now()
 	sso.AddLoginRecord(loginLog)
-
-	tokenString, err = CreateJWT(username)
+	tokenString, err = chiperutil.CreateJWT(SecretKey, map[string]string{"username": username}, 3600*24)
 	if err == nil {
 		var userToken sso.UserToken
 		userToken.UserName = username
