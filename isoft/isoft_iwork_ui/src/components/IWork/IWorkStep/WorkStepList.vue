@@ -1,7 +1,6 @@
 <template>
   <div style="margin: 10px;">
     <WorkStepComponent ref="workStepComponent"/>
-    <ParamDashboard ref="paramDashBoard" v-show="showParamDashboard" :worksteps="worksteps"/>
     <WorkDashboard ref="workDashboard" v-show="showWorkDashboard"/>
 
     <h4 v-if="$route.query.work_name" style="text-align: center;margin-bottom: 10px;">当前流程为：{{$route.query.work_name}}</h4>
@@ -13,7 +12,6 @@
       <Col span="2"><Button type="error" size="small" @click="batchChangeIndent('right', null)">向右缩进</Button></Col>
       <Col span="2"><Button type="warning" size="small" @click="runWork">运行流程</Button></Col>
       <Col span="2"><Button type="info" size="small" @click="showRunLogList">运行日志</Button></Col>
-      <Col span="2"><Button type="warning" size="small" @click="showParamDashboardFunc">参数可视</Button></Col>
       <Col span="2"><Button type="error" size="small" @click="showWorkDashboardFunc">运行报表</Button></Col>
       <Col span="2"><WorkValidate :work_id="_work_id"/></Col>
 
@@ -60,7 +58,6 @@
   import {EditWorkStepBaseInfo} from "../../../api/index"
   import WorkStepEditBtns from "./WorkStepEditBtns"
   import WorkStepComponent from "./WorkStepComponent"
-  import ParamDashboard from "./DashBoard/ParamDashboard"
   import WorkDashboard from "./DashBoard/WorkDashboard"
   import WorkStepPoptip from "./WorkStepPoptip"
   import {startsWith} from "../../../tools"
@@ -68,7 +65,7 @@
   export default {
     name: "WorkStepList",
     components:{ParamInfo,ISimpleLeftRightRow,BaseInfo,RelativeWork,WorkValidate,ISimpleConfirmModal,
-      WorkStepEditBtns,WorkStepComponent,ParamDashboard,WorkDashboard,WorkStepPoptip},
+      WorkStepEditBtns,WorkStepComponent,WorkDashboard,WorkStepPoptip},
     data(){
       return {
         validateDetails:[],
@@ -82,7 +79,6 @@
         showBorder: true,
         showIndex: true,
         showCheckbox: true,
-        showParamDashboard:false,
         showWorkDashboard:false,
         usedMap: null,
       }
@@ -336,10 +332,6 @@
       showWorkDashboardFunc:function(){
         this.showWorkDashboard = true;
         this.$refs.workDashboard.showWorkDashboard(true);
-      },
-      showParamDashboardFunc:function(){
-        this.showParamDashboard = true;
-        this.$refs.paramDashBoard.showParamDashboard(true);
       },
       refreshWorkValidateDetail: async function(){
         const result = await LoadValidateResult(this.$route.query.work_id);
