@@ -7,7 +7,7 @@
       <Col span="8" v-if="ParamInputSchemaItems">
         <ul>
           <li v-for="item in ParamInputSchemaItems">
-            <Tag>{{item.ParamName}}</Tag>
+            <Tag @click.native="showNotice(item.ParamName, item.ParamValue)">{{item.ParamName}}</Tag>
           </li>
         </ul>
       </Col>
@@ -52,8 +52,11 @@
       }
     },
     methods:{
-      highlightUsedWorkStepIdFunc:function () {
-        alert(JSON.stringify(this.usedMap));
+      showNotice:function (paramName, paramValue) {
+        this.$Notice.success({
+          title: "参数名称：" + paramName,
+          desc: "参数值：" + paramValue,
+        });
       }
     },
     computed:{
