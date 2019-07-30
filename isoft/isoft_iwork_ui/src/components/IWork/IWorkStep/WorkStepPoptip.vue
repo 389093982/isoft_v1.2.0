@@ -9,6 +9,7 @@
           <li v-for="item in ParamInputSchemaItems">
             <Tag @click.native="showNotice(item.ParamName, item.ParamValue)">{{item.ParamName}}</Tag>
           </li>
+          <li><a @click="showNoticeAll">全部参数</a></li>
         </ul>
       </Col>
       <Col span="8" v-if="ParamInputSchemaItems">
@@ -56,6 +57,17 @@
         this.$Notice.success({
           title: "参数名称：" + paramName,
           desc: "参数值：" + paramValue,
+        });
+      },
+      showNoticeAll:function () {
+        var paramValueAll = "";
+        for(var index in this.ParamInputSchemaItems){
+          const item = this.ParamInputSchemaItems[index];
+          paramValueAll += "<span style='color:green;'>" + item.ParamName + "</span>" + ":" + "<span style='color:blue;'>" + item.ParamValue + "</span><br/>";
+        }
+        this.$Notice.success({
+          title: "全部参数",
+          desc: paramValueAll,
         });
       }
     },
