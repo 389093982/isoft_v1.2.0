@@ -84,6 +84,8 @@
         showCheckbox: true,
         showParamDashboard:false,
         showWorkDashboard:false,
+        usedMap: null,
+        highlightUsedWorkStepId:-1,       // 高亮显示被使用步骤 id
       }
     },
     computed:{
@@ -282,8 +284,10 @@
                   [h(WorkStepPoptip,{
                     slot:'content',
                     props:{
+                      worksteps: this.worksteps,
                       workstep: this.worksteps[params.index],
-                    }
+                      usedMap: this.usedMap,
+                    },
                   }),
                   h('Icon', {
                     props: {
@@ -348,6 +352,7 @@
         this.loading = true;
         const result = await WorkStepList(this.$route.query.work_id);
         if(result.status=="SUCCESS"){
+          this.usedMap = result.usedMap;
           this.worksteps = result.worksteps;
           // 刷新关联流程信息
           this.$refs.relativeWork.refreshRelativeWork(this.$route.query.work_id);

@@ -1,6 +1,8 @@
 package controllers
 
 import (
+	"isoft/isoft_iwork_web/core/iworkcache"
+	"isoft/isoft_iwork_web/core/iworkdata/schema"
 	"isoft/isoft_iwork_web/core/iworkfunc"
 	"isoft/isoft_iwork_web/service"
 )
@@ -41,13 +43,21 @@ func (this *WorkController) EditWorkStepBaseInfo() {
 }
 
 func (this *WorkController) WorkStepList() {
+	jsonMap := make(map[string]interface{})
 	work_id, _ := this.GetInt64("work_id")
 	serviceArgs := map[string]interface{}{"work_id": work_id}
-	if result, err := service.ExecuteResultServiceWithTx(serviceArgs, service.WorkStepListService); err == nil {
-		this.Data["json"] = &map[string]interface{}{"status": "SUCCESS", "worksteps": result["worksteps"]}
-	} else {
-		this.Data["json"] = &map[string]interface{}{"status": "ERROR", "errorMsg": err.Error()}
+	parser := schema.WorkStepFactoryParamSchemaParser{}
+	if workCache, err := iworkcache.GetWorkCache(work_id, &parser); err == nil {
+		jsonMap["usedMap"] = workCache.Usage.UsedMap
 	}
+	if result, err := service.ExecuteResultServiceWithTx(serviceArgs, service.WorkStepListService); err == nil {
+		jsonMap["status"] = "SUCCESS"
+		jsonMap["worksteps"] = result["worksteps"]
+	} else {
+		jsonMap["status"] = "ERROR"
+		jsonMap["errorMsg"] = err.Error()
+	}
+	this.Data["json"] = jsonMap
 	this.ServeJSON()
 }
 
@@ -84,13 +94,17 @@ func (this *WorkController) LoadWorkStepInfo() {
 }
 
 func (this *WorkController) GetAllWorkStepInfo() {
+	var jsonMap = make(map[string]interface{})
 	work_id, _ := this.GetInt64("work_id")
 	serviceArgs := map[string]interface{}{"work_id": work_id}
 	if result, err := service.ExecuteResultServiceWithTx(serviceArgs, service.GetAllWorkStepInfoService); err == nil {
-		this.Data["json"] = &map[string]interface{}{"status": "SUCCESS", "steps": result["steps"]}
+		jsonMap["status"] = "SUCCESS"
+		jsonMap["steps"] = result["steps"]
 	} else {
-		this.Data["json"] = &map[string]interface{}{"status": "ERROR", "errorMsg": err.Error()}
+		jsonMap["status"] = "ERROR"
+		jsonMap["errorMsg"] = err.Error()
 	}
+	this.Data["json"] = jsonMap
 	this.ServeJSON()
 }
 

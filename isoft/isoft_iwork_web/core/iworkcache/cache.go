@@ -85,8 +85,10 @@ func checkError(err error) {
 	}
 }
 
-// 引值计算,节点引用值统计
-type Usage []string
+type Usage struct {
+	UsageMap map[int64][]string // key 为当前步骤 id, value 为当前步骤引用值
+	UsedMap  map[int64][]int64  // 被使用统计 map, key 为当前步骤 id, value 为引用当前节点名的步骤 id 数组
+}
 
 type WorkCache struct {
 	XMLName             xml.Name                                `xml:"workdl"`
@@ -96,7 +98,7 @@ type WorkCache struct {
 	BlockStepOrdersMap  map[int64][]*block.BlockStep            `xml:"-"` // key 为父节点 StepId
 	ParamInputSchemaMap map[int64]*iworkmodels.ParamInputSchema `xml:"-"` // key 为 WorkStepId
 	SubWorkNameMap      map[int64]string                        `xml:"-"` // key 为 WorkStepId
-	Usage               []string                                `xml:"-"`
+	Usage               *Usage                                  `xml:"-"` // 引值计算,节点引用值统计
 	err                 error                                   `xml:"-"`
 }
 
@@ -138,18 +140,49 @@ func (this *WorkCache) FlushCache(paramSchemaCacheParser IParamSchemaCacheParser
 			this.SubWorkNameMap[workStep.WorkStepId], _ = this.getWorkSubName(&workStep)
 		}
 	}
+
+	this.Usage = &Usage{}
 	// 缓存引值计数
 	this.cacheReferUsage()
 }
 
-func (this *WorkCache) cacheReferUsage() {
-	for _, paramInputSchema := range this.ParamInputSchemaMap {
+func (this *WorkCache) evalUsageMap() {
+	usageMap := make(map[int64][]string) // key 为当前步骤 id, value 为当前步骤引用值
+	for workStepId, paramInputSchema := range this.ParamInputSchemaMap {
+		relatives := make([]string, 0)
 		for _, item := range paramInputSchema.ParamInputSchemaItems {
 			// 根据正则找到关联的节点名和字段名
-			refers := iworkutil.GetRelativeValueWithReg(item.ParamValue)
-			this.Usage = append(this.Usage, refers...)
+			relativeValues := iworkutil.GetRelativeValueWithReg(item.ParamValue)
+			relatives = append(relatives, relativeValues...)
+		}
+		usageMap[workStepId] = relatives
+	}
+	this.Usage.UsageMap = usageMap
+}
+
+func (this *WorkCache) calUseds(workStepName string) (workStepIds []int64) {
+	for workStepId, relatives := range this.Usage.UsageMap {
+		for _, relative := range relatives {
+			if strings.HasPrefix(relative, fmt.Sprintf(`$%s.`, workStepName)) {
+				workStepIds = append(workStepIds, workStepId)
+				break
+			}
 		}
 	}
+	return workStepIds
+}
+
+func (this *WorkCache) evalUsedMap() {
+	usedMap := make(map[int64][]int64)
+	for _, step := range this.Steps {
+		usedMap[step.WorkStepId] = this.calUseds(step.WorkStepName)
+	}
+	this.Usage.UsedMap = usedMap
+}
+
+func (this *WorkCache) cacheReferUsage() {
+	this.evalUsageMap()
+	this.evalUsedMap()
 }
 
 func (this *WorkCache) cacheChildrenBlockStepOrders(blockStep *block.BlockStep) {

@@ -44,9 +44,11 @@ func (this *DataStore) isReferUsage(nodeName, paramName string) bool {
 	if nodeName == "start" || nodeName == "end" {
 		return true
 	}
-	for _, usage := range this.wc.Usage {
-		if usage == fmt.Sprintf(`$%s.%s`, nodeName, paramName) {
-			return true
+	for _, usages := range this.wc.Usage.UsageMap {
+		for _, usage := range usages {
+			if usage == fmt.Sprintf(`$%s.%s`, nodeName, paramName) {
+				return true
+			}
 		}
 	}
 	return false

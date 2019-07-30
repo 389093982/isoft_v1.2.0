@@ -2,7 +2,7 @@
   <div v-if="workstep" style="width: 450px;padding: 10px;">
     <div style="margin-bottom: 10px;">
       <Button type="success" size="small">步骤名称：{{workstep.work_step_name}}</Button>
-      <Button type="success" size="small" style="float: right;">高亮显示引用关系</Button>
+      <Button type="success" size="small" style="float: right;" @click="highlightUsedWorkStepIdFunc">高亮显示引用关系</Button>
     </div>
     <Row>
       <Col span="12">输入参数</Col>
@@ -31,9 +31,22 @@
   export default {
     name: "WorkStepPoptip",
     props:{
+      worksteps:{
+        type: Array,
+        default: [],
+      },
       workstep:{
         type: Object,
         default: null,
+      },
+      usedMap:{
+        type:Object,
+        default: null,
+      }
+    },
+    methods:{
+      highlightUsedWorkStepIdFunc:function () {
+        alert(JSON.stringify(this.usedMap));
       }
     },
     computed:{
