@@ -180,7 +180,7 @@ func (this *WorkController) EditWorkStepParamInfo() {
 	} else {
 		this.Data["json"] = &map[string]interface{}{"status": "ERROR", "errorMsg": err.Error()}
 	}
-	go flushCache(work_id)
+	flushCache(work_id)
 	this.ServeJSON()
 }
 
