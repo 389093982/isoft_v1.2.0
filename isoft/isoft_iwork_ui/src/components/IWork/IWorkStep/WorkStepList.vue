@@ -85,7 +85,6 @@
         showParamDashboard:false,
         showWorkDashboard:false,
         usedMap: null,
-        highlightUsedWorkStepId:-1,       // 高亮显示被使用步骤 id
       }
     },
     computed:{
@@ -274,7 +273,7 @@
                   h('Poptip', {
                       props: {
                         trigger: 'hover',
-                        title: '步骤类型：' + this.worksteps[params.index]['work_step_type'],
+                        title: '步骤名称:' + this.worksteps[params.index]['work_step_name'] + ' --- 步骤类型:' + this.worksteps[params.index]['work_step_type'],
                         placement: "left",
                       },
                       style: {
