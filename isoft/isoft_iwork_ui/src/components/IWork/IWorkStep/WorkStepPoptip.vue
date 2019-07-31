@@ -1,5 +1,10 @@
 <template>
   <div v-if="workstep" style="width: 500px;padding: 10px;">
+    <div style="text-align: right;">
+      <Button size="small" type="success" v-if="workstep.work_step_type == 'work_sub'"
+          @click="gotoWorkDetail(workstep.work_id, workstep.work_sub_id)">进入</Button>
+    </div>
+
     <Row>
       <Col span="8">输入参数</Col>
       <Col span="8">输出参数</Col>
@@ -34,6 +39,7 @@
 
 <script>
   import {checkEmpty} from "../../../tools"
+  import {GetRelativeWork} from "../../../api"
 
   var global_this;
   export default {
@@ -53,6 +59,14 @@
       }
     },
     methods:{
+      gotoWorkDetail:async function(work_id, work_sub_id){
+        const result = await GetRelativeWork(work_id);
+        const work_subs = result.subworks.filter(subWork => subWork.id === work_sub_id);
+        if(work_subs.length > 0){
+          this.$router.push({ path: '/iwork/workstepList',
+            query: { work_id: work_subs[0].id, work_name: work_subs[0].work_name, parent_href: location.href }});
+        }
+      },
       showNotice:function (paramName, paramValue) {
         this.$Notice.success({
           title: "参数名称：" + paramName,

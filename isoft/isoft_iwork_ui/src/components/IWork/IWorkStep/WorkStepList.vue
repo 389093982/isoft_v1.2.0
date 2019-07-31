@@ -31,9 +31,6 @@
 
     <Table :loading="loading" :height="500" border :columns="columns1" ref="selection" :data="worksteps" size="small"
            :border="showBorder"></Table>
-
-    <!-- 相关流程清单 -->
-    <RelativeWork id="relativeWork" ref="relativeWork"/>
   </div>
 </template>
 
@@ -50,12 +47,10 @@
   import ParamInfo from "./ParamInfo/ParamInfo"
   import ISimpleLeftRightRow from "../../Common/layout/ISimpleLeftRightRow"
   import BaseInfo from "./BaseInfo/BaseInfo"
-  import RelativeWork from "./RelativeWork/RelativeWork"
-  import {oneOf} from "../../../tools/index"
+  import {checkEmpty, oneOf} from "../../../tools/index"
   import WorkValidate from "../IValidate/WorkValidate"
   import ISimpleConfirmModal from "../../Common/modal/ISimpleConfirmModal"
   import {getRepeatStr} from "../../../tools/index"
-  import {GetRelativeWork} from "../../../api/index"
   import {EditWorkStepBaseInfo} from "../../../api/index"
   import WorkStepEditBtns from "./WorkStepEditBtns"
   import WorkStepComponent from "./WorkStepComponent"
@@ -65,13 +60,12 @@
 
   export default {
     name: "WorkStepList",
-    components:{ParamInfo,ISimpleLeftRightRow,BaseInfo,RelativeWork,WorkValidate,ISimpleConfirmModal,
+    components:{ParamInfo,ISimpleLeftRightRow,BaseInfo,WorkValidate,ISimpleConfirmModal,
       WorkStepEditBtns,WorkStepComponent,WorkDashboard,WorkStepPoptip},
     data(){
       return {
         validateDetails:[],
         // 默认不显示组件
-        showRelativeWorkFlag:false,
         refactor_worksub_name:'',
         default_work_step_types: this.GLOBAL.default_work_step_types,
         worksteps: [],
@@ -209,7 +203,9 @@
                             _this.showWorkSubDetail(params.row);
                             break;
                           case "refer":
-                            _this.goAnchor('#relativeWork');
+                            if(!checkEmpty(_this.$route.query.parent_href)){
+                              window.location.href = _this.$route.query.parent_href;
+                            }
                             break;
                         }
                       }
@@ -350,8 +346,6 @@
         if(result.status=="SUCCESS"){
           this.usedMap = result.usedMap;
           this.worksteps = result.worksteps;
-          // 刷新关联流程信息
-          this.$refs.relativeWork.refreshRelativeWork(this.$route.query.work_id);
           this.refreshWorkValidateDetail();
         }
         this.loading = false;
@@ -441,11 +435,6 @@
         if(result.status == "SUCCESS"){
           this.$Message.success("运行任务已触发!");
         }
-      },
-      // 前往锚点方法
-      goAnchor: function(selector) {
-        var anchor = this.$el.querySelector(selector);
-        document.documentElement.scrollTop = anchor.offsetTop;
       },
       allowDrop:function(){
         const event = window.event||arguments[0];
