@@ -163,7 +163,7 @@ func (this *WorkCache) evalUsageMap() {
 func (this *WorkCache) calUseds(workStepName string) (workStepIds []int64) {
 	for workStepId, relatives := range this.Usage.UsageMap {
 		for _, relative := range relatives {
-			if strings.HasPrefix(relative, fmt.Sprintf(`$%s.`, workStepName)) {
+			if strings.HasPrefix(relative, fmt.Sprintf(`$%s`, workStepName)) {
 				workStepIds = append(workStepIds, workStepId)
 				break
 			}

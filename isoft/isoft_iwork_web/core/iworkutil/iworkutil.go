@@ -13,7 +13,7 @@ import (
 
 // 用正则表达式匹配出相对变量值
 func GetRelativeValueWithReg(s string) []string {
-	return stringutil.GetNoRepeatSubStringWithRegexp(s, `\$[a-zA-Z0-9_]+\.[a-zA-Z0-9_]+`)
+	return stringutil.GetNoRepeatSubStringWithRegexp(s, `\$[a-zA-Z0-9_]+(\.[a-zA-Z0-9_]+)*`)
 }
 
 // 用正则表达式匹配出相对变量值,多个值只返回第一个

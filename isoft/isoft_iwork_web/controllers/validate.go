@@ -206,8 +206,15 @@ func checkVariableRelationShipDetail(item iworkmodels.ParamInputSchemaItem, work
 	preStepNodeNames := iworkutil.GetAllPreStepNodeName(work_id, work_step_id)
 	skipNodeNames := []string{"RESOURCE", "WORK", "Error", "Global"}
 	for _, refer := range refers {
-		referNodeName := refer[1:strings.Index(refer, ".")]
-		referFiledName := refer[strings.Index(refer, ".")+1:]
+		var referNodeName, referFiledName string
+		if strings.Contains(refer, ".") {
+			referNodeName = refer[1:strings.Index(refer, ".")]
+			referFiledName = refer[strings.Index(refer, ".")+1:]
+		} else {
+			referNodeName = refer
+			referFiledName = ""
+		}
+
 		// 非节点类型直接跳过
 		if stringutil.CheckContains(referNodeName, skipNodeNames) {
 			break
@@ -217,7 +224,11 @@ func checkVariableRelationShipDetail(item iworkmodels.ParamInputSchemaItem, work
 			checkResult = append(checkResult, fmt.Sprintf("Invalid referNodeName relationship for %s was found!", referNodeName))
 			continue
 		}
-
+		// $NodeName;
+		// 只引用节点名的空字段直接跳过
+		if referFiledName == "" {
+			break
+		}
 		// 判断字段名称是否有效
 		if step, err := models.QueryWorkStepByStepName(work_id, referNodeName, orm.NewOrm()); err == nil {
 			parser := schema.WorkStepFactoryParamSchemaParser{WorkStep: &step, ParamSchemaParser: &node.WorkStepFactory{WorkStep: &step}}
