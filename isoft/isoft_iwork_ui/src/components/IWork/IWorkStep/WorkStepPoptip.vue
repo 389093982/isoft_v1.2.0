@@ -63,11 +63,19 @@
         var paramValueAll = "";
         for(var index in this.ParamInputSchemaItems){
           const item = this.ParamInputSchemaItems[index];
-          paramValueAll += "<span style='color:green;'>" + item.ParamName + "</span>" + ":" + "<span style='color:blue;'>" + item.ParamValue + "</span><br/>";
+          paramValueAll += "<span style='color:green;'>" + item.ParamName + "</span>" + ":" + "<span style='color:blue;'>" + item.ParamValue + "</span><br/><br/>";
         }
         this.$Notice.success({
           title: "全部参数",
-          desc: paramValueAll,
+          duration: 0,  // 0 则不自动关闭
+          render: h => {
+            return h('div', {
+              style:'word-break: break-all;',
+              domProps: {
+                innerHTML: paramValueAll,
+              },
+            });
+          }
         });
       }
     },
