@@ -18,7 +18,7 @@ func (this *WorkController) AddWorkStep() {
 	} else {
 		this.Data["json"] = &map[string]interface{}{"status": "ERROR", "errorMsg": err.Error()}
 	}
-	go flushCache(work_id)
+	flushCache(work_id)
 	this.ServeJSON()
 }
 
@@ -61,6 +61,19 @@ func (this *WorkController) WorkStepList() {
 	this.ServeJSON()
 }
 
+func (this *WorkController) CopyWorkStepByWorkStepId() {
+	work_id, _ := this.GetInt64("work_id")
+	work_step_id, _ := this.GetInt64("work_step_id")
+	serviceArgs := map[string]interface{}{"work_id": work_id, "work_step_id": work_step_id}
+	if err := service.ExecuteServiceWithTx(serviceArgs, service.CopyWorkStepByWorkStepIdService); err == nil {
+		this.Data["json"] = &map[string]interface{}{"status": "SUCCESS"}
+	} else {
+		this.Data["json"] = &map[string]interface{}{"status": "ERROR", "errorMsg": err.Error()}
+	}
+	flushCache(work_id)
+	this.ServeJSON()
+}
+
 func (this *WorkController) DeleteWorkStepByWorkStepId() {
 	work_id, _ := this.GetInt64("work_id")
 	work_step_id, _ := this.GetInt64("work_step_id")
@@ -70,7 +83,7 @@ func (this *WorkController) DeleteWorkStepByWorkStepId() {
 	} else {
 		this.Data["json"] = &map[string]interface{}{"status": "ERROR", "errorMsg": err.Error()}
 	}
-	go flushCache(work_id)
+	flushCache(work_id)
 	this.ServeJSON()
 }
 
@@ -118,7 +131,7 @@ func (this *WorkController) ChangeWorkStepOrder() {
 	} else {
 		this.Data["json"] = &map[string]interface{}{"status": "ERROR", "errorMsg": err.Error()}
 	}
-	go flushCache(work_id)
+	flushCache(work_id)
 	this.ServeJSON()
 }
 
@@ -145,7 +158,7 @@ func (this *WorkController) RefactorWorkStepInfo() {
 	} else {
 		this.Data["json"] = &map[string]interface{}{"status": "ERROR", "errorMsg": err.Error()}
 	}
-	go flushCache(work_id)
+	flushCache(work_id)
 	this.ServeJSON()
 }
 
@@ -160,7 +173,7 @@ func (this *WorkController) BatchChangeIndent() {
 	} else {
 		this.Data["json"] = &map[string]interface{}{"status": "ERROR", "errorMsg": err.Error()}
 	}
-	go flushCache(work_id)
+	flushCache(work_id)
 	this.ServeJSON()
 }
 

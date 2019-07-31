@@ -162,6 +162,29 @@ func LoadWorkStepInfoService(serviceArgs map[string]interface{}) (result map[str
 	return
 }
 
+func CopyWorkStepByWorkStepIdService(serviceArgs map[string]interface{}) error {
+	work_id := serviceArgs["work_id"].(int64)
+	work_step_id := serviceArgs["work_step_id"].(int64)
+	o := serviceArgs["o"].(orm.Ormer)
+	step, err := models.QueryOneWorkStep(work_id, work_step_id, o)
+	if err != nil {
+		return err
+	}
+	step.Id = 0
+	step.WorkStepId = step.WorkStepId + 1
+	step.WorkStepName = step.WorkStepName + "_copy"
+	return insertWorkStepAfter(work_id, work_step_id, &step, o)
+}
+
+func insertWorkStepAfter(work_id, work_step_id int64, step *models.WorkStep, o orm.Ormer) error {
+	// 将 work_step_id 之后的所有节点后移一位
+	if err := models.BatchChangeWorkStepIdOrder(work_id, work_step_id, "+", o); err != nil {
+		return err
+	}
+	_, err := models.InsertOrUpdateWorkStep(step, o)
+	return err
+}
+
 func DeleteWorkStepByWorkStepIdService(serviceArgs map[string]interface{}) error {
 	work_id := serviceArgs["work_id"].(int64)
 	work_step_id := serviceArgs["work_step_id"].(int64)
@@ -201,12 +224,7 @@ func AddWorkStepService(serviceArgs map[string]interface{}) error {
 			return errors.New("不能再 end 节点后面添加节点!")
 		}
 	}
-	// 将 work_step_id 之后的所有节点后移一位
-	err := models.BatchChangeWorkStepIdOrder(work_id, work_step_id, "+", o)
-	if err != nil {
-		return err
-	}
-	step := &models.WorkStep{
+	step := models.WorkStep{
 		WorkId:          work_id,
 		WorkStepName:    work_step_type + "_" + fmt.Sprintf("%v", time.Now().Unix()),
 		WorkStepType:    work_step_type,
@@ -219,10 +237,7 @@ func AddWorkStepService(serviceArgs map[string]interface{}) error {
 		LastUpdatedBy:   "SYSTEM",
 		LastUpdatedTime: time.Now(),
 	}
-	if _, err := models.InsertOrUpdateWorkStep(step, o); err != nil {
-		return err
-	}
-	return nil
+	return insertWorkStepAfter(work_id, work_step_id, &step, o)
 }
 
 // 更改邻近两个节点的顺序

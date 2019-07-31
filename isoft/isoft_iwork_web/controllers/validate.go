@@ -188,6 +188,11 @@ func CheckCustom(step *models.WorkStep) (checkResult []string) {
 
 // 校验变量的引用关系
 func checkVariableRelationShip(step *models.WorkStep) (checkResult []string) {
+	defer func() {
+		if err := recover(); err != nil {
+			checkResult = append(checkResult, errorutil.ToError(err).Error())
+		}
+	}()
 	parser := schema.WorkStepFactoryParamSchemaParser{WorkStep: step, ParamSchemaParser: &node.WorkStepFactory{WorkStep: step}}
 	inputSchema := parser.GetCacheParamInputSchema()
 	for _, item := range inputSchema.ParamInputSchemaItems {

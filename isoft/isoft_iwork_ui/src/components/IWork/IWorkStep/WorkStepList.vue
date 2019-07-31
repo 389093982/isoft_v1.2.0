@@ -40,6 +40,7 @@
 <script>
   import {WorkStepList} from "../../../api/index"
   import {DeleteWorkStepByWorkStepId} from "../../../api/index"
+  import {CopyWorkStepByWorkStepId} from "../../../api/index"
   import {ChangeWorkStepOrder} from "../../../api/index"
   import {RefactorWorkStepInfo} from "../../../api/index"
   import {BatchChangeIndent} from "../../../api/index"
@@ -150,7 +151,7 @@
           columns.push({
             title: '操作',
             key: 'work_step_operate',
-            width: 350,
+            width: 380,
             render: (h,params)=>{
               return h('div', {
                   on:{
@@ -171,6 +172,7 @@
                       showEdit: this.showEditBtns && !oneOf(this.worksteps[params.index]['work_step_type'], ["work_start","work_end"]),
                       showParam: this.showEditBtns && true,
                       showDelete: this.showEditBtns && !oneOf(this.worksteps[params.index]['work_step_type'], ["work_start","work_end"]),
+                      showCopy: this.showEditBtns && !oneOf(this.worksteps[params.index]['work_step_type'], ["work_start","work_end"]),
                       showDetail: this.showEditBtns && oneOf(this.worksteps[params.index]['work_step_type'], ["work_sub"]),
                       showRefer: this.showEditBtns && oneOf(this.worksteps[params.index]['work_step_type'], ["work_start"]),
                     },
@@ -199,6 +201,9 @@
                             break;
                           case "delete":
                             _this.deleteWorkStepByWorkStepId(_this.$route.query.work_id, params.row.work_step_id);
+                            break;
+                          case "copy":
+                            _this.copyWorkStepByWorkStepId(_this.$route.query.work_id, params.row.work_step_id);
                             break;
                           case "detail":
                             _this.showWorkSubDetail(params.row);
@@ -350,6 +355,12 @@
           this.refreshWorkValidateDetail();
         }
         this.loading = false;
+      },
+      copyWorkStepByWorkStepId: async function(work_id, work_step_id){
+        const result = await CopyWorkStepByWorkStepId(work_id, work_step_id);
+        if(result.status=="SUCCESS"){
+          this.refreshWorkStepList();
+        }
       },
       deleteWorkStepByWorkStepId:async function(work_id, work_step_id){
         const result = await DeleteWorkStepByWorkStepId(work_id, work_step_id);
