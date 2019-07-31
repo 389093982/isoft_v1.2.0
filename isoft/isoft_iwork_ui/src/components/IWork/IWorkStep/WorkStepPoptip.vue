@@ -9,7 +9,7 @@
           <li v-for="item in ParamInputSchemaItems">
             <Tag @click.native="showNotice(item.ParamName, item.ParamValue)">{{item.ParamName}}</Tag>
           </li>
-          <li><a @click="showNoticeAll">全部参数</a></li>
+          <li><a @click="showAllNoticeWithId(workstep.work_step_id)">全部参数</a></li>
         </ul>
       </Col>
       <Col span="8" v-if="ParamInputSchemaItems">
@@ -23,7 +23,7 @@
         <span v-for="(usedWorkStepIds, currentWorkStepId) in usedMap">
           <span v-if="currentWorkStepId == workstep.work_step_id">
             <li style="list-style: none;" v-if="usedWorkStepIds" v-for="usedWorkStepId in usedWorkStepIds">
-              <Tag>{{usedWorkStepId | renderWorkStepName }}</Tag>
+              <Tag @click.native="showAllNoticeWithId(usedWorkStepId)">{{usedWorkStepId | renderWorkStepName }}</Tag>
             </li>
           </span>
         </span>
@@ -59,25 +59,30 @@
           desc: "参数值：" + paramValue,
         });
       },
-      showNoticeAll:function () {
-        var paramValueAll = "";
-        for(var index in this.ParamInputSchemaItems){
-          const item = this.ParamInputSchemaItems[index];
-          paramValueAll += "<span style='color:green;'>" + item.ParamName + "</span>" + ":" + "<span style='color:blue;'>" + item.ParamValue + "</span><br/><br/>";
-        }
-        this.$Notice.success({
-          title: "全部参数",
-          duration: 0,  // 0 则不自动关闭
-          render: h => {
-            return h('div', {
-              style:'word-break: break-all;',
-              domProps: {
-                innerHTML: paramValueAll,
-              },
-            });
+      showAllNoticeWithId:function(workStepId){
+        let workstep = this.worksteps.filter(workstep => workstep.work_step_id == workStepId)[0];
+        let paramInputSchemaItems =
+            checkEmpty(workstep.work_step_input) ? null : JSON.parse(workstep.work_step_input).ParamInputSchemaItems;
+        if(paramInputSchemaItems != null){
+          var paramValueAll = "";
+          for(var index in paramInputSchemaItems){
+            const item = paramInputSchemaItems[index];
+            paramValueAll += "<span style='color:green;'>" + item.ParamName + "</span>" + ":" + "<span style='color:blue;'>" + item.ParamValue + "</span><br/><br/>";
           }
-        });
-      }
+          this.$Notice.success({
+            title: "全部参数",
+            duration: 0,  // 0 则不自动关闭
+            render: h => {
+              return h('div', {
+                style:'word-break: break-all;',
+                domProps: {
+                  innerHTML: paramValueAll,
+                },
+              });
+            }
+          });
+        }
+      },
     },
     computed:{
       ParamInputSchemaItems () {
