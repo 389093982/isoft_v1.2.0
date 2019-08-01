@@ -273,7 +273,7 @@
             this.variablesShowEdit[i] = false;
           }
         }
- m      }
+      }
     }
   }
 </script>
