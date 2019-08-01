@@ -240,7 +240,7 @@ func checkVariableRelationShipDetail(item iworkmodels.ParamInputSchemaItem, work
 			outputSchema := parser.GetCacheParamOutputSchema()
 			exist := false
 			for _, item := range outputSchema.ParamOutputSchemaItems {
-				if item.ParamName == referFiledName {
+				if item.ParamName == referFiledName || item.ParentPath+"."+item.ParamName == referFiledName {
 					exist = true
 					break
 				}
