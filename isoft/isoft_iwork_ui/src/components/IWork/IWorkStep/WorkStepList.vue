@@ -98,6 +98,8 @@
             key: 'work_step_id',
             width: 100,
             render: (h,params)=>{
+              let validateErrors = _this.validateDetails.filter(validateDetail => _this.$route.query.work_id == validateDetail.work_id
+                        && _this.worksteps[params.index]['work_step_id'] == validateDetail.work_step_id);
               return h('div', {}, [
                 h('span', {}, this.worksteps[params.index]['work_step_id']),
                 h('a', {    // 延迟执行函数显示效果
@@ -122,17 +124,25 @@
                     marginLeft: '10px',
                     color: 'red',
                     fontStyle: 'italic',
-                    display: (_this.validateDetails.filter(validateDetail =>
-                        _this.$route.query.work_id == validateDetail.work_id
-                        && _this.worksteps[params.index]['work_step_id'] == validateDetail.work_step_id).length > 0)
-                      ? undefined : 'none',
+                    display: validateErrors.length > 0 ? undefined : 'none',
                   },
                   on:{
                     click:function () {
+                      var errorMsg = "";
+                      for(var i=0; i<validateErrors.length; i++){
+                        errorMsg += validateErrors[i].detail + "<br/>";
+                      }
                       _this.$Modal.confirm({
-                        title:"确认",
-                        width: 400,
-                        content:'校验失败',
+                        title:"校验错误",
+                        width: 600,
+                        render: h => {
+                          return h('div', {
+                            style:'word-break: break-all;',
+                            domProps: {
+                              innerHTML: errorMsg,
+                            },
+                          });
+                        }
                       });
                     }
                   }
