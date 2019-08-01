@@ -65,7 +65,7 @@ func (this *WorkSubNode) GetRuntimeParamInputSchema() *iworkmodels.ParamInputSch
 			// 找到子流程起始节点
 			if strings.ToUpper(subStep.WorkStepType) == "WORK_START" {
 				// 子流程起始节点输入参数
-				subItems := this.ParamSchemaCacheParser.GetCacheParamInputSchema()
+				subItems := this.ParamSchemaCacheParser.GetCacheParamInputSchema(&subStep)
 				for _, subItem := range subItems.ParamInputSchemaItems {
 					items = append(items, iworkmodels.ParamInputSchemaItem{ParamName: subItem.ParamName})
 				}
