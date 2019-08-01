@@ -585,7 +585,7 @@
 		<WorkStepDesc>end节点</WorkStepDesc>
 		<WorkStepType>work_end</WorkStepType>
 		<WorkStepIndent>0</WorkStepIndent>
-		<WorkStepInput>{&#xA;&#x9;&#34;ParamInputSchemaItems&#34;: [&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;&#34;ParamName&#34;: &#34;status&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamDesc&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;Repeatable&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ForeachRefer&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamChoices&#34;: null,&#xA;&#x9;&#x9;&#x9;&#34;PureText&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ParamValue&#34;: &#34;ifThenElse(int64Gt($sql_query_checkUserExist.row.count,0),$Global.SUCCESS,$Global.ERROR);\n&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamType&#34;: &#34;&#34;&#xA;&#x9;&#x9;},&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;&#34;ParamName&#34;: &#34;errorMsg&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamDesc&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;Repeatable&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ForeachRefer&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamChoices&#34;: null,&#xA;&#x9;&#x9;&#x9;&#34;PureText&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ParamValue&#34;: &#34;$Error.errorMsg;\n&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamType&#34;: &#34;&#34;&#xA;&#x9;&#x9;},&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;&#34;ParamName&#34;: &#34;loginSuccess&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamDesc&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;Repeatable&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ForeachRefer&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamChoices&#34;: null,&#xA;&#x9;&#x9;&#x9;&#34;PureText&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ParamValue&#34;: &#34;$define_var_response_data.loginSuccess;\n&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamType&#34;: &#34;&#34;&#xA;&#x9;&#x9;},&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;&#34;ParamName&#34;: &#34;loginStatus&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamDesc&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;Repeatable&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ForeachRefer&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamChoices&#34;: null,&#xA;&#x9;&#x9;&#x9;&#34;PureText&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ParamValue&#34;: &#34;$define_var_response_data.loginStatus;\n&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamType&#34;: &#34;&#34;&#xA;&#x9;&#x9;},&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;&#34;ParamName&#34;: &#34;tokenString&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamDesc&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;Repeatable&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ForeachRefer&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamChoices&#34;: null,&#xA;&#x9;&#x9;&#x9;&#34;PureText&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ParamValue&#34;: &#34;$create_jwt_tokenString.str_tokenString;\n&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamType&#34;: &#34;&#34;&#xA;&#x9;&#x9;},&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;&#34;ParamName&#34;: &#34;domain&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamDesc&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;Repeatable&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ForeachRefer&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamChoices&#34;: null,&#xA;&#x9;&#x9;&#x9;&#34;PureText&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ParamValue&#34;: &#34;$define_var_response_data.domain;\n&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamType&#34;: &#34;&#34;&#xA;&#x9;&#x9;},&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;&#34;ParamName&#34;: &#34;adminLogin&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamDesc&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;Repeatable&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ForeachRefer&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamChoices&#34;: null,&#xA;&#x9;&#x9;&#x9;&#34;PureText&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ParamValue&#34;: &#34;$define_var_response_data.adminLogin;\n&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamType&#34;: &#34;&#34;&#xA;&#x9;&#x9;}&#xA;&#x9;]&#xA;}</WorkStepInput>
+		<WorkStepInput>{&#xA;&#x9;&#34;ParamInputSchemaItems&#34;: [&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;&#34;ParamName&#34;: &#34;status&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamDesc&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;Repeatable&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ForeachRefer&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamChoices&#34;: null,&#xA;&#x9;&#x9;&#x9;&#34;PureText&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ParamValue&#34;: &#34;ifThenElse(int64Gt($sql_query_checkUserExist.row.count,0),$Global.SUCCESS,$Global.ERROR);\n&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamType&#34;: &#34;&#34;&#xA;&#x9;&#x9;},&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;&#34;ParamName&#34;: &#34;errorMsg&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamDesc&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;Repeatable&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ForeachRefer&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamChoices&#34;: null,&#xA;&#x9;&#x9;&#x9;&#34;PureText&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ParamValue&#34;: &#34;$Error.errorMsg;\n&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamType&#34;: &#34;&#34;&#xA;&#x9;&#x9;},&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;&#34;ParamName&#34;: &#34;loginSuccess&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamDesc&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;Repeatable&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ForeachRefer&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamChoices&#34;: null,&#xA;&#x9;&#x9;&#x9;&#34;PureText&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ParamValue&#34;: &#34;ifThenElse(int64Gt($sql_query_checkUserExist.row.count,0),`SUCCESS`,`FAILED`);\n&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamType&#34;: &#34;&#34;&#xA;&#x9;&#x9;},&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;&#34;ParamName&#34;: &#34;loginStatus&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamDesc&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;Repeatable&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ForeachRefer&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamChoices&#34;: null,&#xA;&#x9;&#x9;&#x9;&#34;PureText&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ParamValue&#34;: &#34;ifThenElse(int64Gt($sql_query_checkUserExist.row.count,0),`SUCCESS`,`FAILED`);\n&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamType&#34;: &#34;&#34;&#xA;&#x9;&#x9;},&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;&#34;ParamName&#34;: &#34;tokenString&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamDesc&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;Repeatable&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ForeachRefer&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamChoices&#34;: null,&#xA;&#x9;&#x9;&#x9;&#34;PureText&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ParamValue&#34;: &#34;$create_jwt_tokenString.str_tokenString;\n&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamType&#34;: &#34;&#34;&#xA;&#x9;&#x9;},&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;&#34;ParamName&#34;: &#34;domain&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamDesc&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;Repeatable&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ForeachRefer&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamChoices&#34;: null,&#xA;&#x9;&#x9;&#x9;&#34;PureText&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ParamValue&#34;: &#34;`doman1`&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamType&#34;: &#34;&#34;&#xA;&#x9;&#x9;},&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;&#34;ParamName&#34;: &#34;adminLogin&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamDesc&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;Repeatable&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ForeachRefer&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamChoices&#34;: null,&#xA;&#x9;&#x9;&#x9;&#34;PureText&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ParamValue&#34;: &#34;ifThenElse(StringsEq($start.username,`admin1`),`adminLogin`,`notAdminLogin`);\n&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamType&#34;: &#34;&#34;&#xA;&#x9;&#x9;}&#xA;&#x9;]&#xA;}</WorkStepInput>
 		<work_step_input_xml><![CDATA[<paramInputSchema>
 	<paramInputSchemaItem>
 		<paramName>status</paramName>
@@ -611,7 +611,7 @@
 		<repeatable>false</repeatable>
 		<foreachRefer></foreachRefer>
 		<pureText>false</pureText>
-		<paramValue>$define_var_response_data.loginSuccess;&#xA;</paramValue>
+		<paramValue>ifThenElse(int64Gt($sql_query_checkUserExist.row.count,0),`SUCCESS`,`FAILED`);&#xA;</paramValue>
 		<paramType></paramType>
 	</paramInputSchemaItem>
 	<paramInputSchemaItem>
@@ -620,7 +620,7 @@
 		<repeatable>false</repeatable>
 		<foreachRefer></foreachRefer>
 		<pureText>false</pureText>
-		<paramValue>$define_var_response_data.loginStatus;&#xA;</paramValue>
+		<paramValue>ifThenElse(int64Gt($sql_query_checkUserExist.row.count,0),`SUCCESS`,`FAILED`);&#xA;</paramValue>
 		<paramType></paramType>
 	</paramInputSchemaItem>
 	<paramInputSchemaItem>
@@ -638,7 +638,7 @@
 		<repeatable>false</repeatable>
 		<foreachRefer></foreachRefer>
 		<pureText>false</pureText>
-		<paramValue>$define_var_response_data.domain;&#xA;</paramValue>
+		<paramValue>`doman1`</paramValue>
 		<paramType></paramType>
 	</paramInputSchemaItem>
 	<paramInputSchemaItem>
@@ -647,7 +647,7 @@
 		<repeatable>false</repeatable>
 		<foreachRefer></foreachRefer>
 		<pureText>false</pureText>
-		<paramValue>$define_var_response_data.adminLogin;&#xA;</paramValue>
+		<paramValue>ifThenElse(StringsEq($start.username,`admin1`),`adminLogin`,`notAdminLogin`);&#xA;</paramValue>
 		<paramType></paramType>
 	</paramInputSchemaItem>
 </paramInputSchema>]]></work_step_input_xml>
@@ -696,8 +696,8 @@
 	<ParamMappingType></ParamMappingType>
 </ParamMapping>]]></work_step_param_mapping_xml>
 		<CreatedBy>SYSTEM</CreatedBy>
-		<CreatedTime>2019-08-01T22:51:39+08:00</CreatedTime>
+		<CreatedTime>2019-08-02T00:06:47+08:00</CreatedTime>
 		<LastUpdatedBy>SYSTEM</LastUpdatedBy>
-		<LastUpdatedTime>2019-08-01T22:51:39+08:00</LastUpdatedTime>
+		<LastUpdatedTime>2019-08-02T00:06:47+08:00</LastUpdatedTime>
 	</workstep>
 </workdl>
