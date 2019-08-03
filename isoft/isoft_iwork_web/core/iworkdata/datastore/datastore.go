@@ -6,6 +6,7 @@ import (
 	"isoft/isoft_iwork_web/core/iworkcache"
 	"isoft/isoft_iwork_web/core/iworkconst"
 	"isoft/isoft_iwork_web/core/iworklog"
+	"isoft/isoft_iwork_web/startup/sysconfig"
 	"strings"
 )
 
@@ -25,7 +26,7 @@ func (this *DataStore) CacheDatas(nodeName string, paramMap map[string]interface
 	logs := make([]string, 0)
 	this.cacheMemory(nodeName, "__output__", paramMap)
 	for paramName, paramValue := range paramMap {
-		if !this.isReferUsage(nodeName, paramName) {
+		if !sysconfig.SYSCONFIG_VARS_USAGE_LOGGABLE && !this.isReferUsage(nodeName, paramName) {
 			continue
 		}
 		this.cacheMemory(nodeName, paramName, paramValue)

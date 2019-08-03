@@ -7,6 +7,7 @@ import (
 	_ "isoft/isoft_iwork_web/routers"
 	_ "isoft/isoft_iwork_web/startup/db"
 	_ "isoft/isoft_iwork_web/startup/logger"
+	_ "isoft/isoft_iwork_web/startup/sysconfig"
 	"isoft/isoft_iwork_web/startup/task"
 )
 
