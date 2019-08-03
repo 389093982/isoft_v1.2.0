@@ -4,12 +4,27 @@ import (
 	"fmt"
 	"github.com/pkg/errors"
 	"isoft/isoft/common/stringutil"
+	"net/url"
 	"path/filepath"
 	"strconv"
 	"strings"
 )
 
 type IWorkFuncProxy struct {
+}
+
+func (this *IWorkFuncProxy) GetRequestParameter(args []interface{}) interface{} {
+	urlAddress := args[0].(string)
+	paramName := args[1].(string)
+	u, err := url.Parse(urlAddress)
+	if err != nil {
+		panic(err)
+	}
+	values, err := url.ParseQuery(u.RawQuery)
+	if err != nil {
+		panic(err)
+	}
+	return values[paramName]
 }
 
 func (this *IWorkFuncProxy) StringsEq(args []interface{}) interface{} {
