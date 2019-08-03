@@ -13,6 +13,14 @@ import (
 type IWorkFuncProxy struct {
 }
 
+func (this *IWorkFuncProxy) GetDomain(args []interface{}) interface{} {
+	url := args[0].(string)
+	if arr := strings.Split(url, "//"); len(arr) > 1 {
+		return strings.Split(arr[1], "/")[0]
+	}
+	return ""
+}
+
 func (this *IWorkFuncProxy) GetRequestParameter(args []interface{}) interface{} {
 	urlAddress := args[0].(string)
 	paramName := args[1].(string)
@@ -54,9 +62,27 @@ func (this *IWorkFuncProxy) StringsToUpper(args []interface{}) interface{} {
 func (this *IWorkFuncProxy) StringsJoin(args []interface{}) interface{} {
 	sargs := make([]string, 0)
 	for _, arg := range args {
-		sargs = append(sargs, arg.(string))
+		if arr, err := strconvToSlice(arg); err == nil {
+			sargs = append(sargs, arr...)
+		} else {
+			panic(err)
+		}
 	}
 	return strings.Join(sargs, "")
+}
+
+func strconvToSlice(s interface{}) ([]string, error) {
+	result := make([]string, 0)
+	if arr, ok := s.([]string); ok {
+		for _, val := range arr {
+			result = append(result, val)
+		}
+	} else if val, ok := s.(string); ok {
+		result = append(result, val)
+	} else {
+		return nil, errors.New(fmt.Sprintf(`convert error, %s is not string or []string`, s))
+	}
+	return result, nil
 }
 
 func (this *IWorkFuncProxy) Int64Add(args []interface{}) interface{} {
