@@ -10,6 +10,7 @@ const default_work_step_types=[
   {"name":"json_render","icon":"ios-git-branch"},
   {"name":"json_parser","icon":"ios-git-compare"},
   {"name":"http_request","icon":"ios-globe-outline"},
+  {"name":"http_request_parser","icon":"ios-globe-outline"},
   {"name":"mapper","icon":"ios-infinite"},
   {"name":"file_read","icon":"ios-book-outline"},
   {"name":"file_write","icon":"ios-create-outline"},

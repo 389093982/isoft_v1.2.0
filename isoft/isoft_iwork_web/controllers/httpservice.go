@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"github.com/astaxie/beego/orm"
+	"isoft/isoft_iwork_web/core/iworkconst"
 	"isoft/isoft_iwork_web/core/iworkdata/entry"
 	"isoft/isoft_iwork_web/core/iworkdata/schema"
 	"isoft/isoft_iwork_web/core/iworkplugin/node"
@@ -32,6 +33,7 @@ func (this *WorkController) PublishSerivce() {
 	steps, err = models.QueryAllWorkStepByWorkName(work_name, orm.NewOrm())
 	checkError(err)
 	mapData := this.ParseParam(steps)
+	mapData[iworkconst.HTTP_REQUEST_OBJECT] = this.Ctx.Request // 传递 request 对象
 	receiver := iworkrun.RunOneWork(work.Id, &entry.Dispatcher{TmpDataMap: mapData})
 	if receiver != nil {
 		this.Data["json"] = &receiver.TmpDataMap

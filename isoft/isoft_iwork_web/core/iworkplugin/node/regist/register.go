@@ -6,7 +6,7 @@ import (
 	"isoft/isoft_iwork_web/core/iworkplugin/node/chiper"
 	"isoft/isoft_iwork_web/core/iworkplugin/node/file"
 	"isoft/isoft_iwork_web/core/iworkplugin/node/framework"
-	"isoft/isoft_iwork_web/core/iworkplugin/node/html"
+	"isoft/isoft_iwork_web/core/iworkplugin/node/http"
 	"isoft/isoft_iwork_web/core/iworkplugin/node/json"
 	"isoft/isoft_iwork_web/core/iworkplugin/node/os"
 	"isoft/isoft_iwork_web/core/iworkplugin/node/sql"
@@ -26,13 +26,14 @@ func RegistNodes() {
 		sql.SQLQueryNode{},
 		json.JsonRenderNode{},
 		json.JsonParserNode{},
-		html.HttpRequestNode{},
+		http.HttpRequestNode{},
 		framework.MapperNode{},
 		file.FileReadNode{},
 		file.FileWriteNode{},
 		file.FileSyncNode{},
 		file.FileDeleteNode{},
-		html.HrefParserNode{},
+		http.HrefParserNode{},
+		http.HttpRequestParserNode{},
 		framework.EntityParserNode{},
 		chiper.CalHashNode{},
 		os.SetEnvNode{},

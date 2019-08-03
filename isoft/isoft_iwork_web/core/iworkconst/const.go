@@ -27,3 +27,5 @@ const NODE_TYPE_WORK_SUB = "work_sub"
 const LOG_LEVEL_INFO = "INFO"
 const LOG_LEVEL_SUCCESS = "SUCCESS"
 const LOG_LEVEL_ERROR = "ERROR"
+
+const HTTP_REQUEST_OBJECT = "____request"

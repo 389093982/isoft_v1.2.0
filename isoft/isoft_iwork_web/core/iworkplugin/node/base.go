@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/astaxie/beego/orm"
 	"isoft/isoft_iwork_web/core/iworkcache"
+	"isoft/isoft_iwork_web/core/iworkconst"
 	"isoft/isoft_iwork_web/core/iworkdata/datastore"
 	"isoft/isoft_iwork_web/core/iworkdata/entry"
 	"isoft/isoft_iwork_web/core/iworklog"
@@ -78,7 +79,9 @@ func (this *BaseNode) FillParamInputSchemaDataToTmp(workStep *models.WorkStep) {
 		tmpDataMap := make(map[string]interface{})
 		// 从父流程中获取值,即从 Dispatcher 中获取值
 		for key, value := range this.Dispatcher.TmpDataMap {
-			if value != "__default__" { // __default__ 则表示不用替换,还是使用子流程默认值参数
+			// __default__ 则表示不用替换,还是使用子流程默认值参数
+			if value != "__default__" && key != iworkconst.HTTP_REQUEST_OBJECT {
+
 				tmpDataMap[key] = value
 			}
 		}

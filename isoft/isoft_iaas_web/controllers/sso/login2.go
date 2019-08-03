@@ -37,7 +37,7 @@ func (this *LoginController) PostLogin2() {
 		"ip":              this.Ctx.Input.IP(),
 	}
 	url := "http://localhost:8086/api/iwork/httpservice/PostLogin2"
-	headerMap := map[string]interface{}{}
+	headerMap := map[string]interface{}{"referer": this.Ctx.Input.Referer(), "origin": this.Ctx.Request.Header.Get("origin")}
 	result := make(map[string]interface{})
 	err := httputil.DoHttpRequestAndParseToObj(url, "post", paramMap, headerMap, &result)
 	if err == nil {
