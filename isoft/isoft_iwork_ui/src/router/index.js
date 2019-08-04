@@ -18,6 +18,7 @@ import GlobalVarList from "../components/IWork/IGlobalVar/GlobalVarList"
 import EntityList from "../components/IWork/IEntity/EntityList"
 import File from "../components/IWork/IFile/File"
 import DashBoard from "../components/IWork/IDashBoard/DashBoard"
+import IModuleList from "../components/IWork/IModule/IModuleList"
 
 Vue.use(Router);
 
@@ -30,6 +31,7 @@ const IWorkRouter = [
     path: '/iwork',
     component: IWorkLayout,
     children: [
+      {path: 'moduleList',component: IModuleList},
       {path: 'quartzList',component: QuartzList},
       {path: 'resourceList',component: ResourceList},
       {path: 'workList',component: WorkList},
