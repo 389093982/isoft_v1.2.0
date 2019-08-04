@@ -234,8 +234,8 @@
       editWork:async function (work_id, work_name, work_desc) {
         const result = await EditWork(work_id, work_name, work_desc, this.current_work_type, this.current_module_name);
         if(result.status == "SUCCESS"){
-          this.$refs.workEditForm.handleSubmitSuccess("提交成功!");
           this.$refs.workEditModal.hideModal();
+          this.$refs.workEditForm.handleSubmitSuccess("提交成功!");
           this.refreshWorkList();
         }else{
           this.$refs.workEditForm.handleSubmitError("提交失败!");

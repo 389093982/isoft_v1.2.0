@@ -70,8 +70,9 @@
         })
       },
       handleSubmitSuccess (msg){
-        this.$Message.success(msg);
+        this.formValidate.formmode = null;
         this.handleReset('formValidate');
+        this.$Message.success(msg);
       },
       handleSubmitError (msg){
         this.$Message.error(msg);
