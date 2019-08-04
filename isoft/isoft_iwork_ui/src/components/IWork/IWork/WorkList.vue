@@ -5,6 +5,8 @@
       <Col span="3"><WorkValidate/></Col>
     </Row>
 
+    <ModuleChooser ref="moduleChooser" @chooseModule="chooseModule"/>
+
     <ISimpleLeftRightRow style="margin-bottom: 10px;margin-right: 10px;">
       <!-- left 插槽部分 -->
       <span slot="left">
@@ -13,12 +15,19 @@
           <IKeyValueForm ref="workEditForm" form-key-label="work_name" form-value-label="work_desc"
                          form-key-placeholder="请输入 work_name" form-value-placeholder="请输入 work_desc"
                          @handleSubmit="editWork" :formkey-validator="workNameValidator">
-            <FormItem label="work_type" slot="extra">
-              <Select :transfer="true" v-model="current_work_type">
-                <Option value="filter" key="filter">filter</Option>
-                <Option value="work" key="work">work</Option>
-              </Select>
-            </FormItem>
+            <span slot="extra">
+              <FormItem label="work_type">
+                <Select :transfer="true" v-model="current_work_type">
+                  <Option value="filter" key="filter">filter</Option>
+                  <Option value="work" key="work">work</Option>
+                </Select>
+              </FormItem>
+              <FormItem label="module_name">
+                <Input v-model.trim="current_module_name" style="width: 83%;"/>
+                <Button type="success" size="small" @click="$refs.moduleChooser.showModal()">选择模块</Button>
+              </FormItem>
+            </span>
+
           </IKeyValueForm>
         </ISimpleConfirmModal>
       </span>
@@ -45,10 +54,11 @@
   import ISimpleConfirmModal from "../../Common/modal/ISimpleConfirmModal"
   import IKeyValueForm from "../../Common/form/IKeyValueForm"
   import {validateCommonPatternForString} from "../../../tools/index"
+  import ModuleChooser from "../IWork/ModuleChooser"
 
   export default {
     name: "WorkList",
-    components:{ISimpleLeftRightRow,ISimpleSearch,IWorkDL,WorkValidate,ISimpleConfirmModal,IKeyValueForm},
+    components:{ISimpleLeftRightRow,ISimpleSearch,IWorkDL,WorkValidate,ISimpleConfirmModal,IKeyValueForm,ModuleChooser},
     data(){
       return {
         // 当前页
@@ -61,6 +71,7 @@
         search:"",
         works: [],
         current_work_type: "work",
+        current_module_name: "",
         columns1: [
           {
             title: 'work_name',
@@ -242,6 +253,9 @@
           callback();
         }
       },
+      chooseModule:function (module) {
+        this.current_module_name = module.module_name;
+      }
     },
     mounted: function () {
       this.refreshWorkList();

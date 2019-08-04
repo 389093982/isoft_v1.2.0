@@ -89,11 +89,32 @@
                     }
                   }
                 }, '删除'),
+                h('Button', {
+                  props: {
+                    type: 'success',
+                    size: 'small'
+                  },
+                  style: {
+                    marginRight: '5px',
+                    display: this.showChooserBtn ? undefined : 'none',
+                  },
+                  on: {
+                    click: () => {
+                      this.$emit("chooseModule", this.modules[params.index]);
+                    }
+                  }
+                }, '选择'),
               ]);
             }
-          }
+          },
         ],
       }
+    },
+    props:{
+      showChooserBtn: {
+        type: Boolean,
+        default: false
+      },
     },
     methods:{
       deleteModuleById:async function(id){

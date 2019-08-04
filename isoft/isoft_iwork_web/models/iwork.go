@@ -11,6 +11,7 @@ type Work struct {
 	WorkName        string    `json:"work_name" orm:"unique"`
 	WorkDesc        string    `json:"work_desc" orm:"type(text)"`
 	WorkType        string    `json:"work_type"`
+	ModuleName      string    `json:"module_name"`
 	CreatedBy       string    `json:"created_by"`
 	CreatedTime     time.Time `json:"created_time" orm:"auto_now_add;type(datetime)"`
 	LastUpdatedBy   string    `json:"last_updated_by"`
