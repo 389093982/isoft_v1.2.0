@@ -128,4 +128,4 @@ export const DeleteTemplateById = (id) => ajax(BASE_URL+"/iwork/deleteTemplateBy
 
 export const ModuleList = (offset,current_page, search) => ajax(BASE_URL+"/iwork/moduleList", {offset,current_page, search},'POST');
 export const EditModule = (module_id, module_name, module_desc) => ajax(BASE_URL+"/iwork/editModule", {module_id, module_name, module_desc},'POST');
-
+export const DeleteModuleById = (id) => ajax(BASE_URL+"/iwork/deleteModuleById", {id},'POST');

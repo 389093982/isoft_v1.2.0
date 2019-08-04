@@ -35,3 +35,8 @@ func InsertOrUpdateModule(module *Module, o orm.Ormer) (id int64, err error) {
 	}
 	return
 }
+
+func DeleteModuleById(module_id int64, o orm.Ormer) (id int64, err error) {
+	_, err = o.QueryTable("module").Filter("id", module_id).Delete()
+	return
+}

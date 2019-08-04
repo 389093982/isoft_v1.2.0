@@ -29,6 +29,7 @@
   import ISimpleSearch from "../../Common/search/ISimpleSearch"
   import {ModuleList} from "../../../api"
   import {EditModule} from "../../../api"
+  import {DeleteModuleById} from "../../../api"
   import {validateCommonPatternForString} from "../../../tools/index"
 
   export default {
@@ -54,10 +55,53 @@
             title: 'module_desc',
             key: 'module_desc',
           },
+          {
+            title: '操作',
+            key: 'operate',
+            render: (h, params) => {
+              return h('div', [
+                h('Button', {
+                  props: {
+                    type: 'success',
+                    size: 'small'
+                  },
+                  style: {
+                    marginRight: '5px',
+                  },
+                  on: {
+                    click: () => {
+                      this.$refs.moduleEditModal.showModal();
+                      this.$refs.moduleEditForm.initFormData(this.modules[params.index].id, this.modules[params.index].module_name, this.modules[params.index].module_desc);
+                    }
+                  }
+                }, '编辑'),
+                h('Button', {
+                  props: {
+                    type: 'error',
+                    size: 'small'
+                  },
+                  style: {
+                    marginRight: '5px',
+                  },
+                  on: {
+                    click: () => {
+                      this.deleteModuleById(this.modules[params.index]['id']);
+                    }
+                  }
+                }, '删除'),
+              ]);
+            }
+          }
         ],
       }
     },
     methods:{
+      deleteModuleById:async function(id){
+        const result = await DeleteModuleById(id);
+        if(result.status=="SUCCESS"){
+          this.refreshModuleList();
+        }
+      },
       refreshModuleList:async function () {
         const result = await ModuleList(this.offset,this.current_page,this.search);
         if(result.status=="SUCCESS"){

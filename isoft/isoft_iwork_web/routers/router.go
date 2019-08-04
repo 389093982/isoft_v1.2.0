@@ -82,4 +82,5 @@ func loadloadIWorkerRouterDetail() {
 
 	beego.Router("/api/iwork/moduleList", &controllers.WorkController{}, "get,post:ModuleList")
 	beego.Router("/api/iwork/editModule", &controllers.WorkController{}, "get,post:EditModule")
+	beego.Router("/api/iwork/deleteModuleById", &controllers.WorkController{}, "get,post:DeleteModuleById")
 }

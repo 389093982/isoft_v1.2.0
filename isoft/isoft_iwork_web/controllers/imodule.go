@@ -46,3 +46,14 @@ func (this *WorkController) EditModule() {
 	}
 	this.ServeJSON()
 }
+
+func (this *WorkController) DeleteModuleById() {
+	id, _ := this.GetInt64("id")
+	_, err := models.DeleteModuleById(id, orm.NewOrm())
+	if err == nil {
+		this.Data["json"] = &map[string]interface{}{"status": "SUCCESS"}
+	} else {
+		this.Data["json"] = &map[string]interface{}{"status": "ERROR", "errorMsg": err.Error()}
+	}
+	this.ServeJSON()
+}
