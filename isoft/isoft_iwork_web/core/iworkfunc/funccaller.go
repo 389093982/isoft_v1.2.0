@@ -63,6 +63,11 @@ func CheckHasNearRightBracket(leftBracketIndex int, lexersExpression string) (bo
 }
 
 func ExecuteFuncCaller(caller *FuncCaller, args []interface{}) interface{} {
+	defer func() {
+		if err := recover(); err != nil {
+			panic(errors.Wrap(err.(error), fmt.Sprintf(`caller.FuncName is %s, caller.FuncArgs %v`, caller.FuncName, caller.FuncArgs)))
+		}
+	}()
 	proxy := &IWorkFuncProxy{}
 	// 将 funcName 首字母变成大写
 	funcName := strings.Join([]string{

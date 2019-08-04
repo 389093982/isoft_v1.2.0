@@ -87,7 +87,8 @@ func (this *PisItemDataParser) ParseAndGetParamVaule(paramName, paramVaule strin
 	parseValues := make([]interface{}, 0)
 	for _, objectAttr := range objectAttrs {
 		objectAttr.attrParseValue = this.parseParamVaule(paramName, objectAttr.attrPureValue, replaceMap...)
-		parseValues, objectMap[objectAttr.attrName] = append(parseValues, objectAttr.attrParseValue), objectAttr.attrParseValue
+		parseValues = append(parseValues, datatypeutil.InterfaceConvertToSlice(objectAttr.attrParseValue)...)
+		objectMap[objectAttr.attrName] = objectAttr.attrParseValue
 	}
 	// 对象值, 将 []*AttrObjects 转换成 map[string]interface{}
 	if this.Item.ParamType == "objects" {
