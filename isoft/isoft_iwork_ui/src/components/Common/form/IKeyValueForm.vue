@@ -7,6 +7,7 @@
     <FormItem :label="formValueLabel" prop="formvalue">
       <Input v-model.trim="formValidate.formvalue" type="textarea" :rows="4" :placeholder="formValuePlaceholder"></Input>
     </FormItem>
+    <slot name="extra"></slot>
     <FormItem>
       <Button type="success" @click="handleSubmit('formValidate')" style="margin-right: 6px">Submit</Button>
       <Button type="warning" @click="handleReset('formValidate')" style="margin-right: 6px">Reset</Button>

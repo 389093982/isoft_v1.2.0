@@ -12,7 +12,14 @@
         <ISimpleConfirmModal ref="workEditModal" modal-title="新增/编辑 Work" :modal-width="600" :footer-hide="true">
           <IKeyValueForm ref="workEditForm" form-key-label="work_name" form-value-label="work_desc"
                          form-key-placeholder="请输入 work_name" form-value-placeholder="请输入 work_desc"
-                         @handleSubmit="editWork" :formkey-validator="workNameValidator"/>
+                         @handleSubmit="editWork" :formkey-validator="workNameValidator">
+            <FormItem label="work_type" slot="extra">
+              <Select :transfer="true" v-model="current_work_type">
+                <Option value="filter" key="filter">filter</Option>
+                <Option value="work" key="work">work</Option>
+              </Select>
+            </FormItem>
+          </IKeyValueForm>
         </ISimpleConfirmModal>
       </span>
 
@@ -53,6 +60,7 @@
         // 搜索条件
         search:"",
         works: [],
+        current_work_type: "work",
         columns1: [
           {
             title: 'work_name',
@@ -195,7 +203,7 @@
         this.$refs.workEditModal.showModal();
       },
       editWork:async function (work_id, work_name, work_desc) {
-        const result = await EditWork(work_id, work_name, work_desc);
+        const result = await EditWork(work_id, work_name, work_desc, this.current_work_type);
         if(result.status == "SUCCESS"){
           this.$refs.workEditForm.handleSubmitSuccess("提交成功!");
           this.$refs.workEditModal.hideModal();
