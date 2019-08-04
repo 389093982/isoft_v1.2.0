@@ -62,6 +62,7 @@ func registerModel() {
 	orm.RegisterModel(new(models.GlobalVar))
 	orm.RegisterModel(new(models.Template))
 	orm.RegisterModel(new(models.Module))
+	orm.RegisterModel(new(models.Filters))
 }
 
 // 自动建表

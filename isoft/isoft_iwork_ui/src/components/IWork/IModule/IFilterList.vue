@@ -10,18 +10,20 @@
       <li v-for="module in modules" style="list-style: none;margin-top: 20px;">
         <Tag><span>{{module.module_name}}</span></Tag>
         <Button type="success" size="small" @click="handleCheckAll(module.module_name)">全选</Button>
-        <CheckboxGroup v-model="checkedWorks">
-          <Checkbox :label="moduleWork.work_name" v-for="moduleWork in works" v-if="moduleWork.module_name == module.module_name"
-            ></Checkbox>
+        <CheckboxGroup v-model="checkedFilterWorks">
+          <Checkbox :label="moduleWork.work_name" v-for="moduleWork in works" v-if="moduleWork.module_name == module.module_name"></Checkbox>
         </CheckboxGroup>
       </li>
     </ul>
+
+    <Button type="success" size="small" @click="saveFilters" style="margin-top: 20px;">保存</Button>
 
   </div>
 </template>
 
 <script>
   import {GetAllFilterWorks} from "../../../api"
+  import {SaveFilters} from "../../../api"
   import {oneOf} from "../../../tools"
 
   export default {
@@ -33,7 +35,7 @@
         works: [],
         moduleWorks:[],
         current_filter_id:-1,
-        checkedWorks:[],
+        checkedFilterWorks:[],
       }
     },
     methods:{
@@ -50,18 +52,30 @@
         var allInflag = true;
         for(var i=0; i<work_names.length; i++){
           let work_name = work_names[i];
-          if(!oneOf(work_name, this.checkedWorks)){
+          if(!oneOf(work_name, this.checkedFilterWorks)){
             allInflag = false;
             break;
           }
         }
         if(allInflag){
-          this.checkedWorks = this.checkedWorks.filter(checkWork => !oneOf(checkWork, work_names));
+          this.checkedFilterWorks = this.checkedFilterWorks.filter(checkWork => !oneOf(checkWork, work_names));
         }else{
-          let addWorks = work_names.filter(work_name => !oneOf(work_name, this.checkedWorks));
+          let addWorks = work_names.filter(work_name => !oneOf(work_name, this.checkedFilterWorks));
           for(var i=0; i<addWorks.length; i++){
             let work_name = addWorks[i];
-            this.checkedWorks.push(work_name);
+            this.checkedFilterWorks.push(work_name);
+          }
+        }
+      },
+      saveFilters:async function () {
+        if(this.current_filter_id < 0){
+          this.$Message.error('请选择 filter!');
+        }else{
+          const result = await SaveFilters(this.current_filter_id, JSON.stringify(this.checkedFilterWorks));
+          if(result.status == "SUCCESS"){
+            this.$Message.success("保存成功！");
+          }else{
+            this.$Message.error(result.errorMsg);
           }
         }
       }
