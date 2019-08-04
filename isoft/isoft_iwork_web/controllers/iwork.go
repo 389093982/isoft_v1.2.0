@@ -191,3 +191,12 @@ func (this *WorkController) Download() {
 	defer fileutil.RemoveFileOrDirectory(tofile)
 	this.Ctx.Output.Download(tofile, fmt.Sprintf(`%s.txt`, workCache.Work.WorkName))
 }
+
+func (this *WorkController) GetAllFilterWorks() {
+	if filters, err := models.GetAllFilterWorks(); err == nil {
+		this.Data["json"] = &map[string]interface{}{"status": "SUCCESS", "filters": filters}
+	} else {
+		this.Data["json"] = &map[string]interface{}{"status": "ERROR", "errorMsg": err.Error()}
+	}
+	this.ServeJSON()
+}

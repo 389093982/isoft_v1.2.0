@@ -19,6 +19,7 @@ import EntityList from "../components/IWork/IEntity/EntityList"
 import File from "../components/IWork/IFile/File"
 import DashBoard from "../components/IWork/IDashBoard/DashBoard"
 import IModuleList from "../components/IWork/IModule/IModuleList"
+import IFilterList from "../components/IWork/IModule/IFilterList"
 
 Vue.use(Router);
 
@@ -35,6 +36,7 @@ const IWorkRouter = [
       {path: 'quartzList',component: QuartzList},
       {path: 'resourceList',component: ResourceList},
       {path: 'workList',component: WorkList},
+      {path: 'filterList',component: IFilterList},
       {path: 'workstepList',component: WorkStepList},
       {path: 'runLogList',component: RunLogList},
       {path: 'workHistoryList',component: WorkHistoryList},

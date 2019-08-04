@@ -92,3 +92,9 @@ func UpdateModuleName(moduleName, newModuleName string) error {
 	_, err := o.QueryTable("work").Filter("module_name", moduleName).Update(orm.Params{"module_name": newModuleName})
 	return err
 }
+
+func GetAllFilterWorks() (works []Work, err error) {
+	o := orm.NewOrm()
+	_, err = o.QueryTable("work").Filter("work_type", "filter").All(&works)
+	return
+}
