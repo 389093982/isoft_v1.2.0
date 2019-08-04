@@ -89,6 +89,7 @@
                     click: () => {
                       this.$refs.workEditModal.showModal();
                       this.$refs.workEditForm.initFormData(this.works[params.index].id, this.works[params.index].work_name, this.works[params.index].work_desc);
+                      this.current_work_type = this.works[params.index].work_type;
                     }
                   }
                 }, '编辑'),
