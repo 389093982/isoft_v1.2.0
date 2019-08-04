@@ -4,11 +4,11 @@
 		<WorkName>AddAppRegister2</WorkName>
 		<WorkDesc>AddAppRegister2</WorkDesc>
 		<WorkType>work</WorkType>
-		<ModuleName>ee</ModuleName>
+		<ModuleName>SSO</ModuleName>
 		<CreatedBy>SYSTEM</CreatedBy>
-		<CreatedTime>2019-08-04T15:26:40+08:00</CreatedTime>
+		<CreatedTime>2019-08-04T18:54:14+08:00</CreatedTime>
 		<LastUpdatedBy>SYSTEM</LastUpdatedBy>
-		<LastUpdatedTime>2019-08-04T15:26:40+08:00</LastUpdatedTime>
+		<LastUpdatedTime>2019-08-04T18:54:14+08:00</LastUpdatedTime>
 	</work>
 	<workstep>
 		<Id>933</Id>

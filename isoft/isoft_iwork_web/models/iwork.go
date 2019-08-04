@@ -86,3 +86,9 @@ func DeleteWorkById(id int64, o orm.Ormer) error {
 	_, err := o.QueryTable("work").Filter("id", id).Delete()
 	return err
 }
+
+func UpdateModuleName(moduleName, newModuleName string) error {
+	o := orm.NewOrm()
+	_, err := o.QueryTable("work").Filter("module_name", moduleName).Update(orm.Params{"module_name": newModuleName})
+	return err
+}

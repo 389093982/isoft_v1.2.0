@@ -29,6 +29,10 @@ func QueryPageModuleList(condArr map[string]string, page int, offset int, o orm.
 
 func InsertOrUpdateModule(module *Module, o orm.Ormer) (id int64, err error) {
 	if module.Id > 0 {
+		var oldModule Module
+		if err := o.QueryTable("module").Filter("id", module.Id).One(&oldModule); err == nil {
+			UpdateModuleName(oldModule.ModuleName, module.ModuleName)
+		}
 		id, err = o.Update(module)
 	} else {
 		id, err = o.Insert(module)
