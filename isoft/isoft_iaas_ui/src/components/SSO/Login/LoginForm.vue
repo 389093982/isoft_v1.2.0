@@ -36,7 +36,7 @@
         var username = $("input[name='username']").val();
         var passwd = $("input[name='passwd']").val();
         var result = await Login(username, passwd);
-        if(result.loginSuccess == true){
+        if(result.loginSuccess == true || result.loginSuccess == "SUCCESS"){
           setCookie("token",result.tokenString,365,result.domain);
           setCookie("userName",username,365,result.domain);
           setCookie("isLogin","isLogin",365,result.domain);
