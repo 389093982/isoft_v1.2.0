@@ -6,6 +6,7 @@ import ajax from './ajax'
 import store from "../store"
 
 const BASE_URL = '/api'
+const BASE_URL_2 = '/api2'
 
 // 编辑或者新增博客分类
 export const CatalogEdit = (catalog_name, catalog_desc) => ajax(BASE_URL+'/catalog/edit',{catalog_name, catalog_desc},'POST');
@@ -114,22 +115,22 @@ export const FilterPageIFiles = (search_name,offset,current_page) => ajax(BASE_U
 
 // 登录接口
 // export const Login = (username,passwd) => ajax(BASE_URL+"/sso/user/login", {username,passwd},'POST');
-export const Login = (username,passwd) => ajax(BASE_URL+"/iwork/httpservice/PostLogin2", {username,passwd},'GET');
+export const Login = (username,passwd) => ajax(BASE_URL_2+"/iwork/httpservice/PostLogin2", {username,passwd},'GET');
 
 // 注册接口
 export const Regist = (username,passwd) => ajax(BASE_URL+"/sso/user/regist", {username,passwd},'POST');
 
 // 系统注册分页查询
 // export const AppRegisterList = (offset,current_page,search) => ajax(BASE_URL+"/sso/app/appRegisterList", {offset,current_page,search},'POST');
-export const AppRegisterList = (offset,current_page,search) => ajax(BASE_URL+"/iwork/httpservice/AppRegisterList2", {offset,current_page,search},'GET');
+export const AppRegisterList = (offset,current_page,search) => ajax(BASE_URL_2+"/iwork/httpservice/AppRegisterList2", {offset,current_page,search},'GET');
 
 // 添加系统注册
 // export const AddAppRegister = (app_address) => ajax(BASE_URL+"/sso/app/addAppRegister", {app_address},'POST');
-export const AddAppRegister = (app_address) => ajax(BASE_URL+"/iwork/httpservice/AddAppRegister2", {app_address},'GET');
+export const AddAppRegister = (app_address) => ajax(BASE_URL_2+"/iwork/httpservice/AddAppRegister2", {app_address},'GET');
 
 // 登录记录分页查询
 // export const LoginRecordList = (offset,current_page,search) => ajax(BASE_URL+"/sso/user/loginRecordList", {offset,current_page,search},'POST');
-export const LoginRecordList = (offset,current_page,search) => ajax(BASE_URL+"/iwork/httpservice/LoginRecordList2", {offset,current_page,search},'GET');
+export const LoginRecordList = (offset,current_page,search) => ajax(BASE_URL_2+"/iwork/httpservice/LoginRecordList2", {offset,current_page,search},'GET');
 
 
 // 跨模块使用,模块化部署时需要使用 nginx 代理
