@@ -23,7 +23,7 @@
                 </Select>
               </FormItem>
               <FormItem label="module_name">
-                <Input v-model.trim="current_module_name" style="width: 83%;"/>
+                <Input v-model.trim="current_module_name" style="width: 83%;" readonly="readonly"/>
                 <Button type="success" size="small" @click="$refs.moduleChooser.showModal()">选择模块</Button>
               </FormItem>
             </span>
@@ -90,13 +90,14 @@
             }
           },
           {
-            title: 'work_desc',
-            key: 'work_desc',
-            width: 250,
+            title: 'module_name',
+            key: 'module_name',
+            width: 120,
           },
           {
             title: '操作',
             key: 'operate',
+            width: 400,
             render: (h, params) => {
               return h('div', [
                 h('Button', {
@@ -187,7 +188,12 @@
                 }, '运行日志'),
               ]);
             }
-          }
+          },
+          {
+            title: 'work_desc',
+            key: 'work_desc',
+            width: 400,
+          },
         ],
       }
     },
@@ -226,7 +232,7 @@
         this.$refs.workEditModal.showModal();
       },
       editWork:async function (work_id, work_name, work_desc) {
-        const result = await EditWork(work_id, work_name, work_desc, this.current_work_type);
+        const result = await EditWork(work_id, work_name, work_desc, this.current_work_type, this.current_module_name);
         if(result.status == "SUCCESS"){
           this.$refs.workEditForm.handleSubmitSuccess("提交成功!");
           this.$refs.workEditModal.hideModal();
