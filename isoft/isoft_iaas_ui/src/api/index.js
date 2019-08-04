@@ -113,7 +113,8 @@ export const FilterPageHeartBeat = (offset,current_page) => ajax(BASE_URL+"/moni
 export const FilterPageIFiles = (search_name,offset,current_page) => ajax(BASE_URL+"/ifile/filterPageIFiles", {search_name,offset,current_page},'GET');
 
 // 登录接口
-export const Login = (username,passwd) => ajax(BASE_URL+"/sso/user/login", {username,passwd},'POST');
+// export const Login = (username,passwd) => ajax(BASE_URL+"/sso/user/login", {username,passwd},'POST');
+export const Login = (username,passwd) => ajax(BASE_URL+"/iwork/httpservice/PostLogin2", {username,passwd},'POST');
 
 // 注册接口
 export const Regist = (username,passwd) => ajax(BASE_URL+"/sso/user/regist", {username,passwd},'POST');

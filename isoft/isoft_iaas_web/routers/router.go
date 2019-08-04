@@ -12,7 +12,39 @@ import (
 	"isoft/isoft_iaas_web/controllers/monitor"
 	"isoft/isoft_iaas_web/controllers/share"
 	"isoft/isoft_iaas_web/controllers/sso"
+	"net"
+	"net/http"
+	"net/http/httputil"
+	"net/url"
+	"time"
 )
+
+type handle struct {
+}
+
+func (this *handle) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	remote, err := url.Parse("http://localhost:8086")
+	if err != nil {
+		panic(err)
+	}
+	proxy := httputil.NewSingleHostReverseProxy(remote)
+	var pTransport http.RoundTripper = &http.Transport{
+		Proxy: http.ProxyFromEnvironment,
+		Dial: (&net.Dialer{
+			Timeout:   30 * time.Second,
+			KeepAlive: 30 * time.Second,
+		}).Dial,
+		MaxIdleConns:          1000,
+		IdleConnTimeout:       10 * time.Second,
+		TLSHandshakeTimeout:   10 * time.Second,
+		ExpectContinueTimeout: 1 * time.Second,
+		DisableKeepAlives:     false,
+	}
+	proxy.Transport = pTransport
+	proxy.ServeHTTP(w, r)
+}
+
+var proxyhandler = &handle{}
 
 func init() {
 	beego.InsertFilter("*", beego.BeforeRouter, cors.Allow(&cors.Options{
@@ -130,7 +162,7 @@ func initIBlogRouter() {
 
 func loadISSORouter() {
 	//beego.Router("/api/sso/user/login", &sso.LoginController{}, "post:PostLogin")
-	beego.Router("/api/sso/user/login", &sso.LoginController{}, "post:PostLogin2")
+	beego.Handler("/api/iwork/httpservice/PostLogin2", proxyhandler)
 	//beego.Router("/api/sso/user/regist", &sso.LoginController{}, "post:PostRegist")
 	beego.Router("/api/sso/user/regist", &sso.LoginController{}, "post:PostRegist2")
 	beego.Router("/api/sso/app/appRegisterList", &sso.AppRegisterController{}, "post:AppRegisterList")
