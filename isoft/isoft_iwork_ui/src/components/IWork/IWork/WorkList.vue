@@ -66,6 +66,17 @@
             title: 'work_name',
             key: 'work_name',
             width: 250,
+            render: (h, params) => {
+              return h('div', [
+                h('span', {
+                  style:{
+                    marginRight: '10px',
+                    color: 'red',
+                  }
+                }, this.works[params.index].work_type),
+                h('span', this.works[params.index].work_name),
+              ]);
+            }
           },
           {
             title: 'work_desc',

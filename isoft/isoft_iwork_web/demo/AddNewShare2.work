@@ -3,10 +3,11 @@
 		<Id>157</Id>
 		<WorkName>AddNewShare2</WorkName>
 		<WorkDesc>AddNewShare2</WorkDesc>
+		<WorkType>work</WorkType>
 		<CreatedBy>SYSTEM</CreatedBy>
-		<CreatedTime>2019-07-07T12:48:18+08:00</CreatedTime>
+		<CreatedTime>2019-08-04T12:45:02+08:00</CreatedTime>
 		<LastUpdatedBy>SYSTEM</LastUpdatedBy>
-		<LastUpdatedTime>2019-07-07T12:48:18+08:00</LastUpdatedTime>
+		<LastUpdatedTime>2019-08-04T12:45:02+08:00</LastUpdatedTime>
 	</work>
 	<workstep>
 		<Id>748</Id>

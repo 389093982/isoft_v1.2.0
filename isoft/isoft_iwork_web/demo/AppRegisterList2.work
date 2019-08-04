@@ -3,10 +3,11 @@
 		<Id>191</Id>
 		<WorkName>AppRegisterList2</WorkName>
 		<WorkDesc>AppRegisterList2</WorkDesc>
+		<WorkType>work</WorkType>
 		<CreatedBy>SYSTEM</CreatedBy>
-		<CreatedTime>2019-08-04T09:24:19+08:00</CreatedTime>
+		<CreatedTime>2019-08-04T12:44:58+08:00</CreatedTime>
 		<LastUpdatedBy>SYSTEM</LastUpdatedBy>
-		<LastUpdatedTime>2019-08-04T09:24:19+08:00</LastUpdatedTime>
+		<LastUpdatedTime>2019-08-04T12:44:58+08:00</LastUpdatedTime>
 	</work>
 	<workstep>
 		<Id>930</Id>
