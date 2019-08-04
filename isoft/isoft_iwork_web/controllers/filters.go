@@ -2,12 +2,14 @@ package controllers
 
 import (
 	"encoding/json"
+	"github.com/astaxie/beego/orm"
 	"isoft/isoft_iwork_web/models"
 	"time"
 )
 
 func (this *WorkController) SaveFilters() {
 	filter_id, _ := this.GetInt64("filter_id", -1)
+	filter, _ := models.QueryWorkById(filter_id, orm.NewOrm())
 	work_names := this.GetString("work_names")
 	var workNames []string
 	json.Unmarshal([]byte(work_names), &workNames)
@@ -15,6 +17,7 @@ func (this *WorkController) SaveFilters() {
 	for _, work_name := range workNames {
 		filters = append(filters, &models.Filters{
 			FilterWorkId:    filter_id,
+			FilterWorkName:  filter.WorkName,
 			WorkName:        work_name,
 			CreatedBy:       "SYSTEM",
 			CreatedTime:     time.Now(),

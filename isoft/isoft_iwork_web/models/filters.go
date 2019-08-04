@@ -8,6 +8,7 @@ import (
 type Filters struct {
 	Id              int64     `json:"id"`
 	FilterWorkId    int64     `json:"filter_work_id"`
+	FilterWorkName  string    `json:"filter_work_name"`
 	WorkName        string    `json:"work_name"`
 	CreatedBy       string    `json:"created_by"`
 	CreatedTime     time.Time `json:"created_time" orm:"auto_now_add;type(datetime)"`
@@ -25,5 +26,11 @@ func InsertMultiFilters(filter_id int64, filters []*Filters) (num int64, err err
 func QueryAllFilters() (filters []Filters, err error) {
 	o := orm.NewOrm()
 	_, err = o.QueryTable("filters").All(&filters)
+	return
+}
+
+func QueryFiltersByWorkName(workName string) (filters []Filters, err error) {
+	o := orm.NewOrm()
+	_, err = o.QueryTable("filters").Filter("work_name", workName).All(&filters)
 	return
 }

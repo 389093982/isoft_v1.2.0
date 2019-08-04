@@ -100,6 +100,7 @@ type WorkCache struct {
 	SubWorkNameMap      map[int64]string                        `xml:"-"` // key 为 WorkStepId
 	Usage               *Usage                                  `xml:"-"` // 引值计算,节点引用值统计
 	err                 error                                   `xml:"-"`
+	FilterNames         []string                                `xml:"filterNames"`
 }
 
 func (this *WorkCache) RenderToString() (s string) {
@@ -144,6 +145,16 @@ func (this *WorkCache) FlushCache(paramSchemaCacheParser IParamSchemaCacheParser
 	this.Usage = &Usage{}
 	// 缓存引值计数
 	this.cacheReferUsage()
+	// 计算 filters 引用
+	this.evalFilters(o)
+}
+
+func (this *WorkCache) evalFilters(o orm.Ormer) {
+	if filters, err := models.QueryFiltersByWorkName(this.Work.WorkName); err == nil {
+		for _, filter := range filters {
+			this.FilterNames = append(this.FilterNames, filter.FilterWorkName)
+		}
+	}
 }
 
 func (this *WorkCache) evalUsageMap() {
