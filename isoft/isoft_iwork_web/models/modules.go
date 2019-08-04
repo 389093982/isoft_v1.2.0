@@ -26,3 +26,12 @@ func QueryPageModuleList(condArr map[string]string, page int, offset int, o orm.
 	qs.All(&modules)
 	return
 }
+
+func InsertOrUpdateModule(module *Module, o orm.Ormer) (id int64, err error) {
+	if module.Id > 0 {
+		id, err = o.Update(module)
+	} else {
+		id, err = o.Insert(module)
+	}
+	return
+}

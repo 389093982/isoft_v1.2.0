@@ -1,5 +1,21 @@
 <template>
   <div>
+    <ISimpleLeftRightRow style="margin-bottom: 10px;margin-right: 10px;">
+      <!-- left 插槽部分 -->
+      <span slot="left">
+        <Button type="success" @click="addModule">新增</Button>
+        <ISimpleConfirmModal ref="moduleEditModal" modal-title="新增/编辑 module" :modal-width="600" :footer-hide="true">
+          <IKeyValueForm ref="moduleEditForm" form-key-label="module_name" form-value-label="module_desc"
+                         form-key-placeholder="请输入 module_name" form-value-placeholder="请输入 module_desc"
+                         @handleSubmit="editModule" :formkey-validator="moduleNameValidator">
+          </IKeyValueForm>
+        </ISimpleConfirmModal>
+      </span>
+
+      <!-- right 插槽部分 -->
+      <ISimpleSearch slot="right" @handleSimpleSearch="handleSearch"/>
+    </ISimpleLeftRightRow>
+
     <Table border :columns="columns1" :data="modules" size="small"></Table>
     <Page :total="total" :page-size="offset" show-total show-sizer :styles="{'text-align': 'center','margin-top': '10px'}"
           @on-change="handleChange" @on-page-size-change="handlePageSizeChange"/>
@@ -7,10 +23,17 @@
 </template>
 
 <script>
+  import ISimpleLeftRightRow from "../../Common/layout/ISimpleLeftRightRow"
+  import ISimpleConfirmModal from "../../Common/modal/ISimpleConfirmModal"
+  import IKeyValueForm from "../../Common/form/IKeyValueForm"
+  import ISimpleSearch from "../../Common/search/ISimpleSearch"
   import {ModuleList} from "../../../api"
+  import {EditModule} from "../../../api"
+  import {validateCommonPatternForString} from "../../../tools/index"
 
   export default {
     name: "IModuleList",
+    components:{ISimpleLeftRightRow,ISimpleConfirmModal,IKeyValueForm,ISimpleSearch},
     data(){
       return {
         // 当前页
@@ -55,6 +78,28 @@
         this.current_page = 1;
         this.search = data;
         this.refreshModuleList();
+      },
+      addModule:function(){
+        this.$refs.moduleEditModal.showModal();
+      },
+      editModule:async function (module_id, module_name, module_desc) {
+        const result = await EditModule(module_id, module_name, module_desc);
+        if(result.status == "SUCCESS"){
+          this.$refs.moduleEditForm.handleSubmitSuccess("提交成功!");
+          this.$refs.moduleEditModal.hideModal();
+          this.refreshModuleList();
+        }else{
+          this.$refs.workEditForm.handleSubmitError("提交失败!");
+        }
+      },
+      moduleNameValidator (rule, value, callback){
+        if (value === '') {
+          callback(new Error('字段值不能为空!'));
+        } else if (!validateCommonPatternForString(value)) {
+          callback(new Error('存在非法字符，只能包含字母，数字，下划线!'));
+        } else {
+          callback();
+        }
       },
     },
     mounted(){
