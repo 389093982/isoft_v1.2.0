@@ -16,6 +16,12 @@ type Module struct {
 	LastUpdatedTime time.Time `json:"last_updated_time"`
 }
 
+func QueryAllModules() (modules []Module, err error) {
+	o := orm.NewOrm()
+	_, err = o.QueryTable("module").All(&modules)
+	return
+}
+
 func QueryPageModuleList(condArr map[string]string, page int, offset int, o orm.Ormer) (modules []Module, counts int64, err error) {
 	qs := o.QueryTable("module")
 	if search, ok := condArr["search"]; ok && strings.TrimSpace(search) != "" {

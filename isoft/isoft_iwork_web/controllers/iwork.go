@@ -194,7 +194,9 @@ func (this *WorkController) Download() {
 
 func (this *WorkController) GetAllFilterWorks() {
 	if filters, err := models.GetAllFilterWorks(); err == nil {
-		this.Data["json"] = &map[string]interface{}{"status": "SUCCESS", "filters": filters}
+		modules, _ := models.QueryAllModules()
+		works, _ := models.QueryAllWorks()
+		this.Data["json"] = &map[string]interface{}{"status": "SUCCESS", "filters": filters, "modules": modules, "works": works}
 	} else {
 		this.Data["json"] = &map[string]interface{}{"status": "ERROR", "errorMsg": err.Error()}
 	}
