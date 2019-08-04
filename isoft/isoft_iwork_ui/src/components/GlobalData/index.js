@@ -71,6 +71,7 @@ const quick_funcs = [
     {funcDemo:"getDirPath($filepath)",funcDesc:"获取当前文件父级目录的绝对路径",},
     {funcDemo:"ifThenElse($condition,$var1,$var2)",funcDesc:"三目运算符,条件满足返回$var1,不满足返回$var2",},
     {funcDemo:"getRequestParameter($url,$paramName)",funcDesc:"从url地址中根据参数名获取参数值",},
+    {funcDemo:"getRequestParameters($url,$paramName)",funcDesc:"从url地址中根据参数名获取参数值,返回的是数组",},
     {funcDemo:"getDomain($url)",funcDesc:"从url地址中获取 domain 信息",},
   ]
 

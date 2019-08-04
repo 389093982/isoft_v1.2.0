@@ -21,7 +21,7 @@ func (this *IWorkFuncProxy) GetDomain(args []interface{}) interface{} {
 	return ""
 }
 
-func (this *IWorkFuncProxy) GetRequestParameter(args []interface{}) interface{} {
+func (this *IWorkFuncProxy) GetRequestParameters(args []interface{}) interface{} {
 	urlAddress := args[0].(string)
 	paramName := args[1].(string)
 	u, err := url.Parse(urlAddress)
@@ -33,6 +33,10 @@ func (this *IWorkFuncProxy) GetRequestParameter(args []interface{}) interface{} 
 		panic(err)
 	}
 	return values[paramName]
+}
+
+func (this *IWorkFuncProxy) GetRequestParameter(args []interface{}) interface{} {
+	return this.GetRequestParameters(args).([]string)[0]
 }
 
 func (this *IWorkFuncProxy) StringsEq(args []interface{}) interface{} {
