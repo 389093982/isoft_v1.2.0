@@ -43,6 +43,7 @@
           if(result.adminLogin == "adminLogin"){
             this.$router.push({ path: '/sso/loginRecord'});
           }else{
+            alert(result.redirectUrl);
             // 跳往需要跳转的页面,并设置cookie
             window.location.href = result.redirectUrl;
           }

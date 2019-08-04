@@ -1,6 +1,7 @@
 package http
 
 import (
+	"isoft/isoft/common/httputil"
 	"isoft/isoft_iwork_web/core/iworkconst"
 	"isoft/isoft_iwork_web/core/iworkdata/param"
 	"isoft/isoft_iwork_web/core/iworkmodels"
@@ -24,6 +25,7 @@ func (this *HttpRequestParserNode) Execute(trackingId string) {
 		headerVal := request.Header.Get(header)
 		paramMap[header] = headerVal
 	}
+	paramMap["ip"] = httputil.GetClientIP(request)
 	// 将数据数据存储到数据中心
 	this.DataStore.CacheDatas(this.WorkStep.WorkStepName, paramMap)
 }
@@ -33,6 +35,10 @@ func (this *HttpRequestParserNode) GetDefaultParamInputSchema() *iworkmodels.Par
 		1: {iworkconst.STRING_PREFIX + "headers", "解析的请求头参数,多个参数使用逗号分隔"},
 	}
 	return this.BuildParamInputSchemaWithDefaultMap(paramMap)
+}
+
+func (this *HttpRequestParserNode) GetDefaultParamOutputSchema() *iworkmodels.ParamOutputSchema {
+	return this.BuildParamOutputSchemaWithSlice([]string{"ip"})
 }
 
 func (this *HttpRequestParserNode) GetRuntimeParamOutputSchema() *iworkmodels.ParamOutputSchema {
