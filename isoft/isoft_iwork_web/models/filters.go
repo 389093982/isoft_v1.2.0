@@ -21,3 +21,9 @@ func InsertMultiFilters(filter_id int64, filters []*Filters) (num int64, err err
 	num, err = o.InsertMulti(len(filters), &filters)
 	return
 }
+
+func QueryAllFilters() (filters []Filters, err error) {
+	o := orm.NewOrm()
+	_, err = o.QueryTable("filters").All(&filters)
+	return
+}

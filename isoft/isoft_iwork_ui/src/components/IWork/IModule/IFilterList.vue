@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Select v-model="current_filter_id" style="width:400px">
+    <Select v-model="current_filter_id" style="width:400px" @on-change="chooseFilter">
       <Option v-for="filterWork in filterWorks" :value="filterWork.id" :key="filterWork.work_name">
         {{filterWork.work_name}}
       </Option>
@@ -31,6 +31,7 @@
     data(){
       return {
         filterWorks:[],
+        filters:[],
         modules:[],
         works: [],
         moduleWorks:[],
@@ -42,7 +43,8 @@
       refreshFilterList:async function () {
         const result = await GetAllFilterWorks();
         if(result.status == "SUCCESS"){
-          this.filterWorks = result.filters;
+          this.filterWorks = result.filterWorks;
+          this.filters = result.filters;
           this.modules = result.modules;
           this.works = result.works;
         }
@@ -74,10 +76,14 @@
           const result = await SaveFilters(this.current_filter_id, JSON.stringify(this.checkedFilterWorks));
           if(result.status == "SUCCESS"){
             this.$Message.success("保存成功！");
+            this.refreshFilterList();
           }else{
             this.$Message.error(result.errorMsg);
           }
         }
+      },
+      chooseFilter:function () {
+        this.checkedFilterWorks = this.filters.filter(filter => filter.filter_work_id == this.current_filter_id).map(filter => filter.work_name);
       }
     },
     mounted(){
