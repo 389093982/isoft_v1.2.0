@@ -13,6 +13,18 @@ import (
 type IWorkFuncProxy struct {
 }
 
+func (this *IWorkFuncProxy) GetNotEmpty(args []interface{}) interface{} {
+	for _, arg := range args {
+		if argStr, ok := arg.(string); ok && argStr == "" {
+			continue
+		}
+		if arg != nil {
+			return arg
+		}
+	}
+	return nil
+}
+
 func (this *IWorkFuncProxy) GetDomain(args []interface{}) interface{} {
 	url := args[0].(string)
 	if arr := strings.Split(url, "//"); len(arr) > 1 {

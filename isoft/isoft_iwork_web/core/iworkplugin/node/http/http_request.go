@@ -23,13 +23,13 @@ func (this *HttpRequestParserNode) Execute(trackingId string) {
 	paramMap := make(map[string]interface{}, 0)
 	for _, header := range headerSlice {
 		headerVal := request.Header.Get(header)
-		paramMap[header] = headerVal
+		paramMap["header_"+header] = headerVal
 	}
 	cookies := param.GetStaticParamValueWithStep(iworkconst.STRING_PREFIX+"cookies?", this.WorkStep).(string)
 	cookieSlice := strings.Split(cookies, ",")
 	for _, cookie := range cookieSlice {
 		if cookieVal, err := request.Cookie(cookie); err == nil {
-			paramMap[cookie] = cookieVal
+			paramMap["cookie_"+cookie] = cookieVal.Value
 		}
 	}
 	paramMap["ip"] = httputil.GetClientIP(request)

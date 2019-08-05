@@ -74,6 +74,7 @@ const quick_funcs = [
     {funcDemo:"getRequestParameter($url,$paramName)",funcDesc:"从url地址中根据参数名获取参数值",},
     {funcDemo:"getRequestParameters($url,$paramName)",funcDesc:"从url地址中根据参数名获取参数值,返回的是数组",},
     {funcDemo:"getDomain($url)",funcDesc:"从url地址中获取 domain 信息",},
+    {funcDemo:"getNotEmpty($var1,$var2,$var3)",funcDesc:"从参数列表中获取第一个非空值",},
   ]
 
 export default {
