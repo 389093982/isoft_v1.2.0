@@ -67,10 +67,10 @@ func (this *LoginFilter) checkWhiteList() bool {
 // 从 cookie 中或者 header 中获取 token
 func (this *LoginFilter) getTokenString() string {
 	var tokenString string
-	if strings.TrimSpace(this.Ctx.GetCookie("token")) != "" {
-		tokenString = this.Ctx.GetCookie("token")
-	} else if strings.TrimSpace(this.Ctx.Request.Header.Get("token")) != "" {
-		tokenString = this.Ctx.Request.Header.Get("token")
+	if strings.TrimSpace(this.Ctx.GetCookie("tokenString")) != "" {
+		tokenString = this.Ctx.GetCookie("tokenString")
+	} else if strings.TrimSpace(this.Ctx.Request.Header.Get("tokenString")) != "" {
+		tokenString = this.Ctx.Request.Header.Get("tokenString")
 	}
 	return tokenString
 }

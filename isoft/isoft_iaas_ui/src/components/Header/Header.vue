@@ -71,7 +71,7 @@
     },
     methods:{
       cancelUser() {
-        delCookie("token");
+        delCookie("tokenString");
         delCookie("userName");
         delCookie("isLogin");
         this.loginUserName = "";
