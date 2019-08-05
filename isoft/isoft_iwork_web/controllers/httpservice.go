@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"github.com/astaxie/beego/context"
 	"isoft/isoft_iwork_web/core/iworkcache"
 	"isoft/isoft_iwork_web/core/iworkconst"
 	"isoft/isoft_iwork_web/core/iworkdata/entry"
@@ -26,7 +27,7 @@ func (this *WorkController) PublishSerivce() {
 	parser := schema.WorkStepFactoryParamSchemaParser{}
 	workCache, err := iworkcache.GetWorkCacheWithName(work_name, &parser)
 	checkError(err)
-	mapData := this.ParseParam(workCache.Steps)
+	mapData := ParseParam(this.Ctx, workCache.Steps)
 	mapData[iworkconst.HTTP_REQUEST_OBJECT] = this.Ctx.Request // 传递 request 对象
 	receiver := iworkrun.RunOneWork(workCache.WorkId, &entry.Dispatcher{TmpDataMap: mapData})
 	if receiver != nil {
@@ -37,7 +38,13 @@ func (this *WorkController) PublishSerivce() {
 	this.ServeJSON()
 }
 
-func (this *WorkController) ParseParam(steps []models.WorkStep) map[string]interface{} {
+func checkError(err error) {
+	if err != nil {
+		panic(err)
+	}
+}
+
+func ParseParam(ctx *context.Context, steps []models.WorkStep) map[string]interface{} {
 	mapData := map[string]interface{}{}
 	for _, step := range steps {
 		if step.WorkStepType == "work_start" {
@@ -45,7 +52,7 @@ func (this *WorkController) ParseParam(steps []models.WorkStep) map[string]inter
 			inputSchema := parser.GetCacheParamInputSchema()
 			for _, item := range inputSchema.ParamInputSchemaItems {
 				// 默认参数类型都当成 string 类型
-				if paramValue := this.Input().Get(item.ParamName); strings.TrimSpace(paramValue) != "" {
+				if paramValue := ctx.Input.Param(item.ParamName); strings.TrimSpace(paramValue) != "" {
 					mapData[item.ParamName] = paramValue
 				}
 			}
@@ -53,10 +60,4 @@ func (this *WorkController) ParseParam(steps []models.WorkStep) map[string]inter
 		}
 	}
 	return mapData
-}
-
-func checkError(err error) {
-	if err != nil {
-		panic(err)
-	}
 }
