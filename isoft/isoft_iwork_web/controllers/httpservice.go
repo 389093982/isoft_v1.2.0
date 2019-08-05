@@ -1,7 +1,7 @@
 package controllers
 
 import (
-	"github.com/astaxie/beego/orm"
+	"isoft/isoft_iwork_web/core/iworkcache"
 	"isoft/isoft_iwork_web/core/iworkconst"
 	"isoft/isoft_iwork_web/core/iworkdata/entry"
 	"isoft/isoft_iwork_web/core/iworkdata/schema"
@@ -23,18 +23,12 @@ func (this *WorkController) PublishSerivce() {
 		}
 	}()
 	work_name := this.Ctx.Input.Param(":work_name")
-	var (
-		work  models.Work
-		steps []models.WorkStep
-		err   error
-	)
-	work, err = models.QueryWorkByName(work_name, orm.NewOrm())
+	parser := schema.WorkStepFactoryParamSchemaParser{}
+	workCache, err := iworkcache.GetWorkCacheWithName(work_name, &parser)
 	checkError(err)
-	steps, err = models.QueryAllWorkStepByWorkName(work_name, orm.NewOrm())
-	checkError(err)
-	mapData := this.ParseParam(steps)
+	mapData := this.ParseParam(workCache.Steps)
 	mapData[iworkconst.HTTP_REQUEST_OBJECT] = this.Ctx.Request // 传递 request 对象
-	receiver := iworkrun.RunOneWork(work.Id, &entry.Dispatcher{TmpDataMap: mapData})
+	receiver := iworkrun.RunOneWork(workCache.WorkId, &entry.Dispatcher{TmpDataMap: mapData})
 	if receiver != nil {
 		this.Data["json"] = &receiver.TmpDataMap
 	} else {

@@ -64,6 +64,7 @@ func UpdateWorkCache(work_id int64, paramSchemaCacheParser IParamSchemaCachePars
 	cache := &WorkCache{WorkId: work_id}
 	cache.FlushCache(paramSchemaCacheParser)
 	workCacheMap.Store(work_id, cache)
+	workCacheMap.Store(cache.Work.WorkName, cache)
 	return
 }
 
@@ -73,6 +74,17 @@ func LoadWorkCache(work_id int64) (*WorkCache, error) {
 	} else {
 		return nil, errors.New(fmt.Sprintf(`%d is not exist!`, work_id))
 	}
+}
+
+func GetWorkCacheWithName(work_name string, paramSchemaCacheParser IParamSchemaCacheParser) (*WorkCache, error) {
+	if cache, ok := workCacheMap.Load(work_name); ok {
+		return cache.(*WorkCache), nil
+	}
+	work, err := models.QueryWorkByName(work_name, orm.NewOrm())
+	if err != nil {
+		return nil, err
+	}
+	return GetWorkCache(work.Id, paramSchemaCacheParser)
 }
 
 func GetWorkCache(work_id int64, paramSchemaCacheParser IParamSchemaCacheParser) (*WorkCache, error) {
