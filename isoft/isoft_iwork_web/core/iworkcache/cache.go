@@ -43,6 +43,13 @@ func getBlockStepExecuteOrder(blockSteps []*block.BlockStep) []*block.BlockStep 
 
 var workCacheMap sync.Map
 
+func ReloadAllWorkCache(paramSchemaCacheParser IParamSchemaCacheParser) {
+	works := models.QueryAllWorkInfo(orm.NewOrm())
+	for _, work := range works {
+		UpdateWorkCache(work.Id, paramSchemaCacheParser)
+	}
+}
+
 func DeleteWorkCache(work_id int64) {
 	workCacheMap.Delete(work_id)
 }
