@@ -52,7 +52,7 @@ func ParseParam(ctx *context.Context, steps []models.WorkStep) map[string]interf
 			inputSchema := parser.GetCacheParamInputSchema()
 			for _, item := range inputSchema.ParamInputSchemaItems {
 				// 默认参数类型都当成 string 类型
-				if paramValue := ctx.Input.Param(item.ParamName); strings.TrimSpace(paramValue) != "" {
+				if paramValue := ctx.Input.Query(item.ParamName); strings.TrimSpace(paramValue) != "" {
 					mapData[item.ParamName] = paramValue
 				}
 			}

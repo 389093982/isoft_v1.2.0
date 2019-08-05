@@ -51,8 +51,15 @@ type WorkEndNode struct {
 func (this *WorkEndNode) Execute(trackingId string) {
 	// 提交输出数据至数据中心,此类数据能直接从 tmpDataMap 中获取,而不依赖于计算,只适用于 WORK_START、WORK_END 节点
 	this.SubmitParamOutputSchemaDataToDataStore(this.WorkStep, this.DataStore, this.TmpDataMap)
+	this.fillExtraTmpDataMap()
 	// 同时需要将数据提交到 Receiver
 	this.Receiver = &entry.Receiver{TmpDataMap: this.TmpDataMap}
+}
+
+func (this *WorkEndNode) fillExtraTmpDataMap() {
+	if doErrorFilter := this.DataStore.GetData(iworkconst.DO_ERROR_FILTER, iworkconst.DO_ERROR_FILTER); doErrorFilter != nil {
+		this.TmpDataMap[iworkconst.DO_ERROR_FILTER] = doErrorFilter
+	}
 }
 
 func (this *WorkEndNode) GetRuntimeParamInputSchema() *iworkmodels.ParamInputSchema {

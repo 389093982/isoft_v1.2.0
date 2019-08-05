@@ -41,6 +41,7 @@ const default_work_step_types=[
   {"name":"template","icon":"md-hammer"},
   {"name":"create_jwt","icon":"md-hammer"},
   {"name":"parse_jwt","icon":"md-hammer"},
+  {"name":"do_error_filter","icon":"md-hammer"},
 ];
 
 const mysql_datatypes = ["varchar","char","text","float","int","date","datetime","decimal","double",

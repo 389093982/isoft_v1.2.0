@@ -1,6 +1,9 @@
 package datatypeutil
 
-import "reflect"
+import (
+	"reflect"
+	"strconv"
+)
 
 func InterfaceConvertToSlice(data interface{}) []interface{} {
 	sli := make([]interface{}, 0)
@@ -17,4 +20,15 @@ func InterfaceConvertToSlice(data interface{}) []interface{} {
 		sli = append(sli, data)
 	}
 	return sli
+}
+
+func InterfaceConvertToInt(v interface{}, defaultVal int) int {
+	if value, ok := v.(int); ok {
+		return value
+	} else if value, ok := v.(string); ok {
+		if intValue, err := strconv.Atoi(value); err == nil {
+			return intValue
+		}
+	}
+	return defaultVal
 }

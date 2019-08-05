@@ -11,6 +11,7 @@ import (
 	"isoft/isoft_iwork_web/core/iworkplugin/node/regist"
 	"isoft/isoft_iwork_web/core/iworkpool"
 	"isoft/isoft_iwork_web/core/iworkrun"
+	"isoft/isoft_iwork_web/core/iworkutil/datatypeutil"
 	_ "isoft/isoft_iwork_web/routers"
 	_ "isoft/isoft_iwork_web/startup/db"
 	_ "isoft/isoft_iwork_web/startup/logger"
@@ -32,23 +33,17 @@ func filterFunc(ctx *context.Context) {
 			receiver := iworkrun.RunOneWork(workCache.WorkId, &entry.Dispatcher{TmpDataMap: mapData})
 			if receiver != nil {
 				tempDataMap := receiver.TmpDataMap
-				if doErrorFilter, ok := tempDataMap["doErrorFilter"]; ok && doErrorFilter.(string) == "ERROR" {
-					ctx.ResponseWriter.WriteHeader(401)
+				if data, ok := tempDataMap[iworkconst.DO_ERROR_FILTER]; ok {
+					tmpDataMap :=  data.(map[string]interface{})
+					for key, value := range tmpDataMap {
+						if key == "headerCode" {
+							ctx.ResponseWriter.WriteHeader(datatypeutil.InterfaceConvertToInt(value, 200))
+						}
+					}
 				}
 			}
 		}
 	}
-	//
-	//filter := new(ssofilter.LoginFilter)
-	//filter.LoginWhiteList = &[]string{"/api/sso/user/login", "/api/sso/user/regist", "/api/sso/user/checkOrInValidateTokenString"}
-	//filter.PrefixWhiteList = &[]string{"/api/iwork"}
-	//filter.LoginUrl = ctx.Input.URL()
-	//filter.Ctx = ctx
-	//filter.SsoAddress = beego.AppConfig.String("isoft.sso.web.addr")
-	//filter.ErrorFunc = func() {
-	//	filter.Ctx.ResponseWriter.WriteHeader(401)
-	//}
-	//filter.Filter()
 }
 
 func main() {
