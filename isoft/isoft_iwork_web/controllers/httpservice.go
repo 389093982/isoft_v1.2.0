@@ -47,7 +47,7 @@ func checkError(err error) {
 func ParseParam(ctx *context.Context, steps []models.WorkStep) map[string]interface{} {
 	mapData := map[string]interface{}{}
 	for _, step := range steps {
-		if step.WorkStepType == "work_start" {
+		if step.WorkStepType == iworkconst.NODE_TYPE_WORK_START {
 			parser := schema.WorkStepFactoryParamSchemaParser{WorkStep: &step, ParamSchemaParser: &node.WorkStepFactory{WorkStep: &step}}
 			inputSchema := parser.GetCacheParamInputSchema()
 			for _, item := range inputSchema.ParamInputSchemaItems {
