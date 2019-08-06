@@ -48,8 +48,7 @@ func ParseParam(ctx *context.Context, steps []models.WorkStep) map[string]interf
 	mapData := map[string]interface{}{}
 	for _, step := range steps {
 		if step.WorkStepType == iworkconst.NODE_TYPE_WORK_START {
-			parser := schema.WorkStepFactoryParamSchemaParser{WorkStep: &step, ParamSchemaParser: &node.WorkStepFactory{WorkStep: &step}}
-			inputSchema := parser.GetCacheParamInputSchema()
+			inputSchema := node.GetCacheParamInputSchema(&step)
 			for _, item := range inputSchema.ParamInputSchemaItems {
 				// 默认参数类型都当成 string 类型
 				if paramValue := ctx.Input.Query(item.ParamName); strings.TrimSpace(paramValue) != "" {

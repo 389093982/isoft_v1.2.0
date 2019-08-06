@@ -143,3 +143,9 @@ func (this *WorkStepFactory) GetRuntimeParamOutputSchema() *iworkmodels.ParamOut
 func (this *WorkStepFactory) ValidateCustom() (checkResult []string) {
 	return this.getProxy().ValidateCustom()
 }
+
+// 获取入参 schema
+func GetCacheParamInputSchema(step *models.WorkStep) *iworkmodels.ParamInputSchema {
+	parser := schema.WorkStepFactoryParamSchemaParser{WorkStep: step, ParamSchemaParser: &WorkStepFactory{WorkStep: step}}
+	return parser.GetCacheParamInputSchema()
+}
