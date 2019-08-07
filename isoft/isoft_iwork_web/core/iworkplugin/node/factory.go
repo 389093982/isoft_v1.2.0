@@ -148,3 +148,8 @@ func GetCacheParamInputSchema(step *models.WorkStep) *iworkmodels.ParamInputSche
 	parser := WorkStepFactoryParamSchemaParser{WorkStep: step, ParamSchemaParser: &WorkStepFactory{WorkStep: step}}
 	return parser.GetCacheParamInputSchema()
 }
+
+func GetCacheParamOutputSchema(step *models.WorkStep) *iworkmodels.ParamOutputSchema {
+	parser := WorkStepFactoryParamSchemaParser{WorkStep: step, ParamSchemaParser: &WorkStepFactory{WorkStep: step}}
+	return parser.GetCacheParamOutputSchema()
+}

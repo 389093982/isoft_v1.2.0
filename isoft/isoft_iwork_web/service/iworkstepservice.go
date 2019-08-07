@@ -117,8 +117,7 @@ func LoadPreNodeOutputService(serviceArgs map[string]interface{}) (result map[st
 		for _, step := range steps {
 			// 判断前置 step 在块范围内是否是可访问的,且是否非 defer 步骤
 			if block.CheckBlockAccessble(currentBlockStep, step.WorkStepId) && step.IsDefer != "true" {
-				parser := node.WorkStepFactoryParamSchemaParser{WorkStep: &step, ParamSchemaParser: &node.WorkStepFactory{WorkStep: &step}}
-				pos := parser.GetCacheParamOutputSchema()
+				pos := node.GetCacheParamOutputSchema(&step)
 				prePosTreeNodeArr = append(prePosTreeNodeArr, pos.RenderToTreeNodes("$"+step.WorkStepName))
 			}
 		}
