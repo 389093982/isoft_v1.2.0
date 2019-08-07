@@ -193,8 +193,7 @@ func checkVariableRelationShip(step *models.WorkStep) (checkResult []string) {
 			checkResult = append(checkResult, errorutil.ToError(err).Error())
 		}
 	}()
-	parser := schema.WorkStepFactoryParamSchemaParser{WorkStep: step, ParamSchemaParser: &node.WorkStepFactory{WorkStep: step}}
-	inputSchema := parser.GetCacheParamInputSchema()
+	inputSchema := node.GetCacheParamInputSchema(step)
 	for _, item := range inputSchema.ParamInputSchemaItems {
 		result := checkVariableRelationShipDetail(item, step.WorkId, step.WorkStepId)
 		checkResult = append(checkResult, result...)
