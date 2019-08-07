@@ -21,11 +21,8 @@ type IParamSchemaParser interface {
 
 type IParamSchemaCacheParser interface {
 	GetCacheParamInputSchema(replaceStep ...*models.WorkStep) *iworkmodels.ParamInputSchema
-	GetDefaultParamInputSchema() *iworkmodels.ParamInputSchema
-	GetRuntimeParamInputSchema() *iworkmodels.ParamInputSchema
 	GetCacheParamOutputSchema() *iworkmodels.ParamOutputSchema
-	GetDefaultParamOutputSchema() *iworkmodels.ParamOutputSchema
-	GetRuntimeParamOutputSchema() *iworkmodels.ParamOutputSchema
+	IParamSchemaParser
 }
 
 type IWorkStep interface {
