@@ -85,7 +85,7 @@ func (this *WorkController) FilterPageLogRecord() {
 func (this *WorkController) RunWork() {
 	work_id, _ := this.GetInt64("work_id")
 	serviceArgs := map[string]interface{}{"work_id": work_id}
-	if err := service.ExecuteWithTx(serviceArgs, service.RunWorkService); err == nil {
+	if err := service.ExecuteWithTx(serviceArgs, service.RunWork); err == nil {
 		this.Data["json"] = &map[string]interface{}{"status": "SUCCESS"}
 	} else {
 		this.Data["json"] = &map[string]interface{}{"status": "ERROR"}

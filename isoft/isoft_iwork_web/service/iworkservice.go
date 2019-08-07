@@ -42,7 +42,7 @@ func GetRelativeWorkService(serviceArgs map[string]interface{}) (result map[stri
 	return
 }
 
-func RunWorkService(serviceArgs map[string]interface{}) error {
+func RunWork(serviceArgs map[string]interface{}) error {
 	work_id := serviceArgs["work_id"].(int64)
 	go iworkrun.RunOneWork(work_id, nil)
 	return nil
