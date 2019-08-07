@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"github.com/astaxie/beego/orm"
 	"isoft/isoft_iwork_web/core/iworkconst"
-	"isoft/isoft_iwork_web/core/iworkdata/schema"
 	"isoft/isoft_iwork_web/core/iworkmodels"
 	"isoft/isoft_iwork_web/core/iworkplugin/node"
 	"isoft/isoft_iwork_web/core/iworkutil"
@@ -13,19 +12,11 @@ import (
 	"time"
 )
 
-func getPisItems(step models.WorkStep) *iworkmodels.ParamInputSchema {
-	parser := schema.WorkStepFactoryParamSchemaParser{
-		WorkStep:          &step,
-		ParamSchemaParser: &node.WorkStepFactory{WorkStep: &step},
-	}
-	return parser.GetCacheParamInputSchema()
-}
-
 func BuildAutoCreateSubWork(step models.WorkStep, o orm.Ormer, insertStartEndWorkStepNodeFunc func(work_id int64, o orm.Ormer) error) {
 	if step.WorkStepType != iworkconst.NODE_TYPE_WORK_SUB {
 		return
 	}
-	paramInputSchema := getPisItems(step)
+	paramInputSchema := node.GetCacheParamInputSchema(&step)
 	for index, item := range paramInputSchema.ParamInputSchemaItems {
 		// 参数名称代表 work_sub
 		if item.ParamName == iworkconst.STRING_PREFIX+iworkconst.NODE_TYPE_WORK_SUB {
