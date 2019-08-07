@@ -152,10 +152,9 @@ func LoadWorkStepInfoService(serviceArgs map[string]interface{}) (result map[str
 	var paramMappingsArr []iworkmodels.ParamMapping
 	json.Unmarshal([]byte(step.WorkStepParamMapping), &paramMappingsArr)
 	result["step"] = step
-	parser := node.WorkStepFactoryParamSchemaParser{WorkStep: &step, ParamSchemaParser: &node.WorkStepFactory{WorkStep: &step}}
-	result["paramInputSchema"] = parser.GetCacheParamInputSchema()
-	result["paramOutputSchema"] = parser.GetCacheParamOutputSchema()
-	result["paramOutputSchemaTreeNode"] = parser.GetCacheParamOutputSchema().RenderToTreeNodes("output")
+	result["paramInputSchema"] = node.GetCacheParamInputSchema(&step)
+	result["paramOutputSchema"] = node.GetCacheParamOutputSchema(&step)
+	result["paramOutputSchemaTreeNode"] = node.GetCacheParamOutputSchema(&step).RenderToTreeNodes("output")
 	result["paramMappings"] = paramMappingsArr
 	return
 }
