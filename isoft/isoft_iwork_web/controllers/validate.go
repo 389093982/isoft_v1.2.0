@@ -234,8 +234,7 @@ func checkVariableRelationShipDetail(item iworkmodels.ParamInputSchemaItem, work
 		}
 		// 判断字段名称是否有效
 		if step, err := models.QueryWorkStepByStepName(work_id, referNodeName, orm.NewOrm()); err == nil {
-			parser := node.WorkStepFactoryParamSchemaParser{WorkStep: &step, ParamSchemaParser: &node.WorkStepFactory{WorkStep: &step}}
-			outputSchema := parser.GetCacheParamOutputSchema()
+			outputSchema := node.GetCacheParamOutputSchema(&step)
 			exist := false
 			for _, item := range outputSchema.ParamOutputSchemaItems {
 				if item.ParamName == referFiledName || item.ParentPath+"."+item.ParamName == referFiledName {
