@@ -5,7 +5,6 @@ import (
 	"isoft/isoft_iwork_web/core/iworkcache"
 	"isoft/isoft_iwork_web/core/iworkconst"
 	"isoft/isoft_iwork_web/core/iworkdata/entry"
-	"isoft/isoft_iwork_web/core/iworkdata/schema"
 	"isoft/isoft_iwork_web/core/iworkplugin/node"
 	"isoft/isoft_iwork_web/core/iworkrun"
 	"isoft/isoft_iwork_web/models"
@@ -24,7 +23,7 @@ func (this *WorkController) PublishSerivce() {
 		}
 	}()
 	work_name := this.Ctx.Input.Param(":work_name")
-	parser := schema.WorkStepFactoryParamSchemaParser{}
+	parser := node.WorkStepFactoryParamSchemaParser{}
 	workCache, err := iworkcache.GetWorkCacheWithName(work_name, &parser)
 	checkError(err)
 	mapData := ParseParam(this.Ctx, workCache.Steps)

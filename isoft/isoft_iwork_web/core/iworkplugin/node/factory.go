@@ -8,7 +8,6 @@ import (
 	"isoft/isoft_iwork_web/core/iworkdata/block"
 	"isoft/isoft_iwork_web/core/iworkdata/datastore"
 	"isoft/isoft_iwork_web/core/iworkdata/entry"
-	"isoft/isoft_iwork_web/core/iworkdata/schema"
 	"isoft/isoft_iwork_web/core/iworklog"
 	"isoft/isoft_iwork_web/core/iworkmodels"
 	"isoft/isoft_iwork_web/core/iworkplugin/interfaces"
@@ -92,7 +91,7 @@ func (this *WorkStepFactory) getProxy() interfaces.IWorkStep {
 			LogWriter:              this.LogWriter,
 			WorkCache:              this.WorkCache,
 			Dispatcher:             this.Dispatcher,
-			ParamSchemaCacheParser: &schema.WorkStepFactoryParamSchemaParser{WorkStep: this.WorkStep, ParamSchemaParser: &WorkStepFactory{WorkStep: this.WorkStep}},
+			ParamSchemaCacheParser: &WorkStepFactoryParamSchemaParser{WorkStep: this.WorkStep, ParamSchemaParser: &WorkStepFactory{WorkStep: this.WorkStep}},
 		},
 		"Receiver":         this.Receiver,
 		"WorkSubRunFunc":   this.WorkSubRunFunc,
@@ -146,6 +145,6 @@ func (this *WorkStepFactory) ValidateCustom() (checkResult []string) {
 
 // 获取入参 schema
 func GetCacheParamInputSchema(step *models.WorkStep) *iworkmodels.ParamInputSchema {
-	parser := schema.WorkStepFactoryParamSchemaParser{WorkStep: step, ParamSchemaParser: &WorkStepFactory{WorkStep: step}}
+	parser := WorkStepFactoryParamSchemaParser{WorkStep: step, ParamSchemaParser: &WorkStepFactory{WorkStep: step}}
 	return parser.GetCacheParamInputSchema()
 }

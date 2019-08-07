@@ -2,7 +2,6 @@ package iworkvalid
 
 import (
 	"fmt"
-	"isoft/isoft_iwork_web/core/iworkdata/schema"
 	"isoft/isoft_iwork_web/core/iworkmodels"
 	"isoft/isoft_iwork_web/core/iworkplugin/interfaces"
 	"isoft/isoft_iwork_web/models"
@@ -10,13 +9,12 @@ import (
 )
 
 // 对必须参数进行非空校验
-func CheckEmpty(step *models.WorkStep, paramSchemaParser interfaces.IParamSchemaParser) (checkResult []string) {
+func CheckEmpty(step *models.WorkStep, paramSchemaParser interfaces.IParamSchemaCacheParser) (checkResult []string) {
 	if strings.TrimSpace(step.WorkStepName) == "" || strings.TrimSpace(step.WorkStepType) == "" {
 		checkResult = append(checkResult, fmt.Sprintf("Empty workStepName or empty workStepType was found!"))
 		return
 	}
-	parser := schema.WorkStepFactoryParamSchemaParser{WorkStep: step, ParamSchemaParser: paramSchemaParser}
-	paramInputSchema := parser.GetCacheParamInputSchema()
+	paramInputSchema := paramSchemaParser.GetCacheParamInputSchema(step)
 	for _, item := range paramInputSchema.ParamInputSchemaItems {
 		// work_start 节点参数由调度者提供,不做非空校验
 		if step.WorkStepType != "work_start" {

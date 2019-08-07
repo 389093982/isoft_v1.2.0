@@ -3,7 +3,6 @@ package iworkbuild
 import (
 	"github.com/astaxie/beego/orm"
 	"isoft/isoft_iwork_web/core/iworkcache"
-	"isoft/isoft_iwork_web/core/iworkdata/schema"
 	"isoft/isoft_iwork_web/core/iworkmodels"
 	"isoft/isoft_iwork_web/core/iworkplugin/node"
 	"isoft/isoft_iwork_web/models"
@@ -12,7 +11,7 @@ import (
 // 构建动态输入值
 func BuildDynamicInput(step models.WorkStep, o orm.Ormer) {
 	workCache, _ := iworkcache.LoadWorkCache(step.WorkId)
-	parser := schema.WorkStepFactoryParamSchemaParser{
+	parser := node.WorkStepFactoryParamSchemaParser{
 		WorkStep:          &step,
 		ParamSchemaParser: &node.WorkStepFactory{WorkStep: &step, O: o, WorkCache: workCache},
 	}

@@ -1,4 +1,4 @@
-package schema
+package node
 
 import (
 	"isoft/isoft_iwork_web/core/iworkmodels"

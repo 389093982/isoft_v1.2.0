@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"github.com/astaxie/beego/orm"
 	"isoft/isoft/common/stringutil"
-	"isoft/isoft_iwork_web/core/iworkdata/schema"
 	"isoft/isoft_iwork_web/core/iworkmodels"
 	"isoft/isoft_iwork_web/core/iworkplugin/node"
 	"isoft/isoft_iwork_web/core/iworkutil"
@@ -157,7 +156,7 @@ func getCheckResultsForStep(step *models.WorkStep) (checkResult []string) {
 	go func() {
 		defer wg.Done()
 		// 校验 step 中的参数是否为空
-		checkResultCh <- iworkvalid.CheckEmpty(step, &node.WorkStepFactory{WorkStep: step})
+		checkResultCh <- iworkvalid.CheckEmpty(step, &node.WorkStepFactoryParamSchemaParser{WorkStep: step, ParamSchemaParser: &node.WorkStepFactory{WorkStep: step}})
 	}()
 	go func() {
 		defer wg.Done()
@@ -235,7 +234,7 @@ func checkVariableRelationShipDetail(item iworkmodels.ParamInputSchemaItem, work
 		}
 		// 判断字段名称是否有效
 		if step, err := models.QueryWorkStepByStepName(work_id, referNodeName, orm.NewOrm()); err == nil {
-			parser := schema.WorkStepFactoryParamSchemaParser{WorkStep: &step, ParamSchemaParser: &node.WorkStepFactory{WorkStep: &step}}
+			parser := node.WorkStepFactoryParamSchemaParser{WorkStep: &step, ParamSchemaParser: &node.WorkStepFactory{WorkStep: &step}}
 			outputSchema := parser.GetCacheParamOutputSchema()
 			exist := false
 			for _, item := range outputSchema.ParamOutputSchemaItems {

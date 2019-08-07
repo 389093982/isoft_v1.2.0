@@ -8,7 +8,6 @@ import (
 	"isoft/isoft_iwork_web/core/iworkbuild"
 	"isoft/isoft_iwork_web/core/iworkconst"
 	"isoft/isoft_iwork_web/core/iworkdata/block"
-	"isoft/isoft_iwork_web/core/iworkdata/schema"
 	"isoft/isoft_iwork_web/core/iworkmodels"
 	"isoft/isoft_iwork_web/core/iworkplugin/node"
 	"isoft/isoft_iwork_web/core/iworkutil/datatypeutil"
@@ -118,7 +117,7 @@ func LoadPreNodeOutputService(serviceArgs map[string]interface{}) (result map[st
 		for _, step := range steps {
 			// 判断前置 step 在块范围内是否是可访问的,且是否非 defer 步骤
 			if block.CheckBlockAccessble(currentBlockStep, step.WorkStepId) && step.IsDefer != "true" {
-				parser := schema.WorkStepFactoryParamSchemaParser{WorkStep: &step, ParamSchemaParser: &node.WorkStepFactory{WorkStep: &step}}
+				parser := node.WorkStepFactoryParamSchemaParser{WorkStep: &step, ParamSchemaParser: &node.WorkStepFactory{WorkStep: &step}}
 				pos := parser.GetCacheParamOutputSchema()
 				prePosTreeNodeArr = append(prePosTreeNodeArr, pos.RenderToTreeNodes("$"+step.WorkStepName))
 			}
@@ -154,7 +153,7 @@ func LoadWorkStepInfoService(serviceArgs map[string]interface{}) (result map[str
 	var paramMappingsArr []iworkmodels.ParamMapping
 	json.Unmarshal([]byte(step.WorkStepParamMapping), &paramMappingsArr)
 	result["step"] = step
-	parser := schema.WorkStepFactoryParamSchemaParser{WorkStep: &step, ParamSchemaParser: &node.WorkStepFactory{WorkStep: &step}}
+	parser := node.WorkStepFactoryParamSchemaParser{WorkStep: &step, ParamSchemaParser: &node.WorkStepFactory{WorkStep: &step}}
 	result["paramInputSchema"] = parser.GetCacheParamInputSchema()
 	result["paramOutputSchema"] = parser.GetCacheParamOutputSchema()
 	result["paramOutputSchemaTreeNode"] = parser.GetCacheParamOutputSchema().RenderToTreeNodes("output")
