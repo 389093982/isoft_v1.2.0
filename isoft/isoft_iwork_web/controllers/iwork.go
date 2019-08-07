@@ -197,7 +197,13 @@ func (this *WorkController) GetAllFilterWorks() {
 		modules, _ := models.QueryAllModules()
 		works, _ := models.QueryAllWorks()
 		filters, _ := models.QueryAllFilters()
-		this.Data["json"] = &map[string]interface{}{"status": "SUCCESS", "filterWorks": filterWorks, "filters": filters, "modules": modules, "works": works}
+		this.Data["json"] = &map[string]interface{}{
+			"status":      "SUCCESS",
+			"filterWorks": filterWorks,
+			"filters":     filters,
+			"modules":     modules,
+			"works":       works,
+		}
 	} else {
 		this.Data["json"] = &map[string]interface{}{"status": "ERROR", "errorMsg": err.Error()}
 	}

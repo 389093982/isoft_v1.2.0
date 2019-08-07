@@ -475,7 +475,7 @@ func formatChecker(paramInputSchema *iworkmodels.ParamInputSchema) error {
 	return nil
 }
 
-func EditWorkStepParamInfoService(serviceArgs map[string]interface{}) error {
+func EditWorkStepParamInfo(serviceArgs map[string]interface{}) error {
 	var (
 		step models.WorkStep
 		err  error

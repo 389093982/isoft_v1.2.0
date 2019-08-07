@@ -38,7 +38,7 @@ func (this *WorkController) EditWorkStepBaseInfo() {
 	} else {
 		this.Data["json"] = &map[string]interface{}{"status": "ERROR", "errorMsg": err.Error()}
 	}
-	go flushCache(work_id)
+	flushCache(work_id)
 	this.ServeJSON()
 }
 
@@ -188,7 +188,7 @@ func (this *WorkController) EditWorkStepParamInfo() {
 		"paramInputSchemaStr": paramInputSchemaStr,
 		"paramMappingsStr":    paramMappingsStr,
 	}
-	if err := service.ExecuteWithTx(serviceArgs, service.EditWorkStepParamInfoService); err == nil {
+	if err := service.ExecuteWithTx(serviceArgs, service.EditWorkStepParamInfo); err == nil {
 		this.Data["json"] = &map[string]interface{}{"status": "SUCCESS"}
 	} else {
 		this.Data["json"] = &map[string]interface{}{"status": "ERROR", "errorMsg": err.Error()}
