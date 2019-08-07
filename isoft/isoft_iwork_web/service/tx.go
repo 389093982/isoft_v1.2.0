@@ -14,7 +14,7 @@ func renderError(err interface{}) error {
 	panic(err)
 }
 
-func ExecuteServiceWithTx(serviceArgs map[string]interface{}, serviceFunc func(args map[string]interface{}) error) (err error) {
+func ExecuteWithTx(serviceArgs map[string]interface{}, serviceFunc func(args map[string]interface{}) error) (err error) {
 	o := orm.NewOrm()
 	err = o.Begin()
 	if err == nil {

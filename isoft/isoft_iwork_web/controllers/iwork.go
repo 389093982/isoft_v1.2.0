@@ -85,7 +85,7 @@ func (this *WorkController) FilterPageLogRecord() {
 func (this *WorkController) RunWork() {
 	work_id, _ := this.GetInt64("work_id")
 	serviceArgs := map[string]interface{}{"work_id": work_id}
-	if err := service.ExecuteServiceWithTx(serviceArgs, service.RunWorkService); err == nil {
+	if err := service.ExecuteWithTx(serviceArgs, service.RunWorkService); err == nil {
 		this.Data["json"] = &map[string]interface{}{"status": "SUCCESS"}
 	} else {
 		this.Data["json"] = &map[string]interface{}{"status": "ERROR"}
@@ -109,7 +109,7 @@ func (this *WorkController) EditWork() {
 	work.LastUpdatedBy = "SYSTEM"
 	work.LastUpdatedTime = time.Now()
 	serviceArgs := map[string]interface{}{"work": work}
-	if err := service.ExecuteServiceWithTx(serviceArgs, service.EditWorkService); err == nil {
+	if err := service.ExecuteWithTx(serviceArgs, service.EditWorkService); err == nil {
 		work, _ := models.QueryWorkByName(work.WorkName, orm.NewOrm())
 		go flushCache(work.Id)
 		this.Data["json"] = &map[string]interface{}{"status": "SUCCESS"}
@@ -142,7 +142,7 @@ func (this *WorkController) FilterPageWork() {
 func (this *WorkController) DeleteWorkById() {
 	id, _ := this.GetInt64("id")
 	serviceArgs := map[string]interface{}{"id": id}
-	if err := service.ExecuteServiceWithTx(serviceArgs, service.DeleteWorkByIdService); err == nil {
+	if err := service.ExecuteWithTx(serviceArgs, service.DeleteWorkByIdService); err == nil {
 		go flushCache(id)
 		this.Data["json"] = &map[string]interface{}{"status": "SUCCESS"}
 	} else {
