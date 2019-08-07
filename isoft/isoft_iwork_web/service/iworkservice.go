@@ -7,7 +7,6 @@ import (
 	"github.com/astaxie/beego/utils/pagination"
 	"isoft/isoft/common/pageutil"
 	"isoft/isoft_iwork_web/core/iworkconst"
-	"isoft/isoft_iwork_web/core/iworkdata/schema"
 	"isoft/isoft_iwork_web/core/iworkplugin/node"
 	"isoft/isoft_iwork_web/core/iworkrun"
 	"isoft/isoft_iwork_web/models"
@@ -176,8 +175,7 @@ func ChangeReferencesWorkName(work_id int64, oldWorkName, workName string, o orm
 			if step.WorkStepType != "work_sub" {
 				continue
 			}
-			parser := schema.WorkStepFactoryParamSchemaParser{WorkStep: &step, ParamSchemaParser: &node.WorkStepFactory{WorkStep: &step}}
-			inputSchema := parser.GetCacheParamInputSchema()
+			inputSchema := node.GetCacheParamInputSchema(&step)
 			for index, item := range inputSchema.ParamInputSchemaItems {
 				if item.ParamName == iworkconst.STRING_PREFIX+"work_sub" && strings.Contains(item.ParamValue, oldWorkName) {
 					inputSchema.ParamInputSchemaItems[index].ParamValue = strings.Replace(item.ParamValue, oldWorkName, workName, -1)
