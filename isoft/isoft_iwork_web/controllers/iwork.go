@@ -170,7 +170,7 @@ func flushCache(work_id ...int64) (err error) {
 		works = models.QueryAllWorkInfo(orm.NewOrm())
 	}
 	for _, work := range works {
-		parser := node.WorkStepFactoryParamSchemaParser{}
+		parser := node.ParamSchemaParser{}
 		if err = iworkcache.UpdateWorkCache(work.Id, &parser); err != nil {
 			break
 		}
@@ -184,7 +184,7 @@ func flushCache(work_id ...int64) (err error) {
 func (this *WorkController) Download() {
 	work_id := this.Ctx.Input.Param(":work_id")
 	workId, _ := strconv.ParseInt(work_id, 10, 64)
-	parser := node.WorkStepFactoryParamSchemaParser{}
+	parser := node.ParamSchemaParser{}
 	workCache, _ := iworkcache.GetWorkCache(workId, &parser)
 	tofile := path.Join(beego.AppConfig.String("file.server"), stringutil.RandomUUID())
 	fileutil.WriteFile(tofile, []byte(workCache.RenderToString()), false)

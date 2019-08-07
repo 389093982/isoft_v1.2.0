@@ -46,7 +46,7 @@ func (this *WorkController) WorkStepList() {
 	jsonMap := make(map[string]interface{})
 	work_id, _ := this.GetInt64("work_id")
 	serviceArgs := map[string]interface{}{"work_id": work_id}
-	parser := node.WorkStepFactoryParamSchemaParser{}
+	parser := node.ParamSchemaParser{}
 	if workCache, err := iworkcache.GetWorkCache(work_id, &parser); err == nil {
 		jsonMap["usedMap"] = workCache.Usage.UsedMap
 	}

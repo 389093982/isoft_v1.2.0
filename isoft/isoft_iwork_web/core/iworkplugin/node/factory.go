@@ -91,7 +91,7 @@ func (this *WorkStepFactory) getProxy() interfaces.IWorkStep {
 			LogWriter:              this.LogWriter,
 			WorkCache:              this.WorkCache,
 			Dispatcher:             this.Dispatcher,
-			ParamSchemaCacheParser: &WorkStepFactoryParamSchemaParser{WorkStep: this.WorkStep, ParamSchemaParser: &WorkStepFactory{WorkStep: this.WorkStep}},
+			ParamSchemaCacheParser: &ParamSchemaParser{WorkStep: this.WorkStep, ParamSchemaParser: &WorkStepFactory{WorkStep: this.WorkStep}},
 		},
 		"Receiver":         this.Receiver,
 		"WorkSubRunFunc":   this.WorkSubRunFunc,
@@ -145,11 +145,11 @@ func (this *WorkStepFactory) ValidateCustom() (checkResult []string) {
 
 // 获取入参 schema
 func GetCacheParamInputSchema(step *models.WorkStep) *iworkmodels.ParamInputSchema {
-	parser := WorkStepFactoryParamSchemaParser{WorkStep: step, ParamSchemaParser: &WorkStepFactory{WorkStep: step}}
+	parser := ParamSchemaParser{WorkStep: step, ParamSchemaParser: &WorkStepFactory{WorkStep: step}}
 	return parser.GetCacheParamInputSchema()
 }
 
 func GetCacheParamOutputSchema(step *models.WorkStep) *iworkmodels.ParamOutputSchema {
-	parser := WorkStepFactoryParamSchemaParser{WorkStep: step, ParamSchemaParser: &WorkStepFactory{WorkStep: step}}
+	parser := ParamSchemaParser{WorkStep: step, ParamSchemaParser: &WorkStepFactory{WorkStep: step}}
 	return parser.GetCacheParamOutputSchema()
 }

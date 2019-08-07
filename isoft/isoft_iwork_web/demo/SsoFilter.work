@@ -89,9 +89,9 @@
 	<ParamMappingType></ParamMappingType>
 </ParamMapping>]]></work_step_param_mapping_xml>
 		<CreatedBy>SYSTEM</CreatedBy>
-		<CreatedTime>2019-08-07T22:09:08+08:00</CreatedTime>
+		<CreatedTime>2019-08-07T22:28:52+08:00</CreatedTime>
 		<LastUpdatedBy>SYSTEM</LastUpdatedBy>
-		<LastUpdatedTime>2019-08-07T22:09:08+08:00</LastUpdatedTime>
+		<LastUpdatedTime>2019-08-07T22:28:52+08:00</LastUpdatedTime>
 	</workstep>
 	<workstep>
 		<Id>972</Id>
@@ -234,19 +234,19 @@
 		<WorkStepDesc>end节点</WorkStepDesc>
 		<WorkStepType>work_end</WorkStepType>
 		<WorkStepIndent>0</WorkStepIndent>
-		<WorkStepInput></WorkStepInput>
+		<WorkStepInput>{&#xA;&#x9;&#34;ParamInputSchemaItems&#34;: null&#xA;}</WorkStepInput>
 		<work_step_input_xml><![CDATA[<paramInputSchema></paramInputSchema>]]></work_step_input_xml>
-		<WorkStepOutput></WorkStepOutput>
+		<WorkStepOutput>{&#xA;&#x9;&#34;ParamOutputSchemaItems&#34;: null&#xA;}</WorkStepOutput>
 		<work_step_output_xml><![CDATA[<paramOutputSchema></paramOutputSchema>]]></work_step_output_xml>
 		<IsDefer>false</IsDefer>
-		<WorkStepParamMapping></WorkStepParamMapping>
+		<WorkStepParamMapping>[]</WorkStepParamMapping>
 		<work_step_param_mapping_xml><![CDATA[<ParamMapping>
 	<ParamMappingName></ParamMappingName>
 	<ParamMappingType></ParamMappingType>
 </ParamMapping>]]></work_step_param_mapping_xml>
 		<CreatedBy>SYSTEM</CreatedBy>
-		<CreatedTime>2019-08-04T19:18:50+08:00</CreatedTime>
+		<CreatedTime>2019-08-07T22:28:42+08:00</CreatedTime>
 		<LastUpdatedBy>SYSTEM</LastUpdatedBy>
-		<LastUpdatedTime>2019-08-04T19:18:50+08:00</LastUpdatedTime>
+		<LastUpdatedTime>2019-08-07T22:28:42+08:00</LastUpdatedTime>
 	</workstep>
 </workdl>

@@ -21,7 +21,7 @@ import (
 
 func filterFunc(ctx *context.Context) {
 	work_name := ctx.Input.Param(":work_name")
-	parser := node.WorkStepFactoryParamSchemaParser{}
+	parser := node.ParamSchemaParser{}
 	workCache, err := iworkcache.GetWorkCacheWithName(work_name, &parser)
 	if err != nil{
 		panic(err)

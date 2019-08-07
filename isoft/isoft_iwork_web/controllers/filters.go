@@ -29,7 +29,7 @@ func (this *WorkController) SaveFilters() {
 	}
 	_, err := models.InsertMultiFilters(filter_id, filters)
 	if err == nil {
-		parser := node.WorkStepFactoryParamSchemaParser{}
+		parser := node.ParamSchemaParser{}
 		iworkcache.ReloadAllWorkCache(&parser)
 		this.Data["json"] = &map[string]interface{}{"status": "SUCCESS"}
 	} else {

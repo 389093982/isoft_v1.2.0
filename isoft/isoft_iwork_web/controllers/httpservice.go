@@ -23,7 +23,7 @@ func (this *WorkController) PublishSerivce() {
 		}
 	}()
 	work_name := this.Ctx.Input.Param(":work_name")
-	parser := node.WorkStepFactoryParamSchemaParser{}
+	parser := node.ParamSchemaParser{}
 	workCache, err := iworkcache.GetWorkCacheWithName(work_name, &parser)
 	checkError(err)
 	mapData := ParseParam(this.Ctx, workCache.Steps)

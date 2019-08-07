@@ -156,7 +156,7 @@ func getCheckResultsForStep(step *models.WorkStep) (checkResult []string) {
 	go func() {
 		defer wg.Done()
 		// 校验 step 中的参数是否为空
-		checkResultCh <- iworkvalid.CheckEmpty(step, &node.WorkStepFactoryParamSchemaParser{WorkStep: step, ParamSchemaParser: &node.WorkStepFactory{WorkStep: step}})
+		checkResultCh <- iworkvalid.CheckEmpty(step, &node.ParamSchemaParser{WorkStep: step, ParamSchemaParser: &node.WorkStepFactory{WorkStep: step}})
 	}()
 	go func() {
 		defer wg.Done()

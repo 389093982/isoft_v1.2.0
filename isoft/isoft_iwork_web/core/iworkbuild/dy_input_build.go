@@ -11,7 +11,7 @@ import (
 // 构建动态输入值
 func BuildDynamicInput(step models.WorkStep, o orm.Ormer) {
 	workCache, _ := iworkcache.LoadWorkCache(step.WorkId)
-	parser := node.WorkStepFactoryParamSchemaParser{
+	parser := node.ParamSchemaParser{
 		WorkStep:          &step,
 		ParamSchemaParser: &node.WorkStepFactory{WorkStep: &step, O: o, WorkCache: workCache},
 	}
