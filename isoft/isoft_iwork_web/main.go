@@ -7,7 +7,6 @@ import (
 	"isoft/isoft_iwork_web/core/iworkcache"
 	"isoft/isoft_iwork_web/core/iworkconst"
 	"isoft/isoft_iwork_web/core/iworkdata/entry"
-	"isoft/isoft_iwork_web/core/iworkplugin/node"
 	"isoft/isoft_iwork_web/core/iworkplugin/node/regist"
 	"isoft/isoft_iwork_web/core/iworkpool"
 	"isoft/isoft_iwork_web/core/iworkrun"
@@ -22,13 +21,12 @@ import (
 
 func filterFunc(ctx *context.Context) {
 	work_name := ctx.Input.Param(":work_name")
-	parser := node.ParamSchemaParser{}
-	workCache, err := iworkcache.GetWorkCacheWithName(work_name, &parser)
+	workCache, err := iworkcache.GetWorkCacheWithName(work_name)
 	if err != nil{
 		panic(err)
 	}
 	for _, filterName := range workCache.FilterNames{
-		if workCache, err := iworkcache.GetWorkCacheWithName(filterName, &parser); err == nil{
+		if workCache, err := iworkcache.GetWorkCacheWithName(filterName); err == nil{
 			mapData := controllers.ParseParam(ctx, workCache.Steps)
 			mapData[iworkconst.HTTP_REQUEST_OBJECT] = ctx.Request // 传递 request 对象
 			receiver := iworkrun.RunOneWork(workCache.WorkId, &entry.Dispatcher{TmpDataMap: mapData})

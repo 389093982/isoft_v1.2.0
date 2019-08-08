@@ -77,7 +77,7 @@ func LoadWorkCache(work_id int64) (*WorkCache, error) {
 	}
 }
 
-func GetWorkCacheWithName(work_name string, paramSchemaCacheParser IParamSchemaCacheParser) (*WorkCache, error) {
+func GetWorkCacheWithName(work_name string) (*WorkCache, error) {
 	if cache, ok := workCacheMap.Load(work_name); ok {
 		return cache.(*WorkCache), nil
 	}
