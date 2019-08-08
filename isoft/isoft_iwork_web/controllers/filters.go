@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"github.com/astaxie/beego/orm"
 	"isoft/isoft_iwork_web/core/iworkcache"
-	"isoft/isoft_iwork_web/core/iworkplugin/node"
 	"isoft/isoft_iwork_web/models"
 	"time"
 )
@@ -29,8 +28,7 @@ func (this *WorkController) SaveFilters() {
 	}
 	_, err := models.InsertMultiFilters(filter_id, filters)
 	if err == nil {
-		parser := node.ParamSchemaParser{}
-		iworkcache.ReloadAllWorkCache(&parser)
+		iworkcache.ReloadAllWorkCache()
 		this.Data["json"] = &map[string]interface{}{"status": "SUCCESS"}
 	} else {
 		this.Data["json"] = &map[string]interface{}{"status": "ERROR", "errorMsg": err.Error()}

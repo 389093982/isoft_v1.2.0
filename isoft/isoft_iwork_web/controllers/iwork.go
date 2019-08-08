@@ -7,7 +7,6 @@ import (
 	"github.com/astaxie/beego/orm"
 	"isoft/isoft/common/stringutil"
 	"isoft/isoft_iwork_web/core/iworkcache"
-	"isoft/isoft_iwork_web/core/iworkplugin/node"
 	"isoft/isoft_iwork_web/core/iworkutil/fileutil"
 	"isoft/isoft_iwork_web/models"
 	"isoft/isoft_iwork_web/service"
@@ -170,8 +169,7 @@ func flushCache(work_id ...int64) (err error) {
 		works = models.QueryAllWorkInfo(orm.NewOrm())
 	}
 	for _, work := range works {
-		parser := node.ParamSchemaParser{}
-		if err = iworkcache.UpdateWorkCache(work.Id, &parser); err != nil {
+		if err = iworkcache.UpdateWorkCache(work.Id); err != nil {
 			break
 		}
 		if workCache, err := iworkcache.LoadWorkCache(work.Id); err == nil {
@@ -184,8 +182,7 @@ func flushCache(work_id ...int64) (err error) {
 func (this *WorkController) Download() {
 	work_id := this.Ctx.Input.Param(":work_id")
 	workId, _ := strconv.ParseInt(work_id, 10, 64)
-	parser := node.ParamSchemaParser{}
-	workCache, _ := iworkcache.GetWorkCache(workId, &parser)
+	workCache, _ := iworkcache.GetWorkCache(workId)
 	tofile := path.Join(beego.AppConfig.String("file.server"), stringutil.RandomUUID())
 	fileutil.WriteFile(tofile, []byte(workCache.RenderToString()), false)
 	defer fileutil.RemoveFileOrDirectory(tofile)

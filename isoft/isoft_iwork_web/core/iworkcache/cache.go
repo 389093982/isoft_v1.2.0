@@ -12,6 +12,7 @@ import (
 	"isoft/isoft_iwork_web/core/iworkutil/datatypeutil"
 	"isoft/isoft_iwork_web/core/iworkutil/errorutil"
 	"isoft/isoft_iwork_web/models"
+	"isoft/isoft_iwork_web/startup/dipool/pool"
 	"strings"
 	"sync"
 )
@@ -43,10 +44,10 @@ func getBlockStepExecuteOrder(blockSteps []*block.BlockStep) []*block.BlockStep 
 
 var workCacheMap sync.Map
 
-func ReloadAllWorkCache(paramSchemaCacheParser IParamSchemaCacheParser) {
+func ReloadAllWorkCache() {
 	works := models.QueryAllWorkInfo(orm.NewOrm())
 	for _, work := range works {
-		UpdateWorkCache(work.Id, paramSchemaCacheParser)
+		UpdateWorkCache(work.Id)
 	}
 }
 
@@ -54,7 +55,7 @@ func DeleteWorkCache(work_id int64) {
 	workCacheMap.Delete(work_id)
 }
 
-func UpdateWorkCache(work_id int64, paramSchemaCacheParser IParamSchemaCacheParser) (err error) {
+func UpdateWorkCache(work_id int64) (err error) {
 	defer func() {
 		if err1 := recover(); err1 != nil {
 			fmt.Println(string(errorutil.PanicTrace(4)))
@@ -62,7 +63,7 @@ func UpdateWorkCache(work_id int64, paramSchemaCacheParser IParamSchemaCachePars
 		}
 	}()
 	cache := &WorkCache{WorkId: work_id}
-	cache.FlushCache(paramSchemaCacheParser)
+	cache.FlushCache()
 	workCacheMap.Store(work_id, cache)
 	workCacheMap.Store(cache.Work.WorkName, cache)
 	return
@@ -84,17 +85,17 @@ func GetWorkCacheWithName(work_name string, paramSchemaCacheParser IParamSchemaC
 	if err != nil {
 		return nil, err
 	}
-	return GetWorkCache(work.Id, paramSchemaCacheParser)
+	return GetWorkCache(work.Id)
 }
 
-func GetWorkCache(work_id int64, paramSchemaCacheParser IParamSchemaCacheParser) (*WorkCache, error) {
+func GetWorkCache(work_id int64) (*WorkCache, error) {
 	if cache, ok := workCacheMap.Load(work_id); ok {
 		return cache.(*WorkCache), nil
 	}
-	if err := UpdateWorkCache(work_id, paramSchemaCacheParser); err != nil {
+	if err := UpdateWorkCache(work_id); err != nil {
 		return nil, err
 	} else {
-		return GetWorkCache(work_id, paramSchemaCacheParser)
+		return GetWorkCache(work_id)
 	}
 }
 
@@ -130,7 +131,7 @@ func (this *WorkCache) RenderToString() (s string) {
 	return
 }
 
-func (this *WorkCache) FlushCache(paramSchemaCacheParser IParamSchemaCacheParser) {
+func (this *WorkCache) FlushCache() {
 	o := orm.NewOrm()
 	// 缓存 work
 	this.Work, this.err = models.QueryWorkById(this.WorkId, o)
@@ -150,7 +151,8 @@ func (this *WorkCache) FlushCache(paramSchemaCacheParser IParamSchemaCacheParser
 	// 缓存 paramInputSchema
 	this.ParamInputSchemaMap = make(map[int64]*iworkmodels.ParamInputSchema, 0)
 	for _, workStep := range this.Steps {
-		paramInputSchema := paramSchemaCacheParser.GetCacheParamInputSchema(&workStep)
+		parser := pool.Container.GetSingleton("parser")
+		paramInputSchema := parser.(IParamSchemaCacheParser).GetCacheParamInputSchema(&workStep)
 		this.ParamInputSchemaMap[workStep.WorkStepId] = paramInputSchema
 	}
 	// 缓存 subWorkName

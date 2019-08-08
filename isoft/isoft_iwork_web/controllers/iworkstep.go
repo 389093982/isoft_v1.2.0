@@ -3,7 +3,6 @@ package controllers
 import (
 	"isoft/isoft_iwork_web/core/iworkcache"
 	"isoft/isoft_iwork_web/core/iworkfunc"
-	"isoft/isoft_iwork_web/core/iworkplugin/node"
 	"isoft/isoft_iwork_web/service"
 )
 
@@ -46,8 +45,7 @@ func (this *WorkController) WorkStepList() {
 	jsonMap := make(map[string]interface{})
 	work_id, _ := this.GetInt64("work_id")
 	serviceArgs := map[string]interface{}{"work_id": work_id}
-	parser := node.ParamSchemaParser{}
-	if workCache, err := iworkcache.GetWorkCache(work_id, &parser); err == nil {
+	if workCache, err := iworkcache.GetWorkCache(work_id); err == nil {
 		jsonMap["usedMap"] = workCache.Usage.UsedMap
 	}
 	if result, err := service.ExecuteResultServiceWithTx(serviceArgs, service.WorkStepListService); err == nil {
