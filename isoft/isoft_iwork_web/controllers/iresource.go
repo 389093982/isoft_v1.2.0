@@ -7,6 +7,7 @@ import (
 	"isoft/isoft_iwork_web/core/iworkutil/sftputil"
 	"isoft/isoft_iwork_web/core/iworkutil/sshutil"
 	"isoft/isoft_iwork_web/models"
+	"isoft/isoft_iwork_web/startup/memory"
 	"time"
 )
 
@@ -23,6 +24,7 @@ func (this *WorkController) AddResource() {
 	resource.LastUpdatedBy = "SYSTEM"
 	resource.LastUpdatedTime = time.Now()
 	if _, err := models.InsertOrUpdateResource(&resource); err == nil {
+		flushMemoryResource()
 		this.Data["json"] = &map[string]interface{}{"status": "SUCCESS"}
 	} else {
 		this.Data["json"] = &map[string]interface{}{"status": "ERROR"}
@@ -59,6 +61,7 @@ func (this *WorkController) DeleteResource() {
 	id, _ := this.GetInt64("id")
 	err := models.DeleteResource(id)
 	if err == nil {
+		flushMemoryResource()
 		this.Data["json"] = &map[string]interface{}{"status": "SUCCESS"}
 	} else {
 		this.Data["json"] = &map[string]interface{}{"status": "ERROR"}
@@ -96,4 +99,8 @@ func (this *WorkController) ValidateResource() {
 		this.Data["json"] = &map[string]interface{}{"status": "ERROR", "errorMsg": err.Error()}
 	}
 	this.ServeJSON()
+}
+
+func flushMemoryResource() {
+	memory.FlushMemoryResource()
 }

@@ -265,15 +265,17 @@ func (this *SimpleParser) parseParamVauleWithPrefixNode() interface{} {
 // 尽量从缓存中获取
 func (this *SimpleParser) parseParamVauleFromResource() interface{} {
 	resource_name := strings.TrimPrefix(this.paramVaule, "$RESOURCE.")
-	resource, err := models.QueryResourceByName(resource_name)
-	if err == nil {
+	if resource, ok := memory.MemoryResourceMap.Load(resource_name); ok {
+		resource := resource.(models.Resource)
 		if resource.ResourceType == "db" {
 			return resource.ResourceDsn
 		} else if resource.ResourceType == "sftp" || resource.ResourceType == "ssh" {
 			return resource
 		}
+		return ""
+	} else {
+		panic(errors.New(fmt.Sprintf("can't find resource for %s", resource_name)))
 	}
-	return ""
 }
 
 // 尽量从缓存中获取

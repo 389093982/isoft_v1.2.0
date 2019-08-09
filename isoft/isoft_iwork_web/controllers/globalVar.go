@@ -42,7 +42,7 @@ func (this *WorkController) EditGlobalVar() {
 	}
 	_, err = models.InsertOrUpdateGlobalVar(globalVar, orm.NewOrm())
 	if err == nil {
-		FlushMemoryGlobalVar()
+		flushMemoryGlobalVar()
 		this.Data["json"] = &map[string]interface{}{"status": "SUCCESS"}
 	} else {
 		this.Data["json"] = &map[string]interface{}{"status": "ERROR", "errorMsg": err.Error()}
@@ -54,7 +54,7 @@ func (this *WorkController) DeleteGlobalVarById() {
 	id, _ := this.GetInt64("id")
 	err := models.DeleteGlobalVarById(id)
 	if err == nil {
-		FlushMemoryGlobalVar()
+		flushMemoryGlobalVar()
 		this.Data["json"] = &map[string]interface{}{"status": "SUCCESS"}
 	} else {
 		this.Data["json"] = &map[string]interface{}{"status": "ERROR", "errorMsg": err.Error()}
@@ -62,6 +62,6 @@ func (this *WorkController) DeleteGlobalVarById() {
 	this.ServeJSON()
 }
 
-func FlushMemoryGlobalVar() {
+func flushMemoryGlobalVar() {
 	memory.FlushMemoryGlobalVar()
 }
