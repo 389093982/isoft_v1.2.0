@@ -2,8 +2,8 @@ package iworkvalid
 
 import (
 	"fmt"
+	"isoft/isoft_iwork_web/core/interfaces"
 	"isoft/isoft_iwork_web/core/iworkmodels"
-	"isoft/isoft_iwork_web/core/iworkplugin/interfaces"
 	"isoft/isoft_iwork_web/models"
 	"strings"
 )
