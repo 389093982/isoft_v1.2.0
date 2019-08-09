@@ -19,16 +19,18 @@ func createNewTrackingIdForWork(dispatcher *entry.Dispatcher, work models.Work) 
 		// 同时优化 trackingId,防止递归调用时 trackingId 过长
 		trackingId = optimizeTrackingId(dispatcher.TrackingId, trackingId)
 	}
-	// 记录日志
-	models.InsertRunLogRecord(&models.RunLogRecord{
-		TrackingId:      trackingId,
-		WorkId:          work.Id,
-		WorkName:        work.WorkName,
-		CreatedBy:       "SYSTEM",
-		CreatedTime:     time.Now(),
-		LastUpdatedBy:   "SYSTEM",
-		LastUpdatedTime: time.Now(),
-	})
+	go func() {
+		// 记录日志
+		models.InsertRunLogRecord(&models.RunLogRecord{
+			TrackingId:      trackingId,
+			WorkId:          work.Id,
+			WorkName:        work.WorkName,
+			CreatedBy:       "SYSTEM",
+			CreatedTime:     time.Now(),
+			LastUpdatedBy:   "SYSTEM",
+			LastUpdatedTime: time.Now(),
+		})
+	}()
 	return trackingId
 }
 

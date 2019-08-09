@@ -39,9 +39,11 @@ func (this *CacheLoggerWriter) Write(trackingId, workStepName, logLevel, detail 
 }
 
 func (this *CacheLoggerWriter) Flush() {
-	if _, err := models.InsertMultiRunLogDetail(this.caches); err != nil {
-		fmt.Println(err.Error())
-	}
+	go func() {
+		if _, err := models.InsertMultiRunLogDetail(this.caches); err != nil {
+			fmt.Println(err.Error())
+		}
+	}()
 }
 
 func (this *CacheLoggerWriter) Close() {
