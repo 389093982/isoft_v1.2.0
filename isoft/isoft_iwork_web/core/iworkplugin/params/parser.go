@@ -11,6 +11,7 @@ import (
 	"isoft/isoft_iwork_web/core/iworkutil/datatypeutil"
 	"isoft/isoft_iwork_web/core/iworkvalid"
 	"isoft/isoft_iwork_web/models"
+	"isoft/isoft_iwork_web/startup/memory"
 	"reflect"
 	"strings"
 )
@@ -277,12 +278,12 @@ func (this *SimpleParser) parseParamVauleFromResource() interface{} {
 
 // 尽量从缓存中获取
 func (this *SimpleParser) parseParamVauleFromGlobalVar() interface{} {
-	globalVar_name := strings.TrimPrefix(this.paramVaule, "$Global.")
-	gv, err := models.QueryGlobalVarByName(globalVar_name)
-	if err == nil {
-		return gv.Value
+	gvName := strings.TrimPrefix(this.paramVaule, "$Global.")
+	if gv, ok := memory.MemoryGlobalVarMap.Load(gvName); ok {
+		return gv.(models.GlobalVar).Name
+	} else {
+		panic(errors.New(fmt.Sprintf("can't find globalVar for %s", gvName)))
 	}
-	return ""
 }
 
 // 是直接参数,不需要函数进行特殊处理

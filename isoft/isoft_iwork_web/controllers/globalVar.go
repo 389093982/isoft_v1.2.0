@@ -5,6 +5,7 @@ import (
 	"github.com/astaxie/beego/utils/pagination"
 	"isoft/isoft/common/pageutil"
 	"isoft/isoft_iwork_web/models"
+	"isoft/isoft_iwork_web/startup/memory"
 	"time"
 )
 
@@ -41,6 +42,7 @@ func (this *WorkController) EditGlobalVar() {
 	}
 	_, err = models.InsertOrUpdateGlobalVar(globalVar, orm.NewOrm())
 	if err == nil {
+		FlushMemoryGlobalVar()
 		this.Data["json"] = &map[string]interface{}{"status": "SUCCESS"}
 	} else {
 		this.Data["json"] = &map[string]interface{}{"status": "ERROR", "errorMsg": err.Error()}
@@ -52,9 +54,14 @@ func (this *WorkController) DeleteGlobalVarById() {
 	id, _ := this.GetInt64("id")
 	err := models.DeleteGlobalVarById(id)
 	if err == nil {
+		FlushMemoryGlobalVar()
 		this.Data["json"] = &map[string]interface{}{"status": "SUCCESS"}
 	} else {
 		this.Data["json"] = &map[string]interface{}{"status": "ERROR", "errorMsg": err.Error()}
 	}
 	this.ServeJSON()
+}
+
+func FlushMemoryGlobalVar() {
+	memory.FlushMemoryGlobalVar()
 }
