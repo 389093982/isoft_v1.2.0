@@ -13,12 +13,12 @@ import (
 )
 
 // dispatcher 为父流程遗传下来的参数
-func RunOneWork(work_id int64, dispatcher *entry.Dispatcher) (receiver *entry.Receiver) {
+func RunOneWork(work_id int64, dispatcher *entry.Dispatcher) (trackingId string, receiver *entry.Receiver) {
 	logwriter := new(iworklog.CacheLoggerWriter)
 	defer logwriter.Close()
 	workCache, err := iworkcache.GetWorkCache(work_id)
 	// 为当前流程创建新的 trackingId, 前提条件 cacheContext.Work 一定存在
-	trackingId := createNewTrackingIdForWork(dispatcher, workCache.Work)
+	trackingId = createNewTrackingIdForWork(dispatcher, workCache.Work)
 	if err != nil {
 		logwriter.Write(trackingId, "", iworkconst.LOG_LEVEL_ERROR, fmt.Sprintf("<span style='color:red;'>internal error:%s</span>", err.Error()))
 	}
@@ -41,8 +41,6 @@ func RunOneWork(work_id int64, dispatcher *entry.Dispatcher) (receiver *entry.Re
 		RunOneStep:   RunOneStep,
 	}
 	receiver = bsoRunner.Run()
-	// 返回 trackingId
-	receiver.TmpDataMap[iworkconst.TRACKING_ID] = trackingId
 	logwriter.Write(trackingId, "", iworkconst.LOG_LEVEL_INFO, fmt.Sprintf("~~~~~~~~~~end execute work:%s~~~~~~~~~~", workCache.Work.WorkName))
 	return
 }

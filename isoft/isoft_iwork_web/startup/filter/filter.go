@@ -20,12 +20,10 @@ func FilterFunc(ctx *context.Context) {
 		if workCache, err := iworkcache.GetWorkCacheWithName(filterName); err == nil {
 			mapData := controllers.ParseParam(ctx, workCache.Steps)
 			mapData[iworkconst.HTTP_REQUEST_OBJECT] = ctx.Request // 传递 request 对象
-			receiver := iworkrun.RunOneWork(workCache.WorkId, &entry.Dispatcher{TmpDataMap: mapData})
+			trackingId, receiver := iworkrun.RunOneWork(workCache.WorkId, &entry.Dispatcher{TmpDataMap: mapData})
+			ctx.ResponseWriter.Header().Add(iworkconst.TRACKING_ID, trackingId)
 			if receiver != nil {
 				tempDataMap := receiver.TmpDataMap
-				if data, ok := tempDataMap[iworkconst.TRACKING_ID]; ok {
-					ctx.ResponseWriter.Header().Add(iworkconst.TRACKING_ID, data.(string))
-				}
 				if data, ok := tempDataMap[iworkconst.DO_ERROR_FILTER]; ok {
 					tmpDataMap := data.(map[string]interface{})
 					for key, value := range tmpDataMap {

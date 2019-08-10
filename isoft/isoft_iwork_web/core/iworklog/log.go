@@ -34,21 +34,22 @@ func (this *CacheLoggerWriter) Write(trackingId, workStepName, logLevel, detail 
 	}
 	this.caches = append(this.caches, log)
 	if len(this.caches) >= cacheLen {
-		this.Flush()
+		this.flush()
 		this.cleanCaches()
 	}
 }
 
-func (this *CacheLoggerWriter) Flush() {
+func (this *CacheLoggerWriter) flush() {
+	caches := this.caches // 使用临时变量进行参数传递
 	startup.RunLogPool.JobQueue <- func() {
-		if _, err := models.InsertMultiRunLogDetail(this.caches); err != nil {
+		if _, err := models.InsertMultiRunLogDetail(caches); err != nil {
 			fmt.Println(err.Error())
 		}
 	}
 }
 
 func (this *CacheLoggerWriter) Close() {
-	this.Flush()
+	this.flush()
 }
 
 // 统计操作所花费的时间方法

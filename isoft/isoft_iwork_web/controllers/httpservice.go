@@ -27,11 +27,12 @@ func (this *WorkController) PublishSerivce() {
 	checkError(err)
 	mapData := ParseParam(this.Ctx, workCache.Steps)
 	mapData[iworkconst.HTTP_REQUEST_OBJECT] = this.Ctx.Request // 传递 request 对象
-	receiver := iworkrun.RunOneWork(workCache.WorkId, &entry.Dispatcher{TmpDataMap: mapData})
+	trackingId, receiver := iworkrun.RunOneWork(workCache.WorkId, &entry.Dispatcher{TmpDataMap: mapData})
 	if receiver != nil {
+		receiver.TmpDataMap[iworkconst.TRACKING_ID] = trackingId
 		this.Data["json"] = &receiver.TmpDataMap
 	} else {
-		this.Data["json"] = &map[string]interface{}{"status": "ERROR", "errorMsg": "Empty Response"}
+		this.Data["json"] = &map[string]interface{}{"status": "ERROR", iworkconst.TRACKING_ID: trackingId, "errorMsg": "Empty Response"}
 	}
 	this.ServeJSON()
 }

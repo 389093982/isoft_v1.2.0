@@ -97,7 +97,8 @@ export const FilterElementByPlacement = (placement) => ajax(BASE_URL+'/cms/filte
 export const ShowShareDetail = (share_id) => ajax(BASE_URL+'/share/showShareDetail',{share_id},'GET');
 
 // 获取ShareList 信息
-export const FilterShareList = (offset,current_page,search_type) => ajax(BASE_URL+'/share/filterShareList',{offset,current_page,search_type},'GET');
+// export const FilterShareList = (offset,current_page,search_type) => ajax(BASE_URL+'/share/filterShareList',{offset,current_page,search_type},'GET');
+export const FilterShareList = (offset,current_page,search_type) => ajax(BASE_URL_2+'/iwork/httpservice/FilterShareList2',{offset,current_page,search_type},'GET');
 
 // 新增共享链接
 export const AddNewShare = (share_type,share_desc,link_href,content) => ajax(BASE_URL+'/share/addNewShare',{share_type,share_desc,link_href,content},'GET');
