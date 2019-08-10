@@ -1,9 +1,11 @@
 package controllers
 
 import (
+	"errors"
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/orm"
 	"github.com/astaxie/beego/utils/pagination"
+	"isoft/isoft/common/hashutil"
 	"isoft/isoft/common/pageutil"
 	"isoft/isoft_iwork_web/core/iworkcache"
 	"isoft/isoft_iwork_web/core/iworkutil/fileutil"
@@ -22,21 +24,23 @@ func deleteHistory(workName string) {
 func saveHistory(wc *iworkcache.WorkCache) (err error) {
 	work := wc.Work
 	workHistory := wc.RenderToString()
-	if err == nil {
+	hash := hashutil.CalculateHashWithString(work.WorkName + workHistory)
+	if _, err := models.QueryWorkHistoryByHash(hash); err != nil && errors.As(err, &orm.ErrNoRows) {
 		history := &models.WorkHistory{
 			WorkId:          work.Id,
 			WorkName:        work.WorkName,
 			WorkDesc:        work.WorkDesc,
-			WorkHistory:     string(workHistory),
+			WorkHistory:     workHistory,
+			Hash:            hash,
 			CreatedBy:       "SYSTEM",
 			CreatedTime:     time.Now(),
 			LastUpdatedBy:   "SYSTEM",
 			LastUpdatedTime: time.Now(),
 		}
 		_, err = models.InsertOrUpdateWorkHistory(history)
+		filepath := path.Join(fileServer, work.WorkName+".work")
+		fileutil.WriteFile(filepath, []byte(workHistory), false)
 	}
-	filepath := path.Join(fileServer, work.WorkName+".work")
-	fileutil.WriteFile(filepath, []byte(workHistory), false)
 	return
 }
 

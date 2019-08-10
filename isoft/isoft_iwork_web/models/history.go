@@ -12,10 +12,17 @@ type WorkHistory struct {
 	WorkName        string    `json:"work_name"`
 	WorkDesc        string    `json:"work_desc"`
 	WorkHistory     string    `json:"work_history" orm:"type(text)"`
+	Hash            string    `json:"hash"`
 	CreatedBy       string    `json:"created_by"`
 	CreatedTime     time.Time `json:"created_time" orm:"auto_now_add;type(datetime)"`
 	LastUpdatedBy   string    `json:"last_updated_by"`
 	LastUpdatedTime time.Time `json:"last_updated_time"`
+}
+
+func QueryWorkHistoryByHash(hash string) (history WorkHistory, err error) {
+	o := orm.NewOrm()
+	err = o.QueryTable("work_history").Filter("hash", hash).One(&history)
+	return
 }
 
 func InsertOrUpdateWorkHistory(history *WorkHistory) (id int64, err error) {

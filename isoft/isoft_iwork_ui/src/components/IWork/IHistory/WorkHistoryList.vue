@@ -38,13 +38,14 @@
             key: 'id',
           },
           {
+            title: 'hash',
+            key: 'hash',
+            width: 200,
+          },
+          {
             title: 'work_name',
             key: 'work_name',
             width: 300,
-          },
-          {
-            title: 'work_desc',
-            key: 'work_desc',
           },
           {
             title: 'last_updated_time',
