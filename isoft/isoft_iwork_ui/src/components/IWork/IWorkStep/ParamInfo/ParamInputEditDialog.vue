@@ -20,13 +20,17 @@
         <Button @click="appendData('parent')" style="margin-top: 10px;"><Icon type="ios-arrow-forward"></Icon>选择父节点</Button>
         <Button @click="appendData('children')" style="margin-top: 10px;"><Icon type="ios-arrow-forward"></Icon>选择子节点</Button>
 
-        <Scroll height="250" style="margin: 20px 20px 0px 20px;">
-          <ul>
-            <li style="list-style: none;margin: 2px;" v-for="(item,index) in paramInputSchemaItems">
+        <Dropdown style="margin-top: 100px;" placement="bottom-start">
+          <Button>
+            输入列表&nbsp;&nbsp;
+            <Icon type="ios-arrow-down"></Icon>
+          </Button>
+          <DropdownMenu slot="list">
+            <DropdownItem v-for="(item,index) in paramInputSchemaItems">
               <Button :type="item.ParamValue ? 'success' : 'default'" long size="small" @click="handleReload(index)">{{ item.ParamName }}</Button>
-            </li>
-          </ul>
-        </Scroll>
+            </DropdownItem>
+          </DropdownMenu>
+        </Dropdown>
       </Col>
       <Col span="15">
         <div class="operate_link">
