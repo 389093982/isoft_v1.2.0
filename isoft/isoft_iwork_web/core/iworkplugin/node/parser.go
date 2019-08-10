@@ -38,9 +38,6 @@ func (this *ParamSchemaParser) GetDefaultParamOutputSchema() *iworkmodels.ParamO
 func (this *ParamSchemaParser) GetCacheParamInputSchema(replaceStep ...*models.WorkStep) *iworkmodels.ParamInputSchema {
 	if len(replaceStep) > 0 {
 		this.WorkStep = replaceStep[0]
-		if this.ParamSchemaParser != nil { // 填充新参数至 ParamSchemaParser
-			reflectutil.FillFieldValueToStruct(this.ParamSchemaParser, map[string]interface{}{"WorkStep": replaceStep[0]})
-		}
 	}
 	// 从缓存(数据库字段)中获取
 	if strings.TrimSpace(this.WorkStep.WorkStepInput) != "" {
@@ -49,8 +46,12 @@ func (this *ParamSchemaParser) GetCacheParamInputSchema(replaceStep ...*models.W
 		}
 	}
 	if this.ParamSchemaParser != nil {
+		// 将当前 paramSchemaParser 拷贝副本
+		paramSchemaParser := this.ParamSchemaParser
+		// 填充新参数至 ParamSchemaParser
+		reflectutil.FillFieldValueToStruct(this.ParamSchemaParser, map[string]interface{}{"WorkStep": replaceStep[0]})
 		// 获取当前 work_step 对应的 paramInputSchema
-		return this.ParamSchemaParser.GetDefaultParamInputSchema()
+		return paramSchemaParser.GetDefaultParamInputSchema()
 	} else {
 		return &iworkmodels.ParamInputSchema{}
 	}

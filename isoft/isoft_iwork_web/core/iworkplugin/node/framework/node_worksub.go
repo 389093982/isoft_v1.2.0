@@ -3,12 +3,15 @@ package framework
 import (
 	"fmt"
 	"github.com/astaxie/beego/orm"
+	"github.com/pkg/errors"
+	"isoft/isoft_iwork_web/core/iworkcache"
 	"isoft/isoft_iwork_web/core/iworkconst"
 	"isoft/isoft_iwork_web/core/iworkdata/datastore"
 	"isoft/isoft_iwork_web/core/iworkdata/entry"
 	"isoft/isoft_iwork_web/core/iworkmodels"
 	"isoft/isoft_iwork_web/core/iworkplugin/node"
 	"isoft/isoft_iwork_web/core/iworkutil"
+	"isoft/isoft_iwork_web/core/iworkutil/reflectutil"
 	"isoft/isoft_iwork_web/models"
 	"strings"
 )
@@ -23,12 +26,17 @@ func (this *WorkSubNode) Execute(trackingId string) {
 	// 获取子流程流程名称
 	workSubName := this.WorkCache.SubWorkNameMap[this.WorkStep.WorkStepId]
 	// 运行子流程
-	work, _ := models.QueryWorkByName(workSubName, orm.NewOrm())
-	this.RunOnceSubWork(work.Id, trackingId, this.TmpDataMap, this.DataStore)
+	if workSubCache, err := iworkcache.GetWorkCacheWithName(workSubName); err == nil {
+		this.RunOnceSubWork(workSubCache.WorkId, trackingId, this.TmpDataMap, this.DataStore)
+	} else {
+		panic(errors.Wrap(err, fmt.Sprintf("Load subWork failed for %s", workSubName)))
+	}
 }
 
 func (this *WorkSubNode) RunOnceSubWork(work_id int64, trackingId string,
 	tmpDataMap map[string]interface{}, dataStore *datastore.DataStore) {
+	// 继续传递 request 对象
+	tmpDataMap[iworkconst.HTTP_REQUEST_OBJECT] = this.Dispatcher.TmpDataMap[iworkconst.HTTP_REQUEST_OBJECT]
 	trackingId, receiver := this.WorkSubRunFunc(work_id, &entry.Dispatcher{TrackingId: trackingId, TmpDataMap: tmpDataMap})
 	// 接收子流程数据存入 dataStore
 	for paramName, paramValue := range receiver.TmpDataMap {
@@ -98,8 +106,12 @@ func (this *WorkSubNode) GetRuntimeParamOutputSchema() *iworkmodels.ParamOutputS
 		for _, subStep := range subSteps {
 			// 找到子流程结束节点
 			if strings.ToUpper(subStep.WorkStepType) == "WORK_END" {
+				// 将当前 paramSchemaCacheParser 拷贝副本
+				paramSchemaCacheParser := this.ParamSchemaCacheParser
+				// 填充新参数至 ParamSchemaParser
+				reflectutil.FillFieldValueToStruct(paramSchemaCacheParser, map[string]interface{}{"WorkStep": &subStep})
 				// 子流程结束节点输出参数
-				subItems := this.ParamSchemaCacheParser.GetCacheParamOutputSchema()
+				subItems := paramSchemaCacheParser.GetCacheParamOutputSchema()
 				for _, subItem := range subItems.ParamOutputSchemaItems {
 					items = append(items, iworkmodels.ParamOutputSchemaItem{ParamName: subItem.ParamName})
 				}

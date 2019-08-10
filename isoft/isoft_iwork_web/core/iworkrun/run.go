@@ -37,7 +37,7 @@ func RunOneWork(work_id int64, dispatcher *entry.Dispatcher) (trackingId string,
 		TrackingId:   trackingId,
 		LogWriter:    logwriter,
 		Store:        initDataStore, // 获取数据中心
-		Dispatcher:   dispatcher,
+		Dispatcher:   dispatcher,    // dispatcher 是全流程共享的
 		RunOneStep:   RunOneStep,
 	}
 	receiver = bsoRunner.Run()
