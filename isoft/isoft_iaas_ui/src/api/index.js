@@ -121,7 +121,8 @@ export const FilterPageIFiles = (search_name,offset,current_page) => ajax(BASE_U
 export const Login = (username,passwd) => ajax(BASE_URL_2+"/iwork/httpservice/PostLogin2", {username,passwd},'POST');
 
 // 注册接口
-export const Regist = (username,passwd) => ajax(BASE_URL+"/sso/user/regist", {username,passwd},'POST');
+// export const Regist = (username,passwd) => ajax(BASE_URL+"/sso/user/regist", {username,passwd},'POST');
+export const Regist = (username,passwd) => ajax(BASE_URL_2+"/iwork/httpservice/Regist2", {username,passwd},'POST');
 
 // 系统注册分页查询
 // export const AppRegisterList = (offset,current_page,search) => ajax(BASE_URL+"/sso/app/appRegisterList", {offset,current_page,search},'POST');
