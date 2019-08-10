@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"errors"
 	"fmt"
 	"github.com/astaxie/beego/orm"
 	"isoft/isoft/common/stringutil"
@@ -150,27 +151,31 @@ func validateStep(step *models.WorkStep, logCh chan *models.ValidateLogDetail, s
 
 func getCheckResultsForStep(step *models.WorkStep) (checkResult []string) {
 	checkResult = make([]string, 0)
-	checkResultCh := make(chan []string, 10)
+	checkResultCh := make(chan string, 10)
 	wg := new(sync.WaitGroup)
 	wg.Add(3)
 	go func() {
 		defer wg.Done()
 		// 校验 step 中的参数是否为空
-		checkResultCh <- iworkvalid.CheckEmpty(step, &node.ParamSchemaParser{WorkStep: step, ParamSchemaParser: &node.WorkStepFactory{WorkStep: step}})
+		for _, s := range iworkvalid.CheckEmpty(step, &node.ParamSchemaParser{WorkStep: step, ParamSchemaParser: &node.WorkStepFactory{WorkStep: step}}) {
+			checkResultCh <- s
+		}
 	}()
 	go func() {
 		defer wg.Done()
-		checkResultCh <- checkVariableRelationShip(step)
+		checkVariableRelationShip(step, checkResultCh)
 	}()
 	go func() {
 		defer wg.Done()
 		// 定制化校验
-		checkResultCh <- CheckCustom(step)
+		for _, s := range CheckCustom(step) {
+			checkResultCh <- s
+		}
 	}()
 	wg.Wait()
 	close(checkResultCh)
-	for _checkResult := range checkResultCh {
-		checkResult = append(checkResult, _checkResult...)
+	for s := range checkResultCh {
+		checkResult = append(checkResult, s)
 	}
 	return
 }
@@ -186,68 +191,87 @@ func CheckCustom(step *models.WorkStep) (checkResult []string) {
 }
 
 // 校验变量的引用关系
-func checkVariableRelationShip(step *models.WorkStep) (checkResult []string) {
+func checkVariableRelationShip(step *models.WorkStep, checkResultCh chan string) {
 	defer func() {
 		if err := recover(); err != nil {
-			checkResult = append(checkResult, errorutil.ToError(err).Error())
+			checkResultCh <- errorutil.ToError(err).Error()
 		}
 	}()
 	inputSchema := node.GetCacheParamInputSchema(step)
 	for _, item := range inputSchema.ParamInputSchemaItems {
-		result := checkVariableRelationShipDetail(item, step.WorkId, step.WorkStepId)
-		checkResult = append(checkResult, result...)
+		checkVariableRelationShipDetail(item, step.WorkId, step.WorkStepId, checkResultCh)
 	}
 	return
 }
 
-func checkVariableRelationShipDetail(item iworkmodels.ParamInputSchemaItem, work_id, work_step_id int64) (checkResult []string) {
+func checkVariableRelationShipDetail(item iworkmodels.ParamInputSchemaItem, work_id, work_step_id int64, checkResultCh chan string) {
 	// 根据正则找到关联的节点名和字段名
 	refers := iworkutil.GetRelativeValueWithReg(item.ParamValue)
-	if len(refers) == 0 {
-		return
-	}
-	preStepNodeNames := iworkutil.GetAllPreStepNodeName(work_id, work_step_id)
-	skipNodeNames := []string{"RESOURCE", "WORK", "Error", "Global"}
-	for _, refer := range refers {
-		var referNodeName, referFiledName string
-		if strings.Contains(refer, ".") {
-			referNodeName = refer[1:strings.Index(refer, ".")]
-			referFiledName = refer[strings.Index(refer, ".")+1:]
-		} else {
-			referNodeName = refer
-			referFiledName = ""
-		}
-
-		// 非节点类型直接跳过
-		if stringutil.CheckContains(referNodeName, skipNodeNames) {
-			break
-		}
-		// 判断节点名称是否有效
-		if !stringutil.CheckContains(referNodeName, preStepNodeNames) {
-			checkResult = append(checkResult, fmt.Sprintf("Invalid referNodeName relationship for %s was found!", referNodeName))
-			continue
-		}
-		// $NodeName;
-		// 只引用节点名的空字段直接跳过
-		if referFiledName == "" {
-			break
-		}
-		// 判断字段名称是否有效
-		if step, err := models.QueryWorkStepByStepName(work_id, referNodeName, orm.NewOrm()); err == nil {
-			outputSchema := node.GetCacheParamOutputSchema(&step)
-			exist := false
-			for _, item := range outputSchema.ParamOutputSchemaItems {
-				if item.ParamName == referFiledName || item.ParentPath+"."+item.ParamName == referFiledName {
-					exist = true
-					break
-				}
+	if len(refers) > 0 {
+		preStepNodeNames := iworkutil.GetAllPreStepNodeName(work_id, work_step_id)
+		skipNodeNames := []string{"RESOURCE", "WORK", "Error"}
+		for _, refer := range refers {
+			referNodeName, referFiledName := parseReferNodeAndFiledName(refer)
+			if stringutil.CheckContains(referNodeName, skipNodeNames) {
+				continue
 			}
-			if !exist {
-				checkResult = append(checkResult, fmt.Sprintf("Invalid referFiledName relationship for %s was found!", referFiledName))
+			if referNodeName == "Global" {
+				checkVariableRelationShipForGlobal(referFiledName, checkResultCh)
+			} else {
+				checkVariableRelationShipForNode(referNodeName, referFiledName, preStepNodeNames, checkResultCh, work_id)
 			}
 		}
 	}
 	return
+}
+
+func checkVariableRelationShipForGlobal(referFiledName string, checkResultCh chan string) {
+	_, err := models.QueryGlobalVarByName(referFiledName)
+	if err != nil && errors.As(err, &orm.ErrNoRows) {
+		checkResultCh <- fmt.Sprintf("Invalid referFiledName relationship for %s was found!", referFiledName)
+	}
+}
+
+func checkVariableRelationShipForNode(referNodeName, referFiledName string, preStepNodeNames []string, checkResultCh chan string, work_id int64) {
+	// 判断节点名称是否有效
+	if !stringutil.CheckContains(referNodeName, preStepNodeNames) {
+		checkResultCh <- fmt.Sprintf("Invalid referNodeName relationship for %s was found!", referNodeName)
+		return
+	}
+	// $NodeName;
+	// 只引用节点名的空字段直接跳过
+	if referFiledName == "" {
+		return
+	}
+	checkVariableRelationShipForNodeDetail(work_id, referNodeName, referFiledName, checkResultCh)
+}
+
+func checkVariableRelationShipForNodeDetail(work_id int64, referNodeName, referFiledName string, checkResultCh chan string) {
+	// 判断字段名称是否有效
+	if step, err := models.QueryWorkStepByStepName(work_id, referNodeName, orm.NewOrm()); err == nil {
+		outputSchema := node.GetCacheParamOutputSchema(&step)
+		exist := false
+		for _, item := range outputSchema.ParamOutputSchemaItems {
+			if item.ParamName == referFiledName || item.ParentPath+"."+item.ParamName == referFiledName {
+				exist = true
+				break
+			}
+		}
+		if !exist {
+			checkResultCh <- fmt.Sprintf("Invalid referFiledName relationship for %s was found!", referFiledName)
+		}
+	}
+}
+
+func parseReferNodeAndFiledName(refer string) (referNodeName, referFiledName string) {
+	if strings.Contains(refer, ".") {
+		referNodeName = refer[1:strings.Index(refer, ".")]
+		referFiledName = refer[strings.Index(refer, ".")+1:]
+	} else {
+		referNodeName = refer
+		referFiledName = ""
+	}
+	return referNodeName, referFiledName
 }
 
 func recordValidateLogDetails(logCh chan *models.ValidateLogDetail, trackingId string, workMap map[models.Work][]models.WorkStep) {

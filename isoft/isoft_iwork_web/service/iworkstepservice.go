@@ -53,7 +53,6 @@ func LoadGlobalVarInfo() *iworkmodels.ParamOutputSchema {
 			ParamName: globalVar.Name,
 		})
 	}
-	pos.ParamOutputSchemaItems = append(pos.ParamOutputSchemaItems, iworkmodels.ParamOutputSchemaItem{ParamName: "errorMsg"})
 	return pos
 }
 
