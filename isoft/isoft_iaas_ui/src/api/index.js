@@ -91,7 +91,8 @@ export const UpdateElementStatus = (id, status) => ajax(BASE_URL+'/cms/updateEle
 export const AddPlacement = (placement_name, placement_desc) => ajax(BASE_URL+'/cms/addPlacement',{placement_name, placement_desc},'GET');
 export const FilterPlacement = (offset,current_page,search) => ajax(BASE_URL+'/cms/filterPlacement',{offset,current_page,search},'GET');
 export const DeletePlacementById = (id) => ajax(BASE_URL+'/cms/deletePlacementById',{id},'GET');
-export const FilterElementByPlacement = (placement) => ajax(BASE_URL+'/cms/filterElementByPlacement',{placement},'GET');
+// export const FilterElementByPlacement = (placement) => ajax(BASE_URL+'/cms/filterElementByPlacement',{placement},'GET');
+export const FilterElementByPlacement = (placement) => ajax(BASE_URL_2+'/iwork/httpservice/FilterElementByPlacement2',{placement},'GET');
 
 // 根据 blog_id 查询 blog 详细信息
 export const ShowShareDetail = (share_id) => ajax(BASE_URL+'/share/showShareDetail',{share_id},'GET');
