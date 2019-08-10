@@ -29,6 +29,10 @@ func BuildAutoCreateSubWork(step models.WorkStep, o orm.Ormer, insertStartEndWor
 					ParamValue: strings.Join([]string{"$WORK.", workSubNameRef}, ""),
 				}
 				step.WorkStepInput = paramInputSchema.RenderToJson()
+			} else {
+				workSubNameRef = strings.TrimPrefix(workSubNameRef, "$WORK.")
+				workSubNameRef = strings.TrimSpace(workSubNameRef)
+				workSubNameRef = strings.TrimSuffix(workSubNameRef, ";")
 			}
 			// 自动创建子流程
 			createOrUpdateSubWork(workSubNameRef, o, insertStartEndWorkStepNodeFunc)

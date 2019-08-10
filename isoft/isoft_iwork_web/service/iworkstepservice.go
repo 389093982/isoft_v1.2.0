@@ -390,6 +390,7 @@ func refactorCurrentWorkByChangeToWorkSub(subWorkId int64, refactor_worksub_name
 			break
 		}
 	}
+	refactorStep.WorkStepOutput = (&iworkmodels.ParamOutputSchema{}).RenderToJson() // 输出置空
 	refactorStep.WorkStepInput = inputSchema.RenderToJson()
 	if _, err := models.InsertOrUpdateWorkStep(&refactorStep, o); err != nil {
 		return err

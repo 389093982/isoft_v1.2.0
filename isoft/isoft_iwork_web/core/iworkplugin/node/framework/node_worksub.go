@@ -16,7 +16,7 @@ import (
 type WorkSubNode struct {
 	node.BaseNode
 	WorkStep       *models.WorkStep
-	WorkSubRunFunc func(work_id int64, dispatcher *entry.Dispatcher) (receiver *entry.Receiver)
+	WorkSubRunFunc func(work_id int64, dispatcher *entry.Dispatcher) (trackingId string, receiver *entry.Receiver)
 }
 
 func (this *WorkSubNode) Execute(trackingId string) {
@@ -29,7 +29,7 @@ func (this *WorkSubNode) Execute(trackingId string) {
 
 func (this *WorkSubNode) RunOnceSubWork(work_id int64, trackingId string,
 	tmpDataMap map[string]interface{}, dataStore *datastore.DataStore) {
-	receiver := this.WorkSubRunFunc(work_id, &entry.Dispatcher{TrackingId: trackingId, TmpDataMap: tmpDataMap})
+	trackingId, receiver := this.WorkSubRunFunc(work_id, &entry.Dispatcher{TrackingId: trackingId, TmpDataMap: tmpDataMap})
 	// 接收子流程数据存入 dataStore
 	for paramName, paramValue := range receiver.TmpDataMap {
 		dataStore.CacheDatas(this.WorkStep.WorkStepName, map[string]interface{}{paramName: paramValue})

@@ -100,7 +100,6 @@ func (this *WorkController) EditWork() {
 	if err == nil && work_id > 0 {
 		work.Id = work_id
 	}
-
 	work.WorkName = this.GetString("work_name")
 	work.WorkDesc = this.GetString("work_desc")
 	work.WorkType = this.GetString("work_type")
@@ -112,10 +111,12 @@ func (this *WorkController) EditWork() {
 	if stringutil.CheckIgnoreCaseContains(work.WorkName, iworkconst.FORBIDDEN_WORK_NAMES) {
 		this.Data["json"] = &map[string]interface{}{"status": "ERROR", "errorMsg": "非法名称!"}
 	} else {
+		oldWorkName, _ := service.GetOldWorkInfoById(work.Id, orm.NewOrm())
 		serviceArgs := map[string]interface{}{"work": work}
 		if err := service.ExecuteWithTx(serviceArgs, service.EditWorkService); err == nil {
 			work, _ := models.QueryWorkByName(work.WorkName, orm.NewOrm())
-			go flushCache(work.Id)
+			deleteHistory(oldWorkName)
+			flushCache(work.Id)
 			this.Data["json"] = &map[string]interface{}{"status": "SUCCESS"}
 		} else {
 			this.Data["json"] = &map[string]interface{}{"status": "ERROR", "errorMsg": err.Error()}

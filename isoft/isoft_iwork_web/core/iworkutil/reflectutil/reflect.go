@@ -1,6 +1,8 @@
 package reflectutil
 
 import (
+	"fmt"
+	"github.com/pkg/errors"
 	"reflect"
 )
 
@@ -12,10 +14,11 @@ func FillFieldValueToStruct(ptr interface{}, fields map[string]interface{}) {
 		if value, ok := fields[fieldInfo.Name]; ok {
 			//给结构体赋值
 			//保证赋值时数据类型一致
-			if reflect.ValueOf(value).Type() == v.FieldByName(fieldInfo.Name).Type() {
+			if value == nil || reflect.ValueOf(value).Type() == v.FieldByName(fieldInfo.Name).Type() {
 				v.FieldByName(fieldInfo.Name).Set(reflect.ValueOf(value))
 			} else {
-				panic("mismatch field for struct....")
+				panic(errors.New(fmt.Sprintf("mismatch fill field for struct, required %s, but get %s!",
+					v.FieldByName(fieldInfo.Name).Type().String(), reflect.ValueOf(value).Type().String())))
 			}
 		}
 	}

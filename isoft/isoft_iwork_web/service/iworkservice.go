@@ -88,7 +88,7 @@ func FilterPageWorkService(serviceArgs map[string]interface{}) (result map[strin
 }
 
 // 根据 id 信息查找旧的 work 信息
-func getOldWorkInfoById(id int64, o orm.Ormer) (oldWorkName string, oldWorkId int64) {
+func GetOldWorkInfoById(id int64, o orm.Ormer) (oldWorkName string, oldWorkId int64) {
 	if id <= 0 {
 		return
 	}
@@ -102,7 +102,7 @@ func getOldWorkInfoById(id int64, o orm.Ormer) (oldWorkName string, oldWorkId in
 func EditWorkService(serviceArgs map[string]interface{}) error {
 	work := serviceArgs["work"].(models.Work)
 	o := serviceArgs["o"].(orm.Ormer)
-	oldWorkName, oldWorkId := getOldWorkInfoById(work.Id, o)
+	oldWorkName, oldWorkId := GetOldWorkInfoById(work.Id, o)
 	// 插入或者更新 work 信息
 	if _, err := models.InsertOrUpdateWork(&work, o); err != nil {
 		return err

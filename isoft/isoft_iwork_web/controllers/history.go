@@ -17,8 +17,10 @@ import (
 var fileServer = beego.AppConfig.String("work.cache.home")
 
 func deleteHistory(workName string) {
-	filepath := path.Join(fileServer, workName+".work")
-	fileutil.RemoveFileOrDirectory(filepath)
+	if workName != "" {
+		filepath := path.Join(fileServer, workName+".work")
+		fileutil.RemoveFileOrDirectory(filepath)
+	}
 }
 
 func saveHistory(wc *iworkcache.WorkCache) (err error) {
