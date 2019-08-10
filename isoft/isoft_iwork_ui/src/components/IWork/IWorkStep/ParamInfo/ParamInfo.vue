@@ -111,8 +111,10 @@
           this.$Message.success('提交成功!');
           // 通知父组件添加成功
           this.$emit('handleSuccess');
-          // 直接刷新不关闭
-          this.showWorkStepParamInfo(this.workStepParamInfo.work_id, this.workStepParamInfo.work_step_id);
+          if (this.showFormModal){    // 未被关闭则刷新加载 param 信息
+            // 直接刷新不关闭
+            this.showWorkStepParamInfo(this.workStepParamInfo.work_id, this.workStepParamInfo.work_step_id);
+          }
         }else{
           this.$Message.error('提交失败!' + result.errorMsg);
         }
