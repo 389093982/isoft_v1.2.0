@@ -8,7 +8,6 @@ import (
 	"isoft/isoft_iwork_web/core/iworkplugin/node"
 	"isoft/isoft_iwork_web/core/iworkrun"
 	"isoft/isoft_iwork_web/models"
-	"strings"
 )
 
 // 示例地址: http://localhost:8086/api/iwork/httpservice/test_iblog_table_migrate?author0=admin1234567
@@ -50,9 +49,7 @@ func ParseParam(ctx *context.Context, steps []models.WorkStep) map[string]interf
 			inputSchema := node.GetCacheParamInputSchema(&step)
 			for _, item := range inputSchema.ParamInputSchemaItems {
 				// 默认参数类型都当成 string 类型
-				if paramValue := ctx.Input.Query(item.ParamName); strings.TrimSpace(paramValue) != "" {
-					mapData[item.ParamName] = paramValue
-				}
+				mapData[item.ParamName] = ctx.Input.Query(item.ParamName) // 传递参数允许为空串
 			}
 			break
 		}

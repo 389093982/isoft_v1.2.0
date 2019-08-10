@@ -17,7 +17,7 @@
 		<WorkStepDesc>start节点</WorkStepDesc>
 		<WorkStepType>work_start</WorkStepType>
 		<WorkStepIndent>0</WorkStepIndent>
-		<WorkStepInput>{&#xA;&#x9;&#34;ParamInputSchemaItems&#34;: [&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;&#34;ParamName&#34;: &#34;username&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamDesc&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;Repeatable&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ForeachRefer&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamChoices&#34;: null,&#xA;&#x9;&#x9;&#x9;&#34;PureText&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ParamValue&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamType&#34;: &#34;&#34;&#xA;&#x9;&#x9;},&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;&#34;ParamName&#34;: &#34;passwd&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamDesc&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;Repeatable&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ForeachRefer&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamChoices&#34;: null,&#xA;&#x9;&#x9;&#x9;&#34;PureText&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ParamValue&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamType&#34;: &#34;&#34;&#xA;&#x9;&#x9;},&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;&#34;ParamName&#34;: &#34;ip&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamDesc&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;Repeatable&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ForeachRefer&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamChoices&#34;: null,&#xA;&#x9;&#x9;&#x9;&#34;PureText&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ParamValue&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamType&#34;: &#34;&#34;&#xA;&#x9;&#x9;}&#xA;&#x9;]&#xA;}</WorkStepInput>
+		<WorkStepInput>{&#xA;&#x9;&#34;ParamInputSchemaItems&#34;: [&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;&#34;ParamName&#34;: &#34;username&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamDesc&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;Repeatable&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ForeachRefer&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamChoices&#34;: null,&#xA;&#x9;&#x9;&#x9;&#34;PureText&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ParamValue&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamType&#34;: &#34;&#34;&#xA;&#x9;&#x9;},&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;&#34;ParamName&#34;: &#34;passwd&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamDesc&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;Repeatable&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ForeachRefer&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamChoices&#34;: null,&#xA;&#x9;&#x9;&#x9;&#34;PureText&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ParamValue&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamType&#34;: &#34;&#34;&#xA;&#x9;&#x9;}&#xA;&#x9;]&#xA;}</WorkStepInput>
 		<work_step_input_xml><![CDATA[<paramInputSchema>
 	<paramInputSchemaItem>
 		<paramName>username</paramName>
@@ -37,17 +37,8 @@
 		<paramValue></paramValue>
 		<paramType></paramType>
 	</paramInputSchemaItem>
-	<paramInputSchemaItem>
-		<paramName>ip</paramName>
-		<paramDesc></paramDesc>
-		<repeatable>false</repeatable>
-		<foreachRefer></foreachRefer>
-		<pureText>false</pureText>
-		<paramValue></paramValue>
-		<paramType></paramType>
-	</paramInputSchemaItem>
 </paramInputSchema>]]></work_step_input_xml>
-		<WorkStepOutput>{&#xA;&#x9;&#34;ParamOutputSchemaItems&#34;: [&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;&#34;ParentPath&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamName&#34;: &#34;username&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamValue&#34;: &#34;&#34;&#xA;&#x9;&#x9;},&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;&#34;ParentPath&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamName&#34;: &#34;passwd&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamValue&#34;: &#34;&#34;&#xA;&#x9;&#x9;},&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;&#34;ParentPath&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamName&#34;: &#34;ip&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamValue&#34;: &#34;&#34;&#xA;&#x9;&#x9;}&#xA;&#x9;]&#xA;}</WorkStepOutput>
+		<WorkStepOutput>{&#xA;&#x9;&#34;ParamOutputSchemaItems&#34;: [&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;&#34;ParentPath&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamName&#34;: &#34;username&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamValue&#34;: &#34;&#34;&#xA;&#x9;&#x9;},&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;&#34;ParentPath&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamName&#34;: &#34;passwd&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamValue&#34;: &#34;&#34;&#xA;&#x9;&#x9;}&#xA;&#x9;]&#xA;}</WorkStepOutput>
 		<work_step_output_xml><![CDATA[<paramOutputSchema>
 	<paramOutputSchemaItem>
 		<parentPath></parentPath>
@@ -59,14 +50,9 @@
 		<paramName>passwd</paramName>
 		<paramValue></paramValue>
 	</paramOutputSchemaItem>
-	<paramOutputSchemaItem>
-		<parentPath></parentPath>
-		<paramName>ip</paramName>
-		<paramValue></paramValue>
-	</paramOutputSchemaItem>
 </paramOutputSchema>]]></work_step_output_xml>
 		<IsDefer>false</IsDefer>
-		<WorkStepParamMapping>[{&#34;paramMappingName&#34;:&#34;username&#34;,&#34;paramMappingType&#34;:&#34;default&#34;},{&#34;paramMappingName&#34;:&#34;passwd&#34;,&#34;paramMappingType&#34;:&#34;default&#34;},{&#34;paramMappingName&#34;:&#34;ip&#34;,&#34;paramMappingType&#34;:&#34;default&#34;}]</WorkStepParamMapping>
+		<WorkStepParamMapping>[{&#34;paramMappingName&#34;:&#34;username&#34;,&#34;paramMappingType&#34;:&#34;default&#34;},{&#34;paramMappingName&#34;:&#34;passwd&#34;,&#34;paramMappingType&#34;:&#34;default&#34;}]</WorkStepParamMapping>
 		<work_step_param_mapping_xml><![CDATA[<ParamMapping>
 	<ParamMappingName></ParamMappingName>
 	<ParamMappingType></ParamMappingType>
