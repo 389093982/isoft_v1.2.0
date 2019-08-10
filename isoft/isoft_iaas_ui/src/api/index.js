@@ -54,10 +54,12 @@ export const FilterCommentReply = (comment_id, theme_type, parent_id, reply_comm
   ajax(BASE_URL+'/ilearning/filterCommentReply',{comment_id, theme_type, parent_id, reply_comment_type},'GET');
 
 // 获取所有课程类型
-export const GetAllCourseType = () => ajax(BASE_URL+'/ilearning/getAllCourseType',{},'GET');
+// export const GetAllCourseType = () => ajax(BASE_URL+'/ilearning/getAllCourseType',{},'GET');
+export const GetAllCourseType = () => ajax(BASE_URL_2+"/iwork/httpservice/GetAllCourseType2",{},'GET');
 
 // 获取热门推荐的课程
-export const GetHotCourseRecommend = () => ajax(BASE_URL+'/ilearning/getHotCourseRecommend',{},'GET');
+// export const GetHotCourseRecommend = () => ajax(BASE_URL+'/ilearning/getHotCourseRecommend',{},'GET');
+export const GetHotCourseRecommend = () => ajax(BASE_URL_2+"/iwork/httpservice/GetHotCourseRecommend2",{},'GET');
 
 // 根据课程名称获取所有子类型名称
 export const GetAllCourseSubType = (course_type) => ajax(BASE_URL+'/ilearning/getAllCourseSubType',{course_type},'GET');
