@@ -5,6 +5,7 @@ import (
 	"isoft/isoft/common/stringutil"
 	"isoft/isoft_iwork_web/core/iworkdata/entry"
 	"isoft/isoft_iwork_web/models"
+	"isoft/isoft_iwork_web/startup"
 	"strings"
 	"time"
 )
@@ -19,7 +20,7 @@ func createNewTrackingIdForWork(dispatcher *entry.Dispatcher, work models.Work) 
 		// 同时优化 trackingId,防止递归调用时 trackingId 过长
 		trackingId = optimizeTrackingId(dispatcher.TrackingId, trackingId)
 	}
-	go func() {
+	startup.RunLogPool.JobQueue <- func() {
 		// 记录日志
 		models.InsertRunLogRecord(&models.RunLogRecord{
 			TrackingId:      trackingId,
@@ -30,7 +31,7 @@ func createNewTrackingIdForWork(dispatcher *entry.Dispatcher, work models.Work) 
 			LastUpdatedBy:   "SYSTEM",
 			LastUpdatedTime: time.Now(),
 		})
-	}()
+	}
 	return trackingId
 }
 

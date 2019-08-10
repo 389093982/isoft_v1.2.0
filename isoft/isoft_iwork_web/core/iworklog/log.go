@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"isoft/isoft_iwork_web/core/iworkconst"
 	"isoft/isoft_iwork_web/models"
+	"isoft/isoft_iwork_web/startup"
 	"time"
 )
 
@@ -39,11 +40,11 @@ func (this *CacheLoggerWriter) Write(trackingId, workStepName, logLevel, detail 
 }
 
 func (this *CacheLoggerWriter) Flush() {
-	go func() {
+	startup.RunLogPool.JobQueue <- func() {
 		if _, err := models.InsertMultiRunLogDetail(this.caches); err != nil {
 			fmt.Println(err.Error())
 		}
-	}()
+	}
 }
 
 func (this *CacheLoggerWriter) Close() {

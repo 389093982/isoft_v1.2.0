@@ -1,2 +1,4 @@
 1、支持流程拷贝
 2、动态推断 sql 语句对应的 metadatasql, totalsql
+3、运行时去除校验
+4、优化 iwork 流程持久化
