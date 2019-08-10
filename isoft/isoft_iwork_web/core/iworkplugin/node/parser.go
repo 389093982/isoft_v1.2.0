@@ -3,6 +3,7 @@ package node
 import (
 	"isoft/isoft_iwork_web/core/interfaces"
 	"isoft/isoft_iwork_web/core/iworkmodels"
+	"isoft/isoft_iwork_web/core/iworkutil/reflectutil"
 	"isoft/isoft_iwork_web/models"
 	"strings"
 )
@@ -37,6 +38,9 @@ func (this *ParamSchemaParser) GetDefaultParamOutputSchema() *iworkmodels.ParamO
 func (this *ParamSchemaParser) GetCacheParamInputSchema(replaceStep ...*models.WorkStep) *iworkmodels.ParamInputSchema {
 	if len(replaceStep) > 0 {
 		this.WorkStep = replaceStep[0]
+		if this.ParamSchemaParser != nil { // 填充新参数至 ParamSchemaParser
+			reflectutil.FillFieldValueToStruct(this.ParamSchemaParser, map[string]interface{}{"WorkStep": replaceStep[0]})
+		}
 	}
 	// 从缓存(数据库字段)中获取
 	if strings.TrimSpace(this.WorkStep.WorkStepInput) != "" {
