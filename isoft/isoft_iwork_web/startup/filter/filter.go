@@ -23,6 +23,9 @@ func FilterFunc(ctx *context.Context) {
 			receiver := iworkrun.RunOneWork(workCache.WorkId, &entry.Dispatcher{TmpDataMap: mapData})
 			if receiver != nil {
 				tempDataMap := receiver.TmpDataMap
+				if data, ok := tempDataMap[iworkconst.TRACKING_ID]; ok {
+					ctx.ResponseWriter.Header().Add(iworkconst.TRACKING_ID, data.(string))
+				}
 				if data, ok := tempDataMap[iworkconst.DO_ERROR_FILTER]; ok {
 					tmpDataMap := data.(map[string]interface{})
 					for key, value := range tmpDataMap {

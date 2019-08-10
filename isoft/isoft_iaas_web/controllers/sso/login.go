@@ -17,7 +17,7 @@ type LoginController struct {
 }
 
 const (
-	SecretKey = "welcome to wangshubo's blog"
+	SecretKey = "Helloworld_secretKey"
 )
 
 var origin_list string

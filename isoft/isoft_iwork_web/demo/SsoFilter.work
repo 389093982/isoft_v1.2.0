@@ -2,13 +2,13 @@
 	<work>
 		<Id>209</Id>
 		<WorkName>SsoFilter</WorkName>
-		<WorkDesc>SsoFilter</WorkDesc>
+		<WorkDesc>登录过滤器</WorkDesc>
 		<WorkType>filter</WorkType>
 		<ModuleName></ModuleName>
 		<CreatedBy>SYSTEM</CreatedBy>
-		<CreatedTime>2019-08-04T19:18:57+08:00</CreatedTime>
+		<CreatedTime>2019-08-10T13:56:06+08:00</CreatedTime>
 		<LastUpdatedBy>SYSTEM</LastUpdatedBy>
-		<LastUpdatedTime>2019-08-04T19:18:57+08:00</LastUpdatedTime>
+		<LastUpdatedTime>2019-08-10T13:56:06+08:00</LastUpdatedTime>
 	</work>
 	<workstep>
 		<Id>966</Id>

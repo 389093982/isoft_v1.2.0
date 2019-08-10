@@ -30,3 +30,4 @@ const LOG_LEVEL_ERROR = "ERROR"
 
 const HTTP_REQUEST_OBJECT = "____request"
 const DO_ERROR_FILTER = "__doErrorFilter__"
+const TRACKING_ID = "__trackingId"
