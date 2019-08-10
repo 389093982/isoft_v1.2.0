@@ -140,6 +140,8 @@
             this.$Message.error("该用户已经被注册!");
           }else if(result.errorMsg == "regist_failed"){
             this.$Message.error("注册失败,请联系管理员获取账号!");
+          }else {
+            this.$Message.error(result.errorMsg);
           }
         }
       },
