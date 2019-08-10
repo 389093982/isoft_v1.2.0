@@ -4,6 +4,7 @@ import (
 	"github.com/satori/go.uuid"
 	"reflect"
 	"regexp"
+	"strings"
 )
 
 func RandomUUID() string {
@@ -15,19 +16,28 @@ func GetTypeOfInterface(v interface{}) string {
 }
 
 func CheckIndexContains(s string, slice []string) (int, bool) {
+	return CheckIgnoreCaseIndexContains(s, slice, false)
+}
+
+func CheckIgnoreCaseIndexContains(s string, slice []string, ignoreCase bool) (int, bool) {
 	if len(slice) == 0 {
 		return -1, false
 	}
 	for index, ss := range slice {
-		if ss == s {
+		if (!ignoreCase && ss == s) || (ignoreCase && strings.ToUpper(ss) == strings.ToUpper(s)) {
 			return index, true
 		}
 	}
 	return -1, false
 }
 
+func CheckIgnoreCaseContains(s string, slice []string) bool {
+	_, b := CheckIgnoreCaseIndexContains(s, slice, true)
+	return b
+}
+
 func CheckContains(s string, slice []string) bool {
-	_, b := CheckIndexContains(s, slice)
+	_, b := CheckIgnoreCaseIndexContains(s, slice, false)
 	return b
 }
 
