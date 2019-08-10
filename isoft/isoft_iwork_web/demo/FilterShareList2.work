@@ -127,7 +127,7 @@
 		<WorkStepDesc></WorkStepDesc>
 		<WorkStepType>template</WorkStepType>
 		<WorkStepIndent>0</WorkStepIndent>
-		<WorkStepInput>{&#xA;&#x9;&#34;ParamInputSchemaItems&#34;: [&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;&#34;ParamName&#34;: &#34;str_template_text&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamDesc&#34;: &#34;模板文字&#34;,&#xA;&#x9;&#x9;&#x9;&#34;Repeatable&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ForeachRefer&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamChoices&#34;: null,&#xA;&#x9;&#x9;&#x9;&#34;PureText&#34;: true,&#xA;&#x9;&#x9;&#x9;&#34;ParamValue&#34;: &#34;select * from share s  where 1 = 1\n{{if eq .search_type \&#34;_personal\&#34;}}  \n    and created_by = &#39;{{.created_by}}&#39;\n{{end}}\norder by s.last_updated_time desc&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamType&#34;: &#34;&#34;&#xA;&#x9;&#x9;},&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;&#34;ParamName&#34;: &#34;str_template_varName&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamDesc&#34;: &#34;模板变量名称&#34;,&#xA;&#x9;&#x9;&#x9;&#34;Repeatable&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ForeachRefer&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamChoices&#34;: null,&#xA;&#x9;&#x9;&#x9;&#34;PureText&#34;: true,&#xA;&#x9;&#x9;&#x9;&#34;ParamValue&#34;: &#34;search_type,created_by,share_type\n&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamType&#34;: &#34;&#34;&#xA;&#x9;&#x9;},&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;&#34;ParamName&#34;: &#34;complex_template_varValue&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamDesc&#34;: &#34;模板变量值&#34;,&#xA;&#x9;&#x9;&#x9;&#34;Repeatable&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ForeachRefer&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamChoices&#34;: null,&#xA;&#x9;&#x9;&#x9;&#34;PureText&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ParamValue&#34;: &#34;$start.search_type;\n$work_sub_getUserInfoFromRequest.userName;\n$start.search_type;\n\n\n&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamType&#34;: &#34;&#34;&#xA;&#x9;&#x9;}&#xA;&#x9;]&#xA;}</WorkStepInput>
+		<WorkStepInput>{&#xA;&#x9;&#34;ParamInputSchemaItems&#34;: [&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;&#34;ParamName&#34;: &#34;str_template_text&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamDesc&#34;: &#34;模板文字&#34;,&#xA;&#x9;&#x9;&#x9;&#34;Repeatable&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ForeachRefer&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamChoices&#34;: null,&#xA;&#x9;&#x9;&#x9;&#34;PureText&#34;: true,&#xA;&#x9;&#x9;&#x9;&#34;ParamValue&#34;: &#34;select * from share s  where 1 = 1\n{{if eq .search_type \&#34;_personal\&#34;}}  \n    and created_by = &#39;{{.created_by}}&#39;\n{{else if eq .search_type \&#34;_all\&#34;}}\n    and 1= 1\n{{else}}\n    and share_type = &#39;{{.search_type}}&#39;\n{{end}}\norder by s.last_updated_time desc&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamType&#34;: &#34;&#34;&#xA;&#x9;&#x9;},&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;&#34;ParamName&#34;: &#34;str_template_varName&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamDesc&#34;: &#34;模板变量名称&#34;,&#xA;&#x9;&#x9;&#x9;&#34;Repeatable&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ForeachRefer&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamChoices&#34;: null,&#xA;&#x9;&#x9;&#x9;&#34;PureText&#34;: true,&#xA;&#x9;&#x9;&#x9;&#34;ParamValue&#34;: &#34;search_type,created_by\n&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamType&#34;: &#34;&#34;&#xA;&#x9;&#x9;},&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;&#34;ParamName&#34;: &#34;complex_template_varValue&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamDesc&#34;: &#34;模板变量值&#34;,&#xA;&#x9;&#x9;&#x9;&#34;Repeatable&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ForeachRefer&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamChoices&#34;: null,&#xA;&#x9;&#x9;&#x9;&#34;PureText&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ParamValue&#34;: &#34;$start.search_type;\n$work_sub_getUserInfoFromRequest.userName;\n\n\n\n&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamType&#34;: &#34;&#34;&#xA;&#x9;&#x9;}&#xA;&#x9;]&#xA;}</WorkStepInput>
 		<work_step_input_xml><![CDATA[<paramInputSchema>
 	<paramInputSchemaItem>
 		<paramName>str_template_text</paramName>
@@ -135,7 +135,7 @@
 		<repeatable>false</repeatable>
 		<foreachRefer></foreachRefer>
 		<pureText>true</pureText>
-		<paramValue>select * from share s  where 1 = 1&#xA;{{if eq .search_type &#34;_personal&#34;}}  &#xA;    and created_by = &#39;{{.created_by}}&#39;&#xA;{{end}}&#xA;order by s.last_updated_time desc</paramValue>
+		<paramValue>select * from share s  where 1 = 1&#xA;{{if eq .search_type &#34;_personal&#34;}}  &#xA;    and created_by = &#39;{{.created_by}}&#39;&#xA;{{else if eq .search_type &#34;_all&#34;}}&#xA;    and 1= 1&#xA;{{else}}&#xA;    and share_type = &#39;{{.search_type}}&#39;&#xA;{{end}}&#xA;order by s.last_updated_time desc</paramValue>
 		<paramType></paramType>
 	</paramInputSchemaItem>
 	<paramInputSchemaItem>
@@ -144,7 +144,7 @@
 		<repeatable>false</repeatable>
 		<foreachRefer></foreachRefer>
 		<pureText>true</pureText>
-		<paramValue>search_type,created_by,share_type&#xA;</paramValue>
+		<paramValue>search_type,created_by&#xA;</paramValue>
 		<paramType></paramType>
 	</paramInputSchemaItem>
 	<paramInputSchemaItem>
@@ -153,7 +153,7 @@
 		<repeatable>false</repeatable>
 		<foreachRefer></foreachRefer>
 		<pureText>false</pureText>
-		<paramValue>$start.search_type;&#xA;$work_sub_getUserInfoFromRequest.userName;&#xA;$start.search_type;&#xA;&#xA;&#xA;</paramValue>
+		<paramValue>$start.search_type;&#xA;$work_sub_getUserInfoFromRequest.userName;&#xA;&#xA;&#xA;&#xA;</paramValue>
 		<paramType></paramType>
 	</paramInputSchemaItem>
 </paramInputSchema>]]></work_step_input_xml>
@@ -172,9 +172,9 @@
 	<ParamMappingType></ParamMappingType>
 </ParamMapping>]]></work_step_param_mapping_xml>
 		<CreatedBy>SYSTEM</CreatedBy>
-		<CreatedTime>2019-08-10T21:54:28+08:00</CreatedTime>
+		<CreatedTime>2019-08-10T22:07:25+08:00</CreatedTime>
 		<LastUpdatedBy>SYSTEM</LastUpdatedBy>
-		<LastUpdatedTime>2019-08-10T21:54:28+08:00</LastUpdatedTime>
+		<LastUpdatedTime>2019-08-10T22:07:25+08:00</LastUpdatedTime>
 	</workstep>
 	<workstep>
 		<Id>826</Id>
