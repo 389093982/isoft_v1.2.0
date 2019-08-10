@@ -102,7 +102,8 @@ export const ShowShareDetail = (share_id) => ajax(BASE_URL+'/share/showShareDeta
 export const FilterShareList = (offset,current_page,search_type) => ajax(BASE_URL_2+'/iwork/httpservice/FilterShareList2',{offset,current_page,search_type},'GET');
 
 // 新增共享链接
-export const AddNewShare = (share_type,share_desc,link_href,content) => ajax(BASE_URL+'/share/addNewShare',{share_type,share_desc,link_href,content},'GET');
+// export const AddNewShare = (share_type,share_desc,link_href,content) => ajax(BASE_URL+'/share/addNewShare',{share_type,share_desc,link_href,content},'GET');
+export const AddNewShare = (share_type,share_desc,link_href,content) => ajax(BASE_URL_2+'/iwork/httpservice/AddNewShare2',{share_type,share_desc,link_href,content},'GET');
 
 export const ShowCourseHistory = (offset,current_page) => ajax(BASE_URL+"/common/showCourseHistory", {offset,current_page},'GET');
 
