@@ -27,6 +27,7 @@ func (this *CacheLoggerWriter) Write(trackingId, workStepName, logLevel, detail 
 		WorkStepName:    workStepName,
 		LogLevel:        logLevel,
 		Detail:          detail,
+		NanoSecond:      time.Now().UnixNano(),
 		CreatedBy:       "SYSTEM",
 		CreatedTime:     time.Now(),
 		LastUpdatedBy:   "SYSTEM",
