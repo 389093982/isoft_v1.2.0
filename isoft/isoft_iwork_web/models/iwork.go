@@ -13,9 +13,9 @@ type Work struct {
 	WorkType        string    `json:"work_type"`
 	ModuleName      string    `json:"module_name"`
 	CreatedBy       string    `json:"created_by"`
-	CreatedTime     time.Time `json:"created_time" orm:"auto_now_add;type(datetime)"`
+	CreatedTime     time.Time `xml:"-" json:"created_time" orm:"auto_now_add;type(datetime)"`
 	LastUpdatedBy   string    `json:"last_updated_by"`
-	LastUpdatedTime time.Time `json:"last_updated_time"`
+	LastUpdatedTime time.Time `xml:"-" json:"last_updated_time"`
 }
 
 func QueryAllWorkInfo(o orm.Ormer) (works []Work) {

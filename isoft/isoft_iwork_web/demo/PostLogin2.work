@@ -6,9 +6,7 @@
 		<WorkType>work</WorkType>
 		<ModuleName>SSO</ModuleName>
 		<CreatedBy>SYSTEM</CreatedBy>
-		<CreatedTime>2019-08-04T18:54:19+08:00</CreatedTime>
 		<LastUpdatedBy>SYSTEM</LastUpdatedBy>
-		<LastUpdatedTime>2019-08-04T18:54:19+08:00</LastUpdatedTime>
 	</work>
 	<workstep>
 		<Id>875</Id>
@@ -74,9 +72,7 @@
 	<ParamMappingType></ParamMappingType>
 </ParamMapping>]]></work_step_param_mapping_xml>
 		<CreatedBy>SYSTEM</CreatedBy>
-		<CreatedTime>2019-07-28T17:39:14+08:00</CreatedTime>
 		<LastUpdatedBy>SYSTEM</LastUpdatedBy>
-		<LastUpdatedTime>2019-07-28T17:39:14+08:00</LastUpdatedTime>
 	</workstep>
 	<workstep>
 		<Id>925</Id>
@@ -133,9 +129,7 @@
 	<ParamMappingType></ParamMappingType>
 </ParamMapping>]]></work_step_param_mapping_xml>
 		<CreatedBy>SYSTEM</CreatedBy>
-		<CreatedTime>2019-08-05T23:25:53+08:00</CreatedTime>
 		<LastUpdatedBy>SYSTEM</LastUpdatedBy>
-		<LastUpdatedTime>2019-08-05T23:25:53+08:00</LastUpdatedTime>
 	</workstep>
 	<workstep>
 		<Id>926</Id>
@@ -173,9 +167,7 @@
 	<ParamMappingType></ParamMappingType>
 </ParamMapping>]]></work_step_param_mapping_xml>
 		<CreatedBy>SYSTEM</CreatedBy>
-		<CreatedTime>2019-08-05T23:22:57+08:00</CreatedTime>
 		<LastUpdatedBy>SYSTEM</LastUpdatedBy>
-		<LastUpdatedTime>2019-08-05T23:22:57+08:00</LastUpdatedTime>
 	</workstep>
 	<workstep>
 		<Id>877</Id>
@@ -287,9 +279,7 @@
 	<ParamMappingType></ParamMappingType>
 </ParamMapping>]]></work_step_param_mapping_xml>
 		<CreatedBy>SYSTEM</CreatedBy>
-		<CreatedTime>2019-07-27T23:39:58+08:00</CreatedTime>
 		<LastUpdatedBy>SYSTEM</LastUpdatedBy>
-		<LastUpdatedTime>2019-07-27T23:39:58+08:00</LastUpdatedTime>
 	</workstep>
 	<workstep>
 		<Id>892</Id>
@@ -327,9 +317,7 @@
 	<ParamMappingType></ParamMappingType>
 </ParamMapping>]]></work_step_param_mapping_xml>
 		<CreatedBy>SYSTEM</CreatedBy>
-		<CreatedTime>2019-07-28T17:31:05+08:00</CreatedTime>
 		<LastUpdatedBy>SYSTEM</LastUpdatedBy>
-		<LastUpdatedTime>2019-07-28T17:31:05+08:00</LastUpdatedTime>
 	</workstep>
 	<workstep>
 		<Id>923</Id>
@@ -433,9 +421,7 @@
 	<ParamMappingType></ParamMappingType>
 </ParamMapping>]]></work_step_param_mapping_xml>
 		<CreatedBy>SYSTEM</CreatedBy>
-		<CreatedTime>2019-08-04T10:05:45+08:00</CreatedTime>
 		<LastUpdatedBy>SYSTEM</LastUpdatedBy>
-		<LastUpdatedTime>2019-08-04T10:05:45+08:00</LastUpdatedTime>
 	</workstep>
 	<workstep>
 		<Id>878</Id>
@@ -476,9 +462,7 @@
 	<ParamMappingType></ParamMappingType>
 </ParamMapping>]]></work_step_param_mapping_xml>
 		<CreatedBy>SYSTEM</CreatedBy>
-		<CreatedTime>2019-07-28T13:32:14+08:00</CreatedTime>
 		<LastUpdatedBy>SYSTEM</LastUpdatedBy>
-		<LastUpdatedTime>2019-07-28T13:32:14+08:00</LastUpdatedTime>
 	</workstep>
 	<workstep>
 		<Id>905</Id>
@@ -500,9 +484,7 @@
 	<ParamMappingType></ParamMappingType>
 </ParamMapping>]]></work_step_param_mapping_xml>
 		<CreatedBy>SYSTEM</CreatedBy>
-		<CreatedTime>2019-07-31T22:30:41+08:00</CreatedTime>
 		<LastUpdatedBy>SYSTEM</LastUpdatedBy>
-		<LastUpdatedTime>2019-07-31T22:30:41+08:00</LastUpdatedTime>
 	</workstep>
 	<workstep>
 		<Id>924</Id>
@@ -606,9 +588,7 @@
 	<ParamMappingType></ParamMappingType>
 </ParamMapping>]]></work_step_param_mapping_xml>
 		<CreatedBy>SYSTEM</CreatedBy>
-		<CreatedTime>2019-08-04T10:06:02+08:00</CreatedTime>
 		<LastUpdatedBy>SYSTEM</LastUpdatedBy>
-		<LastUpdatedTime>2019-08-04T10:06:02+08:00</LastUpdatedTime>
 	</workstep>
 	<workstep>
 		<Id>897</Id>
@@ -673,9 +653,7 @@
 	<ParamMappingType></ParamMappingType>
 </ParamMapping>]]></work_step_param_mapping_xml>
 		<CreatedBy>SYSTEM</CreatedBy>
-		<CreatedTime>2019-07-29T22:35:57+08:00</CreatedTime>
 		<LastUpdatedBy>SYSTEM</LastUpdatedBy>
-		<LastUpdatedTime>2019-07-29T22:35:57+08:00</LastUpdatedTime>
 	</workstep>
 	<workstep>
 		<Id>876</Id>
@@ -811,9 +789,7 @@
 	<ParamMappingType></ParamMappingType>
 </ParamMapping>]]></work_step_param_mapping_xml>
 		<CreatedBy>SYSTEM</CreatedBy>
-		<CreatedTime>2019-08-05T23:23:46+08:00</CreatedTime>
 		<LastUpdatedBy>SYSTEM</LastUpdatedBy>
-		<LastUpdatedTime>2019-08-05T23:23:46+08:00</LastUpdatedTime>
 	</workstep>
 	<filterNames>fdsf</filterNames>
 	<filterNames>SsoFilter</filterNames>

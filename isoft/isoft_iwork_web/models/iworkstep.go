@@ -30,9 +30,9 @@ type WorkStep struct {
 	WorkStepParamMapping    string    `json:"work_step_param_mapping" orm:"type(text)"`
 	WorkStepParamMappingXml CDATA     `xml:"work_step_param_mapping_xml" json:"work_step_param_mapping_xml" orm:"-"`
 	CreatedBy               string    `json:"created_by"`
-	CreatedTime             time.Time `json:"created_time" orm:"auto_now_add;type(datetime)"`
+	CreatedTime             time.Time `xml:"-" json:"created_time" orm:"auto_now_add;type(datetime)"`
 	LastUpdatedBy           string    `json:"last_updated_by"`
-	LastUpdatedTime         time.Time `json:"last_updated_time"`
+	LastUpdatedTime         time.Time `xml:"-" json:"last_updated_time"`
 }
 
 // 多字段唯一键

@@ -6,9 +6,7 @@
 		<WorkType>work</WorkType>
 		<ModuleName></ModuleName>
 		<CreatedBy>SYSTEM</CreatedBy>
-		<CreatedTime>2019-08-10T19:05:45+08:00</CreatedTime>
 		<LastUpdatedBy>SYSTEM</LastUpdatedBy>
-		<LastUpdatedTime>2019-08-10T19:05:45+08:00</LastUpdatedTime>
 	</work>
 	<workstep>
 		<Id>1018</Id>
@@ -30,9 +28,7 @@
 	<ParamMappingType></ParamMappingType>
 </ParamMapping>]]></work_step_param_mapping_xml>
 		<CreatedBy>SYSTEM</CreatedBy>
-		<CreatedTime>2019-08-10T19:04:28+08:00</CreatedTime>
 		<LastUpdatedBy>SYSTEM</LastUpdatedBy>
-		<LastUpdatedTime>2019-08-10T19:04:28+08:00</LastUpdatedTime>
 	</workstep>
 	<workstep>
 		<Id>1021</Id>
@@ -89,9 +85,7 @@
 	<ParamMappingType></ParamMappingType>
 </ParamMapping>]]></work_step_param_mapping_xml>
 		<CreatedBy>SYSTEM</CreatedBy>
-		<CreatedTime>2019-08-10T18:40:54+08:00</CreatedTime>
 		<LastUpdatedBy>SYSTEM</LastUpdatedBy>
-		<LastUpdatedTime>2019-08-10T18:40:54+08:00</LastUpdatedTime>
 	</workstep>
 	<workstep>
 		<Id>1020</Id>
@@ -129,9 +123,7 @@
 	<ParamMappingType></ParamMappingType>
 </ParamMapping>]]></work_step_param_mapping_xml>
 		<CreatedBy>SYSTEM</CreatedBy>
-		<CreatedTime>2019-08-10T18:47:40+08:00</CreatedTime>
 		<LastUpdatedBy>SYSTEM</LastUpdatedBy>
-		<LastUpdatedTime>2019-08-10T18:47:40+08:00</LastUpdatedTime>
 	</workstep>
 	<workstep>
 		<Id>1019</Id>
@@ -169,8 +161,6 @@
 	<ParamMappingType></ParamMappingType>
 </ParamMapping>]]></work_step_param_mapping_xml>
 		<CreatedBy>SYSTEM</CreatedBy>
-		<CreatedTime>2019-08-10T21:46:10+08:00</CreatedTime>
 		<LastUpdatedBy>SYSTEM</LastUpdatedBy>
-		<LastUpdatedTime>2019-08-10T21:46:10+08:00</LastUpdatedTime>
 	</workstep>
 </workdl>
