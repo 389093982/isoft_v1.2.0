@@ -140,9 +140,10 @@ func (this *WorkController) FilterPageWork() {
 
 func (this *WorkController) DeleteWorkById() {
 	id, _ := this.GetInt64("id")
+	work, _ := models.QueryWorkById(id, orm.NewOrm())
 	serviceArgs := map[string]interface{}{"id": id}
 	if err := service.ExecuteWithTx(serviceArgs, service.DeleteWorkByIdService); err == nil {
-		go flushCache(id)
+		flushOneWorkCache(id, work.WorkName)
 		this.Data["json"] = &map[string]interface{}{"status": "SUCCESS"}
 	} else {
 		this.Data["json"] = &map[string]interface{}{"status": "ERROR"}
@@ -150,23 +151,19 @@ func (this *WorkController) DeleteWorkById() {
 	this.ServeJSON()
 }
 
-func flushCache(work_id ...int64) (err error) {
+func flushOneWorkCache(work_id int64, work_name string) {
 	works := make([]models.Work, 0)
-	if len(work_id) > 0 {
-		work, err := models.QueryWorkById(work_id[0], orm.NewOrm())
-		if err != nil && errors.As(err, &orm.ErrNoRows) {
-			iworkcache.DeleteWorkCache(work_id[0]) // 不存在则删除
-			return nil
-		} else {
-			serviceArgs := map[string]interface{}{"work_id": work_id[0]}
-			if result, err := service.ExecuteResultServiceWithTx(serviceArgs, service.GetRelativeWorkService); err == nil {
-				works = append(works, result["parentWorks"].([]models.Work)...)
-				works = append(works, result["subworks"].([]models.Work)...)
-			}
-			works = append(works, work)
-		}
+	work, err := models.QueryWorkById(work_id, orm.NewOrm())
+	if err != nil && errors.As(err, &orm.ErrNoRows) {
+		iworkcache.DeleteWorkCache(work_id) // 不存在则删除
+		deleteHistory(work_name)
 	} else {
-		works = models.QueryAllWorkInfo(orm.NewOrm())
+		serviceArgs := map[string]interface{}{"work_id": work_id}
+		if result, err := service.ExecuteResultServiceWithTx(serviceArgs, service.GetRelativeWorkService); err == nil {
+			works = append(works, result["parentWorks"].([]models.Work)...)
+			works = append(works, result["subworks"].([]models.Work)...)
+		}
+		works = append(works, work)
 	}
 	for _, work := range works {
 		if err = iworkcache.UpdateWorkCache(work.Id); err != nil {
@@ -175,6 +172,26 @@ func flushCache(work_id ...int64) (err error) {
 		if workCache, err := iworkcache.LoadWorkCache(work.Id); err == nil {
 			go saveHistory(workCache)
 		}
+	}
+}
+
+func flushAllWorkCache() {
+	works := models.QueryAllWorkInfo(orm.NewOrm())
+	for _, work := range works {
+		if err := iworkcache.UpdateWorkCache(work.Id); err != nil {
+			break
+		}
+		if workCache, err := iworkcache.LoadWorkCache(work.Id); err == nil {
+			go saveHistory(workCache)
+		}
+	}
+}
+
+func flushCache(workId ...int64) (err error) {
+	if len(workId) > 0 {
+		flushOneWorkCache(workId[0], "")
+	} else {
+		flushAllWorkCache()
 	}
 	return
 }

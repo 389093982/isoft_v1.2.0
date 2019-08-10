@@ -12,6 +12,13 @@ import (
 	"time"
 )
 
+var fileServer = beego.AppConfig.String("work.cache.home")
+
+func deleteHistory(workName string) {
+	filepath := path.Join(fileServer, workName+".work")
+	fileutil.RemoveFileOrDirectory(filepath)
+}
+
 func saveHistory(wc *iworkcache.WorkCache) (err error) {
 	work := wc.Work
 	workHistory := wc.RenderToString()
@@ -28,9 +35,8 @@ func saveHistory(wc *iworkcache.WorkCache) (err error) {
 		}
 		_, err = models.InsertOrUpdateWorkHistory(history)
 	}
-	fileServer := beego.AppConfig.String("work.cache.home")
-	filename := path.Join(fileServer, work.WorkName+".work")
-	fileutil.WriteFile(filename, []byte(workHistory), false)
+	filepath := path.Join(fileServer, work.WorkName+".work")
+	fileutil.WriteFile(filepath, []byte(workHistory), false)
 	return
 }
 
