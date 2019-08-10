@@ -48,8 +48,10 @@ func (this *ParamSchemaParser) GetCacheParamInputSchema(replaceStep ...*models.W
 	if this.ParamSchemaParser != nil {
 		// 将当前 paramSchemaParser 拷贝副本
 		paramSchemaParser := this.ParamSchemaParser
-		// 填充新参数至 ParamSchemaParser
-		reflectutil.FillFieldValueToStruct(this.ParamSchemaParser, map[string]interface{}{"WorkStep": replaceStep[0]})
+		if len(replaceStep) > 0 {
+			// 填充新参数至 ParamSchemaParser
+			reflectutil.FillFieldValueToStruct(this.ParamSchemaParser, map[string]interface{}{"WorkStep": replaceStep[0]})
+		}
 		// 获取当前 work_step 对应的 paramInputSchema
 		return paramSchemaParser.GetDefaultParamInputSchema()
 	} else {
