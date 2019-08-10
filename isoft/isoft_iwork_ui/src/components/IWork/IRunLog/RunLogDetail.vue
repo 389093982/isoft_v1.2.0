@@ -1,7 +1,10 @@
 <template>
   <div>
     <div style="text-align: right;margin-bottom: 10px;">
-      <span style="margin-right:500px;" v-if="runLogRecord">流程名称: {{ runLogRecord.work_name }}</span>
+      <span style="margin-right:400px;" v-if="runLogRecord">
+        流程名称: {{ runLogRecord.work_name }}
+        <Button type="success" size="small" style="margin-left: 5px;" @click="viewWorkSteps(runLogRecord.work_id,runLogRecord.work_name)">查看流程详情</Button>
+      </span>
       <Button type="error" size="small" @click="highlightError = !highlightError">高亮显示错误</Button>
     </div>
 
@@ -62,6 +65,9 @@
       }
     },
     methods:{
+      viewWorkSteps:function (id, work_name) {
+        this.$router.push({ path: '/iwork/workstepList', query: { work_id: id, work_name: work_name }});
+      },
       refreshRunLogDetail:async function () {
         const result = await GetLastRunLogDetail(this.$route.query.tracking_id);
         if(result.status=="SUCCESS"){
