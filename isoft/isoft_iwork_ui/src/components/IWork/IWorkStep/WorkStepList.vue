@@ -237,6 +237,9 @@
               // 可编辑模式
               if(params.row.$isEdit && !oneOf(params.row.work_step_name, ["start", "end"])){
                 return h('input', {
+                  style:{
+                    width: "300px",
+                  },
                   domProps: {
                     value: params.row.work_step_name,
                   },

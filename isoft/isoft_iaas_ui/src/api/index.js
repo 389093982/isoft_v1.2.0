@@ -37,7 +37,8 @@ export const GetMyCourseList = (userName) => ajax(BASE_URL+'/ilearning/getMyCour
 export const EndUpdate = (course_id) => ajax(BASE_URL+'/ilearning/endUpdate',{course_id},'GET');
 
 // 显示课程详细信息
-export const ShowCourseDetail = (course_id) => ajax(BASE_URL+'/ilearning/showCourseDetail',{course_id},'GET');
+// export const ShowCourseDetail = (course_id) => ajax(BASE_URL+'/ilearning/showCourseDetail',{course_id},'GET');
+export const ShowCourseDetail = (course_id) => ajax(BASE_URL_2+"/iwork/httpservice/ShowCourseDetail2",{course_id},'GET');
 
 // 切换收藏点赞
 export const ToggleFavorite = (favorite_id, favorite_type) => ajax(BASE_URL+'/ilearning/toggle_favorite',{favorite_id, favorite_type},'GET');
@@ -62,7 +63,8 @@ export const GetAllCourseType = () => ajax(BASE_URL_2+"/iwork/httpservice/GetAll
 export const GetHotCourseRecommend = () => ajax(BASE_URL_2+"/iwork/httpservice/GetHotCourseRecommend2",{},'GET');
 
 // 根据课程名称获取所有子类型名称
-export const GetAllCourseSubType = (course_type) => ajax(BASE_URL+'/ilearning/getAllCourseSubType',{course_type},'GET');
+// export const GetAllCourseSubType = (course_type) => ajax(BASE_URL+'/ilearning/getAllCourseSubType',{course_type},'GET');
+export const GetAllCourseSubType = (course_type) => ajax(BASE_URL_2+'/iwork/httpservice/GetAllCourseSubType2',{course_type},'GET');
 
 // 课程搜索
 export const SearchCourseList = (search) => ajax(BASE_URL+'/ilearning/searchCourseList',{search},'GET');

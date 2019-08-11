@@ -41,7 +41,7 @@
         }
       },
       loadSubCourseType:async function(course_type){
-        const result = await GetAllCourseSubType(course_type);
+        const result = await GetAllCourseSubType(course_type.course_type);
         if(result.status=="SUCCESS"){
           this.current_course_type = course_type;
           this.sub_course_types = result.sub_course_types;
