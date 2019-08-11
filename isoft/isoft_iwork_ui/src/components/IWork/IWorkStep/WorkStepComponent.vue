@@ -1,18 +1,24 @@
 <template>
   <Drawer title="全部组件" placement="left" :closable="true" :mask="false" v-model="showComponentDrawer">
-    <span v-for="default_work_step_type in default_work_step_types"
-          draggable="true" @dragstart="dragstart($event, default_work_step_type.name)">
-     <Tag v-if="showComponent(default_work_step_type.name)">{{default_work_step_type.name}}</Tag>
-    </span>
+    <Tabs value="name1">
+      <TabPane label="组件" name="name1">
+        <span v-for="default_work_step_type in default_work_step_types"
+                draggable="true" @dragstart="dragstart($event, default_work_step_type.name)">
+         <Tag v-if="showComponent(default_work_step_type.name)">{{default_work_step_type.name}}</Tag>
+        </span>
+      </TabPane>
 
-    <span>
-      AAAAAAAAAAAAAAAAAAAAAA
-    </span>
+      <TabPane label="流程" name="name2">
+        <div v-for="work in works">
+          <Tag>{{ work.module_name }} ~~~ {{ work.work_name }}</Tag>
+        </div>
+      </TabPane>
+    </Tabs>
   </Drawer>
 </template>
 
 <script>
-  import {GetAllWorks} from "../../../api"
+  import {GetAllFiltersAndWorks} from "../../../api"
   import {oneOf} from "../../../tools"
 
   export default {
@@ -21,6 +27,7 @@
       return {
         showComponentDrawer:false,
         default_work_step_types: this.GLOBAL.default_work_step_types,
+        works:[],
       }
     },
     methods:{
@@ -33,8 +40,11 @@
       toggleShow:function () {
         this.showComponentDrawer = !this.showComponentDrawer;
       },
-      refreshAllWorks:function () {
-
+      refreshAllWorks:async function () {
+        const result = await GetAllFiltersAndWorks();
+        if(result.status == "SUCCESS"){
+          this.works = result.works;
+        }
       }
     },
     mounted(){
