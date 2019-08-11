@@ -137,9 +137,50 @@
 		<LastUpdatedBy>SYSTEM</LastUpdatedBy>
 	</workstep>
 	<workstep>
-		<Id>1104</Id>
+		<Id>1114</Id>
 		<WorkId>240</WorkId>
 		<WorkStepId>4</WorkStepId>
+		<WorkSubId>0</WorkSubId>
+		<WorkStepName>do_response_receive_file_GetTmpFile</WorkStepName>
+		<WorkStepDesc></WorkStepDesc>
+		<WorkStepType>do_response_receive_file</WorkStepType>
+		<WorkStepIndent>0</WorkStepIndent>
+		<WorkStepInput>{&#xA;&#x9;&#34;ParamInputSchemaItems&#34;: [&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;&#34;ParamName&#34;: &#34;filename&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamDesc&#34;: &#34;上传文件名称&#34;,&#xA;&#x9;&#x9;&#x9;&#34;Repeatable&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ForeachRefer&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamChoices&#34;: null,&#xA;&#x9;&#x9;&#x9;&#34;PureText&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ParamValue&#34;: &#34;$do_receive_file_GetTmpFile.filename;\n&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamType&#34;: &#34;&#34;&#xA;&#x9;&#x9;},&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;&#34;ParamName&#34;: &#34;fileServerPath&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamDesc&#34;: &#34;服务器地址&#34;,&#xA;&#x9;&#x9;&#x9;&#34;Repeatable&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ForeachRefer&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamChoices&#34;: null,&#xA;&#x9;&#x9;&#x9;&#34;PureText&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ParamValue&#34;: &#34;$do_receive_file_GetTmpFile.filepath;\n&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamType&#34;: &#34;&#34;&#xA;&#x9;&#x9;}&#xA;&#x9;]&#xA;}</WorkStepInput>
+		<work_step_input_xml><![CDATA[<paramInputSchema>
+	<paramInputSchemaItem>
+		<paramName>filename</paramName>
+		<paramDesc>上传文件名称</paramDesc>
+		<repeatable>false</repeatable>
+		<foreachRefer></foreachRefer>
+		<pureText>false</pureText>
+		<paramValue>$do_receive_file_GetTmpFile.filename;&#xA;</paramValue>
+		<paramType></paramType>
+	</paramInputSchemaItem>
+	<paramInputSchemaItem>
+		<paramName>fileServerPath</paramName>
+		<paramDesc>服务器地址</paramDesc>
+		<repeatable>false</repeatable>
+		<foreachRefer></foreachRefer>
+		<pureText>false</pureText>
+		<paramValue>$do_receive_file_GetTmpFile.filepath;&#xA;</paramValue>
+		<paramType></paramType>
+	</paramInputSchemaItem>
+</paramInputSchema>]]></work_step_input_xml>
+		<WorkStepOutput>{&#xA;&#x9;&#34;ParamOutputSchemaItems&#34;: null&#xA;}</WorkStepOutput>
+		<work_step_output_xml><![CDATA[<paramOutputSchema></paramOutputSchema>]]></work_step_output_xml>
+		<IsDefer>false</IsDefer>
+		<WorkStepParamMapping>[]</WorkStepParamMapping>
+		<work_step_param_mapping_xml><![CDATA[<ParamMapping>
+	<ParamMappingName></ParamMappingName>
+	<ParamMappingType></ParamMappingType>
+</ParamMapping>]]></work_step_param_mapping_xml>
+		<CreatedBy>SYSTEM</CreatedBy>
+		<LastUpdatedBy>SYSTEM</LastUpdatedBy>
+	</workstep>
+	<workstep>
+		<Id>1104</Id>
+		<WorkId>240</WorkId>
+		<WorkStepId>5</WorkStepId>
 		<WorkSubId>0</WorkSubId>
 		<WorkStepName>end</WorkStepName>
 		<WorkStepDesc>end节点</WorkStepDesc>

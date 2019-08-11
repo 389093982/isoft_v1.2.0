@@ -29,6 +29,7 @@ func RegistNodes() {
 		file.FileSyncNode{},
 		file.FileDeleteNode{},
 		file.DoReceiveFileNode{},
+		file.DoResponseReceiveFileNode{},
 		http.HrefParserNode{},
 		http.HttpRequestParserNode{},
 		chiper.CalHashNode{},

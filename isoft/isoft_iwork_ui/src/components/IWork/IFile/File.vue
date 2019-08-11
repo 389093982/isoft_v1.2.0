@@ -22,7 +22,7 @@
     methods:{
       uploadComplete: function (result) {
         if(result.status == "SUCCESS"){
-          this.uploadFilePath = result.filepath;
+          this.uploadFilePath = result.fileServerPath;
           this.$refs.fileUpload.hideModal();
         }
       },
