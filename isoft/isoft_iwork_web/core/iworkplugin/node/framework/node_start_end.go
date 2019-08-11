@@ -60,6 +60,9 @@ func (this *WorkEndNode) fillExtraTmpDataMap() {
 	if doErrorFilter := this.DataStore.GetData(iworkconst.DO_ERROR_FILTER, iworkconst.DO_ERROR_FILTER); doErrorFilter != nil {
 		this.TmpDataMap[iworkconst.DO_ERROR_FILTER] = doErrorFilter
 	}
+	if doResoponseReceiveFile := this.DataStore.GetData(iworkconst.DO_RESPONSE_RECEIVE_FILE, iworkconst.DO_RESPONSE_RECEIVE_FILE); doResoponseReceiveFile != nil {
+		this.TmpDataMap[iworkconst.DO_RESPONSE_RECEIVE_FILE] = doResoponseReceiveFile
+	}
 }
 
 func (this *WorkEndNode) GetRuntimeParamInputSchema() *iworkmodels.ParamInputSchema {

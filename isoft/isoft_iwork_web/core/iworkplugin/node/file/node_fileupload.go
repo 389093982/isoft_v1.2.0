@@ -1,6 +1,7 @@
 package file
 
 import (
+	"isoft/isoft_iwork_web/core/iworkconst"
 	"isoft/isoft_iwork_web/core/iworkmodels"
 	"isoft/isoft_iwork_web/core/iworkplugin/node"
 	"isoft/isoft_iwork_web/models"
@@ -13,9 +14,11 @@ type DoReceiveFileNode struct {
 
 func (this *DoReceiveFileNode) Execute(trackingId string) {
 	this.DataStore.CacheDatas(this.WorkStep.WorkStepName, map[string]interface{}{
-		"filename": this.Dispatcher.TmpDataMap["__filename"],
-		"fileExt":  this.Dispatcher.TmpDataMap["__fileExt"],
-		"filepath": this.Dispatcher.TmpDataMap["__filepath"],
+		"fileName":           this.Dispatcher.TmpDataMap["__fileName"],
+		"tempFileName":       this.Dispatcher.TmpDataMap["__tempFileName"],
+		"fileExt":            this.Dispatcher.TmpDataMap["__fileExt"],
+		"tempFilePath":       this.Dispatcher.TmpDataMap["__tempFilePath"],
+		"tempFileServerPath": this.Dispatcher.TmpDataMap["__tempFileServerPath"],
 	})
 }
 
@@ -24,7 +27,7 @@ func (this *DoReceiveFileNode) GetDefaultParamInputSchema() *iworkmodels.ParamIn
 }
 
 func (this *DoReceiveFileNode) GetDefaultParamOutputSchema() *iworkmodels.ParamOutputSchema {
-	return this.BuildParamOutputSchemaWithSlice([]string{"filename", "fileExt", "filepath"})
+	return this.BuildParamOutputSchemaWithSlice([]string{"fileName", "tempFileName", "fileExt", "tempFilePath", "tempFileServerPath"})
 }
 
 type DoResponseReceiveFileNode struct {
@@ -33,16 +36,15 @@ type DoResponseReceiveFileNode struct {
 }
 
 func (this *DoResponseReceiveFileNode) Execute(trackingId string) {
-	paramMap := make(map[string]interface{}, 0)
-	paramMap["filename"] = this.TmpDataMap["filename"]
-	paramMap["fileServerPath"] = this.TmpDataMap["fileServerPath"]
-	this.DataStore.CacheDatas(this.WorkStep.WorkStepName, paramMap)
+	this.TmpDataMap["fileName"] = this.TmpDataMap["fileName"]
+	this.TmpDataMap["fileServerPath"] = this.TmpDataMap["fileServerPath"]
+	this.DataStore.CacheDatas(iworkconst.DO_RESPONSE_RECEIVE_FILE, map[string]interface{}{iworkconst.DO_RESPONSE_RECEIVE_FILE: this.TmpDataMap})
 }
 
 func (this *DoResponseReceiveFileNode) GetDefaultParamInputSchema() *iworkmodels.ParamInputSchema {
 	paramMap := map[int][]string{
-		1: {"filename", "上传文件名称"},
-		2: {"fileServerPath", "服务器地址"},
+		1: {"fileName", "最终的上传文件名称"},
+		2: {"fileServerPath", "最终的服务器地址"},
 	}
 	return this.BuildParamInputSchemaWithDefaultMap(paramMap)
 }

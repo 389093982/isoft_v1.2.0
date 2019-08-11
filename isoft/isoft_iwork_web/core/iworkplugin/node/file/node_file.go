@@ -104,7 +104,7 @@ func (this *FileSyncNode) Execute(trackingId string) {
 		err = os.Rename(file_path, new_file_path)
 	}
 	if err == nil {
-		this.DataStore.CacheDatas(this.WorkStep.WorkStepName, map[string]interface{}{iworkconst.STRING_PREFIX + "file_path": new_file_path})
+		this.DataStore.CacheDatas(this.WorkStep.WorkStepName, map[string]interface{}{"file_path": new_file_path})
 	} else {
 		panic(err)
 	}
@@ -117,6 +117,10 @@ func (this *FileSyncNode) GetDefaultParamInputSchema() *iworkmodels.ParamInputSc
 		3: {iworkconst.STRING_PREFIX + "new_file_path", "同步操作后的文件路径"},
 	}
 	return this.BuildParamInputSchemaWithDefaultMap(paramMap)
+}
+
+func (this *FileSyncNode) GetDefaultParamOutputSchema() *iworkmodels.ParamOutputSchema {
+	return this.BuildParamOutputSchemaWithSlice([]string{"new_file_path"})
 }
 
 type FileDeleteNode struct {

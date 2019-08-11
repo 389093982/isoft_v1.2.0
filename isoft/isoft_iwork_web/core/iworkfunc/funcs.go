@@ -5,6 +5,7 @@ import (
 	"github.com/pkg/errors"
 	"isoft/isoft/common/stringutil"
 	"net/url"
+	"path"
 	"path/filepath"
 	"strconv"
 	"strings"
@@ -49,6 +50,14 @@ func (this *IWorkFuncProxy) GetRequestParameters(args []interface{}) interface{}
 
 func (this *IWorkFuncProxy) GetRequestParameter(args []interface{}) interface{} {
 	return this.GetRequestParameters(args).([]string)[0]
+}
+
+func (this *IWorkFuncProxy) StringsTrimPrefix(args []interface{}) interface{} {
+	return strings.TrimPrefix(args[0].(string), args[1].(string))
+}
+
+func (this *IWorkFuncProxy) StringsTrimSuffix(args []interface{}) interface{} {
+	return strings.TrimSuffix(args[0].(string), args[1].(string))
 }
 
 func (this *IWorkFuncProxy) StringsEq(args []interface{}) interface{} {
@@ -190,6 +199,14 @@ func (this *IWorkFuncProxy) Isempty(args []interface{}) interface{} {
 		return val == ""
 	}
 	return args[0] == nil
+}
+
+func (this *IWorkFuncProxy) PathJoin(args []interface{}) string {
+	sli := make([]string, 0)
+	for _, arg := range args {
+		sli = append(sli, arg.(string))
+	}
+	return path.Join(sli...)
 }
 
 func (this *IWorkFuncProxy) GetDirPath(args []interface{}) string {
