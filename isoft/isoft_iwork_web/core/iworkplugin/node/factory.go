@@ -57,10 +57,15 @@ func (this *WorkStepFactory) Execute(trackingId string) {
 				Err:          parseToError(err),
 				WorkStepName: this.WorkStep.WorkStepName,
 			}
+			// 将错误写入 Error 中去
+			this.DataStore.CacheDatas("Error", map[string]interface{}{
+				"isError":   true,
+				"isNoError": false,
+				"errorMsg":  wsError.Error(),
+			})
 			panic(wsError) // 对已经进行包装,异常不吞掉,继续抛出
 		}
 	}()
-
 	proxy := this.getProxy()
 	// 将 ParamInputSchema 填充数据并返回临时的数据中心 tmpDataMap
 	proxy.FillParamInputSchemaDataToTmp(this.WorkStep)
