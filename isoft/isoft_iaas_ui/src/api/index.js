@@ -48,7 +48,8 @@ export const ShowCourseDetail = (course_id) => ajax(BASE_URL_2+"/iwork/httpservi
 export const ToggleFavorite = (favorite_id, favorite_type) => ajax(BASE_URL_2+"/iwork/httpservice/ToggleFavorite2",{favorite_id, favorite_type},'GET');
 
 // 查询评论主题
-export const FilterCommentTheme = (comment_id, theme_type) => ajax(BASE_URL+'/ilearning/filterCommentTheme',{comment_id, theme_type},'GET');
+// export const FilterCommentTheme = (comment_id, theme_type) => ajax(BASE_URL+'/ilearning/filterCommentTheme',{comment_id, theme_type},'GET');
+export const FilterCommentTheme = (comment_id, theme_type) => ajax(BASE_URL_2+'/iwork/httpservice/FilterCommentTheme2',{comment_id, theme_type},'GET');
 
 // 添加评论
 export const AddCommentReply = (parent_id, reply_content, comment_id, theme_type, reply_comment_type, refer_user_name) =>
