@@ -77,7 +77,7 @@ func loadloadIWorkerRouterDetail() {
 	beego.Router("/api/iwork/templateList", &controllers.WorkController{}, "post:TemplateList")
 	beego.Router("/api/iwork/deleteTemplateById", &controllers.WorkController{}, "post:DeleteTemplateById")
 
-	beego.Router("/api/iwork/fileUpload", &controllers.WorkController{}, "get,post:FileUpload")
+	beego.Router("/api/iwork/fileUpload/:work_name", &controllers.WorkController{}, "get,post:FileUpload")
 	beego.Router("/api/iwork/download/:work_id", &controllers.WorkController{}, "get,post:Download")
 
 	beego.Router("/api/iwork/moduleList", &controllers.WorkController{}, "get,post:ModuleList")

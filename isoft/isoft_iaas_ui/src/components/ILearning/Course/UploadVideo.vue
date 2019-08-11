@@ -14,7 +14,7 @@
           <Button type="success" @click="uploadVideoNum = course.course_number + 1">新一集{{course.course_number + 1}}</Button>
         </div>
 
-        <Upload :action="'/api/ilearning/uploadVideo?id=' + course.id + '&video_number=' + uploadVideoNum" :on-success="uploadComplete">
+        <Upload :action="'/api2/iwork/fileUpload/UploadVideo2?id=' + course.id + '&video_number=' + uploadVideoNum" :on-success="uploadComplete">
           <Button icon="ios-cloud-upload-outline">Upload files</Button>
           <span v-if="uploadVideoNum > 0" style="color: #3300ff;">*当前更新第{{uploadVideoNum}}集</span>
           <span v-else style="color: red;">请选择更新集数</span>
