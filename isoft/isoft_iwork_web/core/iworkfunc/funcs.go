@@ -52,6 +52,14 @@ func (this *IWorkFuncProxy) GetRequestParameter(args []interface{}) interface{} 
 	return this.GetRequestParameters(args).([]string)[0]
 }
 
+func (this *IWorkFuncProxy) StringsOneOf(args []interface{}) interface{} {
+	sargs := make([]string, 0)
+	for _, arg := range args {
+		sargs = append(sargs, arg.(string))
+	}
+	return stringutil.CheckContains(sargs[len(sargs)-1], sargs[:len(sargs)-1])
+}
+
 func (this *IWorkFuncProxy) StringsTrimPrefix(args []interface{}) interface{} {
 	return strings.TrimPrefix(args[0].(string), args[1].(string))
 }

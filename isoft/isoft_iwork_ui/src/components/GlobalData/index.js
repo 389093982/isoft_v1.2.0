@@ -65,6 +65,7 @@ const quick_funcs = [
     {funcDemo:"stringsHasSuffix($str1,$str2)",funcDesc:"字符串后缀判断函数",},
     {funcDemo:"stringsTrimSuffix($str1,$suffix)",funcDesc:"字符串去除后缀",},
     {funcDemo:"stringsTrimPrefix($str1,$prefix)",funcDesc:"字符串去除前缀",},
+    {funcDemo:"stringsOneOf($str1,$str2,$checkStr)",funcDesc:"判断字符串 checkStr 是否存在于字符数组中",},
     {funcDemo:"int64Gt($int1,$int2)",funcDesc:"判断数字1是否大于数字2",},
     {funcDemo:"int64Lt($int1,$int2)",funcDesc:"判断数字1是否小于数字2",},
     {funcDemo:"int64Eq($int1,$int2)",funcDesc:"判断数字1是否等于数字2",},
