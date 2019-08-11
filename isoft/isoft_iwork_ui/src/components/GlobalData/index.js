@@ -12,6 +12,7 @@ const default_work_step_types=[
   {"name":"http_request","icon":"ios-globe-outline"},
   {"name":"http_request_parser","icon":"ios-globe-outline"},
   {"name":"mapper","icon":"ios-infinite"},
+  {"name":"do_receive_file","icon":"ios-book-outline"},
   {"name":"file_read","icon":"ios-book-outline"},
   {"name":"file_write","icon":"ios-create-outline"},
   {"name":"file_delete","icon":"ios-log-out"},

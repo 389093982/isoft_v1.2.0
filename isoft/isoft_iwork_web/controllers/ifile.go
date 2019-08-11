@@ -31,13 +31,14 @@ func (this *WorkController) FileUpload() {
 		}
 	}
 	fileName, filePath := this.saveFile()
-	tmpDataMap := map[string]interface{}{
-		"filename": fileName,
-		"filepath": filePath,
-	}
 	if workCache != nil {
+		mapData := ParseParam(this.Ctx, workCache.Steps)
+		mapData[iworkconst.HTTP_REQUEST_OBJECT] = this.Ctx.Request // 传递 request 对象
+		mapData["__filename"] = fileName
+		mapData["__fileExt"] = path.Ext(fileName)
+		mapData["__filepath"] = filePath
 		// 调度流程进行处理
-		trackingId, receiver := iworkrun.RunOneWork(workCache.WorkId, &entry.Dispatcher{TmpDataMap: tmpDataMap})
+		trackingId, receiver := iworkrun.RunOneWork(workCache.WorkId, &entry.Dispatcher{TmpDataMap: mapData})
 		this.Ctx.ResponseWriter.Header().Add(iworkconst.TRACKING_ID, trackingId)
 		if receiver != nil {
 			fmt.Println(receiver)
@@ -51,12 +52,12 @@ func (this *WorkController) FileUpload() {
 	this.ServeJSON()
 }
 
-func (this *WorkController) saveFile() (string, string) {
+func (this *WorkController) saveFile() (fileName, filePath string) {
 	// 判断是否是文件上传
 	f, h, err := this.GetFile("file")
 	checkError(err)
 	//得到文件的名称
-	fileName := h.Filename
+	fileName = h.Filename
 	arr := strings.Split(fileName, ":")
 	if len(arr) > 1 {
 		index := len(arr) - 1
@@ -65,7 +66,7 @@ func (this *WorkController) saveFile() (string, string) {
 	//关闭上传的文件，不然的话会出现临时文件不能清除的情况
 	f.Close()
 	//保存文件到指定的位置,static/uploadfile,这个是文件的地址,第一个static前面不要有/
-	filePath := path.Join(beego.AppConfig.String("file.server"), fileName)
+	filePath = path.Join(beego.AppConfig.String("file.server"), fileName)
 	err = this.SaveToFile("file", filePath)
 	checkError(err)
 	return fileName, filePath
