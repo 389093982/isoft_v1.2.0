@@ -1,4 +1,3 @@
-import IFile from '../components/IFile/IFile'
 import IBlog from '../components/IBlog/IBlog'
 import BlogList from '../components/IBlog/BlogList'
 import CatalogAdd from '../components/IBlog/CatalogAdd'
@@ -44,14 +43,6 @@ const IBlogRouter = {
       path: 'blog_detail',
       component: BlogDetail
     },
-  ]
-};
-
-const IFileRouter = {
-  path: '/ifile',
-  component: ILayout,
-  children: [
-    {path: 'ifile',component: IFile,},
   ]
 };
 
@@ -114,5 +105,5 @@ const CMSRouter = {
   ]
 };
 
-export const ILearningRouters = [IBlogRouter, IFileRouter, ILearningRouter, ShareListRouter, CMSRouter];
+export const ILearningRouters = [IBlogRouter, ILearningRouter, ShareListRouter, CMSRouter];
 

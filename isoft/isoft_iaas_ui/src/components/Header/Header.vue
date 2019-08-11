@@ -17,9 +17,6 @@
             <MenuItem name="1-5"><router-link to="/ilearning/index">精品课程</router-link></MenuItem>
             <MenuItem name="1-6"><router-link to="/inote/index">云笔记</router-link></MenuItem>
           </MenuGroup>
-          <MenuGroup title="云存储">
-            <MenuItem name="1-7"><router-link to="/ifile/ifile">IFile 文件存储</router-link></MenuItem>
-          </MenuGroup>
           <MenuGroup title="友情链接">
             <MenuItem name="1-9"><router-link to="/ifile/ifile">心声社区</router-link></MenuItem>
             <MenuItem name="1-10"><router-link to="/share/list">共享空间</router-link></MenuItem>
@@ -36,8 +33,7 @@
           </template>
           <MenuGroup title="配置项管理">
             <MenuItem name="3-1"><router-link to="/ilearning/configuration">查看配置项</router-link></MenuItem>
-            <MenuItem name="3-1"><router-link to="/monitor/filterPageHeartBeat">应用监听</router-link></MenuItem>
-            <MenuItem name="3-1"><router-link to="/cms/commonLinkList">友情链接</router-link></MenuItem>
+            <MenuItem name="3-2"><router-link to="/cms/commonLinkList">友情链接</router-link></MenuItem>
           </MenuGroup>
         </Submenu>
         <Submenu name="4">

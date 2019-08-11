@@ -7,7 +7,6 @@ import (
 	"isoft/isoft_iaas_web/controllers/cms"
 	"isoft/isoft_iaas_web/controllers/common"
 	"isoft/isoft_iaas_web/controllers/iblog"
-	"isoft/isoft_iaas_web/controllers/ifile"
 	"isoft/isoft_iaas_web/controllers/ilearning"
 	"isoft/isoft_iaas_web/controllers/share"
 	"isoft/isoft_iaas_web/controllers/sso"
@@ -37,12 +36,6 @@ func loadIaasRouter() {
 	initCMSRouter()
 	initShareRouter()
 	initCommonRouter()
-	initIFileRouter()
-}
-
-func initIFileRouter() {
-	beego.Router("/api/ifile/fileUpload", &ifile.IFileController{}, "get,post:FileUpload")
-	beego.Router("/api/ifile/filterPageIFiles", &ifile.IFileController{}, "get,post:FilterPageIFiles")
 }
 
 func initCommonRouter() {
