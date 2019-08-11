@@ -41,7 +41,8 @@ export const EndUpdate = (course_id) => ajax(BASE_URL+'/ilearning/endUpdate',{co
 export const ShowCourseDetail = (course_id) => ajax(BASE_URL_2+"/iwork/httpservice/ShowCourseDetail2",{course_id},'GET');
 
 // 切换收藏点赞
-export const ToggleFavorite = (favorite_id, favorite_type) => ajax(BASE_URL+'/ilearning/toggle_favorite',{favorite_id, favorite_type},'GET');
+// export const ToggleFavorite = (favorite_id, favorite_type) => ajax(BASE_URL+'/ilearning/toggle_favorite',{favorite_id, favorite_type},'GET');
+export const ToggleFavorite = (favorite_id, favorite_type) => ajax(BASE_URL_2+"/iwork/httpservice/ToggleFavorite2",{favorite_id, favorite_type},'GET');
 
 // 查询评论主题
 export const FilterCommentTheme = (comment_id, theme_type) => ajax(BASE_URL+'/ilearning/filterCommentTheme',{comment_id, theme_type},'GET');
