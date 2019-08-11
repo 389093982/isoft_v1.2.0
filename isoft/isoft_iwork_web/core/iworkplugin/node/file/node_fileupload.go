@@ -40,6 +40,8 @@ func (this *DoResponseReceiveFileNode) Execute(trackingId string) {
 	this.TmpDataMap["fileServerPath"] = this.TmpDataMap["fileServerPath"]
 	this.TmpDataMap["errorMsg"] = this.TmpDataMap["errorMsg?"]
 	this.DataStore.CacheDatas(iworkconst.DO_RESPONSE_RECEIVE_FILE, map[string]interface{}{iworkconst.DO_RESPONSE_RECEIVE_FILE: this.TmpDataMap})
+	// 直接提交 dataStore
+	this.SubmitParamOutputSchemaDataToDataStore(this.WorkStep, this.DataStore, this.TmpDataMap)
 }
 
 func (this *DoResponseReceiveFileNode) GetDefaultParamInputSchema() *iworkmodels.ParamInputSchema {
@@ -49,4 +51,8 @@ func (this *DoResponseReceiveFileNode) GetDefaultParamInputSchema() *iworkmodels
 		3: {"errorMsg?", "异常信息"},
 	}
 	return this.BuildParamInputSchemaWithDefaultMap(paramMap)
+}
+
+func (this *DoResponseReceiveFileNode) GetDefaultParamOutputSchema() *iworkmodels.ParamOutputSchema {
+	return this.BuildParamOutputSchemaWithSlice([]string{"fileName", "fileServerPath", "errorMsg"})
 }

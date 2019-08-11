@@ -4,7 +4,7 @@
 		<WorkName>UploadVideo2</WorkName>
 		<WorkDesc>UploadVideo2</WorkDesc>
 		<WorkType>work</WorkType>
-		<ModuleName></ModuleName>
+		<ModuleName>Course</ModuleName>
 		<CreatedBy>SYSTEM</CreatedBy>
 		<LastUpdatedBy>SYSTEM</LastUpdatedBy>
 	</work>
@@ -26,7 +26,6 @@
 		<foreachRefer></foreachRefer>
 		<pureText>false</pureText>
 		<paramValue></paramValue>
-		<paramType></paramType>
 	</paramInputSchemaItem>
 	<paramInputSchemaItem>
 		<paramName>video_number</paramName>
@@ -35,7 +34,6 @@
 		<foreachRefer></foreachRefer>
 		<pureText>false</pureText>
 		<paramValue></paramValue>
-		<paramType></paramType>
 	</paramInputSchemaItem>
 </paramInputSchema>]]></work_step_input_xml>
 		<WorkStepOutput>{&#xA;&#x9;&#34;ParamOutputSchemaItems&#34;: [&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;&#34;ParentPath&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamName&#34;: &#34;id&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamValue&#34;: &#34;&#34;&#xA;&#x9;&#x9;},&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;&#34;ParentPath&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamName&#34;: &#34;video_number&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamValue&#34;: &#34;&#34;&#xA;&#x9;&#x9;}&#xA;&#x9;]&#xA;}</WorkStepOutput>
@@ -55,7 +53,6 @@
 		<WorkStepParamMapping>[{&#34;paramMappingName&#34;:&#34;id&#34;,&#34;paramMappingType&#34;:&#34;default&#34;},{&#34;paramMappingName&#34;:&#34;video_number&#34;,&#34;paramMappingType&#34;:&#34;default&#34;}]</WorkStepParamMapping>
 		<work_step_param_mapping_xml><![CDATA[<ParamMapping>
 	<ParamMappingName></ParamMappingName>
-	<ParamMappingType></ParamMappingType>
 </ParamMapping>]]></work_step_param_mapping_xml>
 		<CreatedBy>SYSTEM</CreatedBy>
 		<LastUpdatedBy>SYSTEM</LastUpdatedBy>
@@ -78,7 +75,6 @@
 		<foreachRefer></foreachRefer>
 		<pureText>false</pureText>
 		<paramValue>$WORK.getUserInfoFromRequest;</paramValue>
-		<paramType></paramType>
 	</paramInputSchemaItem>
 </paramInputSchema>]]></work_step_input_xml>
 		<WorkStepOutput>{&#xA;&#x9;&#34;ParamOutputSchemaItems&#34;: [&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;&#34;ParentPath&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamName&#34;: &#34;userName&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamValue&#34;: &#34;&#34;&#xA;&#x9;&#x9;}&#xA;&#x9;]&#xA;}</WorkStepOutput>
@@ -93,7 +89,6 @@
 		<WorkStepParamMapping></WorkStepParamMapping>
 		<work_step_param_mapping_xml><![CDATA[<ParamMapping>
 	<ParamMappingName></ParamMappingName>
-	<ParamMappingType></ParamMappingType>
 </ParamMapping>]]></work_step_param_mapping_xml>
 		<CreatedBy>SYSTEM</CreatedBy>
 		<LastUpdatedBy>SYSTEM</LastUpdatedBy>
@@ -141,7 +136,6 @@
 		<WorkStepParamMapping>[]</WorkStepParamMapping>
 		<work_step_param_mapping_xml><![CDATA[<ParamMapping>
 	<ParamMappingName></ParamMappingName>
-	<ParamMappingType></ParamMappingType>
 </ParamMapping>]]></work_step_param_mapping_xml>
 		<CreatedBy>SYSTEM</CreatedBy>
 		<LastUpdatedBy>SYSTEM</LastUpdatedBy>
@@ -164,7 +158,6 @@
 		<foreachRefer></foreachRefer>
 		<pureText>false</pureText>
 		<paramValue>not(stringsOneOf(`.ogg`,`.mp4`,`.webm`,$do_receive_file_GetTmpFile.fileExt));&#xA;</paramValue>
-		<paramType></paramType>
 	</paramInputSchemaItem>
 	<paramInputSchemaItem>
 		<paramName>str_panic_errorMsg?</paramName>
@@ -173,7 +166,6 @@
 		<foreachRefer></foreachRefer>
 		<pureText>true</pureText>
 		<paramValue>上传文件格式非法</paramValue>
-		<paramType></paramType>
 	</paramInputSchemaItem>
 </paramInputSchema>]]></work_step_input_xml>
 		<WorkStepOutput>{&#xA;&#x9;&#34;ParamOutputSchemaItems&#34;: null&#xA;}</WorkStepOutput>
@@ -182,7 +174,6 @@
 		<WorkStepParamMapping>[]</WorkStepParamMapping>
 		<work_step_param_mapping_xml><![CDATA[<ParamMapping>
 	<ParamMappingName></ParamMappingName>
-	<ParamMappingType></ParamMappingType>
 </ParamMapping>]]></work_step_param_mapping_xml>
 		<CreatedBy>SYSTEM</CreatedBy>
 		<LastUpdatedBy>SYSTEM</LastUpdatedBy>
@@ -205,7 +196,6 @@
 		<foreachRefer></foreachRefer>
 		<pureText>true</pureText>
 		<paramValue>rename</paramValue>
-		<paramType></paramType>
 	</paramInputSchemaItem>
 	<paramInputSchemaItem>
 		<paramName>str_file_path</paramName>
@@ -214,7 +204,6 @@
 		<foreachRefer></foreachRefer>
 		<pureText>false</pureText>
 		<paramValue>$do_receive_file_GetTmpFile.tempFilePath;&#xA;</paramValue>
-		<paramType></paramType>
 	</paramInputSchemaItem>
 	<paramInputSchemaItem>
 		<paramName>str_new_file_path</paramName>
@@ -223,7 +212,6 @@
 		<foreachRefer></foreachRefer>
 		<pureText>false</pureText>
 		<paramValue>pathJoin(getDirPath($do_receive_file_GetTmpFile.tempFilePath),$do_receive_file_GetTmpFile.fileName);&#xA;</paramValue>
-		<paramType></paramType>
 	</paramInputSchemaItem>
 </paramInputSchema>]]></work_step_input_xml>
 		<WorkStepOutput>{&#xA;&#x9;&#34;ParamOutputSchemaItems&#34;: [&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;&#34;ParentPath&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamName&#34;: &#34;new_file_path&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamValue&#34;: &#34;&#34;&#xA;&#x9;&#x9;}&#xA;&#x9;]&#xA;}</WorkStepOutput>
@@ -238,7 +226,6 @@
 		<WorkStepParamMapping>[]</WorkStepParamMapping>
 		<work_step_param_mapping_xml><![CDATA[<ParamMapping>
 	<ParamMappingName></ParamMappingName>
-	<ParamMappingType></ParamMappingType>
 </ParamMapping>]]></work_step_param_mapping_xml>
 		<CreatedBy>SYSTEM</CreatedBy>
 		<LastUpdatedBy>SYSTEM</LastUpdatedBy>
@@ -252,7 +239,7 @@
 		<WorkStepDesc></WorkStepDesc>
 		<WorkStepType>do_response_receive_file</WorkStepType>
 		<WorkStepIndent>0</WorkStepIndent>
-		<WorkStepInput>{&#xA;&#x9;&#34;ParamInputSchemaItems&#34;: [&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;&#34;ParamName&#34;: &#34;fileName&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamDesc&#34;: &#34;最终的上传文件名称&#34;,&#xA;&#x9;&#x9;&#x9;&#34;Repeatable&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ForeachRefer&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamChoices&#34;: null,&#xA;&#x9;&#x9;&#x9;&#34;PureText&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ParamValue&#34;: &#34;$do_receive_file_GetTmpFile.fileName;\n&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamType&#34;: &#34;&#34;&#xA;&#x9;&#x9;},&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;&#34;ParamName&#34;: &#34;fileServerPath&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamDesc&#34;: &#34;最终的服务器地址&#34;,&#xA;&#x9;&#x9;&#x9;&#34;Repeatable&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ForeachRefer&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamChoices&#34;: null,&#xA;&#x9;&#x9;&#x9;&#34;PureText&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ParamValue&#34;: &#34;stringsJoin(stringsTrimSuffix($do_receive_file_GetTmpFile.tempFileServerPath,$do_receive_file_GetTmpFile.tempFileName),$do_receive_file_GetTmpFile.fileName);\n&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamType&#34;: &#34;&#34;&#xA;&#x9;&#x9;}&#xA;&#x9;]&#xA;}</WorkStepInput>
+		<WorkStepInput>{&#xA;&#x9;&#34;ParamInputSchemaItems&#34;: [&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;&#34;ParamName&#34;: &#34;fileName&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamDesc&#34;: &#34;最终的上传文件名称&#34;,&#xA;&#x9;&#x9;&#x9;&#34;Repeatable&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ForeachRefer&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamChoices&#34;: null,&#xA;&#x9;&#x9;&#x9;&#34;PureText&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ParamValue&#34;: &#34;$do_receive_file_GetTmpFile.fileName;\n&#34;&#xA;&#x9;&#x9;},&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;&#34;ParamName&#34;: &#34;fileServerPath&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamDesc&#34;: &#34;最终的服务器地址&#34;,&#xA;&#x9;&#x9;&#x9;&#34;Repeatable&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ForeachRefer&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamChoices&#34;: null,&#xA;&#x9;&#x9;&#x9;&#34;PureText&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ParamValue&#34;: &#34;stringsJoin(stringsTrimSuffix($do_receive_file_GetTmpFile.tempFileServerPath,$do_receive_file_GetTmpFile.tempFileName),$do_receive_file_GetTmpFile.fileName);\n&#34;&#xA;&#x9;&#x9;},&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;&#34;ParamName&#34;: &#34;errorMsg?&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamDesc&#34;: &#34;异常信息&#34;,&#xA;&#x9;&#x9;&#x9;&#34;Repeatable&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ForeachRefer&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamChoices&#34;: null,&#xA;&#x9;&#x9;&#x9;&#34;PureText&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ParamValue&#34;: &#34;&#34;&#xA;&#x9;&#x9;}&#xA;&#x9;]&#xA;}</WorkStepInput>
 		<work_step_input_xml><![CDATA[<paramInputSchema>
 	<paramInputSchemaItem>
 		<paramName>fileName</paramName>
@@ -261,7 +248,6 @@
 		<foreachRefer></foreachRefer>
 		<pureText>false</pureText>
 		<paramValue>$do_receive_file_GetTmpFile.fileName;&#xA;</paramValue>
-		<paramType></paramType>
 	</paramInputSchemaItem>
 	<paramInputSchemaItem>
 		<paramName>fileServerPath</paramName>
@@ -270,7 +256,92 @@
 		<foreachRefer></foreachRefer>
 		<pureText>false</pureText>
 		<paramValue>stringsJoin(stringsTrimSuffix($do_receive_file_GetTmpFile.tempFileServerPath,$do_receive_file_GetTmpFile.tempFileName),$do_receive_file_GetTmpFile.fileName);&#xA;</paramValue>
-		<paramType></paramType>
+	</paramInputSchemaItem>
+	<paramInputSchemaItem>
+		<paramName>errorMsg?</paramName>
+		<paramDesc>异常信息</paramDesc>
+		<repeatable>false</repeatable>
+		<foreachRefer></foreachRefer>
+		<pureText>false</pureText>
+		<paramValue></paramValue>
+	</paramInputSchemaItem>
+</paramInputSchema>]]></work_step_input_xml>
+		<WorkStepOutput>{&#xA;&#x9;&#34;ParamOutputSchemaItems&#34;: [&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;&#34;ParentPath&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamName&#34;: &#34;fileName&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamValue&#34;: &#34;&#34;&#xA;&#x9;&#x9;},&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;&#34;ParentPath&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamName&#34;: &#34;fileServerPath&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamValue&#34;: &#34;&#34;&#xA;&#x9;&#x9;},&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;&#34;ParentPath&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamName&#34;: &#34;errorMsg&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamValue&#34;: &#34;&#34;&#xA;&#x9;&#x9;}&#xA;&#x9;]&#xA;}</WorkStepOutput>
+		<work_step_output_xml><![CDATA[<paramOutputSchema>
+	<paramOutputSchemaItem>
+		<parentPath></parentPath>
+		<paramName>fileName</paramName>
+		<paramValue></paramValue>
+	</paramOutputSchemaItem>
+	<paramOutputSchemaItem>
+		<parentPath></parentPath>
+		<paramName>fileServerPath</paramName>
+		<paramValue></paramValue>
+	</paramOutputSchemaItem>
+	<paramOutputSchemaItem>
+		<parentPath></parentPath>
+		<paramName>errorMsg</paramName>
+		<paramValue></paramValue>
+	</paramOutputSchemaItem>
+</paramOutputSchema>]]></work_step_output_xml>
+		<IsDefer>false</IsDefer>
+		<WorkStepParamMapping>[]</WorkStepParamMapping>
+		<work_step_param_mapping_xml><![CDATA[<ParamMapping>
+	<ParamMappingName></ParamMappingName>
+</ParamMapping>]]></work_step_param_mapping_xml>
+		<CreatedBy>SYSTEM</CreatedBy>
+		<LastUpdatedBy>SYSTEM</LastUpdatedBy>
+	</workstep>
+	<workstep>
+		<Id>1119</Id>
+		<WorkId>240</WorkId>
+		<WorkStepId>7</WorkStepId>
+		<WorkSubId>242</WorkSubId>
+		<WorkStepName>work_sub_UpdateVideoDBRecord</WorkStepName>
+		<WorkStepDesc></WorkStepDesc>
+		<WorkStepType>work_sub</WorkStepType>
+		<WorkStepIndent>0</WorkStepIndent>
+		<WorkStepInput>{&#xA;&#x9;&#34;ParamInputSchemaItems&#34;: [&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;&#34;ParamName&#34;: &#34;str_work_sub&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamDesc&#34;: &#34;子流程信息&#34;,&#xA;&#x9;&#x9;&#x9;&#34;Repeatable&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ForeachRefer&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamChoices&#34;: null,&#xA;&#x9;&#x9;&#x9;&#34;PureText&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ParamValue&#34;: &#34;$WORK.InsertOrUpdateVedioRecord&#34;&#xA;&#x9;&#x9;},&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;&#34;ParamName&#34;: &#34;course_id&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamDesc&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;Repeatable&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ForeachRefer&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamChoices&#34;: null,&#xA;&#x9;&#x9;&#x9;&#34;PureText&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ParamValue&#34;: &#34;$start.id;\n&#34;&#xA;&#x9;&#x9;},&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;&#34;ParamName&#34;: &#34;video_number&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamDesc&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;Repeatable&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ForeachRefer&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamChoices&#34;: null,&#xA;&#x9;&#x9;&#x9;&#34;PureText&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ParamValue&#34;: &#34;$start.video_number;\n&#34;&#xA;&#x9;&#x9;},&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;&#34;ParamName&#34;: &#34;fileServerPath&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamDesc&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;Repeatable&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ForeachRefer&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamChoices&#34;: null,&#xA;&#x9;&#x9;&#x9;&#34;PureText&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ParamValue&#34;: &#34;$do_response_receive_file_GetTmpFile.fileServerPath;\n&#34;&#xA;&#x9;&#x9;},&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;&#34;ParamName&#34;: &#34;fileName&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamDesc&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;Repeatable&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ForeachRefer&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamChoices&#34;: null,&#xA;&#x9;&#x9;&#x9;&#34;PureText&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ParamValue&#34;: &#34;$do_response_receive_file_GetTmpFile.fileName;\n&#34;&#xA;&#x9;&#x9;}&#xA;&#x9;]&#xA;}</WorkStepInput>
+		<work_step_input_xml><![CDATA[<paramInputSchema>
+	<paramInputSchemaItem>
+		<paramName>str_work_sub</paramName>
+		<paramDesc>子流程信息</paramDesc>
+		<repeatable>false</repeatable>
+		<foreachRefer></foreachRefer>
+		<pureText>false</pureText>
+		<paramValue>$WORK.InsertOrUpdateVedioRecord</paramValue>
+	</paramInputSchemaItem>
+	<paramInputSchemaItem>
+		<paramName>course_id</paramName>
+		<paramDesc></paramDesc>
+		<repeatable>false</repeatable>
+		<foreachRefer></foreachRefer>
+		<pureText>false</pureText>
+		<paramValue>$start.id;&#xA;</paramValue>
+	</paramInputSchemaItem>
+	<paramInputSchemaItem>
+		<paramName>video_number</paramName>
+		<paramDesc></paramDesc>
+		<repeatable>false</repeatable>
+		<foreachRefer></foreachRefer>
+		<pureText>false</pureText>
+		<paramValue>$start.video_number;&#xA;</paramValue>
+	</paramInputSchemaItem>
+	<paramInputSchemaItem>
+		<paramName>fileServerPath</paramName>
+		<paramDesc></paramDesc>
+		<repeatable>false</repeatable>
+		<foreachRefer></foreachRefer>
+		<pureText>false</pureText>
+		<paramValue>$do_response_receive_file_GetTmpFile.fileServerPath;&#xA;</paramValue>
+	</paramInputSchemaItem>
+	<paramInputSchemaItem>
+		<paramName>fileName</paramName>
+		<paramDesc></paramDesc>
+		<repeatable>false</repeatable>
+		<foreachRefer></foreachRefer>
+		<pureText>false</pureText>
+		<paramValue>$do_response_receive_file_GetTmpFile.fileName;&#xA;</paramValue>
 	</paramInputSchemaItem>
 </paramInputSchema>]]></work_step_input_xml>
 		<WorkStepOutput>{&#xA;&#x9;&#34;ParamOutputSchemaItems&#34;: null&#xA;}</WorkStepOutput>
@@ -279,7 +350,6 @@
 		<WorkStepParamMapping>[]</WorkStepParamMapping>
 		<work_step_param_mapping_xml><![CDATA[<ParamMapping>
 	<ParamMappingName></ParamMappingName>
-	<ParamMappingType></ParamMappingType>
 </ParamMapping>]]></work_step_param_mapping_xml>
 		<CreatedBy>SYSTEM</CreatedBy>
 		<LastUpdatedBy>SYSTEM</LastUpdatedBy>
@@ -287,7 +357,7 @@
 	<workstep>
 		<Id>1104</Id>
 		<WorkId>240</WorkId>
-		<WorkStepId>7</WorkStepId>
+		<WorkStepId>8</WorkStepId>
 		<WorkSubId>0</WorkSubId>
 		<WorkStepName>end</WorkStepName>
 		<WorkStepDesc>end节点</WorkStepDesc>
@@ -302,7 +372,6 @@
 		<foreachRefer></foreachRefer>
 		<pureText>false</pureText>
 		<paramValue>$Error.errorMsg;&#xA;</paramValue>
-		<paramType></paramType>
 	</paramInputSchemaItem>
 </paramInputSchema>]]></work_step_input_xml>
 		<WorkStepOutput>{&#xA;&#x9;&#34;ParamOutputSchemaItems&#34;: [&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;&#34;ParentPath&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamName&#34;: &#34;errorMsg&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamValue&#34;: &#34;&#34;&#xA;&#x9;&#x9;}&#xA;&#x9;]&#xA;}</WorkStepOutput>
@@ -317,7 +386,6 @@
 		<WorkStepParamMapping>[{&#34;paramMappingName&#34;:&#34;errorMsg&#34;,&#34;paramMappingType&#34;:&#34;default&#34;}]</WorkStepParamMapping>
 		<work_step_param_mapping_xml><![CDATA[<ParamMapping>
 	<ParamMappingName></ParamMappingName>
-	<ParamMappingType></ParamMappingType>
 </ParamMapping>]]></work_step_param_mapping_xml>
 		<CreatedBy>SYSTEM</CreatedBy>
 		<LastUpdatedBy>SYSTEM</LastUpdatedBy>
