@@ -27,11 +27,14 @@ export const BlogList = (offset,current_page) => ajax(BASE_URL+'/blog/blogList',
 export const ShowBlogDetail = (blog_id) => ajax(BASE_URL+'/blog/showBlogDetail',{blog_id},'GET');
 
 // 新建课程
+// export const NewCourse = (course_name,course_type,course_sub_type,course_short_desc) =>
+//   ajax(BASE_URL+'/ilearning/newCourse',{course_name,course_type,course_sub_type,course_short_desc},'GET');
 export const NewCourse = (course_name,course_type,course_sub_type,course_short_desc) =>
-  ajax(BASE_URL+'/ilearning/newCourse',{course_name,course_type,course_sub_type,course_short_desc},'GET');
+  ajax(BASE_URL_2+"/iwork/httpservice/NewCourse2",{course_name,course_type,course_sub_type,course_short_desc},'GET');
 
 // 分页查询我的课程清单
-export const GetMyCourseList = (userName) => ajax(BASE_URL+'/ilearning/getMyCourseList',{userName},'GET');
+// export const GetMyCourseList = (userName) => ajax(BASE_URL+'/ilearning/getMyCourseList',{userName},'GET');
+export const GetMyCourseList = (userName) => ajax(BASE_URL_2+"/iwork/httpservice/GetMyCourseList2",{userName},'GET');
 
 // 完结视频更新
 export const EndUpdate = (course_id) => ajax(BASE_URL+'/ilearning/endUpdate',{course_id},'GET');
