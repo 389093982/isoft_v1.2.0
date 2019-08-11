@@ -61,53 +61,9 @@
 		<LastUpdatedBy>SYSTEM</LastUpdatedBy>
 	</workstep>
 	<workstep>
-		<Id>1080</Id>
-		<WorkId>236</WorkId>
-		<WorkStepId>2</WorkStepId>
-		<WorkSubId>0</WorkSubId>
-		<WorkStepName>http_request_parser_1565497488</WorkStepName>
-		<WorkStepDesc></WorkStepDesc>
-		<WorkStepType>http_request_parser</WorkStepType>
-		<WorkStepIndent>0</WorkStepIndent>
-		<WorkStepInput></WorkStepInput>
-		<work_step_input_xml><![CDATA[<paramInputSchema></paramInputSchema>]]></work_step_input_xml>
-		<WorkStepOutput></WorkStepOutput>
-		<work_step_output_xml><![CDATA[<paramOutputSchema></paramOutputSchema>]]></work_step_output_xml>
-		<IsDefer>false</IsDefer>
-		<WorkStepParamMapping></WorkStepParamMapping>
-		<work_step_param_mapping_xml><![CDATA[<ParamMapping>
-	<ParamMappingName></ParamMappingName>
-	<ParamMappingType></ParamMappingType>
-</ParamMapping>]]></work_step_param_mapping_xml>
-		<CreatedBy>SYSTEM</CreatedBy>
-		<LastUpdatedBy>SYSTEM</LastUpdatedBy>
-	</workstep>
-	<workstep>
-		<Id>1081</Id>
-		<WorkId>236</WorkId>
-		<WorkStepId>3</WorkStepId>
-		<WorkSubId>0</WorkSubId>
-		<WorkStepName>file_sync_1565497494</WorkStepName>
-		<WorkStepDesc></WorkStepDesc>
-		<WorkStepType>file_sync</WorkStepType>
-		<WorkStepIndent>0</WorkStepIndent>
-		<WorkStepInput></WorkStepInput>
-		<work_step_input_xml><![CDATA[<paramInputSchema></paramInputSchema>]]></work_step_input_xml>
-		<WorkStepOutput></WorkStepOutput>
-		<work_step_output_xml><![CDATA[<paramOutputSchema></paramOutputSchema>]]></work_step_output_xml>
-		<IsDefer>false</IsDefer>
-		<WorkStepParamMapping></WorkStepParamMapping>
-		<work_step_param_mapping_xml><![CDATA[<ParamMapping>
-	<ParamMappingName></ParamMappingName>
-	<ParamMappingType></ParamMappingType>
-</ParamMapping>]]></work_step_param_mapping_xml>
-		<CreatedBy>SYSTEM</CreatedBy>
-		<LastUpdatedBy>SYSTEM</LastUpdatedBy>
-	</workstep>
-	<workstep>
 		<Id>1082</Id>
 		<WorkId>236</WorkId>
-		<WorkStepId>4</WorkStepId>
+		<WorkStepId>2</WorkStepId>
 		<WorkSubId>0</WorkSubId>
 		<WorkStepName>work_sub_BlogList2_1565497508</WorkStepName>
 		<WorkStepDesc></WorkStepDesc>
@@ -129,7 +85,7 @@
 	<workstep>
 		<Id>1077</Id>
 		<WorkId>236</WorkId>
-		<WorkStepId>5</WorkStepId>
+		<WorkStepId>3</WorkStepId>
 		<WorkSubId>0</WorkSubId>
 		<WorkStepName>end</WorkStepName>
 		<WorkStepDesc>end节点</WorkStepDesc>

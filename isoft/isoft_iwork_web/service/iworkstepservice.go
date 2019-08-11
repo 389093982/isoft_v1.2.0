@@ -10,6 +10,7 @@ import (
 	"isoft/isoft_iwork_web/core/iworkdata/block"
 	"isoft/isoft_iwork_web/core/iworkmodels"
 	"isoft/isoft_iwork_web/core/iworkplugin/node"
+	"isoft/isoft_iwork_web/core/iworkplugin/node/framework"
 	"isoft/isoft_iwork_web/core/iworkutil/datatypeutil"
 	"isoft/isoft_iwork_web/core/iworkvalid"
 	"isoft/isoft_iwork_web/models"
@@ -221,10 +222,9 @@ func AddWorkStepService(serviceArgs map[string]interface{}) error {
 		}
 	}
 
-	var step models.WorkStep
 	if strings.HasPrefix(work_step_meta, "work_type__") {
 		work_step_type := strings.TrimPrefix(work_step_meta, "work_type__")
-		step = models.WorkStep{
+		step := models.WorkStep{
 			WorkId:          work_id,
 			WorkStepName:    work_step_type + "_" + fmt.Sprintf("%v", time.Now().Unix()),
 			WorkStepType:    work_step_type,
@@ -237,14 +237,16 @@ func AddWorkStepService(serviceArgs map[string]interface{}) error {
 			LastUpdatedBy:   "SYSTEM",
 			LastUpdatedTime: time.Now(),
 		}
+		return insertWorkStepAfter(work_id, work_step_id, &step, o)
 	} else if strings.HasPrefix(work_step_meta, "work_name__") {
 		subWorkName := strings.TrimPrefix(work_step_meta, "work_name__")
 		workStepName := strings.Join([]string{iworkconst.NODE_TYPE_WORK_SUB, subWorkName,
 			fmt.Sprintf("%v", time.Now().Unix())}, "_")
-		step = models.WorkStep{
+		step := models.WorkStep{
 			WorkId:          work_id,
 			WorkStepName:    workStepName,
 			WorkStepType:    iworkconst.NODE_TYPE_WORK_SUB,
+			WorkStepInput:   framework.PrepareEmptyInputForWorkSub(subWorkName).RenderToJson(),
 			WorkStepDesc:    "",
 			IsDefer:         "false", // 默认不延迟执行
 			WorkStepIndent:  0,       // 默认缩进级别为 0
@@ -254,9 +256,14 @@ func AddWorkStepService(serviceArgs map[string]interface{}) error {
 			LastUpdatedBy:   "SYSTEM",
 			LastUpdatedTime: time.Now(),
 		}
+		if err := insertWorkStepAfter(work_id, work_step_id, &step, o); err == nil {
+			// 动态构建输入输出
+			BuildDynamic(work_id, step.WorkStepId, step, o)
+		} else {
+			return err
+		}
 	}
-	return insertWorkStepAfter(work_id, work_step_id, &step, o)
-
+	return nil
 }
 
 // 更改邻近两个节点的顺序

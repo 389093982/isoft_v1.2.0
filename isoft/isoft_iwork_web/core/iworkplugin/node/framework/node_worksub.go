@@ -153,3 +153,14 @@ func (this *WorkSubNode) ValidateCustom() (checkResult []string) {
 	}
 	return
 }
+
+func PrepareEmptyInputForWorkSub(subWorkName string) *iworkmodels.ParamInputSchema {
+	return &iworkmodels.ParamInputSchema{
+		ParamInputSchemaItems: []iworkmodels.ParamInputSchemaItem{
+			iworkmodels.ParamInputSchemaItem{
+				ParamName:  iworkconst.STRING_PREFIX + "work_sub",
+				ParamValue: fmt.Sprintf("$WORK.%s;", subWorkName),
+			},
+		},
+	}
+}
