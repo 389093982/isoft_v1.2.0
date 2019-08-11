@@ -52,12 +52,16 @@ export const ToggleFavorite = (favorite_id, favorite_type) => ajax(BASE_URL_2+"/
 export const FilterCommentTheme = (comment_id, theme_type) => ajax(BASE_URL_2+'/iwork/httpservice/FilterCommentTheme2',{comment_id, theme_type},'GET');
 
 // 添加评论
+// export const AddCommentReply = (parent_id, reply_content, comment_id, theme_type, reply_comment_type, refer_user_name) =>
+//   ajax(BASE_URL+'/ilearning/addCommentReply',{parent_id, reply_content, comment_id, theme_type, reply_comment_type, refer_user_name},'GET');
 export const AddCommentReply = (parent_id, reply_content, comment_id, theme_type, reply_comment_type, refer_user_name) =>
-  ajax(BASE_URL+'/ilearning/addCommentReply',{parent_id, reply_content, comment_id, theme_type, reply_comment_type, refer_user_name},'GET');
+  ajax(BASE_URL_2+'/iwork/httpservice/AddCommentReply2',{parent_id, reply_content, comment_id, theme_type, reply_comment_type, refer_user_name},'GET');
 
 // 获取评论列表
+// export const FilterCommentReply = (comment_id, theme_type, parent_id, reply_comment_type) =>
+//   ajax(BASE_URL+'/ilearning/filterCommentReply',{comment_id, theme_type, parent_id, reply_comment_type},'GET');
 export const FilterCommentReply = (comment_id, theme_type, parent_id, reply_comment_type) =>
-  ajax(BASE_URL+'/ilearning/filterCommentReply',{comment_id, theme_type, parent_id, reply_comment_type},'GET');
+  ajax(BASE_URL_2+'/iwork/httpservice/FilterCommentReply2',{comment_id, theme_type, parent_id, reply_comment_type},'GET');
 
 // 获取所有课程类型
 // export const GetAllCourseType = () => ajax(BASE_URL+'/ilearning/getAllCourseType',{},'GET');
