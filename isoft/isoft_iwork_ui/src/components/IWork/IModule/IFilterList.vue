@@ -22,7 +22,7 @@
 </template>
 
 <script>
-  import {GetAllFilterWorks} from "../../../api"
+  import {GetAllFiltersAndWorks} from "../../../api"
   import {SaveFilters} from "../../../api"
   import {oneOf} from "../../../tools"
 
@@ -41,7 +41,7 @@
     },
     methods:{
       refreshFilterList:async function () {
-        const result = await GetAllFilterWorks();
+        const result = await GetAllFiltersAndWorks();
         if(result.status == "SUCCESS"){
           this.filterWorks = result.filterWorks;
           this.filters = result.filters;

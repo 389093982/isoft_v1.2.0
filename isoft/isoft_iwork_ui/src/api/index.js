@@ -129,5 +129,5 @@ export const DeleteTemplateById = (id) => ajax(BASE_URL+"/iwork/deleteTemplateBy
 export const ModuleList = (offset,current_page, search) => ajax(BASE_URL+"/iwork/moduleList", {offset,current_page, search},'POST');
 export const EditModule = (module_id, module_name, module_desc) => ajax(BASE_URL+"/iwork/editModule", {module_id, module_name, module_desc},'POST');
 export const DeleteModuleById = (id) => ajax(BASE_URL+"/iwork/deleteModuleById", {id},'POST');
-export const GetAllFilterWorks = () => ajax(BASE_URL+"/iwork/getAllFilterWorks", {},'POST');
+export const GetAllFiltersAndWorks = () => ajax(BASE_URL+"/iwork/getAllFiltersAndWorks", {},'POST');
 export const SaveFilters = (filter_id, work_names) => ajax(BASE_URL+"/iwork/saveFilters", {filter_id, work_names},'POST');

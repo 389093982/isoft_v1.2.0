@@ -4,10 +4,15 @@
           draggable="true" @dragstart="dragstart($event, default_work_step_type.name)">
      <Tag v-if="showComponent(default_work_step_type.name)">{{default_work_step_type.name}}</Tag>
     </span>
+
+    <span>
+      AAAAAAAAAAAAAAAAAAAAAA
+    </span>
   </Drawer>
 </template>
 
 <script>
+  import {GetAllWorks} from "../../../api"
   import {oneOf} from "../../../tools"
 
   export default {
@@ -27,7 +32,13 @@
       },
       toggleShow:function () {
         this.showComponentDrawer = !this.showComponentDrawer;
+      },
+      refreshAllWorks:function () {
+
       }
+    },
+    mounted(){
+      this.refreshAllWorks();
     }
   }
 </script>

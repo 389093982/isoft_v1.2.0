@@ -213,20 +213,17 @@ func (this *WorkController) Download() {
 	this.Ctx.Output.Download(tofile, fmt.Sprintf(`%s.txt`, workCache.Work.WorkName))
 }
 
-func (this *WorkController) GetAllFilterWorks() {
-	if filterWorks, err := models.GetAllFilterWorks(); err == nil {
-		modules, _ := models.QueryAllModules()
-		works, _ := models.QueryAllWorks()
-		filters, _ := models.QueryAllFilters()
-		this.Data["json"] = &map[string]interface{}{
-			"status":      "SUCCESS",
-			"filterWorks": filterWorks,
-			"filters":     filters,
-			"modules":     modules,
-			"works":       works,
-		}
-	} else {
-		this.Data["json"] = &map[string]interface{}{"status": "ERROR", "errorMsg": err.Error()}
+func (this *WorkController) GetAllFiltersAndWorks() {
+	filterWorks, _ := models.GetAllFilterWorks()
+	modules, _ := models.QueryAllModules()
+	works, _ := models.QueryAllWorks()
+	filters, _ := models.QueryAllFilters()
+	this.Data["json"] = &map[string]interface{}{
+		"status":      "SUCCESS",
+		"filterWorks": filterWorks,
+		"filters":     filters,
+		"modules":     modules,
+		"works":       works,
 	}
 	this.ServeJSON()
 }
