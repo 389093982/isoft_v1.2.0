@@ -16,7 +16,6 @@ import CourseSearch from "../components/ILearning/Course/CourseSearch"
 import ShareAdd from "../components/Share/ShareAdd"
 import ShareList from "../components/Share/ShareList"
 import ShareDetail from "../components/Share/ShareDetail"
-import HeartBeat from "../components/Monitor/HeartBeat"
 import CommonLinkList from "../components/CMS/CommonLinkList"
 import ILayout from "../components/ILayout/ILayout"
 
@@ -45,14 +44,6 @@ const IBlogRouter = {
       path: 'blog_detail',
       component: BlogDetail
     },
-  ]
-};
-
-const MonitorRouter ={
-  path: '/monitor',
-  component: ILayout,
-  children: [
-    {path: 'filterPageHeartBeat',component: HeartBeat,},
   ]
 };
 
@@ -123,5 +114,5 @@ const CMSRouter = {
   ]
 };
 
-export const ILearningRouters = [IBlogRouter, IFileRouter, ILearningRouter, ShareListRouter, MonitorRouter, CMSRouter];
+export const ILearningRouters = [IBlogRouter, IFileRouter, ILearningRouter, ShareListRouter, CMSRouter];
 

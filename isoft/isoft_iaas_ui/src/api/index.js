@@ -113,12 +113,6 @@ export const AddNewShare = (share_type,share_desc,link_href,content) => ajax(BAS
 
 export const ShowCourseHistory = (offset,current_page) => ajax(BASE_URL+"/common/showCourseHistory", {offset,current_page},'GET');
 
-// 注册应用心跳检测项
-export const RegisterHeartBeat = (addr) => ajax(BASE_URL+"/monitor/registerHeartBeat", {addr},'GET');
-
-// 分页获取应用心跳检测项
-export const FilterPageHeartBeat = (offset,current_page) => ajax(BASE_URL+"/monitor/filterPageHeartBeat", {offset,current_page},'GET');
-
 // 分页获取 ifile 清单
 export const FilterPageIFiles = (search_name,offset,current_page) => ajax(BASE_URL+"/ifile/filterPageIFiles", {search_name,offset,current_page},'GET');
 

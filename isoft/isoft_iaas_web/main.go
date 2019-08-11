@@ -6,7 +6,6 @@ import (
 	_ "isoft/isoft_iaas_web/routers"
 	"isoft/isoft_iaas_web/startup/db"
 	"isoft/isoft_iaas_web/startup/logger"
-	"isoft/isoft_iaas_web/startup/task"
 )
 
 func init() {
@@ -17,6 +16,5 @@ func init() {
 
 func main() {
 	misso.RegisterISSOFilter()
-	task.RegisterCronTask()
 	beego.Run()
 }

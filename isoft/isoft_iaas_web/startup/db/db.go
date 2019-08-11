@@ -12,7 +12,6 @@ import (
 	"isoft/isoft_iaas_web/models/iblog"
 	"isoft/isoft_iaas_web/models/ifile"
 	"isoft/isoft_iaas_web/models/ilearning"
-	"isoft/isoft_iaas_web/models/monitor"
 	"isoft/isoft_iaas_web/models/share"
 	"isoft/isoft_iaas_web/models/sso"
 	"net/url"
@@ -70,8 +69,6 @@ func registerModel() {
 	orm.RegisterModel(new(cms.CommonLink))
 	orm.RegisterModel(new(share.Share))
 	orm.RegisterModel(new(common.History))
-	orm.RegisterModel(new(monitor.HeartBeat2))
-	orm.RegisterModel(new(monitor.HeartBeatDetail))
 
 	orm.RegisterModel(new(sso.User))
 	orm.RegisterModel(new(sso.AppRegister))

@@ -9,7 +9,6 @@ import (
 	"isoft/isoft_iaas_web/controllers/iblog"
 	"isoft/isoft_iaas_web/controllers/ifile"
 	"isoft/isoft_iaas_web/controllers/ilearning"
-	"isoft/isoft_iaas_web/controllers/monitor"
 	"isoft/isoft_iaas_web/controllers/share"
 	"isoft/isoft_iaas_web/controllers/sso"
 )
@@ -38,18 +37,12 @@ func loadIaasRouter() {
 	initCMSRouter()
 	initShareRouter()
 	initCommonRouter()
-	initMonitorRouter()
 	initIFileRouter()
 }
 
 func initIFileRouter() {
 	beego.Router("/api/ifile/fileUpload", &ifile.IFileController{}, "get,post:FileUpload")
 	beego.Router("/api/ifile/filterPageIFiles", &ifile.IFileController{}, "get,post:FilterPageIFiles")
-}
-
-func initMonitorRouter() {
-	beego.Router("/api/monitor/registerHeartBeat", &monitor.HeartBeatController{}, "get,post:RegisterHeartBeat")
-	beego.Router("/api/monitor/filterPageHeartBeat", &monitor.HeartBeatController{}, "get,post:FilterPageHeartBeat")
 }
 
 func initCommonRouter() {
@@ -79,8 +72,7 @@ func initCMSRouter() {
 	beego.Router("/api/cms/updateElementStatus", &cms.CMSController{}, "get,post:UpdateElementStatus")
 	beego.Router("/api/cms/fileUpload", &cms.CMSController{}, "get,post:FileUpload")
 	beego.Router("/api/cms/filterPlacement", &cms.CMSController{}, "get,post:FilterPlacement")
-	//beego.Router("/api/cms/addPlacement", &cms.CMSController{}, "get,post:AddPlacement")
-	beego.Router("/api/cms/addPlacement", &cms.CMSController{}, "get,post:AddPlacement2")
+	beego.Router("/api/cms/addPlacement", &cms.CMSController{}, "get,post:AddPlacement")
 	beego.Router("/api/cms/deletePlacementById", &cms.CMSController{}, "get,post:DeletePlacementById")
 }
 
