@@ -91,10 +91,6 @@ func (this *PisItemDataParser) ParseAndGetParamVaule(paramName, paramVaule strin
 		// 此处禁止使用 datatypeutil.InterfaceConvertToSlice(), 因为 parseValues 中的元素可以是个 interface{} 也可以是个 []interface{}
 		parseValues, objectMap[objectAttr.attrName] = append(parseValues, objectAttr.attrParseValue), objectAttr.attrParseValue
 	}
-	// 对象值, 将 []*AttrObjects 转换成 map[string]interface{}
-	if this.Item.ParamType == "objects" {
-		return objectMap
-	}
 	// 单值
 	if len(parseValues) == 1 {
 		return parseValues[0]
