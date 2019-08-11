@@ -11,7 +11,7 @@ func (this *WorkController) AddWorkStep() {
 	work_id, _ := this.GetInt64("work_id")
 	serviceArgs["work_id"] = work_id
 	serviceArgs["work_step_id"], _ = this.GetInt64("work_step_id")
-	serviceArgs["work_step_type"] = this.GetString("work_step_type") // 需要创建的节点类型
+	serviceArgs["work_step_meta"] = this.GetString("work_step_meta") // 需要创建的节点类型或者流程名称
 	if err := service.ExecuteWithTx(serviceArgs, service.AddWorkStepService); err == nil {
 		this.Data["json"] = &map[string]interface{}{"status": "SUCCESS"}
 	} else {

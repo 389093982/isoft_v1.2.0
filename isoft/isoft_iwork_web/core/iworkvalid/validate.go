@@ -4,12 +4,18 @@ import (
 	"fmt"
 	"isoft/isoft_iwork_web/core/interfaces"
 	"isoft/isoft_iwork_web/core/iworkmodels"
+	"isoft/isoft_iwork_web/core/iworkutil/errorutil"
 	"isoft/isoft_iwork_web/models"
 	"strings"
 )
 
 // 对必须参数进行非空校验
 func CheckEmpty(step *models.WorkStep, paramSchemaParser interfaces.IParamSchemaCacheParser) (checkResult []string) {
+	defer func() {
+		if err := recover(); err != nil {
+			checkResult = append(checkResult, errorutil.ToError(err).Error())
+		}
+	}()
 	if strings.TrimSpace(step.WorkStepName) == "" || strings.TrimSpace(step.WorkStepType) == "" {
 		checkResult = append(checkResult, fmt.Sprintf("Empty workStepName or empty workStepType was found!"))
 		return

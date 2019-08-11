@@ -212,7 +212,7 @@ func WorkStepListService(serviceArgs map[string]interface{}) (result map[string]
 func AddWorkStepService(serviceArgs map[string]interface{}) error {
 	work_id := serviceArgs["work_id"].(int64)
 	work_step_id := serviceArgs["work_step_id"].(int64)
-	work_step_type := serviceArgs["work_step_type"].(string)
+	work_step_meta := serviceArgs["work_step_meta"].(string)
 	o := serviceArgs["o"].(orm.Ormer)
 	// end 节点之后不能添加节点
 	if step, err := models.QueryWorkStepInfo(work_id, work_step_id, o); err == nil {
@@ -220,20 +220,43 @@ func AddWorkStepService(serviceArgs map[string]interface{}) error {
 			return errors.New("不能再 end 节点后面添加节点!")
 		}
 	}
-	step := models.WorkStep{
-		WorkId:          work_id,
-		WorkStepName:    work_step_type + "_" + fmt.Sprintf("%v", time.Now().Unix()),
-		WorkStepType:    work_step_type,
-		WorkStepDesc:    "",
-		IsDefer:         "false", // 默认不延迟执行
-		WorkStepIndent:  0,       // 默认缩进级别为 0
-		WorkStepId:      work_step_id + 1,
-		CreatedBy:       "SYSTEM",
-		CreatedTime:     time.Now(),
-		LastUpdatedBy:   "SYSTEM",
-		LastUpdatedTime: time.Now(),
+
+	var step models.WorkStep
+	if strings.HasPrefix(work_step_meta, "work_type__") {
+		work_step_type := strings.TrimPrefix(work_step_meta, "work_type__")
+		step = models.WorkStep{
+			WorkId:          work_id,
+			WorkStepName:    work_step_type + "_" + fmt.Sprintf("%v", time.Now().Unix()),
+			WorkStepType:    work_step_type,
+			WorkStepDesc:    "",
+			IsDefer:         "false", // 默认不延迟执行
+			WorkStepIndent:  0,       // 默认缩进级别为 0
+			WorkStepId:      work_step_id + 1,
+			CreatedBy:       "SYSTEM",
+			CreatedTime:     time.Now(),
+			LastUpdatedBy:   "SYSTEM",
+			LastUpdatedTime: time.Now(),
+		}
+	} else if strings.HasPrefix(work_step_meta, "work_name__") {
+		subWorkName := strings.TrimPrefix(work_step_meta, "work_name__")
+		workStepName := strings.Join([]string{iworkconst.NODE_TYPE_WORK_SUB, subWorkName,
+			fmt.Sprintf("%v", time.Now().Unix())}, "_")
+		step = models.WorkStep{
+			WorkId:          work_id,
+			WorkStepName:    workStepName,
+			WorkStepType:    iworkconst.NODE_TYPE_WORK_SUB,
+			WorkStepDesc:    "",
+			IsDefer:         "false", // 默认不延迟执行
+			WorkStepIndent:  0,       // 默认缩进级别为 0
+			WorkStepId:      work_step_id + 1,
+			CreatedBy:       "SYSTEM",
+			CreatedTime:     time.Now(),
+			LastUpdatedBy:   "SYSTEM",
+			LastUpdatedTime: time.Now(),
+		}
 	}
 	return insertWorkStepAfter(work_id, work_step_id, &step, o)
+
 }
 
 // 更改邻近两个节点的顺序

@@ -42,7 +42,7 @@ export const DeleteWorkById = (id) => ajax(BASE_URL+"/iwork/deleteWorkById", {id
 export const WorkStepList = (work_id) => ajax(BASE_URL+"/iwork/workStepList", {work_id},'POST');
 
 // 添加 workstep 记录
-export const AddWorkStep = (work_id, work_step_id, work_step_type) => ajax(BASE_URL+"/iwork/addWorkStep", {work_id, work_step_id, work_step_type},'POST');
+export const AddWorkStep = (work_id, work_step_id, work_step_meta) => ajax(BASE_URL+"/iwork/addWorkStep", {work_id, work_step_id, work_step_meta},'POST');
 
 // 运行 work
 export const RunWork = (work_id) => ajax(BASE_URL+"/iwork/runWork", {work_id},'POST');

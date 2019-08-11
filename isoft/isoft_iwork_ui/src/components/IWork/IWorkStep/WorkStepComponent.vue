@@ -3,13 +3,14 @@
     <Tabs value="name1">
       <TabPane label="组件" name="name1">
         <span v-for="default_work_step_type in default_work_step_types"
-                draggable="true" @dragstart="dragstart($event, default_work_step_type.name)">
+                draggable="true" @dragstart="dragstart($event, 'work_type__' + default_work_step_type.name)">
          <Tag v-if="showComponent(default_work_step_type.name)">{{default_work_step_type.name}}</Tag>
         </span>
       </TabPane>
 
       <TabPane label="流程" name="name2">
-        <div v-for="work in works">
+        <div v-for="work in works"
+                draggable="true" @dragstart="dragstart($event, 'work_name__' + work.work_name)">
           <Tag>{{ work.module_name }} ~~~ {{ work.work_name }}</Tag>
         </div>
       </TabPane>

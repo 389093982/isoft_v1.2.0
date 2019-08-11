@@ -164,8 +164,8 @@
                       // 取消冒泡
                       event.stopPropagation();
                       event.preventDefault();
-                      var work_step_type = event.dataTransfer.getData("Text");
-                      this.addWorkStep(params.row.work_step_id, work_step_type);
+                      var work_step_meta = event.dataTransfer.getData("Text");
+                      this.addWorkStep(params.row.work_step_id, work_step_meta);
                     },
                     dragover: () => this.allowDrop(),
                   }
@@ -384,8 +384,8 @@
           this.$Message.error(result.errorMsg);
         }
       },
-      addWorkStep:async function (work_step_id, work_step_type) {
-        const result = await AddWorkStep(this.$route.query.work_id, work_step_id, work_step_type);
+      addWorkStep:async function (work_step_id, work_step_meta) {
+        const result = await AddWorkStep(this.$route.query.work_id, work_step_id, work_step_meta);
         if(result.status == "SUCCESS"){
           this.refreshWorkStepList();
           this.$Message.success('添加成功!');
