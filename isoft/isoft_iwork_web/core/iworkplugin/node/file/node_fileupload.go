@@ -38,6 +38,7 @@ type DoResponseReceiveFileNode struct {
 func (this *DoResponseReceiveFileNode) Execute(trackingId string) {
 	this.TmpDataMap["fileName"] = this.TmpDataMap["fileName"]
 	this.TmpDataMap["fileServerPath"] = this.TmpDataMap["fileServerPath"]
+	this.TmpDataMap["errorMsg"] = this.TmpDataMap["errorMsg?"]
 	this.DataStore.CacheDatas(iworkconst.DO_RESPONSE_RECEIVE_FILE, map[string]interface{}{iworkconst.DO_RESPONSE_RECEIVE_FILE: this.TmpDataMap})
 }
 
@@ -45,6 +46,7 @@ func (this *DoResponseReceiveFileNode) GetDefaultParamInputSchema() *iworkmodels
 	paramMap := map[int][]string{
 		1: {"fileName", "最终的上传文件名称"},
 		2: {"fileServerPath", "最终的服务器地址"},
+		3: {"errorMsg?", "异常信息"},
 	}
 	return this.BuildParamInputSchemaWithDefaultMap(paramMap)
 }

@@ -23,6 +23,7 @@ func (this *WorkController) FileUpload() {
 	}()
 	var (
 		workCache *iworkcache.WorkCache
+		errorMsg  string
 		err       error
 	)
 	work_name := this.Ctx.Input.Param(":work_name")
@@ -46,10 +47,13 @@ func (this *WorkController) FileUpload() {
 		this.Ctx.ResponseWriter.Header().Add(iworkconst.TRACKING_ID, trackingId)
 		if receiver != nil {
 			tempDataMap := receiver.TmpDataMap
+			if errorMsg, ok := tempDataMap["errorMsg"]; ok && errorMsg != nil && errorMsg.(string) != "" {
+				panic(errors.New(errorMsg.(string)))
+			}
 			if data, ok := tempDataMap[iworkconst.DO_RESPONSE_RECEIVE_FILE]; ok {
 				tmpDataMap := data.(map[string]interface{})
-				tempFileName = tmpDataMap["fileName"].(string)             // 将临时文件的数据刷新成正式数据
-				tempFileServerPath = tmpDataMap["fileServerPath"].(string) // 将临时文件的数据刷新成正式数据
+				tempFileName = tmpDataMap["fileName"].(string) // 将临时文件的数据刷新成正式数据
+				tempFileServerPath = tmpDataMap["fileServerPath"].(string)
 			}
 		}
 	}
@@ -57,6 +61,7 @@ func (this *WorkController) FileUpload() {
 		"status":         "SUCCESS",
 		"filename":       tempFileName,
 		"fileServerPath": tempFileServerPath,
+		"errorMsg":       errorMsg,
 	}
 	this.ServeJSON()
 }
