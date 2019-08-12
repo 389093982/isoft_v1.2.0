@@ -70,6 +70,7 @@
         // 搜索条件
         search:"",
         works: [],
+        runLogRecordCount:{},
         current_work_type: "work",
         current_module_name: "",
         columns1: [
@@ -93,6 +94,21 @@
             title: 'module_name',
             key: 'module_name',
             width: 120,
+          },
+          {
+            title: 'error/total',
+            key: 'error/total',
+            width: 100,
+            render: (h, params) => {
+              return h('div', [
+                h('span', {
+                  style:{
+                    color: 'red',
+                  }
+                }, this.getErrorOrTotalCount(this.works[params.index].id, 'error')),
+                h('span', this.getErrorOrTotalCount(this.works[params.index].id, 'total')),
+              ]);
+            }
           },
           {
             title: '操作',
@@ -203,6 +219,7 @@
         if(result.status=="SUCCESS"){
           this.works = result.works;
           this.total = result.paginator.totalcount;
+          this.runLogRecordCount = result.runLogRecordCount;
         }
       },
       handleChange(page){
@@ -261,6 +278,12 @@
       },
       chooseModule:function (module) {
         this.current_module_name = module.module_name;
+      },
+      getErrorOrTotalCount:function (workId, flag) {
+        var key = Object.keys(this.runLogRecordCount).filter(function (key) {
+          return key == workId;
+        })[0];
+        return flag == "error" ? this.runLogRecordCount[key].errorCount : "/" + this.runLogRecordCount[key].allCount;
       }
     },
     mounted: function () {
