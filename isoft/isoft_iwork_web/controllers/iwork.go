@@ -15,6 +15,7 @@ import (
 	"isoft/isoft_iwork_web/service"
 	"path"
 	"strconv"
+	"sync"
 	"time"
 )
 
@@ -137,9 +138,10 @@ func (this *WorkController) FilterPageWork() {
 	serviceArgs := map[string]interface{}{"condArr": condArr, "offset": offset, "current_page": current_page, "ctx": this.Ctx}
 	if result, err := service.ExecuteResultServiceWithTx(serviceArgs, service.FilterPageWorkService); err == nil {
 		this.Data["json"] = &map[string]interface{}{
-			"status":    "SUCCESS",
-			"works":     result["works"],
-			"paginator": result["paginator"],
+			"status":            "SUCCESS",
+			"works":             result["works"],
+			"paginator":         result["paginator"],
+			"runLogRecordCount": GetRunLogRecordCount(result["works"].([]models.Work)),
 		}
 	} else {
 		this.Data["json"] = &map[string]interface{}{"status": "ERROR", "errorMsg": err.Error()}
@@ -240,4 +242,20 @@ func (this *WorkController) GetMetaInfo() {
 	}
 	this.Data["json"] = &resultMap
 	this.ServeJSON()
+}
+
+func GetRunLogRecordCount(works []models.Work) interface{} {
+	m := make(map[int64]map[string]int64)
+	var wg sync.WaitGroup
+	wg.Add(len(works))
+	for _, work := range works {
+		go func(work models.Work) {
+			errorCount, _ := models.QueryRunLogRecordCount(work.Id, "ERROR")
+			allCount, _ := models.QueryRunLogRecordCount(work.Id, "")
+			m[work.Id] = map[string]int64{"errorCount": errorCount, "allCount": allCount}
+			wg.Done()
+		}(work)
+	}
+	wg.Wait()
+	return m
 }

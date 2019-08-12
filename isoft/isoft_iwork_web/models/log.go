@@ -54,6 +54,15 @@ func QueryRunLogRecordWithTracking(tracking_id string) (runLogRecord RunLogRecor
 	return
 }
 
+func QueryRunLogRecordCount(workId int64, log_level string) (count int64, err error) {
+	qs := orm.NewOrm().QueryTable("run_log_record").Filter("work_id", workId)
+	if log_level != "" {
+		qs = qs.Filter("log_level", log_level)
+	}
+	count, err = qs.Count()
+	return
+}
+
 func QueryRunLogRecord(work_id int64, page int, offset int) (runLogRecords []RunLogRecord, counts int64, err error) {
 	o := orm.NewOrm()
 	qs := o.QueryTable("run_log_record")
