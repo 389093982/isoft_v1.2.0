@@ -9,6 +9,7 @@ import (
 	"isoft/isoft_iwork_web/core/iworkcache"
 	"isoft/isoft_iwork_web/core/iworkconst"
 	"isoft/isoft_iwork_web/core/iworkfunc"
+	"isoft/isoft_iwork_web/core/iworkplugin/node/regist"
 	"isoft/isoft_iwork_web/core/iworkutil/fileutil"
 	"isoft/isoft_iwork_web/models"
 	"isoft/isoft_iwork_web/service"
@@ -229,10 +230,14 @@ func (this *WorkController) GetAllFiltersAndWorks() {
 	this.ServeJSON()
 }
 
-func (this *WorkController) GetFuncCallers() {
-	this.Data["json"] = &map[string]interface{}{
-		"status":      "SUCCESS",
-		"funcCallers": (&iworkfunc.IWorkFuncProxy{}).GetFuncCallers(),
+func (this *WorkController) GetMetaInfo() {
+	meta := this.GetString("meta")
+	resultMap := map[string]interface{}{"status": "SUCCESS"}
+	if meta == "funcCallers" {
+		resultMap["funcCallers"] = (&iworkfunc.IWorkFuncProxy{}).GetFuncCallers()
+	} else if meta == "nodeMetas" {
+		resultMap["nodeMetas"] = regist.GetNodeMeta()
 	}
+	this.Data["json"] = &resultMap
 	this.ServeJSON()
 }

@@ -16,7 +16,7 @@
 </template>
 
 <script>
-  import {GetFuncCallers} from "../../../../api"
+  import {GetMetaInfo} from "../../../../api"
   import {joinArray} from "../../../../tools"
 
   export default {
@@ -175,7 +175,7 @@
         return treeArr;
       },
       refreshFuncCallers:async function () {
-        const result = await GetFuncCallers();
+        const result = await GetMetaInfo("funcCallers");
         if(result.status == "SUCCESS"){
           this.funcs = result.funcCallers;
         }

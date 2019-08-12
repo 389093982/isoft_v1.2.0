@@ -136,4 +136,4 @@ export const GetAllFiltersAndWorks = () => ajax(BASE_URL+"/iwork/getAllFiltersAn
 
 export const SaveFilters = (filter_id, work_names) => ajax(BASE_URL+"/iwork/saveFilters", {filter_id, work_names},'POST');
 
-export const GetFuncCallers = () => ajax(BASE_URL+"/iwork/getFuncCallers", {},'POST');
+export const GetMetaInfo = (meta) => ajax(BASE_URL+"/iwork/getMetaInfo", {meta},'POST');
