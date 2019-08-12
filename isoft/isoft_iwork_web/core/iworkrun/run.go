@@ -14,7 +14,7 @@ import (
 
 // dispatcher 为父流程遗传下来的参数
 func RunOneWork(work_id int64, dispatcher *entry.Dispatcher) (trackingId string, receiver *entry.Receiver) {
-	logwriter := new(iworklog.CacheLoggerWriter)
+	logwriter := createNewLoggerWriter(dispatcher)
 	defer logwriter.Close()
 	workCache, err := iworkcache.GetWorkCache(work_id)
 	// 为当前流程创建新的 trackingId, 前提条件 cacheContext.Work 一定存在
@@ -43,6 +43,17 @@ func RunOneWork(work_id int64, dispatcher *entry.Dispatcher) (trackingId string,
 	receiver = bsoRunner.Run()
 	logwriter.Write(trackingId, "", iworkconst.LOG_LEVEL_INFO, fmt.Sprintf("~~~~~~~~~~end execute work:%s~~~~~~~~~~", workCache.Work.WorkName))
 	return
+}
+
+func createNewLoggerWriter(dispatcher *entry.Dispatcher) *iworklog.CacheLoggerWriter {
+	var logwriter *iworklog.CacheLoggerWriter
+	// 调度者不为空时代表有父级流程
+	if dispatcher != nil && dispatcher.TmpDataMap != nil && dispatcher.TmpDataMap["logwriter"] != nil {
+		logwriter = dispatcher.TmpDataMap["logwriter"].(*iworklog.CacheLoggerWriter)
+	} else {
+		logwriter = new(iworklog.CacheLoggerWriter)
+	}
+	return logwriter
 }
 
 // 执行单个 BlockStep
