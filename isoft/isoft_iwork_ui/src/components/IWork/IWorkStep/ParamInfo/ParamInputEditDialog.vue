@@ -39,7 +39,6 @@
       <Col span="15">
         <div class="operate_link">
           <TemplateChooser ref="templateModal" @chooseTemplate="chooseTemplate"/>
-          <QuickFuncList ref="quickFuncList"/>
           <ul style="text-align: right;">
             <li>
               <span style="color: #657180;font-size: 14px;">(参数索引-{{paramIndex}}<span v-if="inputLabel.indexOf('?')>0">可选参数</span>) - {{inputLabel}}</span>
@@ -49,9 +48,6 @@
             </li>
             <li>
               <Button type="info" size="small" @click="parseToMultiValue()">多值预览</Button>
-            </li>
-            <li>
-              <Button type="success" size="small" @click="showQuickFunc()">快捷函数</Button>
             </li>
             <li>
               <router-link :to="{ path: '/iwork/quickSql' }" tag="a" target="_blank">
@@ -103,7 +99,6 @@
 <script>
   import {LoadPreNodeOutput} from "../../../../api"
   import ISimpleBtnTriggerModal from "../../../Common/modal/ISimpleBtnTriggerModal"
-  import QuickFuncList from "../../IQuickFunc/QuickFuncList"
   import {ParseToMultiValue} from "../../../../api"
   import TemplateChooser from "./TemplateChooser"
   import {getMatchArrForString} from "../../../../tools"
@@ -112,7 +107,7 @@
 
   export default {
     name: "ParamInputEditDialog",
-    components:{ISimpleBtnTriggerModal,QuickFuncList,TemplateChooser,ParamInputEditDataSource},
+    components:{ISimpleBtnTriggerModal,TemplateChooser,ParamInputEditDataSource},
     props:{
       paramInputSchemaItems:{
         type: Array,
@@ -214,9 +209,6 @@
       },
       closeModal: function(){
         this.showFormModal = false;
-      },
-      showQuickFunc: function(){
-        this.$refs.quickFuncList.showModal();
       },
       clearDirty: function (){
         this.oldInputTextData = this.inputTextData;

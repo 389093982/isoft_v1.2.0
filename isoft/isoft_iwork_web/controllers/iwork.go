@@ -8,6 +8,7 @@ import (
 	"isoft/isoft/common/stringutil"
 	"isoft/isoft_iwork_web/core/iworkcache"
 	"isoft/isoft_iwork_web/core/iworkconst"
+	"isoft/isoft_iwork_web/core/iworkfunc"
 	"isoft/isoft_iwork_web/core/iworkutil/fileutil"
 	"isoft/isoft_iwork_web/models"
 	"isoft/isoft_iwork_web/service"
@@ -224,6 +225,14 @@ func (this *WorkController) GetAllFiltersAndWorks() {
 		"filters":     filters,
 		"modules":     modules,
 		"works":       works,
+	}
+	this.ServeJSON()
+}
+
+func (this *WorkController) GetFuncCallers() {
+	this.Data["json"] = &map[string]interface{}{
+		"status":      "SUCCESS",
+		"funcCallers": (&iworkfunc.IWorkFuncProxy{}).GetFuncCallers(),
 	}
 	this.ServeJSON()
 }

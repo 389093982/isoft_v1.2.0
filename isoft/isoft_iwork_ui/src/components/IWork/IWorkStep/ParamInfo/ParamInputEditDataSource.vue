@@ -16,6 +16,7 @@
 </template>
 
 <script>
+  import {GetFuncCallers} from "../../../../api"
   import {joinArray} from "../../../../tools"
 
   export default {
@@ -29,7 +30,7 @@
     data(){
       return {
         current_tab:'tab_output',
-        funcs:this.GLOBAL.quick_funcs,
+        funcs:[],
       }
     },
     methods:{
@@ -173,7 +174,16 @@
         }
         return treeArr;
       },
+      refreshFuncCallers:async function () {
+        const result = await GetFuncCallers();
+        if(result.status == "SUCCESS"){
+          this.funcs = result.funcCallers;
+        }
+      }
     },
+    mounted(){
+      this.refreshFuncCallers();
+    }
   }
 </script>
 
