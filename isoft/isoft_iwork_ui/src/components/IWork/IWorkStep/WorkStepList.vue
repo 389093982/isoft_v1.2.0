@@ -35,28 +35,18 @@
 </template>
 
 <script>
-  import {WorkStepList} from "../../../api/index"
-  import {DeleteWorkStepByWorkStepId} from "../../../api/index"
-  import {CopyWorkStepByWorkStepId} from "../../../api/index"
-  import {ChangeWorkStepOrder} from "../../../api/index"
-  import {RefactorWorkStepInfo} from "../../../api/index"
-  import {BatchChangeIndent} from "../../../api/index"
-  import {LoadValidateResult} from "../../../api/index"
-  import {AddWorkStep} from "../../../api/index"
-  import {RunWork} from "../../../api/index"
+  import {WorkStepList,GetMetaInfo,DeleteWorkStepByWorkStepId,CopyWorkStepByWorkStepId,ChangeWorkStepOrder,
+    RefactorWorkStepInfo,BatchChangeIndent,LoadValidateResult,AddWorkStep,RunWork,EditWorkStepBaseInfo} from "../../../api/index"
   import ParamInfo from "./ParamInfo/ParamInfo"
   import ISimpleLeftRightRow from "../../Common/layout/ISimpleLeftRightRow"
   import BaseInfo from "./BaseInfo/BaseInfo"
-  import {checkEmpty, oneOf} from "../../../tools/index"
+  import {checkEmpty, oneOf, startsWith, getRepeatStr} from "../../../tools/index"
   import WorkValidate from "../IValidate/WorkValidate"
   import ISimpleConfirmModal from "../../Common/modal/ISimpleConfirmModal"
-  import {getRepeatStr} from "../../../tools/index"
-  import {EditWorkStepBaseInfo} from "../../../api/index"
   import WorkStepEditBtns from "./WorkStepEditBtns"
   import WorkStepComponent from "./WorkStepComponent"
   import WorkDashboard from "./DashBoard/WorkDashboard"
   import WorkStepPoptip from "./WorkStepPoptip"
-  import {startsWith} from "../../../tools"
 
   export default {
     name: "WorkStepList",
@@ -67,7 +57,7 @@
         validateDetails:[],
         // 默认不显示组件
         refactor_worksub_name:'',
-        default_work_step_types: this.GLOBAL.default_work_step_types,
+        nodeMetas: [],
         worksteps: [],
         loading:false,
         showEditBtns:true,
@@ -394,8 +384,8 @@
         }
       },
       renderWorkStepTypeIcon:function (workStepType) {
-        for(var i=0; i<this.default_work_step_types.length; i++){
-          let default_work_step_type = this.default_work_step_types[i];
+        for(var i=0; i<this.nodeMetas.length; i++){
+          let default_work_step_type = this.nodeMetas[i];
           if(default_work_step_type.name == workStepType){
             return default_work_step_type.icon;
           }
@@ -471,9 +461,16 @@
         }
         return "";
       },
+      refreshNodeMetas:async function () {
+        const result = await GetMetaInfo("nodeMetas");
+        if(result.status == "SUCCESS"){
+          this.nodeMetas = result.nodeMetas;
+        }
+      }
     },
     mounted: function () {
       this.refreshWorkStepList();
+      this.refreshNodeMetas();
     },
     watch:{
       // 监听路由是否变化

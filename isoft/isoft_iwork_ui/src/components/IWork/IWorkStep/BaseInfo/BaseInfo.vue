@@ -37,7 +37,7 @@
                   <Poptip v-model="visible" placement="left" width="420">
                     <Button style="margin-left: 5px;">选择步骤类型</Button>
                     <div slot="content">
-                  <span v-for="default_work_step_type in default_work_step_types" style="margin: 5px;float: left;">
+                  <span v-for="default_work_step_type in nodeMetas" style="margin: 5px;float: left;">
                     <Tag><span @click="closePoptip(default_work_step_type.name)">{{default_work_step_type.name}}</span></Tag>
                   </span>
                     </div>
@@ -66,8 +66,7 @@
 </template>
 
 <script>
-  import {EditWorkStepBaseInfo} from "../../../../api/index"
-  import {LoadWorkStepInfo} from "../../../../api/index"
+  import {EditWorkStepBaseInfo,GetMetaInfo,LoadWorkStepInfo} from "../../../../api"
   import {validateCommonPatternForString} from "../../../../tools/index"
   import {oneOf} from "../../../../tools"
 
@@ -95,7 +94,7 @@
         spinShow:false,           // 加载中
         showFormModal:false,
         visible:false,
-        default_work_step_types: this.GLOBAL.default_work_step_types,
+        nodeMetas: [],
         formValidate: {
           work_id: -1,
           work_step_id: -1,
@@ -160,7 +159,16 @@
           }
         })
       },
+      refreshNodeMetas:async function () {
+        const result = await GetMetaInfo("nodeMetas");
+        if(result.status == "SUCCESS"){
+          this.nodeMetas = result.nodeMetas;
+        }
+      }
     },
+    mounted(){
+      this.refreshNodeMetas();
+    }
   }
 </script>
 

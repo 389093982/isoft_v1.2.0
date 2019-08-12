@@ -59,8 +59,7 @@
   import PreParamOutputTree from "./PreParamOutputTree"
   import ISimpleConfirmModal from "../../../Common/modal/ISimpleConfirmModal"
   import ParamMapping from "./ParamMapping"
-  import {EditWorkStepParamInfo} from "../../../../api/index"
-  import {LoadWorkStepInfo} from "../../../../api/index"
+  import {EditWorkStepParamInfo,LoadWorkStepInfo,GetMetaInfo} from "../../../../api"
   import {oneOf} from "../../../../tools/index"
 
   export default {
@@ -90,7 +89,7 @@
         showEdit:false,
         // 参数映射
         paramMappings:[],
-        default_work_step_types: this.GLOBAL.default_work_step_types,
+        nodeMetas: [],
         workStepParamInfo: {
           work_id: this.workId,
           work_step_id: 0,
@@ -160,7 +159,16 @@
         this.workStepParamInfo.work_step_id = work_step_id;
         this.loadWorkStepInfo();
       },
+      refreshNodeMetas:async function () {
+        const result = await GetMetaInfo("nodeMetas");
+        if(result.status == "SUCCESS"){
+          this.nodeMetas = result.nodeMetas;
+        }
+      }
     },
+    mounted(){
+      this.refreshNodeMetas();
+    }
   }
 </script>
 

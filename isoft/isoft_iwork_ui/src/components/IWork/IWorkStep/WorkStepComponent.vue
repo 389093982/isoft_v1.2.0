@@ -2,7 +2,7 @@
   <Drawer title="全部组件" placement="left" :closable="true" :mask="false" v-model="showComponentDrawer">
     <Tabs value="name1">
       <TabPane label="组件" name="name1">
-        <span v-for="default_work_step_type in default_work_step_types"
+        <span v-for="default_work_step_type in nodeMetas"
                 draggable="true" @dragstart="dragstart($event, 'work_type__' + default_work_step_type.name)">
          <Tag v-if="showComponent(default_work_step_type.name)">{{default_work_step_type.name}}</Tag>
         </span>
@@ -19,7 +19,7 @@
 </template>
 
 <script>
-  import {GetAllFiltersAndWorks} from "../../../api"
+  import {GetAllFiltersAndWorks, GetMetaInfo} from "../../../api"
   import {oneOf} from "../../../tools"
 
   export default {
@@ -27,7 +27,7 @@
     data(){
       return {
         showComponentDrawer:false,
-        default_work_step_types: this.GLOBAL.default_work_step_types,
+        nodeMetas: [],
         works:[],
       }
     },
@@ -46,10 +46,17 @@
         if(result.status == "SUCCESS"){
           this.works = result.works;
         }
+      },
+      refreshNodeMetas:async function () {
+        const result = await GetMetaInfo("nodeMetas");
+        if(result.status == "SUCCESS"){
+          this.nodeMetas = result.nodeMetas;
+        }
       }
     },
     mounted(){
       this.refreshAllWorks();
+      this.refreshNodeMetas();
     }
   }
 </script>
