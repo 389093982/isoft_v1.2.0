@@ -12,6 +12,12 @@
 
   export default {
     name: "RunLogList",
+    props:{
+      workId:{
+        type: Number,
+        default: -1,
+      }
+    },
     data(){
       return {
         // 当前页
@@ -72,7 +78,7 @@
     },
     methods:{
       refreshRunLogRecordList:async function () {
-        const result = await FilterPageLogRecord(this.$route.query.work_id,this.offset,this.current_page);
+        const result = await FilterPageLogRecord(this.getWorkId(),this.offset,this.current_page);
         if(result.status=="SUCCESS"){
           this.runLogRecords = result.runLogRecords;
           this.total = result.paginator.totalcount;
@@ -85,6 +91,9 @@
       handlePageSizeChange(pageSize){
         this.offset = pageSize;
         this.refreshRunLogRecordList();
+      },
+      getWorkId:function () {
+        return this.workId > 0 ? this.workId : this.$route.query.work_id;
       },
     },
     mounted: function () {

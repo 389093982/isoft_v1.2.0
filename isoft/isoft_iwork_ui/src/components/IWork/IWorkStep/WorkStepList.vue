@@ -24,7 +24,11 @@
 
     <Row>
       <Col span="12">
-        失败次数/总次数 &nbsp;&nbsp;<span style="color: red;">{{errorCount}}</span> {{allCount}}
+        <span @click="showRunLogDrawer = true">失败次数/总次数 &nbsp;&nbsp;<span style="color: red;">{{errorCount}}</span> {{allCount}}</span>
+        <Drawer title="运行日志" width="900" :closable="false" v-model="showRunLogDrawer">
+          <RunLogList :work-id="_work_id"/>
+        </Drawer>
+
       </Col>
       <Col span="12" style="text-align: right;margin-bottom: 10px;">
         显示操作<i-switch v-model="showEditBtns" size="small" style="margin-right: 5px"></i-switch>
@@ -40,8 +44,9 @@
 </template>
 
 <script>
-  import {WorkStepList,GetMetaInfo,DeleteWorkStepByWorkStepId,CopyWorkStepByWorkStepId,ChangeWorkStepOrder,
-    RefactorWorkStepInfo,BatchChangeIndent,LoadValidateResult,AddWorkStep,RunWork,EditWorkStepBaseInfo} from "../../../api/index"
+  import {WorkStepList,GetMetaInfo,DeleteWorkStepByWorkStepId,RunWork,
+    CopyWorkStepByWorkStepId,ChangeWorkStepOrder,RefactorWorkStepInfo,
+    BatchChangeIndent,LoadValidateResult,AddWorkStep,EditWorkStepBaseInfo} from "../../../api/index"
   import ParamInfo from "./ParamInfo/ParamInfo"
   import ISimpleLeftRightRow from "../../Common/layout/ISimpleLeftRightRow"
   import BaseInfo from "./BaseInfo/BaseInfo"
@@ -52,11 +57,12 @@
   import WorkStepComponent from "./WorkStepComponent"
   import WorkDashboard from "./DashBoard/WorkDashboard"
   import WorkStepPoptip from "./WorkStepPoptip"
+  import RunLogList from "../IRunLog/RunLogList"
 
   export default {
     name: "WorkStepList",
     components:{ParamInfo,ISimpleLeftRightRow,BaseInfo,WorkValidate,ISimpleConfirmModal,
-      WorkStepEditBtns,WorkStepComponent,WorkDashboard,WorkStepPoptip},
+      WorkStepEditBtns,WorkStepComponent,WorkDashboard,WorkStepPoptip,RunLogList},
     data(){
       return {
         validateDetails:[],
@@ -72,6 +78,7 @@
         showWorkDashboard:false,
         usedMap: null,
         runLogRecordCount:{},
+        showRunLogDrawer:false,
       }
     },
     computed:{
