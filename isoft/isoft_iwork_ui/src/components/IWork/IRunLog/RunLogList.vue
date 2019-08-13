@@ -32,6 +32,11 @@
             key: 'work_name',
           },
           {
+            title: 'log_level',
+            key: 'log_level',
+            width: 100,
+          },
+          {
             title: 'last_updated_time',
             key: 'last_updated_time',
             render: (h,params)=>{
