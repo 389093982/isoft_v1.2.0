@@ -63,12 +63,15 @@ func QueryRunLogRecordCount(workId int64, log_level string) (count int64, err er
 	return
 }
 
-func QueryRunLogRecord(work_id int64, page int, offset int) (runLogRecords []RunLogRecord, counts int64, err error) {
+func QueryRunLogRecord(work_id int64, logLevel string, page int, offset int) (runLogRecords []RunLogRecord, counts int64, err error) {
 	o := orm.NewOrm()
 	qs := o.QueryTable("run_log_record")
 	if work_id > 0 {
 		work, _ := QueryWorkById(work_id, o)
 		qs = qs.Filter("work_name", work.WorkName)
+	}
+	if logLevel != "" {
+		qs = qs.Filter("log_level", logLevel)
 	}
 	// Exclude 非顶级流程日志不查出来
 	qs = qs.Exclude("tracking_id__contains", ".").OrderBy("-last_updated_time")

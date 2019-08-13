@@ -53,8 +53,9 @@ func FilterPageLogRecord(serviceArgs map[string]interface{}) (result map[string]
 	work_id := serviceArgs["work_id"].(int64)
 	offset := serviceArgs["offset"].(int)
 	current_page := serviceArgs["current_page"].(int)
+	logLevel := serviceArgs["logLevel"].(string)
 	ctx := serviceArgs["ctx"].(*context.Context)
-	runLogRecords, count, err := models.QueryRunLogRecord(work_id, current_page, offset)
+	runLogRecords, count, err := models.QueryRunLogRecord(work_id, logLevel, current_page, offset)
 	if err != nil {
 		return nil, err
 	}

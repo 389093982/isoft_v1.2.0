@@ -1,5 +1,10 @@
 <template>
   <span>
+    <div style="margin-bottom: 10px;">
+      <Button type="primary" size="small" @click="loadLevel('ERROR')">Error</Button>
+      <Button type="success" size="small" @click="loadLevel('')">All</Button>
+    </div>
+
     <Table :columns="columns1" :data="runLogRecords" size="small"></Table>
     <Page :total="total" :page-size="offset" show-total show-sizer :styles="{'text-align': 'center','margin-top': '10px'}"
           @on-change="handleChange" @on-page-size-change="handlePageSizeChange"/>
@@ -27,6 +32,7 @@
         // 每页记录数
         offset:10,
         runLogRecords: [],
+        logLevel:'',
         columns1: [
           {
             title: 'tracking_id',
@@ -77,8 +83,12 @@
       }
     },
     methods:{
+      loadLevel:function(logLevel){
+        this.logLevel = logLevel;
+        this.refreshRunLogRecordList();
+      },
       refreshRunLogRecordList:async function () {
-        const result = await FilterPageLogRecord(this.getWorkId(),this.offset,this.current_page);
+        const result = await FilterPageLogRecord(this.getWorkId(),this.logLevel,this.offset,this.current_page);
         if(result.status=="SUCCESS"){
           this.runLogRecords = result.runLogRecords;
           this.total = result.paginator.totalcount;
