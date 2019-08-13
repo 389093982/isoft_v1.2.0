@@ -24,7 +24,9 @@
 
     <Row>
       <Col span="12">
-        <span @click="showRunLogDrawer = true">失败次数/总次数 &nbsp;&nbsp;<span style="color: red;">{{errorCount}}</span> {{allCount}}</span>
+        <span @click="showRunLogDrawer = true">
+          <Button type="default" size="small">失败次数/总次数 &nbsp;&nbsp;<span style="color: red;">{{errorCount}}</span> {{allCount}}</Button>
+        </span>
         <Drawer title="运行日志" width="900" :closable="false" v-model="showRunLogDrawer">
           <RunLogList :work-id="_work_id"/>
         </Drawer>
