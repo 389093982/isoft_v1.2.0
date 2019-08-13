@@ -3,6 +3,7 @@ package controllers
 import (
 	"isoft/isoft_iwork_web/core/iworkcache"
 	"isoft/isoft_iwork_web/core/iworkfunc"
+	"isoft/isoft_iwork_web/models"
 	"isoft/isoft_iwork_web/service"
 )
 
@@ -51,6 +52,7 @@ func (this *WorkController) WorkStepList() {
 	if result, err := service.ExecuteResultServiceWithTx(serviceArgs, service.WorkStepListService); err == nil {
 		jsonMap["status"] = "SUCCESS"
 		jsonMap["worksteps"] = result["worksteps"]
+		jsonMap["runLogRecordCount"] = GetRunLogRecordCount([]models.Work{{Id: work_id}})
 	} else {
 		jsonMap["status"] = "ERROR"
 		jsonMap["errorMsg"] = err.Error()

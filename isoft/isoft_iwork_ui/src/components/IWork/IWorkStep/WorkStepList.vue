@@ -22,12 +22,17 @@
     <BaseInfo ref="workStepBaseInfo" @reloadWorkStepBaseInfo="showWorkStepBaseInfo" @handleSuccess="refreshWorkStepList" :worksteps="worksteps"/>
     <ParamInfo ref="workStepParamInfo" @reloadWorkStepParamInfo="showWorkStepParamInfo" @handleSuccess="refreshWorkStepList" :worksteps="worksteps"/>
 
-    <div style="text-align: right;margin-bottom: 10px;">
-      显示操作<i-switch v-model="showEditBtns" size="small" style="margin-right: 5px"></i-switch>
-      显示复选框<i-switch v-model="showCheckbox" size="small" style="margin-right: 5px"></i-switch>
-      显示编号<i-switch v-model="showIndex" size="small" style="margin-right: 5px"></i-switch>
-      显示边框<i-switch v-model="showBorder" size="small" style="margin-right: 5px"></i-switch>
-    </div>
+    <Row>
+      <Col span="12">
+        失败次数/总次数 &nbsp;&nbsp;<span style="color: red;">{{errorCount}}</span> {{allCount}}
+      </Col>
+      <Col span="12" style="text-align: right;margin-bottom: 10px;">
+        显示操作<i-switch v-model="showEditBtns" size="small" style="margin-right: 5px"></i-switch>
+        显示复选框<i-switch v-model="showCheckbox" size="small" style="margin-right: 5px"></i-switch>
+        显示编号<i-switch v-model="showIndex" size="small" style="margin-right: 5px"></i-switch>
+        显示边框<i-switch v-model="showBorder" size="small" style="margin-right: 5px"></i-switch>
+      </Col>
+    </Row>
 
     <Table :loading="loading" :height="500" border :columns="columns1" ref="selection" :data="worksteps" size="small"
            :border="showBorder"></Table>
@@ -66,9 +71,16 @@
         showCheckbox: true,
         showWorkDashboard:false,
         usedMap: null,
+        runLogRecordCount:{},
       }
     },
     computed:{
+      errorCount:function () {
+        return this.getErrorOrTotalCount(this.$route.query.work_id, 'error');
+      },
+      allCount:function () {
+        return this.getErrorOrTotalCount(this.$route.query.work_id, 'total');
+      },
       _work_id:function () {
         return parseInt(this.$route.query.work_id);
       },
@@ -349,6 +361,7 @@
         if(result.status=="SUCCESS"){
           this.usedMap = result.usedMap;
           this.worksteps = result.worksteps;
+          this.runLogRecordCount = result.runLogRecordCount;
           this.refreshWorkValidateDetail();
         }
         this.loading = false;
@@ -466,6 +479,12 @@
         if(result.status == "SUCCESS"){
           this.nodeMetas = result.nodeMetas;
         }
+      },
+      getErrorOrTotalCount:function (workId, flag) {
+        var key = Object.keys(this.runLogRecordCount).filter(function (key) {
+          return key == workId;
+        })[0];
+        return flag == "error" ? this.runLogRecordCount[key].errorCount : "/" + this.runLogRecordCount[key].allCount;
       }
     },
     mounted: function () {
