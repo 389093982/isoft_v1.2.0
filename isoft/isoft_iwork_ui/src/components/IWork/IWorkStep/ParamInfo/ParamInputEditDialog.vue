@@ -137,10 +137,17 @@
     },
     methods:{
       showFixedData:function(data) {
-        this.$Notice.open({
-          title: '固定显示',
-          desc: data,
-          duration: 0
+        this.$Notice.success({
+          title: "固定显示",
+          duration: 0,  // 0 则不自动关闭
+          render: h => {
+            return h('div', {
+              style: 'word-break: break-all;',
+              domProps: {
+                innerHTML: data,
+              },
+            });
+          }
         });
       },
       handlePlaceholderDrop:function(event, index){
