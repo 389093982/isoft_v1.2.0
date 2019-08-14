@@ -4,7 +4,7 @@
 		<WorkName>FilterCommentReply2</WorkName>
 		<WorkDesc>FilterCommentReply2</WorkDesc>
 		<WorkType>work</WorkType>
-		<ModuleName></ModuleName>
+		<ModuleName>Comment</ModuleName>
 		<CreatedBy>SYSTEM</CreatedBy>
 		<LastUpdatedBy>SYSTEM</LastUpdatedBy>
 	</work>

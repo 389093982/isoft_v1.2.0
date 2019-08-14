@@ -4,7 +4,7 @@
 		<WorkName>AddCommentReply2</WorkName>
 		<WorkDesc>AddCommentReply2</WorkDesc>
 		<WorkType>work</WorkType>
-		<ModuleName></ModuleName>
+		<ModuleName>Comment</ModuleName>
 		<CreatedBy>SYSTEM</CreatedBy>
 		<LastUpdatedBy>SYSTEM</LastUpdatedBy>
 	</work>

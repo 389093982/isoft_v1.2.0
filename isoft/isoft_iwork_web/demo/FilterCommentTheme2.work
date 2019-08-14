@@ -4,7 +4,7 @@
 		<WorkName>FilterCommentTheme2</WorkName>
 		<WorkDesc>FilterCommentTheme2</WorkDesc>
 		<WorkType>work</WorkType>
-		<ModuleName></ModuleName>
+		<ModuleName>Comment</ModuleName>
 		<CreatedBy>SYSTEM</CreatedBy>
 		<LastUpdatedBy>SYSTEM</LastUpdatedBy>
 	</work>
