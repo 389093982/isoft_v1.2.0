@@ -137,6 +137,12 @@
         // 传递数据
         event.dataTransfer.setData("Text", data);
       },
+      refreshFuncCallers:async function () {
+        const result = await GetMetaInfo("funcCallers");
+        if(result.status == "SUCCESS"){
+          this.funcs = result.funcCallers;
+        }
+      }
     },
     computed:{
       data1:function () {
@@ -174,12 +180,6 @@
         }
         return treeArr;
       },
-      refreshFuncCallers:async function () {
-        const result = await GetMetaInfo("funcCallers");
-        if(result.status == "SUCCESS"){
-          this.funcs = result.funcCallers;
-        }
-      }
     },
     mounted(){
       this.refreshFuncCallers();

@@ -39,9 +39,12 @@
       <Col span="15">
         <div class="operate_link">
           <TemplateChooser ref="templateModal" @chooseTemplate="chooseTemplate"/>
-          <ul style="text-align: right;">
+          <ul>
             <li>
-              <span style="color: #657180;font-size: 14px;">(参数索引-{{paramIndex}}<span v-if="inputLabel.indexOf('?')>0">可选参数</span>) - {{inputLabel}}</span>
+              <span style="color: #657180;font-size: 14px;">
+                (参数索引-{{paramIndex}}<span v-if="inputLabel.indexOf('?')>0">可选参数</span>) - {{inputLabel}}
+                <Button type="success" size="small" @click="showFixedData(inputTextData)">固定显示</Button>
+              </span>
             </li>
             <li>
               <Checkbox v-model="pureText">纯文本值</Checkbox>
@@ -133,6 +136,13 @@
       }
     },
     methods:{
+      showFixedData:function(data) {
+        this.$Notice.open({
+          title: '固定显示',
+          desc: data,
+          duration: 0
+        });
+      },
       handlePlaceholderDrop:function(event, index){
         // 取消冒泡
         event.stopPropagation();

@@ -7,7 +7,7 @@ type Configuration struct {
 	ParentId           int64            `json:"parent_id"`                  // 父配置项 id,顶级配置为 0
 	ConfigurationName  string           `json:"configuration_name"`         // 配置项名称
 	ConfigurationValue string           `json:"configuration_value"`        // 配置项值
-	SubConfigurations  []*Configuration `json:"sub_configurations" orm:"-"` // 自配置项列表
+	SubConfigurations  []*Configuration `json:"sub_configurations" orm:"-"` // 子配置项列表
 	CreatedBy          string           `json:"created_by"`
 	CreatedTime        time.Time        `json:"created_time"`
 	LastUpdatedBy      string           `json:"last_updated_by"`
