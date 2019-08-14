@@ -38,6 +38,11 @@
       <ISimpleSearch slot="right" @handleSimpleSearch="handleSearch"/>
     </ISimpleLeftRightRow>
 
+    所有模块：
+    <span v-for="module in modules">
+      <Tag><a @click="filterModuleWork(module.module_name)">{{module.module_name}}</a></Tag>
+    </span>
+
     <Table border :columns="columns1" :data="works" size="small"></Table>
     <Page :total="total" :page-size="offset" show-total show-sizer :styles="{'text-align': 'center','margin-top': '10px'}"
           @on-change="handleChange" @on-page-size-change="handlePageSizeChange"/>
@@ -218,6 +223,10 @@
       closePoptip (module_name) {
         this.current_module_name=module_name;
         this.visible = false;
+      },
+      filterModuleWork:function(module_name){
+        this.search = module_name;
+        this.refreshWorkList();
       },
       refreshWorkList:async function () {
         const result = await WorkList(this.offset,this.current_page,this.search);
