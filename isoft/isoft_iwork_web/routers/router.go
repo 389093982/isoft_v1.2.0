@@ -15,6 +15,7 @@ func init() {
 		AllowCredentials: true,
 	}))
 
+	beego.Include(&controllers.WorkController{})
 	beego.Router("/", &controllers.MainController{})
 
 	// 通用代理路由
@@ -82,7 +83,6 @@ func loadloadIWorkerRouterDetail() {
 
 	beego.Router("/api/iwork/moduleList", &controllers.WorkController{}, "get,post:ModuleList")
 	beego.Router("/api/iwork/editModule", &controllers.WorkController{}, "get,post:EditModule")
-	beego.Router("/api/iwork/deleteModuleById", &controllers.WorkController{}, "get,post:DeleteModuleById")
 	beego.Router("/api/iwork/getAllFiltersAndWorks", &controllers.WorkController{}, "get,post:GetAllFiltersAndWorks")
 	beego.Router("/api/iwork/saveFilters", &controllers.WorkController{}, "get,post:SaveFilters")
 	beego.Router("/api/iwork/getMetaInfo", &controllers.WorkController{}, "get,post:GetMetaInfo")

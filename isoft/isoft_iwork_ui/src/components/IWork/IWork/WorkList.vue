@@ -4,9 +4,6 @@
       <Col span="3"><IWorkDL/></Col>
       <Col span="3"><WorkValidate/></Col>
     </Row>
-
-    <ModuleChooser ref="moduleChooser" @chooseModule="chooseModule"/>
-
     <ISimpleLeftRightRow style="margin-bottom: 10px;margin-right: 10px;">
       <!-- left 插槽部分 -->
       <span slot="left">
@@ -23,16 +20,21 @@
                 </Select>
               </FormItem>
               <FormItem label="module_name">
-                <Input v-model.trim="current_module_name" style="width: 83%;" readonly="readonly"/>
-                <Button type="success" size="small" @click="$refs.moduleChooser.showModal()">选择模块</Button>
+                <Input v-model.trim="current_module_name" style="width: 85%;" readonly="readonly"/>
+                <Poptip v-model="visible" placement="left-start" width="420">
+                    <a href="javascript:;">选择模块</a>
+                    <div slot="content">
+                      <span v-for="module in modules" style="margin: 5px;float: left;">
+                        <Tag><a @click="closePoptip(module.module_name)">{{module.module_name}}</a></Tag>
+                      </span>
+                    </div>
+                </Poptip>
               </FormItem>
             </span>
 
           </IKeyValueForm>
         </ISimpleConfirmModal>
       </span>
-
-      <!-- right 插槽部分 -->
       <ISimpleSearch slot="right" @handleSimpleSearch="handleSearch"/>
     </ISimpleLeftRightRow>
 
@@ -43,22 +45,18 @@
 </template>
 
 <script>
-  import {WorkList} from "../../../api/index"
-  import {DeleteWorkById} from "../../../api/index"
-  import {RunWork} from "../../../api/index"
+  import {WorkList,DeleteWorkById,RunWork,EditWork,GetAllModules} from "../../../api"
   import ISimpleLeftRightRow from "../../Common/layout/ISimpleLeftRightRow"
   import ISimpleSearch from "../../Common/search/ISimpleSearch"
   import IWorkDL from "../IWorkDL"
   import WorkValidate from "../IValidate/WorkValidate"
-  import {EditWork} from "../../../api"
   import ISimpleConfirmModal from "../../Common/modal/ISimpleConfirmModal"
   import IKeyValueForm from "../../Common/form/IKeyValueForm"
-  import {validateCommonPatternForString} from "../../../tools/index"
-  import ModuleChooser from "../IWork/ModuleChooser"
+  import {checkEmpty, validateCommonPatternForString} from "../../../tools/index"
 
   export default {
     name: "WorkList",
-    components:{ISimpleLeftRightRow,ISimpleSearch,IWorkDL,WorkValidate,ISimpleConfirmModal,IKeyValueForm,ModuleChooser},
+    components:{ISimpleLeftRightRow,ISimpleSearch,IWorkDL,WorkValidate,ISimpleConfirmModal,IKeyValueForm},
     data(){
       return {
         // 当前页
@@ -73,6 +71,9 @@
         runLogRecordCount:{},
         current_work_type: "work",
         current_module_name: "",
+        choose_module_name: "",
+        modules: [],
+        visible:false,
         columns1: [
           {
             title: 'work_name',
@@ -214,6 +215,10 @@
       }
     },
     methods:{
+      closePoptip (module_name) {
+        this.current_module_name=module_name;
+        this.visible = false;
+      },
       refreshWorkList:async function () {
         const result = await WorkList(this.offset,this.current_page,this.search);
         if(result.status=="SUCCESS"){
@@ -249,6 +254,10 @@
         this.$refs.workEditModal.showModal();
       },
       editWork:async function (work_id, work_name, work_desc) {
+        if(checkEmpty(this.current_module_name)){
+          this.$Message.error("请选择模块！");
+          return;
+        }
         const result = await EditWork(work_id, work_name, work_desc, this.current_work_type, this.current_module_name);
         if(result.status == "SUCCESS"){
           this.$refs.workEditModal.hideModal();
@@ -276,18 +285,22 @@
           callback();
         }
       },
-      chooseModule:function (module) {
-        this.current_module_name = module.module_name;
-      },
       getErrorOrTotalCount:function (workId, flag) {
         var key = Object.keys(this.runLogRecordCount).filter(function (key) {
           return key == workId;
         })[0];
         return flag == "error" ? this.runLogRecordCount[key].errorCount : "/" + this.runLogRecordCount[key].allCount;
+      },
+      refreshAllModules:async function(){
+        const result = await GetAllModules();
+        if(result.status == "SUCCESS"){
+          this.modules = result.moudles;
+        }
       }
     },
     mounted: function () {
       this.refreshWorkList();
+      this.refreshAllModules();
     },
   }
 </script>

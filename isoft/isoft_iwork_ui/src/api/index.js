@@ -132,6 +132,8 @@ export const EditModule = (module_id, module_name, module_desc) => ajax(BASE_URL
 
 export const DeleteModuleById = (id) => ajax(BASE_URL+"/iwork/deleteModuleById", {id},'POST');
 
+export const GetAllModules = () => ajax(BASE_URL+"/iwork/getAllModules", {},'POST');
+
 export const GetAllFiltersAndWorks = () => ajax(BASE_URL+"/iwork/getAllFiltersAndWorks", {},'POST');
 
 export const SaveFilters = (filter_id, work_names) => ajax(BASE_URL+"/iwork/saveFilters", {filter_id, work_names},'POST');
