@@ -88,7 +88,8 @@ export const AddConfiguration = (parent_id, configuration_name, configuration_va
 export const QueryAllConfigurations = (configuration_name) => ajax(BASE_URL+'/cms/queryAllConfigurations',{configuration_name},'GET');
 
 // 分页查询配置项信息
-export const FilterConfigurations = (search,offset,current_page) => ajax(BASE_URL+'/cms/filterConfigurations',{search, offset,current_page},'GET');
+// export const FilterConfigurations = (search,offset,current_page) => ajax(BASE_URL+'/cms/filterConfigurations',{search, offset,current_page},'GET');
+export const FilterConfigurations = (search,offset,current_page) => ajax(BASE_URL_2+'/iwork/httpservice/FilterConfigurations2',{search, offset,current_page},'GET');
 
 // 获取随机数量的友情链接地址
 // export const QueryRandomCommonLink = (link_type) => ajax(BASE_URL+'/cms/queryRandomCommonLink',{link_type},'GET');
