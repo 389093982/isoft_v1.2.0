@@ -43,7 +43,6 @@
             <li>
               <span style="color: #657180;font-size: 14px;">
                 (参数索引-{{paramIndex}}<span v-if="inputLabel.indexOf('?')>0">可选参数</span>) - {{inputLabel}}
-                <Button type="success" size="small" @click="showFixedData(inputTextData)">固定显示</Button>
               </span>
             </li>
             <li>
@@ -136,20 +135,6 @@
       }
     },
     methods:{
-      showFixedData:function(data) {
-        this.$Notice.success({
-          title: "固定显示",
-          duration: 0,  // 0 则不自动关闭
-          render: h => {
-            return h('div', {
-              style: 'word-break: break-all;',
-              domProps: {
-                innerHTML: data,
-              },
-            });
-          }
-        });
-      },
       handlePlaceholderDrop:function(event, index){
         // 取消冒泡
         event.stopPropagation();

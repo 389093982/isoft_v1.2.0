@@ -79,8 +79,10 @@ export const GetAllCourseSubType = (course_type) => ajax(BASE_URL_2+'/iwork/http
 export const SearchCourseList = (search) => ajax(BASE_URL+'/ilearning/searchCourseList',{search},'GET');
 
 // 添加配置项
+// export const AddConfiguration = (parent_id, configuration_name, configuration_value) =>
+//   ajax(BASE_URL+'/cms/addConfiguration',{parent_id, configuration_name, configuration_value},'GET');
 export const AddConfiguration = (parent_id, configuration_name, configuration_value) =>
-  ajax(BASE_URL+'/cms/addConfiguration',{parent_id, configuration_name, configuration_value},'GET');
+  ajax(BASE_URL_2+'/iwork/httpservice/AddConfiguration2',{parent_id, configuration_name, configuration_value},'GET');
 
 // 根据名称查询配置项
 export const QueryAllConfigurations = (configuration_name) => ajax(BASE_URL+'/cms/queryAllConfigurations',{configuration_name},'GET');
