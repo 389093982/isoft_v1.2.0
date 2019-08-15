@@ -15,12 +15,24 @@ github.com/astaxie/beego/utils/pagination
 github.com/dgrijalva/jwt-go
 # github.com/go-sql-driver/mysql v1.4.1
 github.com/go-sql-driver/mysql
+# github.com/golang-migrate/migrate/v4 v4.5.0
+github.com/golang-migrate/migrate/v4
+github.com/golang-migrate/migrate/v4/database
+github.com/golang-migrate/migrate/v4/database/mysql
+github.com/golang-migrate/migrate/v4/source
+github.com/golang-migrate/migrate/v4/source/file
 # github.com/gopherjs/gopherjs v0.0.0-20180825215210-0210a2f0f73c
 github.com/gopherjs/gopherjs/js
+# github.com/hashicorp/errwrap v1.0.0
+github.com/hashicorp/errwrap
+# github.com/hashicorp/go-multierror v1.0.0
+github.com/hashicorp/go-multierror
 # github.com/ivpusic/grpool v1.0.0
 github.com/ivpusic/grpool
 # github.com/jtolds/gls v4.2.1+incompatible
 github.com/jtolds/gls
+# github.com/konsorten/go-windows-terminal-sequences v1.0.2
+github.com/konsorten/go-windows-terminal-sequences
 # github.com/kr/fs v0.1.0
 github.com/kr/fs
 # github.com/lestrrat/go-file-rotatelogs v0.0.0-20180223000712-d3151e2a480f
@@ -29,7 +41,7 @@ github.com/lestrrat/go-file-rotatelogs
 github.com/lestrrat/go-strftime
 # github.com/mattn/go-sqlite3 v1.10.0
 github.com/mattn/go-sqlite3
-# github.com/pkg/errors v0.8.0
+# github.com/pkg/errors v0.8.1
 github.com/pkg/errors
 # github.com/pkg/sftp v1.8.2
 github.com/pkg/sftp
@@ -39,7 +51,7 @@ github.com/rifflock/lfshook
 github.com/robfig/cron
 # github.com/satori/go.uuid v1.2.0
 github.com/satori/go.uuid
-# github.com/sirupsen/logrus v1.0.6
+# github.com/sirupsen/logrus v1.4.1
 github.com/sirupsen/logrus
 # github.com/smartystreets/assertions v0.0.0-20180820201707-7c9eb446e3cf
 github.com/smartystreets/assertions
@@ -49,7 +61,7 @@ github.com/smartystreets/assertions/internal/oglematchers
 github.com/smartystreets/goconvey/convey
 github.com/smartystreets/goconvey/convey/gotest
 github.com/smartystreets/goconvey/convey/reporting
-# golang.org/x/crypto v0.0.0-20181127143415-eb0de9b17e85
+# golang.org/x/crypto v0.0.0-20190426145343-a29dc8fdc734
 golang.org/x/crypto/acme
 golang.org/x/crypto/acme/autocert
 golang.org/x/crypto/curve25519
@@ -59,13 +71,19 @@ golang.org/x/crypto/internal/chacha20
 golang.org/x/crypto/internal/subtle
 golang.org/x/crypto/poly1305
 golang.org/x/crypto/ssh
-golang.org/x/crypto/ssh/terminal
-# golang.org/x/sys v0.0.0-20180909124046-d0be0721c37e
+# golang.org/x/net v0.0.0-20190424112056-4829fb13d2c6
+golang.org/x/net/idna
+# golang.org/x/sys v0.0.0-20190426135247-a129542de9ae
+golang.org/x/sys/cpu
 golang.org/x/sys/unix
-golang.org/x/sys/windows
-# google.golang.org/appengine v1.1.0
+# golang.org/x/text v0.3.2
+golang.org/x/text/secure/bidirule
+golang.org/x/text/transform
+golang.org/x/text/unicode/bidi
+golang.org/x/text/unicode/norm
+# google.golang.org/appengine v1.5.0
 google.golang.org/appengine/cloudsql
 # gopkg.in/ini.v1 v1.42.0
 gopkg.in/ini.v1
-# gopkg.in/yaml.v2 v2.2.1
+# gopkg.in/yaml.v2 v2.2.2
 gopkg.in/yaml.v2

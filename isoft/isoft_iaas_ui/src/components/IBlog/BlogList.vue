@@ -18,7 +18,7 @@
              发布于:<Time :time="searchblog.created_time" style="color:red;"/>&nbsp;
              更新于:<Time :time="searchblog.last_updated_time" style="color:red;"/>&nbsp;
              <router-link :to="{path:'/iblog/blog_list',query:{blog_id:searchblog.id}}">
-               <span style="color: #3399ea;">{{ searchblog.catalog.catalog_name }}</span>
+               <span style="color: #3399ea;">{{ searchblog.catalog_name }}</span>
              </router-link>
            </Col>
            <Col span="3">

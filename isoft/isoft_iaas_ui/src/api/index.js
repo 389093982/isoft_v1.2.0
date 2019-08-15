@@ -15,13 +15,15 @@ export const CatalogEdit = (catalog_name, catalog_desc) => ajax(BASE_URL+'/catal
 export const GetMyCatalogs = () => ajax(BASE_URL+'/catalog/getMyCatalogs',{},'GET');
 
 // 获取我的所有博客文章
-export const GetMyBlogs = () => ajax(BASE_URL+'/blog/getMyBlogs',{},'GET');
+// export const GetMyBlogs = () => ajax(BASE_URL+'/blog/getMyBlogs',{},'GET');
+export const GetMyBlogs = () => ajax(BASE_URL_2+'/iwork/httpservice/GetMyBlogs2',{},'GET');
 
 // 编辑或者新增博客文章
 export const BlogEdit = (blog_title, short_desc, key_words, catalog_id, content) => ajax(BASE_URL+'/blog/edit',{blog_title, short_desc, key_words, catalog_id, content},'POST');
 
 // 热门博客分页列表
-export const BlogList = (offset,current_page) => ajax(BASE_URL+'/blog/blogList',{offset,current_page},'GET');
+// export const BlogList = (offset,current_page) => ajax(BASE_URL+'/blog/blogList',{offset,current_page},'GET');
+export const BlogList = (offset,current_page) => ajax(BASE_URL_2+'/iwork/httpservice/BlogList2',{offset,current_page},'GET');
 
 // 根据 blog_id 查询 blog 详细信息
 export const ShowBlogDetail = (blog_id) => ajax(BASE_URL+'/blog/showBlogDetail',{blog_id},'GET');
@@ -96,10 +98,12 @@ export const FilterConfigurations = (search,offset,current_page) => ajax(BASE_UR
 export const QueryRandomCommonLink = (link_type) => ajax(BASE_URL_2+'/iwork/httpservice/QueryRandomCommonLink2',{link_type},'GET');
 
 // 分页查询友情链接地址
-export const FilterCommonLinks = (offset,current_page,search) => ajax(BASE_URL+'/cms/filterCommonLinks',{offset,current_page,search},'GET');
+// export const FilterCommonLinks = (offset,current_page,search) => ajax(BASE_URL+'/cms/filterCommonLinks',{offset,current_page,search},'GET');
+export const FilterCommonLinks = (offset,current_page,search) => ajax(BASE_URL_2+'/iwork/httpservice/FilterCommonLinks2',{offset,current_page,search},'GET');
 
 // 添加友情链接地址
-export const AddCommonLink = (link_type, link_name, link_addr) => ajax(BASE_URL+'/cms/addCommonLink',{link_type, link_name, link_addr},'GET');
+// export const AddCommonLink = (link_type, link_name, link_addr) => ajax(BASE_URL+'/cms/addCommonLink',{link_type, link_name, link_addr},'GET');
+export const AddCommonLink = (link_type, link_name, link_addr) => ajax(BASE_URL_2+'/iwork/httpservice/AddCommonLink2',{link_type, link_name, link_addr},'GET');
 
 export const FilterElements = (offset,current_page,search) => ajax(BASE_URL+'/cms/filterElements',{offset,current_page,search},'GET');
 export const AddElement = (placement, title, content, imgpath, linked_refer) => ajax(BASE_URL+'/cms/addElement',{placement, title, content, imgpath, linked_refer},'GET');
