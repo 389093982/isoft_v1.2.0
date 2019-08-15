@@ -26,7 +26,8 @@ export const BlogEdit = (blog_title, short_desc, key_words, catalog_id, content)
 export const BlogList = (offset,current_page) => ajax(BASE_URL_2+'/iwork/httpservice/BlogList2',{offset,current_page},'GET');
 
 // 根据 blog_id 查询 blog 详细信息
-export const ShowBlogDetail = (blog_id) => ajax(BASE_URL+'/blog/showBlogDetail',{blog_id},'GET');
+// export const ShowBlogDetail = (blog_id) => ajax(BASE_URL+'/blog/showBlogDetail',{blog_id},'GET');
+export const ShowBlogDetail = (blog_id) => ajax(BASE_URL_2+'/iwork/httpservice/ShowBlogDetail2',{blog_id},'GET');
 
 // 新建课程
 // export const NewCourse = (course_name,course_type,course_sub_type,course_short_desc) =>
