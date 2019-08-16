@@ -9,10 +9,17 @@
       </TabPane>
 
       <TabPane label="流程" name="name2">
-        <div v-for="work in works"
-                draggable="true" @dragstart="dragstart($event, 'work_name__' + work.work_name)">
-          <Tag>{{ work.module_name }} ~~~ {{ work.work_name }}</Tag>
-        </div>
+        <Collapse>
+          <Panel v-for="module_name in module_names">
+            {{module_name}}
+            <div slot="content">
+              <div v-if="work.module_name == module_name" v-for="work in works"
+                   draggable="true" @dragstart="dragstart($event, 'work_name__' + work.work_name)">
+                <Tag>{{ work.work_name }}</Tag>
+              </div>
+            </div>
+          </Panel>
+        </Collapse>
       </TabPane>
     </Tabs>
   </Drawer>
@@ -29,6 +36,7 @@
         showComponentDrawer:false,
         nodeMetas: [],
         works:[],
+        module_names:[],
       }
     },
     methods:{
@@ -45,7 +53,13 @@
         const result = await GetAllFiltersAndWorks();
         if(result.status == "SUCCESS"){
           this.works = result.works;
+          let module_names = this.works.map(work => work.module_name);
+          this.module_names = this.getUniqueArr(module_names);
         }
+      },
+      getUniqueArr: function(arr){
+        var x = new Set(arr);
+        return [...x];
       },
       refreshNodeMetas:async function () {
         const result = await GetMetaInfo("nodeMetas");

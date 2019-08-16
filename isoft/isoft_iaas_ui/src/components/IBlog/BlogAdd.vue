@@ -75,9 +75,9 @@
           key_words: [
             { required: true, message: '检索词条不能为空', trigger: 'blur' }
           ],
-          catalog_id: [
-            { required: true, type: 'number', message: '文章分类不能为空', trigger: 'blur' }
-          ],
+          // catalog_id: [
+          //   { required: true, type: 'number', message: '文章分类不能为空', trigger: 'blur' }
+          // ],
           content: [
             { required: true, message: '文章内容不能为空', trigger: 'blur' }
           ],

@@ -12,14 +12,16 @@ const BASE_URL_2 = '/api2'
 export const CatalogEdit = (catalog_name, catalog_desc) => ajax(BASE_URL+'/catalog/edit',{catalog_name, catalog_desc},'POST');
 
 // 获取我的所有博客分类
-export const GetMyCatalogs = () => ajax(BASE_URL+'/catalog/getMyCatalogs',{},'GET');
+// export const GetMyCatalogs = () => ajax(BASE_URL+'/catalog/getMyCatalogs',{},'GET');
+export const GetMyCatalogs = () => ajax(BASE_URL_2+'/iwork/httpservice/GetMyCatalogs2',{},'GET');
 
 // 获取我的所有博客文章
 // export const GetMyBlogs = () => ajax(BASE_URL+'/blog/getMyBlogs',{},'GET');
 export const GetMyBlogs = () => ajax(BASE_URL_2+'/iwork/httpservice/GetMyBlogs2',{},'GET');
 
 // 编辑或者新增博客文章
-export const BlogEdit = (blog_title, short_desc, key_words, catalog_id, content) => ajax(BASE_URL+'/blog/edit',{blog_title, short_desc, key_words, catalog_id, content},'POST');
+// export const BlogEdit = (blog_title, short_desc, key_words, catalog_id, content) => ajax(BASE_URL+'/blog/edit',{blog_title, short_desc, key_words, catalog_id, content},'POST');
+export const BlogEdit = (blog_title, short_desc, key_words, catalog_id, content) => ajax(BASE_URL_2+'/iwork/httpservice/BlogEdit2',{blog_title, short_desc, key_words, catalog_id, content},'POST');
 
 // 热门博客分页列表
 // export const BlogList = (offset,current_page) => ajax(BASE_URL+'/blog/blogList',{offset,current_page},'GET');
@@ -128,9 +130,6 @@ export const FilterShareList = (offset,current_page,search_type) => ajax(BASE_UR
 export const AddNewShare = (share_type,share_desc,link_href,content) => ajax(BASE_URL_2+'/iwork/httpservice/AddNewShare2',{share_type,share_desc,link_href,content},'GET');
 
 export const ShowCourseHistory = (offset,current_page) => ajax(BASE_URL+"/common/showCourseHistory", {offset,current_page},'GET');
-
-// 分页获取 ifile 清单
-export const FilterPageIFiles = (search_name,offset,current_page) => ajax(BASE_URL+"/ifile/filterPageIFiles", {search_name,offset,current_page},'GET');
 
 // 登录接口
 // export const Login = (username,passwd) => ajax(BASE_URL+"/sso/user/login", {username,passwd},'POST');

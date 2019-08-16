@@ -1,30 +1,31 @@
 <template>
   <div v-if="workstep" style="width: 500px;padding: 10px;">
-    <div style="text-align: right;">
-      <Button size="small" type="success" v-if="workstep.work_step_type == 'work_sub'"
-          @click="gotoWorkDetail(workstep.work_id, workstep.work_sub_id)">进入</Button>
-    </div>
+    <Scroll>
+      <div style="text-align: right;">
+        <Button size="small" type="success" v-if="workstep.work_step_type == 'work_sub'"
+                @click="gotoWorkDetail(workstep.work_id, workstep.work_sub_id)">进入</Button>
+      </div>
 
-    <Row>
-      <Col span="8">输入参数</Col>
-      <Col span="8">输出参数</Col>
-      <Col span="8">引用关系</Col>
-      <Col span="8" v-if="ParamInputSchemaItems">
-        <ul>
-          <li v-for="item in ParamInputSchemaItems">
-            <Tag @click.native="showNotice(item.ParamName, item.ParamValue)">{{item.ParamName}}</Tag>
-          </li>
-          <li><a @click="showAllNoticeWithId(workstep.work_step_id)">全部参数</a></li>
-        </ul>
-      </Col>
-      <Col span="8" v-if="ParamInputSchemaItems">
-        <ul>
-          <li v-for="item in ParamOutputSchemaItems">
-            <Tag>{{item.ParamName}}</Tag>
-          </li>
-        </ul>
-      </Col>
-      <Col span="8" v-if="usedMap">
+      <Row>
+        <Col span="8">输入参数</Col>
+        <Col span="8">输出参数</Col>
+        <Col span="8">引用关系</Col>
+        <Col span="8" v-if="ParamInputSchemaItems">
+          <ul>
+            <li v-for="item in ParamInputSchemaItems">
+              <Tag @click.native="showNotice(item.ParamName, item.ParamValue)">{{item.ParamName}}</Tag>
+            </li>
+            <li><a @click="showAllNoticeWithId(workstep.work_step_id)">全部参数</a></li>
+          </ul>
+        </Col>
+        <Col span="8" v-if="ParamInputSchemaItems">
+          <ul>
+            <li v-for="item in ParamOutputSchemaItems">
+              <Tag>{{item.ParamName}}</Tag>
+            </li>
+          </ul>
+        </Col>
+        <Col span="8" v-if="usedMap">
         <span v-for="(usedWorkStepIds, currentWorkStepId) in usedMap">
           <span v-if="currentWorkStepId == workstep.work_step_id">
             <li style="list-style: none;" v-if="usedWorkStepIds" v-for="usedWorkStepId in usedWorkStepIds">
@@ -32,8 +33,9 @@
             </li>
           </span>
         </span>
-      </Col>
-    </Row>
+        </Col>
+      </Row>
+    </Scroll>
   </div>
 </template>
 
