@@ -9,7 +9,8 @@ const BASE_URL = '/api'
 const BASE_URL_2 = '/api2'
 
 // 编辑或者新增博客分类
-export const CatalogEdit = (catalog_name, catalog_desc) => ajax(BASE_URL+'/catalog/edit',{catalog_name, catalog_desc},'POST');
+// export const CatalogEdit = (catalog_name, catalog_desc) => ajax(BASE_URL+'/catalog/edit',{catalog_name, catalog_desc},'POST');
+export const CatalogEdit = (catalog_name, catalog_desc) => ajax(BASE_URL_2+'/iwork/httpservice/CatalogEdit2',{catalog_name, catalog_desc},'POST');
 
 // 获取我的所有博客分类
 // export const GetMyCatalogs = () => ajax(BASE_URL+'/catalog/getMyCatalogs',{},'GET');
@@ -42,7 +43,8 @@ export const NewCourse = (course_name,course_type,course_sub_type,course_short_d
 export const GetMyCourseList = (userName) => ajax(BASE_URL_2+"/iwork/httpservice/GetMyCourseList2",{userName},'GET');
 
 // 完结视频更新
-export const EndUpdate = (course_id) => ajax(BASE_URL+'/ilearning/endUpdate',{course_id},'GET');
+// export const EndUpdate = (course_id) => ajax(BASE_URL+'/ilearning/endUpdate',{course_id},'GET');
+export const EndUpdate = (course_id) => ajax(BASE_URL_2+"/iwork/httpservice/EndUpdate2",{course_id},'GET');
 
 // 显示课程详细信息
 // export const ShowCourseDetail = (course_id) => ajax(BASE_URL+'/ilearning/showCourseDetail',{course_id},'GET');
