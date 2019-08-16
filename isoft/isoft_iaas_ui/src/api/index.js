@@ -74,6 +74,9 @@ export const FilterCommentReply = (comment_id, theme_type, parent_id, reply_comm
 // export const GetAllCourseType = () => ajax(BASE_URL+'/ilearning/getAllCourseType',{},'GET');
 export const GetAllCourseType = () => ajax(BASE_URL_2+"/iwork/httpservice/GetAllCourseType2",{},'GET');
 
+// export const ShowCourseHistory = (offset,current_page) => ajax(BASE_URL+"/common/showCourseHistory", {offset,current_page},'GET');
+export const ShowCourseHistory = (offset,current_page) => ajax(BASE_URL_2+"/iwork/httpservice/ShowCourseHistory2", {offset,current_page},'GET');
+
 // 获取热门推荐的课程
 // export const GetHotCourseRecommend = () => ajax(BASE_URL+'/ilearning/getHotCourseRecommend',{},'GET');
 export const GetHotCourseRecommend = () => ajax(BASE_URL_2+"/iwork/httpservice/GetHotCourseRecommend2",{},'GET');
@@ -131,8 +134,6 @@ export const FilterShareList = (offset,current_page,search_type) => ajax(BASE_UR
 // 新增共享链接
 // export const AddNewShare = (share_type,share_desc,link_href,content) => ajax(BASE_URL+'/share/addNewShare',{share_type,share_desc,link_href,content},'GET');
 export const AddNewShare = (share_type,share_desc,link_href,content) => ajax(BASE_URL_2+'/iwork/httpservice/AddNewShare2',{share_type,share_desc,link_href,content},'GET');
-
-export const ShowCourseHistory = (offset,current_page) => ajax(BASE_URL+"/common/showCourseHistory", {offset,current_page},'GET');
 
 // 登录接口
 // export const Login = (username,passwd) => ajax(BASE_URL+"/sso/user/login", {username,passwd},'POST');
