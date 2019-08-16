@@ -96,7 +96,7 @@ export const AddConfiguration = (parent_id, configuration_name, configuration_va
   ajax(BASE_URL_2+'/iwork/httpservice/AddConfiguration2',{parent_id, configuration_name, configuration_value},'GET');
 
 // 根据名称查询配置项
-export const QueryAllConfigurations = (configuration_name) => ajax(BASE_URL+'/cms/queryAllConfigurations',{configuration_name},'GET');
+// export const QueryAllConfigurations = (configuration_name) => ajax(BASE_URL+'/cms/queryAllConfigurations',{configuration_name},'GET');
 
 // 分页查询配置项信息
 // export const FilterConfigurations = (search,offset,current_page) => ajax(BASE_URL+'/cms/filterConfigurations',{search, offset,current_page},'GET');
@@ -125,7 +125,8 @@ export const DeletePlacementById = (id) => ajax(BASE_URL+'/cms/deletePlacementBy
 export const FilterElementByPlacement = (placement) => ajax(BASE_URL_2+'/iwork/httpservice/FilterElementByPlacement2',{placement},'GET');
 
 // 根据 blog_id 查询 blog 详细信息
-export const ShowShareDetail = (share_id) => ajax(BASE_URL+'/share/showShareDetail',{share_id},'GET');
+// export const ShowShareDetail = (share_id) => ajax(BASE_URL+'/share/showShareDetail',{share_id},'GET');
+export const ShowShareDetail = (share_id) => ajax(BASE_URL_2+'/iwork/httpservice/ShowShareDetail2',{share_id},'GET');
 
 // 获取ShareList 信息
 // export const FilterShareList = (offset,current_page,search_type) => ajax(BASE_URL+'/share/filterShareList',{offset,current_page,search_type},'GET');
