@@ -83,7 +83,8 @@ export const GetHotCourseRecommend = () => ajax(BASE_URL_2+"/iwork/httpservice/G
 export const GetAllCourseSubType = (course_type) => ajax(BASE_URL_2+'/iwork/httpservice/GetAllCourseSubType2',{course_type},'GET');
 
 // 课程搜索
-export const SearchCourseList = (search) => ajax(BASE_URL+'/ilearning/searchCourseList',{search},'GET');
+// export const SearchCourseList = (search) => ajax(BASE_URL+'/ilearning/searchCourseList',{search},'GET');
+export const SearchCourseList = (search) => ajax(BASE_URL_2+'/iwork/httpservice/SearchCourseList2',{search},'GET');
 
 // 添加配置项
 // export const AddConfiguration = (parent_id, configuration_name, configuration_value) =>
