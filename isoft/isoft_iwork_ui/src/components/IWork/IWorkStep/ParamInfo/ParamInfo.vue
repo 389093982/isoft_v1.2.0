@@ -26,7 +26,7 @@
           <Row style="margin-right: 5px;margin-left:20px;" :gutter="16">
             <Col span="18">
               <Tabs type="card" :animated="false" value="edit">
-                <TabPane label="ParamMapping" name="ParamMapping" v-if="showParamMapping">
+                <TabPane label="ParamMapping" name="ParamMapping" :disabled="!showParamMapping">
                   <ParamMapping :paramMappings="paramMappings"/>
                 </TabPane>
                 <TabPane label="edit" name="edit" v-if="showEdit">

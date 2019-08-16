@@ -48,23 +48,23 @@ func (this *BlogController) List() {
 	this.TplName = "blog/blog_list.html"
 }
 
-func (this *BlogController) Edit() {
-	user_name := this.Ctx.Input.Session("UserName").(string)
-	blog_id, err := this.GetInt64("blog_id")
-	if err == nil && blog_id > 0 {
-		blog, err := iblog.QueryBlogById(blog_id)
-		if err == nil {
-			this.Data["Blog"] = blog
-		}
-	}
-	catalogs, err := iblog.QueryAllCatalog(user_name)
-	if err == nil {
-		this.Data["Catalogs"] = &catalogs
-	}
-	this.Data["IsBlogAdd"] = "IsBlogEdit"
-	this.Layout = "layout/layout_backup.html"
-	this.TplName = "blog/blog_edit.html"
-}
+//func (this *BlogController) Edit() {
+//	user_name := this.Ctx.Input.Session("UserName").(string)
+//	blog_id, err := this.GetInt64("blog_id")
+//	if err == nil && blog_id > 0 {
+//		blog, err := iblog.QueryBlogById(blog_id)
+//		if err == nil {
+//			this.Data["Blog"] = blog
+//		}
+//	}
+//	catalogs, err := iblog.QueryAllCatalog(user_name)
+//	if err == nil {
+//		this.Data["Catalogs"] = &catalogs
+//	}
+//	this.Data["IsBlogAdd"] = "IsBlogEdit"
+//	this.Layout = "layout/layout_backup.html"
+//	this.TplName = "blog/blog_edit.html"
+//}
 
 func (this *BlogController) PostEdit() {
 	blog_id, err := this.GetInt64("blog_id")
