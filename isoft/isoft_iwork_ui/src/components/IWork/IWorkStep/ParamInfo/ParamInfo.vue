@@ -29,7 +29,7 @@
                 <TabPane label="ParamMapping" name="ParamMapping" :disabled="!showParamMapping">
                   <ParamMapping :paramMappings="paramMappings"/>
                 </TabPane>
-                <TabPane label="edit" name="edit" v-if="showEdit">
+                <TabPane label="edit" name="edit" :disabled="!showEdit">
                   <ParamInputEdit :paramInputSchemaItems="paramInputSchema.ParamInputSchemaItems"/>
                 </TabPane>
                 <Button size="small" slot="extra">input</Button>

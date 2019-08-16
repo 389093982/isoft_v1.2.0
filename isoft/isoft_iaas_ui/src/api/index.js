@@ -21,7 +21,7 @@ export const GetMyBlogs = () => ajax(BASE_URL_2+'/iwork/httpservice/GetMyBlogs2'
 
 // 编辑或者新增博客文章
 // export const BlogEdit = (blog_title, short_desc, key_words, catalog_id, content) => ajax(BASE_URL+'/blog/edit',{blog_title, short_desc, key_words, catalog_id, content},'POST');
-export const BlogEdit = (blog_title, short_desc, key_words, catalog_id, content) => ajax(BASE_URL_2+'/iwork/httpservice/BlogEdit2',{blog_title, short_desc, key_words, catalog_id, content},'POST');
+export const BlogEdit = (blog_id, blog_status, blog_title, short_desc, key_words, catalog_id, content) => ajax(BASE_URL_2+'/iwork/httpservice/BlogEdit2',{blog_id, blog_status, blog_title, short_desc, key_words, catalog_id, content},'POST');
 
 // 热门博客分页列表
 // export const BlogList = (offset,current_page) => ajax(BASE_URL+'/blog/blogList',{offset,current_page},'GET');
