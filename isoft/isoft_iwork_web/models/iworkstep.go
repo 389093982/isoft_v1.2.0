@@ -38,7 +38,7 @@ type WorkStep struct {
 // 多字段唯一键
 func (u *WorkStep) TableUnique() [][]string {
 	return [][]string{
-		[]string{"WorkId", "WorkStepName"},
+		{"WorkId", "WorkStepName"},
 	}
 }
 

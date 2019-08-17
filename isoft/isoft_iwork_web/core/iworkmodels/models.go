@@ -6,7 +6,8 @@ import (
 )
 
 type ParamMapping struct {
-	ParamMappingName string `json:"paramMappingName"`
+	ParamMappingName    string `json:"paramMappingName"`
+	ParamMappingDefault string `json:"paramMappingDefault"`
 }
 
 type ParamInputSchemaItem struct {

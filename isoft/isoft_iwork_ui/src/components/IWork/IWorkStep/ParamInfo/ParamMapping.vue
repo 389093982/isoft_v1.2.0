@@ -6,7 +6,10 @@
         <table>
           <tr>
             <td>
-              <Input style="width: 400px;" size="small" type="text" v-model="paramMapping.paramMappingName"/>
+              变量名：<Input style="width: 200px;" size="small" type="text" v-model="paramMapping.paramMappingName"/>
+            </td>
+            <td v-if="workStepType == 'work_start'">
+              默认值：<Input style="width: 200px;" size="small" type="text" v-model="paramMapping.paramMappingDefault"/>
             </td>
             <td>
               <Button type="success" size="small" @click="handleDelete(paramMapping.paramMappingName)" style="margin-left: 6px">删除</Button>
@@ -26,6 +29,10 @@
     name: "ParamMapping",
     components:{ParamMappingAdd},
     props:{
+      workStepType:{
+        type:String,
+        default: '',
+      },
       paramMappings:{
         type:Array,
         default:[],

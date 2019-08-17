@@ -27,7 +27,7 @@
             <Col span="18">
               <Tabs type="card" :animated="false" value="edit">
                 <TabPane label="ParamMapping" name="ParamMapping" :disabled="!showParamMapping">
-                  <ParamMapping :paramMappings="paramMappings"/>
+                  <ParamMapping :paramMappings="paramMappings" :work-step-type="workStepParamInfo.work_step_type"/>
                 </TabPane>
                 <TabPane label="edit" name="edit" :disabled="!showEdit">
                   <ParamInputEdit :paramInputSchemaItems="paramInputSchema.ParamInputSchemaItems"/>
