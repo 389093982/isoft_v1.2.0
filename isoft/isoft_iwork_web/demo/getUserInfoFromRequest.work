@@ -25,6 +25,7 @@
 		<WorkStepParamMapping></WorkStepParamMapping>
 		<work_step_param_mapping_xml><![CDATA[<ParamMapping>
 	<ParamMappingName></ParamMappingName>
+	<ParamMappingDefault></ParamMappingDefault>
 </ParamMapping>]]></work_step_param_mapping_xml>
 		<CreatedBy>SYSTEM</CreatedBy>
 		<LastUpdatedBy>SYSTEM</LastUpdatedBy>
@@ -79,6 +80,7 @@
 		<WorkStepParamMapping>[]</WorkStepParamMapping>
 		<work_step_param_mapping_xml><![CDATA[<ParamMapping>
 	<ParamMappingName></ParamMappingName>
+	<ParamMappingDefault></ParamMappingDefault>
 </ParamMapping>]]></work_step_param_mapping_xml>
 		<CreatedBy>SYSTEM</CreatedBy>
 		<LastUpdatedBy>SYSTEM</LastUpdatedBy>
@@ -115,6 +117,7 @@
 		<WorkStepParamMapping>[{&#34;paramMappingName&#34;:&#34;userName&#34;,&#34;paramMappingType&#34;:&#34;default&#34;}]</WorkStepParamMapping>
 		<work_step_param_mapping_xml><![CDATA[<ParamMapping>
 	<ParamMappingName></ParamMappingName>
+	<ParamMappingDefault></ParamMappingDefault>
 </ParamMapping>]]></work_step_param_mapping_xml>
 		<CreatedBy>SYSTEM</CreatedBy>
 		<LastUpdatedBy>SYSTEM</LastUpdatedBy>
@@ -151,6 +154,7 @@
 		<WorkStepParamMapping>[{&#34;paramMappingName&#34;:&#34;userName&#34;,&#34;paramMappingType&#34;:&#34;default&#34;}]</WorkStepParamMapping>
 		<work_step_param_mapping_xml><![CDATA[<ParamMapping>
 	<ParamMappingName></ParamMappingName>
+	<ParamMappingDefault></ParamMappingDefault>
 </ParamMapping>]]></work_step_param_mapping_xml>
 		<CreatedBy>SYSTEM</CreatedBy>
 		<LastUpdatedBy>SYSTEM</LastUpdatedBy>
