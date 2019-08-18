@@ -1,6 +1,7 @@
 package iworkcache
 
 import (
+	"encoding/json"
 	"encoding/xml"
 	"errors"
 	"fmt"
@@ -121,6 +122,7 @@ type WorkCache struct {
 	Usage               *Usage                                  `xml:"-"` // 引值计算,节点引用值统计
 	err                 error                                   `xml:"-"`
 	FilterNames         []string                                `xml:"filterNames"`
+	ParamMappingDefault map[string]interface{}                  `xml:"-"`
 }
 
 func (this *WorkCache) RenderToString() (s string) {
@@ -168,6 +170,24 @@ func (this *WorkCache) FlushCache() {
 	this.cacheReferUsage()
 	// 计算 filters 引用
 	this.evalFilters(o)
+
+	this.evalParamMappingDefault()
+}
+
+func (this *WorkCache) evalParamMappingDefault() {
+	this.ParamMappingDefault = make(map[string]interface{}, 0)
+	// 计算 ParamMappingDefault
+	for _, step := range this.Steps {
+		if step.WorkStepType == iworkconst.NODE_TYPE_WORK_START {
+			var paramMappingsArr []iworkmodels.ParamMapping
+			json.Unmarshal([]byte(step.WorkStepParamMapping), &paramMappingsArr)
+			for _, mapping := range paramMappingsArr {
+				if mapping.ParamMappingDefault != "" {
+					this.ParamMappingDefault[mapping.ParamMappingName] = mapping.ParamMappingDefault
+				}
+			}
+		}
+	}
 }
 
 func (this *WorkCache) evalFilters(o orm.Ormer) {

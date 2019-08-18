@@ -76,15 +76,16 @@ func (this *BaseNode) FillPureTextParamInputSchemaDataToTmp(workStep *models.Wor
 func (this *BaseNode) FillParamInputSchemaDataToTmp(workStep *models.WorkStep) {
 
 	// work_start 节点并且 dispatcher 非空时替换成父流程参数
-	if workStep.WorkStepType == "work_start" && this.Dispatcher != nil && len(this.Dispatcher.TmpDataMap) > 0 {
+	if workStep.WorkStepType == iworkconst.NODE_TYPE_WORK_START && this.Dispatcher != nil && len(this.Dispatcher.TmpDataMap) > 0 {
 		tmpDataMap := make(map[string]interface{})
 		paramInputSchema := GetCacheParamInputSchema(workStep)
 		for _, item := range paramInputSchema.ParamInputSchemaItems {
-			// __default__ 则表示不用替换,还是使用子流程默认值参数
-			if item.ParamValue != "__default__" && item.ParamName != iworkconst.HTTP_REQUEST_OBJECT {
+			if item.ParamName != iworkconst.HTTP_REQUEST_OBJECT {
 				// 从父流程或者调度者中获取值,即从 Dispatcher 中获取值
-				if value := this.Dispatcher.TmpDataMap[item.ParamName]; value != nil {
+				if value := this.Dispatcher.TmpDataMap[item.ParamName]; value != nil && value != "" {
 					tmpDataMap[item.ParamName] = value
+				} else if this.WorkCache.ParamMappingDefault[item.ParamName] != nil {
+					tmpDataMap[item.ParamName] = this.WorkCache.ParamMappingDefault[item.ParamName]
 				} else {
 					panic(errors.New(fmt.Sprintf("required parameter for %s.%s was not found!", workStep.WorkStepName, item.ParamName)))
 				}
