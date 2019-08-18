@@ -3,7 +3,6 @@
 函数的返回值: promise对象
  */
 import ajax from './ajax'
-import store from "../store"
 
 const BASE_URL = '/api'
 const BASE_URL_2 = '/api2'
@@ -115,12 +114,17 @@ export const FilterCommonLinks = (offset,current_page,search) => ajax(BASE_URL_2
 export const AddCommonLink = (link_type, link_name, link_addr) => ajax(BASE_URL_2+'/iwork/httpservice/AddCommonLink2',{link_type, link_name, link_addr},'GET');
 
 export const FilterElements = (offset,current_page,search) => ajax(BASE_URL+'/cms/filterElements',{offset,current_page,search},'GET');
+
 export const AddElement = (placement, title, content, imgpath, linked_refer) => ajax(BASE_URL+'/cms/addElement',{placement, title, content, imgpath, linked_refer},'GET');
+
 export const UpdateElementStatus = (id, status) => ajax(BASE_URL+'/cms/updateElementStatus',{id, status},'GET');
 
 export const AddPlacement = (placement_name, placement_desc) => ajax(BASE_URL+'/cms/addPlacement',{placement_name, placement_desc},'GET');
+
 export const FilterPlacement = (offset,current_page,search) => ajax(BASE_URL+'/cms/filterPlacement',{offset,current_page,search},'GET');
+
 export const DeletePlacementById = (id) => ajax(BASE_URL+'/cms/deletePlacementById',{id},'GET');
+
 // export const FilterElementByPlacement = (placement) => ajax(BASE_URL+'/cms/filterElementByPlacement',{placement},'GET');
 export const FilterElementByPlacement = (placement) => ajax(BASE_URL_2+'/iwork/httpservice/FilterElementByPlacement2',{placement},'GET');
 
