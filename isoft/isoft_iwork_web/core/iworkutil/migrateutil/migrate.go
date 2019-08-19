@@ -18,7 +18,7 @@ type MigrateExecutor struct {
 	db         *sql.DB
 	TrackingId string
 	ForceClean bool
-	migrates   []models.TableMigrate
+	migrates   []models.SqlMigrate
 }
 
 func (this *MigrateExecutor) ping() (err error) {
@@ -38,18 +38,18 @@ func (this *MigrateExecutor) executeForceClean() error {
 		// 强制清理功能只适用于 _test 库
 		return errors.New("ForceClean only can used by *_test database!")
 	}
-	dropTables := make([]string, 0)
-	for _, migration := range this.migrates {
-		if !stringutil.CheckContains(migration.TableName, dropTables) {
-			dropTables = append(dropTables, migration.TableName)
-		}
-	}
-	dropTables = append(dropTables, "migrate_version")
-	for _, dropTableName := range dropTables {
-		if _, err := this.ExecSQL(fmt.Sprintf(`DROP TABLE IF EXISTS %s;`, dropTableName)); err != nil {
-			return err
-		}
-	}
+	//dropTables := make([]string, 0)
+	//for _, migration := range this.migrates {
+	//	if !stringutil.CheckContains(migration.TableName, dropTables) {
+	//		dropTables = append(dropTables, migration.TableName)
+	//	}
+	//}
+	//dropTables = append(dropTables, "migrate_version")
+	//for _, dropTableName := range dropTables {
+	//	if _, err := this.ExecSQL(fmt.Sprintf(`DROP TABLE IF EXISTS %s;`, dropTableName)); err != nil {
+	//		return err
+	//	}
+	//}
 	return nil
 }
 
@@ -90,7 +90,7 @@ func (this *MigrateExecutor) record(flag, hash, sql, tracking_detail string) err
 }
 
 func (this *MigrateExecutor) loadAllMigrate() (err error) {
-	this.migrates, err = models.QueryAllMigrate()
+	this.migrates, err = models.QueryAllSqlMigrate()
 	return
 }
 
@@ -98,11 +98,11 @@ func (this *MigrateExecutor) migrate() (err error) {
 	for _, migrate := range this.migrates {
 		if err = this.migrateOne(migrate); err != nil {
 			migrate.ValidateResult = "FAILED"
-			models.InsertOrUpdateTableMigrate(&migrate)
+			models.InsertOrUpdateSqlMigrate(&migrate)
 			return err
 		} else {
 			migrate.ValidateResult = "SUCCESS"
-			models.InsertOrUpdateTableMigrate(&migrate)
+			models.InsertOrUpdateSqlMigrate(&migrate)
 		}
 	}
 	return
@@ -119,40 +119,26 @@ func (this *MigrateExecutor) checkExecuted(hash string) bool {
 	return false
 }
 
-func (this *MigrateExecutor) getMigrate(migrateId int64) *models.TableMigrate {
-	for _, migrate := range this.migrates {
-		if migrate.Id == migrateId {
-			return &migrate
-		}
-	}
-	return nil
-}
-
 func (this *MigrateExecutor) checkMigrate() error {
-	for _, migrate := range this.migrates {
-		if migrate.PreMigrateId > 0 {
-			if preMigrate := this.getMigrate(migrate.PreMigrateId); preMigrate != nil {
-				if migrate.PreMigrateHash != hashutil.CalculateHashWithString(preMigrate.TableInfo) {
-					return errors.New(fmt.Sprintf("migrate[id=%d] check pre migrate hash error, please rebuild it...", migrate.Id))
-				}
-			}
-		}
-	}
+	//for index, migrate := range this.migrates {
+	//	if index > 0 {
+	//		preMigrate := this.migrates[index -1]
+	//		if migrate.PreMigrateHash != hashutil.CalculateHashWithString(preMigrate.MigrateSql) {
+	//			return errors.New(fmt.Sprintf("migrate[id=%d] check pre migrate hash error, please rebuild it...", migrate.Id))
+	//		}
+	//	}
+	//}
 	return nil
 }
 
-func (this *MigrateExecutor) migrateOne(migrate models.TableMigrate) error {
-	if strings.TrimSpace(migrate.TableMigrateSql) != "" {
-		// 优先使用用户自定义 sql
-		migrate.TableAutoSql = strings.TrimSpace(migrate.TableMigrateSql)
-	}
-	hash := fmt.Sprintf(`%d-%s`, migrate.Id, hashutil.CalculateHashWithString(migrate.TableAutoSql))
+func (this *MigrateExecutor) migrateOne(migrate models.SqlMigrate) error {
+	hash := fmt.Sprintf(`%d-%s`, migrate.Id, hashutil.CalculateHashWithString(migrate.MigrateSql))
 	// 已经执行过则忽略
 	if this.checkExecuted(hash) {
 		return nil
 	}
 	// 每次迁移都有可能有多个执行 sql
-	executeSqls := strings.Split(migrate.TableAutoSql, ";")
+	executeSqls := strings.Split(migrate.MigrateSql, ";")
 	executeSqls = datatypeutil.FilterSlice(executeSqls, datatypeutil.CheckNotEmpty)
 	tx, err := this.db.Begin()
 	if err != nil {
@@ -174,7 +160,7 @@ func (this *MigrateExecutor) migrateOne(migrate models.TableMigrate) error {
 	}
 	tx.Commit()
 	// 计算hash 值
-	this.record("true", hash, migrate.TableAutoSql, "")
+	this.record("true", hash, migrate.MigrateSql, "")
 	return nil
 }
 

@@ -62,12 +62,6 @@ func loadloadIWorkerRouterDetail() {
 	beego.Router("/api/iwork/batchChangeIndent", &controllers.WorkController{}, "post:BatchChangeIndent")
 	beego.Router("/api/iwork/parseToMultiValue", &controllers.WorkController{}, "post:ParseToMultiValue")
 
-	beego.Router("/api/iwork/submitMigrate", &controllers.WorkController{}, "post:SubmitMigrate")
-	beego.Router("/api/iwork/filterPageMigrate", &controllers.WorkController{}, "post:FilterPageMigrate")
-	beego.Router("/api/iwork/getMigrateInfo", &controllers.WorkController{}, "post:GetMigrateInfo")
-	beego.Router("/api/iwork/executeMigrate", &controllers.WorkController{}, "post:ExecuteMigrate")
-	beego.Router("/api/iwork/buildInstanceSql", &controllers.WorkController{}, "post:BuildInstanceSql")
-
 	beego.Router("/api/iwork/loadQuickSqlMeta", &controllers.WorkController{}, "post:LoadQuickSqlMeta")
 
 	beego.Router("/api/iwork/globalVarList", &controllers.WorkController{}, "post:GlobalVarList")

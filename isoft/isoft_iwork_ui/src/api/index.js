@@ -100,15 +100,13 @@ export const RefactorWorkStepInfo = (work_id, refactor_worksub_name,selections) 
 
 export const BatchChangeIndent = (work_id, mod,selections) => ajax(BASE_URL+"/iwork/batchChangeIndent", {work_id, mod,selections},'POST');
 
-export const SubmitMigrate = (tableName, table_migrate_sql, tableColunms, id, operateType) => ajax(BASE_URL+"/iwork/submitMigrate", {tableName, table_migrate_sql, tableColunms, id, operateType},'POST');
+export const EditSqlMigrate = (id, migrate_name, migrate_sql) => ajax(BASE_URL+"/iwork/editSqlMigrate", {id, migrate_name, migrate_sql},'POST');
 
-export const FilterPageMigrate = (filterTableName, offset,current_page) => ajax(BASE_URL+"/iwork/filterPageMigrate", {filterTableName, offset,current_page},'POST');
+export const FilterPageSqlMigrate = (offset,current_page) => ajax(BASE_URL+"/iwork/filterPageSqlMigrate", {offset,current_page},'POST');
 
-export const GetMigrateInfo = (id) => ajax(BASE_URL+"/iwork/getMigrateInfo", {id},'POST');
+export const GetSqlMigrateInfo = (id) => ajax(BASE_URL+"/iwork/getSqlMigrateInfo", {id},'POST');
 
 export const ExecuteMigrate = (resource_name, forceClean) => ajax(BASE_URL+"/iwork/executeMigrate", {resource_name, forceClean},'POST');
-
-export const BuildInstanceSql = (tableName, tableColunms, id, operateType) => ajax(BASE_URL+"/iwork/buildInstanceSql", {tableName, tableColunms, id, operateType},'POST');
 
 export const LoadQuickSqlMeta = (resource_id) => ajax(BASE_URL+"/iwork/loadQuickSqlMeta", {resource_id},'POST');
 

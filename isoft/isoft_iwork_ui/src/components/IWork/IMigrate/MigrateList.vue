@@ -2,8 +2,7 @@
   <div>
     <Row style="margin-bottom: 10px;">
       <Col span="10">
-        <Button type="success" size="small" @click="editMigrate(null)" style="margin-bottom: 6px">新建表</Button>
-        <Input v-model.trim="filterTableName" placeholder="搜索 tableName" style="width: 200px;" @on-blur="refreshMigrateList"></Input>
+        <Button type="success" size="small" @click="editMigrate(null)" style="margin-bottom: 6px">新建迁移</Button>
       </Col>
       <Col span="14">
         <Select v-model="currentResourceName" style="width:300px">
@@ -24,14 +23,13 @@
 </template>
 
 <script>
-  import {FilterPageMigrate} from "../../../api"
+  import {FilterPageSqlMigrate} from "../../../api"
   import {ExecuteMigrate} from "../../../api"
 
   export default {
     name: "MigrateList",
     data(){
       return {
-        filterTableName: '',
         errorMsg:'',
         currentResourceName:'',
         resources:[],
@@ -49,39 +47,13 @@
             width: 100,
           },
           {
-            title: 'table_name',
-            key: 'table_name',
-            width: 120,
+            title: 'migrate_name',
+            key: 'migrate_name',
           },
           {
-            title: 'table_info',
-            key: 'table_info',
-            width: 250,
-          },
-          {
-            title: 'migrate_type',
-            key: 'migrate_type',
-            width: 120,
-          },
-          {
-            title: 'table_auto_sql',
-            key: 'table_auto_sql',
-            width: 250,
-          },
-          {
-            title: 'table_migrate_sql',
-            key: 'table_migrate_sql',
-            width: 250,
-          },
-          {
-            title: 'table_info_hash',
-            key: 'table_info_hash',
-            width: 200,
-          },
-          {
-            title: 'validate_result',
-            key: 'validate_result',
-            width: 130,
+            title: 'migrate_hash',
+            key: 'migrate_hash',
+            width: 350,
           },
           {
             title: '操作',
@@ -97,51 +69,13 @@
                   },
                   style: {
                     marginRight: '5px',
-                    display: this.migrates[params.index]['is_max_migrate_id'] == true  ? undefined : 'none',
                   },
                   on: {
                     click: () => {
-                      this.editMigrate(this.migrates[params.index]['id'], "upgrade");
+                      this.editMigrate(this.migrates[params.index]['id']);
                     }
                   }
-                }, '结构升级'),
-                h('Button', {
-                  props: {
-                    type: 'info',
-                    size: 'small'
-                  },
-                  style: {
-                    marginRight: '5px',
-                    display: this.migrates[params.index]['is_max_migrate_id'] == true ? undefined : 'none',
-                  },
-                  on: {
-                    click: () => {
-                      this.editMigrate(this.migrates[params.index]['id'], "dataupgrade");
-                    }
-                  }
-                }, '数据升级'),
-                h('Button', {
-                  props: {
-                    type: 'error',
-                    size: 'small'
-                  },
-                  style: {
-                    marginRight: '5px',
-                    display: this.migrates[params.index]['validate_result'] == "FAILED" ? undefined : 'none',
-                  },
-                  on: {
-                    click: () => {
-                      if (this.migrates[params.index]['validate_result'] == "SUCCESS"){
-                        this.$Message.error("已执行验证通过的语句不能被更正,请执行升级操作!");
-                      }else{
-                        if(this.migrates[params.index]['migrate_type'] == "CREATE"){
-                          alert("当表存在时 CREATE 语句纠正可能不会重新执行奥!请先执行删除表操作!");
-                        }
-                        this.editMigrate(this.migrates[params.index]['id'], "update");
-                      }
-                    }
-                  }
-                }, '更正'),
+                }, '编辑'),
               ]);
             }
           }
@@ -150,7 +84,7 @@
     },
     methods:{
       refreshMigrateList: async function(){
-        const result = await FilterPageMigrate(this.filterTableName, this.offset, this.current_page);
+        const result = await FilterPageSqlMigrate(this.offset, this.current_page);
         this.migrates = result.migrates;
         this.resources = result.resources;
         this.total = result.paginator.totalcount;
@@ -163,9 +97,9 @@
         this.offset = pageSize;
         this.refreshMigrateList();
       },
-      editMigrate:function (id, operateType) {
+      editMigrate:function (id) {
         if(id != undefined && id != null){
-          this.$router.push({ path: '/iwork/editMigrate', query: {id: id, "operateType":operateType}});
+          this.$router.push({ path: '/iwork/editMigrate', query: {id: id}});
         }else{
           this.$router.push({ path: '/iwork/editMigrate'});
         }
