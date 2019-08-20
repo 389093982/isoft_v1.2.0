@@ -20,7 +20,7 @@ type SqlMigrate struct {
 
 func QueryAllSqlMigrate() (migrates []SqlMigrate, err error) {
 	o := orm.NewOrm()
-	_, err = o.QueryTable("sql_migrate").OrderBy("id").All(&migrates)
+	_, err = o.QueryTable("sql_migrate").Filter("effective", true).OrderBy("id").All(&migrates)
 	return
 }
 
