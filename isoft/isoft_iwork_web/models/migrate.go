@@ -10,6 +10,7 @@ type SqlMigrate struct {
 	MigrateName     string    `json:"migrate_name"`
 	MigrateSql      string    `json:"migrate_sql"`
 	MigrateHash     string    `json:"migrate_hash"`
+	Effective       bool      `json:"effective"` // 是否生效
 	ValidateResult  string    `json:"validate_result"`
 	CreatedBy       string    `json:"created_by"`
 	CreatedTime     time.Time `json:"created_time" orm:"auto_now_add;type(datetime)"`

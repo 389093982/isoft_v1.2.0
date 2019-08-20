@@ -54,6 +54,7 @@ func (this *WorkController) EditSqlMigrate() {
 	} else {
 		migrate.CreatedBy = "SYSTEM"
 		migrate.CreatedTime = time.Now()
+		migrate.Effective = true
 	}
 	migrate.LastUpdatedBy = "SYSTEM"
 	migrate.LastUpdatedTime = time.Now()
@@ -89,6 +90,7 @@ func (this *WorkController) FilterPageSqlMigrate() {
 
 // @router /api/iwork/getSqlMigrateInfo [post]
 func (this *WorkController) GetSqlMigrateInfo() {
+	defer this.ServeJSON()
 	id, _ := this.GetInt64("id")
 	migrate, err := models.QuerySqlMigrateInfo(id)
 	if err == nil {
@@ -96,5 +98,21 @@ func (this *WorkController) GetSqlMigrateInfo() {
 	} else {
 		this.Data["json"] = &map[string]interface{}{"status": "ERROR", "errorMsg": err.Error()}
 	}
-	this.ServeJSON()
+}
+
+// @router /api/iwork/toggleSqlMigrateEffective [post]
+func (this *WorkController) ToggleSqlMigrateEffective() {
+	defer this.ServeJSON()
+	defer func() {
+		if err := recover(); err != nil {
+			this.Data["json"] = &map[string]interface{}{"status": "ERROR", "errorMsg": errorutil.ToError(err).Error()}
+		}
+	}()
+	id, _ := this.GetInt64("id")
+	migrate, err := models.QuerySqlMigrateInfo(id)
+	checkError(err)
+	migrate.Effective = !migrate.Effective
+	_, err = models.InsertOrUpdateSqlMigrate(&migrate)
+	checkError(err)
+	this.Data["json"] = &map[string]interface{}{"status": "SUCCESS"}
 }

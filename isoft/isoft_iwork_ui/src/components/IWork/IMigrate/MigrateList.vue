@@ -23,8 +23,7 @@
 </template>
 
 <script>
-  import {FilterPageSqlMigrate} from "../../../api"
-  import {ExecuteMigrate} from "../../../api"
+  import {FilterPageSqlMigrate,ExecuteMigrate,ToggleSqlMigrateEffective} from "../../../api"
 
   export default {
     name: "MigrateList",
@@ -44,11 +43,23 @@
           {
             title: 'id',
             key: 'id',
-            width: 100,
+            width: 50,
           },
           {
             title: 'migrate_name',
             key: 'migrate_name',
+          },
+          {
+            title: 'effective',
+            key: 'effective',
+            width: 100,
+            render: (h, params) => {
+              return h('span', {
+                style:{
+                  color: this.migrates[params.index]['effective'] ? "blue" : "grey",
+                }
+              }, this.migrates[params.index]['effective'] ? "生效" : "失效");
+            }
           },
           {
             title: 'migrate_hash',
@@ -58,7 +69,7 @@
           {
             title: '操作',
             key: 'operate',
-            width: 220,
+            width: 180,
             fixed: 'right',
             render: (h, params) => {
               return h('div', [
@@ -76,6 +87,20 @@
                     }
                   }
                 }, '编辑'),
+                h('Button', {
+                  props: {
+                    type: 'info',
+                    size: 'small'
+                  },
+                  style: {
+                    marginRight: '5px',
+                  },
+                  on: {
+                    click: () => {
+                      this.toggleMigrateEffective(this.migrates[params.index]['id']);
+                    }
+                  }
+                }, '生效/失效'),
               ]);
             }
           }
@@ -115,6 +140,15 @@
         }
         this.refreshMigrateList();
       },
+      toggleMigrateEffective:async function (id) {
+        const result = await ToggleSqlMigrateEffective(id);
+        if(result.status == "SUCCESS"){
+          this.$Message.success("操作成功!");
+          this.refreshMigrateList();
+        }else{
+          this.$Message.error("操作失败!");
+        }
+      }
     },
     mounted(){
       this.refreshMigrateList();
