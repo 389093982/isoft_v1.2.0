@@ -1,16 +1,26 @@
 package controllers
 
 import (
+	"fmt"
 	"github.com/astaxie/beego/utils/pagination"
+	"github.com/pkg/errors"
 	"isoft/isoft/common/hashutil"
 	"isoft/isoft/common/pageutil"
+	"isoft/isoft_iwork_web/core/iworkutil/errorutil"
 	"isoft/isoft_iwork_web/core/iworkutil/migrateutil"
 	"isoft/isoft_iwork_web/models"
+	"regexp"
 	"time"
+)
+
+var (
+	MIGRATE_NAME_FORMAT      = "^(CREATE|UPDATE|DELETE|INSERT|ALTER|DROP)_[a-zA-Z0-9_]+\\.sql$"
+	DATE_MIGRATE_NAME_FORMAT = "^[0-9]{14}_(CREATE|UPDATE|DELETE|INSERT|ALTER|DROP)_[a-zA-Z0-9_]+\\.sql$"
 )
 
 // @router /api/iwork/executeMigrate [post]
 func (this *WorkController) ExecuteMigrate() {
+	defer this.ServeJSON()
 	resource_name := this.GetString("resource_name")
 	forceClean, _ := this.GetBool("forceClean", false)
 	resource, _ := models.QueryResourceByName(resource_name)
@@ -19,14 +29,24 @@ func (this *WorkController) ExecuteMigrate() {
 	} else {
 		this.Data["json"] = &map[string]interface{}{"status": "ERROR", "errorMsg": err.Error()}
 	}
-	this.ServeJSON()
 }
 
 // @router /api/iwork/editSqlMigrate [post]
 func (this *WorkController) EditSqlMigrate() {
+	defer this.ServeJSON()
+	defer func() {
+		if err := recover(); err != nil {
+			this.Data["json"] = &map[string]interface{}{"status": "ERROR", "errorMsg": errorutil.ToError(err).Error()}
+		}
+	}()
 	id, _ := this.GetInt64("id")
 	migrate := new(models.SqlMigrate)
 	migrate_name := this.GetString("migrate_name")
+	if match, _ := regexp.MatchString(MIGRATE_NAME_FORMAT, migrate_name); match {
+		migrate_name = fmt.Sprintf("%s_%s", time.Now().Format("20060102150405"), migrate_name)
+	} else if match, _ := regexp.MatchString(DATE_MIGRATE_NAME_FORMAT, migrate_name); !match {
+		panic(errors.New(fmt.Sprintf("migrate_name must match with %s or %s", MIGRATE_NAME_FORMAT, DATE_MIGRATE_NAME_FORMAT)))
+	}
 	migrate_sql := this.GetString("migrate_sql")
 	migrate_hash := hashutil.CalculateHashWithString(migrate_sql)
 	if id > 0 {
@@ -45,7 +65,6 @@ func (this *WorkController) EditSqlMigrate() {
 	} else {
 		this.Data["json"] = &map[string]interface{}{"status": "ERROR", "errorMsg": err.Error()}
 	}
-	this.ServeJSON()
 }
 
 // @router /api/iwork/filterPageSqlMigrate [post]

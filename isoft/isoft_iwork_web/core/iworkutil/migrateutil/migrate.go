@@ -8,6 +8,7 @@ import (
 	"isoft/isoft/common/hashutil"
 	"isoft/isoft/common/stringutil"
 	"isoft/isoft_iwork_web/core/iworkutil/datatypeutil"
+	"isoft/isoft_iwork_web/core/iworkutil/sqlutil"
 	"isoft/isoft_iwork_web/models"
 	"strconv"
 	"strings"
@@ -38,18 +39,15 @@ func (this *MigrateExecutor) executeForceClean() error {
 		// 强制清理功能只适用于 _test 库
 		return errors.New("ForceClean only can used by *_test database!")
 	}
-	//dropTables := make([]string, 0)
-	//for _, migration := range this.migrates {
-	//	if !stringutil.CheckContains(migration.TableName, dropTables) {
-	//		dropTables = append(dropTables, migration.TableName)
-	//	}
-	//}
-	//dropTables = append(dropTables, "migrate_version")
-	//for _, dropTableName := range dropTables {
-	//	if _, err := this.ExecSQL(fmt.Sprintf(`DROP TABLE IF EXISTS %s;`, dropTableName)); err != nil {
-	//		return err
-	//	}
-	//}
+
+	dropTables := make([]string, 0)
+	tableNames := sqlutil.GetAllTableNames(this.Dsn)
+	for _, tableName := range tableNames {
+		dropTables = append(dropTables, fmt.Sprintf(`DROP TABLE IF EXISTS %s;`, tableName))
+	}
+	if _, err := this.ExecSQL(strings.Join(dropTables, "")); err != nil {
+		return err
+	}
 	return nil
 }
 
@@ -154,7 +152,7 @@ func (this *MigrateExecutor) migrateOne(migrate models.SqlMigrate) error {
 			this.record("true", detailHash, executeSql, "")
 		} else {
 			tx.Rollback()
-			errorMsg := fmt.Sprintf("[%s] - [%s] : %s", strconv.FormatInt(migrate.Id, 10), executeSql, err.Error())
+			errorMsg := fmt.Sprintf("[%s] - [%s] - [%s] : %s", strconv.FormatInt(migrate.Id, 10), migrate.MigrateName, executeSql, err.Error())
 			return errors.New(errorMsg)
 		}
 	}

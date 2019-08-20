@@ -1,6 +1,7 @@
 <template>
   <!-- 表单信息 -->
   <Form ref="formValidate" :model="formValidate" :rules="ruleValidate" :label-width="150">
+    <span style="color:red;">{{migrate_name_error}}</span>
     <FormItem label="migrate_name" prop="migrate_name">
       <Input v-model="formValidate.migrate_name" placeholder="Enter your migrate_name"></Input>
     </FormItem>
@@ -21,6 +22,7 @@
     data(){
       return {
         id: -1,
+        migrate_name_error:'',
         formValidate: {
           migrate_name: '',
           migrate_sql: '',
@@ -43,6 +45,8 @@
             if(result.status == "SUCCESS"){
               this.$Message.success("编辑成功！");
               this.$router.push({ path: '/iwork/migrateList'});
+            }else{
+              this.migrate_name_error = result.errorMsg;
             }
           }
         })
