@@ -91,18 +91,12 @@ func (this *MigrateExecutor) loadAllMigrate() (err error) {
 	return
 }
 
-func (this *MigrateExecutor) migrate() (err error) {
+func (this *MigrateExecutor) migrate() {
 	for _, migrate := range this.migrates {
-		if err = this.migrateOne(migrate); err != nil {
-			migrate.ValidateResult = "FAILED"
-			models.InsertOrUpdateSqlMigrate(&migrate)
-			return err
-		} else {
-			migrate.ValidateResult = "SUCCESS"
-			models.InsertOrUpdateSqlMigrate(&migrate)
+		if err := this.migrateOne(migrate); err != nil {
+			return
 		}
 	}
-	return
 }
 
 func (this *MigrateExecutor) checkExecuted(hash string) bool {
@@ -135,6 +129,7 @@ func (this *MigrateExecutor) migrateOne(migrate models.SqlMigrate) error {
 		log := &models.SqlMigrateLog{
 			TrackingId:     this.TrackingId,
 			MigrateName:    migrate.MigrateName,
+			Status:         true,
 			TrackingDetail: fmt.Sprintf(`%s was migrated and skip it...`, migrate.MigrateName),
 		}
 		models.InsertSqlMigrateLog(log)
@@ -147,30 +142,32 @@ func (this *MigrateExecutor) migrateOne(migrate models.SqlMigrate) error {
 	if err != nil {
 		return err
 	}
-	for index, executeSql := range executeSqls {
-		// 防止 executeSql 相同导致的 hash 值相同问题
-		detailHash := fmt.Sprintf(`%d-%d-%s`, migrate.Id, index, hashutil.CalculateHashWithString(executeSql))
-		if this.checkExecuted(detailHash) {
-			break
-		}
-		if _, err := this.ExecSQL(executeSql); err == nil {
-			this.record("true", detailHash, executeSql, "")
-		} else {
+	for _, executeSql := range executeSqls {
+		if _, err := this.ExecSQL(executeSql); err != nil {
 			tx.Rollback()
-			log := &models.SqlMigrateLog{
+			log1 := &models.SqlMigrateLog{
 				TrackingId:     this.TrackingId,
 				MigrateName:    migrate.MigrateName,
+				Status:         false,
+				TrackingDetail: fmt.Sprintf("[%s] - [%s] - [%s] : %s", strconv.FormatInt(migrate.Id, 10), migrate.MigrateName, executeSql, err.Error()),
+			}
+			models.InsertSqlMigrateLog(log1)
+
+			log2 := &models.SqlMigrateLog{
+				TrackingId:     this.TrackingId,
+				MigrateName:    migrate.MigrateName,
+				Status:         false,
 				TrackingDetail: fmt.Sprintf(`%s was migrated failed and rollback ...`, migrate.MigrateName),
 			}
-			models.InsertSqlMigrateLog(log)
-			errorMsg := fmt.Sprintf("[%s] - [%s] - [%s] : %s", strconv.FormatInt(migrate.Id, 10), migrate.MigrateName, executeSql, err.Error())
-			return errors.New(errorMsg)
+			models.InsertSqlMigrateLog(log2)
+			return err
 		}
 	}
 	tx.Commit()
 	log := &models.SqlMigrateLog{
 		TrackingId:     this.TrackingId,
 		MigrateName:    migrate.MigrateName,
+		Status:         true,
 		TrackingDetail: fmt.Sprintf(`%s was migrated success ...`, migrate.MigrateName),
 	}
 	models.InsertSqlMigrateLog(log)
@@ -192,7 +189,7 @@ func MigrateToDB(trackingId, dsn string, forceClean bool) (err error) {
 		if err = executor.initial(); err != nil {
 			return err
 		}
-		err = executor.migrate()
+		executor.migrate()
 	}
 	if err != nil {
 		executor.record("false", "", "", err.Error())

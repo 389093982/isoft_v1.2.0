@@ -26,8 +26,10 @@ func (this *WorkController) ExecuteMigrate() {
 	forceClean, _ := this.GetBool("forceClean", false)
 	resource, _ := models.QueryResourceByName(resource_name)
 	trackingId := stringutil.RandomUUID()
-	if err := migrateutil.MigrateToDB(trackingId, resource.ResourceDsn, forceClean); err == nil {
-		this.Data["json"] = &map[string]interface{}{"status": "SUCCESS"}
+	err := migrateutil.MigrateToDB(trackingId, resource.ResourceDsn, forceClean)
+	logs, _ := models.QueryAllSqlMigrateLog(trackingId)
+	if err == nil {
+		this.Data["json"] = &map[string]interface{}{"status": "SUCCESS", "logs": logs}
 	} else {
 		logs, _ := models.QueryAllSqlMigrateLog(trackingId)
 		this.Data["json"] = &map[string]interface{}{"status": "ERROR", "logs": logs, "errorMsg": err.Error()}

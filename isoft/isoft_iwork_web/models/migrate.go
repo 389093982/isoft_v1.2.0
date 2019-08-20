@@ -11,7 +11,6 @@ type SqlMigrate struct {
 	MigrateSql      string    `json:"migrate_sql"`
 	MigrateHash     string    `json:"migrate_hash"`
 	Effective       bool      `json:"effective"` // 是否生效
-	ValidateResult  string    `json:"validate_result"`
 	CreatedBy       string    `json:"created_by"`
 	CreatedTime     time.Time `json:"created_time" orm:"auto_now_add;type(datetime)"`
 	LastUpdatedBy   string    `json:"last_updated_by"`
@@ -21,6 +20,7 @@ type SqlMigrate struct {
 type SqlMigrateLog struct {
 	Id             int64  `json:"id"`
 	TrackingId     string `json:"tracking_id"`
+	Status         bool   `json:"status"`
 	MigrateName    string `json:"migrate_name"`
 	TrackingDetail string `json:"tracking_detail"`
 }

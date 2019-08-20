@@ -14,8 +14,7 @@
         <Button type="success" size="small" @click="executeMigrate(true)" style="margin-bottom: 6px">清理DB并执行迁移</Button>
       </Col>
     </Row>
-    <p style="color: red;margin-bottom: 10px;margin-top: 10px;">{{errorMsg}}</p>
-    <p v-for="log in logs">{{log.tracking_detail}}</p>
+    <p v-for="log in logs" :style="{color: log.status ? 'grey' : 'red'}">{{log.tracking_detail}}</p>
 
     <Table border :columns="columns1" :data="migrates" size="small"></Table>
     <Page :total="total" :page-size="offset" show-total show-sizer :styles="{'text-align': 'center','margin-top': '10px'}"
@@ -31,7 +30,6 @@
     data(){
       return {
         logs:[],
-        errorMsg:'',
         currentResourceName:'',
         resources:[],
         migrates:[],
@@ -132,13 +130,13 @@
         }
       },
       executeMigrate: async function (forceClean) {
-        this.errorMsg = null;
         const result = await ExecuteMigrate(this.currentResourceName, forceClean);
         if(result.status == "SUCCESS"){
           this.$Message.success("SUCCESS");
+          this.logs = result.logs;
           this.refreshMigrateList();
         }else{
-          this.errorMsg = result.errorMsg;
+          this.$Message.error(result.errorMsg);
           this.logs = result.logs;
         }
         this.refreshMigrateList();
