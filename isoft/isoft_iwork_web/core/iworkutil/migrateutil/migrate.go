@@ -6,7 +6,6 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/pkg/errors"
 	"isoft/isoft/common/hashutil"
-	"isoft/isoft/common/stringutil"
 	"isoft/isoft_iwork_web/core/iworkutil/datatypeutil"
 	"isoft/isoft_iwork_web/core/iworkutil/sqlutil"
 	"isoft/isoft_iwork_web/models"
@@ -133,6 +132,12 @@ func (this *MigrateExecutor) migrateOne(migrate models.SqlMigrate) error {
 	hash := fmt.Sprintf(`%d-%s`, migrate.Id, hashutil.CalculateHashWithString(migrate.MigrateSql))
 	// 已经执行过则忽略
 	if this.checkExecuted(hash) {
+		log := &models.SqlMigrateLog{
+			TrackingId:     this.TrackingId,
+			MigrateName:    migrate.MigrateName,
+			TrackingDetail: fmt.Sprintf(`%s was migrated and skip it...`, migrate.MigrateName),
+		}
+		models.InsertSqlMigrateLog(log)
 		return nil
 	}
 	// 每次迁移都有可能有多个执行 sql
@@ -152,20 +157,32 @@ func (this *MigrateExecutor) migrateOne(migrate models.SqlMigrate) error {
 			this.record("true", detailHash, executeSql, "")
 		} else {
 			tx.Rollback()
+			log := &models.SqlMigrateLog{
+				TrackingId:     this.TrackingId,
+				MigrateName:    migrate.MigrateName,
+				TrackingDetail: fmt.Sprintf(`%s was migrated failed and rollback ...`, migrate.MigrateName),
+			}
+			models.InsertSqlMigrateLog(log)
 			errorMsg := fmt.Sprintf("[%s] - [%s] - [%s] : %s", strconv.FormatInt(migrate.Id, 10), migrate.MigrateName, executeSql, err.Error())
 			return errors.New(errorMsg)
 		}
 	}
 	tx.Commit()
+	log := &models.SqlMigrateLog{
+		TrackingId:     this.TrackingId,
+		MigrateName:    migrate.MigrateName,
+		TrackingDetail: fmt.Sprintf(`%s was migrated success ...`, migrate.MigrateName),
+	}
+	models.InsertSqlMigrateLog(log)
 	// 计算hash 值
 	this.record("true", hash, migrate.MigrateSql, "")
 	return nil
 }
 
-func MigrateToDB(dsn string, forceClean bool) (err error) {
+func MigrateToDB(trackingId, dsn string, forceClean bool) (err error) {
 	executor := &MigrateExecutor{
 		Dsn:        dsn,
-		TrackingId: stringutil.RandomUUID(),
+		TrackingId: trackingId,
 		ForceClean: forceClean,
 	}
 	if err = executor.ping(); err == nil {

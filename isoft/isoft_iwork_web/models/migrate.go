@@ -18,6 +18,24 @@ type SqlMigrate struct {
 	LastUpdatedTime time.Time `json:"last_updated_time"`
 }
 
+type SqlMigrateLog struct {
+	Id             int64  `json:"id"`
+	TrackingId     string `json:"tracking_id"`
+	MigrateName    string `json:"migrate_name"`
+	TrackingDetail string `json:"tracking_detail"`
+}
+
+func InsertSqlMigrateLog(sml *SqlMigrateLog) (id int64, err error) {
+	_, err = orm.NewOrm().Insert(sml)
+	return
+}
+
+func QueryAllSqlMigrateLog(trackingId string) (logs []SqlMigrateLog, err error) {
+	o := orm.NewOrm()
+	_, err = o.QueryTable("sql_migrate_log").Filter("tracking_id", trackingId).OrderBy("id").All(&logs)
+	return
+}
+
 func QueryAllSqlMigrate() (migrates []SqlMigrate, err error) {
 	o := orm.NewOrm()
 	_, err = o.QueryTable("sql_migrate").Filter("effective", true).OrderBy("id").All(&migrates)

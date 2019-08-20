@@ -15,6 +15,7 @@
       </Col>
     </Row>
     <p style="color: red;margin-bottom: 10px;margin-top: 10px;">{{errorMsg}}</p>
+    <p v-for="log in logs">{{log.tracking_detail}}</p>
 
     <Table border :columns="columns1" :data="migrates" size="small"></Table>
     <Page :total="total" :page-size="offset" show-total show-sizer :styles="{'text-align': 'center','margin-top': '10px'}"
@@ -29,6 +30,7 @@
     name: "MigrateList",
     data(){
       return {
+        logs:[],
         errorMsg:'',
         currentResourceName:'',
         resources:[],
@@ -137,6 +139,7 @@
           this.refreshMigrateList();
         }else{
           this.errorMsg = result.errorMsg;
+          this.logs = result.logs;
         }
         this.refreshMigrateList();
       },

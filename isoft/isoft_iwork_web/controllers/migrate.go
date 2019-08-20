@@ -6,6 +6,7 @@ import (
 	"github.com/pkg/errors"
 	"isoft/isoft/common/hashutil"
 	"isoft/isoft/common/pageutil"
+	"isoft/isoft/common/stringutil"
 	"isoft/isoft_iwork_web/core/iworkutil/errorutil"
 	"isoft/isoft_iwork_web/core/iworkutil/migrateutil"
 	"isoft/isoft_iwork_web/models"
@@ -24,10 +25,12 @@ func (this *WorkController) ExecuteMigrate() {
 	resource_name := this.GetString("resource_name")
 	forceClean, _ := this.GetBool("forceClean", false)
 	resource, _ := models.QueryResourceByName(resource_name)
-	if err := migrateutil.MigrateToDB(resource.ResourceDsn, forceClean); err == nil {
+	trackingId := stringutil.RandomUUID()
+	if err := migrateutil.MigrateToDB(trackingId, resource.ResourceDsn, forceClean); err == nil {
 		this.Data["json"] = &map[string]interface{}{"status": "SUCCESS"}
 	} else {
-		this.Data["json"] = &map[string]interface{}{"status": "ERROR", "errorMsg": err.Error()}
+		logs, _ := models.QueryAllSqlMigrateLog(trackingId)
+		this.Data["json"] = &map[string]interface{}{"status": "ERROR", "logs": logs, "errorMsg": err.Error()}
 	}
 }
 
