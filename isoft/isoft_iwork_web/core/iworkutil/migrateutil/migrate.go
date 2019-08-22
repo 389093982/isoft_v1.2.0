@@ -7,6 +7,7 @@ import (
 	"github.com/pkg/errors"
 	"isoft/isoft/common/hashutil"
 	"isoft/isoft_iwork_web/core/iworkutil/datatypeutil"
+	"isoft/isoft_iwork_web/core/iworkutil/errorutil"
 	"isoft/isoft_iwork_web/core/iworkutil/sqlutil"
 	"isoft/isoft_iwork_web/models"
 	"strconv"
@@ -34,30 +35,69 @@ func (this *MigrateExecutor) executeForceClean() error {
 	if this.ForceClean == false {
 		return nil
 	}
-	if !strings.HasSuffix(this.Dsn, "_test") {
+	if !strings.Contains(this.Dsn, "_test") {
 		// 强制清理功能只适用于 _test 库
 		return errors.New("ForceClean only can used by *_test database!")
 	}
 
-	dropTables := make([]string, 0)
 	tableNames := sqlutil.GetAllTableNames(this.Dsn)
-	for _, tableName := range tableNames {
-		dropTables = append(dropTables, fmt.Sprintf(`DROP TABLE IF EXISTS %s;`, tableName))
-	}
-	if _, err := this.ExecSQL(strings.Join(dropTables, "")); err != nil {
-		return err
+	if len(tableNames) > 0 {
+		for _, tableName := range tableNames {
+			if _, err := this.ExecSQL(fmt.Sprintf(`DROP TABLE IF EXISTS %s;`, tableName)); err != nil {
+				return err
+			}
+		}
 	}
 	return nil
 }
 
+func (this *MigrateExecutor) getAllMigrateVersions() ([]string, []string) {
+	sql := `SELECT migrate_name, migrate_hash FROM migrate_version order by created_time asc`
+	rows, err := this.db.Query(sql)
+	errorutil.CheckError(err)
+	defer rows.Close()
+	migrateNames := make([]string, 0)
+	migrateHashs := make([]string, 0)
+	for rows.Next() {
+		var migrate_name, migrate_hash string
+		err = rows.Scan(&migrate_name, &migrate_hash)
+		errorutil.CheckError(err)
+		migrateNames = append(migrateNames, migrate_name)
+		migrateHashs = append(migrateHashs, migrate_hash)
+	}
+	return migrateNames, migrateHashs
+}
+
+// 检查执行历史
+// 1、文件是否被删除
+// 2、文件是否被篡改
+// 3、文件执行顺序是否被更改
+func (this *MigrateExecutor) checkHistory() {
+	migrateNames, migrateHashs := this.getAllMigrateVersions()
+	for index, migrateName := range migrateNames {
+		if migrateName == this.migrates[index].MigrateName {
+			if migrateHashs[index] != this.migrates[index].MigrateHash {
+				errorMsg := `fatal match error, history migrate_name for %s's hash is %s, but %s was found at migrate_index %d, please check why the file has been modified!`
+				panic(errors.New(fmt.Sprintf(errorMsg, migrateName, migrateHashs[index], this.migrates[index].MigrateHash, index)))
+			}
+		} else {
+			panic(errors.New(fmt.Sprintf("fatal match error, history migrate_name is %s, but %s was found at at migrate_index %d",
+				migrateName, this.migrates[index].MigrateName, index)))
+		}
+	}
+	return
+}
+
 // 建立迁移文件版本管理表
-func (this *MigrateExecutor) initial() (err error) {
-	if err = this.executeForceClean(); err != nil {
-		return err
+func (this *MigrateExecutor) initial() {
+	if err := this.executeForceClean(); err != nil {
+		panic(err)
 	}
 	versionTable := `CREATE TABLE IF NOT EXISTS migrate_version (id INT(20) PRIMARY KEY AUTO_INCREMENT, 
-	tracking_id CHAR(200), flag CHAR(200), hash CHAR(200),sql_detail TEXT, tracking_detail TEXT, created_time datetime);`
-	_, err = this.ExecSQL(versionTable)
+	migrate_name CHAR(200), migrate_hash CHAR(200), created_time datetime);`
+	if _, err := this.ExecSQL(versionTable); err != nil {
+		panic(err)
+	}
 	return
 }
 
@@ -77,18 +117,17 @@ func (this *MigrateExecutor) QueryRowSQL(sql string, args ...interface{}) (row *
 	return
 }
 
-func (this *MigrateExecutor) record(flag, hash, sql, tracking_detail string) error {
+func (this *MigrateExecutor) insertMigrateVersion(migrate_name, migrate_hash string) error {
 	if this.db != nil {
-		recordLog := `INSERT INTO migrate_version(tracking_id,flag,hash,sql_detail,tracking_detail, created_time) VALUES (?,?,?,?,?,NOW());`
-		_, err := this.ExecSQL(recordLog, this.TrackingId, flag, hash, sql, tracking_detail)
+		recordLog := `INSERT INTO migrate_version(migrate_name,migrate_hash,created_time) VALUES (?,?,NOW());`
+		_, err := this.ExecSQL(recordLog, migrate_name, migrate_hash)
 		return err
 	}
 	return nil
 }
 
-func (this *MigrateExecutor) loadAllMigrate() (err error) {
-	this.migrates, err = models.QueryAllSqlMigrate()
-	return
+func (this *MigrateExecutor) loadAllMigrate() {
+	this.migrates, _ = models.QueryAllSqlMigrate()
 }
 
 func (this *MigrateExecutor) migrate() {
@@ -99,9 +138,9 @@ func (this *MigrateExecutor) migrate() {
 	}
 }
 
-func (this *MigrateExecutor) checkExecuted(hash string) bool {
-	sql := `SELECT COUNT(*) FROM migrate_version WHERE hash = ?`
-	if row, err := this.QueryRowSQL(sql, hash); err == nil {
+func (this *MigrateExecutor) checkExecuted(migrate_name, migrate_hash string) bool {
+	sql := `SELECT COUNT(*) FROM migrate_version WHERE migrate_name = ? and migrate_hash = ?`
+	if row, err := this.QueryRowSQL(sql, migrate_name, migrate_hash); err == nil {
 		var datacount int64
 		if err := row.Scan(&datacount); err == nil && datacount > 0 {
 			return true
@@ -110,69 +149,46 @@ func (this *MigrateExecutor) checkExecuted(hash string) bool {
 	return false
 }
 
-func (this *MigrateExecutor) checkMigrate() error {
-	//for index, migrate := range this.migrates {
-	//	if index > 0 {
-	//		preMigrate := this.migrates[index -1]
-	//		if migrate.PreMigrateHash != hashutil.CalculateHashWithString(preMigrate.MigrateSql) {
-	//			return errors.New(fmt.Sprintf("migrate[id=%d] check pre migrate hash error, please rebuild it...", migrate.Id))
-	//		}
-	//	}
-	//}
-	return nil
+func (this *MigrateExecutor) InsertSqlMigrateLog(migrate_name, detail string, status bool) {
+	log := &models.SqlMigrateLog{
+		TrackingId:     this.TrackingId,
+		MigrateName:    migrate_name,
+		Status:         status,
+		TrackingDetail: detail,
+	}
+	models.InsertSqlMigrateLog(log)
 }
 
 func (this *MigrateExecutor) migrateOne(migrate models.SqlMigrate) error {
-	hash := fmt.Sprintf(`%d-%s`, migrate.Id, hashutil.CalculateHashWithString(migrate.MigrateSql))
+	hash := hashutil.CalculateHashWithString(migrate.MigrateSql)
 	// 已经执行过则忽略
-	if this.checkExecuted(hash) {
-		log := &models.SqlMigrateLog{
-			TrackingId:     this.TrackingId,
-			MigrateName:    migrate.MigrateName,
-			Status:         true,
-			TrackingDetail: fmt.Sprintf(`%s was migrated and skip it...`, migrate.MigrateName),
-		}
-		models.InsertSqlMigrateLog(log)
+	if this.checkExecuted(migrate.MigrateName, hash) {
+		detail := fmt.Sprintf(`%s was migrated and skip it...`, migrate.MigrateName)
+		this.InsertSqlMigrateLog(migrate.MigrateName, detail, true)
 		return nil
 	}
 	// 每次迁移都有可能有多个执行 sql
 	executeSqls := strings.Split(migrate.MigrateSql, ";")
 	executeSqls = datatypeutil.FilterSlice(executeSqls, datatypeutil.CheckNotEmpty)
 	tx, err := this.db.Begin()
-	if err != nil {
-		return err
-	}
+	errorutil.CheckError(err)
 	for _, executeSql := range executeSqls {
 		if _, err := this.ExecSQL(executeSql); err != nil {
 			tx.Rollback()
-			log1 := &models.SqlMigrateLog{
-				TrackingId:     this.TrackingId,
-				MigrateName:    migrate.MigrateName,
-				Status:         false,
-				TrackingDetail: fmt.Sprintf("[%s] - [%s] - [%s] : %s", strconv.FormatInt(migrate.Id, 10), migrate.MigrateName, executeSql, err.Error()),
-			}
-			models.InsertSqlMigrateLog(log1)
+			detail := fmt.Sprintf("[%s] - [%s] - [%s] : %s", strconv.FormatInt(migrate.Id, 10), migrate.MigrateName, executeSql, err.Error())
+			this.InsertSqlMigrateLog(migrate.MigrateName, detail, false)
 
-			log2 := &models.SqlMigrateLog{
-				TrackingId:     this.TrackingId,
-				MigrateName:    migrate.MigrateName,
-				Status:         false,
-				TrackingDetail: fmt.Sprintf(`%s was migrated failed and rollback ...`, migrate.MigrateName),
-			}
-			models.InsertSqlMigrateLog(log2)
+			detail = fmt.Sprintf(`%s was migrated failed and rollback ...`, migrate.MigrateName)
+			this.InsertSqlMigrateLog(migrate.MigrateName, detail, false)
 			return err
 		}
 	}
 	tx.Commit()
-	log := &models.SqlMigrateLog{
-		TrackingId:     this.TrackingId,
-		MigrateName:    migrate.MigrateName,
-		Status:         true,
-		TrackingDetail: fmt.Sprintf(`%s was migrated success ...`, migrate.MigrateName),
-	}
-	models.InsertSqlMigrateLog(log)
+	detail := fmt.Sprintf(`%s was migrated success ...`, migrate.MigrateName)
+	this.InsertSqlMigrateLog(migrate.MigrateName, detail, true)
+
 	// 计算hash 值
-	this.record("true", hash, migrate.MigrateSql, "")
+	this.insertMigrateVersion(migrate.MigrateName, hash)
 	return nil
 }
 
@@ -182,17 +198,18 @@ func MigrateToDB(trackingId, dsn string, forceClean bool) (err error) {
 		TrackingId: trackingId,
 		ForceClean: forceClean,
 	}
+	defer func() {
+		if err := recover(); err != nil {
+			detail := errorutil.ToError(err).Error()
+			executor.InsertSqlMigrateLog("", detail, false)
+		}
+	}()
+
 	if err = executor.ping(); err == nil {
-		if err = executor.loadAllMigrate(); err != nil {
-			return err
-		}
-		if err = executor.initial(); err != nil {
-			return err
-		}
+		executor.loadAllMigrate()
+		executor.initial()
+		executor.checkHistory()
 		executor.migrate()
-	}
-	if err != nil {
-		executor.record("false", "", "", err.Error())
 	}
 	return
 }

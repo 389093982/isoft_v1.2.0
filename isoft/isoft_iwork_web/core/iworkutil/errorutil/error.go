@@ -6,6 +6,12 @@ import (
 	"runtime"
 )
 
+func CheckError(err error) {
+	if err != nil {
+		panic(err)
+	}
+}
+
 func ToError(err interface{}) error {
 	if _err, ok := err.(error); ok {
 		return _err

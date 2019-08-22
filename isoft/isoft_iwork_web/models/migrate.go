@@ -8,7 +8,7 @@ import (
 type SqlMigrate struct {
 	Id              int64     `json:"id"`
 	MigrateName     string    `json:"migrate_name"`
-	MigrateSql      string    `json:"migrate_sql"`
+	MigrateSql      string    `json:"migrate_sql" orm:"type(text)"`
 	MigrateHash     string    `json:"migrate_hash"`
 	Effective       bool      `json:"effective"` // 是否生效
 	CreatedBy       string    `json:"created_by"`
@@ -22,7 +22,7 @@ type SqlMigrateLog struct {
 	TrackingId     string `json:"tracking_id"`
 	Status         bool   `json:"status"`
 	MigrateName    string `json:"migrate_name"`
-	TrackingDetail string `json:"tracking_detail"`
+	TrackingDetail string `json:"tracking_detail" orm:"type(text)"`
 }
 
 func InsertSqlMigrateLog(sml *SqlMigrateLog) (id int64, err error) {
