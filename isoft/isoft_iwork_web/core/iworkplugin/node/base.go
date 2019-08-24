@@ -3,7 +3,6 @@ package node
 import (
 	"fmt"
 	"github.com/astaxie/beego/orm"
-	"github.com/pkg/errors"
 	"isoft/isoft_iwork_web/core/interfaces"
 	"isoft/isoft_iwork_web/core/iworkcache"
 	"isoft/isoft_iwork_web/core/iworkconst"
@@ -82,14 +81,15 @@ func (this *BaseNode) FillParamInputSchemaDataToTmp(workStep *models.WorkStep) {
 		for _, item := range paramInputSchema.ParamInputSchemaItems {
 			if item.ParamName != iworkconst.HTTP_REQUEST_OBJECT {
 				// 从父流程或者调度者中获取值,即从 Dispatcher 中获取值
-				if value := this.Dispatcher.TmpDataMap[item.ParamName]; value != nil && value != "" {
-					tmpDataMap[item.ParamName] = value
-				} else if this.WorkCache.ParamMappingDefault[item.ParamName] != nil {
-					tmpDataMap[item.ParamName] = this.WorkCache.ParamMappingDefault[item.ParamName]
+				value := this.Dispatcher.TmpDataMap[item.ParamName]
+				tmpDataMap[item.ParamName] = value
+				if value == nil || value == "" {
+					if this.WorkCache.ParamMappingDefault[item.ParamName] != nil {
+						tmpDataMap[item.ParamName] = this.WorkCache.ParamMappingDefault[item.ParamName]
+					}
 				} else {
-					panic(errors.New(fmt.Sprintf("required parameter for %s.%s was not found!", workStep.WorkStepName, item.ParamName)))
+					tmpDataMap[item.ParamName] = this.Dispatcher.TmpDataMap[item.ParamName]
 				}
-
 			}
 		}
 		this.TmpDataMap = tmpDataMap
