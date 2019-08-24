@@ -37,11 +37,10 @@ func (this *WorkController) ExecuteMigrate() {
 }
 
 // .*匹配除 \n 以外的任何字符
-// 匹配任意字符 [\s\S]* 或者 [\w\W]*
 func checkMigrateSqlFormat(sql string) string {
-	sql, _ = stringutil.ReplaceAllString(sql, "\\/\\*[\\w\\W]*\\*\\/;", "") // 去除注释 /**/;
-	sql, _ = stringutil.ReplaceAllString(sql, "\\/\\*[\\w\\W]*\\*\\/", "")  // 去除注释 /**/
-	sql = stringutil.TrimEmptyLines(sql)                                    // 去除所有空行
+	sql, _ = stringutil.ReplaceAllString(sql, "\\/\\*.*\\*\\/;", "") // 去除注释 /**/;
+	sql, _ = stringutil.ReplaceAllString(sql, "\\/\\*.*\\*\\/", "")  // 去除注释 /**/
+	sql = stringutil.TrimEmptyLines(sql)                             // 去除所有空行
 	return sql
 }
 

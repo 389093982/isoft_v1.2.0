@@ -6,7 +6,6 @@ import (
 	"github.com/astaxie/beego/orm"
 	_ "github.com/go-sql-driver/mysql" // _ 的作用,并不需要把整个包都导入进来,仅仅是是希望它执行init()函数而已
 	_ "github.com/mattn/go-sqlite3"
-	"isoft/isoft/common/flyway"
 	"isoft/isoft_iaas_web/models/cms"
 	"isoft/isoft_iaas_web/models/common"
 	"isoft/isoft_iaas_web/models/iblog"
@@ -43,15 +42,7 @@ func InitDb() {
 		orm.Debug = true
 	}
 	registerModel()
-
-	if RunSyncdbMode == "FLYWAY" {
-		// ilearning 模块
-		flyway.MigrateToDB(Dsn, "./conf/migrations/migrations.sql")
-		// sso 模块
-		flyway.MigrateToDB(Dsn, "./conf/migrations/sso_migrations.sql")
-	} else {
-		createTable()
-	}
+	createTable()
 }
 
 func registerModel() {
