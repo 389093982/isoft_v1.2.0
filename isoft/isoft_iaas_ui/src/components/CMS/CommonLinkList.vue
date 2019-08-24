@@ -11,7 +11,7 @@
       v-model="showAddCommonLink"
       width="500"
       title="新增链接地址"
-      footer-hide="true"
+      :footer-hide="true"
       :mask-closable="false">
       <!-- 表单正文 -->
       <Form ref="formValidate" :model="formValidate" :rules="ruleValidate" :label-width="100">
