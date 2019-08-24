@@ -36,6 +36,13 @@ func (this *WorkController) ExecuteMigrate() {
 	}
 }
 
+func checkMigrateSqlFormat(sql string) string {
+	sql = stringutil.TrimEmptyLines(sql) // 去除所有空行
+	sql, _ = stringutil.ReplaceAllString(sql, "\\/\\*.*\\*\\/;", "")
+	sql, _ = stringutil.ReplaceAllString(sql, "\\/\\*.*\\*\\/", "")
+	return sql
+}
+
 // @router /api/iwork/editSqlMigrate [post]
 func (this *WorkController) EditSqlMigrate() {
 	defer this.ServeJSON()
@@ -53,6 +60,7 @@ func (this *WorkController) EditSqlMigrate() {
 		panic(errors.New(fmt.Sprintf("migrate_name must match with %s or %s", MIGRATE_NAME_FORMAT, DATE_MIGRATE_NAME_FORMAT)))
 	}
 	migrate_sql := this.GetString("migrate_sql")
+	migrate_sql = checkMigrateSqlFormat(migrate_sql) // 检查 sql 格式
 	migrate_hash := hashutil.CalculateHashWithString(migrate_sql)
 	if id > 0 {
 		*migrate, _ = models.QuerySqlMigrateById(id)

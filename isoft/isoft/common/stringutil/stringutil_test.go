@@ -20,3 +20,8 @@ func Test_GetNoRepeatSubStringWithRegexp(t *testing.T) {
 		fmt.Println(s)
 	}
 }
+
+func Test_GetXXX(t *testing.T) {
+	fmt.Println(ReplaceAllString("11111/*dsfsdfs8**/dfdddd", "\\/\\*.*\\*\\/", ""))
+	fmt.Println(ReplaceAllString("11111/*dsfsdfs8**/;dfdddd", "\\/\\*.*\\*\\/;", ""))
+}

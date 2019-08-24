@@ -84,3 +84,29 @@ func RemoveItemFromSlice(slc []string, item string) []string {
 	}
 	return result
 }
+
+func filterSlice(sli []string, filter func(s string) bool) []string {
+	filterSli := make([]string, 0)
+	for _, s := range sli {
+		if filter(s) {
+			filterSli = append(filterSli, s)
+		}
+	}
+	return filterSli
+}
+
+func TrimEmptyLines(str string) string {
+	lines := strings.Split(str, "\n")
+	lines = filterSlice(lines, func(s string) bool {
+		return strings.TrimSpace(s) != ""
+	})
+	return strings.Join(lines, "\n")
+}
+
+func ReplaceAllString(str, expr, replacement string) (string, error) {
+	reg, err := regexp.Compile(expr)
+	if err != nil {
+		return "", err
+	}
+	return reg.ReplaceAllString(str, replacement), nil
+}
