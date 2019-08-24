@@ -148,6 +148,8 @@ export const Login = (username,passwd) => ajax(BASE_URL_2+"/iwork/httpservice/Po
 // export const Regist = (username,passwd) => ajax(BASE_URL+"/sso/user/regist", {username,passwd},'POST');
 export const Regist = (username,passwd) => ajax(BASE_URL_2+"/iwork/httpservice/Regist2", {username,passwd},'POST');
 
+export const GetHotUsers = () => ajax(BASE_URL_2+"/iwork/httpservice/GetHotUsers", {},'POST');
+
 // 系统注册分页查询
 // export const AppRegisterList = (offset,current_page,search) => ajax(BASE_URL+"/sso/app/appRegisterList", {offset,current_page,search},'POST');
 export const AppRegisterList = (offset,current_page,search) => ajax(BASE_URL_2+"/iwork/httpservice/AppRegisterList2", {offset,current_page,search},'POST');

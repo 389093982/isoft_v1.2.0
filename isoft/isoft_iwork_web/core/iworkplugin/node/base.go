@@ -73,7 +73,6 @@ func (this *BaseNode) FillPureTextParamInputSchemaDataToTmp(workStep *models.Wor
 
 // 将 ParamInputSchema 填充数据并返回临时的数据中心 tmpDataMap
 func (this *BaseNode) FillParamInputSchemaDataToTmp(workStep *models.WorkStep) {
-
 	// work_start 节点并且 dispatcher 非空时替换成父流程参数
 	if workStep.WorkStepType == iworkconst.NODE_TYPE_WORK_START && this.Dispatcher != nil && len(this.Dispatcher.TmpDataMap) > 0 {
 		tmpDataMap := make(map[string]interface{})

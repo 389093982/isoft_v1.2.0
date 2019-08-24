@@ -1,14 +1,33 @@
 <template>
-  <div style="border: 1px #dbdbdb solid;margin-left: 5px;margin-bottom: 5px;padding: 15px;">
+  <div>
     <a>热门用户</a>
     <a>积分排行榜</a>
-    热门用户...............
+
+    <Row v-for="user in users">{{user.user_name}}</Row>
   </div>
 </template>
 
 <script>
+  import {GetHotUsers} from "../../api"
+
   export default {
-    name: "HotUser"
+    name: "HotUser",
+    data(){
+      return {
+        users:[],
+      }
+    },
+    methods:{
+      refreshHotUsers:async function () {
+        const result = await GetHotUsers();
+        if (result.status == "SUCCESS"){
+          this.users = result.users;
+        }
+      }
+    },
+    mounted(){
+      this.refreshHotUsers();
+    }
   }
 </script>
 
