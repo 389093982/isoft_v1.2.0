@@ -34,6 +34,9 @@
          :parent_id="comment_reply.id" :comment_id="comment_id" :theme_type="theme_type"/>
     </div>
 
+    <Page :total="total" :page-size="offset" show-total show-sizer :styles="{'text-align': 'center','margin-top': '10px'}"
+          @on-change="handleChange" @on-page-size-change="handlePageSizeChange"/>
+
     <!-- 评论表单 -->
     <Modal
       v-model="showCommentForm"
@@ -70,6 +73,12 @@
     components:{CommentForm},
     data(){
       return {
+        // 当前页
+        current_page:1,
+        // 总页数
+        total:1,
+        // 每页记录数
+        offset:10,
         comment_replys:[],
         showCommentForm:false,
         // 回复评论,两个参数分别是被评论id,被评论人
@@ -78,15 +87,24 @@
       }
     },
     methods:{
+      handleChange(page){
+        this.current_page = page;
+        this.refreshCommentReply();
+      },
+      handlePageSizeChange(pageSize){
+        this.offset = pageSize;
+        this.refreshCommentReply();
+      },
       // 刷新当前父级评论对应的评论列表
       refreshCommentReply:async function(reply_comment_type){
         if(reply_comment_type == undefined){
           reply_comment_type = "all";
         }
-        const result = await FilterCommentReply(this.comment_id, this.theme_type, this.parent_id, reply_comment_type);
+        const result = await FilterCommentReply(this.comment_id, this.theme_type, this.parent_id, reply_comment_type, this.offset, this.current_page);
         if(result.status=="SUCCESS"){
           this.showCommentForm = false;
           this.comment_replys = result.comment_replys;
+          this.total = result.paginator.totalcount;
         }
       },
       // 回复评论,两个参数分别是被评论id,被评论人
@@ -97,7 +115,7 @@
       },
     },
     mounted:function () {
-      this.refreshCommentReply('all');
+      this.refreshCommentReply();
     },
     watch:{
       "comment_id": "refreshCommentReply"      // 如果 comment_id 有变化,会再次执行该方法

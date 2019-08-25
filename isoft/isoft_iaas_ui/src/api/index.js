@@ -96,8 +96,8 @@ export const AddCommentReply = (parent_id, reply_content, comment_id, theme_type
   ajax(BASE_URL_2+'/iwork/httpservice/AddCommentReply2',{parent_id, reply_content, comment_id, theme_type, reply_comment_type, refer_user_name},'GET');
 
 // 获取评论列表
-export const FilterCommentReply = (comment_id, theme_type, parent_id, reply_comment_type) =>
-  ajax(BASE_URL_2+'/iwork/httpservice/FilterCommentReply2',{comment_id, theme_type, parent_id, reply_comment_type},'GET');
+export const FilterCommentReply = (comment_id, theme_type, parent_id, reply_comment_type, offset,current_page) =>
+  ajax(BASE_URL_2+'/iwork/httpservice/FilterCommentReply2',{comment_id, theme_type, parent_id, reply_comment_type, offset,current_page},'GET');
 
 // 获取所有课程类型
 export const GetAllCourseType = () => ajax(BASE_URL_2+"/iwork/httpservice/GetAllCourseType2",{},'GET');
