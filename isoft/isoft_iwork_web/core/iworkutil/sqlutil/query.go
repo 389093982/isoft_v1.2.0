@@ -4,8 +4,12 @@ import (
 	"database/sql"
 	"github.com/pkg/errors"
 	"isoft/isoft_iwork_web/core/iworkpool"
+	"strconv"
 	"strings"
+	"time"
 )
+
+var timeLayoutStr = "2006-01-02 15:04:05" //go中的时间格式化必须是这个时间
 
 func GetMetaDatas(sql, dataSourceName string) (colNames []string) {
 	db, err := iworkpool.GetDBConn("mysql", dataSourceName)
@@ -46,12 +50,26 @@ func parseRows(rows *sql.Rows) (datacounts int64, rowDatas []map[string]interfac
 	// 列名、列值组成的 map,多行数据使用数组存储
 	rowDatas = []map[string]interface{}{}
 	colNames, _ := rows.Columns()
+	columnTypes, _ := rows.ColumnTypes()
 	for rows.Next() {
 		colValues := scanRowData(rows, len(colNames))
-
 		rowData := map[string]interface{}{}
 		for index, colValue := range colValues {
-			rowData[colNames[index]] = string(colValue)
+			switch strings.ToLower(columnTypes[index].DatabaseTypeName()) {
+			case "int", "tinyint", "smallint":
+				rowData[colNames[index]], _ = strconv.Atoi(string(colValue))
+			case "bigint":
+				rowData[colNames[index]], _ = strconv.ParseInt(string(colValue), 10, 64)
+			case "char", "varchar", "longtext", "text", "tinytext":
+				rowData[colNames[index]] = string(colValue)
+			case "date", "datetime", "timestamp":
+				rowData[colNames[index]], _ = time.Parse(timeLayoutStr, string(colValue)) //string转time
+			case "double", "float":
+				rowData[colNames[index]], _ = strconv.ParseFloat(string(colValue), 64)
+			default:
+				// 其他类型当成string处理
+				rowData[colNames[index]] = string(colValue)
+			}
 		}
 		rowDatas = append(rowDatas, rowData)
 		// 数据量增加 1
