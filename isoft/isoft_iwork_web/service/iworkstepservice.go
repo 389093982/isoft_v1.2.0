@@ -518,20 +518,23 @@ func EditWorkStepParamInfo(serviceArgs map[string]interface{}) error {
 	if step, err = models.QueryOneWorkStep(work_id, work_step_id, o); err != nil {
 		return err
 	}
+	// 先进行保存再进行格式检查 formatChecker,格式检查不通过也可以保存,防止用户编辑数据丢失
 	paramInputSchema, _ := iworkmodels.ParseToParamInputSchema(paramInputSchemaStr)
-	if err = formatChecker(paramInputSchema); err != nil {
-		return err
-	}
-
 	step.WorkStepInput = paramInputSchema.RenderToJson()
 	step.WorkStepParamMapping = paramMappingsStr
 	step.CreatedBy = "SYSTEM"
 	step.CreatedTime = time.Now()
 	step.LastUpdatedBy = "SYSTEM"
 	step.LastUpdatedTime = time.Now()
-	if _, err = models.InsertOrUpdateWorkStep(&step, o); err != nil {
+	// 此处使用单独的事物 orm.NewOrm()
+	if _, err = models.InsertOrUpdateWorkStep(&step, orm.NewOrm()); err != nil {
 		return err
 	}
+
+	if err = formatChecker(paramInputSchema); err != nil {
+		return err
+	}
+
 	// 保存完静态参数后自动构建获动态参数并保存
 	BuildDynamic(work_id, work_step_id, step, o)
 
