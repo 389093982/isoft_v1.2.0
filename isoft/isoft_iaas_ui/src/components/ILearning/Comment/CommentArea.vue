@@ -53,7 +53,20 @@
   export default {
     name: "CommentArea",
     // 评论清单
-    props:["parent_id","comment_id","theme_type"],
+    props:{
+      parent_id:{
+        type:Number,
+        default: -1,
+      },
+      comment_id:{
+        type:Number,
+        default:-1,
+      },
+      theme_type:{
+        type:String,
+        default:"",
+      }
+    },
     components:{CommentForm},
     data(){
       return {

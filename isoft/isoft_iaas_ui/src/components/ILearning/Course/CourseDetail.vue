@@ -52,7 +52,7 @@
         </Row>
         <hr>
         <!-- 课程评论 -->
-        <CourseComment :course="course" theme_type="course_theme_type" style="margin-top: 50px;"/>
+        <CourseComment :course="course" :comment_id="course.id" theme_type="course_theme_type" style="margin-top: 50px;"/>
       </Col>
 
       <Col span="8">

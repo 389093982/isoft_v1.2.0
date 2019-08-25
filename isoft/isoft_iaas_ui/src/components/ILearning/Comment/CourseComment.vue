@@ -6,7 +6,7 @@
   </div>
 
   <div>
-    <CommentForm :parent_id="parent_id" :comment_id="course.id" :theme_type="theme_type"
+    <CommentForm :parent_id="parent_id" :comment_id="comment_id" :theme_type="theme_type"
        :refer_user_name="refer_user_name" @refreshCommentReply="refreshCommentReply"/>
   </div>
 
@@ -24,7 +24,7 @@
       </span>
     </div>
     <!-- 评论列表 -->
-    <CommentArea ref="commentArea" v-if="this.course.id" parent_id="0" :comment_id="this.course.id" :theme_type="theme_type"></CommentArea>
+    <CommentArea ref="commentArea" v-if="comment_id > 0" :parent_id="0" :comment_id="comment_id" :theme_type="theme_type"></CommentArea>
   </div>
 </div>
 </template>
@@ -46,6 +46,10 @@
       theme_type:{
         type:String,
         default:"",
+      },
+      comment_id:{
+        type:Number,
+        default:-1,
       }
     },
     data(){
