@@ -47,6 +47,10 @@
             <MenuItem name="4-2" @click.native="cancelUser">切换账号</MenuItem>
           </MenuGroup>
         </Submenu>
+        <MenuItem name="5">
+          <Icon type="ios-construct" />
+          <router-link to="/cms/commonLinkList">管理控制台</router-link>
+        </MenuItem>
       </div>
     </Menu>
   </div>
@@ -82,7 +86,7 @@
 
 <style scoped>
   .layout-nav{
-    width: 620px;
+    width: 720px;
     margin: 0 auto;
     margin-right: 20px;
   }

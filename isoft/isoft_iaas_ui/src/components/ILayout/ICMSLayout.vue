@@ -41,15 +41,13 @@
                 <Icon type="ios-barcode"></Icon>
                 广告位管理
               </template>
-              <MenuItem name="2-1"><router-link to="/iwork/runLogList">日志列表</router-link></MenuItem>
-              <MenuItem name="2-1"><router-link to="/iwork/workHistoryList">编辑历史</router-link></MenuItem>
             </Submenu>
             <Submenu name="2">
               <template slot="title">
                 <Icon type="ios-barcode"></Icon>
                 评论管理
               </template>
-              <MenuItem name="2-1"><router-link to="/iwork/runLogList">评论列表</router-link></MenuItem>
+              <MenuItem name="2-1"><router-link to="#">评论列表</router-link></MenuItem>
             </Submenu>
           </Menu>
         </Sider>

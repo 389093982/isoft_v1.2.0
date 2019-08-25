@@ -1,5 +1,4 @@
 import cronValidate from "./cron"
-import {getILearningRouters} from "../../../isoft_iaas_ui/src/router/ilearning";
 
 // 获取 cookie 值
 export const getCookie = function getCookie(c_name) {
