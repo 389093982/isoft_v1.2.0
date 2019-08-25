@@ -21,6 +21,7 @@
 
 <script>
   import {AddCommentReply} from "../../../api/index"
+  import {checkFastClick} from "../../../tools"
 
   export default {
     name: "CommentForm",
@@ -33,6 +34,10 @@
     },
     methods:{
       submitComment: async function (reply_comment_type) {
+        if (checkFastClick()){
+          this.$Message.error("点击过快,请稍后重试!");
+          return;
+        }
         if(this.reply_content == undefined || this.reply_content.length < 10){
           this.$Notice.error({
             title: '温馨提示',

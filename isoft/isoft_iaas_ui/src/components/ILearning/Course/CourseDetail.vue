@@ -57,7 +57,9 @@
 
       <Col span="8">
         <UserDetail :userName="course.course_author"/>
-        <HotUser/>
+        <div style="border: 1px #dbdbdb solid;margin-left: 5px;margin-bottom: 5px;padding: 15px;">
+          <HotUser/>
+        </div>
         <HotRecommend showMode="list"/>
         <!-- 推荐系统 -->
         <Recommand />
@@ -68,8 +70,7 @@
 </template>
 
 <script>
-  import {ShowCourseDetail} from "../../../api"
-  import {ToggleFavorite} from "../../../api"
+  import {ShowCourseDetail,ToggleFavorite} from "../../../api"
   import Recommand from "./Recommand"
   import CourseComment from "../Comment/CourseComment"
   import CommunicationGroup from "../Site/CommunicationGroup"
