@@ -36,7 +36,7 @@
         });
         this.paramMappingName.split(",").forEach(_paramMappingName => {
           if(_paramMappingName.trim() != ""){
-            this.$emit("handleSubmit", _paramMappingName);
+            this.$emit("handleSubmit", _paramMappingName.trim());
           }
         });
         this.$refs.triggerModal.hideModal();

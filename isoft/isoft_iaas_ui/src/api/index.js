@@ -119,7 +119,8 @@ export const FilterElements = (offset,current_page,search) => ajax(BASE_URL_2+'/
 // export const AddElement = (placement, title, content, imgpath, linked_refer) => ajax(BASE_URL+'/cms/addElement',{placement, title, content, imgpath, linked_refer},'GET');
 export const AddElement = (placement, title, content, imgpath, linked_refer) => ajax(BASE_URL_2+'/iwork/httpservice/AddElement2',{placement, title, content, imgpath, linked_refer},'GET');
 
-export const UpdateElementStatus = (id, status) => ajax(BASE_URL+'/cms/updateElementStatus',{id, status},'GET');
+// export const UpdateElementStatus = (id, status) => ajax(BASE_URL+'/cms/updateElementStatus',{id, status},'GET');
+export const UpdateElementStatus = (id, status) => ajax(BASE_URL_2+'/iwork/httpservice/UpdateElementStatus2',{id, status},'GET');
 
 // export const AddPlacement = (placement_name, placement_desc) => ajax(BASE_URL+'/cms/addPlacement',{placement_name, placement_desc},'GET');
 export const AddPlacement = (placement_name, placement_desc) => ajax(BASE_URL_2+'/iwork/httpservice/AddPlacement2',{placement_name, placement_desc},'GET');
