@@ -119,11 +119,14 @@ export const AddElement = (placement, title, content, imgpath, linked_refer) => 
 
 export const UpdateElementStatus = (id, status) => ajax(BASE_URL+'/cms/updateElementStatus',{id, status},'GET');
 
-export const AddPlacement = (placement_name, placement_desc) => ajax(BASE_URL+'/cms/addPlacement',{placement_name, placement_desc},'GET');
+// export const AddPlacement = (placement_name, placement_desc) => ajax(BASE_URL+'/cms/addPlacement',{placement_name, placement_desc},'GET');
+export const AddPlacement = (placement_name, placement_desc) => ajax(BASE_URL_2+'/iwork/httpservice/AddPlacement2',{placement_name, placement_desc},'GET');
 
-export const FilterPlacement = (offset,current_page,search) => ajax(BASE_URL+'/cms/filterPlacement',{offset,current_page,search},'GET');
+// export const FilterPlacement = (offset,current_page,search) => ajax(BASE_URL+'/cms/filterPlacement',{offset,current_page,search},'GET');
+export const FilterPlacement = (offset,current_page,search) => ajax(BASE_URL_2+'/iwork/httpservice/FilterPlacement2',{offset,current_page,search},'GET');
 
-export const DeletePlacementById = (id) => ajax(BASE_URL+'/cms/deletePlacementById',{id},'GET');
+// export const DeletePlacementById = (id) => ajax(BASE_URL+'/cms/deletePlacementById',{id},'GET');
+export const DeletePlacementById = (id) => ajax(BASE_URL_2+'/iwork/httpservice/DeletePlacementById2',{id},'GET');
 
 // export const FilterElementByPlacement = (placement) => ajax(BASE_URL+'/cms/filterElementByPlacement',{placement},'GET');
 export const FilterElementByPlacement = (placement) => ajax(BASE_URL_2+'/iwork/httpservice/FilterElementByPlacement2',{placement},'GET');
