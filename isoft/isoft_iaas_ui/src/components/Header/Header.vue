@@ -28,28 +28,18 @@
         </MenuItem>
         <Submenu name="3">
           <template slot="title">
-            <Icon type="ios-paper" />
-            内容管理
-          </template>
-          <MenuGroup title="配置项管理">
-            <MenuItem name="3-1"><router-link to="/ilearning/configuration">查看配置项</router-link></MenuItem>
-            <MenuItem name="3-2"><router-link to="/cms/commonLinkList">友情链接</router-link></MenuItem>
-          </MenuGroup>
-        </Submenu>
-        <Submenu name="4">
-          <template slot="title">
             <Icon type="ios-people" />
             <span v-if="loginUserName">{{loginUserName}}</span>
             <span v-else>登录</span>
           </template>
           <MenuGroup title="账号管理">
-            <MenuItem name="4-1" @click.native="cancelUser">注销</MenuItem>
-            <MenuItem name="4-2" @click.native="cancelUser">切换账号</MenuItem>
+            <MenuItem name="3-1" @click.native="cancelUser">注销</MenuItem>
+            <MenuItem name="3-2" @click.native="cancelUser">切换账号</MenuItem>
           </MenuGroup>
         </Submenu>
-        <MenuItem name="5">
+        <MenuItem name="4">
           <Icon type="ios-construct" />
-          <router-link to="/cms/commonLinkList">管理控制台</router-link>
+          <router-link to="/cms/placement_list">管理控制台</router-link>
         </MenuItem>
       </div>
     </Menu>
@@ -86,7 +76,7 @@
 
 <style scoped>
   .layout-nav{
-    width: 720px;
+    width: 620px;
     margin: 0 auto;
     margin-right: 20px;
   }

@@ -108,10 +108,6 @@ const ILearningRouter = {
       component: VideoPay,
     },
     {
-      path: 'configuration',
-      component: Configuration,
-    },
-    {
       // this.$router.push({ name: 'xxx'});
       // this.$router.push({ path: 'xxx'});
       name:'course_search',
@@ -121,15 +117,7 @@ const ILearningRouter = {
   ]
 };
 
-const CMSRouter = {
-  path: '/cms',
-  component: ILayout,
-  children: [
-    {path: 'commonLinkList',component: CommonLinkList},
-  ]
-};
-
-const ILearningRouters = [IBlogRouter, ILearningRouter, ShareListRouter, CMSRouter];
+const ILearningRouters = [IBlogRouter, ILearningRouter, ShareListRouter];
 
 const ISSOReouter = [{
   path: '/sso',
@@ -149,6 +137,8 @@ const ICMSReouter = [{
     {path: 'element_list',component: Element},
     {path: 'catalog_list',component: Catalog},
     {path: 'placement_list',component: Placement},
+    {path: 'commonLinkList',component: CommonLinkList},
+    {path: 'configuration',component: Configuration},
   ]
 }];
 
