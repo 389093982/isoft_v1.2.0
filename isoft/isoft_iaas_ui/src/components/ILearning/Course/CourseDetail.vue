@@ -15,7 +15,7 @@
           <Col span="16">
             <p style="color: #d6241e;">
               浏览量：{{course.watch_number}}
-              课程分数：<Rate disabled show-text allow-half v-model="course.score"/> &nbsp;
+              课程分数：<Rate disabled show-text allow-half :v-model="course.score"/> &nbsp;
             </p>
             <p>
               课程名称：{{course.course_name}}
@@ -52,7 +52,7 @@
         </Row>
         <hr>
         <!-- 课程评论 -->
-        <CourseComment :course="course" style="margin-top: 50px;"/>
+        <CourseComment :course="course" theme_type="course_theme_type" style="margin-top: 50px;"/>
       </Col>
 
       <Col span="8">

@@ -38,7 +38,16 @@
     name: "CourseComment",
     components:{CommentForm,CommentArea},
     // 当前评论的课程
-    props:["course"],
+    props:{
+      course:{
+        type:Object,
+        default:null,
+      },
+      theme_type:{
+        type:String,
+        default:"",
+      }
+    },
     data(){
       return {
         comment_theme:null,
@@ -48,7 +57,6 @@
         submit_comment:"",
         // 被评论人
         refer_user_name:"",
-        theme_type:"course_theme_type",
       }
     },
     methods:{
