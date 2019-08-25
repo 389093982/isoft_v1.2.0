@@ -39,10 +39,6 @@
     components:{CommentForm,CommentArea},
     // 当前评论的课程
     props:{
-      course:{
-        type:Object,
-        default:null,
-      },
       theme_type:{
         type:String,
         default:"",
@@ -72,22 +68,15 @@
       // 刷新评论主题
       refreshCommentTheme:async function(){
         // comment_id, theme_type 分别如下参数
-        const result = await FilterCommentTheme(this.course.id, this.theme_type);
+        const result = await FilterCommentTheme(this.comment_id, this.theme_type);
         if(result.status=="SUCCESS"){
           this.comment_theme = result.comment_theme;
           this.refreshCommentReply();
         }
       },
     },
-    watch:{
-      // 监听 props 修改
-      course(curVal,oldVal){
-        this.refer_user_name = curVal.course_author;
-        this.refreshCommentTheme();
-      },
-    },
     mounted:function () {
-      if(this.course && this.course.id){
+      if(this.comment_id > 0){
         // 父组件异步修改子组件 props 值获取了 undefined
         this.refreshCommentTheme();
       }

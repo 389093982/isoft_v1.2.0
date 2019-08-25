@@ -6,10 +6,9 @@ import (
 	"isoft/isoft_iwork_web/core/iworkpool"
 	"strconv"
 	"strings"
-	"time"
 )
 
-var timeLayoutStr = "2006-01-02 15:04:05" //go中的时间格式化必须是这个时间
+//var timeLayoutStr = "2006-01-02 15:04:05" //go中的时间格式化必须是这个时间
 
 func GetMetaDatas(sql, dataSourceName string) (colNames []string) {
 	db, err := iworkpool.GetDBConn("mysql", dataSourceName)
@@ -63,7 +62,8 @@ func parseRows(rows *sql.Rows) (datacounts int64, rowDatas []map[string]interfac
 			case "char", "varchar", "longtext", "text", "tinytext":
 				rowData[colNames[index]] = string(colValue)
 			case "date", "datetime", "timestamp":
-				rowData[colNames[index]], _ = time.Parse(timeLayoutStr, string(colValue)) //string转time
+				//rowData[colNames[index]], _ = time.Parse(timeLayoutStr, string(colValue)) //string转time
+				rowData[colNames[index]] = string(colValue)
 			case "double", "float":
 				rowData[colNames[index]], _ = strconv.ParseFloat(string(colValue), 64)
 			default:
