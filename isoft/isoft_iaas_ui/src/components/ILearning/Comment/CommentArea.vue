@@ -29,6 +29,8 @@
           </span>
         </Row>
       </p>
+
+      子评论数({{comment_reply.sub_reply_amount}})
       <!-- 递归,子评论区域 -->
       <CommentArea v-if="comment_reply.sub_reply_amount > 0"
          :parent_id="comment_reply.id" :comment_id="comment_id" :theme_type="theme_type"/>
