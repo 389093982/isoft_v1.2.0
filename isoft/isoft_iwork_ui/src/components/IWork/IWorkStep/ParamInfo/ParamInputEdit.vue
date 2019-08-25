@@ -25,7 +25,7 @@
             <Input style="width: 350px;" v-else size="small" v-model.trim="item.ParamValue" readonly type="text" placeholder="small size"/>
           </td>
           <td>
-            <Button v-if="!item.ParamChoices" type="success" size="small" @click="handleReload(index)">查看/编辑</Button>
+            <Button v-if="!item.ParamChoices" type="success" size="small" @click="handleReload(index, true)">查看/编辑</Button>
           </td>
         </tr>
       </div>
@@ -50,10 +50,10 @@
     },
     methods:{
       // 根据 paramIndex 重新加载
-      handleReload: function(paramIndex){
+      handleReload: function(paramIndex, refreshOutput){
         if(paramIndex >=0 && paramIndex <= this.paramInputSchemaItems.length -1){
           let item = this.paramInputSchemaItems[paramIndex];
-          this.$refs["paramInputEditDialog"].refreshParamInput(paramIndex, item);
+          this.$refs["paramInputEditDialog"].refreshParamInput(paramIndex, item, refreshOutput);
         }
       },
       // 强制刷新组件

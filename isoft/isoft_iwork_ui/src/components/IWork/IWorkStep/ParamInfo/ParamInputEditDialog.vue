@@ -28,7 +28,7 @@
           <DropdownMenu slot="list">
             <Scroll height="300">
               <DropdownItem v-for="(item,index) in paramInputSchemaItems">
-                <Button :type="item.ParamValue ? 'default' : 'text'" long size="small" @click="handleReload(index)">
+                <Button :type="item.ParamValue ? 'default' : 'text'" long size="small" @click="handleReload(index, false)">
                   {{ item.ParamName }}&nbsp;&nbsp;&nbsp;<Badge status="processing" v-if="paramIndex == index"/>
                 </Button>
               </DropdownItem>
@@ -172,7 +172,7 @@
           this.$Message.error('提交失败!' + result.errorMsg);
         }
       },
-      handleReload: function(paramIndex){
+      handleReload: function(paramIndex, refreshOutput){
         var _this = this;
         if(this.checkDrity()){
           this.$Modal.confirm({
@@ -180,12 +180,12 @@
             content:"是否需要保存上一步操作?",
             onOk: function () {
               _this.handleSubmit(function () {
-                _this.$emit("handleReload", paramIndex);
+                _this.$emit("handleReload", paramIndex, refreshOutput);
               });
             },
           });
         }else{
-          this.$emit("handleReload", paramIndex);
+          this.$emit("handleReload", paramIndex, refreshOutput);
         }
       },
       refreshEditProgress:function(){
@@ -197,7 +197,7 @@
         }
         this.editProgress = Math.floor(count / this.paramInputSchemaItems.length * 100);
       },
-      refreshParamInput: function(index, item){
+      refreshParamInput: function(index, item, refreshOutput){
         this.showFormModal = true;
         this.paramIndex = index;
         this.inputLabel = item.ParamName;
@@ -206,7 +206,9 @@
         this.inputTextData = item.ParamValue;
         this.showMultiVals = false;
         this.clearDirty();
-        this.refreshPreNodeOutput();
+        if (refreshOutput == true){
+          this.refreshPreNodeOutput();
+        }
         this.refreshEditProgress();
       },
       closeModal: function(){
