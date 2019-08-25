@@ -1,6 +1,6 @@
 <template>
   <Tabs type="card" :value="current_tab" @on-click="currentTabChanged" :animated="false">
-    <TabPane label="前置节点输出参数" name="tab_output" v-if="prePosTreeNodeArr">
+    <TabPane label="前置节点输出参数" name="tab_output">
       <Scroll height="400">
         <Tree v-if="data1" :data="data1" show-checkbox ref="tree1" :render="renderContent"></Tree>
       </Scroll>
