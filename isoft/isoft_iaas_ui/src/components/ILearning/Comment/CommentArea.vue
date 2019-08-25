@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-for="comment_reply in comment_replys" style="margin-bottom:5px;padding: 10px;border: 1px solid #e9e9e9;">
+    <div v-for="(comment_reply,index) in comment_replys" style="margin-bottom:5px;padding: 10px;border: 1px solid #e9e9e9;">
       <p>
         <router-link to="">
           <Avatar size="small" src="https://i.loli.net/2017/08/21/599a521472424.jpg" />
@@ -24,19 +24,19 @@
       <p>
         <Row>
           <span style="float: right;">
-            <a v-if="comment_reply.depth < 3" href="javascript:;" @click="replyComment(comment_reply.id,comment_reply.created_by)">回复他/她</a>&nbsp;
+            <a @click="toggleShow(index,comment_reply)" v-if="comment_reply.sub_reply_amount > 0">子评论数({{comment_reply.sub_reply_amount}})</a>
+            <a v-if="comment_reply.depth < 2" href="javascript:;" @click="replyComment(comment_reply.id,comment_reply.created_by)">回复他/她</a>&nbsp;
             <a href="javascript:;">点赞</a>
           </span>
         </Row>
       </p>
-
-      子评论数({{comment_reply.sub_reply_amount}})
       <!-- 递归,子评论区域 -->
-      <CommentArea v-if="comment_reply.sub_reply_amount > 0"
-         :parent_id="comment_reply.id" :comment_id="comment_id" :theme_type="theme_type"/>
+      <CommentArea v-if="comment_reply.sub_reply_amount > 0 && comment_reply.toggleSubCommentShow"
+         :parent_id="comment_reply.id" :comment_id="comment_id" :theme_type="theme_type" :key="comment_reply.id"/>
     </div>
 
-    <Page :total="total" :page-size="offset" show-total show-sizer :styles="{'text-align': 'center','margin-top': '10px'}"
+    <!-- 顶级评论支持分页 -->
+    <Page v-if="parent_id == 0" :total="total" :page-size="offset" show-total show-sizer :styles="{'text-align': 'center','margin-top': '10px'}"
           @on-change="handleChange" @on-page-size-change="handlePageSizeChange"/>
 
     <!-- 评论表单 -->
@@ -89,6 +89,10 @@
       }
     },
     methods:{
+      toggleShow(index, comment_reply){
+        comment_reply.toggleSubCommentShow = !(comment_reply.toggleSubCommentShow == null ? false : comment_reply.toggleSubCommentShow);
+          this.$set(this.comment_replys, index, comment_reply);
+      },
       handleChange(page){
         this.current_page = page;
         this.refreshCommentReply();
@@ -128,5 +132,6 @@
 <style scoped>
   a{
     color:red;
+    margin-right: 10px;
   }
 </style>

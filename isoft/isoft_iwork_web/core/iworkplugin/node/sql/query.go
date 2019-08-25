@@ -41,21 +41,25 @@ func (this *SQLQueryNode) Execute(trackingId string) {
 	// 判断是简单查询还是分页查询
 	current_page := this.TmpDataMap[iworkconst.NUMBER_PREFIX+"current_page?"]
 	page_size := this.TmpDataMap[iworkconst.NUMBER_PREFIX+"page_size?"]
+
+	isPage := false
 	if current_page != nil && page_size != nil {
 		_current_page, _ := strconv.Atoi(current_page.(string))
 		_page_size, _ := strconv.Atoi(page_size.(string))
-		totalcount = sqlutil.QuerySelectCount(total_sql, sql_binding, dataSourceName)
-		sql_binding = append(sql_binding, (_current_page-1)*_page_size, _page_size)
-		datacounts, rowDatas = sqlutil.Query(limit_sql, sql_binding, dataSourceName)
-
-		// 存储分页信息
-		paginator := pageutil.Paginator(_current_page, _page_size, totalcount)
-		paramMap[iworkconst.COMPLEX_PREFIX+"paginator"] = paginator
-
-		for key, value := range paginator {
-			paramMap[iworkconst.COMPLEX_PREFIX+"paginator."+key] = value
+		if _current_page > 0 && _page_size > 0 { // 正数才表示分页
+			totalcount = sqlutil.QuerySelectCount(total_sql, sql_binding, dataSourceName)
+			sql_binding = append(sql_binding, (_current_page-1)*_page_size, _page_size)
+			datacounts, rowDatas = sqlutil.Query(limit_sql, sql_binding, dataSourceName)
+			// 存储分页信息
+			paginator := pageutil.Paginator(_current_page, _page_size, totalcount)
+			paramMap[iworkconst.COMPLEX_PREFIX+"paginator"] = paginator
+			for key, value := range paginator {
+				paramMap[iworkconst.COMPLEX_PREFIX+"paginator."+key] = value
+			}
+			isPage = true
 		}
-	} else {
+	}
+	if !isPage {
 		datacounts, rowDatas = sqlutil.Query(sql, sql_binding, dataSourceName)
 	}
 
