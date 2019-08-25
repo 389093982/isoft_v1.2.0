@@ -113,9 +113,11 @@ export const FilterCommonLinks = (offset,current_page,search) => ajax(BASE_URL_2
 // export const AddCommonLink = (link_type, link_name, link_addr) => ajax(BASE_URL+'/cms/addCommonLink',{link_type, link_name, link_addr},'GET');
 export const AddCommonLink = (link_type, link_name, link_addr) => ajax(BASE_URL_2+'/iwork/httpservice/AddCommonLink2',{link_type, link_name, link_addr},'GET');
 
-export const FilterElements = (offset,current_page,search) => ajax(BASE_URL+'/cms/filterElements',{offset,current_page,search},'GET');
+// export const FilterElements = (offset,current_page,search) => ajax(BASE_URL+'/cms/filterElements',{offset,current_page,search},'GET');
+export const FilterElements = (offset,current_page,search) => ajax(BASE_URL_2+'/iwork/httpservice/FilterElements2',{offset,current_page,search},'GET');
 
-export const AddElement = (placement, title, content, imgpath, linked_refer) => ajax(BASE_URL+'/cms/addElement',{placement, title, content, imgpath, linked_refer},'GET');
+// export const AddElement = (placement, title, content, imgpath, linked_refer) => ajax(BASE_URL+'/cms/addElement',{placement, title, content, imgpath, linked_refer},'GET');
+export const AddElement = (placement, title, content, imgpath, linked_refer) => ajax(BASE_URL_2+'/iwork/httpservice/AddElement2',{placement, title, content, imgpath, linked_refer},'GET');
 
 export const UpdateElementStatus = (id, status) => ajax(BASE_URL+'/cms/updateElementStatus',{id, status},'GET');
 

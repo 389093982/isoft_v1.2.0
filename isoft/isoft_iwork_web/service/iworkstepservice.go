@@ -513,24 +513,11 @@ func EditWorkStepParamInfo(serviceArgs map[string]interface{}) error {
 	work_id := serviceArgs["work_id"].(int64)
 	work_step_id := serviceArgs["work_step_id"].(int64)
 	paramInputSchemaStr := serviceArgs["paramInputSchemaStr"].(string)
-	paramMappingsStr := serviceArgs["paramMappingsStr"].(string)
 	o := serviceArgs["o"].(orm.Ormer)
 	if step, err = models.QueryOneWorkStep(work_id, work_step_id, o); err != nil {
 		return err
 	}
-	// 先进行保存再进行格式检查 formatChecker,格式检查不通过也可以保存,防止用户编辑数据丢失
 	paramInputSchema, _ := iworkmodels.ParseToParamInputSchema(paramInputSchemaStr)
-	step.WorkStepInput = paramInputSchema.RenderToJson()
-	step.WorkStepParamMapping = paramMappingsStr
-	step.CreatedBy = "SYSTEM"
-	step.CreatedTime = time.Now()
-	step.LastUpdatedBy = "SYSTEM"
-	step.LastUpdatedTime = time.Now()
-	// 此处使用单独的事物 orm.NewOrm()
-	if _, err = models.InsertOrUpdateWorkStep(&step, orm.NewOrm()); err != nil {
-		return err
-	}
-
 	if err = formatChecker(paramInputSchema); err != nil {
 		return err
 	}

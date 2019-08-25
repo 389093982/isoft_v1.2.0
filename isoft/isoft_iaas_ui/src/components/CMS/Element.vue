@@ -156,11 +156,14 @@
             const result = await AddElement(this.formInline.placement, this.formInline.title, this.formInline.content,
               this.formInline.imgpath, this.formInline.linked_refer);
             if(result.status=="SUCCESS"){
-             this.refreshElementList();
+              this.refreshElementList();
+              this.$Message.success('提交成功!');
+            }else{
+              this.$Message.error('提交失败!' + result.errorMsg);
             }
-            this.$Message.success('Success!');
+
           } else {
-            this.$Message.error('Fail!');
+            this.$Message.error('校验不通过!');
           }
         })
       },

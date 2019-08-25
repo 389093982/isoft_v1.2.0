@@ -1,10 +1,13 @@
 package controllers
 
 import (
+	"github.com/astaxie/beego/orm"
 	"isoft/isoft_iwork_web/core/iworkcache"
 	"isoft/isoft_iwork_web/core/iworkfunc"
+	"isoft/isoft_iwork_web/core/iworkmodels"
 	"isoft/isoft_iwork_web/models"
 	"isoft/isoft_iwork_web/service"
+	"time"
 )
 
 func (this *WorkController) AddWorkStep() {
@@ -188,6 +191,18 @@ func (this *WorkController) EditWorkStepParamInfo() {
 		"paramInputSchemaStr": paramInputSchemaStr,
 		"paramMappingsStr":    paramMappingsStr,
 	}
+
+	// 先进行保存再进行格式检查 formatChecker,格式检查不通过也可以保存,防止用户编辑数据丢失
+	step, _ := models.QueryOneWorkStep(work_id, work_step_id, orm.NewOrm())
+	paramInputSchema, _ := iworkmodels.ParseToParamInputSchema(paramInputSchemaStr)
+	step.WorkStepInput = paramInputSchema.RenderToJson()
+	step.WorkStepParamMapping = paramMappingsStr
+	step.CreatedBy = "SYSTEM"
+	step.CreatedTime = time.Now()
+	step.LastUpdatedBy = "SYSTEM"
+	step.LastUpdatedTime = time.Now()
+	models.InsertOrUpdateWorkStep(&step, orm.NewOrm())
+
 	if err := service.ExecuteWithTx(serviceArgs, service.EditWorkStepParamInfo); err == nil {
 		this.Data["json"] = &map[string]interface{}{"status": "SUCCESS"}
 	} else {
