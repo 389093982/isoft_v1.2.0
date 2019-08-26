@@ -41,8 +41,7 @@
 </template>
 
 <script>
-  import {FilterCommonLinks} from "../../api"
-  import {AddCommonLink} from "../../api"
+  import {FilterCommonLinks,AddCommonLink} from "../../../api"
 
   export default {
     name: "CommonLinkList",

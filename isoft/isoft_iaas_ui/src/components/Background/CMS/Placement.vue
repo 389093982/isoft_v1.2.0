@@ -22,13 +22,11 @@
 </template>
 
 <script>
-  import ISimpleConfirmModal from "../Common/modal/ISimpleConfirmModal"
-  import ISimpleLeftRightRow from "../Common/layout/ISimpleLeftRightRow"
-  import IKeyValueForm from "../Common/form/IKeyValueForm"
-  import ISimpleSearch from "../Common/search/ISimpleSearch"
-  import {AddPlacement} from "../../api"
-  import {FilterPlacement} from "../../api"
-  import {DeletePlacementById} from "../../api"
+  import ISimpleConfirmModal from "../../Common/modal/ISimpleConfirmModal"
+  import ISimpleLeftRightRow from "../../Common/layout/ISimpleLeftRightRow"
+  import IKeyValueForm from "../../Common/form/IKeyValueForm"
+  import ISimpleSearch from "../../Common/search/ISimpleSearch"
+  import {AddPlacement,FilterPlacement,DeletePlacementById} from "../../../api"
 
   export default {
     name: "Placement",

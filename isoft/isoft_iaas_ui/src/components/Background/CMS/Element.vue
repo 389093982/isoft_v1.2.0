@@ -43,14 +43,12 @@
 </template>
 
 <script>
-  import {FilterElements} from "../../api"
-  import {AddElement} from "../../api"
-  import {UpdateElementStatus} from "../../api"
-  import IFileUpload from "../IFile/IFileUpload"
+  import {FilterElements,AddElement,UpdateElementStatus} from "../../../api"
+  import IFileUpload from "../../IFile/IFileUpload"
   import Chooser from "./Chooser"
-  import ISimpleSearch from "../Common/search/ISimpleSearch"
+  import ISimpleSearch from "../../Common/search/ISimpleSearch"
   import Placement from "./Placement"
-  import MultiClickButton from "../Common/button/MultiClickButton"
+  import MultiClickButton from "../../Common/button/MultiClickButton"
 
   export default {
     name: "Element",
@@ -92,8 +90,8 @@
             }
           },
           {
-            title: 'image_path',
-            key: 'image_path',
+            title: 'img_path',
+            key: 'img_path',
             width:200
           },
           {

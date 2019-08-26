@@ -33,7 +33,7 @@
   import SiteGuide from "./Site/SiteGuide"
   import HotCommunity from "./Community/HotCommunity"
   import HotProject from "./Hot/HotProject"
-  import ToolBox from "../CMS/ToolBox"
+  import ToolBox from "../Background/CMS/ToolBox"
   import HotLanguage from "./Hot/HotLanguage"
   import HotUser from "../User/HotUser"
   import IBeautifulTabLink from "../Common/link/IBeautifulTabLink"

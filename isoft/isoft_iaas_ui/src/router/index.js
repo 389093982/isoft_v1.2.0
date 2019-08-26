@@ -7,9 +7,9 @@ import AppRegist from "../components/SSO/AppRegist"
 import LoginRecord from "../components/SSO/LoginRecord"
 import IEmptyLayout from "../components/ILayout/IEmptyLayout"
 import ICMSLayout from "../components/ILayout/ICMSLayout"
-import Element from "../components/CMS/Element"
-import Catalog from "../components/CMS/Catalog"
-import Placement from "../components/CMS/Placement"
+import Element from "../components/Background/CMS/Element"
+import Catalog from "../components/Background/CMS/Catalog"
+import Placement from "../components/Background/CMS/Placement"
 import IBlog from '../components/IBlog/IBlog'
 import BlogList from '../components/IBlog/BlogList'
 import CatalogAdd from '../components/IBlog/CatalogAdd'
@@ -22,12 +22,12 @@ import RecentlyViewed from '../components/ILearning/CourseSpace/RecentlyViewed'
 import MyCourseList from '../components/ILearning/CourseSpace/MyCourseList'
 import CourseDetail from '../components/ILearning/Course/CourseDetail'
 import VideoPay from '../components/ILearning/Course/VideoPay'
-import Configuration from '../components/CMS/Configuration'
+import Configuration from '../components/Background/CMS/Configuration'
 import CourseSearch from "../components/ILearning/Course/CourseSearch"
 import ShareAdd from "../components/Share/ShareAdd"
 import ShareList from "../components/Share/ShareList"
 import ShareDetail from "../components/Share/ShareDetail"
-import CommonLinkList from "../components/CMS/CommonLinkList"
+import CommonLinkList from "../components/Background/CMS/CommonLinkList"
 import ILayout from "../components/ILayout/ILayout"
 
 

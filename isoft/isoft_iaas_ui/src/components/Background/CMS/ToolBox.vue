@@ -15,7 +15,7 @@
 </template>
 
 <script>
-  import IBeautifulCard from "../Common/card/IBeautifulCard"
+  import IBeautifulCard from "../../Common/card/IBeautifulCard"
 
   export default {
     name: "ToolBox",

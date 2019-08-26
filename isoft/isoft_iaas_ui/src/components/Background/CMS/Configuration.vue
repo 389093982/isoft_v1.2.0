@@ -37,8 +37,7 @@
 </template>
 
 <script>
-  import {AddConfiguration} from "../../api"
-  import {FilterConfigurations} from "../../api"
+  import {AddConfiguration,FilterConfigurations} from "../../../api"
 
   export default {
     name: "Configuration",
