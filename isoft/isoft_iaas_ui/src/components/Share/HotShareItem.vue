@@ -9,7 +9,7 @@
           <div class="item" style="padding:10px; height: 100px;">
             <Row>
               <Col span="6">
-                <img :src="element.image_path" :alt="element.title"/>
+                <img :src="element.img_path" :alt="element.title"/>
               </Col>
               <Col span="18" style="padding-left: 5px;">
                 <p class="share_type_name">{{element.title}}</p>
