@@ -1,8 +1,8 @@
 <template>
   <Modal
-    v-model="showTemplateModal"
+    v-model="showChooserModal"
     width="950"
-    title="选择模板"
+    :title="chooserTitle"
     :footer-hide="true"
     :transfer="false"
     :mask-closable="false"
@@ -15,18 +15,24 @@
 
 <script>
   export default {
-    name: "Chooser",
+    name: "IBaseChooser",
+    props:{
+      chooserTitle:{
+        type:String,
+        default:"chooserTitle",
+      }
+    },
     data(){
       return {
-        showTemplateModal:false,
+        showChooserModal:false,
       }
     },
     methods:{
       showModal:function () {
-        this.showTemplateModal = true;
+        this.showChooserModal = true;
       },
       hideModal:function () {
-        this.showTemplateModal = false;
+        this.showChooserModal = false;
       }
     }
   }

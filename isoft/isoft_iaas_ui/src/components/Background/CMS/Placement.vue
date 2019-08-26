@@ -3,7 +3,8 @@
     <ISimpleLeftRightRow style="margin-bottom: 10px;margin-right: 10px;">
       <!-- left 插槽部分 -->
       <span slot="left">
-        <Button type="success" @click="addPlacement">新增</Button>
+        <Button type="success" @click="addPlacement" v-if="!this.chooserMode">新增</Button>
+        <span v-else>占位符清单</span>
         <ISimpleConfirmModal ref="placementEditModal" modal-title="新增/编辑占位符" :modal-width="600" :footer-hide="true">
           <IKeyValueForm ref="placementEditForm" form-key-label="placement_name" form-value-label="placement_desc"
                          form-key-placeholder="请输入 placement_name" form-value-placeholder="请输入 placement_desc"
@@ -32,7 +33,7 @@
     name: "Placement",
     components:{ISimpleLeftRightRow,ISimpleConfirmModal,IKeyValueForm,ISimpleSearch},
     props:{
-      chooser:{ // 选择一行值
+      chooserMode:{ // 选择模式
         type: Boolean,
         default: false,
       }
@@ -77,7 +78,7 @@
                   },
                   style: {
                     marginRight: '5px',
-                    display: this.chooser ? 'undefined': 'none',
+                    display: this.chooserMode ? 'undefined': 'none',      // 选择模式显示
                   },
                   on: {
                     click: () => {
@@ -92,6 +93,7 @@
                   },
                   style: {
                     marginRight: '5px',
+                    display: !this.chooserMode ? 'undefined': 'none',   // 非选择模式显示
                   },
                   on: {
                     click: () => {

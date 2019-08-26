@@ -1,8 +1,8 @@
 <template>
   <div>
-    <Chooser ref="placement_chooser">
-      <placement :chooser="true" @choosePlacement="choosePlacement"/>
-    </Chooser>
+    <IBaseChooser ref="placement_chooser" chooser-title="占位符选择">
+      <Placement :chooserMode="true" @choosePlacement="choosePlacement"/>
+    </IBaseChooser>
 
     <Form ref="formInline" :model="formInline" :rules="ruleInline" :label-width="100">
       <Row>
@@ -45,14 +45,14 @@
 <script>
   import {FilterElements,AddElement,UpdateElementStatus} from "../../../api"
   import IFileUpload from "../../IFile/IFileUpload"
-  import Chooser from "./Chooser"
+  import IBaseChooser from "../../Common/IBaseChooser"
   import ISimpleSearch from "../../Common/search/ISimpleSearch"
   import Placement from "./Placement"
   import MultiClickButton from "../../Common/button/MultiClickButton"
 
   export default {
     name: "Element",
-    components:{IFileUpload,Chooser,Placement,MultiClickButton,ISimpleSearch},
+    components:{IFileUpload,IBaseChooser,Placement,MultiClickButton,ISimpleSearch},
     data () {
       var _this = this;
       return {
