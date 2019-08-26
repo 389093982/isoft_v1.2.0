@@ -12,11 +12,11 @@
                 <Icon type="ios-navigate"></Icon>
                 分类管理
               </template>
-              <MenuItem name="1-1"><router-link to="/cms/placement_list">占位符管理</router-link></MenuItem>
-              <MenuItem name="1-2"><router-link to="/cms/element_list">轮播图管理</router-link></MenuItem>
-              <MenuItem name="1-3"><router-link to="/cms/catalog_list">列表管理</router-link></MenuItem>
-              <MenuItem name="1-4"><router-link to="/cms/configuration">查看配置项</router-link></MenuItem>
-              <MenuItem name="1-5"><router-link to="/cms/commonLinkList">友情链接</router-link></MenuItem>
+              <MenuItem name="1-1"><router-link to="/background/cms/placement_list">占位符管理</router-link></MenuItem>
+              <MenuItem name="1-2"><router-link to="/background/cms/element_list">轮播图管理</router-link></MenuItem>
+              <MenuItem name="1-3"><router-link to="/background/cms/catalog_list">列表管理</router-link></MenuItem>
+              <MenuItem name="1-4"><router-link to="/background/cms/configuration">查看配置项</router-link></MenuItem>
+              <MenuItem name="1-5"><router-link to="/background/cms/commonLinkList">友情链接</router-link></MenuItem>
             </Submenu>
             <Submenu name="2">
               <template slot="title">
@@ -24,12 +24,12 @@
                 广告位管理
               </template>
             </Submenu>
-            <Submenu name="2">
+            <Submenu name="3">
               <template slot="title">
                 <Icon type="ios-barcode"></Icon>
                 评论管理
               </template>
-              <MenuItem name="2-1"><router-link to="#">评论列表</router-link></MenuItem>
+              <MenuItem name="3-1"><router-link to="#">评论列表</router-link></MenuItem>
             </Submenu>
           </Menu>
         </Sider>

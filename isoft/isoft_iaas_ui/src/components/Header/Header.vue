@@ -39,7 +39,7 @@
         </Submenu>
         <MenuItem name="4">
           <Icon type="ios-construct" />
-          <router-link to="/cms/placement_list">管理控制台</router-link>
+          <router-link to="/background">管理控制台</router-link>
         </MenuItem>
       </div>
     </Menu>

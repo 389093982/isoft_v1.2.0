@@ -3,7 +3,7 @@
     <div v-for="(comment_reply,index) in comment_replys" style="margin-bottom:5px;padding: 10px;border: 1px solid #e9e9e9;">
       <p>
         <router-link to="">
-          <Avatar size="small" src="https://i.loli.net/2017/08/21/599a521472424.jpg" />
+          <Avatar icon="ios-person" size="small" />
           {{comment_reply.created_by}}
         </router-link>
       </p>
@@ -15,8 +15,8 @@
           提问
         </span>
         <router-link to="">
-        <Avatar size="small" src="https://i.loli.net/2017/08/21/599a521472424.jpg" />
-        {{comment_reply.refer_user_name}}
+          <Avatar icon="ios-person" size="small" />
+          {{comment_reply.refer_user_name}}
         </router-link>
         :{{comment_reply.reply_content}}
         <span style="float: right;"><Time :time="comment_reply.created_time" :interval="1"/></span>

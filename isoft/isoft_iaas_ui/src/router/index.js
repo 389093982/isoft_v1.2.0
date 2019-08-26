@@ -131,14 +131,14 @@ const ISSOReouter = [{
 }];
 
 const ICMSReouter = [{
-  path: '/cms',
+  path: '/background',
   component: ICMSLayout,
   children: [
-    {path: 'element_list',component: Element},
-    {path: 'catalog_list',component: Catalog},
-    {path: 'placement_list',component: Placement},
-    {path: 'commonLinkList',component: CommonLinkList},
-    {path: 'configuration',component: Configuration},
+    {path: 'cms/element_list',component: Element},
+    {path: 'cms/catalog_list',component: Catalog},
+    {path: 'cms/placement_list',component: Placement},
+    {path: 'cms/commonLinkList',component: CommonLinkList},
+    {path: 'cms/configuration',component: Configuration},
   ]
 }];
 
