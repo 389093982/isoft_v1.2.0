@@ -87,6 +87,13 @@
           this.formInline.imgpath = result.fileServerPath;
         }
       },
+      initFormData:function (element) {
+        this.formInline.placement = element.placement;
+        this.formInline.title = element.title;
+        this.formInline.content = element.content;
+        this.formInline.imgpath = element.img_path;
+        this.formInline.linked_refer = element.linked_refer;
+      }
     }
   }
 </script>

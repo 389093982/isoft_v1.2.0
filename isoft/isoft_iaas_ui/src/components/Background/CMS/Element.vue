@@ -78,24 +78,30 @@
           {
             title: '操作',
             key: 'operate',
-            width:250,
+            width:280,
+            fixed: 'right',
             render: (h,params)=> {
               return h('div',[
                 h(MultiClickButton,{
                   props:{
-                    btnCounts: 4,
-                    btnTypes: ['primary','success','warning',"error"],
-                    btnShows: [true, true, true, true],
-                    btnBindDatas: [1, 0, -1, 2],
-                    btnTexts: ['启用', '停用', '失效', '删除'],
+                    btnCounts: 5,
+                    btnTypes: ['primary','info','warning',"error", 'success'],
+                    btnShows: [true, true, true, true, true],
+                    btnBindDatas: [1, 0, -1, 2, 3],
+                    btnTexts: ['启用', '停用', '失效', '删除', '编辑'],
                   },
                   on:{
                     handleClick:async function (index, bindData) {
-                      const result = await UpdateElementStatus(_this.elements[params.index].id, bindData);
-                      if(result.status == "SUCCESS"){
-                        _this.refreshElementList();
+                      if (bindData == 3){   // 编辑模式
+                        _this.$refs.editElement.initFormData(_this.elements[params.index]);
+                        _this.$refs.editElement.showModal();
                       }else{
-                        _this.$Message.error("状态更新失败!");
+                        const result = await UpdateElementStatus(_this.elements[params.index].id, bindData);
+                        if(result.status == "SUCCESS"){
+                          _this.refreshElementList();
+                        }else{
+                          _this.$Message.error("状态更新失败!");
+                        }
                       }
                     }
                   }

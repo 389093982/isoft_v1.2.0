@@ -110,7 +110,9 @@
         if(result.status=="SUCCESS"){
           this.showCommentForm = false;
           this.comment_replys = result.comment_replys;
-          this.total = result.paginator.totalcount;
+          if(result.paginator != null){
+            this.total = result.paginator.totalcount;
+          }
         }
       },
       // 回复评论,两个参数分别是被评论id,被评论人
