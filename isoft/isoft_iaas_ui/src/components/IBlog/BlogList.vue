@@ -42,6 +42,9 @@
             </p>
           </li>
         </ul>
+
+        <Page :total="total" :page-size="offset" show-total show-sizer :styles="{'text-align': 'center','margin-top': '10px'}"
+              @on-change="handleChange" @on-page-size-change="handlePageSizeChange"/>
       </Col>
       <Col span="6">
         <CatalogList/>
@@ -59,14 +62,34 @@
     components:{CatalogList},
     data(){
       return {
+        // 当前页
+        current_page:1,
+        // 总页数
+        total:1,
+        // 每页记录数
+        offset:10,
         searchblogs:[],
       }
     },
-    mounted:async function () {
-      const result = await BlogList(10,1);
-      if(result.status=="SUCCESS"){
-        this.searchblogs = result.blogs;
+    methods:{
+      handleChange(page){
+        this.current_page = page;
+        this.refreshBlogList();
+      },
+      handlePageSizeChange(pageSize){
+        this.offset = pageSize;
+        this.refreshBlogList();
+      },
+      refreshBlogList:async function () {
+        const result = await BlogList(this.offset,this.current_page);
+        if(result.status=="SUCCESS"){
+          this.searchblogs = result.blogs;
+          this.total = result.paginator.totalcount;
+        }
       }
+    },
+    mounted: function () {
+      this.refreshBlogList();
     },
     filters:{
       // 内容超长则显示部分

@@ -1,30 +1,49 @@
 <template>
   <div style="padding: 30px;">
-    <Form ref="formValidate" :model="formValidate" :rules="ruleValidate" :label-width="80">
-      <FormItem label="文章标题" prop="blog_title">
-        <Input v-model="formValidate.blog_title" placeholder="Enter blog title..."/>
-      </FormItem>
-      <FormItem label="简短描述" prop="short_desc">
-        <Input v-model="formValidate.short_desc" placeholder="Enter short_desc..."></Input>
-      </FormItem>
-      <FormItem label="检索词条" prop="key_words">
-        <Input v-model="formValidate.key_words" placeholder="Enter key_words..."></Input>
-      </FormItem>
-      <FormItem label="文章分类" prop="catalog_id">
-        <Select v-model="formValidate.catalog_id" filterable>
-          <Option v-for="mycatalog in mycatalogs" :value="mycatalog.id" :key="mycatalog.id">
-            {{ mycatalog.catalog_name }}
-          </Option>
-        </Select>
-      </FormItem>
-      <FormItem label="文章内容" prop="content">
-        <mavon-editor v-model="formValidate.content" :toolbars="toolbars" :ishljs = "true" style="z-index: 1;"/>
-      </FormItem>
-      <FormItem>
-        <Button type="primary" @click="handleSubmit('formValidate')">Submit</Button>
-        <Button style="margin-left: 8px" @click="handleReset('formValidate')">Cancel</Button>
-      </FormItem>
-    </Form>
+    <Row>
+      <Col span="4">
+        <p>新建博客</p>
+        <p>新建分享</p>
+        <p>新建视频</p>
+      </Col>
+      <Col span="20">
+        <Form ref="formValidate" :model="formValidate" :rules="ruleValidate" :label-width="80">
+          <Row>
+            <Col span="12">
+              <FormItem label="文章标题" prop="blog_title">
+                <Input v-model="formValidate.blog_title" placeholder="Enter blog title..."/>
+              </FormItem>
+            </Col>
+            <Col span="12">
+              <FormItem label="简短描述" prop="short_desc">
+                <Input v-model="formValidate.short_desc" placeholder="Enter short_desc..."></Input>
+              </FormItem>
+            </Col>
+          </Row>
+          <Row>
+            <Col span="12">
+              <FormItem label="检索词条" prop="key_words">
+                <Input v-model="formValidate.key_words" placeholder="Enter key_words..."></Input>
+              </FormItem>
+            </Col>
+            <Col span="12">
+              <FormItem label="文章分类" prop="catalog_id">
+                <Select v-model="formValidate.catalog_id" filterable>
+                  <Option v-for="mycatalog in mycatalogs" :value="mycatalog.id" :key="mycatalog.id">{{ mycatalog.catalog_name }}</Option>
+                </Select>
+              </FormItem>
+            </Col>
+          </Row>
+          <FormItem label="文章内容" prop="content">
+            <mavon-editor v-model="formValidate.content" :toolbars="toolbars" :ishljs = "true" style="z-index: 1;"/>
+          </FormItem>
+          <FormItem>
+            <Button type="primary" @click="handleSubmit('formValidate')">Submit</Button>
+            <Button style="margin-left: 8px" @click="handleReset('formValidate')">Cancel</Button>
+          </FormItem>
+        </Form>
+      </Col>
+    </Row>
   </div>
 </template>
 
@@ -93,7 +112,7 @@
               _this.formValidate.key_words, _this.formValidate.catalog_id, _this.formValidate.content);
             if(result.status == "SUCCESS"){
               _this.$Message.success('提交成功!');
-              _this.$router.go(0);     // 页面刷新,等价于 location.reload()
+              this.$router.push({ path: '/iblog/blog_list'});
             }else{
               _this.$Message.error('提交失败!');
             }
