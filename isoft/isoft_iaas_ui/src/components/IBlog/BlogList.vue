@@ -1,48 +1,59 @@
 <template>
- <div>
-   热门博客
-   <ul>
-     <li v-for="searchblog in searchblogs" style="list-style:none;padding: 10px 10px;background: #fff;border-bottom: 1px solid #f4f4f4;">
-       <!-- 使用v-bind动态绑定id传递给目标路径 -->
-       <router-link :to="{path:'/iblog/blog_detail',query:{blog_id:searchblog.id}}">
-         <h5>{{searchblog.blog_title}}</h5>
-       </router-link>
-       <p style="margin-bottom: 4px;font-size: 14px;color: #8a8a8a;line-height: 24px;">
-         {{searchblog.short_desc | filterLimitFunc}}
-       </p>
-       <p>
-         <Row>
-           <Col span="18">
-             <!-- 作者详情 -->
-             <router-link :to="{path:'/iblog/author',query:{author:searchblog.author}}">{{searchblog.author}}</router-link>
-             发布于:<Time :time="searchblog.created_time" style="color:red;"/>&nbsp;
-             更新于:<Time :time="searchblog.last_updated_time" style="color:red;"/>&nbsp;
-             <router-link :to="{path:'/iblog/blog_list',query:{blog_id:searchblog.id}}">
-               <span style="color: #3399ea;">{{ searchblog.catalog_name }}</span>
-             </router-link>
-           </Col>
-           <Col span="3">
-             <router-link :to="{path:'/iblog/blog_detail',query:{blog_id:searchblog.id}}">
-               <span style="color: red;">{{searchblog.views}}</span>阅读
-             </router-link>
-           </Col>
-           <Col span="3">
-             <router-link :to="{path:'/iblog/blog_detail',query:{blog_id:searchblog.id}}">
-              <a><span style="color: red;">0</span>条评论</a>
-             </router-link>
-           </Col>
-         </Row>
-       </p>
-     </li>
-   </ul>
+ <div style="margin-left: 50px;margin-right: 50px;">
+    <Row>
+      <Col span="18">
+        热门博客
+        <ul>
+          <li v-for="searchblog in searchblogs" style="list-style:none;padding: 10px 10px;background: #fff;border-bottom: 1px solid #f4f4f4;">
+            <!-- 使用v-bind动态绑定id传递给目标路径 -->
+            <router-link :to="{path:'/iblog/blog_detail',query:{blog_id:searchblog.id}}">
+              <h5>{{searchblog.blog_title}}</h5>
+            </router-link>
+            <p style="margin-bottom: 4px;font-size: 14px;color: #8a8a8a;line-height: 24px;">
+              {{searchblog.short_desc | filterLimitFunc}}
+            </p>
+            <p>
+              <Row>
+                <Col span="18">
+                  <!-- 作者详情 -->
+                  <router-link :to="{path:'/iblog/author',query:{author:searchblog.author}}">{{searchblog.author}}</router-link>
+                  发布于:<Time :time="searchblog.created_time" style="color:red;"/>&nbsp;
+                  更新于:<Time :time="searchblog.last_updated_time" style="color:red;"/>&nbsp;
+                  <router-link :to="{path:'/iblog/blog_list',query:{blog_id:searchblog.id}}">
+                    <span style="color: #3399ea;">{{ searchblog.catalog_name }}</span>
+                  </router-link>
+                </Col>
+                <Col span="3">
+                  <router-link :to="{path:'/iblog/blog_detail',query:{blog_id:searchblog.id}}">
+                    <span style="color: red;">{{searchblog.views}}</span>阅读
+                  </router-link>
+                </Col>
+                <Col span="3">
+                  <router-link :to="{path:'/iblog/blog_detail',query:{blog_id:searchblog.id}}">
+                    <a><span style="color: red;">0</span>条评论</a>
+                  </router-link>
+                </Col>
+              </Row>
+            </p>
+          </li>
+        </ul>
+      </Col>
+      <Col span="6">
+        <CatalogAdd/>
+        <CatalogList/>
+      </Col>
+    </Row>
  </div>
 </template>
 
 <script>
   import {BlogList} from "../../api"
+  import CatalogAdd from "./CatalogAdd"
+  import CatalogList from "./CatalogList"
 
   export default {
     name: "BlogList",
+    components:{CatalogAdd,CatalogList},
     data(){
       return {
         searchblogs:[],

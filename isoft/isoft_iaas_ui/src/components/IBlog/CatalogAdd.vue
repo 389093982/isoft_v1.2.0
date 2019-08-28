@@ -3,21 +3,14 @@
   <div>
     <Form ref="formValidate" :model="formValidate" :rules="ruleValidate" :label-width="80">
       <FormItem label="分类名称" prop="catalog_name">
-        <Row>
-        <Col span="18">
           <Input v-model="formValidate.catalog_name" placeholder="Enter catalog name..."/>
-        </Col>
-        <Col span="6">
-          <span style="margin-left: 5px;"><Icon type="md-book" />选择推荐分类</span>
-        </Col>
-      </Row>
       </FormItem>
       <FormItem label="分类简介" prop="catalog_desc">
         <Input v-model="formValidate.catalog_desc" placeholder="Enter catalog desc..."></Input>
       </FormItem>
       <FormItem>
-        <Button type="primary" @click="handleSubmit('formValidate')">Submit</Button>
-        <Button style="margin-left: 8px" @click="handleReset('formValidate')">Cancel</Button>
+        <Button type="success" size="small" @click="handleSubmit('formValidate')">Submit</Button>
+        <Button type="warning" size="small" @click="handleReset('formValidate')">Cancel</Button>
       </FormItem>
     </Form>
   </div>

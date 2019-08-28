@@ -47,26 +47,10 @@ const IBlogRouter = {
   component: ILayout,
   // 二级路由的配置
   children: [
-    {
-      path: 'blog_index',
-      component: IBlog
-    },
-    {
-      path: 'catalog_add',
-      component: CatalogAdd
-    },
-    {
-      path: 'blog_add',
-      component: BlogAdd
-    },
-    {
-      path: 'blog_list',
-      component: BlogList
-    },
-    {
-      path: 'blog_detail',
-      component: BlogDetail
-    },
+    {path: 'blog_index',component: IBlog},
+    {path: 'blog_add',component: BlogAdd},
+    {path: 'blog_list',component: BlogList},
+    {path: 'blog_detail',component: BlogDetail},
   ]
 };
 
