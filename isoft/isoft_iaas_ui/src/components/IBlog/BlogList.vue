@@ -17,8 +17,8 @@
                 <Col span="18">
                   <!-- 作者详情 -->
                   <router-link :to="{path:'/iblog/author',query:{author:searchblog.author}}">{{searchblog.author}}</router-link>
-                  发布于:<Time :time="searchblog.created_time" style="color:red;"/>&nbsp;
-                  更新于:<Time :time="searchblog.last_updated_time" style="color:red;"/>&nbsp;
+                  发布于:<Time :time="searchblog.created_time" type="datetime" style="color:red;"/>&nbsp;
+                  更新于:<Time :time="searchblog.last_updated_time" type="datetime" style="color:red;"/>&nbsp;
                   <router-link :to="{path:'/iblog/blog_list',query:{blog_id:searchblog.id}}">
                     <span style="color: #3399ea;">{{ searchblog.catalog_name }}</span>
                   </router-link>
@@ -39,7 +39,6 @@
         </ul>
       </Col>
       <Col span="6">
-        <CatalogAdd/>
         <CatalogList/>
       </Col>
     </Row>
@@ -48,12 +47,11 @@
 
 <script>
   import {BlogList} from "../../api"
-  import CatalogAdd from "./CatalogAdd"
   import CatalogList from "./CatalogList"
 
   export default {
     name: "BlogList",
-    components:{CatalogAdd,CatalogList},
+    components:{CatalogList},
     data(){
       return {
         searchblogs:[],

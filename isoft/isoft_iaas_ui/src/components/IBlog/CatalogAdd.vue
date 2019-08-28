@@ -1,12 +1,11 @@
 <template>
-<span>
-  <div>
+  <div  style="margin: 20px;">
     <Form ref="formValidate" :model="formValidate" :rules="ruleValidate" :label-width="80">
       <FormItem label="分类名称" prop="catalog_name">
           <Input v-model="formValidate.catalog_name" placeholder="Enter catalog name..."/>
       </FormItem>
       <FormItem label="分类简介" prop="catalog_desc">
-        <Input v-model="formValidate.catalog_desc" placeholder="Enter catalog desc..."></Input>
+        <Input v-model="formValidate.catalog_desc" type="textarea" :rows="4" placeholder="Enter catalog desc..."></Input>
       </FormItem>
       <FormItem>
         <Button type="success" size="small" @click="handleSubmit('formValidate')">Submit</Button>
@@ -14,7 +13,6 @@
       </FormItem>
     </Form>
   </div>
-</span>
 </template>
 
 <script>
@@ -46,7 +44,7 @@
             const result = await CatalogEdit(_this.formValidate.catalog_name, _this.formValidate.catalog_desc);
             if(result.status == "SUCCESS"){
               _this.$Message.success('提交成功!');
-              _this.$router.go(0);     // 页面刷新,等价于 location.reload()
+              this.$emit("handleSuccess");
             }else{
               _this.$Message.error('提交失败!');
             }
