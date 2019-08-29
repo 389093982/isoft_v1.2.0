@@ -52,7 +52,7 @@
 </template>
 
 <script>
-  import {FilterCommentReply} from "../../../api/index"
+  import {FilterCommentReply} from "../../api/index"
   import CommentForm from "./CommentForm"
 
   export default {

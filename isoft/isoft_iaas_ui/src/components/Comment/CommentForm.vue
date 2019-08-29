@@ -20,8 +20,8 @@
 </template>
 
 <script>
-  import {AddCommentReply} from "../../../api/index"
-  import {checkFastClick} from "../../../tools"
+  import {AddCommentReply} from "../../api/index"
+  import {checkFastClick} from "../../tools"
 
   export default {
     name: "CommentForm",

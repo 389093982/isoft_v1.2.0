@@ -30,7 +30,7 @@
 </template>
 
 <script>
-  import {FilterCommentTheme} from "../../../api/index"
+  import {FilterCommentTheme} from "../../api/index"
   import CommentArea from "./CommentArea"
   import CommentForm from "./CommentForm"
 

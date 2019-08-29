@@ -52,7 +52,7 @@
         </Row>
         <hr>
         <!-- 课程评论 -->
-        <CourseComment :comment_id="course.id" theme_type="course_theme_type" style="margin-top: 50px;"/>
+        <IEasyComment :comment_id="course.id" theme_type="course_theme_type" style="margin-top: 50px;"/>
       </Col>
 
       <Col span="8">
@@ -72,7 +72,7 @@
 <script>
   import {ShowCourseDetail,ToggleFavorite} from "../../../api"
   import Recommand from "./Recommand"
-  import CourseComment from "../Comment/CourseComment"
+  import IEasyComment from "../../Comment/IEasyComment"
   import CommunicationGroup from "../Site/CommunicationGroup"
   import HotRecommend from "./HotRecommend"
   import UserDetail from "../../User/UserDetail"
@@ -80,7 +80,7 @@
 
   export default {
     name: "CourseDetail",
-    components:{CourseComment,Recommand,CommunicationGroup,HotRecommend,UserDetail,HotUser},
+    components:{IEasyComment,Recommand,CommunicationGroup,HotRecommend,UserDetail,HotUser},
     data(){
       return {
         // 当前课程
