@@ -1,14 +1,14 @@
 <template>
   <div>
-    <div v-for="(comment_reply,index) in comment_replys" style="margin-bottom:5px;padding: 10px;border: 1px solid #e9e9e9;">
+    <div v-for="(comment,index) in comments" style="margin-bottom:5px;padding: 10px;border: 1px solid #e9e9e9;">
       <p>
         <router-link to="">
           <Avatar icon="ios-person" size="small" />
-          {{comment_reply.created_by}}
+          {{comment.created_by}}
         </router-link>
       </p>
       <p>
-        <span v-if="comment_reply.reply_comment_type == 'comment'">
+        <span v-if="comment.comment_type == 'comment'">
           回复
         </span>
         <span v-else>
@@ -16,23 +16,23 @@
         </span>
         <router-link to="">
           <Avatar icon="ios-person" size="small" />
-          {{comment_reply.refer_user_name}}
+          {{comment.refer_user_name}}
         </router-link>
-        :{{comment_reply.reply_content}}
-        <span style="float: right;"><Time :time="comment_reply.created_time" :interval="1"/></span>
+        :{{comment.content}}
+        <span style="float: right;"><Time :time="comment.created_time" :interval="1"/></span>
       </p>
       <p>
         <Row>
           <span style="float: right;">
-            <a @click="toggleShow(index,comment_reply)" v-if="comment_reply.sub_reply_amount > 0">子评论数({{comment_reply.sub_reply_amount}})</a>
-            <a v-if="comment_reply.depth < 2" href="javascript:;" @click="replyComment(comment_reply.id,comment_reply.created_by)">回复他/她</a>&nbsp;
+            <a @click="toggleShow(index,comment)" v-if="comment.sub_amount > 0">子评论数({{comment.sub_amount}})</a>
+            <a v-if="comment.depth < 2" href="javascript:;" @click="replyComment(comment.id,comment.created_by)">回复他/她</a>&nbsp;
             <a href="javascript:;">点赞</a>
           </span>
         </Row>
       </p>
       <!-- 递归,子评论区域 -->
-      <CommentArea v-if="comment_reply.sub_reply_amount > 0 && comment_reply.toggleSubCommentShow"
-         :parent_id="comment_reply.id" :comment_id="comment_id" :theme_type="theme_type" :key="comment_reply.id"/>
+      <CommentArea v-if="comment.sub_amount > 0 && comment.toggleSubCommentShow"
+         :parent_id="comment.id" :theme_pk="theme_pk" :theme_type="theme_type" :key="comment.id"/>
     </div>
 
     <!-- 顶级评论支持分页 -->
@@ -45,14 +45,14 @@
       width="800"
       title="回复"
       :mask-closable="false">
-      <CommentForm v-if="showCommentForm" :parent_id="_parent_id" :comment_id="comment_id" :theme_type="theme_type"
-        :refer_user_name="_refer_user_name" @refreshCommentReply="refreshCommentReply"/>
+      <CommentForm v-if="showCommentForm" :parent_id="_parent_id" :theme_pk="theme_pk" :theme_type="theme_type"
+        :refer_user_name="_refer_user_name" @refreshComment="refreshComment"/>
     </Modal>
   </div>
 </template>
 
 <script>
-  import {FilterCommentReply} from "../../api/index"
+  import {FilterComment} from "../../api/index"
   import CommentForm from "./CommentForm"
 
   export default {
@@ -63,7 +63,7 @@
         type:Number,
         default: -1,
       },
-      comment_id:{
+      theme_pk:{
         type:Number,
         default:-1,
       },
@@ -81,7 +81,7 @@
         total:1,
         // 每页记录数
         offset:10,
-        comment_replys:[],
+        comments:[],
         showCommentForm:false,
         // 回复评论,两个参数分别是被评论id,被评论人
         _parent_id:0,
@@ -89,27 +89,27 @@
       }
     },
     methods:{
-      toggleShow(index, comment_reply){
-        comment_reply.toggleSubCommentShow = !(comment_reply.toggleSubCommentShow == null ? false : comment_reply.toggleSubCommentShow);
-          this.$set(this.comment_replys, index, comment_reply);
+      toggleShow(index, comment){
+        comment.toggleSubCommentShow = !(comment.toggleSubCommentShow == null ? false : comment.toggleSubCommentShow);
+          this.$set(this.comments, index, comment);
       },
       handleChange(page){
         this.current_page = page;
-        this.refreshCommentReply();
+        this.refreshComment();
       },
       handlePageSizeChange(pageSize){
         this.offset = pageSize;
-        this.refreshCommentReply();
+        this.refreshComment();
       },
       // 刷新当前父级评论对应的评论列表
-      refreshCommentReply:async function(reply_comment_type){
-        if(reply_comment_type == undefined){
-          reply_comment_type = "all";
+      refreshComment:async function(comment_type){
+        if(comment_type == undefined){
+          comment_type = "all";
         }
-        const result = await FilterCommentReply(this.comment_id, this.theme_type, this.parent_id, reply_comment_type, this.offset, this.current_page);
+        const result = await FilterComment(this.theme_pk, this.theme_type, this.parent_id, comment_type, this.offset, this.current_page);
         if(result.status=="SUCCESS"){
           this.showCommentForm = false;
-          this.comment_replys = result.comment_replys;
+          this.comments = result.comments;
           if(result.paginator != null){
             this.total = result.paginator.totalcount;
           }
@@ -123,10 +123,10 @@
       },
     },
     mounted:function () {
-      this.refreshCommentReply();
+      this.refreshComment();
     },
     watch:{
-      "comment_id": "refreshCommentReply"      // 如果 comment_id 有变化,会再次执行该方法
+      "theme_pk": "refreshComment"      // 如果 theme_pk 有变化,会再次执行该方法
     }
   }
 </script>

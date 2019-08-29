@@ -12,16 +12,21 @@
       </Row>
     </div>
     <IShowMarkdown v-if="blog.content" :content="blog.content"/>
+
+    <hr>
+    <!-- 评论模块 -->
+    <IEasyComment :theme_pk="blog.id" theme_type="blog_theme_type" style="margin-top: 50px;"/>
   </div>
 </template>
 
 <script>
   import {ShowBlogDetail} from "../../api"
   import IShowMarkdown from "../Common/markdown/IShowMarkdown"
+  import IEasyComment from "../Comment/IEasyComment"
 
   export default {
     name: "BlogDetail",
-    components:{IShowMarkdown},
+    components:{IShowMarkdown,IEasyComment},
     data(){
       return {
         blog: null,

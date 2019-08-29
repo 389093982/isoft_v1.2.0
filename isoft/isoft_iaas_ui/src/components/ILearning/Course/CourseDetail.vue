@@ -51,8 +51,8 @@
           </Col>
         </Row>
         <hr>
-        <!-- 课程评论 -->
-        <IEasyComment :comment_id="course.id" theme_type="course_theme_type" style="margin-top: 50px;"/>
+        <!-- 评论模块 -->
+        <IEasyComment :theme_pk="course.id" theme_type="course_theme_type" style="margin-top: 50px;"/>
       </Col>
 
       <Col span="8">

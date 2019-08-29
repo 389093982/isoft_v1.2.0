@@ -16,11 +16,11 @@ import ajax from './ajax'
 // export const EndUpdate = (course_id) => ajax(BASE_URL+'/ilearning/endUpdate',{course_id},'GET');
 // export const ShowCourseDetail = (course_id) => ajax(BASE_URL+'/ilearning/showCourseDetail',{course_id},'GET');
 // export const ToggleFavorite = (favorite_id, favorite_type) => ajax(BASE_URL+'/ilearning/toggle_favorite',{favorite_id, favorite_type},'GET');
-// export const FilterCommentTheme = (comment_id, theme_type) => ajax(BASE_URL+'/ilearning/filterCommentTheme',{comment_id, theme_type},'GET');
-// export const AddCommentReply = (parent_id, reply_content, comment_id, theme_type, reply_comment_type, refer_user_name) =>
-//   ajax(BASE_URL+'/ilearning/addCommentReply',{parent_id, reply_content, comment_id, theme_type, reply_comment_type, refer_user_name},'GET');
-// export const FilterCommentReply = (comment_id, theme_type, parent_id, reply_comment_type) =>
-//   ajax(BASE_URL+'/ilearning/filterCommentReply',{comment_id, theme_type, parent_id, reply_comment_type},'GET');
+// export const FilterCommentTheme = (theme_pk, theme_type) => ajax(BASE_URL+'/ilearning/filterCommentTheme',{theme_pk, theme_type},'GET');
+// export const AddCommentReply = (parent_id, reply_content, theme_pk, theme_type, reply_comment_type, refer_user_name) =>
+//   ajax(BASE_URL+'/ilearning/addCommentReply',{parent_id, reply_content, theme_pk, theme_type, reply_comment_type, refer_user_name},'GET');
+// export const FilterCommentReply = (theme_pk, theme_type, parent_id, reply_comment_type) =>
+//   ajax(BASE_URL+'/ilearning/filterCommentReply',{theme_pk, theme_type, parent_id, reply_comment_type},'GET');
 // export const GetAllCourseType = () => ajax(BASE_URL+'/ilearning/getAllCourseType',{},'GET');
 // export const ShowCourseHistory = (offset,current_page) => ajax(BASE_URL+"/common/showCourseHistory", {offset,current_page},'GET');
 // export const GetHotCourseRecommend = () => ajax(BASE_URL+'/ilearning/getHotCourseRecommend',{},'GET');
@@ -88,16 +88,13 @@ export const ShowCourseDetail = (course_id) => ajax(BASE_URL_2+"/iwork/httpservi
 // 切换收藏点赞
 export const ToggleFavorite = (favorite_id, favorite_type) => ajax(BASE_URL_2+"/iwork/httpservice/ToggleFavorite2",{favorite_id, favorite_type},'GET');
 
-// 查询评论主题
-export const FilterCommentTheme = (comment_id, theme_type) => ajax(BASE_URL_2+'/iwork/httpservice/FilterCommentTheme2',{comment_id, theme_type},'GET');
-
 // 添加评论
-export const AddCommentReply = (parent_id, reply_content, comment_id, theme_type, reply_comment_type, refer_user_name) =>
-  ajax(BASE_URL_2+'/iwork/httpservice/AddCommentReply2',{parent_id, reply_content, comment_id, theme_type, reply_comment_type, refer_user_name},'GET');
+export const AddComment = (parent_id, content, theme_pk, theme_type, comment_type, refer_user_name) =>
+  ajax(BASE_URL_2+'/iwork/httpservice/AddComment2',{parent_id, content, theme_pk, theme_type, comment_type, refer_user_name},'GET');
 
 // 获取评论列表
-export const FilterCommentReply = (comment_id, theme_type, parent_id, reply_comment_type, offset,current_page) =>
-  ajax(BASE_URL_2+'/iwork/httpservice/FilterCommentReply2',{comment_id, theme_type, parent_id, reply_comment_type, offset,current_page},'GET');
+export const FilterComment = (theme_pk, theme_type, parent_id, comment_type, offset,current_page) =>
+  ajax(BASE_URL_2+'/iwork/httpservice/FilterComment2',{theme_pk, theme_type, parent_id, comment_type, offset,current_page},'GET');
 
 // 获取所有课程类型
 export const GetAllCourseType = () => ajax(BASE_URL_2+"/iwork/httpservice/GetAllCourseType2",{},'GET');

@@ -3,7 +3,7 @@
     <Row>
       <!-- 评论表单 -->
       <Col span="14" style="padding-right: 10px;">
-        <Input v-model.trim="reply_content" type="textarea" :rows="8" placeholder="发表你的评论信息！" />
+        <Input v-model.trim="content" type="textarea" :rows="8" placeholder="发表你的评论信息！" />
         <Button type="success" style="margin: 5px;float: right;" @click="submitComment('comment')">发表评论</Button>
         <Button type="error" style="margin: 5px;float: right;" @click="submitComment('question')">我要提问</Button>
       </Col>
@@ -20,35 +20,35 @@
 </template>
 
 <script>
-  import {AddCommentReply} from "../../api/index"
+  import {AddComment} from "../../api/index"
   import {checkFastClick} from "../../tools"
 
   export default {
     name: "CommentForm",
     // 父组件传递给子组件的字段
-    props:["parent_id", "comment_id", "theme_type", "refer_user_name"],
+    props:["parent_id", "theme_pk", "theme_type", "refer_user_name"],
     data(){
       return {
-        reply_content:"",
+        content:"",
       }
     },
     methods:{
-      submitComment: async function (reply_comment_type) {
+      submitComment: async function (comment_type) {
         if (checkFastClick()){
           this.$Message.error("点击过快,请稍后重试!");
           return;
         }
-        if(this.reply_content == undefined || this.reply_content.length < 10){
+        if(this.content == undefined || this.content.length < 10){
           this.$Notice.error({
             title: '温馨提示',
             desc: "评论信息过短,需要10个字符以上！"
           });
         }else{
-          const result = await AddCommentReply(this.parent_id, this.reply_content, this.comment_id,
-            this.theme_type, reply_comment_type, this.refer_user_name);
+          const result = await AddComment(this.parent_id, this.content, this.theme_pk,
+            this.theme_type, comment_type, this.refer_user_name);
           if(result.status=="SUCCESS"){
-            // 调用父组件的 refreshCommentReply 方法
-            this.$emit('refreshCommentReply','all');
+            // 调用父组件的 refreshComment 方法
+            this.$emit('refreshComment','all');
           }
         }
       }
