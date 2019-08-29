@@ -5,10 +5,19 @@
         热门博客
         <ul>
           <li v-for="searchblog in searchblogs" style="list-style:none;padding: 10px 10px;background: #fff;border-bottom: 1px solid #f4f4f4;">
-            <!-- 使用v-bind动态绑定id传递给目标路径 -->
-            <router-link :to="{path:'/iblog/blog_detail',query:{blog_id:searchblog.id}}">
-              <h5>{{searchblog.blog_title}}</h5>
-            </router-link>
+            <Row>
+              <Col span="8">
+                <!-- 使用v-bind动态绑定id传递给目标路径 -->
+                <router-link :to="{path:'/iblog/blog_detail',query:{blog_id:searchblog.id}}">
+                  <h4>{{searchblog.blog_title}}</h4>
+                </router-link>
+              </Col>
+              <Col span="16">
+                <router-link :to="{path:'/iblog/blog_list',query:{blog_id:searchblog.id}}">
+                  <span style="color: #499ef3;font-weight: bold;">所属分类：{{ searchblog.catalog_name }}</span>
+                </router-link>
+              </Col>
+            </Row>
             <p style="margin-bottom: 4px;font-size: 14px;color: #8a8a8a;line-height: 24px;">
               {{searchblog.short_desc | filterLimitFunc}}
             </p>
@@ -19,9 +28,6 @@
                   <router-link :to="{path:'/iblog/author',query:{author:searchblog.author}}">{{searchblog.author}}</router-link>
                   发布于:<Time :time="searchblog.created_time" type="datetime" style="color:red;"/>&nbsp;
                   更新于:<Time :time="searchblog.last_updated_time" type="datetime" style="color:red;"/>&nbsp;
-                  <router-link :to="{path:'/iblog/blog_list',query:{blog_id:searchblog.id}}">
-                    <span style="color: #3399ea;">{{ searchblog.catalog_name }}</span>
-                  </router-link>
                 </Col>
                 <Col span="2">
                   <router-link :to="{path:'/iblog/blog_detail',query:{blog_id:searchblog.id}}">

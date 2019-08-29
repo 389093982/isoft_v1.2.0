@@ -48,7 +48,6 @@ const IBlogRouter = {
   // 二级路由的配置
   children: [
     {path: 'blog_index',component: IBlog},
-    {path: 'blog_add',component: BlogAdd},
     {path: 'blog_list',component: BlogList},
     {path: 'blog_detail',component: BlogDetail},
   ]

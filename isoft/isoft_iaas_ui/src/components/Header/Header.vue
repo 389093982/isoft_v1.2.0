@@ -9,8 +9,6 @@
           </template>
           <MenuGroup title="博客天地">
             <MenuItem name="1-1"><router-link to="/iblog/blog_list">热门博文推荐</router-link></MenuItem>
-            <MenuItem name="1-2"><router-link to="/iblog/blog_add">新增/编辑文章</router-link></MenuItem>
-            <MenuItem name="1-3">我的博客空间</MenuItem>
           </MenuGroup>
           <MenuGroup title="在线学习系统">
             <MenuItem name="1-5"><router-link to="/ilearning/index">精品课程</router-link></MenuItem>
