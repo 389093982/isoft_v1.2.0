@@ -51,8 +51,8 @@
         commonLinks:[],
         // 当前页
         current_page:1,
-        // 总页数
-        total:1,
+        // 总数
+        total:0,
         // 每页记录数
         offset:10,
         search:"",

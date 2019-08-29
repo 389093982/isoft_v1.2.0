@@ -36,8 +36,9 @@
     </div>
 
     <!-- 顶级评论支持分页 -->
-    <Page v-if="parent_id == 0" :total="total" :page-size="offset" show-total show-sizer :styles="{'text-align': 'center','margin-top': '10px'}"
+    <Page v-if="parent_id == 0 && total > 0" :total="total" :page-size="offset" show-total show-sizer :styles="{'text-align': 'center','margin-top': '10px'}"
           @on-change="handleChange" @on-page-size-change="handlePageSizeChange"/>
+    <div v-else style="text-align: center;margin-top: 50px;">空空如也奥,快来评价吧</div>
 
     <!-- 评论表单 -->
     <Modal
@@ -77,8 +78,8 @@
       return {
         // 当前页
         current_page:1,
-        // 总页数
-        total:1,
+        // 总数
+        total:0,
         // 每页记录数
         offset:10,
         comments:[],
