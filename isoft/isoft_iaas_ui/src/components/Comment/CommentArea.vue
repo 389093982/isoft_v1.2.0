@@ -31,14 +31,13 @@
         </Row>
       </p>
       <!-- 递归,子评论区域 -->
-      <CommentArea v-if="comment.sub_amount > 0 && comment.toggleSubCommentShow"
+      <CommentArea v-if="comment.sub_amount > 0"
          :parent_id="comment.id" :theme_pk="theme_pk" :theme_type="theme_type" :key="comment.id"/>
     </div>
 
     <!-- 顶级评论支持分页 -->
     <Page v-if="parent_id == 0 && total > 0" :total="total" :page-size="offset" show-total show-sizer :styles="{'text-align': 'center','margin-top': '10px'}"
           @on-change="handleChange" @on-page-size-change="handlePageSizeChange"/>
-    <div v-else style="text-align: center;margin-top: 50px;">空空如也奥,快来评价吧</div>
 
     <!-- 评论表单 -->
     <Modal
@@ -90,10 +89,6 @@
       }
     },
     methods:{
-      toggleShow(index, comment){
-        comment.toggleSubCommentShow = !(comment.toggleSubCommentShow == null ? false : comment.toggleSubCommentShow);
-          this.$set(this.comments, index, comment);
-      },
       handleChange(page){
         this.current_page = page;
         this.refreshComment();
@@ -111,7 +106,7 @@
         if(result.status=="SUCCESS"){
           this.showCommentForm = false;
           this.comments = result.comments;
-          if(result.paginator != null){
+          if(this.parent_id == 0 && result.paginator != null){
             this.total = result.paginator.totalcount;
           }
         }
