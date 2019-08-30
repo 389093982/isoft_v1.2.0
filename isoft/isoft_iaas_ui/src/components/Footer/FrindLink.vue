@@ -26,7 +26,7 @@
       // 使用计算属性对对象格式进行转换
       items: function () {
         let arr = new Array();
-        if(this.fractionLost != null){
+        if(this.frindLinks != null){
           for(var i=0; i<this.frindLinks.length; i++){
             arr.push({"item_label":this.frindLinks[i].link_name,"item_href":this.frindLinks[i].link_addr});
           }
