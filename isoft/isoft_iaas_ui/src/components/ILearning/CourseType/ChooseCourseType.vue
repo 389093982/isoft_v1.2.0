@@ -10,7 +10,7 @@
           <div style="border-bottom: 2px solid #edf1f2;">
             <a href="javascript:;" @click="showCourseType=true" style="color: red;">热门课程推荐</a>
             <a href="javascript:;" @click="showCourseType=!showCourseType" style="color: red;float: right;">
-              <img src="../../../assets/images/common/more.jpg"/>
+              More +
             </a>
           </div>
           <div>
