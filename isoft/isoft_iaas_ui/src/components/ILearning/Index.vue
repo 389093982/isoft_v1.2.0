@@ -18,9 +18,6 @@
     <HotLanguage/>
     <!-- 热门开源项目 -->
     <HotProject/>
-    <SiteGuide/>
-    <HotCommunity/>
-    <HotUser/>
     <IBeautifulTabLink/>
   </div>
 </template>
@@ -30,17 +27,14 @@
   import HotRecommend from "./Course/HotRecommend"
   import NewsNotice from "./Course/NewsNotice"
   import HotIssue from "./Course/HotIssue"
-  import SiteGuide from "./Site/SiteGuide"
-  import HotCommunity from "./Community/HotCommunity"
   import HotProject from "./Hot/HotProject"
   import ToolBox from "../Background/CMS/ToolBox"
   import HotLanguage from "./Hot/HotLanguage"
-  import HotUser from "../User/HotUser"
   import IBeautifulTabLink from "../Common/link/IBeautifulTabLink"
 
   export default {
     name: "Index",
-    components:{ChooseCourseType,HotRecommend,NewsNotice,HotIssue,SiteGuide,HotCommunity,HotProject,ToolBox,HotLanguage,HotUser,IBeautifulTabLink},
+    components:{ChooseCourseType,HotRecommend,NewsNotice,HotIssue,HotProject,ToolBox,HotLanguage,IBeautifulTabLink},
   }
 </script>
 
