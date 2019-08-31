@@ -2,7 +2,7 @@
   <div style="background: #FFFFFF;padding: 10px;box-shadow: 2px 2px 1px #888888;">
     <ChooseCourseType/>
 
-    <ToolBox/>
+    <ToolBox title="热门推荐" :placement_name="GLOBAL.element_host_toolbox_list"/>
 
     <Row class="bgcolor" style="margin-bottom: 20px;margin: 10px auto;padding: 3px;">
       <Col span="18">
@@ -10,14 +10,14 @@
         <HotRecommend/>
       </Col>
       <Col span="6">
-        <ToolBox/>
+        <ToolBox title="实用小工具" :placement_name="GLOBAL.element_host_toolbox_list"/>
         <NewsNotice/>
         <HotIssue/>
       </Col>
     </Row>
 
-    <ToolBox/>
-    <ToolBox/>
+    <ToolBox :placement_name="GLOBAL.element_host_toolbox_list"/>
+    <ToolBox :placement_name="GLOBAL.element_host_toolbox_list"/>
 
     <!-- 热门编程语言 -->
     <HotLanguage/>

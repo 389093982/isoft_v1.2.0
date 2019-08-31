@@ -1,5 +1,5 @@
 <template>
-  <IBeautifulCard title="工具盒">
+  <IBeautifulCard :title="title">
     <div slot="content">
       <ul>
         <li v-for="element in elements" class="li">
@@ -17,10 +17,21 @@
 <script>
   import IBeautifulCard from "../../Common/card/IBeautifulCard"
   import {FilterElementByPlacement} from "../../../api"
+  import {checkEmpty} from "../../../tools"
 
   export default {
     name: "ToolBox",
     components:{IBeautifulCard},
+    props:{
+      title:{
+        type:String,
+        default:'工具盒',
+      },
+      placement_name:{
+        type:String,
+        default: '',
+      }
+    },
     data(){
       return {
         elements:[],
@@ -28,9 +39,11 @@
     },
     methods:{
       refreshElement: async function () {
-        const result = await FilterElementByPlacement(this.GLOBAL.element_host_toolbox_list);
-        if(result.status == "SUCCESS"){
-          this.elements = result.elements;
+        if(!checkEmpty(this.placement_name)){
+          const result = await FilterElementByPlacement(this.placement_name);
+          if(result.status == "SUCCESS"){
+            this.elements = result.elements;
+          }
         }
       }
     },
