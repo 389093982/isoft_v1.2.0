@@ -2,6 +2,8 @@
   <div style="background: #FFFFFF;padding: 10px;box-shadow: 2px 2px 1px #888888;">
     <ChooseCourseType/>
 
+    <ToolBox/>
+
     <Row class="bgcolor" style="margin-bottom: 20px;margin: 10px auto;padding: 3px;">
       <Col span="18">
         <!-- 热门推荐区域 -->
@@ -13,6 +15,9 @@
         <HotIssue/>
       </Col>
     </Row>
+
+    <ToolBox/>
+    <ToolBox/>
 
     <!-- 热门编程语言 -->
     <HotLanguage/>
