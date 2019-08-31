@@ -63,15 +63,6 @@
         this.$refs.commentArea.refreshComment(comment_type);
       },
     },
-    watch:{
-      "theme_pk": "refreshComment"      // 如果 theme_pk 有变化,会再次执行该方法
-    },
-    mounted:function () {
-      if(this.theme_pk > 0){
-        // 父组件异步修改子组件 props 值获取了 undefined
-        this.refreshComment();
-      }
-    }
   }
 </script>
 

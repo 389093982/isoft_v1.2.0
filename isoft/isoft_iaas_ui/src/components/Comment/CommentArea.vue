@@ -2,6 +2,7 @@
   <div>
     <div v-for="(comment,index) in comments" style="margin-bottom:5px;padding: 10px;border: 1px solid #e9e9e9;">
       <p>
+        <Tag color="default" v-if="parent_id == 0"># 楼层{{(current_page - 1) * offset + index + 1}}</Tag>
         <router-link to="">
           <Avatar icon="ios-person" size="small" />
           {{comment.created_by}}
@@ -31,8 +32,8 @@
         </Row>
       </p>
       <!-- 递归,子评论区域 -->
-      <CommentArea v-if="comment.sub_amount > 0"
-         :parent_id="comment.id" :theme_pk="theme_pk" :theme_type="theme_type" :key="comment.id"/>
+      <CommentArea v-if="comment.sub_amount > 0" :parent_id="comment.id" :parent_comment="comment"
+                   :theme_pk="theme_pk" :theme_type="theme_type" :key="comment.id"/>
     </div>
 
     <!-- 顶级评论支持分页 -->
@@ -59,6 +60,10 @@
     name: "CommentArea",
     // 评论清单
     props:{
+      parent_comment:{
+        type:Object,
+        default:null,
+      },
       parent_id:{
         type:Number,
         default: -1,
@@ -107,7 +112,7 @@
           this.showCommentForm = false;
           this.comments = result.comments;
           if(this.parent_id == 0 && result.paginator != null){
-            this.total = result.paginator.totalcount;
+            this.total = result.paginator.totalcount;     // 顶级评论支持分页
           }
         }
       },
@@ -122,7 +127,8 @@
       this.refreshComment();
     },
     watch:{
-      "theme_pk": "refreshComment"      // 如果 theme_pk 有变化,会再次执行该方法
+      "theme_pk": "refreshComment",      // 如果 theme_pk 有变化,会再次执行该方法
+      "parent_comment": "refreshComment",       // 如果 comment 有变化,会再次执行该方法
     }
   }
 </script>
