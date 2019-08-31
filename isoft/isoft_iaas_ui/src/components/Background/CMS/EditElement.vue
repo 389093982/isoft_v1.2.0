@@ -26,6 +26,12 @@
           <FormItem prop="linked_refer"  label="链接关键词">
             <Input type="text" v-model="formInline.linked_refer" placeholder="linked_refer" style="width: 80%;"/>
           </FormItem>
+          <FormItem prop="navigation_level"  label="导航级别">
+            <Input type="text" v-model="formInline.navigation_level" placeholder="navigation_level" style="width: 80%;"/>
+          </FormItem>
+          <FormItem prop="navigation_parent_id"  label="父级关联 id">
+            <Input type="text" v-model="formInline.navigation_parent_id" placeholder="navigation_parent_id" style="width: 80%;"/>
+          </FormItem>
         </Col>
       </Row>
     </Form>
@@ -46,6 +52,8 @@
       return {
         formInline: {
           placement:'',
+          navigation_level:0,  // 元素层级
+          navigation_parent_id:0,   // 父级元素 id
           title: '',
           content: '',
           imgpath: '',
@@ -65,13 +73,13 @@
       handleSubmit() {
         this.$refs['formInline'].validate(async (valid) => {
           if (valid) {
-            const result = await AddElement(this.formInline.placement, this.formInline.title, this.formInline.content,
-              this.formInline.imgpath, this.formInline.linked_refer);
+            const result = await AddElement(this.formInline.placement, this.formInline.navigation_level, this.formInline.navigation_parent_id,
+              this.formInline.title, this.formInline.content, this.formInline.imgpath, this.formInline.linked_refer);
             if(result.status=="SUCCESS"){
               this.$emit("refreshElementList");
               this.$Message.success('提交成功!');
             }else{
-              this.$Message.error('提交失败!' + result.errorMsg);
+              this.$Message.error('提交失败!' + result.errorMsvg);
             }
           } else {
             this.$Message.error('校验不通过!');

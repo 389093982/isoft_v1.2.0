@@ -12,7 +12,7 @@
       <span @click="clickPlacement(placement.placement_name)">{{placement.placement_name}}</span>
     </Tag>
 
-    <Table :columns="columns1" :data="elements" size="small"></Table>
+    <Table border :columns="columns1" :data="elements" size="small"></Table>
     <Page :total="total" :page-size="offset" show-total show-sizer :styles="{'text-align': 'center','margin-top': '10px'}"
           @on-change="handleChange" @on-page-size-change="handlePageSizeChange"/>
   </div>
@@ -46,6 +46,16 @@
             title: 'placement',
             key: 'placement',
             width:250
+          },
+          {
+            title: '导航级别',
+            key: 'navigation_level',
+            width:100
+          },
+          {
+            title: '父 id',
+            key: 'navigation_parent_id',
+            width:100
           },
           {
             title: 'title',
