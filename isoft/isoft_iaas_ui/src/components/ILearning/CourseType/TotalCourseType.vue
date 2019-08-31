@@ -4,14 +4,14 @@
     <ul style="overflow:hidden;">
         <li v-for="course_type in course_types"
             style="height: 32px;line-height: 32px;margin: 0 4px 5px;text-align: center;color: #333;float: left;display: inline;">
-          <IBeautifulLink @onclick="loadSubCourseType(course_type)">{{course_type}}</IBeautifulLink>
+          <IBeautifulLink @onclick="loadSubCourseType(course_type)">{{course_type.course_type}}</IBeautifulLink>
         </li>
       </ul>
     <span style="height: 32px;line-height: 32px;margin-bottom: 5px;color: #000;float: left !important;">详细分类：</span>
     <ul style="overflow:hidden;">
         <li v-for="sub_course_type in sub_course_types"
             style="height: 32px;line-height: 32px;margin: 0 4px 5px;text-align: center;color: #333;float: left;display: inline;">
-          <IBeautifulLink @onclick="chooseCourseType(current_course_type, sub_course_type)">{{sub_course_type}}</IBeautifulLink>
+          <IBeautifulLink @onclick="chooseCourseType(current_course_type, sub_course_type)">{{sub_course_type.course_sub_type}}</IBeautifulLink>
         </li>
       </ul>
   </div>
