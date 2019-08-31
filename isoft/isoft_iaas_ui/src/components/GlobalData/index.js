@@ -12,6 +12,7 @@ const hot_course_types=[
 
 const element_host_share_type_carousel = "element_host_share_type_carousel";
 const element_host_share_type_list = "element_host_share_type_list";
+const element_host_course_type_carousel = "element_host_course_type_carousel";
 
 // 热门分享类型
 const hot_share_type=[
@@ -81,4 +82,5 @@ export default {
   hot_course_types,
   element_host_share_type_carousel,
   element_host_share_type_list,
+  element_host_course_type_carousel,
 }
