@@ -28,7 +28,6 @@ import ajax from './ajax'
 // export const SearchCourseList = (search) => ajax(BASE_URL+'/ilearning/searchCourseList',{search},'GET');
 // export const AddConfiguration = (parent_id, configuration_name, configuration_value) =>
 //   ajax(BASE_URL+'/cms/addConfiguration',{parent_id, configuration_name, configuration_value},'GET');
-// 根据名称查询配置项
 // export const QueryAllConfigurations = (configuration_name) => ajax(BASE_URL+'/cms/queryAllConfigurations',{configuration_name},'GET');
 // export const FilterConfigurations = (search,offset,current_page) => ajax(BASE_URL+'/cms/filterConfigurations',{search, offset,current_page},'GET');
 // export const QueryRandomCommonLink = (link_type) => ajax(BASE_URL+'/cms/queryRandomCommonLink',{link_type},'GET');
@@ -136,6 +135,7 @@ export const UpdateElementStatus = (id, status) => ajax(BASE_URL_2+'/iwork/https
 export const AddPlacement = (placement_name, placement_desc) => ajax(BASE_URL_2+'/iwork/httpservice/AddPlacement2',{placement_name, placement_desc},'GET');
 
 export const FilterPlacement = (offset,current_page,search) => ajax(BASE_URL_2+'/iwork/httpservice/FilterPlacement2',{offset,current_page,search},'GET');
+export const GetAllPlacements = () => ajax(BASE_URL_2+'/iwork/httpservice/GetAllPlacements2',{},'GET');
 
 export const DeletePlacementById = (id) => ajax(BASE_URL_2+'/iwork/httpservice/DeletePlacementById2',{id},'GET');
 

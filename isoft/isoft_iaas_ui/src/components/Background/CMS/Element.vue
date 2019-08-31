@@ -8,6 +8,10 @@
       <ISimpleSearch slot="right" @handleSimpleSearch="handleSearch"/>
     </ISimpleLeftRightRow>
 
+    <Tag v-for="placement in placements" color="green">
+      <span @click="clickPlacement(placement.placement_name)">{{placement.placement_name}}</span>
+    </Tag>
+
     <Table :columns="columns1" :data="elements" size="small"></Table>
     <Page :total="total" :page-size="offset" show-total show-sizer :styles="{'text-align': 'center','margin-top': '10px'}"
           @on-change="handleChange" @on-page-size-change="handlePageSizeChange"/>
@@ -15,7 +19,7 @@
 </template>
 
 <script>
-  import {FilterElements,UpdateElementStatus} from "../../../api"
+  import {FilterElements,UpdateElementStatus,GetAllPlacements} from "../../../api"
   import ISimpleSearch from "../../Common/search/ISimpleSearch"
   import MultiClickButton from "../../Common/button/MultiClickButton"
   import ISimpleLeftRightRow from "../../Common/layout/ISimpleLeftRightRow"
@@ -35,6 +39,7 @@
         offset:10,
         // 搜索条件
         search:"",
+        placements:[],
         elements: [],
         columns1: [
           {
@@ -113,6 +118,10 @@
       }
     },
     methods: {
+      clickPlacement:function(placement_name){
+        this.search = placement_name;
+        this.refreshElementList();
+      },
       addElement:function(){
         this.$refs.editElement.showModal();
       },
@@ -121,6 +130,12 @@
         if(result.status=="SUCCESS"){
           this.elements = result.elements;
           this.total = result.paginator.totalcount;
+        }
+      },
+      refreshAllPlacements:async function () {
+        const result = await GetAllPlacements();
+        if(result.status == "SUCCESS"){
+          this.placements = result.placements;
         }
       },
       handleChange(page){
@@ -138,6 +153,7 @@
     },
     mounted(){
       this.refreshElementList();
+      this.refreshAllPlacements();
     }
   }
 </script>
