@@ -14,7 +14,7 @@
     <!-- 图标形式显示 -->
     <IBeautifulCard v-else title="热门课程推荐">
       <div slot="content" style="min-height:850px;padding: 20px;">
-        <ul class="clear">
+        <ul>
           <li v-for="course in courses">
             <router-link :to="{path:'/ilearning/course_detail',query:{course_id:course.id}}">
               <img v-if="course.small_image" :src="course.small_image" height="90px" width="120px"/>

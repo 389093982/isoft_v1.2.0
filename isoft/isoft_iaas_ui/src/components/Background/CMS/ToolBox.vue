@@ -5,7 +5,7 @@
         <li v-for="element in elements" class="li">
           <a :href="element.linked_refer" target="_blank">
             <img :src="element.img_path" width="25px" height="25px"/>
-            <p class="label">{{element.title}}</p>
+            <p>{{element.title}}</p>
           </a>
         </li>
       </ul>
@@ -41,6 +41,9 @@
 </script>
 
 <style scoped>
+  a{
+    color: black;
+  }
  .li {
    list-style: none;
    float: left;
@@ -51,10 +54,11 @@
    border: 1px solid transparent;
    cursor: pointer;
  }
- .label {
-   margin: 10px 0 0;
-   color: #333;
-   font-size: 12px;
-   line-height: 1;
+ li:hover{
+   background-color: #f4f4f4;
+   border: 1px solid #d0cdd2;
+ }
+ li:hover a{
+   color:red;
  }
 </style>
