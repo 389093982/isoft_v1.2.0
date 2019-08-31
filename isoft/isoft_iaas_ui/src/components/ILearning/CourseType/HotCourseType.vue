@@ -33,7 +33,6 @@
     components:{IBeautifulLink},
     data(){
       return {
-        hot_course_types: this.GLOBAL.hot_course_types,
         currentElement:null,
         elements:[],
       }
