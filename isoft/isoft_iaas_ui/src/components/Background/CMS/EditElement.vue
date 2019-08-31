@@ -11,26 +11,34 @@
             <Input type="text" readonly="readonly" v-model="formInline.placement" placeholder="placement" style="width: 80%;"/>
             <Button type="success" @click="$refs.placement_chooser.showModal()">选择</Button>
           </FormItem>
+          <FormItem prop="navigation_level" label="导航级别">
+            <Input type="text" readonly="readonly" v-model="formInline.navigation_level" placeholder="navigation_level" style="width: 80%;"/>
+          </FormItem>
+          <FormItem prop="navigation_parent_id"  label="父级关联 id">
+            <Input type="text" v-model="formInline.navigation_parent_id" placeholder="navigation_parent_id" style="width: 80%;"/>
+            <Poptip v-model="visible_choose_element" placement="left-start" width="400" @on-popper-show="showChooseElement">
+              <a href="javascript:;">选择父级</a>
+              <div slot="content" style="width: 100%;">
+                <Tag style="margin: 5px;float: left;" v-for="element in elements">
+                  <span @click="chooseElement(element)">{{element.title}}</span>
+                </Tag>
+              </div>
+            </Poptip>
+          </FormItem>
+        </Col>
+        <Col span="12">
           <FormItem prop="title" label="标题">
             <Input type="text" v-model="formInline.title" placeholder="title" style="width: 80%;"/>
           </FormItem>
           <FormItem prop="content"  label="内容">
             <Input type="text" v-model="formInline.content" placeholder="content" style="width: 80%;"/>
           </FormItem>
-        </Col>
-        <Col span="12">
           <FormItem prop="imgpath"  label="图片">
             <Input type="text" readonly="readonly" v-model="formInline.imgpath" placeholder="imgpath" style="width: 80%;"/>
             <IFileUpload @uploadComplete="uploadComplete" action="/api2/iwork/fileUpload/fileUpload" uploadLabel="上传"/>
           </FormItem>
           <FormItem prop="linked_refer"  label="链接关键词">
             <Input type="text" v-model="formInline.linked_refer" placeholder="linked_refer" style="width: 80%;"/>
-          </FormItem>
-          <FormItem prop="navigation_level"  label="导航级别">
-            <Input type="text" v-model="formInline.navigation_level" placeholder="navigation_level" style="width: 80%;"/>
-          </FormItem>
-          <FormItem prop="navigation_parent_id"  label="父级关联 id">
-            <Input type="text" v-model="formInline.navigation_parent_id" placeholder="navigation_parent_id" style="width: 80%;"/>
           </FormItem>
         </Col>
       </Row>
@@ -42,14 +50,18 @@
   import ISimpleConfirmModal from "../../Common/modal/ISimpleConfirmModal"
   import IBaseChooser from "../../Common/IBaseChooser"
   import Placement from "./Placement"
+  import Element from "./Element"
   import IFileUpload from "../../IFile/IFileUpload"
-  import {AddElement} from "../../../api"
+  import {AddElement,FilterElementByPlacement} from "../../../api"
+  import {checkEmpty} from "../../../tools"
 
   export default {
     name: "EditElement",
-    components:{IBaseChooser,Placement,IFileUpload,ISimpleConfirmModal},
+    components:{IBaseChooser,Placement,Element,IFileUpload,ISimpleConfirmModal},
     data(){
       return {
+        visible_choose_element:false,
+        elements:[],
         formInline: {
           placement:'',
           navigation_level:0,  // 元素层级
@@ -89,6 +101,19 @@
       choosePlacement:function (placement_name) {
         this.formInline.placement = placement_name;
         this.$refs.placement_chooser.hideModal();
+      },
+      chooseElement:function(element){
+        this.formInline.navigation_level = element.navigation_level + 1;
+        this.formInline.navigation_parent_id = element.id;
+        this.visible_choose_element = false;
+      },
+      showChooseElement:async function(){
+        if(!checkEmpty(this.formInline.placement)){
+          const result = await FilterElementByPlacement(this.formInline.placement);
+          if(result.status == "SUCCESS"){
+            this.elements = result.elements;
+          }
+        }
       },
       uploadComplete: function (result) {
         if(result.status == "SUCCESS"){
