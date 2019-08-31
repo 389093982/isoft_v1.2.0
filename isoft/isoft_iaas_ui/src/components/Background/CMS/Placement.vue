@@ -9,11 +9,6 @@
           <IKeyValueForm ref="placementEditForm" form-key-label="placement_name" form-value-label="placement_desc"
                          form-key-placeholder="请输入 placement_name" form-value-placeholder="请输入 placement_desc"
                          @handleSubmit="editPlacement">
-            <span slot="extra">
-              <FormItem label="placement_title">
-                <Input v-model.trim="placement_title" />
-              </FormItem>
-            </span>
           </IKeyValueForm>
         </ISimpleConfirmModal>
       </span>
@@ -46,7 +41,6 @@
     },
     data(){
       return {
-        placement_title:'',
         // 当前页
         current_page:1,
         // 总数
@@ -66,11 +60,6 @@
             title: 'placement_name',
             key: 'placement_name',
             width: 300,
-          },
-          {
-            title: 'placement_title',
-            key: 'placement_title',
-            width: 400,
           },
           {
             title: 'placement_desc',
@@ -124,7 +113,7 @@
         this.$refs.placementEditModal.showModal();
       },
       editPlacement:async function (placement_id, placement_name, placement_desc) {
-        const result = await AddPlacement(placement_name, placement_desc, this.placement_title);
+        const result = await AddPlacement(placement_name, placement_desc);
         if(result.status == "SUCCESS"){
           this.$refs.placementEditForm.handleSubmitSuccess("提交成功!");
           this.$refs.placementEditModal.hideModal();
