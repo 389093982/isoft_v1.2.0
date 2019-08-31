@@ -1,5 +1,5 @@
 <template>
-  <ISimpleConfirmModal ref="modal" :modal-width="1000" @handleSubmit="handleSubmit">
+  <ISimpleConfirmModal ref="modal" :modal-width="1000" @handleSubmit="handleSubmit" modal-title="占位符管理">
     <IBaseChooser ref="placement_chooser" chooser-title="占位符选择">
       <Placement :chooserMode="true" @choosePlacement="choosePlacement"/>
     </IBaseChooser>

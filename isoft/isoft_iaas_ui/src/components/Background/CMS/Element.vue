@@ -3,7 +3,7 @@
     <EditElement ref="editElement"/>
 
     <ISimpleLeftRightRow>
-      <Button type="success" slot="left" @click="addElement">新增</Button>
+      <Button type="success" slot="left" @click="addElement">新增页面元素</Button>
       <!-- right 插槽部分 -->
       <ISimpleSearch slot="right" @handleSimpleSearch="handleSearch"/>
     </ISimpleLeftRightRow>
