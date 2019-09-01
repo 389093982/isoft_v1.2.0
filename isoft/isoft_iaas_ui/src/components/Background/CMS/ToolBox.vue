@@ -1,11 +1,11 @@
 <template>
-  <IBeautifulCard :title="title">
+  <IBeautifulCard :title="title" v-if="elements.length > 0">
     <div slot="content">
       <ul>
         <li v-for="element in elements" class="li">
           <a :href="element.linked_refer" target="_blank">
-            <img :src="element.img_path" width="25px" height="25px"/>
-            <p>{{element.title}}</p>
+            <img :src="element.img_path" width="30px" height="30px"/>
+            <p style="font-size: 12px;">{{element.title}}</p>
           </a>
         </li>
       </ul>
@@ -60,9 +60,9 @@
  .li {
    list-style: none;
    float: left;
-   width: 75px;
-   height: 75px;
-   padding: 10px 0;
+   width: 70px;
+   height: 70px;
+   padding: 10px 10px;
    text-align: center;
    border: 1px solid transparent;
    cursor: pointer;
