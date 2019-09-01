@@ -54,7 +54,7 @@
   import Placement from "./Placement"
   import Element from "./Element"
   import IFileUpload from "../../IFile/IFileUpload"
-  import {AddElement,FilterElementByPlacement,QueryElementById} from "../../../api"
+  import {EditElement,FilterElementByPlacement,QueryElementById} from "../../../api"
   import {checkEmpty} from "../../../tools"
 
   export default {
@@ -84,8 +84,10 @@
       handleSubmit() {
         this.$refs['formInline'].validate(async (valid) => {
           if (valid) {
-            const result = await AddElement(this.formInline.placement, this.formInline.navigation_level, this.formInline.navigation_parent_id,
-              this.formInline.title, this.formInline.content, this.formInline.imgpath, this.formInline.linked_refer);
+            let id = this.$route.query.id == undefined ? -1 : this.$route.query.id;
+            const result = await EditElement(id, this.formInline.placement, this.formInline.navigation_level,
+              this.formInline.navigation_parent_id, this.formInline.title, this.formInline.content,
+              this.formInline.imgpath, this.formInline.linked_refer);
             if(result.status=="SUCCESS"){
               this.$Message.success('提交成功!');
               this.$router.push({ path: '/background/cms/element_list', query: { search: this.formInline.placement }});

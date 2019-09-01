@@ -128,8 +128,8 @@ export const AddCommonLink = (link_type, link_name, link_addr) => ajax(BASE_URL_
 
 export const FilterElements = (offset,current_page,search) => ajax(BASE_URL_2+'/iwork/httpservice/FilterElements2',{offset,current_page,search},'GET');
 
-export const AddElement = (placement, navigation_level, navigation_parent_id, title, content, imgpath, linked_refer) =>
-  ajax(BASE_URL_2+'/iwork/httpservice/AddElement2',{placement, navigation_level, navigation_parent_id, title, content, imgpath, linked_refer},'GET');
+export const EditElement = (id, placement, navigation_level, navigation_parent_id, title, content, imgpath, linked_refer) =>
+  ajax(BASE_URL_2+'/iwork/httpservice/EditElement2',{id, placement, navigation_level, navigation_parent_id, title, content, imgpath, linked_refer},'GET');
 
 export const UpdateElementStatus = (id, status) => ajax(BASE_URL_2+'/iwork/httpservice/UpdateElementStatus2',{id, status},'GET');
 

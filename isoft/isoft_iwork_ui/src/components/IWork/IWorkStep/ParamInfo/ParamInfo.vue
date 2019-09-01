@@ -25,11 +25,11 @@
           </Row>
           <Row style="margin-right: 5px;margin-left:20px;" :gutter="16">
             <Col span="18">
-              <Tabs type="card" :animated="false" value="edit">
-                <TabPane label="ParamMapping" name="ParamMapping" :disabled="!showParamMapping">
+              <Tabs type="card" name="tab_paramInfo" :animated="false" value="edit">
+                <TabPane label="ParamMapping" name="ParamMapping" v-if="showParamMapping" tab="tab_paramInfo" :index="1">
                   <ParamMapping :paramMappings="paramMappings" :work-step-type="workStepParamInfo.work_step_type"/>
                 </TabPane>
-                <TabPane label="edit" name="edit" :disabled="!showEdit">
+                <TabPane label="edit" name="edit" v-if="showEdit" tab="tab_paramInfo" :index="2">
                   <ParamInputEdit :paramInputSchemaItems="paramInputSchema.ParamInputSchemaItems"/>
                 </TabPane>
                 <Button size="small" slot="extra">input</Button>

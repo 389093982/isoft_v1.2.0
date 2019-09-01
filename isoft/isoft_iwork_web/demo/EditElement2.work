@@ -1,8 +1,8 @@
 <workdl work_id="275">
 	<work>
 		<Id>275</Id>
-		<WorkName>AddElement2</WorkName>
-		<WorkDesc>AddElement2</WorkDesc>
+		<WorkName>EditElement2</WorkName>
+		<WorkDesc>EditElement2</WorkDesc>
 		<WorkType>work</WorkType>
 		<ModuleName>CMS</ModuleName>
 		<CreatedBy>SYSTEM</CreatedBy>
