@@ -26,7 +26,7 @@
     <!-- 热门开源项目 -->
     <HotProject/>
     <IBeautifulTabLink/>
-
+    <Find/>
     <Fun/>
 
   </div>
@@ -43,10 +43,12 @@
   import IBeautifulTabLink from "../Common/link/IBeautifulTabLink"
   import HotArticleRecommend from "./Course/HotArticleRecommend"
   import Fun from "./Fun"
+  import Find from "./Find";
 
   export default {
     name: "Index",
-    components:{ChooseCourseType,HotRecommend,NewsNotice,HotIssue,HotProject,ToolBox,
+    components:{
+      Find, ChooseCourseType,HotRecommend,NewsNotice,HotIssue,HotProject,ToolBox,
       HotLanguage,IBeautifulTabLink,HotArticleRecommend,Fun},
   }
 </script>
