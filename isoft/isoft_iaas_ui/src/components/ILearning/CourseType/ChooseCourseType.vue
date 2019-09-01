@@ -10,7 +10,7 @@
           <div style="border-bottom: 2px solid #edf1f2;">
             <a href="javascript:;" @click="showCourseType=true" style="color: red;">热门课程推荐</a>
             <a href="javascript:;" @click="showCourseType=!showCourseType" style="color: red;float: right;">
-              More +
+              <IBeautifulLink2 style="font-size: 14px;"> 更多 </IBeautifulLink2>
             </a>
           </div>
           <div>
@@ -18,16 +18,12 @@
             <TotalCourseType v-show="showCourseType===false" @chooseCourseType="chooseCourseType"/>
           </div>
         </div>
-        <div style="text-align: right;padding: 10px;">
-          <a href="javascript:;">
-            <img src="../../../assets/images/common/free.jpg"/>
-          </a>
-        </div>
+        <div style="padding: 10px;"></div>
       </div>
+
+
       <div slot="header_right">
-        <router-link to="/ilearning/course_space" style="color: red;font-size: 14px;">
-          >>我的课程空间
-        </router-link>
+        <IBeautifulLink2 style="font-size: 14px;" @onclick="$router.push({ path: '/ilearning/course_space'})"> 我的课程空间 </IBeautifulLink2>
       </div>
     </IBeautifulCard>
   </div>
@@ -38,10 +34,11 @@
   import TotalCourseType from "./TotalCourseType"
   import ISearch from "../../Common/search/ISearch"
   import IBeautifulCard from "../../Common/card/IBeautifulCard"
+  import IBeautifulLink2 from "../../Common/link/IBeautifulLink2"
 
   export default {
     name: "ChooseCourseType",
-    components:{ISearch,HotCourseType,TotalCourseType,IBeautifulCard},
+    components:{ISearch,HotCourseType,TotalCourseType,IBeautifulCard,IBeautifulLink2},
     data(){
       return {
         showCourseType:true,

@@ -6,7 +6,7 @@
 
 <script>
   export default {
-    name: "IBeautifulLink",
+    name: "IBeautifulLink2",
     methods:{
       onclick:function () {
         this.$emit('onclick');
@@ -16,7 +16,10 @@
 </script>
 
 <style scoped>
+  a{
+    color: #626262;
+  }
   a:hover{
-    border-bottom: 2px solid red;
+    color: red;
   }
 </style>
