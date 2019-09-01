@@ -155,6 +155,9 @@
       },
     },
     mounted(){
+      if(this.$route.query.search != undefined){
+        this.search = this.$route.query.search;
+      }
       this.refreshElementList();
       this.refreshAllPlacements();
     }

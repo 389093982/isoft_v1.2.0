@@ -88,7 +88,7 @@
               this.formInline.title, this.formInline.content, this.formInline.imgpath, this.formInline.linked_refer);
             if(result.status=="SUCCESS"){
               this.$Message.success('提交成功!');
-              this.$router.push({ path: '/background/cms/element_list'});
+              this.$router.push({ path: '/background/cms/element_list', query: { search: this.formInline.placement }});
             }else{
               this.$Message.error('提交失败!' + result.errorMsvg);
             }
