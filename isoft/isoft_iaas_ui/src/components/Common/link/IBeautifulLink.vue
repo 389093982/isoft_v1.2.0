@@ -16,6 +16,9 @@
 </script>
 
 <style scoped>
+  a{
+    border-bottom: 2px solid rgba(255, 0, 0, 0);
+  }
   a:hover{
     border-bottom: 2px solid red;
   }

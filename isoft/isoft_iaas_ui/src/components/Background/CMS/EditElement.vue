@@ -41,7 +41,8 @@
             <Input type="text" v-model="formInline.linked_refer" placeholder="linked_refer" style="width: 80%;"/>
           </FormItem>
           <FormItem>
-            <Button type="success" @click="handleSubmit" style="margin-right: 6px">Submit</Button>
+            <Button type="success" @click="handleSubmit" style="margin-right: 6px">提交</Button>
+            <Button type="warning" @click="handleGoBack" style="margin-right: 6px">返回</Button>
           </FormItem>
         </Col>
       </Row>
@@ -90,7 +91,6 @@
               this.formInline.imgpath, this.formInline.linked_refer);
             if(result.status=="SUCCESS"){
               this.$Message.success('提交成功!');
-              this.$router.push({ path: '/background/cms/element_list', query: { search: this.formInline.placement }});
             }else{
               this.$Message.error('提交失败!' + result.errorMsvg);
             }
@@ -98,6 +98,10 @@
             this.$Message.error('校验不通过!');
           }
         })
+      },
+      handleGoBack:function(){
+        let search = checkEmpty(this.formInline.placement) ? "" : this.formInline.placement;
+        this.$router.push({ path: '/background/cms/element_list', query: { search: search }});
       },
       choosePlacement:function (placement_name) {
         this.formInline.placement = placement_name;
