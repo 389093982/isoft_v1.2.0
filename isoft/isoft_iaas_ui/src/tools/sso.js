@@ -7,7 +7,7 @@ const _checkSSOLogin = function(to, from, next) {
   // 登录判断
   var userName = getCookie("userName");
   var isLogin = getCookie("isLogin");
-  var token = getCookie("token");
+  var token = getCookie("tokenString");
   // 非免登录白名单,并且不含登录标识的需要重新跳往登录页面
   if(!_checkNotLogin() && (checkEmpty(userName) || checkEmpty(isLogin) || checkEmpty(token) || isLogin != "isLogin")){
     // 跳往登录页面
