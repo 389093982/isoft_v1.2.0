@@ -1,5 +1,5 @@
 <template>
-  <ISimpleConfirmModal ref="modal" :modal-width="1000" @handleSubmit="handleSubmit" modal-title="占位符管理">
+  <div>
     <IBaseChooser ref="placement_chooser" chooser-title="占位符选择">
       <Placement :chooserMode="true" @choosePlacement="choosePlacement"/>
     </IBaseChooser>
@@ -40,14 +40,16 @@
           <FormItem prop="linked_refer"  label="链接关键词">
             <Input type="text" v-model="formInline.linked_refer" placeholder="linked_refer" style="width: 80%;"/>
           </FormItem>
+          <FormItem>
+            <Button type="success" @click="handleSubmit" style="margin-right: 6px">Submit</Button>
+          </FormItem>
         </Col>
       </Row>
     </Form>
-  </ISimpleConfirmModal>
+  </div>
 </template>
 
 <script>
-  import ISimpleConfirmModal from "../../Common/modal/ISimpleConfirmModal"
   import IBaseChooser from "../../Common/IBaseChooser"
   import Placement from "./Placement"
   import Element from "./Element"
@@ -57,7 +59,7 @@
 
   export default {
     name: "EditElement",
-    components:{IBaseChooser,Placement,Element,IFileUpload,ISimpleConfirmModal},
+    components:{IBaseChooser,Placement,Element,IFileUpload},
     data(){
       return {
         visible_choose_element:false,
@@ -79,17 +81,14 @@
       }
     },
     methods:{
-      showModal:function(){
-        this.$refs.modal.showModal();
-      },
       handleSubmit() {
         this.$refs['formInline'].validate(async (valid) => {
           if (valid) {
             const result = await AddElement(this.formInline.placement, this.formInline.navigation_level, this.formInline.navigation_parent_id,
               this.formInline.title, this.formInline.content, this.formInline.imgpath, this.formInline.linked_refer);
             if(result.status=="SUCCESS"){
-              this.$emit("refreshElementList");
               this.$Message.success('提交成功!');
+              this.$router.push({ path: '/background/cms/element_list'});
             }else{
               this.$Message.error('提交失败!' + result.errorMsvg);
             }
@@ -120,14 +119,14 @@
           this.formInline.imgpath = result.fileServerPath;
         }
       },
-      initFormData:function (element) {
-        this.formInline.placement = element.placement;
-        this.formInline.title = element.title;
-        this.formInline.content = element.content;
-        this.formInline.imgpath = element.img_path;
-        this.formInline.linked_refer = element.linked_refer;
-      }
-    }
+      // initFormData:function (element) {
+      //   this.formInline.placement = element.placement;
+      //   this.formInline.title = element.title;
+      //   this.formInline.content = element.content;
+      //   this.formInline.imgpath = element.img_path;
+      //   this.formInline.linked_refer = element.linked_refer;
+      // }
+    },
   }
 </script>
 

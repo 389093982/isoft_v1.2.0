@@ -8,12 +8,11 @@ import LoginRecord from "../components/SSO/LoginRecord"
 import IEmptyLayout from "../components/ILayout/IEmptyLayout"
 import ICMSLayout from "../components/ILayout/ICMSLayout"
 import Element from "../components/Background/CMS/Element"
+import EditElement from "../components/Background/CMS/EditElement"
 import Catalog from "../components/Background/CMS/Catalog"
 import Placement from "../components/Background/CMS/Placement"
 import IBlog from '../components/IBlog/IBlog'
 import BlogList from '../components/IBlog/BlogList'
-import CatalogAdd from '../components/IBlog/CatalogAdd'
-import BlogAdd from '../components/IBlog/BlogAdd'
 import BlogDetail from '../components/IBlog/BlogDetail'
 import ILearningIndex from '../components/ILearning/Index'
 import CourseSpace from '../components/ILearning/CourseSpace/CourseSpace'
@@ -117,6 +116,7 @@ const ICMSReouter = [{
   path: '/background',
   component: ICMSLayout,
   children: [
+    {path: 'cms/element_edit',component: EditElement},
     {path: 'cms/element_list',component: Element},
     {path: 'cms/catalog_list',component: Catalog},
     {path: 'cms/placement_list',component: Placement},

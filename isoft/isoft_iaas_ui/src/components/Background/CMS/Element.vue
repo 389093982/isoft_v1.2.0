@@ -1,9 +1,7 @@
 <template>
   <div>
-    <EditElement ref="editElement"/>
-
     <ISimpleLeftRightRow>
-      <Button type="success" slot="left" @click="addElement">新增页面元素</Button>
+      <Button type="success" slot="left" @click="$router.push({ path: '/background/cms/element_edit'})">新增页面元素</Button>
       <!-- right 插槽部分 -->
       <ISimpleSearch slot="right" @handleSimpleSearch="handleSearch"/>
     </ISimpleLeftRightRow>
@@ -23,11 +21,10 @@
   import ISimpleSearch from "../../Common/search/ISimpleSearch"
   import MultiClickButton from "../../Common/button/MultiClickButton"
   import ISimpleLeftRightRow from "../../Common/layout/ISimpleLeftRightRow"
-  import EditElement from "./EditElement"
 
   export default {
     name: "Element",
-    components:{ISimpleLeftRightRow,MultiClickButton,ISimpleSearch, EditElement},
+    components:{ISimpleLeftRightRow,MultiClickButton,ISimpleSearch},
     data () {
       var _this = this;
       return {
@@ -108,8 +105,7 @@
                   on:{
                     handleClick:async function (index, bindData) {
                       if (bindData == 3){   // 编辑模式
-                        _this.$refs.editElement.initFormData(_this.elements[params.index]);
-                        _this.$refs.editElement.showModal();
+                        _this.$router.push({ path: '/background/cms/element_edit', query: { id: _this.elements[params.index].id }});
                       }else{
                         const result = await UpdateElementStatus(_this.elements[params.index].id, bindData);
                         if(result.status == "SUCCESS"){
@@ -131,9 +127,6 @@
       clickPlacement:function(placement_name){
         this.search = placement_name;
         this.refreshElementList();
-      },
-      addElement:function(){
-        this.$refs.editElement.showModal();
       },
       refreshElementList:async function () {
         const result = await FilterElements(this.offset, this.current_page, this.search);
