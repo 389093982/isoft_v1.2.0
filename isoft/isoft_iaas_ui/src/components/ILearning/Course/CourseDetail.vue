@@ -13,20 +13,7 @@
             </p>
           </Col>
           <Col span="16">
-            <p style="color: #d6241e;">
-              浏览量：{{course.watch_number}}
-              课程分数：<Rate disabled show-text allow-half :v-model="course.score"/> &nbsp;
-            </p>
-            <p>
-              课程名称：{{course.course_name}}
-              <router-link to="/ilearning/index" style="margin-left: 30px;">搜索同类资源</router-link>
-            </p>
-            <p>作者：{{course.course_author}}</p>
-            <p>课程类型：{{course.course_type}}</p>
-            <p>课程子类型：{{course.course_sub_type}}</p>
-            <p>课程简介：{{course.course_short_desc}}</p>
-            <p>课程集数：{{course.course_number}}</p>
-            <p>课程更新状态：{{course.course_status}}</p>
+            <CourseMeta :course="course"/>
             <p>
               <a href="javascript:;" v-if="course_collect==true" @click="toggle_favorite(course.id,'course_collect')">取消收藏</a>
               <a href="javascript:;" v-else @click="toggle_favorite(course.id,'course_collect')">加入收藏</a>&nbsp;
@@ -77,10 +64,11 @@
   import HotRecommend from "./HotRecommend"
   import UserDetail from "../../User/UserDetail"
   import HotUser from "../../User/HotUser"
+  import CourseMeta from "./CourseMeta";
 
   export default {
     name: "CourseDetail",
-    components:{IEasyComment,Recommand,CommunicationGroup,HotRecommend,UserDetail,HotUser},
+    components:{CourseMeta, IEasyComment,Recommand,CommunicationGroup,HotRecommend,UserDetail,HotUser},
     data(){
       return {
         // 当前课程

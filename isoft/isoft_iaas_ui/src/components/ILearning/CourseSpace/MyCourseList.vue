@@ -11,16 +11,7 @@
           <p><ChangeCourseImg :course="myCourse" @uploadComplete="uploadImgComplete"/></p>
         </Col>
         <Col span="16">
-          <p style="color: #d6241e;">
-            浏览量：{{myCourse.watch_number}}
-            课程分数：<Rate disabled show-text allow-half v-model="myCourse.score"/> &nbsp;<span>如何提升得分？</span>
-          </p>
-          <p>课程名称：{{myCourse.course_name}}</p>
-          <p>作者：{{myCourse.course_author}}</p>
-          <p>课程类型：{{myCourse.course_type}}</p>
-          <p>课程子类型：{{myCourse.course_sub_type}}</p>
-          <p>课程简介：{{myCourse.course_short_desc}}</p>
-          <p>课程集数：{{myCourse.course_number}}</p>
+          <CourseMeta :course="myCourse"/>
           <p>课程更新状态：{{myCourse.course_status}}
             <span v-if="myCourse.course_status != '已完结'">
                 <a href="javascript:;" style="color:#f55e13;font-family: Arial;font-weight: 700;"
@@ -42,10 +33,11 @@
   import ChangeCourseImg from "../Course/ChangeCourseImg"
   import UploadVideo from "../Course/UploadVideo"
   import {getCookie} from "../../../tools"
+  import CourseMeta from "../Course/CourseMeta";
 
   export default {
     name: "MyCourseList",
-    components:{ChangeCourseImg,UploadVideo},
+    components:{CourseMeta, ChangeCourseImg,UploadVideo},
     data(){
       return {
         // 我的课程
