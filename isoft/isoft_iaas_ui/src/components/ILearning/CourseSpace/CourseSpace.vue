@@ -1,5 +1,5 @@
 <template>
-  <div style="background: #FFFFFF;padding: 10px;box-shadow: 2px 2px 1px #888888;">
+  <div style="background: #FFFFFF;padding: 10px;">
     <Row style="background: #FFFFFF;">
       <Col span="6" style="padding: 5px;background: #f8f8f9;">
         <Card title="我的课程空间" icon="ios-options" :padding="0" shadow>

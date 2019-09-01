@@ -1,12 +1,12 @@
 <template>
-  <div style="background: #FFFFFF;padding: 10px;box-shadow: 2px 2px 1px #888888;">
+  <div style="background: #FFFFFF;padding: 10px;">
     <Row>
       <!-- 左侧课程详情部分 -->
       <Col span="16">
         <!-- 头部 -->
         <Row>
           <Col span="8">
-            <h6>课程名称：{{course.course_name}}</h6>
+            <h4>课程名称：{{course.course_name}}</h4>
             <p>
               <img v-if="course.small_image" :src="course.small_image" height="120" width="200"/>
               <img v-else src="../../../assets/default.png" height="120" width="200"/>

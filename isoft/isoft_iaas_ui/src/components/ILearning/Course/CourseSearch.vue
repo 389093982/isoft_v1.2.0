@@ -1,12 +1,12 @@
 <template>
-  <div style="background: #FFFFFF;padding: 10px;box-shadow: 2px 2px 1px #888888;">
+  <div style="background: #FFFFFF;padding: 10px;">
     <Row>
       <Col v-if="courses.length > 0" span="16">
         <div style="border-bottom: 1px solid #ccc;padding: 15px;border-right: 1px solid #ccc;padding: 15px;" v-for="course in courses">
           <Row>
             <Col span="8">
               <router-link :to="{path:'/ilearning/course_detail',query:{course_id:course.id}}">
-                <h6>课程名称：{{course.course_name}}</h6>
+                <h4>课程名称：{{course.course_name}}</h4>
                 <img v-if="course.small_image" :src="course.small_image" height="120" width="200"/>
                 <img v-else src="../../../assets/default.png" height="90px" width="120px"/>
               </router-link>

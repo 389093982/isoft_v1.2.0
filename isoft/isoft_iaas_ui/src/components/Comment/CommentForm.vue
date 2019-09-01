@@ -47,6 +47,7 @@
           const result = await AddComment(this.parent_id, this.content, this.theme_pk,
             this.theme_type, comment_type, this.refer_user_name);
           if(result.status=="SUCCESS"){
+            this.$Message.success("发表成功!");
             // 调用父组件的 refreshComment 方法
             this.$emit('refreshComment','all');
           }

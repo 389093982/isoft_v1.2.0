@@ -1,5 +1,5 @@
 <template>
-  <div style="background: #FFFFFF;padding: 10px;box-shadow: 2px 2px 1px #888888;">
+  <div style="background: #FFFFFF;padding: 10px;">
     <ChooseCourseType/>
 
     <ToolBox :placement_name="GLOBAL.element_host_toolbox_list"/>
