@@ -3,7 +3,8 @@
     <p style="color: #d6241e;">
       浏览量：{{course.watch_number}}
       课程分数：<Rate disabled show-text allow-half :v-model="course.score"/>
-      &nbsp; <span>如何提升得分？</span> &nbsp; <span> 我的课程空间 </span>
+      &nbsp; <span>如何提升得分？</span> &nbsp;
+      <IBeautifulLink2>我的课程空间</IBeautifulLink2>
     </p>
     <p>
       课程名称：{{course.course_name}}
@@ -19,8 +20,10 @@
 </template>
 
 <script>
+  import IBeautifulLink2 from "../../Common/link/IBeautifulLink2";
   export default {
     name: "CourseMeta",
+    components: {IBeautifulLink2},
     props:{
       course:{
         type:Object,

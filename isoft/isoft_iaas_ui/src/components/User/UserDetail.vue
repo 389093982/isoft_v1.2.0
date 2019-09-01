@@ -1,6 +1,8 @@
 <template>
   <div v-if="userName" style="border: 1px #dbdbdb solid;margin-left: 5px;margin-bottom: 5px;padding: 15px;">
-    <Tag color="primary">{{userName}}</Tag>
+    <IBeautifulLink2><Avatar icon="ios-person" size="default"/>&nbsp;{{userName}}</IBeautifulLink2>&nbsp;&nbsp;
+    <IBeautifulLink2 style="font-size: 12px;">设置我的个人信息</IBeautifulLink2>
+
     <div style="margin-top: 5px;">
       <Tabs :animated="false">
         <TabPane label="作者课程">
