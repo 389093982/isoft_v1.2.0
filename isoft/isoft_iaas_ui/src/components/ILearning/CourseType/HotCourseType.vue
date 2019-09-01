@@ -1,25 +1,20 @@
 <template>
   <div>
-    <div>
-      <span style="height: 32px;line-height: 32px;margin-bottom: 5px;color: #000;float: left !important;">课程大类：</span>
-      <!-- 对父级CSS选择器加overflow:hidden样式,可以清除父级内使用float产生浮动.优点是可以很少CSS代码即可解决浮动产生 -->
-      <ul style="overflow:hidden;">
-        <li v-for="element in elements"
-            style="height: 32px;line-height: 32px;margin: 0 4px 5px;text-align: center;color: #333;float: left;display: inline;">
-          <IBeautifulLink v-if="element.navigation_level == 0" @onclick="currentElement=element">{{element.title}}</IBeautifulLink>
-        </li>
-      </ul>
+    <div style="padding: 10px;">
+      课程大类：
+      <span v-for="element in elements">
+        <IBeautifulLink style="margin-right: 10px;" v-if="element.navigation_level == 0"
+                        @onclick="currentElement=element">{{element.title}}</IBeautifulLink>
+      </span>
     </div>
-    <div>
-      <span style="height: 32px;line-height: 32px;margin-bottom: 5px;color: #000;float: left !important;">详细分类：</span>
-      <ul>
-        <li v-for="element in elements" v-if="currentElement != null && element.navigation_parent_id == currentElement.id"
-            style="height: 32px;line-height: 32px;margin: 0 4px 5px;text-align: center;color: #333;float: left;display: inline;">
-          <IBeautifulLink @onclick="chooseCourseType(currentElement.title, element.title)">
-            {{element.title}}
-          </IBeautifulLink>
-        </li>
-      </ul>
+    <div style="padding: 10px;">
+      详细分类：
+      <span v-for="element in elements" style="margin-right: 10px;"
+            v-if="currentElement != null && element.navigation_parent_id == currentElement.id">
+        <IBeautifulLink @onclick="chooseCourseType(currentElement.title, element.title)">
+          {{element.title}}
+        </IBeautifulLink>
+      </span>
     </div>
   </div>
 </template>
