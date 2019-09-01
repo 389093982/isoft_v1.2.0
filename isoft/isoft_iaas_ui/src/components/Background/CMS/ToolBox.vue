@@ -1,5 +1,5 @@
 <template>
-  <IBeautifulCard :title="title" v-if="elements.length > 0">
+  <IBeautifulCard :title="placement_label" v-if="elements.length > 0">
     <div slot="content">
       <ul>
         <li v-for="element in elements" class="li">
@@ -23,10 +23,6 @@
     name: "ToolBox",
     components:{IBeautifulCard},
     props:{
-      title:{
-        type:String,
-        default:'工具盒',
-      },
       placement_name:{
         type:String,
         default: '',
@@ -35,6 +31,7 @@
     data(){
       return {
         elements:[],
+        placement_label:'',
       }
     },
     methods:{
@@ -42,6 +39,7 @@
         if(!checkEmpty(this.placement_name)){
           const result = await FilterElementByPlacement(this.placement_name);
           if(result.status == "SUCCESS"){
+            this.placement_label = result.placement.placement_label;
             this.elements = result.elements;
           }
         }

@@ -9,6 +9,7 @@
           <FormItem prop="placement_label" label="页面显示名称">
             <Input type="text" v-model="formInline.placement_label" placeholder="placement_label" style="width: 80%;"/>
           </FormItem>
+          占位符所在页面：xxx
           元素支持字段：xxxxxxxx
         </Col>
         <Col span="12">
