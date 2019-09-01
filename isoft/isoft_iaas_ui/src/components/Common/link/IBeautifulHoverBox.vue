@@ -1,5 +1,5 @@
 <template>
-<li>
+<span>
   <IBeautifulHoverShadow>
     <a :href="item.item_link">
       <div class="cont_main">
@@ -8,7 +8,7 @@
       </div>
     </a>
   </IBeautifulHoverShadow>
-</li>
+</span>
 </template>
 
 <script>
@@ -29,23 +29,16 @@
 </script>
 
 <style scoped>
-  ul li {
-    width: 280px;
-    float: left;
-    margin: 0 10px;
-    box-sizing: border-box;
-  }
-
-  li a:hover .cont_main h3.title {
+  a:hover .cont_main h3.title {
     color: #00a4ff;
   }
 
-  li a .cont_main {
+  a .cont_main {
     display: table-cell;
     vertical-align: top;
   }
 
-  li a .cont_main h3.title {
+  a .cont_main h3.title {
     font-size: 18px;
     font-weight: 400;
     color: #333;
@@ -56,7 +49,7 @@
     text-overflow: ellipsis;
   }
 
-  li a .cont_main p.desc {
+  a .cont_main p.desc {
     font-size: 14px;
     line-height: 1.5;
     color: #666;
