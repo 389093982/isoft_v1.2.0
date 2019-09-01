@@ -141,6 +141,7 @@ export const GetAllPlacements = () => ajax(BASE_URL_2+'/iwork/httpservice/GetAll
 export const DeletePlacementById = (id) => ajax(BASE_URL_2+'/iwork/httpservice/DeletePlacementById2',{id},'GET');
 
 export const FilterElementByPlacement = (placement) => ajax(BASE_URL_2+'/iwork/httpservice/FilterElementByPlacement2',{placement},'GET');
+export const QueryElementById = (id) => ajax(BASE_URL_2+'/iwork/httpservice/QueryElementById',{id},'GET');
 
 // 根据 blog_id 查询 blog 详细信息
 export const ShowShareDetail = (share_id) => ajax(BASE_URL_2+'/iwork/httpservice/ShowShareDetail2',{share_id},'GET');

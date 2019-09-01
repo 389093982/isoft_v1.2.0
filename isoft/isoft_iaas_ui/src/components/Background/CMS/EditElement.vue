@@ -15,7 +15,7 @@
             <Input type="text" readonly="readonly" v-model="formInline.navigation_level" placeholder="navigation_level" style="width: 80%;"/>
           </FormItem>
           <FormItem prop="navigation_parent_id"  label="父级关联 id">
-            <Input type="text" v-model="formInline.navigation_parent_id" placeholder="navigation_parent_id" style="width: 80%;"/>
+            <Input type="text" readonly="readonly" v-model="formInline.navigation_parent_id" placeholder="navigation_parent_id" style="width: 80%;"/>
             <Poptip v-model="visible_choose_element" placement="left-start" width="400" @on-popper-show="showChooseElement">
               <a href="javascript:;">选择父级</a>
               <div slot="content" style="width: 100%;">
@@ -54,7 +54,7 @@
   import Placement from "./Placement"
   import Element from "./Element"
   import IFileUpload from "../../IFile/IFileUpload"
-  import {AddElement,FilterElementByPlacement} from "../../../api"
+  import {AddElement,FilterElementByPlacement,QueryElementById} from "../../../api"
   import {checkEmpty} from "../../../tools"
 
   export default {
@@ -119,14 +119,24 @@
           this.formInline.imgpath = result.fileServerPath;
         }
       },
-      // initFormData:function (element) {
-      //   this.formInline.placement = element.placement;
-      //   this.formInline.title = element.title;
-      //   this.formInline.content = element.content;
-      //   this.formInline.imgpath = element.img_path;
-      //   this.formInline.linked_refer = element.linked_refer;
-      // }
+      refshElement:async function (id) {
+        const result = await QueryElementById(id);
+        if(result.status == "SUCCESS"){
+          let element = result.element;
+          this.formInline.placement = element.placement;
+          this.formInline.title = element.title;
+          this.formInline.content = element.content;
+          this.formInline.imgpath = element.img_path;
+          this.formInline.linked_refer = element.linked_refer;
+        }
+
+      }
     },
+    mounted(){
+      if(this.$route.query.id != undefined && this.$route.query.id > 0){
+        this.refshElement(this.$route.query.id);
+      }
+    }
   }
 </script>
 
