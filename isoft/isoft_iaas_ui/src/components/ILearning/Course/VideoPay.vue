@@ -1,10 +1,19 @@
 <template>
-  <div style="width: 88%; height: 88%; margin: 0 auto;">
-    <video ref="video" width="100%" height="100%" controls autoplay="autoplay">
-      <source type="video/mp4">
-      <source type="video/ogg">
-      您的浏览器不支持Video标签。
-    </video>
+  <div>
+    <Row :gutter="10">
+      <Col span="16">
+        <div style="margin: 0 auto;">
+          <video ref="video" width="100%" height="100%" controls autoplay="autoplay">
+            <source type="video/mp4">
+            <source type="video/ogg">
+            您的浏览器不支持Video标签。
+          </video>
+        </div>
+      </Col>
+      <Col span="8">
+        AAAAAAAAAAAAAAA
+      </Col>
+    </Row>
   </div>
 </template>
 
