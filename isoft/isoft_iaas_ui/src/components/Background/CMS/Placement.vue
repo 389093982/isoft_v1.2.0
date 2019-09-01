@@ -93,6 +93,21 @@
                     }
                   }
                 }, '删除'),
+                h('Button', {
+                  props: {
+                    type: 'success',
+                    size: 'small'
+                  },
+                  style: {
+                    marginRight: '5px',
+                    display: !this.chooserMode ? 'undefined': 'none',   // 非选择模式显示
+                  },
+                  on: {
+                    click: () => {
+                      this.$router.push({ path: '/background/cms/placement_edit', query: { id: this.placements[params.index].id }});
+                    }
+                  }
+                }, '编辑'),
               ]);
             }
           }

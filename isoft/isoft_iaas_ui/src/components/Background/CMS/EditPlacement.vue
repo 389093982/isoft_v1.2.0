@@ -22,7 +22,7 @@
 </template>
 
 <script>
-  import {EditPlacement} from "../../../api"
+  import {EditPlacement,QueryPlacementById} from "../../../api"
 
   export default {
     name: "EditPlacement",
@@ -61,6 +61,19 @@
       handleGoBack:function(){
         this.$router.push({ path: '/background/cms/placement_list'});
       },
+      refreshPlacement:async function (id) {
+        const result = await QueryPlacementById(id);
+        if(result.status == "SUCCESS"){
+          let placement = result.placement;
+          this.formInline.placement_name = placement.placement_name;
+          this.formInline.placement_desc = placement.placement_desc;
+        }
+      }
+    },
+    mounted(){
+      if(this.$route.query.id != undefined && this.$route.query.id > 0){
+        this.refreshPlacement(this.$route.query.id);
+      }
     }
   }
 </script>

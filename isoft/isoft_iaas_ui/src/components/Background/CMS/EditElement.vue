@@ -125,7 +125,7 @@
           this.formInline.imgpath = result.fileServerPath;
         }
       },
-      refshElement:async function (id) {
+      refreshElement:async function (id) {
         const result = await QueryElementById(id);
         if(result.status == "SUCCESS"){
           let element = result.element;
@@ -135,12 +135,11 @@
           this.formInline.imgpath = element.img_path;
           this.formInline.linked_refer = element.linked_refer;
         }
-
       }
     },
     mounted(){
       if(this.$route.query.id != undefined && this.$route.query.id > 0){
-        this.refshElement(this.$route.query.id);
+        this.refreshElement(this.$route.query.id);
       }
     }
   }
