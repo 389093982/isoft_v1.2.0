@@ -6,6 +6,10 @@
           <FormItem prop="placement_name" label="占位符名称">
             <Input type="text" v-model="formInline.placement_name" placeholder="placement_name" style="width: 80%;"/>
           </FormItem>
+          <FormItem prop="placement_label" label="页面显示名称">
+            <Input type="text" v-model="formInline.placement_label" placeholder="placement_label" style="width: 80%;"/>
+          </FormItem>
+          元素支持字段：xxxxxxxx
         </Col>
         <Col span="12">
           <FormItem prop="placement_desc" label="占位符描述">
@@ -31,6 +35,7 @@
         formInline: {
           placement_name:'',
           placement_desc:'',
+          placement_label:'',
         },
         ruleInline: {
           placement_name: [
@@ -38,6 +43,9 @@
           ],
           placement_desc: [
             { required: true, message: 'Please fill in the placement_desc.', trigger: 'blur' },
+          ],
+          placement_label: [
+            { required: true, message: 'Please fill in the placement_label.', trigger: 'blur' },
           ],
         }
       }
@@ -47,7 +55,7 @@
         this.$refs['formInline'].validate(async (valid) => {
           if (valid) {
             let id = this.$route.query.id == undefined ? -1 : this.$route.query.id;
-              const result = await EditPlacement(id, this.formInline.placement_name, this.formInline.placement_desc);
+              const result = await EditPlacement(id, this.formInline.placement_name, this.formInline.placement_desc, this.formInline.placement_label);
               if(result.status == "SUCCESS"){
                 this.$Message.success('提交成功!');
               }else{
@@ -67,6 +75,7 @@
           let placement = result.placement;
           this.formInline.placement_name = placement.placement_name;
           this.formInline.placement_desc = placement.placement_desc;
+          this.formInline.placement_label = placement.placement_label;
         }
       }
     },

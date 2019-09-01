@@ -53,6 +53,11 @@
             width: 300,
           },
           {
+            title: 'placement_label',
+            key: 'placement_label',
+            width: 300,
+          },
+          {
             title: 'placement_desc',
             key: 'placement_desc',
             width: 400,
@@ -60,7 +65,8 @@
           {
             title: '操作',
             key: 'operate',
-            width: 300,
+            width: 200,
+            fixed: 'right',
             render: (h,params)=> {
               return h('div',[
                 h('Button', {
