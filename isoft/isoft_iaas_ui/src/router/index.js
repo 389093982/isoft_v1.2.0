@@ -11,6 +11,7 @@ import Element from "../components/Background/CMS/Element"
 import EditElement from "../components/Background/CMS/EditElement"
 import Catalog from "../components/Background/CMS/Catalog"
 import Placement from "../components/Background/CMS/Placement"
+import EditPlacement from "../components/Background/CMS/EditPlacement"
 import IBlog from '../components/IBlog/IBlog'
 import BlogList from '../components/IBlog/BlogList'
 import BlogDetail from '../components/IBlog/BlogDetail'
@@ -120,6 +121,7 @@ const ICMSReouter = [{
     {path: 'cms/element_list',component: Element},
     {path: 'cms/catalog_list',component: Catalog},
     {path: 'cms/placement_list',component: Placement},
+    {path: 'cms/placement_edit',component: EditPlacement},
     {path: 'cms/commonLinkList',component: CommonLinkList},
     {path: 'cms/configuration',component: Configuration},
   ]

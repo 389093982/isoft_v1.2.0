@@ -133,7 +133,7 @@ export const EditElement = (id, placement, navigation_level, navigation_parent_i
 
 export const UpdateElementStatus = (id, status) => ajax(BASE_URL_2+'/iwork/httpservice/UpdateElementStatus2',{id, status},'GET');
 
-export const AddPlacement = (placement_name, placement_desc) => ajax(BASE_URL_2+'/iwork/httpservice/AddPlacement2',{placement_name, placement_desc},'GET');
+export const EditPlacement = (id, placement_name, placement_desc) => ajax(BASE_URL_2+'/iwork/httpservice/EditPlacement2',{id, placement_name, placement_desc},'GET');
 
 export const FilterPlacement = (offset,current_page,search) => ajax(BASE_URL_2+'/iwork/httpservice/FilterPlacement2',{offset,current_page,search},'GET');
 export const GetAllPlacements = () => ajax(BASE_URL_2+'/iwork/httpservice/GetAllPlacements2',{},'GET');

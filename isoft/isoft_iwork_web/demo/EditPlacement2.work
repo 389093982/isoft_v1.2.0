@@ -1,8 +1,8 @@
 <workdl work_id="161">
 	<work>
 		<Id>161</Id>
-		<WorkName>AddPlacement2</WorkName>
-		<WorkDesc>AddPlacement2</WorkDesc>
+		<WorkName>EditPlacement2</WorkName>
+		<WorkDesc>EditPlacement2</WorkDesc>
 		<WorkType>work</WorkType>
 		<ModuleName>CMS</ModuleName>
 		<CreatedBy>SYSTEM</CreatedBy>
@@ -182,6 +182,4 @@
 		<CreatedBy>SYSTEM</CreatedBy>
 		<LastUpdatedBy>SYSTEM</LastUpdatedBy>
 	</workstep>
-	<filterNames>fdsf</filterNames>
-	<filterNames>SsoFilter</filterNames>
 </workdl>

@@ -2,16 +2,7 @@
   <div>
     <ISimpleLeftRightRow style="margin-bottom: 10px;margin-right: 10px;">
       <!-- left 插槽部分 -->
-      <span slot="left">
-        <Button type="success" @click="addPlacement" v-if="!this.chooserMode">新增</Button>
-        <span v-else>占位符清单</span>
-        <ISimpleConfirmModal ref="placementEditModal" modal-title="新增/编辑占位符" :modal-width="600" :footer-hide="true">
-          <IKeyValueForm ref="placementEditForm" form-key-label="placement_name" form-value-label="placement_desc"
-                         form-key-placeholder="请输入 placement_name" form-value-placeholder="请输入 placement_desc"
-                         @handleSubmit="editPlacement">
-          </IKeyValueForm>
-        </ISimpleConfirmModal>
-      </span>
+      <Button type="success" slot="left" @click="$router.push({ path: '/background/cms/placement_edit'})" v-if="!this.chooserMode">新增占位符</Button>
 
       <!-- right 插槽部分 -->
       <ISimpleSearch slot="right" @handleSimpleSearch="handleSearch"/>
@@ -28,7 +19,7 @@
   import ISimpleLeftRightRow from "../../Common/layout/ISimpleLeftRightRow"
   import IKeyValueForm from "../../Common/form/IKeyValueForm"
   import ISimpleSearch from "../../Common/search/ISimpleSearch"
-  import {AddPlacement,FilterPlacement,DeletePlacementById} from "../../../api"
+  import {FilterPlacement,DeletePlacementById} from "../../../api"
 
   export default {
     name: "Placement",
@@ -109,19 +100,6 @@
       }
     },
     methods:{
-      addPlacement:function () {
-        this.$refs.placementEditModal.showModal();
-      },
-      editPlacement:async function (placement_id, placement_name, placement_desc) {
-        const result = await AddPlacement(placement_name, placement_desc);
-        if(result.status == "SUCCESS"){
-          this.$refs.placementEditForm.handleSubmitSuccess("提交成功!");
-          this.$refs.placementEditModal.hideModal();
-          this.refreshPlacementList();
-        }else{
-          this.$refs.placementEditForm.handleSubmitError("提交失败!");
-        }
-      },
       refreshPlacementList:async function () {
         const result = await FilterPlacement(this.offset,this.current_page,this.search);
         if(result.status=="SUCCESS"){
