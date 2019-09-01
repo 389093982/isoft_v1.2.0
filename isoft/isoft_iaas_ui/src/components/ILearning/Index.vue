@@ -4,7 +4,7 @@
 
     <ToolBox title="热门推荐" :placement_name="GLOBAL.element_host_toolbox_list"/>
 
-    <Row class="bgcolor" style="margin-bottom: 20px;margin: 10px auto;padding: 3px;">
+    <Row style="margin-bottom: 20px;margin: 10px auto;padding: 3px;">
       <Col span="18">
         <!-- 热门推荐区域 -->
         <HotRecommend/>
@@ -13,6 +13,8 @@
         <ToolBox title="实用小工具" :placement_name="GLOBAL.element_host_toolbox_list"/>
         <NewsNotice/>
         <HotIssue/>
+
+        <HotArticleRecommend/>
       </Col>
     </Row>
 
@@ -24,6 +26,9 @@
     <!-- 热门开源项目 -->
     <HotProject/>
     <IBeautifulTabLink/>
+
+    <Fun/>
+
   </div>
 </template>
 
@@ -36,10 +41,13 @@
   import ToolBox from "../Background/CMS/ToolBox"
   import HotLanguage from "./Hot/HotLanguage"
   import IBeautifulTabLink from "../Common/link/IBeautifulTabLink"
+  import HotArticleRecommend from "./Course/HotArticleRecommend"
+  import Fun from "./Fun"
 
   export default {
     name: "Index",
-    components:{ChooseCourseType,HotRecommend,NewsNotice,HotIssue,HotProject,ToolBox,HotLanguage,IBeautifulTabLink},
+    components:{ChooseCourseType,HotRecommend,NewsNotice,HotIssue,HotProject,ToolBox,
+      HotLanguage,IBeautifulTabLink,HotArticleRecommend,Fun},
   }
 </script>
 

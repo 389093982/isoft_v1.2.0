@@ -4,7 +4,7 @@
       <ISearch @submitFunc="searchFunc"/>
      </div>
 
-    <IBeautifulCard class="bgcolor" title="课程天地">
+    <IBeautifulCard title="课程天地">
       <div slot="content" style="padding: 20px;">
         <div>
           <div style="border-bottom: 2px solid #edf1f2;">
