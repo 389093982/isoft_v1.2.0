@@ -19,7 +19,7 @@
   import ISimpleLeftRightRow from "../../Common/layout/ISimpleLeftRightRow"
   import IKeyValueForm from "../../Common/form/IKeyValueForm"
   import ISimpleSearch from "../../Common/search/ISimpleSearch"
-  import {FilterPlacement,DeletePlacementById} from "../../../api"
+  import {FilterPlacement,DeletePlacementById,CopyPlacement} from "../../../api"
 
   export default {
     name: "Placement",
@@ -114,6 +114,21 @@
                     }
                   }
                 }, '编辑'),
+                h('Button', {
+                  props: {
+                    type: 'info',
+                    size: 'small'
+                  },
+                  style: {
+                    marginRight: '5px',
+                    display: !this.chooserMode ? 'undefined': 'none',   // 非选择模式显示
+                  },
+                  on: {
+                    click: () => {
+                      this.copyPlacement(this.placements[params.index].id);
+                    }
+                  }
+                }, '复制'),
               ]);
             }
           }
@@ -121,6 +136,15 @@
       }
     },
     methods:{
+      copyPlacement:async function(id){
+        const result = await CopyPlacement(id);
+        if(result.status == "SUCCESS"){
+          this.$Message.success("复制成功！");
+          this.refreshPlacementList();
+        }else{
+          this.$Message.error(result.errorMsg);
+        }
+      },
       refreshPlacementList:async function () {
         const result = await FilterPlacement(this.offset,this.current_page,this.search);
         if(result.status=="SUCCESS"){
