@@ -12,7 +12,8 @@
       <Col span="6">
         <ToolBox :placement_name="GLOBAL.element_host_toolbox_list2"/>
         <NewsNotice/>
-        <HotIssue/>
+        <NewsNotice/>
+        <NewsNotice/>
 
         <HotArticleRecommend/>
       </Col>
