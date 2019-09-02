@@ -18,8 +18,8 @@
       </Col>
     </Row>
 
-    <ToolBox :placement_name="GLOBAL.element_host_toolbox_list"/>
-    <ToolBox :placement_name="GLOBAL.element_host_toolbox_list"/>
+    <ToolBox :placement_name="GLOBAL.element_host_toolbox_list3"/>
+    <ToolBox :placement_name="GLOBAL.element_host_toolbox_list4"/>
 
     <!-- 热门编程语言 -->
     <HotLanguage/>
