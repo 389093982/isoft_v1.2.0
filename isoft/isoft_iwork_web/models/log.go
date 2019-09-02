@@ -23,7 +23,7 @@ type RunLogDetail struct {
 	WorkStepName    string    `json:"work_step_name"`
 	LogLevel        string    `json:"log_level"` // INFO、SUCCESS、ERROR
 	Detail          string    `json:"detail" orm:"type(text)"`
-	NanoSecond      int64     `json:"nano_second"`
+	LogOrder        int64     `json:"log_order"`
 	CreatedBy       string    `json:"created_by"`
 	CreatedTime     time.Time `json:"created_time" orm:"auto_now_add;type(datetime)"`
 	LastUpdatedBy   string    `json:"last_updated_by"`
@@ -84,7 +84,7 @@ func QueryRunLogRecord(work_id int64, logLevel string, page int, offset int) (ru
 func QueryLastRunLogDetail(tracking_id string) (runLogDetails []RunLogDetail, err error) {
 	o := orm.NewOrm()
 	// __startswith 多级 tracking_id 也查出来
-	_, err = o.QueryTable("run_log_detail").Filter("tracking_id__startswith", tracking_id).OrderBy("created_time", "nano_second").All(&runLogDetails)
+	_, err = o.QueryTable("run_log_detail").Filter("tracking_id__startswith", tracking_id).OrderBy("log_order").All(&runLogDetails)
 	return
 }
 

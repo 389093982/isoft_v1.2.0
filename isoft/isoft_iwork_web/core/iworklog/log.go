@@ -11,7 +11,8 @@ import (
 const cacheLen = 10
 
 type CacheLoggerWriter struct {
-	caches []*models.RunLogDetail
+	caches   []*models.RunLogDetail
+	logOrder int64
 }
 
 func (this *CacheLoggerWriter) cleanCaches() {
@@ -22,12 +23,13 @@ func (this *CacheLoggerWriter) Write(trackingId, workStepName, logLevel, detail 
 	if this.caches == nil {
 		this.cleanCaches()
 	}
+	this.logOrder++
 	log := &models.RunLogDetail{
 		TrackingId:      trackingId,
 		WorkStepName:    workStepName,
 		LogLevel:        logLevel,
 		Detail:          detail,
-		NanoSecond:      time.Now().UnixNano(),
+		LogOrder:        this.logOrder,
 		CreatedBy:       "SYSTEM",
 		CreatedTime:     time.Now(),
 		LastUpdatedBy:   "SYSTEM",
