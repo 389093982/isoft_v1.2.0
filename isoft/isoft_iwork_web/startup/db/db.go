@@ -28,8 +28,8 @@ func init() {
 
 	orm.RegisterDriver("mysql", orm.DRMySQL)
 	orm.RegisterDataBase("default", "mysql", Dsn)
-	orm.SetMaxIdleConns("default", 1000) // SetMaxIdleConns用于设置闲置的连接数
-	orm.SetMaxOpenConns("default", 2000) // SetMaxOpenConns用于设置最大打开的连接数,默认值为0表示不限制
+	orm.SetMaxIdleConns("default", 100) // SetMaxIdleConns用于设置闲置的连接数
+	orm.SetMaxOpenConns("default", 200) // SetMaxOpenConns用于设置最大打开的连接数,默认值为0表示不限制
 	db, _ := orm.GetDB("default")
 	db.SetConnMaxLifetime(100)
 
