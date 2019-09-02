@@ -17,7 +17,7 @@
 </template>
 
 <script>
-  import {FilterElements,UpdateElementStatus,GetAllPlacements} from "../../../api"
+  import {FilterElements,UpdateElementStatus,GetAllPlacements,CopyElement} from "../../../api"
   import ISimpleSearch from "../../Common/search/ISimpleSearch"
   import MultiClickButton from "../../Common/button/MultiClickButton"
   import ISimpleLeftRightRow from "../../Common/layout/ISimpleLeftRightRow"
@@ -90,22 +90,24 @@
           {
             title: '操作',
             key: 'operate',
-            width:280,
+            width:340,
             fixed: 'right',
             render: (h,params)=> {
               return h('div',[
                 h(MultiClickButton,{
                   props:{
-                    btnCounts: 5,
-                    btnTypes: ['primary','info','warning',"error", 'success'],
-                    btnShows: [true, true, true, true, true],
-                    btnBindDatas: [1, 0, -1, 2, 3],
-                    btnTexts: ['启用', '停用', '失效', '删除', '编辑'],
+                    btnCounts: 6,
+                    btnTypes: ['primary','info','warning',"error", 'success', "warning"],
+                    btnShows: [true, true, true, true, true, true],
+                    btnBindDatas: [1, 0, -1, 2, 3, 4],
+                    btnTexts: ['启用', '停用', '失效', '删除', '编辑', "复制"],
                   },
                   on:{
                     handleClick:async function (index, bindData) {
                       if (bindData == 3){   // 编辑模式
                         _this.$router.push({ path: '/background/cms/element_edit', query: { id: _this.elements[params.index].id }});
+                      }else if (bindData == 4){   // 复制模式
+                        _this.copyElement(_this.elements[params.index].id);
                       }else{
                         const result = await UpdateElementStatus(_this.elements[params.index].id, bindData);
                         if(result.status == "SUCCESS"){
@@ -124,6 +126,15 @@
       }
     },
     methods: {
+      copyElement:async function(id){
+        const result = await CopyElement(id);
+        if(result.status == "SUCCESS"){
+          this.$Message.success("复制成功！");
+          this.refreshElementList();
+        }else{
+          this.$Message.error(result.errorMsg);
+        }
+      },
       clickPlacement:function(placement_name){
         this.search = placement_name;
         this.refreshElementList();
