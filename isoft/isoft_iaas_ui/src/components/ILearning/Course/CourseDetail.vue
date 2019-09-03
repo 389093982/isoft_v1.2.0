@@ -50,7 +50,7 @@
         <HotRecommend showMode="list"/>
         <!-- 推荐系统 -->
         <Recommand />
-        <CommunicationGroup/>
+        <CommunicationGroup :placement_name="GLOBAL.communication_group"/>
       </Col>
     </Row>
   </div>

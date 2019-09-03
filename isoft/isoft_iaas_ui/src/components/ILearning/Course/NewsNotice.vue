@@ -26,45 +26,13 @@
     props:{
       placement_name:{
         type:String,
-        default: 'Index_news_list',
+        default: '',
       }
     },
     data(){
       return {
         elements:[],
         placement_label:'',
-        // notices:[
-        //   {
-        //     "news_title":"2018年起会员积分调整",
-        //     "news_link":"https://www.baidu.com",
-        //     "news_time":"02-21",
-        //     "news_new":true
-        //   },
-        //   {
-        //     "news_title":"Java泛型是什么?",
-        //     "news_link":"https://www.baidu.com",
-        //     "news_time":"02-21",
-        //     "news_new":false
-        //   },
-        //   {
-        //     "news_title":"2018年起会员积分调整",
-        //     "news_link":"https://www.baidu.com",
-        //     "news_time":"02-21",
-        //     "news_new":true
-        //   },
-        //   {
-        //     "news_title":"Java泛型是什么?",
-        //     "news_link":"https://www.baidu.com",
-        //     "news_time":"02-21",
-        //     "news_new":false
-        //   },
-        //   {
-        //     "news_title":"2018年起会员积分调整",
-        //     "news_link":"https://www.baidu.com",
-        //     "news_time":"02-21",
-        //     "news_new":true
-        //   }
-        // ]
       }
     },
     methods:{
