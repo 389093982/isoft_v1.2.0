@@ -11,9 +11,9 @@
       </Col>
       <Col span="6">
         <ToolBox :placement_name="GLOBAL.element_host_toolbox_list2"/>
-        <NewsNotice/>
-        <NewsNotice/>
-        <NewsNotice/>
+        <NewsNotice :placement_name="GLOBAL.Index_news_list"/>
+        <NewsNotice :placement_name="GLOBAL.Index_news_list"/>
+        <NewsNotice :placement_name="GLOBAL.Index_news_list"/>
 
       </Col>
     </Row>

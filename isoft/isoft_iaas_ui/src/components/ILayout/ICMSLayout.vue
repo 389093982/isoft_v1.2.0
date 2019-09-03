@@ -31,6 +31,13 @@
               </template>
               <MenuItem name="3-1"><router-link to="#">评论列表</router-link></MenuItem>
             </Submenu>
+            <Submenu name="4">
+              <template slot="title">
+                <Icon type="ios-barcode"></Icon>
+                流量计费统计
+              </template>
+              <MenuItem name="4-1"><router-link to="#">链接跳转信息</router-link></MenuItem>
+            </Submenu>
           </Menu>
         </Sider>
         <Content :style="{padding: '18px', minHeight: '550px', background: '#f5f6f7', lineHeight: '24px', fontSize: '14px'}">
