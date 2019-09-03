@@ -24,10 +24,12 @@
     <!-- 热门编程语言 -->
     <HotLanguage/>
     <!-- 热门开源项目 -->
-    <HotProject/>
+    <IHotRecommand :placement_name="GLOBAL.hot_project_recommod"/>
 
     <IBeautifulTabLink/>
-    <Find/>
+
+    <HorizontalLinks :placement_name="GLOBAL.want_to_find"/>
+
     <Fun/>
 
   </div>
@@ -38,17 +40,18 @@
   import HotRecommend from "./Course/HotRecommend"
   import NewsNotice from "./Course/NewsNotice"
   import HotIssue from "./Course/HotIssue"
-  import HotProject from "./Hot/HotProject"
   import ToolBox from "../Background/CMS/ToolBox"
   import HotLanguage from "./Hot/HotLanguage"
   import IBeautifulTabLink from "../Common/link/IBeautifulTabLink"
   import Fun from "./Fun"
-  import Find from "./Find";
+  import HorizontalLinks from "../Elementviewers/HorizontalLinks"
+  import IHotRecommand from "../Common/recommend/IHotRecommand"
 
   export default {
     name: "Index",
     components:{
-      Find, ChooseCourseType,HotRecommend,NewsNotice,HotIssue,HotProject,ToolBox,
+      IHotRecommand,
+      HorizontalLinks, ChooseCourseType,HotRecommend,NewsNotice,HotIssue,ToolBox,
       HotLanguage,IBeautifulTabLink,Fun},
   }
 </script>

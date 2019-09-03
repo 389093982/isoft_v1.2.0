@@ -1,38 +1,52 @@
 <template>
-  <div style="margin: 20px;margin-top: 30px;">
-    <div style="border-bottom: 2px solid #d9d9d9;">
-      <h6 class="title" :title="title">{{title}}</h6>
-    </div>
+  <div>
+    <span>
+      <h6 class="title" :title="placement_label">{{placement_label}}</h6>
+    </span>
+    <hr style="border:1px solid #eee;height: 1px;"/>
     <Row :gutter="50">
-      <Col span="8" style="margin-top: 12px;" v-for="item in items">
-        <span style="font-size: 14px;">{{item.item_label}}</span>
-        <IBeautifulButtonLink msg="点击了解详情" floatstyle="right" :hrefaddr="item.item_href"/>
+      <Col span="8" style="margin-top: 12px;" v-for="element in elements">
+        <span style="font-size: 14px;">{{element.title}}</span>
+        <IBeautifulButtonLink msg="点击了解详情" floatstyle="right" :hrefaddr="element.linked_refer"/>
       </Col>
     </Row>
   </div>
 </template>
 
 <script>
+  import {FilterElementByPlacement} from "../../../api"
+  import {checkEmpty} from "../../../tools"
   import IBeautifulButtonLink from "../../Common/link/IBeautifulButtonLink"
 
   export default {
     name: "IHotRecommand",
     components:{IBeautifulButtonLink},
     props:{
-      title:{
-        type: String,
-        default: "测试 title"
-      },
-      items:{
-        type: Array,
-        default: [
-          {
-            item_label:"测试 label",
-            item_href:"测试 href",
-          }
-        ],
-      },
+      placement_name:{
+        type:String,
+        default: '',
+      }
     },
+    data(){
+      return {
+        elements:[],
+        placement_label:'',
+      }
+    },
+    methods:{
+      refreshElement: async function () {
+        if(!checkEmpty(this.placement_name)){
+          const result = await FilterElementByPlacement(this.placement_name);
+          if(result.status == "SUCCESS"){
+            this.placement_label = result.placement.placement_label;
+            this.elements = result.elements;
+          }
+        }
+      }
+    },
+    mounted(){
+      this.refreshElement();
+    }
   }
 </script>
 

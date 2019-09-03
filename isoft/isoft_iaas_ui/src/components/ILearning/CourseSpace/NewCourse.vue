@@ -1,7 +1,7 @@
 <template>
   <div>
     <Row>
-      <Col span="16" style="border-right: 1px solid #d5d5d5;padding:20px;">
+      <Col span="16" style="padding:20px;">
         <Form ref="formValidate" :model="formValidate" :rules="ruleValidate" :label-width="100">
           <FormItem label="课程名称" prop="course_name">
             <Input v-model="formValidate.course_name" placeholder="Enter course name..."/>
@@ -24,8 +24,37 @@
           </FormItem>
         </Form>
       </Col>
-      <Col span="8" style="padding: 20px;">
-        课程发布规范说明：AAAA
+      <Col span="8">
+        <IBeautifulCard title="课程发布规范说明">
+          <span slot="content" style="padding: 5px;">
+            <p>课程发布规范说明：AAAAAAAAAAAAA</p>
+            <p>课程发布规范说明：AAAAAAAAAAAAA</p>
+            <p>课程发布规范说明：AAAAAAAAAAAAA</p>
+            <p>课程发布规范说明：AAAAAAAAAAAAA</p>
+            <p>课程发布规范说明：AAAAAAAAAAAAA</p>
+            <p>课程发布规范说明：AAAAAAAAAAAAA</p>
+            <p>课程发布规范说明：AAAAAAAAAAAAA</p>
+            <p>课程发布规范说明：AAAAAAAAAAAAA</p>
+            <p>课程发布规范说明：AAAAAAAAAAAAA</p>
+            <p>课程发布规范说明：AAAAAAAAAAAAA</p>
+            <p>课程发布规范说明：AAAAAAAAAAAAA</p>
+            <p>课程发布规范说明：AAAAAAAAAAAAA</p>
+            <p>课程发布规范说明：AAAAAAAAAAAAA</p>
+            <p>课程发布规范说明：AAAAAAAAAAAAA</p>
+            <p>课程发布规范说明：AAAAAAAAAAAAA</p>
+            <p>课程发布规范说明：AAAAAAAAAAAAA</p>
+            <p>课程发布规范说明：AAAAAAAAAAAAA</p>
+            <p>课程发布规范说明：AAAAAAAAAAAAA</p>
+            <p>课程发布规范说明：AAAAAAAAAAAAA</p>
+            <p>课程发布规范说明：AAAAAAAAAAAAA</p>
+            <p>课程发布规范说明：AAAAAAAAAAAAA</p>
+            <p>课程发布规范说明：AAAAAAAAAAAAA</p>
+            <p>课程发布规范说明：AAAAAAAAAAAAA</p>
+            <p>课程发布规范说明：AAAAAAAAAAAAA</p>
+            <p>课程发布规范说明：AAAAAAAAAAAAA</p>
+            <p>课程发布规范说明：AAAAAAAAAAAAA</p>
+          </span>
+        </IBeautifulCard>
       </Col>
     </Row>
   </div>
@@ -34,10 +63,11 @@
 <script>
   import {NewCourse} from "../../../api"
   import ChooseHotCourseType from "../CourseType/ChooseHotCourseType"
+  import IBeautifulCard from "../../Common/card/IBeautifulCard"
 
   export default {
     name: "NewCourse",
-    components:{ChooseHotCourseType},
+    components:{IBeautifulCard, ChooseHotCourseType},
     data(){
       return {
         formValidate: {
