@@ -3,12 +3,9 @@
     <!-- 列表形式显示 -->
     <div v-if="showMode=='list'" style="border: 1px #dbdbdb solid;margin-left: 5px;margin-bottom: 5px;">
       <Card title="热门课程推荐" icon="ios-options" :padding="0" shadow style="width: 100%;">
-        <CellGroup>
-          <Cell v-for="course in courses" :title="course.course_name" :to="{path:'/ilearning/course_detail',query:{course_id:course.id}}">
-            {{course.course_name}}
-            <Badge text="查看" slot="extra" />
-          </Cell>
-        </CellGroup>
+        <Row  style="padding-left:10px;" v-for="course in courses">
+          <IBeautifulLink2 @click="$router.push({path:'/ilearning/course_detail',query:{course_id:course.id}})">{{course.course_name}}</IBeautifulLink2>
+        </Row>
       </Card>
     </div>
     <!-- 图标形式显示 -->
@@ -31,11 +28,12 @@
 <script>
   import IBeautifulCard from "../../Common/card/IBeautifulCard"
   import {GetHotCourseRecommend} from "../../../api"
+  import IBeautifulLink2 from "../../Common/link/IBeautifulLink2";
 
 
   export default {
     name: "HotRecommend",
-    components:{IBeautifulCard},
+    components:{IBeautifulLink2, IBeautifulCard},
     props:{
       // 显示方式,支持 detail 和 list
       showMode: {
