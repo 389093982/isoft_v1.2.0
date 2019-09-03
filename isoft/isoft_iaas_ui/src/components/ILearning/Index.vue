@@ -15,7 +15,6 @@
         <NewsNotice/>
         <NewsNotice/>
 
-        <HotArticleRecommend/>
       </Col>
     </Row>
 
@@ -43,7 +42,6 @@
   import ToolBox from "../Background/CMS/ToolBox"
   import HotLanguage from "./Hot/HotLanguage"
   import IBeautifulTabLink from "../Common/link/IBeautifulTabLink"
-  import HotArticleRecommend from "./Course/HotArticleRecommend"
   import Fun from "./Fun"
   import Find from "./Find";
 
@@ -51,7 +49,7 @@
     name: "Index",
     components:{
       Find, ChooseCourseType,HotRecommend,NewsNotice,HotIssue,HotProject,ToolBox,
-      HotLanguage,IBeautifulTabLink,HotArticleRecommend,Fun},
+      HotLanguage,IBeautifulTabLink,Fun},
   }
 </script>
 
