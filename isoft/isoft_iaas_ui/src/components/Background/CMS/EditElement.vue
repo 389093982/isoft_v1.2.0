@@ -25,6 +25,9 @@
               </div>
             </Poptip>
           </FormItem>
+          <FormItem prop="content"  label="内容">
+            <Input type="textarea" :rows="3" v-model="formInline.content" placeholder="content" style="width: 80%;"/>
+          </FormItem>
         </Col>
         <Col span="12">
           <FormItem prop="title" label="标题">
@@ -37,14 +40,18 @@
           <FormItem prop="linked_refer"  label="链接关键词">
             <Input type="text" v-model="formInline.linked_refer" placeholder="linked_refer" style="width: 80%;"/>
           </FormItem>
-          <FormItem prop="content"  label="内容">
-            <Input type="textarea" rows="3" v-model="formInline.content" placeholder="content" style="width: 80%;"/>
-          </FormItem>
-          <FormItem>
-            <Button type="success" @click="handleSubmit" style="margin-right: 6px">提交</Button>
-            <Button type="warning" @click="handleGoBack" style="margin-right: 6px">返回</Button>
-          </FormItem>
         </Col>
+      </Row>
+      <Row>
+        <FormItem prop="md_content" label="markdown内容">
+          <mavon-editor v-model="formInline.md_content" :toolbars="toolbars" :ishljs = "true" style="z-index: 1;"/>
+        </FormItem>
+      </Row>
+      <Row>
+        <FormItem>
+          <Button type="success" @click="handleSubmit" style="margin-right: 6px">提交</Button>
+          <Button type="warning" @click="handleGoBack" style="margin-right: 6px">返回</Button>
+        </FormItem>
       </Row>
     </Form>
   </div>
@@ -63,6 +70,27 @@
     components:{IBaseChooser,Placement,Element,IFileUpload},
     data(){
       return {
+        toolbars: {
+          bold: true, // 粗体
+          italic: true, // 斜体
+          header: true, // 标题
+          underline: true, // 下划线
+          // mark: true, // 标记
+          superscript: true, // 上角标
+          quote: true, // 引用
+          ol: true, // 有序列表
+          link: true, // 链接
+          imagelink: true, // 图片链接
+          help: true, // 帮助
+          code: true, // code
+          subfield: true, // 是否需要分栏
+          fullscreen: true, // 全屏编辑
+          readmodel: true, // 沉浸式阅读
+          undo: true, // 上一步
+          trash: true, // 清空
+          save: true, // 保存（触发events中的save事件）
+          navigation: true // 导航目录
+        },
         visible_choose_element:false,
         elements:[],
         formInline: {
@@ -73,6 +101,7 @@
           content: '',
           imgpath: '',
           linked_refer: '',
+          md_content: '',
         },
         ruleInline: {
           title: [
@@ -87,7 +116,7 @@
           if (valid) {
             let id = this.$route.query.id == undefined ? -1 : this.$route.query.id;
             const result = await EditElement(id, this.formInline.placement, this.formInline.navigation_level,
-              this.formInline.navigation_parent_id, this.formInline.title, this.formInline.content,
+              this.formInline.navigation_parent_id, this.formInline.title, this.formInline.content, this.formInline.md_content,
               this.formInline.imgpath, this.formInline.linked_refer);
             if(result.status=="SUCCESS"){
               this.$Message.success('提交成功!');
@@ -132,6 +161,7 @@
           this.formInline.placement = element.placement;
           this.formInline.title = element.title;
           this.formInline.content = element.content;
+          this.formInline.md_content = element.md_content;
           this.formInline.imgpath = element.img_path;
           this.formInline.linked_refer = element.linked_refer;
         }
