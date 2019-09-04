@@ -30,15 +30,15 @@
           <FormItem prop="title" label="标题">
             <Input type="text" v-model="formInline.title" placeholder="title" style="width: 80%;"/>
           </FormItem>
-          <FormItem prop="content"  label="内容">
-            <Input type="text" v-model="formInline.content" placeholder="content" style="width: 80%;"/>
-          </FormItem>
           <FormItem prop="imgpath"  label="图片">
             <Input type="text" readonly="readonly" v-model="formInline.imgpath" placeholder="imgpath" style="width: 80%;"/>
             <IFileUpload @uploadComplete="uploadComplete" action="/api2/iwork/fileUpload/fileUpload" uploadLabel="上传"/>
           </FormItem>
           <FormItem prop="linked_refer"  label="链接关键词">
             <Input type="text" v-model="formInline.linked_refer" placeholder="linked_refer" style="width: 80%;"/>
+          </FormItem>
+          <FormItem prop="content"  label="内容">
+            <Input type="textarea" rows="3" v-model="formInline.content" placeholder="content" style="width: 80%;"/>
           </FormItem>
           <FormItem>
             <Button type="success" @click="handleSubmit" style="margin-right: 6px">提交</Button>
