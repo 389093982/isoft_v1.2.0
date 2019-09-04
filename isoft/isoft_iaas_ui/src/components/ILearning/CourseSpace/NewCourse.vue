@@ -25,36 +25,7 @@
         </Form>
       </Col>
       <Col span="8">
-        <IBeautifulCard title="课程发布规范说明">
-          <span slot="content" style="padding: 5px;">
-            <p>课程发布规范说明：AAAAAAAAAAAAA</p>
-            <p>课程发布规范说明：AAAAAAAAAAAAA</p>
-            <p>课程发布规范说明：AAAAAAAAAAAAA</p>
-            <p>课程发布规范说明：AAAAAAAAAAAAA</p>
-            <p>课程发布规范说明：AAAAAAAAAAAAA</p>
-            <p>课程发布规范说明：AAAAAAAAAAAAA</p>
-            <p>课程发布规范说明：AAAAAAAAAAAAA</p>
-            <p>课程发布规范说明：AAAAAAAAAAAAA</p>
-            <p>课程发布规范说明：AAAAAAAAAAAAA</p>
-            <p>课程发布规范说明：AAAAAAAAAAAAA</p>
-            <p>课程发布规范说明：AAAAAAAAAAAAA</p>
-            <p>课程发布规范说明：AAAAAAAAAAAAA</p>
-            <p>课程发布规范说明：AAAAAAAAAAAAA</p>
-            <p>课程发布规范说明：AAAAAAAAAAAAA</p>
-            <p>课程发布规范说明：AAAAAAAAAAAAA</p>
-            <p>课程发布规范说明：AAAAAAAAAAAAA</p>
-            <p>课程发布规范说明：AAAAAAAAAAAAA</p>
-            <p>课程发布规范说明：AAAAAAAAAAAAA</p>
-            <p>课程发布规范说明：AAAAAAAAAAAAA</p>
-            <p>课程发布规范说明：AAAAAAAAAAAAA</p>
-            <p>课程发布规范说明：AAAAAAAAAAAAA</p>
-            <p>课程发布规范说明：AAAAAAAAAAAAA</p>
-            <p>课程发布规范说明：AAAAAAAAAAAAA</p>
-            <p>课程发布规范说明：AAAAAAAAAAAAA</p>
-            <p>课程发布规范说明：AAAAAAAAAAAAA</p>
-            <p>课程发布规范说明：AAAAAAAAAAAAA</p>
-          </span>
-        </IBeautifulCard>
+        <MdCourseDesc :placement_name="GLOBAL.md_demo123"/>
       </Col>
     </Row>
   </div>
@@ -64,10 +35,11 @@
   import {NewCourse} from "../../../api"
   import ChooseHotCourseType from "../CourseType/ChooseHotCourseType"
   import IBeautifulCard from "../../Common/card/IBeautifulCard"
+  import MdCourseDesc from "../CourseSpace/MdCourseDesc"
 
   export default {
     name: "NewCourse",
-    components:{IBeautifulCard, ChooseHotCourseType},
+    components:{IBeautifulCard, ChooseHotCourseType,MdCourseDesc},
     data(){
       return {
         formValidate: {

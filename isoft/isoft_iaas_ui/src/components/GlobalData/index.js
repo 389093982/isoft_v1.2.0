@@ -10,6 +10,7 @@ const want_to_find = "want_to_find";
 const hot_project_recommod = "hot_project_recommod";
 const frind_link = "frind_link";
 const Index_news_list = "Index_news_list";
+const md_demo123 = "md_demo123";
 
 export default {
   element_host_share_type_carousel,
@@ -24,4 +25,5 @@ export default {
   hot_project_recommod,
   frind_link,
   Index_news_list,
+  md_demo123,
 }
