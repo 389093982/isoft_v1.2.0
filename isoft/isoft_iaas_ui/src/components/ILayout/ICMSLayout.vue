@@ -36,7 +36,7 @@
                 <Icon type="ios-barcode"></Icon>
                 流量计费统计
               </template>
-              <MenuItem name="4-1"><router-link to="#">链接跳转信息</router-link></MenuItem>
+              <MenuItem name="4-1"><router-link to="#">外部链接跳转上报信息统计</router-link></MenuItem>
             </Submenu>
           </Menu>
         </Sider>
