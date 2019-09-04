@@ -15,8 +15,7 @@
             <MenuItem name="1-6"><router-link to="/inote/index">云笔记</router-link></MenuItem>
           </MenuGroup>
           <MenuGroup title="友情链接">
-            <MenuItem name="1-9"><router-link to="/ifile/ifile">心声社区</router-link></MenuItem>
-            <MenuItem name="1-10"><router-link to="/share/list">共享空间</router-link></MenuItem>
+            <MenuItem name="1-7"><router-link to="/share/list">共享空间</router-link></MenuItem>
           </MenuGroup>
         </Submenu>
         <MenuItem name="2">
