@@ -21,8 +21,6 @@
     <ToolBox :placement_name="GLOBAL.element_host_toolbox_list3"/>
     <ToolBox :placement_name="GLOBAL.element_host_toolbox_list4"/>
 
-    <!-- 热门编程语言 -->
-    <HotLanguage/>
     <!-- 热门开源项目 -->
     <IHotRecommand :placement_name="GLOBAL.hot_project_recommod"/>
 
@@ -41,7 +39,6 @@
   import NewsNotice from "./Course/NewsNotice"
   import HotIssue from "./Course/HotIssue"
   import ToolBox from "../Background/CMS/ToolBox"
-  import HotLanguage from "./Hot/HotLanguage"
   import IBeautifulTabLink from "../Common/link/IBeautifulTabLink"
   import Fun from "./Fun"
   import HorizontalLinks from "../Elementviewers/HorizontalLinks"
@@ -50,9 +47,7 @@
   export default {
     name: "Index",
     components:{
-      IHotRecommand,
-      HorizontalLinks, ChooseCourseType,HotRecommend,NewsNotice,HotIssue,ToolBox,
-      HotLanguage,IBeautifulTabLink,Fun},
+      IHotRecommand, HorizontalLinks, ChooseCourseType,HotRecommend,NewsNotice,HotIssue,ToolBox, IBeautifulTabLink,Fun},
   }
 </script>
 
