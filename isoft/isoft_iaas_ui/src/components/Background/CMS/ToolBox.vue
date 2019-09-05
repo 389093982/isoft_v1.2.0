@@ -18,7 +18,6 @@
 
 <script>
   import ElementsLoader from "./ElementsLoader"
-
   import IBeautifulCard from "../../Common/card/IBeautifulCard"
 
   export default {
