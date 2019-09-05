@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <ElementsLoader :placement_name="placement_name" @onLoadElement="onLoadElement">
     <span>
       <h6 class="title" :title="placement_label">{{placement_label}}</h6>
     </span>
@@ -10,17 +10,17 @@
         <IBeautifulButtonLink msg="点击了解详情" floatstyle="right" :hrefaddr="element.linked_refer"/>
       </Col>
     </Row>
-  </div>
+  </ElementsLoader>
 </template>
 
 <script>
-  import {FilterElementByPlacement} from "../../../api"
-  import {checkEmpty} from "../../../tools"
+  import ElementsLoader from "../../Background/CMS/ElementsLoader"
+
   import IBeautifulButtonLink from "../../Common/link/IBeautifulButtonLink"
 
   export default {
     name: "IHotRecommand",
-    components:{IBeautifulButtonLink},
+    components:{IBeautifulButtonLink,ElementsLoader},
     props:{
       placement_name:{
         type:String,
@@ -34,19 +34,11 @@
       }
     },
     methods:{
-      refreshElement: async function () {
-        if(!checkEmpty(this.placement_name)){
-          const result = await FilterElementByPlacement(this.placement_name);
-          if(result.status == "SUCCESS"){
-            this.placement_label = result.placement.placement_label;
-            this.elements = result.elements;
-          }
-        }
+      onLoadElement:function (placement_label, elements) {
+        this.placement_label = placement_label;
+        this.elements = elements;
       }
     },
-    mounted(){
-      this.refreshElement();
-    }
   }
 </script>
 
