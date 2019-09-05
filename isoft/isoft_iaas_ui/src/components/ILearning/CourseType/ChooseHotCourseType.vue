@@ -10,7 +10,7 @@
       :mask-closable="false">
       <div style="height: 450px;">
         <Scroll height="450">
-          <HotCourseType @chooseCourseType="chooseCourseType"/>
+          <HotCourseType :placement_name="GLOBAL.element_host_course_type_carousel" @chooseCourseType="chooseCourseType"/>
         </Scroll>
       </div>
     </Modal>

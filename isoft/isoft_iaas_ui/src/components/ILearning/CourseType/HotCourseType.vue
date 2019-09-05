@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <ElementsLoader :placement_name="placement_name" @onLoadElement="onLoadElement">
     <div style="padding: 10px;">
       课程大类：
       <span v-for="element in elements">
@@ -16,19 +16,26 @@
         </IBeautifulLink>
       </span>
     </div>
-  </div>
+  </ElementsLoader>
 </template>
 
 <script>
   import IBeautifulLink from "../../Common/link/IBeautifulLink"
-  import {FilterElementByPlacement} from "../../../api"
+  import ElementsLoader from "../../Background/CMS/ElementsLoader"
 
   export default {
     name: "HotCourseType",
-    components:{IBeautifulLink},
+    components:{IBeautifulLink,ElementsLoader},
+    props:{
+      placement_name:{
+        type:String,
+        default: '',
+      }
+    },
     data(){
       return {
         currentElement:null,
+        placement_label:'',
         elements:[],
       }
     },
@@ -36,17 +43,12 @@
       chooseCourseType:function (course_type, course_sub_type) {
         this.$emit("chooseCourseType", course_type, course_sub_type);
       },
-      refreshElement: async function () {
-        const result = await FilterElementByPlacement(this.GLOBAL.element_host_course_type_carousel);
-        if(result.status == "SUCCESS"){
-          this.elements = result.elements;
-          this.currentElement = result.elements.filter(element => element.navigation_level == 0)[0];
-        }
+      onLoadElement:function (placement_label, elements) {
+        this.placement_label = placement_label;
+        this.elements = elements;
+        this.currentElement = elements.filter(element => element.navigation_level == 0)[0];
       }
     },
-    mounted(){
-      this.refreshElement();
-    }
   }
 </script>
 

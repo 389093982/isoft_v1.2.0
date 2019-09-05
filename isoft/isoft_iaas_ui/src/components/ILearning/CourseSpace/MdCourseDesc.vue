@@ -1,20 +1,21 @@
 <template>
-  <IBeautifulCard :title="placement_label" v-if="elements.length > 0">
-    <div slot="content">
-      <IShowMarkdown v-if="elements[0].md_content" :content="elements[0].md_content"/>
-    </div>
-  </IBeautifulCard>
+  <ElementsLoader :placement_name="placement_name" @onLoadElement="onLoadElement">
+    <IBeautifulCard :title="placement_label" v-if="elements.length > 0">
+      <div slot="content">
+        <IShowMarkdown v-if="elements[0].md_content" :content="elements[0].md_content"/>
+      </div>
+    </IBeautifulCard>
+  </ElementsLoader>
 </template>
 
 <script>
   import IBeautifulCard from "../../Common/card/IBeautifulCard"
-  import {FilterElementByPlacement} from "../../../api"
-  import {checkEmpty} from "../../../tools"
+  import ElementsLoader from "../../Background/CMS/ElementsLoader"
   import IShowMarkdown from "../../Common/markdown/IShowMarkdown"
 
   export default {
     name: "MdCourseDesc",
-    components:{IBeautifulCard,IShowMarkdown},
+    components:{IBeautifulCard,IShowMarkdown,ElementsLoader},
     props:{
       placement_name:{
         type:String,
@@ -28,19 +29,11 @@
       }
     },
     methods:{
-      refreshElement: async function () {
-        if(!checkEmpty(this.placement_name)){
-          const result = await FilterElementByPlacement(this.placement_name);
-          if(result.status == "SUCCESS"){
-            this.placement_label = result.placement.placement_label;
-            this.elements = result.elements;
-          }
-        }
+      onLoadElement:function (placement_label, elements) {
+        this.placement_label = placement_label;
+        this.elements = elements;
       }
     },
-    mounted(){
-      this.refreshElement();
-    }
   }
 </script>
 
