@@ -1,5 +1,6 @@
 <template>
-  <div style="margin-left: 50px;margin-right: 50px;margin-bottom: 20px;">
+  <ElementsLoader :placement_name="placement_name" @onLoadElement="onLoadElement"
+                  style="margin-left: 50px;margin-right: 50px;margin-bottom: 20px;">
     <Row>
       <Col span="2" style="text-align: center;padding-top: 25px;">
         <a href="javascript:;" @click="previous" v-show="showPrevious"><img src="/static/images/arrow_left.png"/></a>
@@ -23,32 +24,35 @@
         <a href="javascript:;" @click="next"  v-show="showNext"><img src="/static/images/arrow_right.png"/></a>
       </Col>
     </Row>
-  </div>
+  </ElementsLoader>
 </template>
 
 <script>
   import {FilterElementByPlacement} from "../../api"
+  import ElementsLoader from "../Background/CMS/ElementsLoader";
 
   export default {
     name: "HotShareItem",
+    components: {ElementsLoader},
     data(){
       return {
+        placement_name:this.GLOBAL.element_host_share_type_carousel,
         // 热门分享类型
-        hot_share_types: [],
+        elements: [],
         // 当前页
         currentPageNo:1,
       }
     },
     computed:{
       getCurrentPage:function(){
-        return this.pagination(this.currentPageNo,4,this.hot_share_types);
+        return this.pagination(this.currentPageNo,4,this.elements);
       },
       showPrevious:function () {
-        const total_page = Math.ceil(this.hot_share_types.length / 4);
+        const total_page = Math.ceil(this.elements.length / 4);
         return this.currentPageNo > 1;
       },
       showNext:function () {
-        const total_page = Math.ceil(this.hot_share_types.length / 4);
+        const total_page = Math.ceil(this.elements.length / 4);
         return this.currentPageNo < total_page;
       }
     },
@@ -61,7 +65,7 @@
       },
       // 获取后一页
       next: function(){
-        const total_page = Math.ceil(this.hot_share_types.length / 4);
+        const total_page = Math.ceil(this.elements.length / 4);
         if(this.currentPageNo < total_page){
           this.currentPageNo = this.currentPageNo + 1;
         }
@@ -74,16 +78,10 @@
       chooseItem:function (share_name) {
         this.$emit('chooseItem',share_name);
       },
-      refreshElement: async function () {
-        const result = await FilterElementByPlacement(this.GLOBAL.element_host_share_type_carousel);
-        if(result.status == "SUCCESS"){
-          this.hot_share_types = result.elements;
-        }
+      onLoadElement:function (placement_label, elements) {
+        this.elements = elements;
       }
     },
-    mounted(){
-      this.refreshElement();
-    }
   }
 </script>
 
