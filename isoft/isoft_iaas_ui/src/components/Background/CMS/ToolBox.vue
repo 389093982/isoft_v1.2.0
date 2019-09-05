@@ -1,27 +1,29 @@
 <template>
-  <IBeautifulCard :title="placement_label" v-if="elements.length > 0">
-    <div slot="content">
-      <ul>
-        <li v-for="element in elements" class="li">
-          <a :href="element.linked_refer" target="_blank">
-            <img :src="element.img_path" width="30px" height="30px"/>
-            <p style="font-size: 12px;">{{element.title}}</p>
-          </a>
-        </li>
-      </ul>
-      <div style="clear: both;"></div>
-    </div>
-  </IBeautifulCard>
+  <ElementsLoader :placement_name="placement_name" @onLoadElement="onLoadElement">
+    <IBeautifulCard :title="placement_label" v-if="elements.length > 0">
+      <div slot="content">
+        <ul>
+          <li v-for="element in elements" class="li">
+            <a :href="element.linked_refer" target="_blank">
+              <img :src="element.img_path" width="30px" height="30px"/>
+              <p style="font-size: 12px;">{{element.title}}</p>
+            </a>
+          </li>
+        </ul>
+        <div style="clear: both;"></div>
+      </div>
+    </IBeautifulCard>
+  </ElementsLoader>
 </template>
 
 <script>
+  import ElementsLoader from "./ElementsLoader"
+
   import IBeautifulCard from "../../Common/card/IBeautifulCard"
-  import {FilterElementByPlacement} from "../../../api"
-  import {checkEmpty} from "../../../tools"
 
   export default {
     name: "ToolBox",
-    components:{IBeautifulCard},
+    components:{IBeautifulCard, ElementsLoader},
     props:{
       placement_name:{
         type:String,
@@ -35,18 +37,10 @@
       }
     },
     methods:{
-      refreshElement: async function () {
-        if(!checkEmpty(this.placement_name)){
-          const result = await FilterElementByPlacement(this.placement_name);
-          if(result.status == "SUCCESS"){
-            this.placement_label = result.placement.placement_label;
-            this.elements = result.elements;
-          }
-        }
+      onLoadElement:function (placement_label, elements) {
+        this.placement_label = placement_label;
+        this.elements = elements;
       }
-    },
-    mounted(){
-      this.refreshElement();
     }
   }
 </script>
