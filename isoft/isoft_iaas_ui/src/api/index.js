@@ -176,4 +176,4 @@ export const LoginRecordList = (offset,current_page,search) => ajax(BASE_URL_2+"
 
 
 // 跨模块使用,模块化部署时需要使用 nginx 代理
-export const LoginAddr = "/sso/login/";
+export const LoginAddr = "/#/sso/login/";
