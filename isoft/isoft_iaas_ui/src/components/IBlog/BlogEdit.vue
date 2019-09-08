@@ -81,7 +81,7 @@
         // 我的所有文章分类
         mycatalogs:[],
         formValidate: {
-          id:-1,
+          blog_id:-1,
           blog_title: '',
           short_desc: '',
           key_words: '',
@@ -128,7 +128,7 @@
         var _this = this;
         this.$refs[name].validate(async (valid) => {
           if (valid) {
-            const result = await BlogEdit(_this.formValidate.id,_this.formValidate.blog_title,_this.formValidate.short_desc,
+            const result = await BlogEdit(_this.formValidate.blog_id,_this.formValidate.blog_title,_this.formValidate.short_desc,
               _this.formValidate.key_words, _this.formValidate.catalog_id, _this.formValidate.content);
             if(result.status == "SUCCESS"){
               _this.$Message.success('提交成功!');
@@ -148,7 +148,7 @@
         const result = await ShowBlogDetail(this.$route.query.blog_id);
         if(result.status=="SUCCESS"){
           this.blog = result.blog;
-          this.formValidate.id = result.blog.id;
+          this.formValidate.blog_id = result.blog.id;
           this.formValidate.blog_title = result.blog.blog_title;
           this.formValidate.short_desc = result.blog.short_desc;
           this.formValidate.key_words = result.blog.key_words;
