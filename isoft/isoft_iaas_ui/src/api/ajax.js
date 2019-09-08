@@ -19,7 +19,7 @@ axios.interceptors.response.use(
       switch (error.response.status) {
         case 401:
           if(!CheckNotLogin()){
-            window.location.href = "/sso/login/?redirectUrl=" + window.location.href;
+            window.location.href = "/#/sso/login/?redirectUrl=" + window.location.href;
           }
       }
     }

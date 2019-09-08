@@ -75,7 +75,7 @@ func (this *ElIfNode) Execute(trackingId string) {
 			TrackingId:   trackingId,
 			LogWriter:    this.LogWriter,
 			Store:        this.DataStore, // 获取数据中心
-			Dispatcher:   nil,
+			Dispatcher:   this.Dispatcher,
 			RunOneStep:   this.BlockStepRunFunc,
 		}
 		bsoRunner.Run()
@@ -114,7 +114,7 @@ func (this *ElseNode) Execute(trackingId string) {
 			TrackingId:   trackingId,
 			LogWriter:    this.LogWriter,
 			Store:        this.DataStore, // 获取数据中心
-			Dispatcher:   nil,
+			Dispatcher:   this.Dispatcher,
 			RunOneStep:   this.BlockStepRunFunc,
 		}
 		bsoRunner.Run()

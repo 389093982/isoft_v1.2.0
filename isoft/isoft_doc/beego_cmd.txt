@@ -13,3 +13,6 @@ c) 下载bee工具 go get github.com/beego/bee (会自动生成 /root/soft/insta
 d) 进入目录并进行打包 cd /root/soft/install/gopath/src/isoft/isoft_iwork_web && bee pack -be GOOS=linux
 
 bee run -gendoc=true -downdoc=true
+
+
+/usr/local/nginx/sbin/nginx

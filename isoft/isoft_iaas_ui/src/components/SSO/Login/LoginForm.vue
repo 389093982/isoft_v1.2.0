@@ -22,6 +22,7 @@
 <script>
   import {Login} from "../../../api"
   import {setCookie} from "../../../tools"
+  import {strSplit} from "../../../tools"
 
   export default {
     name: "LoginForm",
@@ -33,9 +34,14 @@
     },
     methods:{
       login:async function () {
+        let redirectUrl="";
+        var arr = strSplit(window.location.href, "?redirectUrl=");
+        if (arr.length == 2){
+          redirectUrl = arr[1];
+        }
         var username = $("input[name='username']").val();
         var passwd = $("input[name='passwd']").val();
-        var result = await Login(username, passwd);
+        var result = await Login(username, passwd,redirectUrl);
         if(result.loginSuccess == true || result.loginSuccess == "SUCCESS"){
           setCookie("tokenString",result.tokenString,365,result.domain);
           setCookie("userName",username,365,result.domain);

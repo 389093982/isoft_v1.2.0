@@ -111,7 +111,7 @@ export const FilterShareList = (offset,current_page,search_type) => ajax(BASE_UR
 export const AddNewShare = (share_type,share_desc,link_href,content) => ajax(BASE_URL+'/iwork/httpservice/AddNewShare2',{share_type,share_desc,link_href,content},'GET');
 
 // 登录接口
-export const Login = (username,passwd) => ajax(BASE_URL+"/iwork/httpservice/PostLogin2", {username,passwd},'POST');
+export const Login = (username,passwd,redirectUrl) => ajax(BASE_URL+"/iwork/httpservice/PostLogin2", {username,passwd,redirectUrl},'POST');
 
 // 注册接口
 export const Regist = (username,passwd) => ajax(BASE_URL+"/iwork/httpservice/Regist2", {username,passwd},'POST');
@@ -129,4 +129,4 @@ export const LoginRecordList = (offset,current_page,search) => ajax(BASE_URL+"/i
 
 
 // 跨模块使用,模块化部署时需要使用 nginx 代理
-export const LoginAddr = "/sso/login/";
+export const LoginAddr = "/#/sso/login/";
