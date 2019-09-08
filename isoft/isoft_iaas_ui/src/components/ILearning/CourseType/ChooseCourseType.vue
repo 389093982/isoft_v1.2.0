@@ -23,7 +23,7 @@
 
 
       <div slot="header_right">
-        <IBeautifulLink2 style="font-size: 14px;" @onclick="$router.push({ path: '/ilearning/course_space'})"> 我的课程空间 </IBeautifulLink2>
+        <IBeautifulLink2 style="font-size: 14px;" @onclick="$router.push({ path: '/ilearning/mine/course_space'})"> 我的课程空间 </IBeautifulLink2>
       </div>
     </IBeautifulCard>
   </div>

@@ -5,6 +5,8 @@ import App from './App'
 import router from './router'
 import store from './store'
 
+import {CheckSSOLogin} from "./tools"
+
 // 引用全局静态数据
 import global_ from './components/GlobalData'     //引用文件
 Vue.prototype.GLOBAL = global_                    //挂载到Vue实例上面,通过 this.GLOBAL.xxx 访问全局变量
@@ -32,7 +34,7 @@ router.beforeEach((to, from, next) => {
   // LoadingBar 加载进度条
   iView.LoadingBar.start();
 
-  next();
+  CheckSSOLogin(to, from, next);
 });
 
 router.afterEach(route => {

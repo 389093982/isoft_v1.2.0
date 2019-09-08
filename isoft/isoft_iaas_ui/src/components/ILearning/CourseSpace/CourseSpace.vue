@@ -4,10 +4,10 @@
       <Col span="6" style="padding: 2px;background: #f8f8f9;">
         <Card title="我的课程空间" :padding="0" shadow>
           <CellGroup>
-            <Cell title="我要开课" to="/ilearning/course_space/newCourse"/>
-            <Cell title="我的课程" to="/ilearning/course_space/myCourseList"/>
-            <Cell title="最近浏览" to="/ilearning/course_space/recentlyViewed"/>
-            <Cell title="我的收藏" to="/components/button"/>
+            <Cell title="我要开课" to="/ilearning/mine/course_space/newCourse"/>
+            <Cell title="我的课程" to="/ilearning/mine/course_space/myCourseList"/>
+            <Cell title="最近浏览" to="/ilearning/mine/course_space/recentlyViewed"/>
+            <Cell title="我的收藏"/>
           </CellGroup>
         </Card>
       </Col>

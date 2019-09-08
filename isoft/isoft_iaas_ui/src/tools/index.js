@@ -110,6 +110,7 @@ export function formatDate (date, fmt) {
   return fmt;
 }
 
+export const CheckSSOLogin = (to, from, next) => checkSSOLogin(to, from, next);
 export const CheckNotLogin = () => checkNotLogin();
 
 export const validateCron = (cron) => cronValidate(cron);
