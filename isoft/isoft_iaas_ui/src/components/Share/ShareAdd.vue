@@ -139,7 +139,7 @@
         this.$refs[name].resetFields();
       },
       refreshElement: async function () {
-        const result = await FilterElementByPlacement(this.GLOBAL.element_host_share_type_list);
+        const result = await FilterElementByPlacement(this.GLOBAL.element_host_share_type_carousel);
         if(result.status == "SUCCESS"){
           this.hot_share_types = result.elements;
         }
