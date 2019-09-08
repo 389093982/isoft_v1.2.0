@@ -1,5 +1,8 @@
 import cronValidate from "./cron"
 import {checkSSOLogin,checkNotLogin} from "./sso"
+import Storage from "./storage"
+
+export const _store = new Storage();
 
 // 获取 cookie 值
 export const getCookie = function getCookie(c_name) {
