@@ -27,7 +27,8 @@
               <Input v-model="formValidate.share_desc" placeholder="请输入简短描述"></Input>
             </FormItem>
             <FormItem label="文章内容" prop="content">
-              <mavon-editor v-model="formValidate.content" :toolbars="toolbars" :ishljs = "true" style="z-index: 1;"/>
+              <mavon-editor ref="md" v-model="formValidate.content" @imgAdd="$imgAdd"
+                            :toolbars="toolbars" :ishljs = "true" style="z-index: 1;"/>
             </FormItem>
             <FormItem label="分享链接" prop="link_href">
               <Input v-model="formValidate.link_href" placeholder="请输入分享链接"></Input>
@@ -49,6 +50,7 @@
 <script>
   import {AddNewShare} from "../../api"
   import {FilterElementByPlacement} from "../../api"
+  import axios from 'axios'
 
   export default {
     name: "ShareAdd",
@@ -97,6 +99,22 @@
       }
     },
     methods: {
+      // 绑定@imgAdd event
+      // 参考 https://github.com/hinesboy/mavonEditor/blob/master/doc/cn/upload-images.md
+      $imgAdd(pos, $file){
+        // 第一步.将图片上传到服务器.
+        var formdata = new FormData();
+        formdata.append('file', $file);
+        axios({
+          url: '/api/iwork/fileUpload/fileUpload',
+          method: 'post',
+          data: formdata,
+          headers: { 'Content-Type': 'multipart/form-data' },
+        }).then((result) => {
+          // 第二步.将返回的url替换到文本原位置![...](0) -> ![...](url)
+          this.$refs.md.$img2Url(pos, result.data.fileServerPath);
+        })
+      },
       closePoptip (type) {
         this.formValidate.share_type=type;
         this.visible = false;

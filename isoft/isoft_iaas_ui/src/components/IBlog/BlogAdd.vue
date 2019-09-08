@@ -35,7 +35,8 @@
             </Col>
           </Row>
           <FormItem label="文章内容" prop="content">
-            <mavon-editor v-model="formValidate.content" :toolbars="toolbars" :ishljs = "true" style="z-index: 1;"/>
+              <mavon-editor ref="md" v-model="formValidate.content" @imgAdd="$imgAdd"
+                          :toolbars="toolbars" :ishljs = "true" style="z-index: 1;"/>
           </FormItem>
           <FormItem>
             <Button type="primary" @click="handleSubmit('formValidate')">Submit</Button>
@@ -50,6 +51,7 @@
 <script>
   import {GetMyCatalogs} from "../../api"
   import {BlogEdit} from "../../api"
+  import axios from 'axios'
 
   export default {
     name: "BlogAdd",
@@ -104,6 +106,22 @@
       }
     },
     methods:{
+      // 绑定@imgAdd event
+      // 参考 https://github.com/hinesboy/mavonEditor/blob/master/doc/cn/upload-images.md
+      $imgAdd(pos, $file){
+        // 第一步.将图片上传到服务器.
+        var formdata = new FormData();
+        formdata.append('file', $file);
+        axios({
+          url: '/api/iwork/fileUpload/fileUpload',
+          method: 'post',
+          data: formdata,
+          headers: { 'Content-Type': 'multipart/form-data' },
+        }).then((result) => {
+          // 第二步.将返回的url替换到文本原位置![...](0) -> ![...](url)
+          this.$refs.md.$img2Url(pos, result.data.fileServerPath);
+        })
+      },
       handleSubmit (name) {
         var _this = this;
         this.$refs[name].validate(async (valid) => {
