@@ -1,6 +1,6 @@
 <template>
   <div style="padding-top: 20px;">
-    <div v-for="history in historys" style="padding: 0 20px 0 20px;">
+    <div v-for="history in historys">
       <router-link :to="{path:'/ilearning/course_detail',query:{course_id:history.history_link}}">{{history.history_desc}}</router-link>
       <span style="float: right;font-size: 12px;"><Time :time="history.last_updated_time" :interval="1"/></span>
       <Divider />
