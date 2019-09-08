@@ -16,7 +16,7 @@ const EditPlacement = () => import("@/components/Background/CMS/EditPlacement");
 const IBlog = () => import("@/components/IBlog/IBlog");
 const BlogList = () => import("@/components/IBlog/BlogList");
 const BlogDetail = () => import("@/components/IBlog/BlogDetail");
-const BlogAdd = () => import("@/components/IBlog/BlogAdd");
+const BlogEdit = () => import("@/components/IBlog/BlogEdit");
 const ILearningIndex = () => import("@/components/ILearning/Index");
 const CourseSpace = () => import("@/components/ILearning/CourseSpace/CourseSpace");
 const NewCourse = () => import("@/components/ILearning/CourseSpace/NewCourse");
@@ -52,7 +52,7 @@ const IBlogRouter = {
     {path: 'blog_index',component: IBlog},
     {path: 'blog_list',component: BlogList},
     {path: 'blog_detail',component: BlogDetail},
-    {path: 'blog_add',component: BlogAdd},
+    {path: 'mine/blog_edit',component: BlogEdit},
   ]
 };
 

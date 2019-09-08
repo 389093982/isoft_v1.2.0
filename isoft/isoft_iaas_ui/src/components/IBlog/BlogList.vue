@@ -40,7 +40,7 @@
                   </router-link>
                 </Col>
                 <Col span="3">
-                  <router-link :to="{path:'/iblog/blog_add'}">
+                  <router-link :to="{path:'/iblog/mine/blog_edit'}">
                     我也要发布
                   </router-link>
                 </Col>

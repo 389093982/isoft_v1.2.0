@@ -49,12 +49,11 @@
 </template>
 
 <script>
-  import {GetMyCatalogs} from "../../api"
-  import {BlogEdit} from "../../api"
+  import {GetMyCatalogs,BlogEdit,ShowBlogDetail} from "../../api"
   import axios from 'axios'
 
   export default {
-    name: "BlogAdd",
+    name: "BlogEdit",
     data () {
       return {
         toolbars: {
@@ -78,10 +77,13 @@
           save: true, // 保存（触发events中的save事件）
           navigation: true // 导航目录
         },
+        blog:null,
         // 我的所有文章分类
         mycatalogs:[],
         formValidate: {
+          id:-1,
           blog_title: '',
+          short_desc: '',
           key_words: '',
           catalog_id: -1,
           content:"",
@@ -126,7 +128,7 @@
         var _this = this;
         this.$refs[name].validate(async (valid) => {
           if (valid) {
-            const result = await BlogEdit(_this.formValidate.blog_title,_this.formValidate.short_desc,
+            const result = await BlogEdit(_this.formValidate.id,_this.formValidate.blog_title,_this.formValidate.short_desc,
               _this.formValidate.key_words, _this.formValidate.catalog_id, _this.formValidate.content);
             if(result.status == "SUCCESS"){
               _this.$Message.success('提交成功!');
@@ -141,9 +143,25 @@
       },
       handleReset (name) {
         this.$refs[name].resetFields();
-      }
+      },
+      refreshBlogDetail:async function () {
+        const result = await ShowBlogDetail(this.$route.query.blog_id);
+        if(result.status=="SUCCESS"){
+          this.blog = result.blog;
+          this.formValidate.id = result.blog.id;
+          this.formValidate.blog_title = result.blog.blog_title;
+          this.formValidate.short_desc = result.blog.short_desc;
+          this.formValidate.key_words = result.blog.key_words;
+          this.formValidate.catalog_id = result.blog.catalog_id;
+          this.formValidate.content = result.blog.content;
+        }
+      },
     },
     mounted:async function () {
+      if(this.$route.query.blog_id != undefined && this.$route.query.blog_id != null){
+        this.refreshBlogDetail();
+      }
+
       const result = await GetMyCatalogs();
       if(result.status=="SUCCESS"){
         this.mycatalogs = result.catalogs;

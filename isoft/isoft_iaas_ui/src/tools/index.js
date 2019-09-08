@@ -1,5 +1,5 @@
 import cronValidate from "./cron"
-import {checkSSOLogin,checkNotLogin} from "./sso"
+import {checkSSOLogin,checkHasLogin,getLoginUserName,checkNotLogin} from "./sso"
 import Storage from "./storage"
 
 export const _store = new Storage();
@@ -112,6 +112,8 @@ export function formatDate (date, fmt) {
 
 export const CheckSSOLogin = (to, from, next) => checkSSOLogin(to, from, next);
 export const CheckNotLogin = () => checkNotLogin();
+export const CheckHasLogin = () => checkHasLogin();
+export const GetLoginUserName = () => getLoginUserName();
 
 export const validateCron = (cron) => cronValidate(cron);
 
