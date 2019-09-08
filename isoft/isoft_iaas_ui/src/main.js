@@ -5,8 +5,6 @@ import App from './App'
 import router from './router'
 import store from './store'
 
-import {CheckSSOLogin} from "./tools"
-
 // 引用全局静态数据
 import global_ from './components/GlobalData'     //引用文件
 Vue.prototype.GLOBAL = global_                    //挂载到Vue实例上面,通过 this.GLOBAL.xxx 访问全局变量
@@ -29,13 +27,12 @@ router.beforeEach((to, from, next) => {
   if (to.meta.title) {
     document.title = to.meta.title;
   }else{
-    document.title = "iaas统一管理平台";
+    document.title = "地耳 App";
   }
   // LoadingBar 加载进度条
   iView.LoadingBar.start();
 
-  // 登录判断
-  CheckSSOLogin(to, from, next);
+  next();
 });
 
 router.afterEach(route => {
