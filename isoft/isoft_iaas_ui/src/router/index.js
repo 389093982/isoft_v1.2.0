@@ -1,34 +1,35 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-import Login from "../components/SSO/Login/Login"
-import Regist from "../components/SSO/Login/Regist"
-import AppRegist from "../components/SSO/AppRegist"
-import LoginRecord from "../components/SSO/LoginRecord"
-import IEmptyLayout from "../components/ILayout/IEmptyLayout"
-import ICMSLayout from "../components/ILayout/ICMSLayout"
-import Element from "../components/Background/CMS/Element"
-import EditElement from "../components/Background/CMS/EditElement"
-import Catalog from "../components/Background/CMS/Catalog"
-import Placement from "../components/Background/CMS/Placement"
-import EditPlacement from "../components/Background/CMS/EditPlacement"
-import IBlog from '../components/IBlog/IBlog'
-import BlogList from '../components/IBlog/BlogList'
-import BlogDetail from '../components/IBlog/BlogDetail'
-import ILearningIndex from '../components/ILearning/Index'
-import CourseSpace from '../components/ILearning/CourseSpace/CourseSpace'
-import NewCourse from '../components/ILearning/CourseSpace/NewCourse'
-import RecentlyViewed from '../components/ILearning/CourseSpace/RecentlyViewed'
-import MyCourseList from '../components/ILearning/CourseSpace/MyCourseList'
-import CourseDetail from '../components/ILearning/Course/CourseDetail'
-import VideoPay from '../components/ILearning/Course/VideoPay'
-import Configuration from '../components/Background/CMS/Configuration'
-import CourseSearch from "../components/ILearning/Course/CourseSearch"
-import ShareAdd from "../components/Share/ShareAdd"
-import ShareList from "../components/Share/ShareList"
-import ShareDetail from "../components/Share/ShareDetail"
-import CommonLinkList from "../components/Background/CMS/CommonLinkList"
-import ILayout from "../components/ILayout/ILayout"
+// es6 import 异步语法,使用异步组件加载机制减少耗时操作
+const Login = () => import("@/components/SSO/Login/Login");
+const Regist = () => import("@/components/SSO/Login/Regist");
+const AppRegist = () => import("@/components/SSO/AppRegist");
+const LoginRecord = () => import("@/components/SSO/LoginRecord");
+const IEmptyLayout = () => import("@/components/ILayout/IEmptyLayout");
+const ICMSLayout = () => import("@/components/ILayout/ICMSLayout");
+const Element = () => import("@/components/Background/CMS/Element");
+const EditElement = () => import("@/components/Background/CMS/EditElement");
+const Catalog = () => import("@/components/Background/CMS/Catalog");
+const Placement = () => import("@/components/Background/CMS/Placement");
+const EditPlacement = () => import("@/components/Background/CMS/EditPlacement");
+const IBlog = () => import("@/components/IBlog/IBlog");
+const BlogList = () => import("@/components/IBlog/BlogList");
+const BlogDetail = () => import("@/components/IBlog/BlogDetail");
+const ILearningIndex = () => import("@/components/ILearning/Index");
+const CourseSpace = () => import("@/components/ILearning/CourseSpace/CourseSpace");
+const NewCourse = () => import("@/components/ILearning/CourseSpace/NewCourse");
+const RecentlyViewed = () => import("@/components/ILearning/CourseSpace/RecentlyViewed");
+const MyCourseList = () => import("@/components/ILearning/CourseSpace/MyCourseList");
+const CourseDetail = () => import("@/components/ILearning/Course/CourseDetail");
+const VideoPay = () => import("@/components/ILearning/Course/VideoPay");
+const Configuration = () => import("@/components/Background/CMS/Configuration");
+const CourseSearch = () => import("@/components/ILearning/Course/CourseSearch");
+const ShareAdd = () => import("@/components/Share/ShareAdd");
+const ShareList = () => import("@/components/Share/ShareList");
+const ShareDetail = () => import("@/components/Share/ShareDetail");
+const CommonLinkList = () => import("@/components/Background/CMS/CommonLinkList");
+const ILayout = () => import("@/components/ILayout/ILayout");
 
 
 import {joinArray} from "../tools"

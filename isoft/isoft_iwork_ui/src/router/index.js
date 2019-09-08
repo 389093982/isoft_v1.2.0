@@ -1,25 +1,26 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-import WorkList from "../components/IWork/IWork/WorkList"
-import WorkStepList from "../components/IWork/IWorkStep/WorkStepList"
-import RunLogList from "../components/IWork/IRunLog/RunLogList"
-import WorkHistoryList from "../components/IWork/IHistory/WorkHistoryList"
-import RunLogDetail from "../components/IWork/IRunLog/RunLogDetail"
-import IWorkLayout from "../components/ILayout/IWorkLayout"
-import QuartzList from "../components/IWork/IQuartz/QuartzList"
-import ResourceList from "../components/IWork/IResource/ResourceList"
-import MigrateList from "../components/IWork/IMigrate/MigrateList"
-import EditMigrate from "../components/IWork/IMigrate/EditMigrate"
-import QuickSql from "../components/IWork/IAssistant/QuickSql"
-import Format from "../components/IWork/IAssistant/Format"
-import Template from "../components/IWork/IAssistant/Template"
-import GlobalVarList from "../components/IWork/IGlobalVar/GlobalVarList"
-import EntityList from "../components/IWork/IEntity/EntityList"
-import File from "../components/IWork/IFile/File"
-import DashBoard from "../components/IWork/IDashBoard/DashBoard"
-import IModuleList from "../components/IWork/IModule/IModuleList"
-import IFilterList from "../components/IWork/IModule/IFilterList"
+// es6 import 异步语法,使用异步组件加载机制减少耗时操作
+const WorkList = () => import("@/components/IWork/IWork/WorkList");
+const WorkStepList = () => import("@/components/IWork/IWorkStep/WorkStepList");
+const RunLogList = () => import("@/components/IWork/IRunLog/RunLogList");
+const WorkHistoryList = () => import("@/components/IWork/IHistory/WorkHistoryList");
+const RunLogDetail = () => import("@/components/IWork/IRunLog/RunLogDetail");
+const IWorkLayout = () => import("@/components/ILayout/IWorkLayout");
+const QuartzList = () => import("@/components/IWork/IQuartz/QuartzList");
+const ResourceList = () => import("@/components/IWork/IResource/ResourceList");
+const MigrateList = () => import("@/components/IWork/IMigrate/MigrateList");
+const EditMigrate = () => import("@/components/IWork/IMigrate/EditMigrate");
+const QuickSql = () => import("@/components/IWork/IAssistant/QuickSql");
+const Format = () => import("@/components/IWork/IAssistant/Format");
+const Template = () => import("@/components/IWork/IAssistant/Template");
+const GlobalVarList = () => import("@/components/IWork/IGlobalVar/GlobalVarList");
+const EntityList = () => import("@/components/IWork/IEntity/EntityList");
+const File = () => import("@/components/IWork/IFile/File");
+const DashBoard = () => import("@/components/IWork/IDashBoard/DashBoard");
+const IModuleList = () => import("@/components/IWork/IModule/IModuleList");
+const IFilterList = () => import("@/components/IWork/IModule/IFilterList");
 
 Vue.use(Router);
 
