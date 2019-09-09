@@ -29,7 +29,12 @@
             <Col span="12">
               <FormItem label="文章分类" prop="catalog_name">
                 <Select v-model="formValidate.catalog_name" filterable>
-                  <Option v-for="mycatalog in mycatalogs" :value="mycatalog.catalog_name" :key="mycatalog.catalog_name">{{ mycatalog.catalog_name }}</Option>
+                  <!-- 热门分类 -->
+                  <Option v-for="hotCatalogItem in hotCatalogItems" :value="hotCatalogItem.title"
+                          :key="'__default__' + hotCatalogItem.title">热门分类： {{ hotCatalogItem.title }}</Option>
+                  <!-- 我的分类 -->
+                  <Option v-for="mycatalog in mycatalogs" :value="mycatalog.catalog_name"
+                          :key="mycatalog.catalog_name">我的分类：{{ mycatalog.catalog_name }}</Option>
                 </Select>
               </FormItem>
             </Col>
@@ -49,7 +54,7 @@
 </template>
 
 <script>
-  import {GetMyCatalogs,BlogEdit,ShowBlogDetail} from "../../api"
+  import {GetMyCatalogs,BlogEdit,ShowBlogDetail,FilterElementByPlacement} from "../../api"
   import axios from 'axios'
 
   export default {
@@ -80,6 +85,7 @@
         blog:null,
         // 我的所有文章分类
         mycatalogs:[],
+        hotCatalogItems:[],
         formValidate: {
           blog_id:-1,
           blog_title: '',
@@ -156,8 +162,17 @@
           this.formValidate.content = result.blog.content;
         }
       },
+      refreshHotCatalogItems: async function () {
+        const result = await FilterElementByPlacement(this.GLOBAL.element_host_share_type_carousel);
+        if(result.status == "SUCCESS"){
+          this.hotCatalogItems = result.elements;
+        }
+      }
     },
     mounted:async function () {
+      // 加载热门分类
+      this.refreshHotCatalogItems();
+      // 数据回显
       if(this.$route.query.blog_id != undefined && this.$route.query.blog_id != null){
         this.refreshBlogDetail();
       }

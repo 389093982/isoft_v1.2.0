@@ -79,7 +79,7 @@
         // 每页记录数
         offset:10,
         searchblogs:[],
-        search_type:'_all',
+        search_type:'',
       }
     },
     methods:{
