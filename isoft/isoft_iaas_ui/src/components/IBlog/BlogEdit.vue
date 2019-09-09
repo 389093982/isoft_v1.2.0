@@ -27,9 +27,9 @@
               </FormItem>
             </Col>
             <Col span="12">
-              <FormItem label="文章分类" prop="catalog_id">
-                <Select v-model="formValidate.catalog_id" filterable>
-                  <Option v-for="mycatalog in mycatalogs" :value="mycatalog.id" :key="mycatalog.id">{{ mycatalog.catalog_name }}</Option>
+              <FormItem label="文章分类" prop="catalog_name">
+                <Select v-model="formValidate.catalog_name" filterable>
+                  <Option v-for="mycatalog in mycatalogs" :value="mycatalog.catalog_name" :key="mycatalog.catalog_name">{{ mycatalog.catalog_name }}</Option>
                 </Select>
               </FormItem>
             </Col>
@@ -85,7 +85,7 @@
           blog_title: '',
           short_desc: '',
           key_words: '',
-          catalog_id: -1,
+          catalog_name: '',
           content:"",
         },
         ruleValidate: {
@@ -98,7 +98,7 @@
           key_words: [
             { required: true, message: '检索词条不能为空', trigger: 'blur' }
           ],
-          // catalog_id: [
+          // catalog_name: [
           //   { required: true, type: 'number', message: '文章分类不能为空', trigger: 'blur' }
           // ],
           content: [
@@ -129,7 +129,7 @@
         this.$refs[name].validate(async (valid) => {
           if (valid) {
             const result = await BlogEdit(_this.formValidate.blog_id,_this.formValidate.blog_title,_this.formValidate.short_desc,
-              _this.formValidate.key_words, _this.formValidate.catalog_id, _this.formValidate.content);
+              _this.formValidate.key_words, _this.formValidate.catalog_name, _this.formValidate.content);
             if(result.status == "SUCCESS"){
               _this.$Message.success('提交成功!');
               this.$router.push({ path: '/iblog/blog_list'});
@@ -152,7 +152,7 @@
           this.formValidate.blog_title = result.blog.blog_title;
           this.formValidate.short_desc = result.blog.short_desc;
           this.formValidate.key_words = result.blog.key_words;
-          this.formValidate.catalog_id = result.blog.catalog_id;
+          this.formValidate.catalog_name = result.blog.catalog_name;
           this.formValidate.content = result.blog.content;
         }
       },

@@ -20,9 +20,7 @@
                 </router-link>
               </Col>
               <Col span="12">
-                <router-link :to="{path:'/iblog/blog_list',query:{blog_id:searchblog.id}}">
-                  <span style="color: #499ef3;font-weight: bold;">所属分类：{{ searchblog.catalog_name }}</span>
-                </router-link>
+                <a style="color: #499ef3;font-weight: bold;" @click="chooseItem(searchblog.catalog_name)">所属分类：{{ searchblog.catalog_name }}</a>
               </Col>
             </Row>
             <p style="margin-bottom: 4px;font-size: 14px;color: #8a8a8a;line-height: 24px;">
@@ -33,8 +31,8 @@
                 <Col span="17">
                   <!-- 作者详情 -->
                   <router-link :to="{path:'/iblog/author',query:{author:searchblog.author}}">{{searchblog.author}}</router-link>
-                  发布于:<Time :time="searchblog.created_time" type="datetime" style="color:red;"/>&nbsp;
-                  更新于:<Time :time="searchblog.last_updated_time" type="datetime" style="color:red;"/>&nbsp;
+                  发布于:<Time :time="searchblog.created_time" style="color:red;"/>&nbsp;
+                  更新于:<Time :time="searchblog.last_updated_time" style="color:red;"/>&nbsp;
                 </Col>
                 <Col span="2">
                   <router-link :to="{path:'/iblog/blog_detail',query:{blog_id:searchblog.id}}">
@@ -81,11 +79,16 @@
         // 每页记录数
         offset:10,
         searchblogs:[],
+        search_type:'_all',
       }
     },
     methods:{
       chooseItem:function(item_name){
-
+        if(this.search_type != item_name){
+          this.search_type = item_name;
+          this.current_page = 1;
+          this.refreshBlogList();
+        }
       },
       handleChange(page){
         this.current_page = page;
@@ -96,7 +99,7 @@
         this.refreshBlogList();
       },
       refreshBlogList:async function () {
-        const result = await BlogList(this.offset,this.current_page);
+        const result = await BlogList(this.offset,this.current_page, this.search_type);
         if(result.status=="SUCCESS"){
           this.searchblogs = result.blogs;
           this.total = result.paginator.totalcount;
