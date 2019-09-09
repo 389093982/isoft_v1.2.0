@@ -12,7 +12,7 @@
           </MenuGroup>
           <MenuGroup title="在线学习系统">
             <MenuItem name="1-5"><router-link to="/ilearning/index">精品课程</router-link></MenuItem>
-            <MenuItem name="1-6"><router-link to="/inote/index">云笔记</router-link></MenuItem>
+            <MenuItem name="1-6"><router-link to="/inote/inote_list">云笔记</router-link></MenuItem>
           </MenuGroup>
           <MenuGroup title="友情链接">
             <MenuItem name="1-7"><router-link to="/share/list">共享空间</router-link></MenuItem>

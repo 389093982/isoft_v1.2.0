@@ -2,7 +2,7 @@
  <div style="margin-left: 50px;margin-right: 50px;">
     <Row>
       <Col span="18">
-        热门博客
+        热门博客 <router-link style="float: right;" :to="{path:'/iblog/mine/blog_edit'}">我也要发布</router-link>
         <ul>
           <li v-for="searchblog in searchblogs" style="list-style:none;padding: 10px 10px;background: #fff;border-bottom: 1px solid #f4f4f4;">
             <Row>
@@ -40,9 +40,7 @@
                   </router-link>
                 </Col>
                 <Col span="3">
-                  <router-link :to="{path:'/iblog/mine/blog_edit'}">
-                    我也要发布
-                  </router-link>
+                  <router-link :to="{path:'/iblog/mine/blog_edit'}">我也要发布</router-link>
                 </Col>
               </Row>
             </p>

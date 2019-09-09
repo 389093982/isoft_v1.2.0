@@ -31,6 +31,7 @@ const ShareList = () => import("@/components/Share/ShareList");
 const ShareDetail = () => import("@/components/Share/ShareDetail");
 const CommonLinkList = () => import("@/components/Background/CMS/CommonLinkList");
 const ILayout = () => import("@/components/ILayout/ILayout");
+const NoteList = () => import("@/components/INote/NoteList");
 
 
 import {joinArray} from "../tools"
@@ -53,6 +54,16 @@ const IBlogRouter = {
     {path: 'blog_list',component: BlogList},
     {path: 'blog_detail',component: BlogDetail},
     {path: 'mine/blog_edit',component: BlogEdit},
+  ]
+};
+
+
+const INoteRouter = {
+  path: '/inote',
+  component: ILayout,
+  // 二级路由的配置
+  children: [
+    {path: 'inote_list',component: NoteList},
   ]
 };
 
@@ -103,7 +114,7 @@ const ILearningRouter = {
   ]
 };
 
-const ILearningRouters = [IBlogRouter, ILearningRouter, ShareListRouter];
+const ILearningRouters = [IBlogRouter, ILearningRouter, ShareListRouter, INoteRouter];
 
 const ISSOReouter = [{
   path: '/sso',
