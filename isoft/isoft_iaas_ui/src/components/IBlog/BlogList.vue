@@ -1,12 +1,24 @@
 <template>
- <div style="margin-left: 50px;margin-right: 50px;">
-
+ <div>
    <!-- 热门分类 -->
    <HotCatalogItems @chooseItem="chooseItem"/>
-
+   <div style="margin: 0 15px;background-color: #fff;border: 1px solid #e6e6e6;border-radius: 4px;">
     <Row>
-      <Col span="18">
-        热门博客 <router-link style="float: right;" :to="{path:'/iblog/mine/blog_edit'}">我也要发布</router-link>
+      <Col span="16" style="padding: 0 0 20px;border-right: 1px solid #e6e6e6;">
+        <div style="border-bottom: 1px solid #e6e6e6;padding: 20px;height: 62px;">
+          <Row class="_search">
+            <Col span="4" style="text-align: center;font-size: 20px;color: #333;">
+              <span v-if="search_type==='_all'">全部分类</span>
+              <span v-else-if="search_type==='_hot'">热门分享</span>
+              <span v-else-if="search_type==='_personal'">我的分享</span>
+              <span v-else>{{search_type}}</span>
+            </Col>
+            <Col span="3" offset="8" style="text-align: center;"><a href="javascript:;" @click="chooseItem('_all')">全部分类</a></Col>
+            <Col span="3" style="text-align: center;"><a href="javascript:;" @click="chooseItem('_hot')">热门博客</a></Col>
+            <Col span="3" style="text-align: center;"><a href="javascript:;" @click="chooseItem('_personal')">我的博客</a></Col>
+            <Col span="3" style="text-align: center;"><router-link to="/iblog/mine/blog_edit">我也要发布</router-link></Col>
+          </Row>
+        </div>
         <ul>
           <li v-for="searchblog in searchblogs" style="list-style:none;padding: 10px 10px;background: #fff;border-bottom: 1px solid #f4f4f4;">
             <Row>
@@ -55,10 +67,11 @@
         <Page :total="total" :page-size="offset" show-total show-sizer :styles="{'text-align': 'center','margin-top': '10px'}"
               @on-change="handleChange" @on-page-size-change="handlePageSizeChange"/>
       </Col>
-      <Col span="6">
+      <Col span="8">
         <CatalogList/>
       </Col>
     </Row>
+   </div>
  </div>
 </template>
 
@@ -79,7 +92,7 @@
         // 每页记录数
         offset:10,
         searchblogs:[],
-        search_type:'',
+        search_type:'_all',
       }
     },
     methods:{
@@ -99,7 +112,11 @@
         this.refreshBlogList();
       },
       refreshBlogList:async function () {
-        const result = await BlogList(this.offset,this.current_page, this.search_type);
+        var search_type = this.search_type;
+        if(this.search_type == "_all"){
+          search_type = "";
+        }
+        const result = await BlogList(this.offset,this.current_page, search_type);
         if(result.status=="SUCCESS"){
           this.searchblogs = result.blogs;
           this.total = result.paginator.totalcount;
@@ -127,5 +144,11 @@
   }
   a:hover{
     color: red;
+  }
+  ._search a{
+    color: #155faa;
+  }
+  ._search a:hover{
+    color: #6cb0ca;
   }
 </style>
