@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- 热门分类 -->
-    <HotShareItem @chooseItem="chooseItem"/>
+    <HotCatalogItems @chooseItem="chooseItem"/>
 
     <div style="margin: 0 15px;background-color: #fff;border: 1px solid #e6e6e6;border-radius: 4px;">
       <Row>
@@ -58,13 +58,13 @@
 
 <script>
   import {FilterShareList} from "../../api"
-  import HotShareItem from "./HotShareItem"
+  import HotCatalogItems from "./HotCatalogItems"
   import TopNShare from "./TopNShare"
   import HotUser from "../User/HotUser"
 
   export default {
     name: "ShareList",
-    components:{HotShareItem,TopNShare,HotUser},
+    components:{HotCatalogItems,TopNShare,HotUser},
     data(){
       return {
         shares:[],

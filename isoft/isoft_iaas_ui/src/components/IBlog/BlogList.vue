@@ -2,7 +2,7 @@
  <div style="margin-left: 50px;margin-right: 50px;">
 
    <!-- 热门分类 -->
-   <HotShareItem @chooseItem="chooseItem"/>
+   <HotCatalogItems @chooseItem="chooseItem"/>
 
     <Row>
       <Col span="18">
@@ -65,13 +65,13 @@
 </template>
 
 <script>
-  import HotShareItem from "../Share/HotShareItem"
+  import HotCatalogItems from "../Share/HotCatalogItems"
   import {BlogList} from "../../api"
   import CatalogList from "./CatalogList"
 
   export default {
     name: "BlogList",
-    components:{CatalogList,HotShareItem},
+    components:{CatalogList,HotCatalogItems},
     data(){
       return {
         // 当前页

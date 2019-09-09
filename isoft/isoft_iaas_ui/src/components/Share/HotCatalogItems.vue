@@ -13,7 +13,7 @@
                 <img :src="element.img_path" :alt="element.title" width="50px" height="50px"/>
               </Col>
               <Col span="18" style="padding-left: 5px;">
-                <p class="share_type_name">{{element.title}}</p>
+                <p class="share_catalog_name">{{element.title}}</p>
                 <p style="font-size: 12px;">{{element.content}}</p>
               </Col>
             </Row>
@@ -32,7 +32,7 @@
   import ElementsLoader from "../Background/CMS/ElementsLoader";
 
   export default {
-    name: "HotShareItem",
+    name: "HotCatalogItems",
     components: {ElementsLoader},
     data(){
       return {
@@ -93,10 +93,10 @@
     background: #ebebeb;
     border-radius: 10px;
   }
-  .share_type_name{
+  .share_catalog_name{
     color:green;
   }
-  .share_type_name:hover{
+  .share_catalog_name:hover{
     color:red;
   }
 </style>
