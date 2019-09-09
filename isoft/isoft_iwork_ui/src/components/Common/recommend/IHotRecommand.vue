@@ -1,7 +1,7 @@
 <template>
   <div style="margin: 20px;margin-top: 30px;">
     <div style="border-bottom: 2px solid #d9d9d9;">
-      <h6 class="title" :title="title">{{title}}</h6>
+      <h4 class="title" :title="title">{{title}}</h4>
     </div>
     <Row :gutter="50">
       <Col span="8" style="margin-top: 12px;" v-for="item in items">

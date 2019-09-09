@@ -1,18 +1,25 @@
 <template>
  <div style="margin-left: 50px;margin-right: 50px;">
+
+   <!-- 热门分类 -->
+   <HotShareItem @chooseItem="chooseItem"/>
+
     <Row>
       <Col span="18">
         热门博客 <router-link style="float: right;" :to="{path:'/iblog/mine/blog_edit'}">我也要发布</router-link>
         <ul>
           <li v-for="searchblog in searchblogs" style="list-style:none;padding: 10px 10px;background: #fff;border-bottom: 1px solid #f4f4f4;">
             <Row>
-              <Col span="8">
+              <Col span="12">
+                <router-link to="" style="float: left;">
+                  <Avatar size="small" src="https://i.loli.net/2017/08/21/599a521472424.jpg" />
+                </router-link>
                 <!-- 使用v-bind动态绑定id传递给目标路径 -->
                 <router-link :to="{path:'/iblog/blog_detail',query:{blog_id:searchblog.id}}">
                   <h4>{{searchblog.blog_title}}</h4>
                 </router-link>
               </Col>
-              <Col span="16">
+              <Col span="12">
                 <router-link :to="{path:'/iblog/blog_list',query:{blog_id:searchblog.id}}">
                   <span style="color: #499ef3;font-weight: bold;">所属分类：{{ searchblog.catalog_name }}</span>
                 </router-link>
@@ -58,12 +65,13 @@
 </template>
 
 <script>
+  import HotShareItem from "../Share/HotShareItem"
   import {BlogList} from "../../api"
   import CatalogList from "./CatalogList"
 
   export default {
     name: "BlogList",
-    components:{CatalogList},
+    components:{CatalogList,HotShareItem},
     data(){
       return {
         // 当前页
@@ -76,6 +84,9 @@
       }
     },
     methods:{
+      chooseItem:function(item_name){
+
+      },
       handleChange(page){
         this.current_page = page;
         this.refreshBlogList();

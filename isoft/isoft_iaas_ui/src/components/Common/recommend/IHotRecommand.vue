@@ -1,7 +1,7 @@
 <template>
   <ElementsLoader :placement_name="placement_name" @onLoadElement="onLoadElement">
     <span>
-      <h6 class="title" :title="placement_label">{{placement_label}}</h6>
+      <h4 class="title" :title="placement_label">{{placement_label}}</h4>
     </span>
     <hr style="border:1px solid #eee;height: 1px;"/>
     <Row :gutter="50">
