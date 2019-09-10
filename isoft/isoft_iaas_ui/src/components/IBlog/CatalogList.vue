@@ -1,24 +1,34 @@
 <template>
-  <div style="margin-left: 10px;margin-top: 25px; padding: 20px;background: #fff;border-bottom: 1px solid #f4f4f4;">
-    <CatalogAdd v-if="showCatalogAdd" @handleSuccess="handleSuccess"/>
-    <Row>
-      <Col span="16">我的博客分类 <Icon type="md-add" @click="showCatalogAdd = !showCatalogAdd"/></Col>
-      <Col span="8">创建时间</Col>
-    </Row>
-    <Row v-for="(catalog,index) in catalogs">
-      <Col span="16">{{ catalog.catalog_name | filterLimitFunc }}</Col>
-      <Col span="8" style="font-size: 12px;"><Time :time="catalog.created_time" type="date"/></Col>
-    </Row>
-  </div>
+  <IBeautifulCard title="我的博客分类">
+    <div slot="content" style="padding: 10px;">
+      <span v-if="hasLogin">
+        <CatalogAdd v-if="showCatalogAdd" @handleSuccess="handleSuccess"/>
+        <Row>
+          <Col span="16">我的博客分类 <Icon type="md-add" @click="showCatalogAdd = !showCatalogAdd"/></Col>
+          <Col span="8">创建时间</Col>
+        </Row>
+        <Row v-for="(catalog,index) in catalogs">
+          <Col span="16">{{ catalog.catalog_name | filterLimitFunc }}</Col>
+          <Col span="8" style="font-size: 12px;"><Time :time="catalog.created_time" type="date"/></Col>
+        </Row>
+      </span>
+      <span v-else>
+        <ForwardLogin/>
+      </span>
+    </div>
+  </IBeautifulCard>
 </template>
 
 <script>
   import {GetMyCatalogs} from "../../api"
   import CatalogAdd from "./CatalogAdd"
+  import {CheckHasLogin} from "../../tools"
+  import IBeautifulCard from "../../components/Common/card/IBeautifulCard"
+  import ForwardLogin from "../SSO/ForwardLogin"
 
   export default {
     name: "CatalogList",
-    components:{CatalogAdd},
+    components:{ForwardLogin, IBeautifulCard, CatalogAdd},
     data(){
       return {
         showCatalogAdd:false,
@@ -38,7 +48,9 @@
       },
     },
     mounted(){
-      this.refreshMyCatalogList();
+      if(CheckHasLogin()){
+        this.refreshMyCatalogList();
+      }
     },
     filters:{
       // 内容超长则显示部分
@@ -48,6 +60,11 @@
         }
         return value;
       },
+    },
+    computed:{
+      hasLogin:function () {
+        return CheckHasLogin();
+      }
     }
   }
 </script>

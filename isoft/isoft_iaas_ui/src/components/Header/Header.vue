@@ -43,8 +43,7 @@
 </template>
 
 <script>
-  import {getCookie} from '../../tools/index'
-  import {delCookie} from '../../tools/index'
+  import {getCookie,delCookie} from '../../tools/index'
   import {LoginAddr} from "../../api"
 
   export default {
