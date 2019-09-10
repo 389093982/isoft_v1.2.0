@@ -33,6 +33,7 @@
               </Col>
               <Col span="12">
                 <a style="color: #499ef3;font-weight: bold;" @click="chooseItem(searchblog.catalog_name)">所属分类：{{ searchblog.catalog_name }}</a>
+                <IBeautifulLink2 style="float: right;" v-if="isAdmin">删除</IBeautifulLink2>
               </Col>
             </Row>
             <p style="margin-bottom: 4px;font-size: 14px;color: #8a8a8a;line-height: 24px;">
@@ -56,7 +57,7 @@
                     <span style="color: red;">0</span>条评论
                   </router-link>
                 </Col>
-                <Col span="3">
+                <Col span="34">
                   <router-link :to="{path:'/iblog/mine/blog_edit'}">我也要发布</router-link>
                 </Col>
               </Row>
@@ -84,10 +85,11 @@
   import CatalogList from "./CatalogList"
   import HotUser from "../User/HotUser"
   import HorizontalLinks from "../Elementviewers/HorizontalLinks";
+  import IBeautifulLink2 from "../Common/link/IBeautifulLink2";
 
   export default {
     name: "BlogList",
-    components:{HorizontalLinks, CatalogList,HotCatalogItems,HotUser},
+    components:{IBeautifulLink2, HorizontalLinks, CatalogList,HotCatalogItems,HotUser},
     data(){
       return {
         // 当前页
@@ -139,6 +141,11 @@
         }
         return value;
       },
+    },
+    computed:{
+      isAdmin:function () {
+        return true;
+      }
     }
   }
 </script>
