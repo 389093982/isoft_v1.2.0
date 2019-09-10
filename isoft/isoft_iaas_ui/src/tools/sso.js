@@ -2,6 +2,12 @@ import {getCookie} from "./index"
 import {checkContainsInString} from "./index"
 import {checkEmpty} from "./index"
 
+const _checkAdminLogin = function () {
+  let adminLogin = getCookie("adminLogin");
+  return adminLogin == "adminLogin";
+
+}
+
 const _checkHasLogin = function(){
   let userName = getCookie("userName");
   var isLogin = getCookie("isLogin");
@@ -39,5 +45,6 @@ const _checkNotLogin = function (){
 export const checkSSOLogin = (to, from, next) => _checkSSOLogin(to, from, next);
 export const checkNotLogin = () => _checkNotLogin();
 export const checkHasLogin = () => _checkHasLogin();
+export const checkAdminLogin = () => _checkAdminLogin();
 export const getLoginUserName = () => _getLoginUserName();
 

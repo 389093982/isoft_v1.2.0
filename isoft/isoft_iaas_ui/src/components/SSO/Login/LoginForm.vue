@@ -46,6 +46,7 @@
           setCookie("tokenString",result.tokenString,365,result.domain);
           setCookie("userName",username,365,result.domain);
           setCookie("isLogin","isLogin",365,result.domain);
+          setCookie("adminLogin",result.adminLogin,365,result.domain);
           if(result.adminLogin == "adminLogin"){
             this.$router.push({ path: '/sso/loginRecord'});
           }else{

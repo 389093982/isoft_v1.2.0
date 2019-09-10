@@ -86,6 +86,7 @@
   import HotUser from "../User/HotUser"
   import HorizontalLinks from "../Elementviewers/HorizontalLinks";
   import IBeautifulLink2 from "../Common/link/IBeautifulLink2";
+  import {CheckAdminLogin} from "../../tools"
 
   export default {
     name: "BlogList",
@@ -144,7 +145,7 @@
     },
     computed:{
       isAdmin:function () {
-        return true;
+        return CheckAdminLogin();
       }
     }
   }
