@@ -74,8 +74,9 @@
             <TopNShare/>
             <Divider />
           </Row>
+
           <HotUser/>
-          <Divider />
+
           <CatalogList/>
         </Col>
     </Row>
