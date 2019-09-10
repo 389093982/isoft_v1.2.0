@@ -45,7 +45,6 @@
           <Row>
             <Col span="8"><h4 style="color: #333;font-weight: 500;">热门分享</h4></Col>
             <Col span="4" offset="12"><a href="javascript:;">更多></a></Col>
-            <TopNShare/>
             <Divider />
           </Row>
           <HotUser/>
@@ -59,12 +58,11 @@
 <script>
   import {FilterShareList} from "../../api"
   import HotCatalogItems from "./HotCatalogItems"
-  import TopNShare from "./TopNShare"
   import HotUser from "../User/HotUser"
 
   export default {
     name: "ShareList",
-    components:{HotCatalogItems,TopNShare,HotUser},
+    components:{HotCatalogItems,HotUser},
     data(){
       return {
         shares:[],
