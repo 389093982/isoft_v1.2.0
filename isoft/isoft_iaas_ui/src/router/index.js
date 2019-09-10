@@ -26,9 +26,6 @@ const CourseDetail = () => import("@/components/ILearning/Course/CourseDetail");
 const VideoPay = () => import("@/components/ILearning/Course/VideoPay");
 const Configuration = () => import("@/components/Background/CMS/Configuration");
 const CourseSearch = () => import("@/components/ILearning/Course/CourseSearch");
-const ShareAdd = () => import("@/components/Share/ShareAdd");
-const ShareList = () => import("@/components/Share/ShareList");
-const ShareDetail = () => import("@/components/Share/ShareDetail");
 const CommonLinkList = () => import("@/components/Background/CMS/CommonLinkList");
 const ILayout = () => import("@/components/ILayout/ILayout");
 
@@ -53,16 +50,6 @@ const IBlogRouter = {
     {path: 'blog_list',component: BlogList},
     {path: 'blog_detail',component: BlogDetail},
     {path: 'mine/blog_edit',component: BlogEdit},
-  ]
-};
-
-const ShareListRouter = {
-  path: '/share',
-  component: ILayout,
-  children: [
-    {path: 'add',component: ShareAdd,},
-    {path: 'list',component: ShareList,},
-    {path: 'detail',component: ShareDetail,},
   ]
 };
 
@@ -103,7 +90,7 @@ const ILearningRouter = {
   ]
 };
 
-const ILearningRouters = [IBlogRouter, ILearningRouter, ShareListRouter];
+const ILearningRouters = [IBlogRouter, ILearningRouter];
 
 const ISSOReouter = [{
   path: '/sso',

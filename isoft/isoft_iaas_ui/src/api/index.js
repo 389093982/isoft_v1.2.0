@@ -102,15 +102,6 @@ export const CopyPlacement = (id) => ajax(BASE_URL+'/iwork/httpservice/CopyPlace
 export const FilterElementByPlacement = (placement) => ajax(BASE_URL+'/iwork/httpservice/FilterElementByPlacement2',{placement},'GET');
 export const QueryElementById = (id) => ajax(BASE_URL+'/iwork/httpservice/QueryElementById',{id},'GET');
 
-// 根据 blog_id 查询 blog 详细信息
-export const ShowShareDetail = (share_id) => ajax(BASE_URL+'/iwork/httpservice/ShowShareDetail2',{share_id},'GET');
-
-// 获取ShareList 信息
-export const FilterShareList = (offset,current_page,search_type) => ajax(BASE_URL+'/iwork/httpservice/FilterShareList2',{offset,current_page,search_type},'GET');
-
-// 新增共享链接
-export const AddNewShare = (share_type,share_desc,link_href,content) => ajax(BASE_URL+'/iwork/httpservice/AddNewShare2',{share_type,share_desc,link_href,content},'POST');
-
 // 登录接口
 export const Login = (username,passwd,redirectUrl) => ajax(BASE_URL+"/iwork/httpservice/PostLogin2", {username,passwd,redirectUrl},'POST');
 
