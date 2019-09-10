@@ -68,7 +68,6 @@
               @on-change="handleChange" @on-page-size-change="handlePageSizeChange"/>
       </Col>
         <Col span="8" style="padding: 10px;">
-          <HotBlog/>
           <HotUser/>
           <CatalogList/>
         </Col>
@@ -82,11 +81,10 @@
   import {BlogList} from "../../api"
   import CatalogList from "./CatalogList"
   import HotUser from "../User/HotUser"
-  import HotBlog from "./HotBlog";
 
   export default {
     name: "BlogList",
-    components:{HotBlog, CatalogList,HotCatalogItems,HotUser},
+    components:{CatalogList,HotCatalogItems,HotUser},
     data(){
       return {
         // 当前页
@@ -94,7 +92,7 @@
         // 总数
         total:0,
         // 每页记录数
-        offset:10,
+        offset:20,
         searchblogs:[],
         search_type:'_all',
       }

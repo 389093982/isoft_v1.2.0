@@ -1,8 +1,6 @@
 <template>
   <IBeautifulCard title="用户排行榜">
     <div slot="content" style="padding: 10px;">
-      <a>热门用户</a>
-      <a>积分排行榜</a>
       <Row v-for="user in users">
         <Col span="4">
           <img width="30" height="30" v-if="user.small_icon" :src="user.small_icon">
