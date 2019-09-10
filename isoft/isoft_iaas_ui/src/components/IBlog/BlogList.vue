@@ -73,6 +73,8 @@
         </Col>
     </Row>
    </div>
+
+   <HorizontalLinks :placement_name="GLOBAL.want_to_find" style="margin: 20px;"/>
  </div>
 </template>
 
@@ -81,10 +83,11 @@
   import {BlogList} from "../../api"
   import CatalogList from "./CatalogList"
   import HotUser from "../User/HotUser"
+  import HorizontalLinks from "../Elementviewers/HorizontalLinks";
 
   export default {
     name: "BlogList",
-    components:{CatalogList,HotCatalogItems,HotUser},
+    components:{HorizontalLinks, CatalogList,HotCatalogItems,HotUser},
     data(){
       return {
         // 当前页

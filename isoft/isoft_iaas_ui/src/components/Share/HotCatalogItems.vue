@@ -36,7 +36,7 @@
     components: {ElementsLoader},
     data(){
       return {
-        placement_name:this.GLOBAL.element_host_share_type_carousel,
+        placement_name:this.GLOBAL.element_host_recommend_blog_tpyes,
         // 热门分享类型
         elements: [],
         // 当前页

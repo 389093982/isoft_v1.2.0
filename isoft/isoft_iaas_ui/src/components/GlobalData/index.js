@@ -1,4 +1,4 @@
-const element_host_share_type_carousel = "element_host_share_type_carousel";
+const element_host_recommend_blog_tpyes = "element_host_recommend_blog_tpyes";
 const element_host_course_type_carousel = "element_host_course_type_carousel";
 const element_host_toolbox_list = "element_host_toolbox_list";
 const element_host_toolbox_list2 = "element_host_toolbox_list2";
@@ -12,7 +12,7 @@ const Index_news_list = "Index_news_list";
 const md_demo123 = "md_demo123";
 
 export default {
-  element_host_share_type_carousel,
+  element_host_recommend_blog_tpyes,
   element_host_course_type_carousel,
   element_host_toolbox_list,
   element_host_toolbox_list2,

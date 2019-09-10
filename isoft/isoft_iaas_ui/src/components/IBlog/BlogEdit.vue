@@ -168,7 +168,7 @@
         }
       },
       refreshHotCatalogItems: async function () {
-        const result = await FilterElementByPlacement(this.GLOBAL.element_host_share_type_carousel);
+        const result = await FilterElementByPlacement(this.GLOBAL.element_host_recommend_blog_tpyes);
         if(result.status == "SUCCESS"){
           this.hotCatalogItems = result.elements;
         }
