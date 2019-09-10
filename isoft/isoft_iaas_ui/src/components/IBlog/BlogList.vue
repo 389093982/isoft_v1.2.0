@@ -67,9 +67,17 @@
         <Page :total="total" :page-size="offset" show-total show-sizer :styles="{'text-align': 'center','margin-top': '10px'}"
               @on-change="handleChange" @on-page-size-change="handlePageSizeChange"/>
       </Col>
-      <Col span="8">
-        <CatalogList/>
-      </Col>
+        <Col span="8" style="padding: 20px;">
+          <Row>
+            <Col span="8"><h4 style="color: #333;font-weight: 500;">热门分享</h4></Col>
+            <Col span="4" offset="12"><a href="javascript:;">更多></a></Col>
+            <TopNShare/>
+            <Divider />
+          </Row>
+          <HotUser/>
+          <Divider />
+          <CatalogList/>
+        </Col>
     </Row>
    </div>
  </div>
@@ -79,10 +87,12 @@
   import HotCatalogItems from "../Share/HotCatalogItems"
   import {BlogList} from "../../api"
   import CatalogList from "./CatalogList"
+  import TopNShare from "../Share/TopNShare"
+  import HotUser from "../User/HotUser"
 
   export default {
     name: "BlogList",
-    components:{CatalogList,HotCatalogItems},
+    components:{CatalogList,HotCatalogItems,TopNShare,HotUser},
     data(){
       return {
         // 当前页

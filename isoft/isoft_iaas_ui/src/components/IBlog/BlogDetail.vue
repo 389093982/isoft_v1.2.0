@@ -9,7 +9,7 @@
           作者:{{blog.author}}
         </Col>
         <Col span="3">阅读次数 {{blog.views}}</Col>
-        <Col span="3">编辑次数 0
+        <Col span="3">编辑次数 {{blog.edits}}
           <Button type="success" size="small" v-if="editable"
             @click="$router.push({ path: '/iblog/mine/blog_edit', query: { blog_id: blog.id }})">编辑</Button>
         </Col>

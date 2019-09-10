@@ -30,11 +30,11 @@
               <FormItem label="文章分类" prop="catalog_name">
                 <Select v-model="formValidate.catalog_name" filterable>
                   <!-- 热门分类 -->
-                  <Option v-for="hotCatalogItem in hotCatalogItems" :value="hotCatalogItem.title"
-                          :key="'__default__' + hotCatalogItem.title">热门分类： {{ hotCatalogItem.title }}</Option>
+                  <Option v-for="(hotCatalogItem,index) in hotCatalogItems" :value="hotCatalogItem.title"
+                          :key="'__hot__' + index + hotCatalogItem.title">热门分类： {{ hotCatalogItem.title }}</Option>
                   <!-- 我的分类 -->
-                  <Option v-for="mycatalog in mycatalogs" :value="mycatalog.catalog_name"
-                          :key="mycatalog.catalog_name">我的分类：{{ mycatalog.catalog_name }}</Option>
+                  <Option v-for="(mycatalog, index) in mycatalogs" :value="mycatalog.catalog_name"
+                          :key="'__mine__' + index + mycatalog.catalog_name">我的分类：{{ mycatalog.catalog_name }}</Option>
                 </Select>
               </FormItem>
             </Col>
@@ -42,6 +42,9 @@
           <FormItem label="文章内容" prop="content">
               <mavon-editor ref="md" v-model="formValidate.content" @imgAdd="$imgAdd"
                           :toolbars="toolbars" :ishljs = "true" style="z-index: 1;"/>
+          </FormItem>
+          <FormItem label="分享链接" prop="link_href">
+            <Input v-model="formValidate.link_href" placeholder="请输入分享链接"></Input>
           </FormItem>
           <FormItem>
             <Button type="primary" @click="handleSubmit('formValidate')">Submit</Button>
@@ -93,6 +96,7 @@
           key_words: '',
           catalog_name: '',
           content:"",
+          link_href:"",
         },
         ruleValidate: {
           blog_title: [
@@ -135,7 +139,7 @@
         this.$refs[name].validate(async (valid) => {
           if (valid) {
             const result = await BlogEdit(_this.formValidate.blog_id,_this.formValidate.blog_title,_this.formValidate.short_desc,
-              _this.formValidate.key_words, _this.formValidate.catalog_name, _this.formValidate.content);
+              _this.formValidate.key_words, _this.formValidate.catalog_name, _this.formValidate.content,_this.formValidate.link_href);
             if(result.status == "SUCCESS"){
               _this.$Message.success('提交成功!');
               this.$router.push({ path: '/iblog/blog_list'});
@@ -160,6 +164,7 @@
           this.formValidate.key_words = result.blog.key_words;
           this.formValidate.catalog_name = result.blog.catalog_name;
           this.formValidate.content = result.blog.content;
+          this.formValidate.link_href = result.blog.link_href;
         }
       },
       refreshHotCatalogItems: async function () {
