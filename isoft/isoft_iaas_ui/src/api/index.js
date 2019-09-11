@@ -22,6 +22,9 @@ export const BlogEdit = (blog_id, blog_title, short_desc, key_words, catalog_nam
 // 热门博客分页列表
 export const BlogList = (offset,current_page, search_type) => ajax(BASE_URL+'/iwork/httpservice/BlogList2',{offset,current_page, search_type},'GET');
 
+// 更新博客状态
+export const UpdateBlogStatus = (blog_status, blog_id) => ajax(BASE_URL+'/iwork/httpservice/UpdateBlogStatus',{blog_status, blog_id},'GET');
+
 // 根据 blog_id 查询 blog 详细信息
 export const ShowBlogDetail = (blog_id) => ajax(BASE_URL+'/iwork/httpservice/ShowBlogDetail2',{blog_id},'GET');
 

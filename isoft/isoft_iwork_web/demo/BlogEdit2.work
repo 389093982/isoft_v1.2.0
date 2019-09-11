@@ -128,7 +128,7 @@
 	</paramOutputSchemaItem>
 </paramOutputSchema>]]></work_step_output_xml>
 		<IsDefer>false</IsDefer>
-		<WorkStepParamMapping>[{&#34;paramMappingName&#34;:&#34;blog_id&#34;,&#34;paramMappingDefault&#34;:&#34;-1&#34;},{&#34;paramMappingName&#34;:&#34;blog_title&#34;,&#34;paramMappingDefault&#34;:&#34;&#34;},{&#34;paramMappingName&#34;:&#34;short_desc&#34;,&#34;paramMappingDefault&#34;:&#34;&#34;},{&#34;paramMappingName&#34;:&#34;key_words&#34;,&#34;paramMappingDefault&#34;:&#34;&#34;},{&#34;paramMappingName&#34;:&#34;catalog_name&#34;,&#34;paramMappingDefault&#34;:&#34;&#34;},{&#34;paramMappingName&#34;:&#34;blog_status&#34;,&#34;paramMappingDefault&#34;:&#34;-1&#34;},{&#34;paramMappingName&#34;:&#34;content&#34;,&#34;paramMappingDefault&#34;:&#34;&#34;},{&#34;paramMappingName&#34;:&#34;link_href&#34;}]</WorkStepParamMapping>
+		<WorkStepParamMapping>[{&#34;paramMappingName&#34;:&#34;blog_id&#34;,&#34;paramMappingDefault&#34;:&#34;-1&#34;},{&#34;paramMappingName&#34;:&#34;blog_title&#34;,&#34;paramMappingDefault&#34;:&#34;&#34;},{&#34;paramMappingName&#34;:&#34;short_desc&#34;,&#34;paramMappingDefault&#34;:&#34;&#34;},{&#34;paramMappingName&#34;:&#34;key_words&#34;,&#34;paramMappingDefault&#34;:&#34;&#34;},{&#34;paramMappingName&#34;:&#34;catalog_name&#34;,&#34;paramMappingDefault&#34;:&#34;&#34;},{&#34;paramMappingName&#34;:&#34;blog_status&#34;,&#34;paramMappingDefault&#34;:&#34;1&#34;},{&#34;paramMappingName&#34;:&#34;content&#34;,&#34;paramMappingDefault&#34;:&#34;&#34;},{&#34;paramMappingName&#34;:&#34;link_href&#34;,&#34;paramMappingDefault&#34;:&#34;&#34;}]</WorkStepParamMapping>
 		<work_step_param_mapping_xml><![CDATA[<ParamMapping>
 	<ParamMappingName></ParamMappingName>
 	<ParamMappingDefault></ParamMappingDefault>
