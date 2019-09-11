@@ -47,6 +47,8 @@
           setCookie("userName",username,365,result.domain);
           setCookie("isLogin","isLogin",365,result.domain);
           setCookie("adminLogin",result.adminLogin,365,result.domain);
+          let expireSecond = new Date().getTime() + result.expireSecond * 1000;     // 时间戳
+          setCookie("expireSecond",expireSecond,365,result.domain);
           if(result.adminLogin == "adminLogin"){
             this.$router.push({ path: '/sso/loginRecord'});
           }else{

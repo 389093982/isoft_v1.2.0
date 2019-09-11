@@ -12,6 +12,10 @@ const _checkHasLogin = function(){
   let userName = getCookie("userName");
   var isLogin = getCookie("isLogin");
   var token = getCookie("tokenString");
+  var expireSecond = getCookie("expireSecond");
+  if(expireSecond == null || new Date().getTime() > expireSecond){    // 判断是否过期
+    return false;
+  }
   return !checkEmpty(userName) && !checkEmpty(isLogin) && !checkEmpty(token) && isLogin == "isLogin";
 };
 
