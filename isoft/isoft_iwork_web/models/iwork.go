@@ -76,7 +76,7 @@ func QueryWork(condArr map[string]string, page int, offset int, o orm.Ormer) (wo
 	var cond = orm.NewCondition()
 	if search, ok := condArr["search"]; ok && strings.TrimSpace(search) != "" {
 		subCond := orm.NewCondition()
-		subCond = cond.And("work_name__icontains", search).Or("module_name", search)
+		subCond = cond.And("work_name__icontains", search).Or("module_name", search).Or("work_type", search)
 		cond = cond.AndCond(subCond)
 	}
 	qs = qs.SetCond(cond)

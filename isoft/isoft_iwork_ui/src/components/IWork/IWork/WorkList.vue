@@ -37,6 +37,10 @@
       <ISimpleSearch slot="right" @handleSimpleSearch="handleSearch"/>
     </ISimpleLeftRightRow>
 
+    所有类型：
+    <Button size="small" :type="search_work_type == 'work' ? 'success' : 'default'" @click="filterWorkTypes('work')">work</Button>
+    <Button size="small" :type="search_work_type == 'filter' ? 'success' : 'default'" @click="filterWorkTypes('filter')">filter</Button>
+    <br/>
     所有模块：
     <span v-for="module in modules">
       <Tag><a @click="filterModuleWork(module.module_name)">{{module.module_name}}</a></Tag>
@@ -63,6 +67,7 @@
     components:{ISimpleLeftRightRow,ISimpleSearch,IWorkDL,WorkValidate,ISimpleConfirmModal,IKeyValueForm},
     data(){
       return {
+        search_work_type:"work",
         // 当前页
         current_page:1,
         // 总数
@@ -223,6 +228,11 @@
       closePoptip (module_name) {
         this.current_module_name=module_name;
         this.visible = false;
+      },
+      filterWorkTypes:function(work_type){
+        this.search_work_type = work_type;
+        this.search = this.search_work_type;
+        this.refreshWorkList();
       },
       filterModuleWork:function(module_name){
         this.search = module_name;
