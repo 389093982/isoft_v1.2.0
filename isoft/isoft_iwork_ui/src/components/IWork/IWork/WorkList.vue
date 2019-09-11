@@ -116,9 +116,15 @@
             }
           },
           {
+            title: 'work_desc',
+            key: 'work_desc',
+            width: 400,
+          },
+          {
             title: '操作',
             key: 'operate',
             width: 400,
+            fixed: 'right',
             render: (h, params) => {
               return h('div', [
                 h('Button', {
@@ -209,11 +215,6 @@
                 }, '运行日志'),
               ]);
             }
-          },
-          {
-            title: 'work_desc',
-            key: 'work_desc',
-            width: 400,
           },
         ],
       }
