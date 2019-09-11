@@ -5,8 +5,8 @@
 
     <h4 v-if="$route.query.work_name" style="text-align: center;margin-bottom: 10px;">当前流程为：{{$route.query.work_name}}</h4>
 
-    <Row type="flex" justify="start" class="code-row-bg" style="margin-bottom: 20px;">
-      <Col span="2"><Button type="success" size="small" @click="$router.push({ path:'/iwork/workList'})" style="margin-right: 5px;">返回列表</Button></Col>
+    <Button type="success" size="small" @click="$router.push({ path:'/iwork/workList'})">返回列表</Button>
+    <Row type="flex" justify="start" class="code-row-bg" style="margin-top: 10px;margin-bottom: 10px;">
       <Col span="2"><Button type="error" size="small" @click="$refs.workStepComponent.toggleShow()" style="margin-right: 5px;">显示组件</Button></Col>
       <Col span="2"><Button type="warning" size="small" @click="showRefactorModal">重构流程</Button></Col>
       <Col span="2"><Button type="info" size="small" @click="batchChangeIndent('left', null)">向左缩进</Button></Col>
