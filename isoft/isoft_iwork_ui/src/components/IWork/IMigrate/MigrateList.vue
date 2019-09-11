@@ -123,11 +123,14 @@
         this.refreshMigrateList();
       },
       editMigrate:function (id) {
+        var routeData;
         if(id != undefined && id != null){
-          this.$router.push({ path: '/iwork/editMigrate', query: {id: id}});
+          routeData = this.$router.resolve({ path: '/iwork/editMigrate', query: {id: id}});
         }else{
-          this.$router.push({ path: '/iwork/editMigrate'});
+          routeData = this.$router.resolve({ path: '/iwork/editMigrate'});
         }
+        // 打开新窗口跳转
+        window.open(routeData.href, '_blank');
       },
       executeMigrate: async function (forceClean) {
         const result = await ExecuteMigrate(this.currentResourceName, forceClean);
