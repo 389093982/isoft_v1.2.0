@@ -16,7 +16,17 @@
     </Row>
     <p v-for="log in logs" :style="{color: log.status ? 'grey' : 'red'}">{{log.tracking_detail}}</p>
 
-    <Table border :columns="columns1" :data="migrates" size="small"></Table>
+    <Tabs value="lst">
+      <TabPane label="列表" name="lst">
+        <Table border :columns="columns1" :data="migrates" size="small"></Table>
+      </TabPane>
+      <TabPane label="预览" name="views">
+        <div v-for="migrate in migrates" style="border-bottom: 1px solid green;padding: 10px;">
+          {{migrate.id}} ~~ {{migrate.migrate_sql}}
+        </div>
+      </TabPane>
+    </Tabs>
+
     <Page :total="total" :page-size="offset" show-total show-sizer :styles="{'text-align': 'center','margin-top': '10px'}"
           @on-change="handleChange" @on-page-size-change="handlePageSizeChange"/>
   </div>
