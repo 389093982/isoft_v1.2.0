@@ -4,7 +4,7 @@
 		<WorkName>SsoFilter</WorkName>
 		<WorkDesc>登录过滤器</WorkDesc>
 		<WorkType>filter</WorkType>
-		<ModuleName></ModuleName>
+		<ModuleName>SSO</ModuleName>
 		<CreatedBy>SYSTEM</CreatedBy>
 		<LastUpdatedBy>SYSTEM</LastUpdatedBy>
 	</work>
