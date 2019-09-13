@@ -157,9 +157,16 @@ func (this *WorkController) DeleteOrCopyWorkById() {
 	operate := this.GetString("operate")
 	work, _ := models.QueryWorkById(id, orm.NewOrm())
 	if operate == "copy" {
+		o := orm.NewOrm()
+		steps, _ := models.QueryAllWorkStepByWorkName(work.WorkName, o)
 		work.Id = 0
 		work.WorkName = work.WorkName + "_copy"
-		_, err = models.InsertOrUpdateWork(&work, orm.NewOrm())
+		id, err = models.InsertOrUpdateWork(&work, o)
+		for index, _ := range steps {
+			steps[index].Id = 0
+			steps[index].WorkId = id
+		}
+		_, err = o.InsertMulti(len(steps), steps)
 	} else {
 		serviceArgs := map[string]interface{}{"id": id}
 		if err = service.ExecuteWithTx(serviceArgs, service.DeleteWorkByIdService); err == nil {
