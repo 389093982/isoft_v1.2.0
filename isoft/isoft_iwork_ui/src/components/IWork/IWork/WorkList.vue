@@ -319,6 +319,7 @@
     },
     mounted: function () {
       this.refreshWorkList();
+
       this.refreshAllModules();
     },
   }
