@@ -53,7 +53,7 @@
 </template>
 
 <script>
-  import {WorkList,DeleteWorkById,RunWork,EditWork,GetAllModules} from "../../../api"
+  import {WorkList,DeleteOrCopyWorkById,RunWork,EditWork,GetAllModules} from "../../../api"
   import ISimpleLeftRightRow from "../../Common/layout/ISimpleLeftRightRow"
   import ISimpleSearch from "../../Common/search/ISimpleSearch"
   import IWorkDL from "../IWorkDL"
@@ -128,7 +128,7 @@
           {
             title: '操作',
             key: 'operate',
-            width: 400,
+            width: 450,
             fixed: 'right',
             render: (h, params) => {
               return h('div', [
@@ -150,6 +150,20 @@
                 }, '编辑'),
                 h('Button', {
                   props: {
+                    type: 'info',
+                    size: 'small'
+                  },
+                  style: {
+                    marginRight: '5px',
+                  },
+                  on: {
+                    click: () => {
+                      this.deleteOrCopyWorkById('copy', this.works[params.index]['id']);
+                    }
+                  }
+                }, '复制'),
+                h('Button', {
+                  props: {
                     type: 'error',
                     size: 'small'
                   },
@@ -158,7 +172,7 @@
                   },
                   on: {
                     click: () => {
-                      this.deleteWorkById(this.works[params.index]['id']);
+                      this.deleteOrCopyWorkById('delete', this.works[params.index]['id']);
                     }
                   }
                 }, '删除'),
@@ -263,8 +277,8 @@
       download:function(id){
         window.location.href = "/api/iwork/download/" + id;
       },
-      deleteWorkById:async function(id){
-        const result = await DeleteWorkById(id);
+      deleteOrCopyWorkById:async function(operate, id){
+        const result = await DeleteOrCopyWorkById(operate, id);
         if(result.status=="SUCCESS"){
           this.refreshWorkList();
         }

@@ -150,17 +150,27 @@ func (this *WorkController) FilterPageWork() {
 	this.ServeJSON()
 }
 
-func (this *WorkController) DeleteWorkById() {
+func (this *WorkController) DeleteOrCopyWorkById() {
+	defer this.ServeJSON()
+	var err error
 	id, _ := this.GetInt64("id")
+	operate := this.GetString("operate")
 	work, _ := models.QueryWorkById(id, orm.NewOrm())
-	serviceArgs := map[string]interface{}{"id": id}
-	if err := service.ExecuteWithTx(serviceArgs, service.DeleteWorkByIdService); err == nil {
-		flushOneWorkCache(id, work.WorkName)
+	if operate == "copy" {
+		work.Id = 0
+		work.WorkName = work.WorkName + "_copy"
+		_, err = models.InsertOrUpdateWork(&work, orm.NewOrm())
+	} else {
+		serviceArgs := map[string]interface{}{"id": id}
+		if err = service.ExecuteWithTx(serviceArgs, service.DeleteWorkByIdService); err == nil {
+			flushOneWorkCache(id, work.WorkName)
+		}
+	}
+	if err == nil {
 		this.Data["json"] = &map[string]interface{}{"status": "SUCCESS"}
 	} else {
-		this.Data["json"] = &map[string]interface{}{"status": "ERROR"}
+		this.Data["json"] = &map[string]interface{}{"status": "ERROR", "errorMsg": err.Error()}
 	}
-	this.ServeJSON()
 }
 
 func flushOneWorkCache(work_id int64, work_name string) {

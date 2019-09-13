@@ -36,7 +36,7 @@ export const WorkList = (offset,current_page,search) => ajax(BASE_URL+"/iwork/fi
 export const EditWork = (work_id, work_name, work_desc, work_type, module_name) => ajax(BASE_URL+"/iwork/editWork", {work_id, work_name, work_desc, work_type, module_name},'POST');
 
 // 删除 work 记录
-export const DeleteWorkById = (id) => ajax(BASE_URL+"/iwork/deleteWorkById", {id},'POST');
+export const DeleteOrCopyWorkById = (operate,id) => ajax(BASE_URL+"/iwork/deleteOrCopyWorkById", {operate,id},'POST');
 
 // workstep 分页查询
 export const WorkStepList = (work_id) => ajax(BASE_URL+"/iwork/workStepList", {work_id},'POST');
