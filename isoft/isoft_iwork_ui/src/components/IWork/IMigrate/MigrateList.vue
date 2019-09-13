@@ -22,7 +22,7 @@
       </TabPane>
       <TabPane label="预览" name="views">
         <div v-for="migrate in migrates" style="border-bottom: 1px solid green;padding: 10px;">
-          {{migrate.id}} ~~ {{migrate.migrate_sql}}
+          {{migrate.id}} ~~ <span v-html="renderBr(migrate.migrate_sql)"></span>
         </div>
       </TabPane>
     </Tabs>
@@ -162,11 +162,14 @@
         }else{
           this.$Message.error("操作失败!");
         }
+      },
+      renderBr:function (str) {
+        return str.replace(/\n/g,"<br>");
       }
     },
     mounted(){
       this.refreshMigrateList();
-    }
+    },
   }
 </script>
 
