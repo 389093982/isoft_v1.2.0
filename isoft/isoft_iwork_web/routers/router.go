@@ -56,7 +56,6 @@ func loadloadIWorkerRouterDetail() {
 	beego.Router("/api/iwork/deleteEntity", &controllers.WorkController{}, "post:DeleteEntity")
 	beego.Router("/api/iwork/buildIWorkDL", &controllers.WorkController{}, "post:BuildIWorkDL")
 	beego.Router("/api/iwork/validateWork", &controllers.WorkController{}, "post:ValidateWork")
-	beego.Router("/api/iwork/loadValidateResult", &controllers.WorkController{}, "post:LoadValidateResult")
 	beego.Router("/api/iwork/refactorWorkStepInfo", &controllers.WorkController{}, "post:RefactorWorkStepInfo")
 	beego.Router("/api/iwork/batchChangeIndent", &controllers.WorkController{}, "post:BatchChangeIndent")
 	beego.Router("/api/iwork/parseToMultiValue", &controllers.WorkController{}, "post:ParseToMultiValue")

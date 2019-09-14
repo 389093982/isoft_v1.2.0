@@ -17,6 +17,7 @@ import (
 	"time"
 )
 
+// @router /api/iwork/loadValidateResult [post]
 func (this *WorkController) LoadValidateResult() {
 	serviceArgs := make(map[string]interface{}, 0)
 	work_id, _ := this.GetInt64("work_id", -1)
@@ -46,7 +47,7 @@ func validateWorks(workId int64) {
 	workMap := prepareValiateWorks(workId)
 	// 记录日志
 	recordValidateLogRecord(trackingId, workId)
-	logCh := make(chan *models.ValidateLogDetail, 10) // 指定容量
+	logCh := make(chan *models.ValidateLogDetail, 50) // 指定容量
 	go func() {
 		recordValidateLogDetails(logCh, trackingId, workMap) // 开协程保证读和写同时进行
 		completeFlag <- 1
