@@ -41,6 +41,7 @@
     },
     methods:{
       showBookEditModal:function () {
+        this.$refs.bookEditForm.handleReset('formValidate');
         this.$refs.bookEditModal.showModal();
       },
       deleteBook:function(){
