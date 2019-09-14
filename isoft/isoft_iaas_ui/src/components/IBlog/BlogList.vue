@@ -46,7 +46,7 @@
             </p>
             <p>
               <Row>
-                <Col span="17">
+                <Col span="14">
                   <!-- 作者详情 -->
                   <router-link :to="{path:'/iblog/author',query:{author:searchblog.author}}">{{searchblog.author}}</router-link>
                   发布于:<Time :time="searchblog.created_time" style="color:red;"/>&nbsp;
@@ -62,7 +62,10 @@
                     <span style="color: red;">0</span>条评论
                   </router-link>
                 </Col>
-                <Col span="34">
+                <Col span="3">
+                  <IBeautifulLink2>加入我的书单</IBeautifulLink2>
+                </Col>
+                <Col span="3">
                   <router-link :to="{path:'/iblog/mine/blog_edit'}">我也要发布</router-link>
                 </Col>
               </Row>
