@@ -6,7 +6,7 @@
 
         <IBeautifulCard v-if="book" title="图书目录">
           <span slot="header_right">
-            {{book.book_name}}
+            {{book.book_name | filterLimitFunc}}
           </span>
           <span slot="content">
             <p v-for="bookBlog in bookBlogs" style="margin-left: 15px;">
@@ -53,6 +53,15 @@
           this.bookBlogs = result.books;
         }
       }
+    },
+    filters:{
+      // 内容超长则显示部分
+      filterLimitFunc:function (value) {
+        if(value && value.length > 12) {
+          value= value.substring(0,12) + '...';
+        }
+        return value;
+      },
     }
   }
 </script>
