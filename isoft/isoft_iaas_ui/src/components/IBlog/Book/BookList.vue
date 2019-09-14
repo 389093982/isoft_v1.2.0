@@ -9,6 +9,7 @@
           <Col span="8" style="text-align: right;">
             <IBeautifulLink2 @onclick="showBookEditModal2(book)">编辑</IBeautifulLink2>
             <IBeautifulLink2 @onclick="showBookEditModal">新增</IBeautifulLink2>
+            <IBeautifulLink2 @onclick="deleteBook">删除</IBeautifulLink2>
           </Col>
         </Row>
       </span>
@@ -41,6 +42,9 @@
     methods:{
       showBookEditModal:function () {
         this.$refs.bookEditModal.showModal();
+      },
+      deleteBook:function(){
+        alert(111111111);
       },
       showBookEditModal2:function (book) {
         this.$refs.bookEditModal.showModal();
