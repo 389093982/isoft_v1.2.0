@@ -1,5 +1,7 @@
 <template>
  <div>
+   <Button size="small" type="success" @click="$router.push({path:'/iblog/mine/book_edit'})">我的图书管理</Button>
+
    <!-- 热门分类 -->
    <HotCatalogItems @chooseItem="chooseItem"/>
    <div style="margin: 0 15px;background-color: #fff;border: 1px solid #e6e6e6;border-radius: 4px;">
