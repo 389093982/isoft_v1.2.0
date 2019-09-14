@@ -63,7 +63,7 @@
                   </router-link>
                 </Col>
                 <Col span="3">
-                  <IBeautifulLink2>加入我的书单</IBeautifulLink2>
+                  <IBeautifulLink2 @onclick="$router.push({path:'/iblog/book_edit'})">加入我的书单</IBeautifulLink2>
                 </Col>
                 <Col span="3">
                   <router-link :to="{path:'/iblog/mine/blog_edit'}">我也要发布</router-link>
@@ -88,7 +88,7 @@
 </template>
 
 <script>
-  import HotCatalogItems from "../Share/HotCatalogItems"
+  import HotCatalogItems from "./HotCatalogItems"
   import {BlogList,UpdateBlogStatus} from "../../api"
   import CatalogList from "./CatalogList"
   import HotUser from "../User/HotUser"
