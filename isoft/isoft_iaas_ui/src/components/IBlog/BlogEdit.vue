@@ -1,13 +1,6 @@
 <template>
   <div style="padding: 30px;">
-    <Row>
-      <Col span="4">
-        <p>新建博客</p>
-        <p>新建分享</p>
-        <p>新建视频</p>
-      </Col>
-      <Col span="20">
-        <Form ref="formValidate" :model="formValidate" :rules="ruleValidate" :label-width="80">
+    <Form ref="formValidate" :model="formValidate" :rules="ruleValidate" :label-width="80">
           <Row>
             <Col span="12">
               <FormItem label="文章标题" prop="blog_title">
@@ -51,8 +44,6 @@
             <Button style="margin-left: 8px" @click="handleReset('formValidate')">Cancel</Button>
           </FormItem>
         </Form>
-      </Col>
-    </Row>
   </div>
 </template>
 
@@ -62,6 +53,16 @@
 
   export default {
     name: "BlogEdit",
+    props:{
+      successEmit:{
+        type:Boolean,
+        default:false,
+      },
+      bookId:{
+        type:Number,
+        default: -1,
+      }
+    },
     data () {
       return {
         toolbars: {
@@ -138,11 +139,17 @@
         var _this = this;
         this.$refs[name].validate(async (valid) => {
           if (valid) {
-            const result = await BlogEdit(_this.formValidate.blog_id,_this.formValidate.blog_title,_this.formValidate.short_desc,
-              _this.formValidate.key_words, _this.formValidate.catalog_name, _this.formValidate.content,_this.formValidate.link_href);
+            const result = await BlogEdit(_this.formValidate.blog_id, this.bookId,
+              _this.formValidate.blog_title,_this.formValidate.short_desc,
+              _this.formValidate.key_words, _this.formValidate.catalog_name,
+              _this.formValidate.content,_this.formValidate.link_href);
             if(result.status == "SUCCESS"){
               _this.$Message.success('提交成功!');
-              this.$router.push({ path: '/iblog/blog_list'});
+              if(this.successEmit){
+                this.$emit("successEmitFunc");
+              }else{
+                this.$router.push({ path: '/iblog/blog_list'});
+              }
             }else{
               _this.$Message.error('提交失败!');
             }
@@ -154,8 +161,9 @@
       handleReset (name) {
         this.$refs[name].resetFields();
       },
-      refreshBlogDetail:async function () {
-        const result = await ShowBlogDetail(this.$route.query.blog_id);
+      refreshBlogDetail:async function (blog_id) {
+        var blogId = blog_id > 0 ? blog_id : this.$route.query.blog_id;
+        const result = await ShowBlogDetail(blogId);
         if(result.status=="SUCCESS"){
           this.blog = result.blog;
           this.formValidate.blog_id = result.blog.id;
@@ -172,7 +180,7 @@
         if(result.status == "SUCCESS"){
           this.hotCatalogItems = result.elements;
         }
-      }
+      },
     },
     mounted:async function () {
       // 加载热门分类
