@@ -45,6 +45,7 @@ func (this *WorkController) EditWorkStepBaseInfo() {
 	this.ServeJSON()
 }
 
+// @router /api/iwork/workStepList [post]
 func (this *WorkController) WorkStepList() {
 	jsonMap := make(map[string]interface{})
 	work_id, _ := this.GetInt64("work_id")
