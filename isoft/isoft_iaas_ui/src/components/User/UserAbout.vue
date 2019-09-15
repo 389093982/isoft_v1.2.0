@@ -1,7 +1,8 @@
 <template>
   <div v-if="userName" style="border: 1px #dbdbdb solid;margin-left: 5px;margin-bottom: 5px;padding: 15px;">
-    <IBeautifulLink2><Avatar icon="ios-person" size="default"/>&nbsp;{{userName}}</IBeautifulLink2>&nbsp;&nbsp;
-    <IBeautifulLink2 style="font-size: 12px;">设置我的个人信息</IBeautifulLink2>
+    <IBeautifulLink2><Avatar :src="user_small_icon" icon="ios-person" size="default"/>&nbsp;{{userName}}</IBeautifulLink2>&nbsp;&nbsp;
+    <IBeautifulLink2 style="font-size: 12px;float: right;"
+      @onclick="$router.push({path:'/user/mine/detail',query:{username:'mine'}})">个人中心</IBeautifulLink2>
 
     <div style="margin-top: 5px;">
       <Tabs :animated="false">
@@ -37,7 +38,7 @@
 </template>
 
 <script>
-  import {GetMyCourseList} from "../../api"
+  import {GetMyCourseList,GetUserDetail} from "../../api"
   import IBeautifulLink2 from "../Common/link/IBeautifulLink2"
 
   export default {
@@ -53,11 +54,20 @@
       return {
         // 当前 userName 的课程列表
         courses:[],
+        // 当前 user 对应头像信息
+        user_small_icon:'',
       }
     },
     methods:{
       refreshUserInfo:function () {
         this.refreshCourseList();
+        this.refreshUserDetail();
+      },
+      refreshUserDetail:async function(){
+        const result = await GetUserDetail(this.userName);
+        if(result.status == "SUCCESS"){
+          this.user_small_icon = result.user.small_icon;
+        }
       },
       refreshCourseList:async function () {
         const result = await GetMyCourseList(this.userName);
