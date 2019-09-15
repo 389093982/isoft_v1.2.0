@@ -20,6 +20,7 @@ const BlogEdit = () => import("@/components/IBlog/BlogEdit");
 const BookEdit = () => import("@/components/IBlog/Book/BookEdit");
 const BookList2 = () => import("@/components/IBlog/Book/BookList2");
 const BookDetail = () => import("@/components/IBlog/Book/BookDetail");
+const UserDetail = () => import("@/components/User/UserDetail");
 const ILearningIndex = () => import("@/components/ILearning/Index");
 const CourseSpace = () => import("@/components/ILearning/CourseSpace/CourseSpace");
 const NewCourse = () => import("@/components/ILearning/CourseSpace/NewCourse");
@@ -123,8 +124,17 @@ const ICMSReouter = [{
   ]
 }];
 
+const IUserReouter = [{
+  path: '/user',
+  component: ILayout,
+  children: [
+    {path: 'detail',component: UserDetail},
+  ]
+}];
+
 function getAllRouters() {
   let allRouters = [];
+  allRouters = joinArray(allRouters, IUserReouter);
   allRouters = joinArray(allRouters, ILearningRouters);
   allRouters = joinArray(allRouters, ISSOReouter);
   allRouters = joinArray(allRouters, ICMSReouter);

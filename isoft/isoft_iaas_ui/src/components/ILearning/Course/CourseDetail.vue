@@ -43,7 +43,7 @@
       </Col>
 
       <Col span="8">
-        <UserDetail :userName="course.course_author"/>
+        <UserAbout :userName="course.course_author"/>
         <div style="border: 1px #dbdbdb solid;margin-left: 5px;margin-bottom: 5px;padding: 15px;">
           <HotUser/>
         </div>
@@ -62,13 +62,13 @@
   import IEasyComment from "../../Comment/IEasyComment"
   import CommunicationGroup from "../Site/CommunicationGroup"
   import HotRecommend from "./HotRecommend"
-  import UserDetail from "../../User/UserDetail"
+  import UserAbout from "../../User/UserAbout"
   import HotUser from "../../User/HotUser"
   import CourseMeta from "./CourseMeta";
 
   export default {
     name: "CourseDetail",
-    components:{CourseMeta, IEasyComment,Recommand,CommunicationGroup,HotRecommend,UserDetail,HotUser},
+    components:{CourseMeta, IEasyComment,Recommand,CommunicationGroup,HotRecommend,UserAbout,HotUser},
     data(){
       return {
         // 当前课程
