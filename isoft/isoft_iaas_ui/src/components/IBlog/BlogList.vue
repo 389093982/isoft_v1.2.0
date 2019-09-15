@@ -4,6 +4,7 @@
    <HotCatalogItems @chooseItem="chooseItem"/>
 
    <Row style="text-align: right;margin: 10px 15px 5px 0;">
+     <IBeautifulLink2 @onclick="$router.push({path:'/iblog/book_list'})">热门书单</IBeautifulLink2>
      <IBeautifulLink2 @onclick="$router.push({path:'/iblog/mine/book_edit'})">我的图书管理</IBeautifulLink2>
    </Row>
 

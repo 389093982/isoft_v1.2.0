@@ -18,6 +18,7 @@ const BlogList = () => import("@/components/IBlog/BlogList");
 const BlogDetail = () => import("@/components/IBlog/BlogDetail");
 const BlogEdit = () => import("@/components/IBlog/BlogEdit");
 const BookEdit = () => import("@/components/IBlog/Book/BookEdit");
+const BookList2 = () => import("@/components/IBlog/Book/BookList2");
 const ILearningIndex = () => import("@/components/ILearning/Index");
 const CourseSpace = () => import("@/components/ILearning/CourseSpace/CourseSpace");
 const NewCourse = () => import("@/components/ILearning/CourseSpace/NewCourse");
@@ -49,6 +50,7 @@ const IBlogRouter = {
   children: [
     {path: 'blog_index',component: IBlog},
     {path: 'blog_list',component: BlogList},
+    {path: 'book_list',component: BookList2},
     {path: 'blog_detail',component: BlogDetail},
     {path: 'mine/blog_edit',component: BlogEdit},
     {path: 'mine/book_edit',component: BookEdit},
