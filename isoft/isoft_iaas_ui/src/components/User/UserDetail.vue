@@ -37,7 +37,7 @@
 </template>
 
 <script>
-  import {GetUserDetail} from "../../api"
+  import {GetUserDetail,UpdateUserIcon} from "../../api"
   import HotUser from "./HotUser"
   import {GetLoginUserName} from "../../tools"
   import IFileUpload from "../Common/file/IFileUpload"
@@ -51,10 +51,14 @@
       }
     },
     methods:{
-      uploadComplete: function (result) {
-        if(result.status == "SUCCESS"){
-          // this.uploadFilePath = result.fileServerPath;
+      uploadComplete: async function (data) {
+        if(data.status == "SUCCESS"){
           this.$refs.fileUpload.hideModal();
+          let uploadFilePath = data.fileServerPath;
+          const result = await UpdateUserIcon(GetLoginUserName(), uploadFilePath);
+          if(result.status == "SUCCESS"){
+            this.refreshUserDetail();
+          }
         }
       },
       refreshUserDetail:async function () {

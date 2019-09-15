@@ -27,6 +27,7 @@ export const BookList = () => ajax(BASE_URL+'/iwork/httpservice/BookList',{},'PO
 export const BookBlogList = (book_id) => ajax(BASE_URL+'/iwork/httpservice/BookBlogList',{book_id},'POST');
 
 export const GetUserDetail = (userName) => ajax(BASE_URL+'/iwork/httpservice/GetUserDetail',{userName},'POST');
+export const UpdateUserIcon = (userName, small_icon) => ajax(BASE_URL+'/iwork/httpservice/UpdateUserIcon',{userName, small_icon},'POST');
 
 // 更新博客状态
 export const UpdateBlogStatus = (blog_status, blog_id) => ajax(BASE_URL+'/iwork/httpservice/UpdateBlogStatus',{blog_status, blog_id},'GET');
