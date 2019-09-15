@@ -26,7 +26,7 @@
     <div>
       <Row>
         <Col span="16">
-          AAAAA
+          <UserAbout :user-name="$route.query.username"/>
         </Col>
         <Col span="8">
           <HotUser/>
@@ -41,10 +41,11 @@
   import HotUser from "./HotUser"
   import {GetLoginUserName} from "../../tools"
   import IFileUpload from "../Common/file/IFileUpload"
+  import UserAbout from "./UserAbout";
 
   export default {
     name: "UserDetail",
-    components: {HotUser,IFileUpload},
+    components: {UserAbout, HotUser,IFileUpload},
     data(){
       return {
         user:null,
