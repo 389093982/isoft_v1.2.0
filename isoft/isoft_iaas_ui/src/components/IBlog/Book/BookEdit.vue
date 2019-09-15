@@ -5,13 +5,17 @@
         <BookList @chooseBook="chooseBook"/>
 
         <IBeautifulCard v-if="book" title="图书目录">
-          <span slot="header_right">
-            {{book.book_name | filterLimitFunc}}
-          </span>
           <div slot="content" style="padding:10px;">
-            <p v-for="bookBlog in bookBlogs" style="margin-left: 15px;">
-              <IBeautifulLink2 @onclick="editBookBlog(bookBlog)">{{bookBlog.blog_title}}</IBeautifulLink2>
-            </p>
+            <p>图书名称：{{book.book_name}}</p>
+
+            <div v-if="bookBlogs && bookBlogs.length > 0">
+              <p v-for="bookBlog in bookBlogs" style="margin-left: 15px;">
+                <IBeautifulLink2 @onclick="editBookBlog(bookBlog)">{{bookBlog.blog_title}}</IBeautifulLink2>
+              </p>
+            </div>
+            <div v-else>
+              暂未创建目录,直接在右边创建奥
+            </div>
           </div>
         </IBeautifulCard>
       </Col>
@@ -54,15 +58,6 @@
         }
       }
     },
-    filters:{
-      // 内容超长则显示部分
-      filterLimitFunc:function (value) {
-        if(value && value.length > 12) {
-          value= value.substring(0,12) + '...';
-        }
-        return value;
-      },
-    }
   }
 </script>
 
