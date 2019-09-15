@@ -2,8 +2,6 @@
   <div style="background: #FFFFFF;padding: 10px;">
     <ChooseCourseType/>
 
-    <ToolBox :placement_name="GLOBAL.element_host_toolbox_list"/>
-
     <Row style="margin-bottom: 20px;margin: 10px auto;padding: 3px;">
       <Col span="18">
         <!-- 热门推荐区域 -->

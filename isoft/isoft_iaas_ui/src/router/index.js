@@ -129,6 +129,7 @@ const IUserReouter = [{
   component: ILayout,
   children: [
     {path: 'detail',component: UserDetail},
+    {path: 'mine/detail',component: UserDetail},
   ]
 }];
 

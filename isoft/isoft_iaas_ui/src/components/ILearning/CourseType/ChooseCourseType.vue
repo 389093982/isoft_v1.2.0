@@ -1,8 +1,12 @@
 <template>
   <div>
-    <div style="margin-bottom: 10px;">
+    <div style="margin-bottom: 5px;">
       <ISearch @submitFunc="searchFunc"/>
-     </div>
+      <div style="text-align: right;">
+        <IBeautifulLink2 style="margin-top: 5px;"
+                         @onclick="$router.push({path:'/user/mine/detail',query:{username:'mine'}})">个人中心</IBeautifulLink2>
+      </div>
+    </div>
 
     <IBeautifulCard title="课程天地">
       <div slot="content" style="padding: 20px;">
