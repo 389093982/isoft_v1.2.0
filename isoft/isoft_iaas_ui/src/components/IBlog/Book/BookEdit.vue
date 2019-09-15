@@ -8,11 +8,11 @@
           <span slot="header_right">
             {{book.book_name | filterLimitFunc}}
           </span>
-          <span slot="content">
+          <div slot="content" style="padding:10px;">
             <p v-for="bookBlog in bookBlogs" style="margin-left: 15px;">
               <IBeautifulLink2 @onclick="editBookBlog(bookBlog)">{{bookBlog.blog_title}}</IBeautifulLink2>
             </p>
-          </span>
+          </div>
         </IBeautifulCard>
       </Col>
       <Col span="18">

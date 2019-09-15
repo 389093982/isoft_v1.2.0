@@ -1,9 +1,12 @@
 <template>
  <div>
-   <Button size="small" type="success" @click="$router.push({path:'/iblog/mine/book_edit'})">我的图书管理</Button>
-
    <!-- 热门分类 -->
    <HotCatalogItems @chooseItem="chooseItem"/>
+
+   <Row style="text-align: right;margin: 10px 15px 5px 0;">
+     <IBeautifulLink2 @onclick="$router.push({path:'/iblog/mine/book_edit'})">我的图书管理</IBeautifulLink2>
+   </Row>
+
    <div style="margin: 0 15px;background-color: #fff;border: 1px solid #e6e6e6;border-radius: 4px;">
     <Row>
       <Col span="16" style="padding: 0 0 20px;border-right: 1px solid #e6e6e6;">

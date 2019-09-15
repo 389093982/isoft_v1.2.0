@@ -1,18 +1,18 @@
 <template>
   <span>
     <IBeautifulCard title="我的全部书单">
-      <span slot="content">
+      <div slot="content" style="padding:10px;">
         <Row v-for="book in books" style="padding:0 5px 0 5px;">
-          <Col span="16">
+          <Col span="14">
             <IBeautifulLink2 @onclick="chooseBook(book)">{{book.book_name | filterLimitFunc}}</IBeautifulLink2>
           </Col>
-          <Col span="8" style="text-align: right;">
+          <Col span="10" style="text-align: right;">
             <IBeautifulLink2 @onclick="showBookEditModal2(book)">编辑</IBeautifulLink2>
             <IBeautifulLink2 @onclick="showBookEditModal">新增</IBeautifulLink2>
             <IBeautifulLink2 @onclick="deleteBook">删除</IBeautifulLink2>
           </Col>
         </Row>
-      </span>
+      </div>
     </IBeautifulCard>
 
     <ISimpleConfirmModal ref="bookEditModal" modal-title="新增/编辑 Book" :modal-width="600" :footer-hide="true">
@@ -77,8 +77,8 @@
     filters:{
       // 内容超长则显示部分
       filterLimitFunc:function (value) {
-        if(value && value.length > 20) {
-          value= value.substring(0,20) + '...';
+        if(value && value.length > 15) {
+          value= value.substring(0,15) + '...';
         }
         return value;
       },
