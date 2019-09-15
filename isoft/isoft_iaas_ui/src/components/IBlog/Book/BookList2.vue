@@ -4,10 +4,10 @@
       <Col span="20">
         <ul v-for="book in books">
           <li style="float: left;list-style: none;">
-            <div style="padding: 20px;">
+            <router-link :to="{path:'/iblog/book_detail',query:{book_id:book.id}}">
               <img src="../../../assets/default.png" height="90px" width="120px"/>
               <p>{{book.book_name | filterLimitFunc}}</p>
-            </div>
+            </router-link>
           </li>
         </ul>
       </Col>
@@ -54,5 +54,26 @@
 </script>
 
 <style scoped>
+  /* 引入公共样式库 */
+  @import "../../../../static/css/common.css";
 
+  a{
+    color: black;
+  }
+  li{
+    float: left;
+    padding: 10px 9px 0;
+    width: 140px;
+    height: 135px;
+    overflow: hidden;
+    text-align: center;
+    position: relative;
+  }
+  li:hover{
+    background-color: #f4f4f4;
+    border: 1px solid #d0cdd2;
+  }
+  li:hover a{
+    color:red;
+  }
 </style>
