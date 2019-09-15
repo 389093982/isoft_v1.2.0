@@ -7,8 +7,8 @@
         <Col span="6" style="top:-100px;">
           <img width="150" height="150" v-if="user.small_icon" :src="user.small_icon">
           <img width="150" height="150" v-else src="../../../src/assets/sso/default_user_small_icon.jpg">
-          <p style="margin: 0 0 0 40px;">
-            <Button v-if="$route.query.username == 'mine'">换张头像</Button>
+          <p style="margin: 0 0 0 40px;" v-if="$route.query.username == 'mine'">
+            <IFileUpload ref="fileUpload" @uploadComplete="uploadComplete" action="/api/iwork/fileUpload/default" uploadLabel="上传头像"/>
           </p>
         </Col>
         <Col span="12" style="padding-top: 30px;">
@@ -40,16 +40,23 @@
   import {GetUserDetail} from "../../api"
   import HotUser from "./HotUser"
   import {GetLoginUserName} from "../../tools"
+  import IFileUpload from "../Common/file/IFileUpload"
 
   export default {
     name: "UserDetail",
-    components: {HotUser},
+    components: {HotUser,IFileUpload},
     data(){
       return {
         user:null,
       }
     },
     methods:{
+      uploadComplete: function (result) {
+        if(result.status == "SUCCESS"){
+          // this.uploadFilePath = result.fileServerPath;
+          this.$refs.fileUpload.hideModal();
+        }
+      },
       refreshUserDetail:async function () {
         let userName = this.$route.query.username == 'mine' ? GetLoginUserName() : this.$route.query.username;
         const result = await GetUserDetail(userName);
