@@ -26,6 +26,8 @@ export const BookEdit = (book_id, book_name, book_desc) => ajax(BASE_URL+'/iwork
 export const BookList = () => ajax(BASE_URL+'/iwork/httpservice/BookList',{},'POST');
 export const BookBlogList = (book_id) => ajax(BASE_URL+'/iwork/httpservice/BookBlogList',{book_id},'POST');
 
+export const GetUserDetail = (userName) => ajax(BASE_URL+'/iwork/httpservice/GetUserDetail',{userName},'POST');
+
 // 更新博客状态
 export const UpdateBlogStatus = (blog_status, blog_id) => ajax(BASE_URL+'/iwork/httpservice/UpdateBlogStatus',{blog_status, blog_id},'GET');
 
