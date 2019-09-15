@@ -1,13 +1,22 @@
 <template>
   <div>
-    <ul v-for="book in books">
-      <li style="float: left;list-style: none;">
-        <div style="padding: 20px;">
-          <img src="../../../assets/default.png" height="90px" width="120px"/>
-          <p>{{book.book_name | filterLimitFunc}}</p>
-        </div>
-      </li>
-    </ul>
+    <Row>
+      <Col span="20">
+        <ul v-for="book in books">
+          <li style="float: left;list-style: none;">
+            <div style="padding: 20px;">
+              <img src="../../../assets/default.png" height="90px" width="120px"/>
+              <p>{{book.book_name | filterLimitFunc}}</p>
+            </div>
+          </li>
+        </ul>
+      </Col>
+      <Col span="4">
+        <Button @click="$router.push({path:'/iblog/mine/book_edit'})">
+          我的图书管理
+        </Button>
+      </Col>
+    </Row>
   </div>
 </template>
 
