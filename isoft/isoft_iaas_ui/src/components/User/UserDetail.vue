@@ -1,12 +1,15 @@
 <template>
   <div>
     <div v-if="user" >
-      <div style="min-height: 140px;background-color: #96a1a9;background-size: cover;
+      <div style="min-height: 140px;background-color: rgba(236,0,255,0.22);background-size: cover;
         background-position: 50%;background-repeat: no-repeat;"></div>
       <Row style="min-height: 150px;background-color: #ffffff;padding: 20px;">
         <Col span="6" style="top:-100px;">
           <img width="150" height="150" v-if="user.small_icon" :src="user.small_icon">
           <img width="150" height="150" v-else src="../../../src/assets/sso/default_user_small_icon.jpg">
+          <p style="margin: 0 0 0 40px;">
+            <Button v-if="$route.query.username == 'mine'">换张头像</Button>
+          </p>
         </Col>
         <Col span="12" style="padding-top: 30px;">
           <p style="margin-bottom: 20px;">加入时间：{{user.created_time}}</p>
