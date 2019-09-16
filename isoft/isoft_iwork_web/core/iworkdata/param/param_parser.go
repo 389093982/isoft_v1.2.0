@@ -3,6 +3,7 @@ package param
 import (
 	"isoft/isoft_iwork_web/core/iworkmodels"
 	"isoft/isoft_iwork_web/models"
+	"isoft/isoft_iwork_web/startup/memory"
 	"strings"
 )
 
@@ -48,12 +49,13 @@ func (this *ParamVauleParser) GetStaticParamValue() interface{} {
 		resource_name = strings.Replace(resource_name, "$RESOURCE.", "", -1)
 		resource_name = strings.Replace(resource_name, ";", "", -1)
 		resource_name = strings.TrimSpace(resource_name)
-		resource, err := models.QueryResourceByName(resource_name)
-		if err == nil {
-			if resource.ResourceType == "db" {
-				return resource.ResourceDsn
-			} else if resource.ResourceType == "sftp" || resource.ResourceType == "ssh" {
-				return resource
+
+		if resource, ok := memory.MemoryResourceMap.Load(resource_name); ok {
+			_resource := resource.(models.Resource)
+			if _resource.ResourceType == "db" {
+				return _resource.ResourceDsn
+			} else if _resource.ResourceType == "sftp" || _resource.ResourceType == "ssh" {
+				return _resource
 			}
 		}
 		return ""

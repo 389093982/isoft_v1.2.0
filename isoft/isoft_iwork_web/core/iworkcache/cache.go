@@ -100,6 +100,15 @@ func GetWorkCache(work_id int64) (*WorkCache, error) {
 	}
 }
 
+func GetAllWorkCache() []*WorkCache {
+	var workCaches = make([]*WorkCache, 0)
+	workCacheMap.Range(func(k, v interface{}) bool {
+		workCaches = append(workCaches, v.(*WorkCache))
+		return true
+	})
+	return workCaches
+}
+
 func checkError(err error) {
 	if err != nil {
 		panic(err)

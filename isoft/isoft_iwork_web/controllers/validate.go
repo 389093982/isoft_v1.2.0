@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github.com/astaxie/beego/orm"
 	"isoft/isoft/common/stringutil"
+	"isoft/isoft_iwork_web/core/iworkcache"
 	"isoft/isoft_iwork_web/core/iworkmodels"
 	"isoft/isoft_iwork_web/core/iworkplugin/node"
 	"isoft/isoft_iwork_web/core/iworkutil"
@@ -65,17 +66,18 @@ func validateWorks(workId int64) {
 }
 
 func prepareValiateWorks(workId int64) map[models.Work][]models.WorkStep {
-	o := orm.NewOrm()
+	// 从缓存中读取
 	dataMap := make(map[models.Work][]models.WorkStep, 0)
 	if workId > 0 {
-		work, _ := models.QueryWorkById(workId, o)
-		steps, _ := models.QueryAllWorkStepInfo(work.Id, o)
-		dataMap[work] = steps
+		workCache, err := iworkcache.GetWorkCache(workId)
+		if err != nil {
+			panic(err)
+		}
+		dataMap[workCache.Work] = workCache.Steps
 	} else {
-		works := models.QueryAllWorkInfo(orm.NewOrm())
-		for _, work := range works {
-			steps, _ := models.QueryAllWorkStepInfo(work.Id, o)
-			dataMap[work] = steps
+		workCaches := iworkcache.GetAllWorkCache()
+		for _, workCache := range workCaches {
+			dataMap[workCache.Work] = workCache.Steps
 		}
 	}
 	return dataMap
