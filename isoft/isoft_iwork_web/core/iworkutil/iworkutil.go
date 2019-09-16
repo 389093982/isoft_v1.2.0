@@ -2,12 +2,9 @@ package iworkutil
 
 import (
 	"encoding/base64"
-	"github.com/astaxie/beego/orm"
 	"isoft/isoft/common/stringutil"
 	"isoft/isoft_iwork_web/core/iworkconst"
-	"isoft/isoft_iwork_web/core/iworkdata/block"
 	"isoft/isoft_iwork_web/core/iworkmodels"
-	"isoft/isoft_iwork_web/models"
 	"strings"
 )
 
@@ -66,25 +63,4 @@ func GetParamValueForEntity(paramValue string) string {
 	//	return entity.EntityFieldStr
 	//}
 	return ""
-}
-
-func GetAllPreStepNodeName(work_id, work_step_id int64) []string {
-	result := make([]string, 0)
-	steps, err := models.QueryAllPreStepInfo(work_id, work_step_id, orm.NewOrm())
-	if err == nil {
-		// 当前步骤信息
-		currentWorkStep, _ := models.QueryWorkStepInfo(work_id, work_step_id, orm.NewOrm())
-		// 所有步骤信息
-		allSteps, _ := models.QueryAllWorkStepInfo(work_id, orm.NewOrm())
-		parser := block.BlockParser{Steps: allSteps}
-		_, blockStepMapper := parser.ParseToBlockSteps()
-		currentBlockStep := blockStepMapper[currentWorkStep.WorkStepId]
-		for _, step := range steps {
-			// 判断前置 step 在块范围内是否是可访问的
-			if block.CheckBlockAccessble(currentBlockStep, step.WorkStepId) {
-				result = append(result, step.WorkStepName)
-			}
-		}
-	}
-	return result
 }
