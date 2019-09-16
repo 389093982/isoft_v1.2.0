@@ -54,13 +54,13 @@
 
 <script>
   import {WorkList,DeleteOrCopyWorkById,RunWork,EditWork,GetAllModules} from "../../../api"
-  import ISimpleLeftRightRow from "../../Common/layout/ISimpleLeftRightRow"
-  import ISimpleSearch from "../../Common/search/ISimpleSearch"
-  import IWorkDL from "../IWorkDL"
-  import WorkValidate from "../IValidate/WorkValidate"
-  import ISimpleConfirmModal from "../../Common/modal/ISimpleConfirmModal"
-  import IKeyValueForm from "../../Common/form/IKeyValueForm"
   import {checkEmpty, validateCommonPatternForString} from "../../../tools/index"
+  const ISimpleLeftRightRow = () => import("@/components/Common/layout/ISimpleLeftRightRow");
+  const ISimpleSearch = () => import("@/components/Common/search/ISimpleSearch");
+  const ISimpleConfirmModal = () => import("@/components/Common/modal/ISimpleConfirmModal");
+  const IKeyValueForm = () => import("@/components/Common/form/IKeyValueForm");
+  const WorkValidate = () => import("@/components/IWork/IValidate/WorkValidate");
+  const IWorkDL = () => import("@/components/IWork/IWorkDL");
 
   export default {
     name: "WorkList",
