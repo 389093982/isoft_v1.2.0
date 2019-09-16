@@ -1,9 +1,7 @@
 package controllers
 
 import (
-	"errors"
 	"fmt"
-	"github.com/astaxie/beego/orm"
 	"isoft/isoft/common/stringutil"
 	"isoft/isoft_iwork_web/core/iworkcache"
 	"isoft/isoft_iwork_web/core/iworkdata/block"
@@ -14,6 +12,7 @@ import (
 	"isoft/isoft_iwork_web/core/iworkvalid"
 	"isoft/isoft_iwork_web/models"
 	"isoft/isoft_iwork_web/service"
+	"isoft/isoft_iwork_web/startup/memory"
 	"strings"
 	"sync"
 	"time"
@@ -259,8 +258,7 @@ func getAllPreStepNodeName(work_id, work_step_id int64) []string {
 }
 
 func checkVariableRelationShipForGlobal(referFiledName string, checkResultCh chan string) {
-	_, err := models.QueryGlobalVarByName(referFiledName)
-	if err != nil && errors.As(err, &orm.ErrNoRows) {
+	if _, ok := memory.MemoryGlobalVarMap.Load(referFiledName); !ok {
 		checkResultCh <- fmt.Sprintf("Invalid referFiledName relationship for %s was found!", referFiledName)
 	}
 }
@@ -280,9 +278,20 @@ func checkVariableRelationShipForNode(referNodeName, referFiledName string, preS
 }
 
 func checkVariableRelationShipForNodeDetail(work_id int64, referNodeName, referFiledName string, checkResultCh chan string) {
+	workCache, _ := iworkcache.GetWorkCache(work_id)
+	var (
+		referStepFlag bool
+		referStep     models.WorkStep
+	)
+	for _, step := range workCache.Steps {
+		if step.WorkStepName == referNodeName {
+			referStepFlag, referStep = true, step
+			break
+		}
+	}
 	// 判断字段名称是否有效
-	if step, err := models.QueryWorkStepByStepName(work_id, referNodeName, orm.NewOrm()); err == nil {
-		outputSchema := node.GetCacheParamOutputSchema(&step)
+	if referStepFlag {
+		outputSchema := node.GetCacheParamOutputSchema(&referStep)
 		exist := false
 		for _, item := range outputSchema.ParamOutputSchemaItems {
 			if item.ParamName == referFiledName || item.ParentPath+"."+item.ParamName == referFiledName {
@@ -293,6 +302,8 @@ func checkVariableRelationShipForNodeDetail(work_id int64, referNodeName, referF
 		if !exist {
 			checkResultCh <- fmt.Sprintf("Invalid referFiledName relationship for %s was found!", referFiledName)
 		}
+	} else {
+		checkResultCh <- fmt.Sprintf("Invalid referNodeName %s was found!", referNodeName)
 	}
 }
 
