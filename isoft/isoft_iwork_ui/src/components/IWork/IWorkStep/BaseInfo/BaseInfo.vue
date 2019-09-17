@@ -141,6 +141,9 @@
         this.formValidate.work_step_id = work_step_id;
         this.loadWorkStepInfo();
         this.showFormModal = true;
+
+        // 从 store 中获取 nodeMetas
+        this.nodeMetas = this.$store.state.nodeMetas;
       },
       handleSubmit (name) {
         this.$refs[name].validate(async (valid) => {
@@ -159,16 +162,7 @@
           }
         })
       },
-      refreshNodeMetas:async function () {
-        const result = await GetMetaInfo("nodeMetas");
-        if(result.status == "SUCCESS"){
-          this.nodeMetas = result.nodeMetas;
-        }
-      }
     },
-    mounted(){
-      this.refreshNodeMetas();
-    }
   }
 </script>
 

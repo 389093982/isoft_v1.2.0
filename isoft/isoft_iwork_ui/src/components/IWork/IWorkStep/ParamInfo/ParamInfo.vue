@@ -89,7 +89,6 @@
         showEdit:false,
         // 参数映射
         paramMappings:[],
-        nodeMetas: [],
         workStepParamInfo: {
           work_id: this.workId,
           work_step_id: 0,
