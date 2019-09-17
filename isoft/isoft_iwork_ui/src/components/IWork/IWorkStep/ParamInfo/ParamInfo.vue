@@ -159,16 +159,7 @@
         this.workStepParamInfo.work_step_id = work_step_id;
         this.loadWorkStepInfo();
       },
-      refreshNodeMetas:async function () {
-        const result = await GetMetaInfo("nodeMetas");
-        if(result.status == "SUCCESS"){
-          this.nodeMetas = result.nodeMetas;
-        }
-      }
     },
-    mounted(){
-      this.refreshNodeMetas();
-    }
   }
 </script>
 

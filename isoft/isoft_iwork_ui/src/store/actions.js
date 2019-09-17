@@ -2,5 +2,8 @@
 export default {
   commitSetCurrent:function ({commit}, {current_work_id,current_work_step_id}) {
     commit('SETCURRENT',{current_work_id,current_work_step_id});
+  },
+  commitSetNodeMetas:function ({commit}, {nodeMetas}) {
+    commit('SET_NODE_METAS',{nodeMetas});
   }
 }

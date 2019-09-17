@@ -488,6 +488,9 @@
         const result = await GetMetaInfo("nodeMetas");
         if(result.status == "SUCCESS"){
           this.nodeMetas = result.nodeMetas;
+          // 提交 action
+          this.$store.dispatch('commitSetNodeMetas',{"nodeMetas":result.nodeMetas});
+
         }
       },
       getErrorOrTotalCount:function (workId, flag) {

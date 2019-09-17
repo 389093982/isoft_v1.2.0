@@ -9,5 +9,8 @@ export default {
   SETCURRENT:function (state, {current_work_id,current_work_step_id}) {
     state.current_work_id=current_work_id;
     state.current_work_step_id=current_work_step_id;
+  },
+  SET_NODE_METAS:function(state, {nodeMetas}){
+    state.nodeMetas = nodeMetas;
   }
 }
