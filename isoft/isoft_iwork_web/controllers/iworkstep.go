@@ -181,20 +181,21 @@ func (this *WorkController) BatchChangeIndent() {
 	this.ServeJSON()
 }
 
+// @router /api/iwork/editWorkStepParamInfo [post]
 func (this *WorkController) EditWorkStepParamInfo() {
-	work_id, _ := this.GetInt64("work_id")
-	work_step_id, _ := this.GetInt64("work_step_id", -1)
+	workId, _ := this.GetInt64("work_id")
+	workStepId, _ := this.GetInt64("work_step_id", -1)
 	paramInputSchemaStr := this.GetString("paramInputSchemaStr")
 	paramMappingsStr := this.GetString("paramMappingsStr")
 	serviceArgs := map[string]interface{}{
-		"work_id":             work_id,
-		"work_step_id":        work_step_id,
+		"work_id":             workId,
+		"work_step_id":        workStepId,
 		"paramInputSchemaStr": paramInputSchemaStr,
 		"paramMappingsStr":    paramMappingsStr,
 	}
 
 	// 先进行保存再进行格式检查 formatChecker,格式检查不通过也可以保存,防止用户编辑数据丢失
-	step, _ := models.QueryOneWorkStep(work_id, work_step_id, orm.NewOrm())
+	step, _ := models.QueryOneWorkStep(workId, workStepId, orm.NewOrm())
 	paramInputSchema, _ := iworkmodels.ParseToParamInputSchema(paramInputSchemaStr)
 	step.WorkStepInput = paramInputSchema.RenderToJson()
 	step.WorkStepParamMapping = paramMappingsStr
@@ -209,7 +210,7 @@ func (this *WorkController) EditWorkStepParamInfo() {
 	} else {
 		this.Data["json"] = &map[string]interface{}{"status": "ERROR", "errorMsg": err.Error()}
 	}
-	flushCache(work_id)
+	flushCache(workId)
 	this.ServeJSON()
 }
 

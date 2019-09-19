@@ -23,6 +23,7 @@ func init() {
 	loadloadIWorkerRouterDetail()
 }
 
+// egg: // @router /api/iwork/deleteModuleById [post]
 func loadloadIWorkerRouterDetail() {
 	beego.Router("/api/iwork/addQuartz", &controllers.WorkController{}, "post:AddQuartz")
 	beego.Router("/api/iwork/filterPageQuartz", &controllers.WorkController{}, "post:FilterPageQuartz")
@@ -39,7 +40,6 @@ func loadloadIWorkerRouterDetail() {
 	beego.Router("/api/iwork/deleteOrCopyWorkById", &controllers.WorkController{}, "post:DeleteOrCopyWorkById")
 	beego.Router("/api/iwork/addWorkStep", &controllers.WorkController{}, "post:AddWorkStep")
 	beego.Router("/api/iwork/editWorkStepBaseInfo", &controllers.WorkController{}, "post:EditWorkStepBaseInfo")
-	beego.Router("/api/iwork/editWorkStepParamInfo", &controllers.WorkController{}, "post:EditWorkStepParamInfo")
 	beego.Router("/api/iwork/deleteWorkStepByWorkStepId", &controllers.WorkController{}, "post:DeleteWorkStepByWorkStepId")
 	beego.Router("/api/iwork/copyWorkStepByWorkStepId", &controllers.WorkController{}, "post:CopyWorkStepByWorkStepId")
 	beego.Router("/api/iwork/loadWorkStepInfo", &controllers.WorkController{}, "post:LoadWorkStepInfo")

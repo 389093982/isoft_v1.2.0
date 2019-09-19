@@ -27,6 +27,15 @@ func init() {
 
 	beego.GlobalControllerRouter["isoft/isoft_iwork_web/controllers:WorkController"] = append(beego.GlobalControllerRouter["isoft/isoft_iwork_web/controllers:WorkController"],
 		beego.ControllerComments{
+			Method:           "EditWorkStepParamInfo",
+			Router:           `/api/iwork/editWorkStepParamInfo`,
+			AllowHTTPMethods: []string{"post"},
+			MethodParams:     param.Make(),
+			Filters:          nil,
+			Params:           nil})
+
+	beego.GlobalControllerRouter["isoft/isoft_iwork_web/controllers:WorkController"] = append(beego.GlobalControllerRouter["isoft/isoft_iwork_web/controllers:WorkController"],
+		beego.ControllerComments{
 			Method:           "ExecuteMigrate",
 			Router:           `/api/iwork/executeMigrate`,
 			AllowHTTPMethods: []string{"post"},
