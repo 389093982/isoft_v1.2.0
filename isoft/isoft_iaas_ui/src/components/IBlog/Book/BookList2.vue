@@ -20,8 +20,9 @@
             <p>{{book.book_name | filterLimitFunc}}</p>
           </router-link>
           <p v-if="mine">
-            <IBeautifulLink2 @onclick="showBookEditModal2(book)">编辑</IBeautifulLink2>
+            <IBeautifulLink2 @onclick="showBookEditModal2(book)">修改</IBeautifulLink2>
             <IBeautifulLink2 @onclick="deleteBook">删除</IBeautifulLink2>
+            <IBeautifulLink2 @onclick="$router.push({path:'/iblog/mine/book_edit',query:{book_id:book.id,book_name:book.book_name}})">编辑</IBeautifulLink2>
           </p>
         </li>
       </ul>
