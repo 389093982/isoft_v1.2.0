@@ -124,7 +124,8 @@ type WorkCache struct {
 	XMLName             xml.Name                                `xml:"workdl"`
 	WorkId              int64                                   `xml:"work_id,attr"`
 	Work                models.Work                             `xml:"work"`
-	Steps               []models.WorkStep                       `xml:"workstep"`
+	Steps               []models.WorkStep                       `xml:"steps"`
+	StepsMap            map[int64]*models.WorkStep              `xml:"-"`
 	BlockStepOrdersMap  map[int64][]*block.BlockStep            `xml:"-"` // key 为父节点 StepId
 	ParamInputSchemaMap map[int64]*iworkmodels.ParamInputSchema `xml:"-"` // key 为 WorkStepId
 	SubWorkNameMap      map[int64]string                        `xml:"-"` // key 为 WorkStepId
@@ -150,6 +151,11 @@ func (this *WorkCache) FlushCache() {
 	// 缓存 workSteps
 	this.Steps, this.err = models.QueryAllWorkStepInfo(this.WorkId, o)
 	checkError(this.err)
+	this.StepsMap = make(map[int64]*models.WorkStep)
+	for _, step := range this.Steps {
+		this.StepsMap[step.WorkStepId] = &step
+	}
+
 	blockSteps := getBlockStepExecuteOrder(block.ParseToBlockStep(this.Steps))
 	// 缓存 blockStepOrder
 	this.BlockStepOrdersMap = map[int64][]*block.BlockStep{
