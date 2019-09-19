@@ -18,8 +18,8 @@
         </IBeautifulCard>
       </Col>
       <Col span="18">
-        <span v-if="$route.query.book_id > 0">
-          <BlogEdit ref="blogEdit" :book-id="$route.query.book_id" :success-emit="true" @successEmitFunc="refreshBookInfo"/>
+        <span>
+          <BlogEdit ref="blogEdit" :book-id="_book_id" :success-emit="true" @successEmitFunc="refreshBookInfo"/>
         </span>
       </Col>
     </Row>
@@ -48,6 +48,11 @@
         if(result.status == "SUCCESS"){
           this.bookBlogs = result.books;
         }
+      },
+    },
+    computed:{
+      _book_id:function () {
+        return parseInt(this.$route.query.book_id);
       },
     },
     mounted(){
