@@ -48,7 +48,7 @@
   import IBeautifulLink2 from "../../Common/link/IBeautifulLink2";
 
   export default {
-    name: "BookList2",
+    name: "BookList",
     components: {IBeautifulLink2, IKeyValueForm, IBeautifulCard,ISimpleConfirmModal},
     data(){
       return {
