@@ -3,7 +3,7 @@
     <Row>
       <Col span="6" style="background-color: #fff;border: 1px solid #e6e6e6;border-radius: 4px;padding: 20px;min-height: 500px;">
         <div>
-          <Button @click="$router.push({ path: '/iblog/mine/book_edit'})">管理我的书单</Button>
+          <Button @click="$router.push({path:'/iblog/mine/book_list',query:{type:'mine'}})">管理我的书单</Button>
 
           <p v-for="bookBlog in bookBlogs">
             <Icon type="ios-paper-outline"/>

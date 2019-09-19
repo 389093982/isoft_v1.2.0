@@ -26,7 +26,7 @@
           </p>
         </li>
       </ul>
-      <div style="text-align: right;margin-right: 80px;">
+      <div style="text-align: right;margin-right: 100px;margin-top: 20px;">
         <Button v-if="mine" @click="showBookEditModal">新增书单</Button>
       </div>
     </div>
