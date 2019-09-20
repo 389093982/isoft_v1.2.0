@@ -1,6 +1,6 @@
 <template>
   <div style="margin: 0 15px;background-color: #fff;border: 1px solid #e6e6e6;border-radius: 4px;">
-    <Row style="padding: 10px;">
+    <Row style="padding: 15px 10px 10px 25px;">   <!-- 内外边距：上右下左 -->
       <Col span="2">
         <IBeautifulLink2 @onclick="$router.push({path:'/iblog/book_list'})">全部书单</IBeautifulLink2>
       </Col>
