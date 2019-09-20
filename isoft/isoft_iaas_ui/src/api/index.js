@@ -23,6 +23,7 @@ export const BlogEdit = (blog_id, bookId, blog_title, short_desc, key_words, cat
 export const BlogList = (offset,current_page, search_type) => ajax(BASE_URL+'/iwork/httpservice/BlogList2',{offset,current_page, search_type},'GET');
 
 export const BookEdit = (book_id, book_name, book_desc) => ajax(BASE_URL+'/iwork/httpservice/BookEdit',{book_id, book_name, book_desc},'POST');
+export const UpdateBookIcon = (book_id, book_img) => ajax(BASE_URL+'/iwork/httpservice/UpdateBookIcon',{book_id, book_img},'POST');
 export const BookList = () => ajax(BASE_URL+'/iwork/httpservice/BookList',{},'POST');
 export const BookBlogList = (book_id) => ajax(BASE_URL+'/iwork/httpservice/BookBlogList',{book_id},'POST');
 

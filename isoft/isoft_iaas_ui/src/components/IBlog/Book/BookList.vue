@@ -1,5 +1,5 @@
 <template>
-  <div style="margin: 0 15px;background-color: #fff;border: 1px solid #e6e6e6;border-radius: 4px;">
+  <div style="margin: 0 15px;padding-left:20px;background-color: #fff;border: 1px solid #e6e6e6;border-radius: 4px;">
     <Row style="padding: 15px 10px 10px 25px;">   <!-- 内外边距：上右下左 -->
       <Col span="2">
         <IBeautifulLink2 @onclick="$router.push({path:'/iblog/book_list'})">全部书单</IBeautifulLink2>
@@ -15,18 +15,24 @@
     <div style="min-height: 450px;">
       <ul style="overflow:hidden">
         <li v-for="book in books" style="float: left;list-style: none;">
-          <router-link :to="{path:'/iblog/book_detail',query:{book_id:book.id}}">
-            <img src="../../../assets/default.png" height="90px" width="120px"/>
-            <p>{{book.book_name | filterLimitFunc}}</p>
-          </router-link>
-          <p v-if="mine" style="margin-top: 10px;">
-            <Row>
+          <div class="bookImg">
+            <router-link :to="{path:'/iblog/book_detail',query:{book_id:book.id}}">
+              <img v-if="book.book_img" :src="book.book_img" height="90px" width="120px"/>
+              <img v-else src="../../../assets/default.png" height="90px" width="120px"/>
+              <p>{{book.book_name | filterLimitFunc}}</p>
+            </router-link>
+          </div>
+          <div class="bookOper" v-if="mine" style="margin-top: 10px;padding-left: 30px;">
+            <Row :gutter="10">
               <Col span="12">
-                <IBeautifulLink2 @onclick="showBookEditModal2(book)">换张图片</IBeautifulLink2>
+                <IFileUpload btn-size="small" :auto-hide-modal="true"
+                             :extra-data="book.id" @uploadComplete="uploadComplete" action="/api/iwork/fileUpload/default" uploadLabel="换张图片"/>
               </Col>
               <Col span="12">
                 <IBeautifulLink2 @onclick="deleteBook">删除</IBeautifulLink2>
               </Col>
+            </Row>
+            <Row :gutter="10">
               <Col span="12">
                 <IBeautifulLink2 @onclick="showBookEditModal2(book)">修改信息</IBeautifulLink2>
               </Col>
@@ -34,7 +40,7 @@
                 <IBeautifulLink2 @onclick="$router.push({path:'/iblog/mine/book_edit',query:{book_id:book.id,book_name:book.book_name}})">编辑</IBeautifulLink2>
               </Col>
             </Row>
-          </p>
+          </div>
         </li>
       </ul>
       <div style="text-align: right;margin: 20px 100px 50px 0;">
@@ -52,15 +58,16 @@
 </template>
 
 <script>
-  import {BookList,BookEdit} from "../../../api"
+  import {BookList,BookEdit,UpdateBookIcon} from "../../../api"
   import IBeautifulCard from "../../Common/card/IBeautifulCard"
   import IKeyValueForm from "../../Common/form/IKeyValueForm";
   import ISimpleConfirmModal from "../../Common/modal/ISimpleConfirmModal"
-  import IBeautifulLink2 from "../../Common/link/IBeautifulLink2";
+  import IBeautifulLink2 from "../../Common/link/IBeautifulLink2"
+  import IFileUpload from "../../Common/file/IFileUpload"
 
   export default {
     name: "BookList",
-    components: {IBeautifulLink2, IKeyValueForm, IBeautifulCard,ISimpleConfirmModal},
+    components: {IBeautifulLink2, IKeyValueForm, IBeautifulCard,ISimpleConfirmModal,IFileUpload},
     data(){
       return {
         books:[],
@@ -70,6 +77,18 @@
     methods:{
       deleteBook:function(){
         alert(111111111);
+      },
+      uploadComplete: async function (data) {
+        if(data.status == "SUCCESS"){
+          if(data.status == "SUCCESS"){
+            let uploadFilePath = data.fileServerPath;
+            let bookId = data.extraData;
+            const result = await UpdateBookIcon(bookId, uploadFilePath);
+            if(result.status == "SUCCESS"){
+              this.refreshBookList();
+            }
+          }
+        }
       },
       showBookEditModal2:function (book) {
         this.$refs.bookEditModal.showModal();
@@ -126,6 +145,8 @@
   }
   li{
     float: left;
+  }
+  .bookImg{
     padding: 10px 9px 0;
     width: 160px;
     border: 1px solid #FFFFFF;
@@ -133,11 +154,11 @@
     text-align: center;
     position: relative;
   }
-  li:hover{
+  .bookImg:hover{
     background-color: #f4f4f4;
     border: 1px solid #d0cdd2;
   }
-  li:hover a{
+  li a:hover {
     color:red;
   }
 </style>

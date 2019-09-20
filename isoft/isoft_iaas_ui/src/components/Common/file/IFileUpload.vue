@@ -1,6 +1,6 @@
 <template>
 <span>
-  <Button type="success" @click="fileUploadModal = true">{{ uploadLabel }}</Button>
+  <Button :size="btnSize" type="success" @click="fileUploadModal = true">{{ uploadLabel }}</Button>
   <Modal
     v-model="fileUploadModal"
     width="500"
@@ -23,6 +23,14 @@
   export default {
     name: "IFileUpload",
     props: {
+      autoHideModal:{
+        type:Boolean,
+        default:false,
+      },
+      btnSize:{
+        type:String,
+        default:'default',
+      },
       uploadLabel: {
         type: String,
         default: '文件上传'
@@ -30,6 +38,10 @@
       action: {
         type: String,
         default: ''
+      },
+      extraData: {
+        type:[Object,Number,String],
+        default:null,
       }
     },
     data () {
@@ -41,6 +53,8 @@
     methods:{
       uploadComplete(result, file) {
         if(result.status=="SUCCESS"){
+          // 传递 extraData 数据
+          result.extraData = this.extraData;
           // 父子组件通信
           this.$emit('uploadComplete',result);
           this.$Notice.success({
@@ -52,6 +66,9 @@
             title: '文件上传失败',
             desc: '文件 ' + file.name + ' 上传失败!'
           });
+        }
+        if(this.autoHideModal){
+          this.hideModal();
         }
       },
       hideModal(){
