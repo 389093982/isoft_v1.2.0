@@ -19,10 +19,21 @@
             <img src="../../../assets/default.png" height="90px" width="120px"/>
             <p>{{book.book_name | filterLimitFunc}}</p>
           </router-link>
-          <p v-if="mine">
-            <IBeautifulLink2 @onclick="showBookEditModal2(book)">修改</IBeautifulLink2>
-            <IBeautifulLink2 @onclick="deleteBook">删除</IBeautifulLink2>
-            <IBeautifulLink2 @onclick="$router.push({path:'/iblog/mine/book_edit',query:{book_id:book.id,book_name:book.book_name}})">编辑</IBeautifulLink2>
+          <p v-if="mine" style="margin-top: 10px;">
+            <Row>
+              <Col span="12">
+                <IBeautifulLink2 @onclick="showBookEditModal2(book)">换张图片</IBeautifulLink2>
+              </Col>
+              <Col span="12">
+                <IBeautifulLink2 @onclick="deleteBook">删除</IBeautifulLink2>
+              </Col>
+              <Col span="12">
+                <IBeautifulLink2 @onclick="showBookEditModal2(book)">修改信息</IBeautifulLink2>
+              </Col>
+              <Col span="12">
+                <IBeautifulLink2 @onclick="$router.push({path:'/iblog/mine/book_edit',query:{book_id:book.id,book_name:book.book_name}})">编辑</IBeautifulLink2>
+              </Col>
+            </Row>
           </p>
         </li>
       </ul>
