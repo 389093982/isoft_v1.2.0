@@ -117,7 +117,7 @@
     float: left;
     padding: 10px 9px 0;
     width: 160px;
-    min-height: 160px;
+    border: 1px solid #FFFFFF;
     overflow: hidden;
     text-align: center;
     position: relative;

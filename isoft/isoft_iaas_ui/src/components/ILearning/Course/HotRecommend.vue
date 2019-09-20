@@ -71,6 +71,7 @@
     float: left;
     padding: 10px 9px 0;
     width: 140px;
+    border: 1px solid #FFFFFF;
     height: 135px;
     overflow: hidden;
     text-align: center;
