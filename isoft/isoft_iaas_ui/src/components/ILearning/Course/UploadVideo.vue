@@ -14,9 +14,12 @@
           <Button size="small" type="success" @click="uploadVideoNum = course.course_number + 1">新一集{{course.course_number + 1}}</Button>
         </div>
 
+         <IFileUpload ref="fileUpload" btn-size="small" :auto-hide-modal="true" :extra-data="{'id':course.id, 'video_number':uploadVideoNum}"
+                      @uploadComplete="uploadComplete" action="/api/iwork/fileUpload/default" uploadLabel="上传视频"/>
+
         <Upload :action="'/api/iwork/fileUpload/UploadVideo2?id=' + course.id + '&video_number=' + uploadVideoNum" :on-success="uploadComplete">
           <Button icon="ios-cloud-upload-outline">Upload files</Button>
-          <span v-if="uploadVideoNum > 0" style="color: #3300ff;">*当前更新第{{uploadVideoNum}}集</span>
+          <span v-if="uploadVideoNum > 0" style="color: green;">*当前更新第{{uploadVideoNum}}集</span>
           <span v-else style="color: red;">请选择更新集数</span>
         </Upload>
       </div>
@@ -27,8 +30,12 @@
 </template>
 
 <script>
+  import IFileUpload from "../../Common/file/IFileUpload";
+  import {UploadVideo} from "../../../api"
+
   export default {
     name: "UploadVideo",
+    components: {IFileUpload},
     // 当前需要上传视频的课程
     props:["course"],
     data(){
@@ -39,20 +46,31 @@
       }
     },
     methods:{
-      uploadComplete(res, file) {
-        if(res.status=="SUCCESS"){
-          this.$Notice.success({
-            title: '视频上传',
-            desc: "上传成功!"
-          });
-          this.$emit('uploadComplete');
-        }else{
-          this.$Notice.error({
-            title: '文件上传失败',
-            desc: '文件 ' + file.name + ' 上传失败!'
-          });
+      uploadComplete: async function (data) {
+        if(data.status == "SUCCESS"){
+          let uploadFilePath = data.fileServerPath;
+          let courseId = data.extraData.id;
+          let video_number = data.extraData.video_number;
+          const result = await UploadVideo(courseId, video_number, '1111111111111',uploadFilePath);
+          if(result.status == "SUCCESS"){
+            this.$emit('uploadComplete');
+          }
         }
       },
+      // uploadComplete(res, file) {
+      //   if(res.status=="SUCCESS"){
+      //     this.$Notice.success({
+      //       title: '视频上传',
+      //       desc: "上传成功!"
+      //     });
+      //     this.$emit('uploadComplete');
+      //   }else{
+      //     this.$Notice.error({
+      //       title: '文件上传失败',
+      //       desc: '文件 ' + file.name + ' 上传失败!'
+      //     });
+      //   }
+      // },
     }
   }
 </script>
