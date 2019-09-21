@@ -26,7 +26,7 @@ export const BookEdit = (book_id, book_name, book_desc) => ajax(BASE_URL+'/iwork
 export const UpdateBookIcon = (book_id, book_img) => ajax(BASE_URL+'/iwork/httpservice/UpdateBookIcon',{book_id, book_img},'POST');
 export const DeleteBookById = (id) => ajax(BASE_URL+'/iwork/httpservice/DeleteBookById',{id},'POST');
 export const BookList = () => ajax(BASE_URL+'/iwork/httpservice/BookList',{},'POST');
-export const BookBlogList = (book_id) => ajax(BASE_URL+'/iwork/httpservice/BookBlogList',{book_id},'POST');
+export const BookArticleList = (book_id) => ajax(BASE_URL+'/iwork/httpservice/BookArticleList',{book_id},'POST');
 
 export const GetUserDetail = (userName) => ajax(BASE_URL+'/iwork/httpservice/GetUserDetail',{userName},'POST');
 export const UpdateUserIcon = (userName, small_icon) => ajax(BASE_URL+'/iwork/httpservice/UpdateUserIcon',{userName, small_icon},'POST');

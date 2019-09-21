@@ -33,13 +33,13 @@
 </template>
 
 <script>
-  import {BookBlogList} from "../../../api";
+  import {BookArticleList} from "../../../api";
   import IBeautifulLink2 from "../../Common/link/IBeautifulLink2";
   import IShowMarkdown from "../../Common/markdown/IShowMarkdown"
   import HorizontalLinks from "../../Elementviewers/HorizontalLinks";
 
   export default {
-    name: "BookDetail",
+    name: "BookArticleDetail",
     components: {HorizontalLinks, IBeautifulLink2,IShowMarkdown},
     data(){
       return {
@@ -52,7 +52,7 @@
         this.bookBlog = bookBlog;
       },
       refreshBookInfo:async function (book_id) {
-        const result = await BookBlogList(book_id);
+        const result = await BookArticleList(book_id);
         if(result.status == "SUCCESS"){
           this.bookBlogs = result.books;
         }

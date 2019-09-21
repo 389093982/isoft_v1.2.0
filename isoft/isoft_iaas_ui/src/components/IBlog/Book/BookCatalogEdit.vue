@@ -25,7 +25,7 @@
 
 <script>
   import BlogEdit from "../BlogEdit";
-  import {BookBlogList} from "../../../api";
+  import {BookArticleList} from "../../../api";
   import IBeautifulCard from "../../Common/card/IBeautifulCard"
   import IBeautifulLink2 from "../../Common/link/IBeautifulLink2"
   export default {
@@ -41,7 +41,7 @@
         this.$refs.blogEdit.refreshBlogDetail(bookBlog.id);
       },
       refreshBookInfo:async function () {
-        const result = await BookBlogList(this.$route.query.book_id);
+        const result = await BookArticleList(this.$route.query.book_id);
         if(result.status == "SUCCESS"){
           this.bookBlogs = result.books;
         }

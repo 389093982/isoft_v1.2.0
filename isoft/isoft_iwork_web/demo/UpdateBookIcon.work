@@ -4,7 +4,7 @@
 		<WorkName>UpdateBookIcon</WorkName>
 		<WorkDesc>UpdateBookIcon</WorkDesc>
 		<WorkType>work</WorkType>
-		<ModuleName>Blog</ModuleName>
+		<ModuleName>Book</ModuleName>
 		<CreatedBy>SYSTEM</CreatedBy>
 		<LastUpdatedBy>SYSTEM</LastUpdatedBy>
 	</work>
