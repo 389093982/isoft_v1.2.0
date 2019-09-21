@@ -29,7 +29,7 @@
                              :extra-data="book.id" @uploadComplete="uploadComplete" action="/api/iwork/fileUpload/default" uploadLabel="换张图片"/>
               </Col>
               <Col span="12">
-                <IBeautifulLink2 @onclick="deleteBook">删除</IBeautifulLink2>
+                <IBeautifulLink2 @onclick="deleteBook(book.id)">删除</IBeautifulLink2>
               </Col>
             </Row>
             <Row :gutter="10">
@@ -58,7 +58,7 @@
 </template>
 
 <script>
-  import {BookList,BookEdit,UpdateBookIcon} from "../../../api"
+  import {BookList,BookEdit,UpdateBookIcon,DeleteBookById} from "../../../api"
   import IBeautifulCard from "../../Common/card/IBeautifulCard"
   import IKeyValueForm from "../../Common/form/IKeyValueForm";
   import ISimpleConfirmModal from "../../Common/modal/ISimpleConfirmModal"
@@ -75,8 +75,11 @@
       }
     },
     methods:{
-      deleteBook:function(){
-        alert(111111111);
+      deleteBook:async function(book_id){
+        const result = await DeleteBookById(book_id);
+        if(result.status == "SUCCESS"){
+          this.refreshBookList();
+        }
       },
       uploadComplete: async function (data) {
         if(data.status == "SUCCESS"){
