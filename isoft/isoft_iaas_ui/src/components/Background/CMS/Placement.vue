@@ -65,7 +65,7 @@
           {
             title: '操作',
             key: 'operate',
-            width: 200,
+            width: 250,
             fixed: 'right',
             render: (h,params)=> {
               return h('div',[
@@ -129,6 +129,21 @@
                     }
                   }
                 }, '复制'),
+                h('Button', {
+                  props: {
+                    type: 'warning',
+                    size: 'small'
+                  },
+                  style: {
+                    marginRight: '5px',
+                    display: !this.chooserMode ? 'undefined': 'none',   // 非选择模式显示
+                  },
+                  on: {
+                    click: () => {
+                      this.$router.push({path:'/background/cms/element_list',query:{ placement_name: this.placements[params.index].placement_name }});
+                    }
+                  }
+                }, '元素管理'),
               ]);
             }
           }

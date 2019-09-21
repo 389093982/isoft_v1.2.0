@@ -169,6 +169,9 @@
       if(this.$route.query.search != undefined){
         this.search = this.$route.query.search;
       }
+      if(this.$route.query.placement_name != undefined){
+        this.search = this.$route.query.placement_name;
+      }
       this.refreshElementList();
       this.refreshAllPlacements();
     }
