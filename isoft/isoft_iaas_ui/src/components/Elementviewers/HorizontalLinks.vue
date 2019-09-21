@@ -2,7 +2,9 @@
   <ElementsLoader :placement_name="placement_name" @onLoadElement="onLoadElement">
     <Row style="padding: 10px;">
       <Col span="2">{{placement_label}}</Col>
-      <Col span="2" v-for="element in elements"><IBeautifulLink2>{{element.title}}</IBeautifulLink2></Col>
+      <Col span="2" v-for="element in elements">
+        <IBeautifulLink2 @onclick="openLink(element)">{{element.title}}</IBeautifulLink2>
+      </Col>
     </Row>
   </ElementsLoader>
 </template>
@@ -27,6 +29,9 @@
       }
     },
     methods:{
+      openLink:function (element) {
+        window.location.href=element.linked_refer;
+      },
       onLoadElement:function (placement_label, elements) {
         this.placement_label = placement_label;
         this.elements = elements;
