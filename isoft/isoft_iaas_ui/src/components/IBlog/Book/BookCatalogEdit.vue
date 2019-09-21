@@ -31,6 +31,8 @@
   import {BookArticleList} from "../../../api";
   import IBeautifulCard from "../../Common/card/IBeautifulCard"
   import IBeautifulLink2 from "../../Common/link/IBeautifulLink2"
+  import {checkFastClick} from "../../../tools"
+
   export default {
     name: "BookCatalogEdit",
     components: {IBeautifulCard, ArticleEdit,IBeautifulLink2},
@@ -41,6 +43,10 @@
     },
     methods:{
       createEmptyArticle:function(){
+        if (checkFastClick()){
+          this.$Message.error("点击过快,请稍后重试!");
+          return;
+        }
         this.$refs.blogArticleEdit.createEmptyArticle(parseInt(this.$route.query.book_id));
       },
       editBookArticle:function (bookArticle){
