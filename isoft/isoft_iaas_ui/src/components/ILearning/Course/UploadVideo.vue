@@ -9,9 +9,9 @@
         <p>课程名称：{{course.course_name}}</p>
 
         <div style="margin-top: 20px;margin-bottom: 20px;">
-          <Button v-if="course.course_number" v-for="num in course.course_number"
+          <Button size="small" v-if="course.course_number > 0" v-for="num in course.course_number"
                   type="success" @click="uploadVideoNum = num" style="margin: 5px;">第{{num}}集</Button>
-          <Button type="success" @click="uploadVideoNum = course.course_number + 1">新一集{{course.course_number + 1}}</Button>
+          <Button size="small" type="success" @click="uploadVideoNum = course.course_number + 1">新一集{{course.course_number + 1}}</Button>
         </div>
 
         <Upload :action="'/api/iwork/fileUpload/UploadVideo2?id=' + course.id + '&video_number=' + uploadVideoNum" :on-success="uploadComplete">
