@@ -2,13 +2,17 @@
   <div style="background: #FFFFFF;padding: 10px;">
     <Row style="background: #FFFFFF;">
       <Col span="6" style="padding: 2px;background: #f8f8f9;">
-        <Card title="我的课程空间" :padding="0" shadow>
-          <CellGroup>
-            <Cell title="我要开课" to="/ilearning/mine/course_space/newCourse"/>
-            <Cell title="我的课程" to="/ilearning/mine/course_space/myCourseList"/>
-            <Cell title="最近浏览" to="/ilearning/mine/course_space/recentlyViewed"/>
-            <Cell title="我的收藏"/>
-          </CellGroup>
+        <Card title="我的课程空间">
+          <p style="padding: 5px;">
+            <IBeautifulLink2 @onclick="$router.push({path:'/ilearning/mine/course_space/newCourse'})">我要开课</IBeautifulLink2>
+          </p>
+          <p style="padding: 5px;">
+            <IBeautifulLink2 @onclick="$router.push({path:'/ilearning/mine/course_space/myCourseList'})">我的课程</IBeautifulLink2>
+          </p>
+          <p style="padding: 5px;">
+            <IBeautifulLink2 @onclick="$router.push({path:'/ilearning/mine/course_space/recentlyViewed'})">最近浏览</IBeautifulLink2>
+          </p>
+          <p style="padding: 5px;"><IBeautifulLink2 @onclick="">我的收藏</IBeautifulLink2></p>
         </Card>
       </Col>
       <Col span="18">
@@ -23,8 +27,10 @@
 </template>
 
 <script>
+  import IBeautifulLink2 from "../../Common/link/IBeautifulLink2";
   export default {
     name: "CourseSpace",
+    components: {IBeautifulLink2},
   }
 </script>
 
