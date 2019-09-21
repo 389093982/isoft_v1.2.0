@@ -1,23 +1,20 @@
 <template>
   <div>
     <Row>
-      <Col span="6">
-        <IBeautifulCard title="图书目录">
-          <div slot="content" style="padding:10px;">
-            <p>图书名称：{{$route.query.book_name}}</p>
+      <Col span="6" style="background-color: #fff;border: 1px solid #e6e6e6;border-radius: 4px;padding: 20px;min-height: 500px;">
+        <p>图书名称：{{$route.query.book_name}}</p>
 
-            <div v-if="bookBlogs && bookBlogs.length > 0">
-              <p v-for="bookBlog in bookBlogs" style="margin-left: 15px;">
-                <IBeautifulLink2 @onclick="editBookBlog(bookBlog)">{{bookBlog.blog_title | filterLimitFunc}}</IBeautifulLink2>
-              </p>
-            </div>
-            <div v-else>
-              暂未创建目录,直接在右边创建奥
-            </div>
-          </div>
-        </IBeautifulCard>
+        <div v-if="bookBlogs && bookBlogs.length > 0">
+          <p v-for="bookBlog in bookBlogs" style="margin-left: 15px;">
+            <Icon type="ios-paper-outline"/>
+            <IBeautifulLink2 @onclick="editBookBlog(bookBlog)">{{bookBlog.blog_title | filterLimitFunc}}</IBeautifulLink2>
+          </p>
+        </div>
+        <div v-else>
+          暂未创建目录,直接在右边创建奥
+        </div>
       </Col>
-      <Col span="18">
+      <Col span="18" style="background-color: #fff;border: 1px solid #e6e6e6;border-radius: 4px;padding: 20px;min-height: 500px;">
         <span>
           <BlogEdit ref="blogEdit" :book-id="_book_id" :success-emit="true" @successEmitFunc="refreshBookInfo"/>
         </span>
@@ -61,8 +58,8 @@
     filters:{
       // 内容超长则显示部分
       filterLimitFunc:function (value) {
-        if(value && value.length > 15) {
-          value= value.substring(0,15) + '...';
+        if(value && value.length > 30) {
+          value= value.substring(0,30) + '...';
         }
         return value;
       },
