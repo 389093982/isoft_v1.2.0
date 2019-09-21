@@ -31,6 +31,7 @@ const VideoPay = () => import("@/components/ILearning/Course/VideoPay");
 const Configuration = () => import("@/components/Background/CMS/Configuration");
 const CourseSearch = () => import("@/components/ILearning/Course/CourseSearch");
 const CommonLinkList = () => import("@/components/Background/CMS/CommonLinkList");
+const FoundList = () => import("@/components/IFound/FoundList");
 const ILayout = () => import("@/components/ILayout/ILayout");
 
 
@@ -134,8 +135,18 @@ const IUserReouter = [{
   ]
 }];
 
+const IFoundReouter = [{
+  path: '/ifound',
+  component: ILayout,
+  children: [
+    {path: 'found_list',component: FoundList},
+  ]
+}];
+
+
 function getAllRouters() {
   let allRouters = [];
+  allRouters = joinArray(allRouters, IFoundReouter);
   allRouters = joinArray(allRouters, IUserReouter);
   allRouters = joinArray(allRouters, ILearningRouters);
   allRouters = joinArray(allRouters, ISSOReouter);
