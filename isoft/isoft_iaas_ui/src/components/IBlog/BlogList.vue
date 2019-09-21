@@ -3,10 +3,6 @@
    <!-- 热门分类 -->
    <HotCatalogItems @chooseItem="chooseItem"/>
 
-   <Row style="text-align: right;margin: 10px 15px 5px 0;">
-     <IBeautifulLink2 @onclick="$router.push({path:'/iblog/book_list'})">热门书单</IBeautifulLink2>
-   </Row>
-
    <div style="margin: 0 15px;background-color: #fff;border: 1px solid #e6e6e6;border-radius: 4px;">
     <Row>
       <Col span="16" style="padding: 0 0 20px;border-right: 1px solid #e6e6e6;">
