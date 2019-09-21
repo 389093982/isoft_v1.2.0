@@ -104,12 +104,12 @@
           blog_title: [
             { required: true, message: '文章标题不能为空', trigger: 'blur' }
           ],
-          short_desc: [
-            { required: true, message: '简短描述不能为空', trigger: 'blur' }
-          ],
-          key_words: [
-            { required: true, message: '检索词条不能为空', trigger: 'blur' }
-          ],
+          // short_desc: [
+          //   { required: true, message: '简短描述不能为空', trigger: 'blur' }
+          // ],
+          // key_words: [
+          //   { required: true, message: '检索词条不能为空', trigger: 'blur' }
+          // ],
           // catalog_name: [
           //   { required: true, type: 'number', message: '文章分类不能为空', trigger: 'blur' }
           // ],
