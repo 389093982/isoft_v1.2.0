@@ -142,3 +142,12 @@ export function getMatchArrForString(str, reg) {
 export function startsWith(str, prifix) {
   return str.indexOf(prifix) == 0;
 }
+
+var timestamp1 = new Date().getTime();
+
+export function checkFastClick(){
+  var timestamp2 = new Date().getTime();
+  var diff = timestamp2 - timestamp1;
+  timestamp1 = timestamp2;  // 记录上一次点击时间
+  return diff < 2000;
+}

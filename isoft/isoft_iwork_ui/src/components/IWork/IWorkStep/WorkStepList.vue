@@ -49,11 +49,11 @@
 <script>
   import {WorkStepList,GetMetaInfo,DeleteWorkStepByWorkStepId,RunWork,
     CopyWorkStepByWorkStepId,ChangeWorkStepOrder,RefactorWorkStepInfo,
-    BatchChangeIndent,LoadValidateResult,AddWorkStep,EditWorkStepBaseInfo} from "../../../api/index"
+    BatchChangeIndent,LoadValidateResult,AddWorkStep,EditWorkStepBaseInfo} from "../../../api"
   import ParamInfo from "./ParamInfo/ParamInfo"
   import ISimpleLeftRightRow from "../../Common/layout/ISimpleLeftRightRow"
   import BaseInfo from "./BaseInfo/BaseInfo"
-  import {checkEmpty, oneOf, startsWith, getRepeatStr} from "../../../tools/index"
+  import {checkEmpty, oneOf, startsWith, getRepeatStr, checkFastClick} from "../../../tools"
   import WorkValidate from "../IValidate/WorkValidate"
   import ISimpleConfirmModal from "../../Common/modal/ISimpleConfirmModal"
   import WorkStepEditBtns from "./WorkStepEditBtns"
@@ -194,6 +194,10 @@
                     },
                     on: {
                       handleClick:function (clickType) {
+                        if (checkFastClick()){
+                          _this.$Message.error("点击过快,请稍后重试!");
+                          return;
+                        }
                         switch (clickType) {
                           case "up":
                             _this.changeWorkStepOrder(params.row.work_step_id, "up");
