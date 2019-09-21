@@ -40,8 +40,9 @@
             <Input v-model="formValidate.link_href" placeholder="请输入分享链接"></Input>
           </FormItem>
           <FormItem>
-            <Button type="primary" @click="handleSubmit('formValidate')">Submit</Button>
-            <Button style="margin-left: 8px" @click="handleReset('formValidate')">Cancel</Button>
+            <Button type="success" @click="handleSubmit('formValidate')">提交</Button>
+            <Button type="error" v-if="formValidate.article_id > 0"
+                    style="margin-left: 8px" @click="handleDelete('formValidate')">删除该条目</Button>
           </FormItem>
         </Form>
   </div>
@@ -52,7 +53,7 @@
   import axios from 'axios'
 
   export default {
-    name: "BlogEdit",
+    name: "ArticleEdit",
     props:{
       successEmit:{
         type:Boolean,
@@ -91,7 +92,7 @@
         mycatalogs:[],
         hotCatalogItems:[],
         formValidate: {
-          blog_id:-1,
+          article_id:-1,
           blog_title: '',
           short_desc: '',
           key_words: '',
@@ -141,11 +142,14 @@
             this.$emit("successEmitFunc");
         }
       },
+      handleDelete(name){
+        alert(111111111);
+      },
       handleSubmit (name) {
         var _this = this;
         this.$refs[name].validate(async (valid) => {
           if (valid) {
-            const result = await BlogEdit(_this.formValidate.blog_id, this.bookId,
+            const result = await BlogEdit(_this.formValidate.article_id, this.bookId,
               _this.formValidate.blog_title,_this.formValidate.short_desc,
               _this.formValidate.key_words, _this.formValidate.catalog_name,
               _this.formValidate.content,_this.formValidate.link_href);
@@ -164,15 +168,12 @@
           }
         })
       },
-      handleReset (name) {
-        this.$refs[name].resetFields();
-      },
       refreshBlogDetail:async function (blog_id) {
         var blogId = blog_id > 0 ? blog_id : this.$route.query.blog_id;
         const result = await ShowBlogDetail(blogId);
         if(result.status=="SUCCESS"){
           this.blog = result.blog;
-          this.formValidate.blog_id = result.blog.id;
+          this.formValidate.article_id = result.blog.id;
           this.formValidate.blog_title = result.blog.blog_title;
           this.formValidate.short_desc = result.blog.short_desc;
           this.formValidate.key_words = result.blog.key_words;

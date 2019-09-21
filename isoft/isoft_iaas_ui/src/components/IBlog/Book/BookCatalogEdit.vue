@@ -19,7 +19,7 @@
       </Col>
       <Col span="18" style="background-color: #fff;border: 1px solid #e6e6e6;border-radius: 4px;padding: 20px;min-height: 500px;">
         <span>
-          <BlogEdit ref="blogArticleEdit" :book-id="_book_id" :success-emit="true" @successEmitFunc="refreshBookInfo"/>
+          <ArticleEdit ref="blogArticleEdit" :book-id="_book_id" :success-emit="true" @successEmitFunc="refreshBookInfo"/>
         </span>
       </Col>
     </Row>
@@ -27,13 +27,13 @@
 </template>
 
 <script>
-  import BlogEdit from "../BlogEdit";
+  import ArticleEdit from "../ArticleEdit";
   import {BookArticleList} from "../../../api";
   import IBeautifulCard from "../../Common/card/IBeautifulCard"
   import IBeautifulLink2 from "../../Common/link/IBeautifulLink2"
   export default {
     name: "BookCatalogEdit",
-    components: {IBeautifulCard, BlogEdit,IBeautifulLink2},
+    components: {IBeautifulCard, ArticleEdit,IBeautifulLink2},
     data(){
       return {
         bookBlogs:[],

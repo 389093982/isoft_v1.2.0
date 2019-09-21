@@ -16,7 +16,7 @@ const EditPlacement = () => import("@/components/Background/CMS/EditPlacement");
 const IBlog = () => import("@/components/IBlog/IBlog");
 const BlogList = () => import("@/components/IBlog/BlogList");
 const BlogDetail = () => import("@/components/IBlog/BlogDetail");
-const BlogEdit = () => import("@/components/IBlog/BlogEdit");
+const ArticleEdit = () => import("@/components/IBlog/ArticleEdit");
 const BookCatalogEdit = () => import("@/components/IBlog/Book/BookCatalogEdit");
 const BookList = () => import("@/components/IBlog/Book/BookList");
 const BookArticleDetail = () => import("@/components/IBlog/Book/BookArticleDetail");
@@ -55,7 +55,7 @@ const IBlogRouter = {
     {path: 'book_list',component: BookList},
     {path: 'book_detail',component: BookArticleDetail},
     {path: 'blog_detail',component: BlogDetail},
-    {path: 'mine/blog_edit',component: BlogEdit},
+    {path: 'mine/blog_edit',component: ArticleEdit},
     {path: 'mine/book_edit',component: BookCatalogEdit},
     {path: 'mine/book_list',component: BookList},
   ]
