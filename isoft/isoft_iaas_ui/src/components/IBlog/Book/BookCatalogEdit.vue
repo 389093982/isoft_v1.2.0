@@ -2,7 +2,10 @@
   <div>
     <Row>
       <Col span="6" style="background-color: #fff;border: 1px solid #e6e6e6;border-radius: 4px;padding: 20px;min-height: 500px;">
-        <p>图书名称：{{$route.query.book_name}}</p>
+        <Row>
+          <Col span="18"><span style="color: green;font-weight: bold;">{{$route.query.book_name}}</span></Col>
+          <Col span="6"><Button style="right: 50px;" size="small" @click="createEmptyArticle">新建文章</Button></Col>
+        </Row>
 
         <div v-if="bookBlogs && bookBlogs.length > 0">
           <p v-for="bookBlog in bookBlogs" style="margin-left: 15px;">
@@ -16,7 +19,7 @@
       </Col>
       <Col span="18" style="background-color: #fff;border: 1px solid #e6e6e6;border-radius: 4px;padding: 20px;min-height: 500px;">
         <span>
-          <BlogEdit ref="blogEdit" :book-id="_book_id" :success-emit="true" @successEmitFunc="refreshBookInfo"/>
+          <BlogEdit ref="blogArticleEdit" :book-id="_book_id" :success-emit="true" @successEmitFunc="refreshBookInfo"/>
         </span>
       </Col>
     </Row>
@@ -37,8 +40,11 @@
       }
     },
     methods:{
+      createEmptyArticle:function(){
+        this.$refs.blogArticleEdit.createEmptyArticle(parseInt(this.$route.query.book_id));
+      },
       editBookBlog:function (bookBlog){
-        this.$refs.blogEdit.refreshBlogDetail(bookBlog.id);
+        this.$refs.blogArticleEdit.refreshBlogDetail(bookBlog.id);
       },
       refreshBookInfo:async function () {
         const result = await BookArticleList(this.$route.query.book_id);

@@ -135,6 +135,12 @@
           this.$refs.md.$img2Url(pos, result.data.fileServerPath);
         })
       },
+      createEmptyArticle:async function(book_id){
+        const result = await BlogEdit(-1, book_id, '新建文章', '', '', '', '','');
+        if(result.status == "SUCCESS"){
+            this.$emit("successEmitFunc");
+        }
+      },
       handleSubmit (name) {
         var _this = this;
         this.$refs[name].validate(async (valid) => {
