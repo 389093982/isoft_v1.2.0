@@ -1,6 +1,6 @@
 <template>
   <ElementsLoader :placement_name="placement_name" @onLoadElement="onLoadElement">
-    <Row>
+    <Row style="padding: 10px;">
       <Col span="2">{{placement_label}}</Col>
       <Col span="2" v-for="element in elements"><IBeautifulLink2>{{element.title}}</IBeautifulLink2></Col>
     </Row>
