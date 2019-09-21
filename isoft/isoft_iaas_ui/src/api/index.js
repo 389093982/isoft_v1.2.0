@@ -18,6 +18,7 @@ export const GetMyBlogs = () => ajax(BASE_URL+'/iwork/httpservice/GetMyBlogs2',{
 // 编辑或者新增博客文章
 export const BlogEdit = (article_id, bookId, blog_title, short_desc, key_words, catalog_name, content, link_href) =>
   ajax(BASE_URL+'/iwork/httpservice/BlogEdit2',{article_id, bookId, blog_title, short_desc, key_words, catalog_name, content, link_href},'POST');
+export const ArticleDelete = (article_id) => ajax(BASE_URL+'/iwork/httpservice/ArticleDelete',{article_id},'POST');
 
 // 热门博客分页列表
 export const BlogList = (offset,current_page, search_type) => ajax(BASE_URL+'/iwork/httpservice/BlogList2',{offset,current_page, search_type},'GET');
@@ -35,7 +36,7 @@ export const UpdateUserIcon = (userName, small_icon) => ajax(BASE_URL+'/iwork/ht
 export const UpdateBlogStatus = (blog_status, blog_id) => ajax(BASE_URL+'/iwork/httpservice/UpdateBlogStatus',{blog_status, blog_id},'GET');
 
 // 根据 blog_id 查询 blog 详细信息
-export const ShowBlogDetail = (blog_id) => ajax(BASE_URL+'/iwork/httpservice/ShowBlogDetail2',{blog_id},'GET');
+export const ShowArticleDetail = (id) => ajax(BASE_URL+'/iwork/httpservice/ShowArticleDetail',{id},'GET');
 
 // 新建课程
 export const NewCourse = (course_name,course_type,course_sub_type,course_short_desc) =>

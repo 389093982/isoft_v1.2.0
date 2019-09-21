@@ -11,7 +11,7 @@
         <Col span="3">阅读次数 {{blog.views}}</Col>
         <Col span="3">编辑次数 {{blog.edits}}
           <Button type="success" size="small" v-if="editable"
-            @click="$router.push({ path: '/iblog/mine/blog_edit', query: { blog_id: blog.id }})">编辑</Button>
+            @click="$router.push({ path: '/iblog/mine/blog_edit', query: { id: blog.id }})">编辑</Button>
         </Col>
       </Row>
     </div>
@@ -25,7 +25,7 @@
 </template>
 
 <script>
-  import {ShowBlogDetail} from "../../api"
+  import {ShowArticleDetail} from "../../api"
   import IShowMarkdown from "../Common/markdown/IShowMarkdown"
   import IEasyComment from "../Comment/IEasyComment"
   import {CheckHasLogin,GetLoginUserName} from "../../tools"
@@ -39,15 +39,15 @@
       }
     },
     methods:{
-      refreshBlogDetail:async function () {
-        const result = await ShowBlogDetail(this.$route.query.blog_id);
+      refreshArticleDetail:async function () {
+        const result = await ShowArticleDetail(this.$route.query.blog_id);
         if(result.status=="SUCCESS"){
           this.blog = result.blog;
         }
       },
     },
     mounted:function () {
-      this.refreshBlogDetail();
+      this.refreshArticleDetail();
     },
     computed:{
       editable:function () {

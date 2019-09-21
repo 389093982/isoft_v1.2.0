@@ -7,10 +7,10 @@
           <Col span="6"><Button style="right: 50px;" size="small" @click="createEmptyArticle">新建文章</Button></Col>
         </Row>
 
-        <div v-if="bookBlogs && bookBlogs.length > 0">
-          <p v-for="bookBlog in bookBlogs" style="margin-left: 15px;">
+        <div v-if="bookArticles && bookArticles.length > 0">
+          <p v-for="bookArticle in bookArticles" style="margin-left: 15px;">
             <Icon type="ios-paper-outline"/>
-            <IBeautifulLink2 @onclick="editBookBlog(bookBlog)">{{bookBlog.blog_title | filterLimitFunc}}</IBeautifulLink2>
+            <IBeautifulLink2 @onclick="editBookArticle(bookArticle)">{{bookArticle.blog_title | filterLimitFunc}}</IBeautifulLink2>
           </p>
         </div>
         <div v-else>
@@ -36,20 +36,20 @@
     components: {IBeautifulCard, ArticleEdit,IBeautifulLink2},
     data(){
       return {
-        bookBlogs:[],
+        bookArticles:[],
       }
     },
     methods:{
       createEmptyArticle:function(){
         this.$refs.blogArticleEdit.createEmptyArticle(parseInt(this.$route.query.book_id));
       },
-      editBookBlog:function (bookBlog){
-        this.$refs.blogArticleEdit.refreshBlogDetail(bookBlog.id);
+      editBookArticle:function (bookArticle){
+        this.$refs.blogArticleEdit.refreshArticleDetail(bookArticle.id);
       },
       refreshBookInfo:async function () {
         const result = await BookArticleList(this.$route.query.book_id);
         if(result.status == "SUCCESS"){
-          this.bookBlogs = result.books;
+          this.bookArticles = result.books;
         }
       },
     },

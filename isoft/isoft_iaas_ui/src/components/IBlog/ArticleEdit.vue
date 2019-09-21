@@ -49,7 +49,7 @@
 </template>
 
 <script>
-  import {GetMyCatalogs,BlogEdit,ShowBlogDetail,FilterElementByPlacement} from "../../api"
+  import {GetMyCatalogs,BlogEdit,ArticleDelete,ShowArticleDetail,FilterElementByPlacement} from "../../api"
   import axios from 'axios'
 
   export default {
@@ -142,10 +142,18 @@
             this.$emit("successEmitFunc");
         }
       },
-      handleDelete(name){
-        alert(111111111);
+      handleDelete: async function(name){
+        if(this.formValidate.article_id > 0){
+          const result = await ArticleDelete(this.formValidate.article_id);
+          if(result.status == "SUCCESS"){
+            this.$refs[name].resetFields();
+            if(this.successEmit){
+              this.$emit("successEmitFunc");
+            }
+          }
+        }
       },
-      handleSubmit (name) {
+      handleSubmit: function(name) {
         var _this = this;
         this.$refs[name].validate(async (valid) => {
           if (valid) {
@@ -168,9 +176,9 @@
           }
         })
       },
-      refreshBlogDetail:async function (blog_id) {
-        var blogId = blog_id > 0 ? blog_id : this.$route.query.blog_id;
-        const result = await ShowBlogDetail(blogId);
+      refreshArticleDetail:async function (article_id) {
+        var articleId = article_id > 0 ? article_id : this.$route.query.id;
+        const result = await ShowArticleDetail(articleId);
         if(result.status=="SUCCESS"){
           this.blog = result.blog;
           this.formValidate.article_id = result.blog.id;
@@ -193,8 +201,8 @@
       // 加载热门分类
       this.refreshHotCatalogItems();
       // 数据回显
-      if(this.$route.query.blog_id != undefined && this.$route.query.blog_id != null){
-        this.refreshBlogDetail();
+      if(this.$route.query.id != undefined && this.$route.query.id != null){
+        this.refreshArticleDetail();
       }
 
       const result = await GetMyCatalogs();
