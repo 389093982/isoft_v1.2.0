@@ -73,10 +73,11 @@
   import IBeautifulLink2 from "../../Common/link/IBeautifulLink2"
   import IFileUpload from "../../Common/file/IFileUpload"
   import HotUser from "../../User/HotUser";
+  import IndexCarousel from "../../ILearning/IndexCarousel";
 
   export default {
     name: "BookList",
-    components: {HotUser, IBeautifulLink2, IKeyValueForm, IBeautifulCard,ISimpleConfirmModal,IFileUpload},
+    components: {IndexCarousel, HotUser, IBeautifulLink2, IKeyValueForm, IBeautifulCard,ISimpleConfirmModal,IFileUpload},
     data(){
       return {
         books:[],
