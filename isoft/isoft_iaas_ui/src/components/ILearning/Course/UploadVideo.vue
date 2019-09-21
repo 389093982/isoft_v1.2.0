@@ -16,12 +16,8 @@
 
          <IFileUpload ref="fileUpload" btn-size="small" :auto-hide-modal="true" :extra-data="{'id':course.id, 'video_number':uploadVideoNum}"
                       @uploadComplete="uploadComplete" action="/api/iwork/fileUpload/default" uploadLabel="上传视频"/>
-
-        <Upload :action="'/api/iwork/fileUpload/UploadVideo2?id=' + course.id + '&video_number=' + uploadVideoNum" :on-success="uploadComplete">
-          <Button icon="ios-cloud-upload-outline">Upload files</Button>
-          <span v-if="uploadVideoNum > 0" style="color: green;">*当前更新第{{uploadVideoNum}}集</span>
-          <span v-else style="color: red;">请选择更新集数</span>
-        </Upload>
+        <span v-if="uploadVideoNum > 0" style="color: green;">*当前更新第{{uploadVideoNum}}集</span>
+        <span v-else style="color: red;">请选择更新集数</span>
       </div>
     </Modal>
 
@@ -53,6 +49,7 @@
           let video_number = data.extraData.video_number;
           const result = await UploadVideo(courseId, video_number, '1111111111111',uploadFilePath);
           if(result.status == "SUCCESS"){
+            this.showDialog = false;
             this.$emit('uploadComplete');
           }
         }
