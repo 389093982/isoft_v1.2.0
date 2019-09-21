@@ -8,7 +8,7 @@
 
             <div v-if="bookBlogs && bookBlogs.length > 0">
               <p v-for="bookBlog in bookBlogs" style="margin-left: 15px;">
-                <IBeautifulLink2 @onclick="editBookBlog(bookBlog)">{{bookBlog.blog_title}}</IBeautifulLink2>
+                <IBeautifulLink2 @onclick="editBookBlog(bookBlog)">{{bookBlog.blog_title | filterLimitFunc}}</IBeautifulLink2>
               </p>
             </div>
             <div v-else>
@@ -32,7 +32,7 @@
   import IBeautifulCard from "../../Common/card/IBeautifulCard"
   import IBeautifulLink2 from "../../Common/link/IBeautifulLink2"
   export default {
-    name: "BookEdit",
+    name: "BookCatalogEdit",
     components: {IBeautifulCard, BlogEdit,IBeautifulLink2},
     data(){
       return {
@@ -57,6 +57,15 @@
     },
     mounted(){
       this.refreshBookInfo();
+    },
+    filters:{
+      // 内容超长则显示部分
+      filterLimitFunc:function (value) {
+        if(value && value.length > 15) {
+          value= value.substring(0,15) + '...';
+        }
+        return value;
+      },
     }
   }
 </script>

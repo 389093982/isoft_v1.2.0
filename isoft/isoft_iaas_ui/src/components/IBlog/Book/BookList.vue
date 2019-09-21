@@ -19,7 +19,7 @@
             <router-link :to="{path:'/iblog/book_detail',query:{book_id:book.id}}">
               <img v-if="book.book_img" :src="book.book_img" height="90px" width="120px"/>
               <img v-else src="../../../assets/default.png" height="90px" width="120px"/>
-              <p>{{book.book_name | filterLimitFunc}}</p>
+              <p style="font-size: 12px;">{{book.book_name | filterLimitFunc}}</p>
             </router-link>
           </div>
           <div class="bookOper" v-if="mine" style="margin-top: 10px;padding-left: 30px;">
@@ -113,7 +113,6 @@
       },
       refreshBookList:async function () {
         this.mine = this.$route.query.type == 'mine';
-
         const result = await BookList();
         if(result.status == "SUCCESS"){
           this.books = result.books;
@@ -130,8 +129,8 @@
     filters:{
       // 内容超长则显示部分
       filterLimitFunc:function (value) {
-        if(value && value.length > 10) {
-          value= value.substring(0,10) + '...';
+        if(value && value.length > 15) {
+          value= value.substring(0,15) + '...';
         }
         return value;
       },

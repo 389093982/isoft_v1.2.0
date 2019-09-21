@@ -7,7 +7,7 @@
 
           <p v-for="bookBlog in bookBlogs">
             <Icon type="ios-paper-outline"/>
-            <IBeautifulLink2 @onclick="showDetail(bookBlog)">{{bookBlog.blog_title}}</IBeautifulLink2>
+            <IBeautifulLink2 @onclick="showDetail(bookBlog)">{{bookBlog.blog_title | filterLimitFunc}}</IBeautifulLink2>
           </p>
         </div>
       </Col>
@@ -62,6 +62,15 @@
       if(this.$route.query.book_id != undefined && this.$route.query.book_id != null){
         this.refreshBookInfo(this.$route.query.book_id);
       }
+    },
+    filters:{
+      // 内容超长则显示部分
+      filterLimitFunc:function (value) {
+        if(value && value.length > 30) {
+          value= value.substring(0,30) + '...';
+        }
+        return value;
+      },
     }
   }
 </script>
