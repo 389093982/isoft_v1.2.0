@@ -19,13 +19,13 @@
             <Input v-model="formValidate.course_short_desc" placeholder="Enter course short desc..."></Input>
           </FormItem>
           <FormItem>
-            <Button type="primary" @click="handleSubmit('formValidate')">Submit</Button>
-            <Button style="margin-left: 8px" @click="handleReset('formValidate')">Cancel</Button>
+            <Button type="success" @click="handleSubmit('formValidate')">提交</Button>
+            <Button style="margin-left: 8px" @click="handleReset('formValidate')">重置</Button>
           </FormItem>
         </Form>
       </Col>
       <Col span="8">
-        <MdCourseDesc :placement_name="GLOBAL.md_demo123"/>
+        <MarkDownElementRender :placement_name="GLOBAL.element_course_publish_desc"/>
       </Col>
     </Row>
   </div>
@@ -35,11 +35,11 @@
   import {NewCourse} from "../../../api"
   import ChooseHotCourseType from "../CourseType/ChooseHotCourseType"
   import IBeautifulCard from "../../Common/card/IBeautifulCard"
-  import MdCourseDesc from "../CourseSpace/MdCourseDesc"
+  import MarkDownElementRender from "../../Background/CMS/MarkDownElementRender"
 
   export default {
     name: "NewCourse",
-    components:{IBeautifulCard, ChooseHotCourseType,MdCourseDesc},
+    components:{IBeautifulCard, ChooseHotCourseType,MarkDownElementRender},
     data(){
       return {
         formValidate: {

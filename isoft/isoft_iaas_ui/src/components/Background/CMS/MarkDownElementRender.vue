@@ -1,7 +1,7 @@
 <template>
   <ElementsLoader :placement_name="placement_name" @onLoadElement="onLoadElement">
     <IBeautifulCard :title="placement_label" v-if="elements.length > 0">
-      <div slot="content">
+      <div slot="content" style="padding: 10px;">
         <IShowMarkdown v-if="elements[0].md_content" :content="elements[0].md_content"/>
       </div>
     </IBeautifulCard>
@@ -14,7 +14,7 @@
   import IShowMarkdown from "../../Common/markdown/IShowMarkdown"
 
   export default {
-    name: "MdCourseDesc",
+    name: "MarkDownElementRender",
     components:{IBeautifulCard,IShowMarkdown,ElementsLoader},
     props:{
       placement_name:{
