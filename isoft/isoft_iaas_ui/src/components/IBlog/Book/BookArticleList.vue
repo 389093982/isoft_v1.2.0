@@ -55,6 +55,9 @@
         const result = await BookArticleList(book_id);
         if(result.status == "SUCCESS"){
           this.bookArticles = result.books;
+          if(this.bookArticles.length > 0){
+            this.showDetail(this.bookArticles[0]);
+          }
         }
       }
     },
