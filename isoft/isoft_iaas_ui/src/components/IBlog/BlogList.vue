@@ -81,7 +81,7 @@
     </Row>
    </div>
 
-   <HorizontalLinks :placement_name="GLOBAL.want_to_find" style="margin: 20px;"/>
+   <HorizontalLinks :placement_name="GLOBAL.element_want_to_find" style="margin: 20px;"/>
  </div>
 </template>
 

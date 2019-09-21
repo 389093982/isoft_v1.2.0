@@ -96,17 +96,17 @@
               return h('div',[
                 h(MultiClickButton,{
                   props:{
-                    btnCounts: 6,
-                    btnTypes: ['primary','info','warning',"error", 'success', "warning"],
+                    btnCounts: 5,
+                    btnTypes: ['primary','info','warning',"error", 'success'],
                     btnShows: [true, true, true, true, true, true],
-                    btnBindDatas: [1, 0, -1, 2, 3, 4],
-                    btnTexts: ['启用', '停用', '失效', '删除', '编辑', "复制"],
+                    btnBindDatas: [1, 0, -1, 2, 3],
+                    btnTexts: ['启用', '停用', '失效', '编辑', "复制"],
                   },
                   on:{
                     handleClick:async function (index, bindData) {
-                      if (bindData == 3){   // 编辑模式
+                      if (bindData == 2){   // 编辑模式
                         _this.$router.push({ path: '/background/cms/element_edit', query: { id: _this.elements[params.index].id }});
-                      }else if (bindData == 4){   // 复制模式
+                      }else if (bindData == 3){   // 复制模式
                         _this.copyElement(_this.elements[params.index].id);
                       }else{
                         const result = await UpdateElementStatus(_this.elements[params.index].id, bindData);
