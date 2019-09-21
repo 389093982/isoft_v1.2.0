@@ -24,7 +24,6 @@
             <TotalCourseType v-show="showCourseType===false" @chooseCourseType="chooseCourseType"/>
           </div>
         </div>
-        <div style="padding: 10px;"></div>
       </div>
 
 

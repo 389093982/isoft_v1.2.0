@@ -17,7 +17,7 @@
           <IBeautifulLink2>下一篇</IBeautifulLink2>
         </div>
 
-        <div v-if="bookArticle">
+        <div v-if="bookArticle" style="min-height: 400px;">
           <IShowMarkdown v-if="bookArticle.content" :content="bookArticle.content"/>
         </div>
 
