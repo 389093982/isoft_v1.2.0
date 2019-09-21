@@ -15,15 +15,9 @@
         </Col>
         <Col span="16">
           <CourseMeta :course="myCourse"/>
-          <p>课程更新状态：{{myCourse.course_status}}
-            <span v-if="myCourse.course_status != '已完结'">
-                <a href="javascript:;" style="color:#f55e13;font-family: Arial;font-weight: 700;"
-                  @click="endUpdate(myCourse.id)">完结更新</a>
-            </span>
-          </p>
           <p><router-link :to="{path:'/ilearning/course_detail',query:{course_id:myCourse.id}}"
               style="color:green;font-family: Arial;font-weight: 700;">查看视频详情</router-link></p>
-          <p><UploadVideo v-if="myCourse.course_status != '已完结'" :course="myCourse" @uploadComplete="uploadVideoComplete"/></p>
+          <p><UploadVideo :course="myCourse" @uploadComplete="uploadVideoComplete"/></p>
         </Col>
       </Row>
     </div>
@@ -67,12 +61,6 @@
       uploadVideoComplete:function () {
         this.refreshMyCourseList();
       },
-      endUpdate:async function (course_id) {
-        const result = await EndUpdate(course_id);
-        if(result.status=="SUCCESS"){
-          this.refreshMyCourseList();
-        }
-      }
     },
     mounted:function () {
       this.refreshMyCourseList();

@@ -15,7 +15,6 @@
     <p>课程子类型：{{course.course_sub_type}}</p>
     <p>课程简介：{{course.course_short_desc}}</p>
     <p>课程集数：{{course.course_number}}</p>
-    <p>课程更新状态：{{course.course_status}}</p>
   </span>
 </template>
 

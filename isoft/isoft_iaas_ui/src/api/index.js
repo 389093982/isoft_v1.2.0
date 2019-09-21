@@ -46,7 +46,6 @@ export const NewCourse = (course_name,course_type,course_sub_type,course_short_d
 export const GetMyCourseList = (userName) => ajax(BASE_URL+"/iwork/httpservice/GetMyCourseList2",{userName},'GET');
 
 // 完结视频更新
-export const EndUpdate = (course_id) => ajax(BASE_URL+"/iwork/httpservice/EndUpdate2",{course_id},'GET');
 export const UpdateCourseIcon = (course_id,small_image) => ajax(BASE_URL+"/iwork/httpservice/UpdateCourseIcon",{course_id,small_image},'GET');
 export const UploadVideo = (id,video_number,video_name,video_path) => ajax(BASE_URL+"/iwork/httpservice/UploadVideo2",{id,video_number,video_name,video_path},'GET');
 

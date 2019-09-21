@@ -12,7 +12,6 @@
           <p style="padding: 5px;">
             <IBeautifulLink2 @onclick="$router.push({path:'/ilearning/mine/course_space/recentlyViewed'})">最近浏览</IBeautifulLink2>
           </p>
-          <p style="padding: 5px;"><IBeautifulLink2 @onclick="">我的收藏</IBeautifulLink2></p>
         </Card>
       </Col>
       <Col span="18">
