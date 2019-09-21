@@ -7,7 +7,7 @@
 
           <p v-for="bookArticle in bookArticles">
             <Icon type="ios-paper-outline"/>
-            <IBeautifulLink2 @onclick="showDetail(bookArticle)">{{bookArticle.blog_title | filterLimitFunc}}</IBeautifulLink2>
+            <IBeautifulLink2 @onclick="showDetail(bookArticle)">{{bookArticle.article_title | filterLimitFunc}}</IBeautifulLink2>
           </p>
         </div>
       </Col>

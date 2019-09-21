@@ -1,6 +1,6 @@
 <template>
   <div v-if="blog" style="background: #ffffff;margin: 10px;padding: 20px;min-height: 800px;">
-    <h3>{{blog.blog_title}}</h3>
+    <h3>{{blog.article_title}}</h3>
     <div style="border-bottom: 1px solid #f4f4f4;margin-top:20px;margin-bottom: 20px;">
       <Row style="margin: 10px;">
         <Col span="18">

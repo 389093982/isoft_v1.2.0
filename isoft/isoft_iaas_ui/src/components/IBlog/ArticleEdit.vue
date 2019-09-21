@@ -3,8 +3,8 @@
     <Form ref="formValidate" :model="formValidate" :rules="ruleValidate" :label-width="80">
           <Row>
             <Col span="12">
-              <FormItem label="文章标题" prop="blog_title">
-                <Input v-model="formValidate.blog_title" placeholder="Enter blog title..."/>
+              <FormItem label="文章标题" prop="article_title">
+                <Input v-model="formValidate.article_title" placeholder="Enter blog title..."/>
               </FormItem>
             </Col>
             <Col span="12">
@@ -93,7 +93,7 @@
         hotCatalogItems:[],
         formValidate: {
           article_id:-1,
-          blog_title: '',
+          article_title: '',
           short_desc: '',
           key_words: '',
           catalog_name: '',
@@ -101,7 +101,7 @@
           link_href:"",
         },
         ruleValidate: {
-          blog_title: [
+          article_title: [
             { required: true, message: '文章标题不能为空', trigger: 'blur' }
           ],
           // short_desc: [
@@ -158,7 +158,7 @@
         this.$refs[name].validate(async (valid) => {
           if (valid) {
             const result = await BlogEdit(_this.formValidate.article_id, this.bookId,
-              _this.formValidate.blog_title,_this.formValidate.short_desc,
+              _this.formValidate.article_title,_this.formValidate.short_desc,
               _this.formValidate.key_words, _this.formValidate.catalog_name,
               _this.formValidate.content,_this.formValidate.link_href);
             if(result.status == "SUCCESS"){
@@ -182,7 +182,7 @@
         if(result.status=="SUCCESS"){
           this.blog = result.blog;
           this.formValidate.article_id = result.blog.id;
-          this.formValidate.blog_title = result.blog.blog_title;
+          this.formValidate.article_title = result.blog.article_title;
           this.formValidate.short_desc = result.blog.short_desc;
           this.formValidate.key_words = result.blog.key_words;
           this.formValidate.catalog_name = result.blog.catalog_name;

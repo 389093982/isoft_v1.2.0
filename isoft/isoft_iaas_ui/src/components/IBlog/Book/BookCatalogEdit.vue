@@ -10,7 +10,7 @@
         <div v-if="bookArticles && bookArticles.length > 0">
           <p v-for="bookArticle in bookArticles" style="margin-left: 15px;">
             <Icon type="ios-paper-outline"/>
-            <IBeautifulLink2 @onclick="editBookArticle(bookArticle)">{{bookArticle.blog_title | filterLimitFunc}}</IBeautifulLink2>
+            <IBeautifulLink2 @onclick="editBookArticle(bookArticle)">{{bookArticle.article_title | filterLimitFunc}}</IBeautifulLink2>
           </p>
         </div>
         <div v-else>

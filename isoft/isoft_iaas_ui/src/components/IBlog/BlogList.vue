@@ -29,7 +29,7 @@
                 </router-link>
                 <!-- 使用v-bind动态绑定id传递给目标路径 -->
                 <router-link :to="{path:'/iblog/blog_detail',query:{blog_id:searchblog.id}}">
-                  <h4>{{searchblog.blog_title}}</h4>
+                  <h4>{{searchblog.article_title}}</h4>
                 </router-link>
               </Col>
               <Col span="12">
