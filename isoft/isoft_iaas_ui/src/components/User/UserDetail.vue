@@ -25,10 +25,10 @@
 
     <div>
       <Row>
-        <Col span="16">
+        <Col span="18">
           <UserAbout :user-name="$route.query.username"/>
         </Col>
-        <Col span="8">
+        <Col span="6">
           <HotUser/>
         </Col>
       </Row>
