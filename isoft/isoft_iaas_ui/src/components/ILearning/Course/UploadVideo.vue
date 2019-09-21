@@ -9,9 +9,9 @@
         <p>课程名称：{{course.course_name}}</p>
 
         <div style="margin-top: 20px;margin-bottom: 20px;">
-          <Button size="small" v-if="course.course_number > 0" v-for="num in course.course_number"
-                  type="success" @click="uploadVideoNum = num" style="margin: 5px;">第{{num}}集</Button>
-          <Button size="small" type="success" @click="uploadVideoNum = course.course_number + 1">新一集{{course.course_number + 1}}</Button>
+          <Button size="small" v-for="(cVideo, num) in cVideos"
+                  type="success" @click="uploadVideoNum = num + 1" style="margin: 5px;">第{{num + 1}}集: {{cVideo.video_name}}</Button>
+          <Button size="small" type="success" @click="uploadVideoNum = cVideos.length + 1">新一集{{cVideos.length + 1}}</Button>
         </div>
 
          <IFileUpload ref="fileUpload" btn-size="small" :auto-hide-modal="true" :extra-data="{'id':course.id, 'video_number':uploadVideoNum}"
@@ -21,13 +21,13 @@
       </div>
     </Modal>
 
-    <a href="javascript:;" style="color:#f55e13;font-family: Arial;font-weight: 700;" @click="showDialog=true">上传/更新视频</a>
+    <a href="javascript:;" style="color:#f55e13;font-family: Arial;font-weight: 700;" @click="uploadVideoFunc">上传/更新视频</a>
   </span>
 </template>
 
 <script>
   import IFileUpload from "../../Common/file/IFileUpload";
-  import {UploadVideo} from "../../../api"
+  import {UploadVideo,ShowCourseDetail} from "../../../api"
 
   export default {
     name: "UploadVideo",
@@ -39,6 +39,7 @@
         showDialog:false,
         // 当前更新视频集数
         uploadVideoNum:-1,
+        cVideos:[],
       }
     },
     methods:{
@@ -54,21 +55,17 @@
           }
         }
       },
-      // uploadComplete(res, file) {
-      //   if(res.status=="SUCCESS"){
-      //     this.$Notice.success({
-      //       title: '视频上传',
-      //       desc: "上传成功!"
-      //     });
-      //     this.$emit('uploadComplete');
-      //   }else{
-      //     this.$Notice.error({
-      //       title: '文件上传失败',
-      //       desc: '文件 ' + file.name + ' 上传失败!'
-      //     });
-      //   }
-      // },
-    }
+      refreshCourseDetail:async function(course_id){
+        const result = await ShowCourseDetail(course_id);
+        if(result.status=="SUCCESS"){
+          this.cVideos = result.cVideos;
+        }
+      },
+      uploadVideoFunc:function () {
+        this.showDialog = true;
+        this.refreshCourseDetail(this.course.id);
+      }
+    },
   }
 </script>
 
