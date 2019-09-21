@@ -37,6 +37,7 @@ func (this *IFNode) Execute(trackingId string) {
 		}
 		bsoRunner.Run()
 	} else {
+		this.BlockStep.AfterJudgeInterrupt = false
 		this.LogWriter.Write(trackingId, "", iworkconst.LOG_LEVEL_INFO, fmt.Sprintf("The blockStep for %s was skipped!", this.WorkStep.WorkStepName))
 	}
 }
@@ -80,6 +81,7 @@ func (this *ElIfNode) Execute(trackingId string) {
 		}
 		bsoRunner.Run()
 	} else {
+		this.BlockStep.AfterJudgeInterrupt = false
 		this.LogWriter.Write(trackingId, "", iworkconst.LOG_LEVEL_INFO, fmt.Sprintf("The blockStep for %s was skipped!", this.WorkStep.WorkStepName))
 	}
 }

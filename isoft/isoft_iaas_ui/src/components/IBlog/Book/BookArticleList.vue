@@ -5,9 +5,9 @@
         <div>
           <Button @click="$router.push({path:'/iblog/mine/book_list',query:{type:'mine'}})">管理我的书单</Button>
 
-          <p v-for="bookBlog in bookBlogs">
+          <p v-for="bookArticle in bookArticles">
             <Icon type="ios-paper-outline"/>
-            <IBeautifulLink2 @onclick="showDetail(bookBlog)">{{bookBlog.blog_title | filterLimitFunc}}</IBeautifulLink2>
+            <IBeautifulLink2 @onclick="showDetail(bookArticle)">{{bookArticle.blog_title | filterLimitFunc}}</IBeautifulLink2>
           </p>
         </div>
       </Col>
@@ -17,8 +17,8 @@
           <IBeautifulLink2>下一篇</IBeautifulLink2>
         </div>
 
-        <div v-if="bookBlog">
-          <IShowMarkdown v-if="bookBlog.content" :content="bookBlog.content"/>
+        <div v-if="bookArticle">
+          <IShowMarkdown v-if="bookArticle.content" :content="bookArticle.content"/>
         </div>
 
         <div style="text-align: right;">
@@ -39,22 +39,22 @@
   import HorizontalLinks from "../../Elementviewers/HorizontalLinks";
 
   export default {
-    name: "BookArticleDetail",
+    name: "BookArticleList",
     components: {HorizontalLinks, IBeautifulLink2,IShowMarkdown},
     data(){
       return {
-        bookBlogs:[],
-        bookBlog:null,
+        bookArticles:[],
+        bookArticle:null,
       }
     },
     methods:{
-      showDetail:function(bookBlog){
-        this.bookBlog = bookBlog;
+      showDetail:function(bookArticle){
+        this.bookArticle = bookArticle;
       },
       refreshBookInfo:async function (book_id) {
         const result = await BookArticleList(book_id);
         if(result.status == "SUCCESS"){
-          this.bookBlogs = result.books;
+          this.bookArticles = result.books;
         }
       }
     },
