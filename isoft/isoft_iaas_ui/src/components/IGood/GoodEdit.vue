@@ -41,6 +41,8 @@
 
 <script>
   import IFileUpload from "../Common/file/IFileUpload";
+  import {GoodEdit} from "../../api"
+
   export default {
     name: "GoodEdit",
     components:{IFileUpload},
@@ -98,24 +100,18 @@
       handleSubmit: function(name) {
         var _this = this;
         this.$refs[name].validate(async (valid) => {
-          // if (valid) {
-          //   const result = await BlogEdit(_this.formValidate.article_id, this.bookId,
-          //     _this.formValidate.article_title,_this.formValidate.short_desc,
-          //     _this.formValidate.key_words, _this.formValidate.catalog_name,
-          //     _this.formValidate.content,_this.formValidate.link_href);
-          //   if(result.status == "SUCCESS"){
-          //     _this.$Message.success('提交成功!');
-          //     if(this.successEmit){
-          //       this.$emit("successEmitFunc");
-          //     }else{
-          //       this.$router.push({ path: '/iblog/blog_list'});
-          //     }
-          //   }else{
-          //     _this.$Message.error('提交失败!');
-          //   }
-          // } else {
-          //   _this.$Message.error('验证失败!');
-          // }
+          if (valid) {
+            const result = await GoodEdit(_this.formValidate.good_id,
+              _this.formValidate.good_name,_this.formValidate.good_desc,
+              _this.formValidate.good_price, JSON.stringify(_this.formValidate.good_images));
+            if(result.status == "SUCCESS"){
+                this.$router.push({ path: '/igood/good_list'});
+            }else{
+              _this.$Message.error('提交失败!');
+            }
+          } else {
+            _this.$Message.error('验证失败!');
+          }
         })
       },
     }
