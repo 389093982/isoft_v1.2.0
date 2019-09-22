@@ -2,7 +2,7 @@
   <div style="background: #FFFFFF;padding: 10px;">
     <ChooseCourseType/>
 
-    <Row style="margin-bottom: 20px;margin: 10px auto;padding: 3px;">
+    <Row>
       <Col span="18">
         <!-- 热门推荐区域 -->
         <HotRecommend/>
