@@ -8,7 +8,7 @@
         <HotRecommend/>
       </Col>
       <Col span="6">
-        <ToolBox :placement_name="GLOBAL.element_host_toolbox_list2"/>
+        <ToolBox :placement_name="GLOBAL.element_host_app_recommand"/>
         <NewsNotice :placement_name="GLOBAL.Index_news_list"/>
       </Col>
     </Row>
