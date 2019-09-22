@@ -1,8 +1,9 @@
 <template>
   <div>
     <div v-if="user" >
-      <div style="min-height: 140px;background-color: rgba(236,0,255,0.22);background-size: cover;
-        background-position: 50%;background-repeat: no-repeat;"></div>
+      <div style="min-height: 140px;background: linear-gradient(to right, rgba(29,255,139,0.14), rgba(206,54,255,0.23));
+          background-size: cover;background-position: 50%;background-repeat: no-repeat;"></div>
+
       <Row style="min-height: 150px;background-color: #ffffff;padding: 20px;">
         <Col span="6" style="top:-100px;">
           <img width="150" height="150" v-if="user.small_icon" :src="user.small_icon">
@@ -21,6 +22,7 @@
           <Button @click="$router.push({path:'/user/mine/detail',query:{username:'mine'}})">编辑个人资料</Button>
         </Col>
       </Row>
+
     </div>
 
     <div>
