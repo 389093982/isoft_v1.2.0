@@ -13,9 +13,15 @@
           </p>
         </Col>
         <Col  span="14">
-          <p>商品名称：<span><IBeautifulLink2>{{good.good_name}}</IBeautifulLink2></span></p>
-          <p>商品描述：<span><IBeautifulLink2>{{good.good_desc}}</IBeautifulLink2></span></p>
-          <p>商品价格：<span style="color: red;font-weight: bold;">￥{{good.good_price}}</span></p>
+          <div style="min-height: 400px;">
+            <p>商品名称：<span><IBeautifulLink2>{{good.good_name}}</IBeautifulLink2></span></p>
+            <p>商品描述：<span><IBeautifulLink2>{{good.good_desc}}</IBeautifulLink2></span></p>
+            <p>商品价格：<span style="color: red;font-weight: bold;">￥{{good.good_price}}</span></p>
+          </div>
+          <div style="text-align: right;">
+            <Button>加入购物车</Button>
+            <Button>立即购买</Button>
+          </div>
         </Col>
       </Row>
     </div>
