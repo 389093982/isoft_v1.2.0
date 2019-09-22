@@ -32,6 +32,8 @@ const Configuration = () => import("@/components/Background/CMS/Configuration");
 const CourseSearch = () => import("@/components/ILearning/Course/CourseSearch");
 const CommonLinkList = () => import("@/components/Background/CMS/CommonLinkList");
 const FoundList = () => import("@/components/IFound/FoundList");
+const GoodList = () => import("@/components/IGood/GoodList");
+const GoodEdit = () => import("@/components/IGood/GoodEdit");
 const ILayout = () => import("@/components/ILayout/ILayout");
 
 
@@ -143,10 +145,19 @@ const IFoundReouter = [{
   ]
 }];
 
+const IGoodReouter = [{
+  path: '/igood',
+  component: ILayout,
+  children: [
+    {path: 'good_list',component: GoodList},
+    {path: 'good_edit',component: GoodEdit},
+  ]
+}];
 
 function getAllRouters() {
   let allRouters = [];
   allRouters = joinArray(allRouters, IFoundReouter);
+  allRouters = joinArray(allRouters, IGoodReouter);
   allRouters = joinArray(allRouters, IUserReouter);
   allRouters = joinArray(allRouters, ILearningRouters);
   allRouters = joinArray(allRouters, ISSOReouter);
