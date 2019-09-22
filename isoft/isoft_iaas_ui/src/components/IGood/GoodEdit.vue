@@ -5,13 +5,13 @@
       <Col span="16">
         <Form ref="formValidate" :model="formValidate" :rules="ruleValidate" :label-width="80">
           <FormItem label="商品名称" prop="good_name">
-            <Input v-model="formValidate.good_name" placeholder="Enter blog good_name..."/>
+            <Input v-model.trim="formValidate.good_name" placeholder="Enter blog good_name..."/>
           </FormItem>
           <FormItem label="商品描述" prop="good_desc">
-            <Input v-model="formValidate.good_desc" type="textarea" :rows="5" placeholder="Enter blog good_desc..."/>
+            <Input v-model.trim="formValidate.good_desc" type="textarea" :rows="5" placeholder="Enter blog good_desc..."/>
           </FormItem>
           <FormItem label="商品金额" prop="good_price">
-            <Input v-model="formValidate.good_price" placeholder="Enter blog good_price..."/>
+            <Input v-model.trim="formValidate.good_price" placeholder="Enter blog good_price..."/>
           </FormItem>
 
           <FormItem label="商品图片" prop="good_images">
@@ -98,6 +98,14 @@
         // }
       },
       handleSubmit: function(name) {
+        if(this.formValidate.good_desc.length < 50){
+          this.$Message.error('商品描述太短，不能少于 50 个字符!');
+          return;
+        }
+        if(this.formValidate.good_images.length == 0){
+          this.$Message.error('必须上传一张图片!');
+          return;
+        }
         var _this = this;
         this.$refs[name].validate(async (valid) => {
           if (valid) {
