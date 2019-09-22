@@ -14,8 +14,8 @@
         <ul>
           <li v-for="course in courses">
             <router-link :to="{path:'/ilearning/course_detail',query:{course_id:course.id}}">
-              <img v-if="course.small_image" :src="course.small_image" height="90px" width="120px"/>
-              <img v-else src="../../../assets/default.png" height="90px" width="120px"/>
+              <img v-if="course.small_image" :src="course.small_image" height="160px" width="120px"/>
+              <img v-else src="../../../assets/default.png" height="160px" width="120px"/>
               <p>{{course.course_name}}</p>
             </router-link>
           </li>
@@ -72,7 +72,6 @@
     padding: 10px 9px 0;
     width: 140px;
     border: 1px solid #FFFFFF;
-    height: 135px;
     overflow: hidden;
     text-align: center;
     position: relative;

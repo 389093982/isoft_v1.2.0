@@ -20,8 +20,8 @@
             <li v-for="book in books" style="float: left;list-style: none;">
               <div class="bookImg">
                 <router-link :to="{path:'/iblog/book_detail',query:{book_id:book.id}}">
-                  <img v-if="book.book_img" :src="book.book_img" height="90px" width="120px"/>
-                  <img v-else src="../../../assets/default.png" height="90px" width="120px"/>
+                  <img v-if="book.book_img" :src="book.book_img" height="160px" width="120px"/>
+                  <img v-else src="../../../assets/default.png" height="160px" width="120px"/>
                   <p style="font-size: 12px;">{{book.book_name | filterLimitFunc}}</p>
                 </router-link>
               </div>

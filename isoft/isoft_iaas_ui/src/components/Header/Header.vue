@@ -14,17 +14,20 @@
         <MenuItem name="4">
           <IBeautifulLink2 @onclick="$router.push({path:'/ifound/found_list'})">发现频道</IBeautifulLink2>
         </MenuItem>
-        <Submenu name="5">
+        <MenuItem name="5">
+          <IBeautifulLink2 @onclick="$router.push({path:'/ifound/found_list'})">热门活动</IBeautifulLink2>
+        </MenuItem>
+        <Submenu name="6">
           <template slot="title">
             <span v-if="loginUserName">{{loginUserName}}</span>
             <span v-else>登录</span>
           </template>
           <MenuGroup title="账号管理">
-            <MenuItem name="5-1" @click.native="cancelUser">注销</MenuItem>
-            <MenuItem name="5-2" @click.native="cancelUser">切换账号</MenuItem>
+            <MenuItem name="6-1" @click.native="cancelUser">注销</MenuItem>
+            <MenuItem name="6-2" @click.native="cancelUser">切换账号</MenuItem>
           </MenuGroup>
         </Submenu>
-        <MenuItem name="6">
+        <MenuItem name="7">
           <IBeautifulLink2 @onclick="$router.push({path:'/background/cms/placement_list'})">管理控制台</IBeautifulLink2>
         </MenuItem>
       </div>
@@ -63,7 +66,7 @@
 
 <style scoped>
   .layout-nav{
-    width: 660px;
+    width: 760px;
     margin: 0 auto;
     margin-right: 5px;
   }
