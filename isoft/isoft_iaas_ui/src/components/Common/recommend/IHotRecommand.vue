@@ -1,15 +1,18 @@
 <template>
   <ElementsLoader :placement_name="placement_name" @onLoadElement="onLoadElement">
-    <span>
-      <h4 class="title" :title="placement_label">{{placement_label}}</h4>
-    </span>
-    <hr style="border:1px solid #eee;height: 1px;"/>
-    <Row :gutter="50">
-      <Col span="8" style="margin-top: 12px;" v-for="element in elements">
-        <span style="font-size: 14px;">{{element.title}}</span>
-        <IBeautifulButtonLink msg="点击了解详情" floatstyle="right" :hrefaddr="element.linked_refer"/>
-      </Col>
-    </Row>
+    <div>
+      <div>
+        <h4 class="title" :title="placement_label">{{placement_label}}</h4>
+      </div>
+      <div style="padding: 10px;background: linear-gradient(to right, rgba(29,255,139,0.14), rgba(206,54,255,0.23))">
+        <Row :gutter="50">
+          <Col span="6" style="margin-top: 12px;" v-for="element in elements">
+            <span style="font-size: 14px;">{{element.title}}</span>
+            <IBeautifulButtonLink msg="点击了解详情" floatstyle="right" :hrefaddr="element.linked_refer"/>
+          </Col>
+        </Row>
+      </div>
+    </div>
   </ElementsLoader>
 </template>
 
@@ -49,7 +52,7 @@
     font-size: 18px;
     line-height: 35px;
     text-align: center;
-    background: #3b80db;
+    background: linear-gradient(to right, rgb(255, 0, 18), rgb(0, 0, 255));
     color: #fff;
     position: relative;
     font-weight: normal;
