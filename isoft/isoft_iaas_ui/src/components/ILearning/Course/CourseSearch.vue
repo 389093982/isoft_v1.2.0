@@ -8,7 +8,7 @@
               <router-link :to="{path:'/ilearning/course_detail',query:{course_id:course.id}}">
                 <h4>课程名称：{{course.course_name}}</h4>
                 <img v-if="course.small_image" :src="course.small_image" height="120" width="200"/>
-                <img v-else src="../../../assets/default.png" height="90px" width="120px"/>
+                <img v-else src="../../../assets/default.png" height="120px" width="120px"/>
               </router-link>
             </Col>
             <Col span="16">
