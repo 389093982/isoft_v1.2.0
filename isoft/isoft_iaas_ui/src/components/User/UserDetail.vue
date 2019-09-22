@@ -19,6 +19,7 @@
           <p>这家伙很懒，什么个性签名都没有留下</p>
         </Col>
         <Col span="6" style="padding-top: 100px;text-align: right;">
+          <Button @click="$router.push({ path: '/iblog/mine/blog_edit'})">发&nbsp;&nbsp;&nbsp;&nbsp;帖</Button>
           <Button @click="$router.push({path:'/user/mine/detail',query:{username:'mine'}})">编辑个人资料</Button>
         </Col>
       </Row>
