@@ -10,14 +10,17 @@
       <Col span="6">
         <ToolBox :placement_name="GLOBAL.element_host_toolbox_list2"/>
         <NewsNotice :placement_name="GLOBAL.Index_news_list"/>
-        <NewsNotice :placement_name="GLOBAL.Index_news_list"/>
-        <NewsNotice :placement_name="GLOBAL.Index_news_list"/>
-
       </Col>
     </Row>
 
-    <ToolBox :placement_name="GLOBAL.element_host_toolbox_list3"/>
-    <ToolBox :placement_name="GLOBAL.element_host_toolbox_list4"/>
+    <Row>
+      <Col span="12">
+        <ToolBox :placement_name="GLOBAL.element_host_toolbox_list3"/>
+      </Col>
+      <Col span="12">
+        <ToolBox :placement_name="GLOBAL.element_host_toolbox_list4"/>
+      </Col>
+    </Row>
 
     <!-- 热门开源项目 -->
     <IHotRecommand :placement_name="GLOBAL.hot_project_recommod"/>

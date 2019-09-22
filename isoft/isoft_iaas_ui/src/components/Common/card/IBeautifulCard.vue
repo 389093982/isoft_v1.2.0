@@ -39,12 +39,13 @@
    background-color: #ffffff;
  }
  .title {
-   height: 50px;
-   line-height: 50px;
+   height: 40px;
+   line-height: 40px;
    padding-left: 15px;
    padding-right: 15px;
-   font-size: 18px;
+   font-size: 16px;
    border-bottom: 1px solid #eee;
    text-align: left;
+   background: linear-gradient(to right, rgba(255, 0, 0, 0.05), rgba(0, 0, 255, 0.06));
  }
 </style>
