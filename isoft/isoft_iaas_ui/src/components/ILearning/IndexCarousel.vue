@@ -1,6 +1,6 @@
 <template>
   <div class="header">
-    <Carousel autoplay v-model="value" loop>
+    <Carousel autoplay v-model="value" loop dots="inside">
       <CarouselItem>
         <div class="demo-carousel">
           <img class="demo-img" height="250px;" src="../../assets/ilearning/course/1.jpg"/>>
