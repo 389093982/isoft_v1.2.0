@@ -34,6 +34,7 @@ const CommonLinkList = () => import("@/components/Background/CMS/CommonLinkList"
 const FoundList = () => import("@/components/IFound/FoundList");
 const GoodList = () => import("@/components/IGood/GoodList");
 const GoodEdit = () => import("@/components/IGood/GoodEdit");
+const GoodDetail = () => import("@/components/IGood/GoodDetail");
 const ILayout = () => import("@/components/ILayout/ILayout");
 
 
@@ -151,6 +152,7 @@ const IGoodReouter = [{
   children: [
     {path: 'good_list',component: GoodList},
     {path: 'good_edit',component: GoodEdit},
+    {path: 'good_detail',component: GoodDetail},
   ]
 }];
 

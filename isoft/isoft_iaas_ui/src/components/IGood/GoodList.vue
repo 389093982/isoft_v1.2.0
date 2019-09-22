@@ -15,9 +15,11 @@
         <Col span="12" v-for="good in goods">
           <Row style="margin-bottom: 10px;">
             <Col span="12" style="text-align: center;">
-              <!-- 长度大于 2 排除空数组 [] -->
-              <img v-if="good.good_images.length > 2" :src="good.good_images | filterFirst" width="180px" height="180px"/>
-              <img v-else src="../../assets/default.png" width="180px" height="180px"/>
+              <router-link :to="{path:'/igood/good_detail',query:{id:good.id}}">
+                <!-- 长度大于 2 排除空数组 [] -->
+                <img v-if="good.good_images.length > 2" :src="good.good_images | filterFirst" width="180px" height="180px"/>
+                <img v-else src="../../assets/default.png" width="180px" height="180px"/>
+              </router-link>
             </Col>
             <Col span="12">
               <div style="height: 150px;">
