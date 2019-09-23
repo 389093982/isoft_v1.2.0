@@ -1,5 +1,5 @@
 <template>
-  <a @click="onclick" style="display:inline-block;height: inherit;">
+  <a @click="onclick" :style="styles">
     <slot></slot>
   </a>
 </template>
@@ -7,11 +7,27 @@
 <script>
   export default {
     name: "IBeautifulLink2",
+    props:{
+      inLine:{
+        type:Boolean,
+        default:true,
+      }
+    },
     methods:{
       onclick:function () {
         this.$emit('onclick');
       }
-    }
+    },
+    computed: {
+      styles () {
+        let style = {};
+        if(this.inLine){
+          style.display = 'inline-block';
+          style.height = 'inherit';
+        }
+        return style;
+      }
+    },
   }
 </script>
 

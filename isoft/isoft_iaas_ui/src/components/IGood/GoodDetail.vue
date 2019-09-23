@@ -13,9 +13,9 @@
           </p>
         </Col>
         <Col  span="14">
-          <div style="min-height: 400px;">
+          <div style="min-height: 400px;width: 100%;word-wrap:break-word;word-break:break-all;overflow: hidden;">
             <p>商品名称：<span><IBeautifulLink2>{{good.good_name}}</IBeautifulLink2></span></p>
-            <p>商品描述：<span><IBeautifulLink2>{{good.good_desc}}</IBeautifulLink2></span></p>
+            <p>商品描述：<span><IBeautifulLink2 :in-line="false">{{good.good_desc}}</IBeautifulLink2></span></p>
             <p>商品价格：<span style="color: red;font-weight: bold;">￥{{good.good_price}}</span></p>
           </div>
           <div style="text-align: right;">
