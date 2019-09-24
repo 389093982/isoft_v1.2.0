@@ -35,6 +35,7 @@ const FoundList = () => import("@/components/IFound/FoundList");
 const GoodList = () => import("@/components/IGood/GoodList");
 const GoodEdit = () => import("@/components/IGood/GoodEdit");
 const GoodDetail = () => import("@/components/IGood/GoodDetail");
+const PayConfirm = () => import("@/components/IGood/PayConfirm");
 const ILayout = () => import("@/components/ILayout/ILayout");
 
 
@@ -154,6 +155,7 @@ const IGoodReouter = [{
     {path: 'mine/good_list',component: GoodList},
     {path: 'mine/good_edit',component: GoodEdit},
     {path: 'good_detail',component: GoodDetail},
+    {path: 'pay_confirm',component: PayConfirm},
   ]
 }];
 
