@@ -6,7 +6,7 @@
         <IBeautifulLink2 @onclick="$router.push({path:'/igood/good_list'})">热销商品</IBeautifulLink2>
       </Col>
       <Col span="2">
-        <IBeautifulLink2 @onclick="$router.push({path:'/igood/good_list'})">我的店铺商品</IBeautifulLink2>
+        <IBeautifulLink2 @onclick="$router.push({path:'/igood/mine/good_list'})">我的店铺商品</IBeautifulLink2>
       </Col>
     </Row>
 
@@ -28,8 +28,12 @@
                 <p>商品价格：<span style="color: red;font-weight: bold;">￥{{good.good_price}}</span></p>
               </div>
               <div>
-                <Button>加入购物车</Button>
-                <Button>立即购买</Button>
+
+                <Button v-if="editable(good)">编辑商品</Button>
+                <span v-else>
+                  <Button>加入购物车</Button>
+                  <Button>立即购买</Button>
+                </span>
               </div>
             </Col>
           </Row>
@@ -62,6 +66,10 @@
         if(result.status == "SUCCESS"){
           this.goods = result.goods;
         }
+      },
+      editable:function (good) {
+        // return CheckHasLogin() && GetLoginUserName() == good.xxx;
+        return true;
       }
     },
     filters:{
@@ -72,7 +80,7 @@
     },
     mounted(){
       this.refreshGoodList();
-    }
+    },
   }
 </script>
 
