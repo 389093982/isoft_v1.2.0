@@ -26,6 +26,8 @@
                 <p>商品名称：<span><IBeautifulLink2>{{good.good_name}}</IBeautifulLink2></span></p>
                 <p>商品描述：<span><IBeautifulLink2 :in-line="false">{{good.good_desc}}</IBeautifulLink2></span></p>
                 <p>商品价格：<span style="color: red;font-weight: bold;">￥{{good.good_price}}</span></p>
+                <p>卖家姓名：{{good.good_seller}}</p>
+                <p>卖家联系方式：{{good.seller_contact}}</p>
               </div>
               <div>
 
