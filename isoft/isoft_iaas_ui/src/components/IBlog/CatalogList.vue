@@ -22,9 +22,9 @@
 <script>
   import {GetMyCatalogs} from "../../api"
   import CatalogAdd from "./CatalogAdd"
+  import {CheckHasLogin} from "../../tools"
   import IBeautifulCard from "../../components/Common/card/IBeautifulCard"
   import ForwardLogin from "../SSO/ForwardLogin"
-  import {CheckHasLogin,GetLoginUserName} from "../../tools"
 
   export default {
     name: "CatalogList",

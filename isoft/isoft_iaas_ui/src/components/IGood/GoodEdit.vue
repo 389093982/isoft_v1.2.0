@@ -41,7 +41,7 @@
 
 <script>
   import IFileUpload from "../Common/file/IFileUpload";
-  import {GoodEdit} from "../../api"
+  import {GoodEdit,GetGoodDetail} from "../../api"
 
   export default {
     name: "GoodEdit",
@@ -122,6 +122,22 @@
           }
         })
       },
+      refreshGoodDetail:async function (good_id) {
+        const result = await GetGoodDetail(good_id);
+        if(result.status == "SUCCESS"){
+          this.formValidate.good_id = result.good.id;
+          this.formValidate.good_name = result.good.good_name;
+          this.formValidate.good_desc = result.good.good_desc;
+          this.formValidate.good_desc = result.good.good_desc;
+          this.formValidate.good_price = result.good.good_price;
+          this.formValidate.good_images = JSON.parse(result.good.good_images);
+        }
+      }
+    },
+    mounted(){
+      if(this.$route.query.id != undefined && this.$route.query.id > 0){
+        this.refreshGoodDetail(this.$route.query.id);
+      }
     }
   }
 </script>

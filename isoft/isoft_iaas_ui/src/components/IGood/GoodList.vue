@@ -29,7 +29,7 @@
               </div>
               <div>
 
-                <Button v-if="editable(good)">编辑商品</Button>
+                <Button v-if="editable(good)" @click="$router.push({path:'/igood/mine/good_edit',query:{id:good.id}})">编辑商品</Button>
                 <span v-else>
                   <Button>加入购物车</Button>
                   <Button>立即购买</Button>
@@ -42,7 +42,7 @@
     </div>
 
     <div style="text-align: right;margin: 20px 100px 50px 0;">
-      <Button @click="$router.push({path:'/igood/good_edit'})">发布商品</Button>
+      <Button @click="$router.push({path:'/igood/mine/good_edit'})">发布商品</Button>
     </div>
   </div>
 </template>
@@ -50,6 +50,7 @@
 <script>
   import IBeautifulLink2 from "../Common/link/IBeautifulLink2";
   import {GoodList} from "../../api"
+  import {CheckHasLogin,GetLoginUserName} from "../../tools"
 
   export default {
     name: "GoodList",

@@ -152,7 +152,7 @@ const IGoodReouter = [{
   children: [
     {path: 'good_list',component: GoodList},
     {path: 'mine/good_list',component: GoodList},
-    {path: 'good_edit',component: GoodEdit},
+    {path: 'mine/good_edit',component: GoodEdit},
     {path: 'good_detail',component: GoodDetail},
   ]
 }];
