@@ -14,7 +14,7 @@
             <Input v-model.trim="formValidate.good_price" placeholder="Enter good_price..."/>
           </FormItem>
           <FormItem label="卖家姓名" prop="good_seller">
-            <Input v-model.trim="formValidate.good_seller" readonly="true"/>
+            <Input v-model.trim="formValidate.good_seller" :readonly="true"/>
           </FormItem>
           <FormItem label="卖家联系方式" prop="seller_contact">
             <Input v-model.trim="formValidate.seller_contact" placeholder="Enter seller_contact..."/>

@@ -6,7 +6,7 @@
         <IBeautifulLink2 @onclick="$router.push({path:'/igood/good_list'})">热销商品</IBeautifulLink2>
       </Col>
       <Col span="2">
-        <IBeautifulLink2 @onclick="$router.push({path:'/igood/mine/good_list'})">我的店铺商品</IBeautifulLink2>
+        <IBeautifulLink2 @onclick="$router.push({path:'/igood/mine/good_list',query:{type:'mine'}})">我的店铺商品</IBeautifulLink2>
       </Col>
     </Row>
 
@@ -71,8 +71,7 @@
         }
       },
       editable:function (good) {
-        // return CheckHasLogin() && GetLoginUserName() == good.xxx;
-        return true;
+        return this.$route.query.type == 'mine' && CheckHasLogin() && GetLoginUserName() == good.good_seller;
       }
     },
     filters:{
@@ -83,6 +82,9 @@
     },
     mounted(){
       this.refreshGoodList();
+    },
+    watch: {
+      '$route':'refreshGoodList'
     },
   }
 </script>
