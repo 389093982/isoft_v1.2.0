@@ -3,15 +3,21 @@
 
     <Row style="padding: 50px;">
       <Col span="16">
-        <Form ref="formValidate" :model="formValidate" :rules="ruleValidate" :label-width="80">
+        <Form ref="formValidate" :model="formValidate" :rules="ruleValidate" :label-width="100">
           <FormItem label="商品名称" prop="good_name">
-            <Input v-model.trim="formValidate.good_name" placeholder="Enter blog good_name..."/>
+            <Input v-model.trim="formValidate.good_name" placeholder="Enter good_name..."/>
           </FormItem>
           <FormItem label="商品描述" prop="good_desc">
-            <Input v-model.trim="formValidate.good_desc" type="textarea" :rows="5" placeholder="Enter blog good_desc..."/>
+            <Input v-model.trim="formValidate.good_desc" type="textarea" :rows="5" placeholder="Enter good_desc..."/>
           </FormItem>
           <FormItem label="商品金额" prop="good_price">
-            <Input v-model.trim="formValidate.good_price" placeholder="Enter blog good_price..."/>
+            <Input v-model.trim="formValidate.good_price" placeholder="Enter good_price..."/>
+          </FormItem>
+          <FormItem label="卖家姓名" prop="good_seller">
+            <Input v-model.trim="formValidate.good_seller" readonly="true"/>
+          </FormItem>
+          <FormItem label="卖家联系方式" prop="seller_contact">
+            <Input v-model.trim="formValidate.seller_contact" placeholder="Enter seller_contact..."/>
           </FormItem>
 
           <FormItem label="商品图片" prop="good_images">
@@ -42,6 +48,7 @@
 <script>
   import IFileUpload from "../Common/file/IFileUpload";
   import {GoodEdit,GetGoodDetail} from "../../api"
+  import {GetLoginUserName} from "../../tools"
 
   export default {
     name: "GoodEdit",
@@ -54,6 +61,8 @@
           good_desc: '',
           good_price: 0,     // 负数表示暂无报价
           good_images:[],
+          good_seller:'',
+          seller_contact:'',
         },
         ruleValidate: {
           good_name: [
@@ -64,6 +73,9 @@
           ],
           good_price: [
             { required: true, message: '商品价格不能为空', trigger: 'blur' }
+          ],
+          seller_contact: [
+            { required: true, message: '卖家联系方式不能为空', trigger: 'blur' }
           ],
         },
       }
@@ -111,7 +123,8 @@
           if (valid) {
             const result = await GoodEdit(_this.formValidate.good_id,
               _this.formValidate.good_name,_this.formValidate.good_desc,
-              _this.formValidate.good_price, JSON.stringify(_this.formValidate.good_images));
+              _this.formValidate.good_price, _this.formValidate.good_seller,
+              _this.formValidate.seller_contact, JSON.stringify(_this.formValidate.good_images));
             if(result.status == "SUCCESS"){
                 this.$router.push({ path: '/igood/good_list'});
             }else{
@@ -130,11 +143,14 @@
           this.formValidate.good_desc = result.good.good_desc;
           this.formValidate.good_desc = result.good.good_desc;
           this.formValidate.good_price = result.good.good_price;
+          this.formValidate.good_seller = result.good.good_seller;
+          this.formValidate.seller_contact = result.good.seller_contact;
           this.formValidate.good_images = JSON.parse(result.good.good_images);
         }
       }
     },
     mounted(){
+      this.formValidate.good_seller = GetLoginUserName();
       if(this.$route.query.id != undefined && this.$route.query.id > 0){
         this.refreshGoodDetail(this.$route.query.id);
       }

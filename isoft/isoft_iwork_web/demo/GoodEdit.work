@@ -17,7 +17,7 @@
 		<WorkStepDesc>start节点</WorkStepDesc>
 		<WorkStepType>work_start</WorkStepType>
 		<WorkStepIndent>0</WorkStepIndent>
-		<WorkStepInput>{&#xA;&#x9;&#34;ParamInputSchemaItems&#34;: [&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;&#34;ParamName&#34;: &#34;good_id&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamDesc&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;Repeatable&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ForeachRefer&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamChoices&#34;: null,&#xA;&#x9;&#x9;&#x9;&#34;PureText&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ParamValue&#34;: &#34;&#34;&#xA;&#x9;&#x9;},&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;&#34;ParamName&#34;: &#34;good_name&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamDesc&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;Repeatable&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ForeachRefer&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamChoices&#34;: null,&#xA;&#x9;&#x9;&#x9;&#34;PureText&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ParamValue&#34;: &#34;&#34;&#xA;&#x9;&#x9;},&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;&#34;ParamName&#34;: &#34;good_desc&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamDesc&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;Repeatable&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ForeachRefer&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamChoices&#34;: null,&#xA;&#x9;&#x9;&#x9;&#34;PureText&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ParamValue&#34;: &#34;&#34;&#xA;&#x9;&#x9;},&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;&#34;ParamName&#34;: &#34;good_price&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamDesc&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;Repeatable&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ForeachRefer&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamChoices&#34;: null,&#xA;&#x9;&#x9;&#x9;&#34;PureText&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ParamValue&#34;: &#34;&#34;&#xA;&#x9;&#x9;},&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;&#34;ParamName&#34;: &#34;good_images&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamDesc&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;Repeatable&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ForeachRefer&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamChoices&#34;: null,&#xA;&#x9;&#x9;&#x9;&#34;PureText&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ParamValue&#34;: &#34;&#34;&#xA;&#x9;&#x9;}&#xA;&#x9;]&#xA;}</WorkStepInput>
+		<WorkStepInput>{&#xA;&#x9;&#34;ParamInputSchemaItems&#34;: [&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;&#34;ParamName&#34;: &#34;good_id&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamDesc&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;Repeatable&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ForeachRefer&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamChoices&#34;: null,&#xA;&#x9;&#x9;&#x9;&#34;PureText&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ParamValue&#34;: &#34;&#34;&#xA;&#x9;&#x9;},&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;&#34;ParamName&#34;: &#34;good_name&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamDesc&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;Repeatable&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ForeachRefer&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamChoices&#34;: null,&#xA;&#x9;&#x9;&#x9;&#34;PureText&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ParamValue&#34;: &#34;&#34;&#xA;&#x9;&#x9;},&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;&#34;ParamName&#34;: &#34;good_desc&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamDesc&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;Repeatable&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ForeachRefer&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamChoices&#34;: null,&#xA;&#x9;&#x9;&#x9;&#34;PureText&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ParamValue&#34;: &#34;&#34;&#xA;&#x9;&#x9;},&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;&#34;ParamName&#34;: &#34;good_price&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamDesc&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;Repeatable&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ForeachRefer&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamChoices&#34;: null,&#xA;&#x9;&#x9;&#x9;&#34;PureText&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ParamValue&#34;: &#34;&#34;&#xA;&#x9;&#x9;},&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;&#34;ParamName&#34;: &#34;good_seller&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamDesc&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;Repeatable&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ForeachRefer&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamChoices&#34;: null,&#xA;&#x9;&#x9;&#x9;&#34;PureText&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ParamValue&#34;: &#34;&#34;&#xA;&#x9;&#x9;},&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;&#34;ParamName&#34;: &#34;seller_contact&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamDesc&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;Repeatable&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ForeachRefer&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamChoices&#34;: null,&#xA;&#x9;&#x9;&#x9;&#34;PureText&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ParamValue&#34;: &#34;&#34;&#xA;&#x9;&#x9;},&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;&#34;ParamName&#34;: &#34;good_images&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamDesc&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;Repeatable&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ForeachRefer&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamChoices&#34;: null,&#xA;&#x9;&#x9;&#x9;&#34;PureText&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ParamValue&#34;: &#34;&#34;&#xA;&#x9;&#x9;}&#xA;&#x9;]&#xA;}</WorkStepInput>
 		<work_step_input_xml><![CDATA[<paramInputSchema>
 	<paramInputSchemaItem>
 		<paramName>good_id</paramName>
@@ -52,6 +52,22 @@
 		<paramValue></paramValue>
 	</paramInputSchemaItem>
 	<paramInputSchemaItem>
+		<paramName>good_seller</paramName>
+		<paramDesc></paramDesc>
+		<repeatable>false</repeatable>
+		<foreachRefer></foreachRefer>
+		<pureText>false</pureText>
+		<paramValue></paramValue>
+	</paramInputSchemaItem>
+	<paramInputSchemaItem>
+		<paramName>seller_contact</paramName>
+		<paramDesc></paramDesc>
+		<repeatable>false</repeatable>
+		<foreachRefer></foreachRefer>
+		<pureText>false</pureText>
+		<paramValue></paramValue>
+	</paramInputSchemaItem>
+	<paramInputSchemaItem>
 		<paramName>good_images</paramName>
 		<paramDesc></paramDesc>
 		<repeatable>false</repeatable>
@@ -60,7 +76,7 @@
 		<paramValue></paramValue>
 	</paramInputSchemaItem>
 </paramInputSchema>]]></work_step_input_xml>
-		<WorkStepOutput>{&#xA;&#x9;&#34;ParamOutputSchemaItems&#34;: [&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;&#34;ParentPath&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamName&#34;: &#34;good_id&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamValue&#34;: &#34;&#34;&#xA;&#x9;&#x9;},&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;&#34;ParentPath&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamName&#34;: &#34;good_name&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamValue&#34;: &#34;&#34;&#xA;&#x9;&#x9;},&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;&#34;ParentPath&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamName&#34;: &#34;good_desc&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamValue&#34;: &#34;&#34;&#xA;&#x9;&#x9;},&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;&#34;ParentPath&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamName&#34;: &#34;good_price&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamValue&#34;: &#34;&#34;&#xA;&#x9;&#x9;},&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;&#34;ParentPath&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamName&#34;: &#34;good_images&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamValue&#34;: &#34;&#34;&#xA;&#x9;&#x9;}&#xA;&#x9;]&#xA;}</WorkStepOutput>
+		<WorkStepOutput>{&#xA;&#x9;&#34;ParamOutputSchemaItems&#34;: [&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;&#34;ParentPath&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamName&#34;: &#34;good_id&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamValue&#34;: &#34;&#34;&#xA;&#x9;&#x9;},&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;&#34;ParentPath&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamName&#34;: &#34;good_name&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamValue&#34;: &#34;&#34;&#xA;&#x9;&#x9;},&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;&#34;ParentPath&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamName&#34;: &#34;good_desc&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamValue&#34;: &#34;&#34;&#xA;&#x9;&#x9;},&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;&#34;ParentPath&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamName&#34;: &#34;good_price&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamValue&#34;: &#34;&#34;&#xA;&#x9;&#x9;},&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;&#34;ParentPath&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamName&#34;: &#34;good_seller&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamValue&#34;: &#34;&#34;&#xA;&#x9;&#x9;},&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;&#34;ParentPath&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamName&#34;: &#34;seller_contact&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamValue&#34;: &#34;&#34;&#xA;&#x9;&#x9;},&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;&#34;ParentPath&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamName&#34;: &#34;good_images&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamValue&#34;: &#34;&#34;&#xA;&#x9;&#x9;}&#xA;&#x9;]&#xA;}</WorkStepOutput>
 		<work_step_output_xml><![CDATA[<paramOutputSchema>
 	<paramOutputSchemaItem>
 		<parentPath></parentPath>
@@ -84,12 +100,22 @@
 	</paramOutputSchemaItem>
 	<paramOutputSchemaItem>
 		<parentPath></parentPath>
+		<paramName>good_seller</paramName>
+		<paramValue></paramValue>
+	</paramOutputSchemaItem>
+	<paramOutputSchemaItem>
+		<parentPath></parentPath>
+		<paramName>seller_contact</paramName>
+		<paramValue></paramValue>
+	</paramOutputSchemaItem>
+	<paramOutputSchemaItem>
+		<parentPath></parentPath>
 		<paramName>good_images</paramName>
 		<paramValue></paramValue>
 	</paramOutputSchemaItem>
 </paramOutputSchema>]]></work_step_output_xml>
 		<IsDefer>false</IsDefer>
-		<WorkStepParamMapping>[{&#34;paramMappingName&#34;:&#34;good_id&#34;,&#34;paramMappingDefault&#34;:&#34;-1&#34;},{&#34;paramMappingName&#34;:&#34;good_name&#34;,&#34;paramMappingDefault&#34;:&#34;&#34;},{&#34;paramMappingName&#34;:&#34;good_desc&#34;,&#34;paramMappingDefault&#34;:&#34;&#34;},{&#34;paramMappingName&#34;:&#34;good_price&#34;,&#34;paramMappingDefault&#34;:&#34;&#34;},{&#34;paramMappingName&#34;:&#34;good_images&#34;,&#34;paramMappingDefault&#34;:&#34;&#34;}]</WorkStepParamMapping>
+		<WorkStepParamMapping>[{&#34;paramMappingName&#34;:&#34;good_id&#34;,&#34;paramMappingDefault&#34;:&#34;-1&#34;},{&#34;paramMappingName&#34;:&#34;good_name&#34;,&#34;paramMappingDefault&#34;:&#34;&#34;},{&#34;paramMappingName&#34;:&#34;good_desc&#34;,&#34;paramMappingDefault&#34;:&#34;&#34;},{&#34;paramMappingName&#34;:&#34;good_price&#34;,&#34;paramMappingDefault&#34;:&#34;&#34;},{&#34;paramMappingName&#34;:&#34;good_seller&#34;},{&#34;paramMappingName&#34;:&#34;seller_contact&#34;},{&#34;paramMappingName&#34;:&#34;good_images&#34;,&#34;paramMappingDefault&#34;:&#34;&#34;}]</WorkStepParamMapping>
 		<work_step_param_mapping_xml><![CDATA[<ParamMapping>
 	<ParamMappingName></ParamMappingName>
 	<ParamMappingDefault></ParamMappingDefault>
@@ -143,7 +169,7 @@
 		<WorkStepDesc></WorkStepDesc>
 		<WorkStepType>sql_execute</WorkStepType>
 		<WorkStepIndent>1</WorkStepIndent>
-		<WorkStepInput>{&#xA;&#x9;&#34;ParamInputSchemaItems&#34;: [&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;&#34;ParamName&#34;: &#34;iter_batch_data?&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamDesc&#34;: &#34;仅供批量插入数据时使用&#34;,&#xA;&#x9;&#x9;&#x9;&#34;Repeatable&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ForeachRefer&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamChoices&#34;: null,&#xA;&#x9;&#x9;&#x9;&#34;PureText&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ParamValue&#34;: &#34;&#34;&#xA;&#x9;&#x9;},&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;&#34;ParamName&#34;: &#34;str_sql&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamDesc&#34;: &#34;执行sql语句&#34;,&#xA;&#x9;&#x9;&#x9;&#34;Repeatable&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ForeachRefer&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamChoices&#34;: null,&#xA;&#x9;&#x9;&#x9;&#34;PureText&#34;: true,&#xA;&#x9;&#x9;&#x9;&#34;ParamValue&#34;: &#34;update good set good_name=?, good_desc=?, good_price=?, good_images=? where id = ?&#34;&#xA;&#x9;&#x9;},&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;&#34;ParamName&#34;: &#34;multi_sql_binding?&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamDesc&#34;: &#34;sql绑定数据,个数必须和当前执行sql语句中的占位符参数个数相同&#34;,&#xA;&#x9;&#x9;&#x9;&#34;Repeatable&#34;: true,&#xA;&#x9;&#x9;&#x9;&#34;ForeachRefer&#34;: &#34;iter_batch_data?&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamChoices&#34;: null,&#xA;&#x9;&#x9;&#x9;&#34;PureText&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ParamValue&#34;: &#34;$start.good_name;\n$start.good_desc;\n$start.good_price;\n$start.good_images;\n$start.good_id;&#34;&#xA;&#x9;&#x9;},&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;&#34;ParamName&#34;: &#34;str_db_conn&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamDesc&#34;: &#34;数据库连接信息,需要使用 $RESOURCE 全局参数&#34;,&#xA;&#x9;&#x9;&#x9;&#34;Repeatable&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ForeachRefer&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamChoices&#34;: null,&#xA;&#x9;&#x9;&#x9;&#34;PureText&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ParamValue&#34;: &#34;$RESOURCE.isoft_iaas;\n&#34;&#xA;&#x9;&#x9;}&#xA;&#x9;]&#xA;}</WorkStepInput>
+		<WorkStepInput>{&#xA;&#x9;&#34;ParamInputSchemaItems&#34;: [&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;&#34;ParamName&#34;: &#34;iter_batch_data?&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamDesc&#34;: &#34;仅供批量插入数据时使用&#34;,&#xA;&#x9;&#x9;&#x9;&#34;Repeatable&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ForeachRefer&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamChoices&#34;: null,&#xA;&#x9;&#x9;&#x9;&#34;PureText&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ParamValue&#34;: &#34;&#34;&#xA;&#x9;&#x9;},&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;&#34;ParamName&#34;: &#34;str_sql&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamDesc&#34;: &#34;执行sql语句&#34;,&#xA;&#x9;&#x9;&#x9;&#34;Repeatable&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ForeachRefer&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamChoices&#34;: null,&#xA;&#x9;&#x9;&#x9;&#34;PureText&#34;: true,&#xA;&#x9;&#x9;&#x9;&#34;ParamValue&#34;: &#34;update good set good_name=?, good_desc=?, good_price=?, good_seller=?,seller_contact=?,good_images=? where id = ?&#34;&#xA;&#x9;&#x9;},&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;&#34;ParamName&#34;: &#34;multi_sql_binding?&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamDesc&#34;: &#34;sql绑定数据,个数必须和当前执行sql语句中的占位符参数个数相同&#34;,&#xA;&#x9;&#x9;&#x9;&#34;Repeatable&#34;: true,&#xA;&#x9;&#x9;&#x9;&#34;ForeachRefer&#34;: &#34;iter_batch_data?&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamChoices&#34;: null,&#xA;&#x9;&#x9;&#x9;&#34;PureText&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ParamValue&#34;: &#34;$start.good_name;\n$start.good_desc;\n$start.good_price;\n$start.good_seller;\n$start.seller_contact;\n$start.good_images;\n$start.good_id;\n&#34;&#xA;&#x9;&#x9;},&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;&#34;ParamName&#34;: &#34;str_db_conn&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamDesc&#34;: &#34;数据库连接信息,需要使用 $RESOURCE 全局参数&#34;,&#xA;&#x9;&#x9;&#x9;&#34;Repeatable&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ForeachRefer&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamChoices&#34;: null,&#xA;&#x9;&#x9;&#x9;&#34;PureText&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ParamValue&#34;: &#34;$RESOURCE.isoft_iaas;\n&#34;&#xA;&#x9;&#x9;}&#xA;&#x9;]&#xA;}</WorkStepInput>
 		<work_step_input_xml><![CDATA[<paramInputSchema>
 	<paramInputSchemaItem>
 		<paramName>iter_batch_data?</paramName>
@@ -159,7 +185,7 @@
 		<repeatable>false</repeatable>
 		<foreachRefer></foreachRefer>
 		<pureText>true</pureText>
-		<paramValue>update good set good_name=?, good_desc=?, good_price=?, good_images=? where id = ?</paramValue>
+		<paramValue>update good set good_name=?, good_desc=?, good_price=?, good_seller=?,seller_contact=?,good_images=? where id = ?</paramValue>
 	</paramInputSchemaItem>
 	<paramInputSchemaItem>
 		<paramName>multi_sql_binding?</paramName>
@@ -167,7 +193,7 @@
 		<repeatable>true</repeatable>
 		<foreachRefer>iter_batch_data?</foreachRefer>
 		<pureText>false</pureText>
-		<paramValue>$start.good_name;&#xA;$start.good_desc;&#xA;$start.good_price;&#xA;$start.good_images;&#xA;$start.good_id;</paramValue>
+		<paramValue>$start.good_name;&#xA;$start.good_desc;&#xA;$start.good_price;&#xA;$start.good_seller;&#xA;$start.seller_contact;&#xA;$start.good_images;&#xA;$start.good_id;&#xA;</paramValue>
 	</paramInputSchemaItem>
 	<paramInputSchemaItem>
 		<paramName>str_db_conn</paramName>
@@ -226,7 +252,7 @@
 		<WorkStepDesc></WorkStepDesc>
 		<WorkStepType>sql_execute</WorkStepType>
 		<WorkStepIndent>1</WorkStepIndent>
-		<WorkStepInput>{&#xA;&#x9;&#34;ParamInputSchemaItems&#34;: [&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;&#34;ParamName&#34;: &#34;iter_batch_data?&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamDesc&#34;: &#34;仅供批量插入数据时使用&#34;,&#xA;&#x9;&#x9;&#x9;&#34;Repeatable&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ForeachRefer&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamChoices&#34;: null,&#xA;&#x9;&#x9;&#x9;&#34;PureText&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ParamValue&#34;: &#34;&#34;&#xA;&#x9;&#x9;},&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;&#34;ParamName&#34;: &#34;str_sql&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamDesc&#34;: &#34;执行sql语句&#34;,&#xA;&#x9;&#x9;&#x9;&#34;Repeatable&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ForeachRefer&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamChoices&#34;: null,&#xA;&#x9;&#x9;&#x9;&#34;PureText&#34;: true,&#xA;&#x9;&#x9;&#x9;&#34;ParamValue&#34;: &#34;insert into good(good_name, good_desc, good_price, good_images) values(?,?,?,?)&#34;&#xA;&#x9;&#x9;},&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;&#34;ParamName&#34;: &#34;multi_sql_binding?&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamDesc&#34;: &#34;sql绑定数据,个数必须和当前执行sql语句中的占位符参数个数相同&#34;,&#xA;&#x9;&#x9;&#x9;&#34;Repeatable&#34;: true,&#xA;&#x9;&#x9;&#x9;&#34;ForeachRefer&#34;: &#34;iter_batch_data?&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamChoices&#34;: null,&#xA;&#x9;&#x9;&#x9;&#34;PureText&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ParamValue&#34;: &#34;$start.good_name;\n$start.good_desc;\n$start.good_price;\n$start.good_images;\n&#34;&#xA;&#x9;&#x9;},&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;&#34;ParamName&#34;: &#34;str_db_conn&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamDesc&#34;: &#34;数据库连接信息,需要使用 $RESOURCE 全局参数&#34;,&#xA;&#x9;&#x9;&#x9;&#34;Repeatable&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ForeachRefer&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamChoices&#34;: null,&#xA;&#x9;&#x9;&#x9;&#34;PureText&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ParamValue&#34;: &#34;$RESOURCE.isoft_iaas;\n&#34;&#xA;&#x9;&#x9;}&#xA;&#x9;]&#xA;}</WorkStepInput>
+		<WorkStepInput>{&#xA;&#x9;&#34;ParamInputSchemaItems&#34;: [&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;&#34;ParamName&#34;: &#34;iter_batch_data?&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamDesc&#34;: &#34;仅供批量插入数据时使用&#34;,&#xA;&#x9;&#x9;&#x9;&#34;Repeatable&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ForeachRefer&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamChoices&#34;: null,&#xA;&#x9;&#x9;&#x9;&#34;PureText&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ParamValue&#34;: &#34;&#34;&#xA;&#x9;&#x9;},&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;&#34;ParamName&#34;: &#34;str_sql&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamDesc&#34;: &#34;执行sql语句&#34;,&#xA;&#x9;&#x9;&#x9;&#34;Repeatable&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ForeachRefer&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamChoices&#34;: null,&#xA;&#x9;&#x9;&#x9;&#34;PureText&#34;: true,&#xA;&#x9;&#x9;&#x9;&#34;ParamValue&#34;: &#34;insert into good(good_name, good_desc, good_price, good_seller,seller_contact,good_images) values(?,?,?,?,?,?)&#34;&#xA;&#x9;&#x9;},&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;&#34;ParamName&#34;: &#34;multi_sql_binding?&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamDesc&#34;: &#34;sql绑定数据,个数必须和当前执行sql语句中的占位符参数个数相同&#34;,&#xA;&#x9;&#x9;&#x9;&#34;Repeatable&#34;: true,&#xA;&#x9;&#x9;&#x9;&#34;ForeachRefer&#34;: &#34;iter_batch_data?&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamChoices&#34;: null,&#xA;&#x9;&#x9;&#x9;&#34;PureText&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ParamValue&#34;: &#34;$start.good_name;\n$start.good_desc;\n$start.good_price;\n$start.good_seller;\n$start.seller_contact;\n$start.good_images;\n\n&#34;&#xA;&#x9;&#x9;},&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;&#34;ParamName&#34;: &#34;str_db_conn&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamDesc&#34;: &#34;数据库连接信息,需要使用 $RESOURCE 全局参数&#34;,&#xA;&#x9;&#x9;&#x9;&#34;Repeatable&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ForeachRefer&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamChoices&#34;: null,&#xA;&#x9;&#x9;&#x9;&#34;PureText&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ParamValue&#34;: &#34;$RESOURCE.isoft_iaas;\n&#34;&#xA;&#x9;&#x9;}&#xA;&#x9;]&#xA;}</WorkStepInput>
 		<work_step_input_xml><![CDATA[<paramInputSchema>
 	<paramInputSchemaItem>
 		<paramName>iter_batch_data?</paramName>
@@ -242,7 +268,7 @@
 		<repeatable>false</repeatable>
 		<foreachRefer></foreachRefer>
 		<pureText>true</pureText>
-		<paramValue>insert into good(good_name, good_desc, good_price, good_images) values(?,?,?,?)</paramValue>
+		<paramValue>insert into good(good_name, good_desc, good_price, good_seller,seller_contact,good_images) values(?,?,?,?,?,?)</paramValue>
 	</paramInputSchemaItem>
 	<paramInputSchemaItem>
 		<paramName>multi_sql_binding?</paramName>
@@ -250,7 +276,7 @@
 		<repeatable>true</repeatable>
 		<foreachRefer>iter_batch_data?</foreachRefer>
 		<pureText>false</pureText>
-		<paramValue>$start.good_name;&#xA;$start.good_desc;&#xA;$start.good_price;&#xA;$start.good_images;&#xA;</paramValue>
+		<paramValue>$start.good_name;&#xA;$start.good_desc;&#xA;$start.good_price;&#xA;$start.good_seller;&#xA;$start.seller_contact;&#xA;$start.good_images;&#xA;&#xA;</paramValue>
 	</paramInputSchemaItem>
 	<paramInputSchemaItem>
 		<paramName>str_db_conn</paramName>
