@@ -14,16 +14,22 @@
         <Button type="success" size="small" @click="executeMigrate(true)" style="margin-bottom: 6px">清理DB并执行迁移</Button>
       </Col>
     </Row>
-    <p v-for="log in logs" :style="{color: log.status ? 'grey' : 'red'}">{{log.tracking_detail}}</p>
 
-    <Tabs value="lst">
+    <Tabs :value="tabVal">
       <TabPane label="列表" name="lst">
         <Table border :columns="columns1" :data="migrates" size="small"></Table>
       </TabPane>
       <TabPane label="预览" name="views">
-        <div v-for="migrate in migrates" style="border-bottom: 1px solid green;padding: 10px;">
-          {{migrate.id}} ~~ <span v-html="renderBr(migrate.migrate_sql)"></span>
-        </div>
+        <Scroll height="450">
+          <div v-for="migrate in migrates" style="border-bottom: 1px solid green;padding: 10px;">
+            {{migrate.id}} ~~ <span v-html="renderBr(migrate.migrate_sql)"></span>
+          </div>
+        </Scroll>
+      </TabPane>
+      <TabPane label="执行日志" name="log">
+        <Scroll height="450">
+          <p v-for="log in logs" :style="{color: log.status ? 'grey' : 'red'}">{{log.tracking_detail}}</p>
+        </Scroll>
       </TabPane>
     </Tabs>
 
@@ -39,6 +45,7 @@
     name: "MigrateList",
     data(){
       return {
+        tabVal:'lst',
         logs:[],
         currentResourceName:'',
         resources:[],
@@ -143,15 +150,14 @@
         window.open(routeData.href, '_blank');
       },
       executeMigrate: async function (forceClean) {
+        this.tabVal = 'log';
         const result = await ExecuteMigrate(this.currentResourceName, forceClean);
         if(result.status == "SUCCESS"){
           this.$Message.success("SUCCESS");
-          this.logs = result.logs;
-          this.refreshMigrateList();
         }else{
           this.$Message.error(result.errorMsg);
-          this.logs = result.logs;
         }
+        this.logs = result.logs;
         this.refreshMigrateList();
       },
       toggleMigrateEffective:async function (id) {
