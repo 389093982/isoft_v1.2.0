@@ -51,7 +51,7 @@
 
 <script>
   import IBeautifulLink2 from "../Common/link/IBeautifulLink2";
-  import {GoodList} from "../../api"
+  import {GoodList,NewOrder} from "../../api"
   import {CheckHasLogin,GetLoginUserName} from "../../tools"
 
   export default {
@@ -64,8 +64,11 @@
       }
     },
     methods:{
-      payConfirm:function(good){
-        this.$router.push({path:'/igood/pay_confirm'});
+      payConfirm:async function(good){
+        const result = await NewOrder(good.id);
+        if(result.status=="SUCCESS"){
+          this.$router.push({path:'/igood/pay_confirm'});
+        }
       },
       refreshGoodList:async function () {
         const result = await GoodList();
