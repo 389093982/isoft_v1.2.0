@@ -19,21 +19,23 @@ var (
 	DATE_MIGRATE_NAME_FORMAT = "^[0-9]{14}_(CREATE|UPDATE|DELETE|INSERT|ALTER|DROP)_[a-zA-Z0-9_]+\\.sql$"
 )
 
+// @router /api/iwork/getLastMigrateLogs [post]
+func (this *WorkController) GetLastMigrateLogs() {
+	defer this.ServeJSON()
+	trackingId := this.GetString("trackingId")
+	logs, _ := models.QueryAllSqlMigrateLog(trackingId)
+	this.Data["json"] = &map[string]interface{}{"status": "SUCCESS", "logs": logs}
+}
+
 // @router /api/iwork/executeMigrate [post]
 func (this *WorkController) ExecuteMigrate() {
-	defer this.ServeJSON()
 	resource_name := this.GetString("resource_name")
 	forceClean, _ := this.GetBool("forceClean", false)
 	resource, _ := models.QueryResourceByName(resource_name)
 	trackingId := stringutil.RandomUUID()
-	err := migrateutil.MigrateToDB(trackingId, resource.ResourceDsn, forceClean)
-	logs, _ := models.QueryAllSqlMigrateLog(trackingId)
-	if err == nil {
-		this.Data["json"] = &map[string]interface{}{"status": "SUCCESS", "logs": logs}
-	} else {
-		logs, _ := models.QueryAllSqlMigrateLog(trackingId)
-		this.Data["json"] = &map[string]interface{}{"status": "ERROR", "logs": logs, "errorMsg": err.Error()}
-	}
+	go migrateutil.MigrateToDB(trackingId, resource.ResourceDsn, forceClean)
+	this.Data["json"] = &map[string]interface{}{"status": "SUCCESS", "trackingId": trackingId}
+	this.ServeJSON()
 }
 
 // .*匹配除 \n 以外的任何字符

@@ -109,6 +109,7 @@ export const GetSqlMigrateInfo = (id) => ajax(BASE_URL+"/iwork/getSqlMigrateInfo
 export const ToggleSqlMigrateEffective = (id) => ajax(BASE_URL+"/iwork/toggleSqlMigrateEffective", {id},'POST');
 
 export const ExecuteMigrate = (resource_name, forceClean) => ajax(BASE_URL+"/iwork/executeMigrate", {resource_name, forceClean},'POST');
+export const GetLastMigrateLogs = (trackingId) => ajax(BASE_URL+"/iwork/getLastMigrateLogs", {trackingId},'POST');
 
 export const LoadQuickSqlMeta = (resource_id) => ajax(BASE_URL+"/iwork/loadQuickSqlMeta", {resource_id},'POST');
 

@@ -63,6 +63,15 @@ func init() {
 
 	beego.GlobalControllerRouter["isoft/isoft_iwork_web/controllers:WorkController"] = append(beego.GlobalControllerRouter["isoft/isoft_iwork_web/controllers:WorkController"],
 		beego.ControllerComments{
+			Method:           "GetLastMigrateLogs",
+			Router:           `/api/iwork/getLastMigrateLogs`,
+			AllowHTTPMethods: []string{"post"},
+			MethodParams:     param.Make(),
+			Filters:          nil,
+			Params:           nil})
+
+	beego.GlobalControllerRouter["isoft/isoft_iwork_web/controllers:WorkController"] = append(beego.GlobalControllerRouter["isoft/isoft_iwork_web/controllers:WorkController"],
+		beego.ControllerComments{
 			Method:           "GetSqlMigrateInfo",
 			Router:           `/api/iwork/getSqlMigrateInfo`,
 			AllowHTTPMethods: []string{"post"},

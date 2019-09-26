@@ -39,7 +39,7 @@
 </template>
 
 <script>
-  import {FilterPageSqlMigrate,ExecuteMigrate,ToggleSqlMigrateEffective} from "../../../api"
+  import {FilterPageSqlMigrate,ExecuteMigrate,GetLastMigrateLogs,ToggleSqlMigrateEffective} from "../../../api"
 
   export default {
     name: "MigrateList",
@@ -149,16 +149,19 @@
         // 打开新窗口跳转
         window.open(routeData.href, '_blank');
       },
+      refreshMigrateLogs:async function(trackingId){
+        const result = await GetLastMigrateLogs(trackingId);
+        if(result.status == "SUCCESS"){
+          this.logs = result.logs;
+          this.refreshMigrateList();
+        }
+      },
       executeMigrate: async function (forceClean) {
         this.tabVal = 'log';
         const result = await ExecuteMigrate(this.currentResourceName, forceClean);
         if(result.status == "SUCCESS"){
-          this.$Message.success("SUCCESS");
-        }else{
-          this.$Message.error(result.errorMsg);
+          this.refreshMigrateLogs(result.trackingId);
         }
-        this.logs = result.logs;
-        this.refreshMigrateList();
       },
       toggleMigrateEffective:async function (id) {
         const result = await ToggleSqlMigrateEffective(id);
