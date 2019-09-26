@@ -47,6 +47,7 @@
       return {
         tabVal:'lst',
         logs:[],
+        timer:'',
         currentResourceName:'',
         resources:[],
         migrates:[],
@@ -153,6 +154,9 @@
         const result = await GetLastMigrateLogs(trackingId);
         if(result.status == "SUCCESS"){
           this.logs = result.logs;
+          if(result.over == true){
+            clearInterval(this.timer);
+          }
           this.refreshMigrateList();
         }
       },
@@ -160,7 +164,10 @@
         this.tabVal = 'log';
         const result = await ExecuteMigrate(this.currentResourceName, forceClean);
         if(result.status == "SUCCESS"){
-          this.refreshMigrateLogs(result.trackingId);
+          var _this = this;
+          _this.timer = setInterval(function () {
+            _this.refreshMigrateLogs(result.trackingId);
+          }, 1000);
         }
       },
       toggleMigrateEffective:async function (id) {

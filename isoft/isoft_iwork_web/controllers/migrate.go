@@ -24,7 +24,11 @@ func (this *WorkController) GetLastMigrateLogs() {
 	defer this.ServeJSON()
 	trackingId := this.GetString("trackingId")
 	logs, _ := models.QueryAllSqlMigrateLog(trackingId)
-	this.Data["json"] = &map[string]interface{}{"status": "SUCCESS", "logs": logs}
+	if logs[len(logs)-1].TrackingDetail == "__OVER__" {
+		this.Data["json"] = &map[string]interface{}{"status": "SUCCESS", "logs": logs, "over": true}
+	} else {
+		this.Data["json"] = &map[string]interface{}{"status": "SUCCESS", "logs": logs}
+	}
 }
 
 // @router /api/iwork/executeMigrate [post]
