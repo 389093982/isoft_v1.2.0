@@ -198,7 +198,7 @@ func MigrateToDB(trackingId, dsn string, forceClean bool) (err error) {
 		TrackingId: trackingId,
 		ForceClean: forceClean,
 	}
-	defer executor.InsertSqlMigrateLog("", "__OVER__", false)
+	defer executor.InsertSqlMigrateLog("", "__OVER__", true)
 	defer func() {
 		if err := recover(); err != nil {
 			detail := errorutil.ToError(err).Error()
