@@ -34,7 +34,6 @@ func (this *WorkController) PublishSerivce() {
 	if receiver != nil {
 		receiver.TmpDataMap[iworkconst.TRACKING_ID] = trackingId
 		this.ResponseUploadFile(receiver)
-		receiver.TmpDataMap["status"] = "SUCCESS"
 		this.Data["json"] = &receiver.TmpDataMap
 	} else {
 		this.Data["json"] = &map[string]interface{}{"status": "ERROR", iworkconst.TRACKING_ID: trackingId, "errorMsg": "Empty Response"}
@@ -48,8 +47,10 @@ func (this *WorkController) ResponseUploadFile(receiver *entry.Receiver) {
 		tmpDataMap := data.(map[string]interface{})
 		receiver.TmpDataMap["fileName"] = tmpDataMap["fileName"].(string) // 将临时文件的数据刷新成正式数据
 		receiver.TmpDataMap["fileServerPath"] = tmpDataMap["fileServerPath"].(string)
+		receiver.TmpDataMap["status"] = "SUCCESS"
 		if errorMsg, ok := tmpDataMap["errorMsg?"].(string); ok {
 			receiver.TmpDataMap["errorMsg"] = errorMsg
+			receiver.TmpDataMap["status"] = "ERROR"
 		}
 	}
 }
