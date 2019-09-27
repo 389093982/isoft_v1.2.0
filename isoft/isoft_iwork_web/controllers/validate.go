@@ -13,6 +13,7 @@ import (
 	"isoft/isoft_iwork_web/models"
 	"isoft/isoft_iwork_web/service"
 	"isoft/isoft_iwork_web/startup/memory"
+	"strconv"
 	"strings"
 	"sync"
 	"time"
@@ -56,7 +57,9 @@ func validateWorks(workId int64) {
 	var wg sync.WaitGroup
 	for work, workSteps := range workMap {
 		wg.Add(1)
-		validateWork(&work, workSteps, logCh, &wg)
+		go func(work models.Work, workSteps []models.WorkStep) {
+			validateWork(&work, workSteps, logCh, &wg)
+		}(work, workSteps)
 	}
 	wg.Wait()
 	// 所有 work 执行完成后关闭 logCh
@@ -98,7 +101,9 @@ func validateWork(work *models.Work, steps []models.WorkStep, logCh chan *models
 	var wg sync.WaitGroup
 	wg.Add(len(steps))
 	for _, step := range steps {
-		validateStep(&step, logCh, &wg)
+		go func(step models.WorkStep) {
+			validateStep(&step, logCh, &wg)
+		}(step)
 	}
 	wg.Wait()
 }
@@ -318,22 +323,24 @@ func parseReferNodeAndFiledName(refer string) (referNodeName, referFiledName str
 	return referNodeName, referFiledName
 }
 
+// 从 logCh 中读取日志并记录
 func recordValidateLogDetails(logCh chan *models.ValidateLogDetail, trackingId string, workMap map[models.Work][]models.WorkStep) {
-	workCaches := make(map[string]*models.Work, 0)
-	workStepCaches := make(map[string]*models.WorkStep, 0)
+	workCaches := make(map[string]models.Work, 0)
+	workStepCaches := make(map[string]models.WorkStep, 0)
 	for work, steps := range workMap {
-		workCaches[string(work.Id)] = &work
+		workCaches[strconv.FormatInt(work.Id, 10)] = work
 		for _, step := range steps {
-			workStepCaches[string(work.Id)+"_"+string(step.WorkStepId)] = &step
+			workStepCaches[strconv.FormatInt(work.Id, 10)+"_"+strconv.FormatInt(step.WorkStepId, 10)] = step
 		}
 	}
 	details := make([]*models.ValidateLogDetail, 0)
 	// 从 logCh 中循环读取校验不通过的信息,并将其写入日志表中去
 	for log := range logCh {
-		workCacheKey, workStepCacheKey := string(log.WorkId), string(log.WorkId)+"_"+string(log.WorkStepId)
+		workCacheKey, workStepCacheKey :=
+			string(strconv.FormatInt(log.WorkId, 10)), strconv.FormatInt(log.WorkId, 10)+"_"+strconv.FormatInt(log.WorkStepId, 10)
 		work, _ := workCaches[workCacheKey]
 		step, _ := workStepCaches[workStepCacheKey]
-		details = append(details, fillWorkValidateLogDetail(log, trackingId, work, step))
+		details = append(details, fillWorkValidateLogDetail(log, trackingId, &work, &step))
 	}
 	models.InsertMultiValidateLogDetail(details)
 }
