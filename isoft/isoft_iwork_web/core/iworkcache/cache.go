@@ -14,6 +14,7 @@ import (
 	"isoft/isoft_iwork_web/core/iworkutil/errorutil"
 	"isoft/isoft_iwork_web/models"
 	"isoft/isoft_iwork_web/startup/dipool/pool"
+	"reflect"
 	"strings"
 	"sync"
 )
@@ -102,8 +103,11 @@ func GetWorkCache(work_id int64) (*WorkCache, error) {
 
 func GetAllWorkCache() []*WorkCache {
 	var workCaches = make([]*WorkCache, 0)
+	// workCache 存储两种 key 数据类型,int64 和 string
 	workCacheMap.Range(func(k, v interface{}) bool {
-		workCaches = append(workCaches, v.(*WorkCache))
+		if reflect.TypeOf(k).Kind() == reflect.String {
+			workCaches = append(workCaches, v.(*WorkCache))
+		}
 		return true
 	})
 	return workCaches
