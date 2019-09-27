@@ -9,7 +9,7 @@
           <img width="150" height="150" v-if="user.small_icon" :src="user.small_icon">
           <img width="150" height="150" v-else src="../../../src/assets/sso/default_user_small_icon.jpg">
           <p style="margin: 0 0 0 40px;" v-if="$route.query.username == 'mine'">
-            <IFileUpload ref="fileUpload" @uploadComplete="uploadComplete" action="/api/iwork/fileUpload/default" uploadLabel="上传头像"/>
+            <IFileUpload ref="fileUpload" @uploadComplete="uploadComplete" action="/api/iwork/httpservice/fileUpload" uploadLabel="上传头像"/>
           </p>
         </Col>
         <Col span="12" style="padding-top: 30px;">

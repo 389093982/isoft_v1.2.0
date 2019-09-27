@@ -1,10 +1,12 @@
 package file
 
 import (
+	"isoft/isoft_iwork_web/core/interfaces"
 	"isoft/isoft_iwork_web/core/iworkconst"
 	"isoft/isoft_iwork_web/core/iworkmodels"
 	"isoft/isoft_iwork_web/core/iworkplugin/node"
 	"isoft/isoft_iwork_web/models"
+	"path"
 )
 
 type DoReceiveFileNode struct {
@@ -13,12 +15,15 @@ type DoReceiveFileNode struct {
 }
 
 func (this *DoReceiveFileNode) Execute(trackingId string) {
+	fileUpload := this.Dispatcher.TmpDataMap[iworkconst.HTTP_REQUEST_IFILE_UPLOAD].(interfaces.IFileUpload)
+	tempFileName, fileName, tempFilePath := fileUpload.SaveFile()
+	tempFileServerPath := "http://localhost:8086/api/files/" + tempFileName
 	this.DataStore.CacheDatas(this.WorkStep.WorkStepName, map[string]interface{}{
-		"fileName":           this.Dispatcher.TmpDataMap["__fileName"],
-		"tempFileName":       this.Dispatcher.TmpDataMap["__tempFileName"],
-		"fileExt":            this.Dispatcher.TmpDataMap["__fileExt"],
-		"tempFilePath":       this.Dispatcher.TmpDataMap["__tempFilePath"],
-		"tempFileServerPath": this.Dispatcher.TmpDataMap["__tempFileServerPath"],
+		"fileName":           fileName,
+		"tempFileName":       tempFileName,
+		"fileExt":            path.Ext(fileName),
+		"tempFilePath":       tempFilePath,
+		"tempFileServerPath": tempFileServerPath,
 	})
 }
 

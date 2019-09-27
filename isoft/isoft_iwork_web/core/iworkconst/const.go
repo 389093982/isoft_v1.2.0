@@ -29,6 +29,7 @@ const LOG_LEVEL_SUCCESS = "SUCCESS"
 const LOG_LEVEL_ERROR = "ERROR"
 
 const HTTP_REQUEST_OBJECT = "____request"
+const HTTP_REQUEST_IFILE_UPLOAD = "____request_ifile_upload"
 const DO_ERROR_FILTER = "__doErrorFilter__"
 const DO_RESPONSE_RECEIVE_FILE = "__do_response_receive_file__"
 const TRACKING_ID = "__trackingId"

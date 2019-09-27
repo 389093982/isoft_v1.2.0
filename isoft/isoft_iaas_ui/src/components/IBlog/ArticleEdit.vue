@@ -127,7 +127,7 @@
         var formdata = new FormData();
         formdata.append('file', $file);
         axios({
-          url: '/api/iwork/fileUpload/fileUpload',
+          url: '/api/iwork/httpservice/fileUpload',
           method: 'post',
           data: formdata,
           headers: { 'Content-Type': 'multipart/form-data' },

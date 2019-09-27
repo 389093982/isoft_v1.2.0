@@ -10,7 +10,7 @@
           </p>
           <p>
             <IFileUpload ref="fileUpload" :extra-data="myCourse.id" btn-size="small" :auto-hide-modal="true"
-                         @uploadComplete="uploadComplete" action="/api/iwork/fileUpload/default" uploadLabel="换张图片"/>
+                         @uploadComplete="uploadComplete" action="/api/iwork/httpservice/fileUpload" uploadLabel="换张图片"/>
           </p>
         </Col>
         <Col span="16">

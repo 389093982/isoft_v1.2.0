@@ -6,6 +6,7 @@ import (
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/orm"
 	"isoft/isoft/common/stringutil"
+	"isoft/isoft_iwork_web/core/interfaces"
 	"isoft/isoft_iwork_web/core/iworkcache"
 	"isoft/isoft_iwork_web/core/iworkconst"
 	"isoft/isoft_iwork_web/core/iworkfunc"
@@ -21,6 +22,7 @@ import (
 
 type WorkController struct {
 	beego.Controller
+	interfaces.IFileUpload
 }
 
 func (this *WorkController) BuildIWorkDL() {

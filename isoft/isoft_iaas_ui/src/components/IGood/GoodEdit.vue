@@ -28,7 +28,7 @@
               </span>
             </Scroll>
             <IFileUpload ref="fileUpload" :auto-hide-modal="true" btn-size="small"
-                         @uploadComplete="uploadComplete" action="/api/iwork/fileUpload/default" uploadLabel="上传图片"/>
+                         @uploadComplete="uploadComplete" action="/api/iwork/httpservice/fileUpload" uploadLabel="上传图片"/>
           </FormItem>
 
           <FormItem>

@@ -29,7 +29,7 @@
                 <Row :gutter="10">
                   <Col span="12">
                     <IFileUpload btn-size="small" :auto-hide-modal="true"
-                                 :extra-data="book.id" @uploadComplete="uploadComplete" action="/api/iwork/fileUpload/default" uploadLabel="换张图片"/>
+                                 :extra-data="book.id" @uploadComplete="uploadComplete" action="/api/iwork/httpservice/fileUpload" uploadLabel="换张图片"/>
                   </Col>
                   <Col span="12">
                     <IBeautifulLink2 @onclick="deleteBook(book.id)">删除</IBeautifulLink2>
