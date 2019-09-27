@@ -1,7 +1,6 @@
 package memory
 
 import (
-	"isoft/isoft_iwork_web/core/iworkcache"
 	"isoft/isoft_iwork_web/models"
 	"sync"
 )
@@ -12,7 +11,6 @@ var MemoryResourceMap sync.Map
 func FlushAll() {
 	FlushMemoryGlobalVar()
 	FlushMemoryResource()
-	iworkcache.ReloadAllWorkCache()
 }
 
 func FlushMemoryGlobalVar() {

@@ -102,9 +102,22 @@ func GetWorkCache(work_id int64) (*WorkCache, error) {
 }
 
 func GetAllWorkCache() []*WorkCache {
+	works, _ := models.QueryAllWorks()
+	var m sync.WaitGroup
+	for _, work := range works {
+		m.Add(1)
+		go func(work models.Work) {
+			if _, ok := workCacheMap.Load(work.Id); !ok {
+				UpdateWorkCache(work.Id)
+			}
+			defer m.Done()
+		}(work)
+	}
+	m.Wait()
+
 	var workCaches = make([]*WorkCache, 0)
-	// workCache 存储两种 key 数据类型,int64 和 string
 	workCacheMap.Range(func(k, v interface{}) bool {
+		// k 为 workName
 		if reflect.TypeOf(k).Kind() == reflect.String {
 			workCaches = append(workCaches, v.(*WorkCache))
 		}
