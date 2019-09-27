@@ -328,6 +328,7 @@ func recordValidateLogDetails(logCh chan *models.ValidateLogDetail, trackingId s
 	workCaches := make(map[string]models.Work, 0)
 	workStepCaches := make(map[string]models.WorkStep, 0)
 	for work, steps := range workMap {
+		// 此处不能使用 string(int64) 这种转换,造成 bug,也不能使用指针 &work
 		workCaches[strconv.FormatInt(work.Id, 10)] = work
 		for _, step := range steps {
 			workStepCaches[strconv.FormatInt(work.Id, 10)+"_"+strconv.FormatInt(step.WorkStepId, 10)] = step
