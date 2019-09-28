@@ -3,6 +3,7 @@ package file
 import (
 	"isoft/isoft_iwork_web/core/interfaces"
 	"isoft/isoft_iwork_web/core/iworkconst"
+	"isoft/isoft_iwork_web/core/iworkdata/param"
 	"isoft/isoft_iwork_web/core/iworkmodels"
 	"isoft/isoft_iwork_web/core/iworkplugin/node"
 	"isoft/isoft_iwork_web/models"
@@ -37,6 +38,17 @@ func (this *DoReceiveFileNode) GetDefaultParamInputSchema() *iworkmodels.ParamIn
 
 func (this *DoReceiveFileNode) GetDefaultParamOutputSchema() *iworkmodels.ParamOutputSchema {
 	return this.BuildParamOutputSchemaWithSlice([]string{"fileName", "tempFileName", "fileExt", "tempFilePath", "tempFileServerPath"})
+}
+
+func (this *DoReceiveFileNode) GetRuntimeParamOutputSchema() *iworkmodels.ParamOutputSchema {
+	pos := &iworkmodels.ParamOutputSchema{}
+	calHash := param.GetStaticParamValueWithStep(iworkconst.BOOL_PREFIX+"calHash?", this.WorkStep).(string)
+	if calHash == "true" || calHash == "`true`" {
+		pos.ParamOutputSchemaItems = append(pos.ParamOutputSchemaItems, iworkmodels.ParamOutputSchemaItem{
+			ParamName: "hash",
+		})
+	}
+	return pos
 }
 
 type DoResponseReceiveFileNode struct {
