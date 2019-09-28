@@ -1,6 +1,7 @@
 package file
 
 import (
+	"isoft/isoft/common/hashutil"
 	"isoft/isoft_iwork_web/core/interfaces"
 	"isoft/isoft_iwork_web/core/iworkconst"
 	"isoft/isoft_iwork_web/core/iworkdata/param"
@@ -19,13 +20,18 @@ func (this *DoReceiveFileNode) Execute(trackingId string) {
 	fileUpload := this.Dispatcher.TmpDataMap[iworkconst.HTTP_REQUEST_IFILE_UPLOAD].(interfaces.IFileUpload)
 	tempFileName, fileName, tempFilePath := fileUpload.SaveFile()
 	tempFileServerPath := "http://localhost:8086/api/files/" + tempFileName
-	this.DataStore.CacheDatas(this.WorkStep.WorkStepName, map[string]interface{}{
+	paramMap := map[string]interface{}{
 		"fileName":           fileName,
 		"tempFileName":       tempFileName,
 		"fileExt":            path.Ext(fileName),
 		"tempFilePath":       tempFilePath,
 		"tempFileServerPath": tempFileServerPath,
-	})
+	}
+	if calHash := this.TmpDataMap[iworkconst.BOOL_PREFIX+"calHash?"].(string); calHash == "true" {
+		hash, _ := hashutil.CalculateHashWithFile(tempFilePath)
+		paramMap["hash"] = hash
+	}
+	this.DataStore.CacheDatas(this.WorkStep.WorkStepName, paramMap)
 }
 
 func (this *DoReceiveFileNode) GetDefaultParamInputSchema() *iworkmodels.ParamInputSchema {
