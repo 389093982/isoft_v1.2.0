@@ -9,9 +9,6 @@ import (
 	"net/url"
 )
 
-// 数据库同步模式,支持 FLYWAY 和 AUTO
-const RunSyncdbMode = "AUTO"
-
 func init() {
 	dbhost := beego.AppConfig.String("db.host")
 	dbport := beego.AppConfig.String("db.port")
@@ -37,15 +34,6 @@ func init() {
 		orm.Debug = true
 	}
 	registerModel()
-
-	//if RunSyncdbMode == "FLYWAY" {
-	//	// ilearning 模块
-	//	flyway.MigrateToDB(Dsn, "./conf/migrations/migrations.sql")
-	//	// sso 模块
-	//	flyway.MigrateToDB(Dsn, "./conf/migrations/sso_migrations.sql")
-	//} else {
-	//	createTable()
-	//}
 	createTable()
 }
 
