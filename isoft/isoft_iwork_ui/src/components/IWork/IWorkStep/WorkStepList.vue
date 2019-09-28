@@ -220,7 +220,17 @@
                             }
                             break;
                           case "delete":
-                            _this.deleteWorkStepByWorkStepId(_this.$route.query.work_id, params.row.work_step_id);
+                            _this.$Modal.confirm({
+                              title: '删除',
+                              content: '确认删除该条数据吗？请谨慎操作！',
+                              onOk: () => {
+                                _this.deleteWorkStepByWorkStepId(_this.$route.query.work_id, params.row.work_step_id);
+                              },
+                              onCancel: () => {
+                                _this.$Message.info('取消操作');
+                              }
+                            });
+
                             break;
                           case "copy":
                             _this.copyWorkStepByWorkStepId(_this.$route.query.work_id, params.row.work_step_id);
