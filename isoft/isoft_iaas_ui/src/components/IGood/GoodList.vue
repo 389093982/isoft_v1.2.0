@@ -33,7 +33,6 @@
 
                 <Button v-if="editable(good)" @click="$router.push({path:'/igood/mine/good_edit',query:{id:good.id}})">编辑商品</Button>
                 <span v-else>
-                  <Button>加入购物车</Button>
                   <Button @click="payConfirm(good)">立即购买</Button>
                 </span>
               </div>

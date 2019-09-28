@@ -21,7 +21,6 @@
             <p>卖家联系方式：{{good.seller_contact}}</p>
           </div>
           <div style="text-align: right;">
-            <Button>加入购物车</Button>
             <Button>立即购买</Button>
           </div>
         </Col>
