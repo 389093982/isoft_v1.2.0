@@ -79,10 +79,19 @@ func (this *DataStore) GetData(nodeName, paramName string) interface{} {
 
 // 获取数据中心
 func InitDataStore(trackingId string, logwriter *iworklog.CacheLoggerWriter, wc *iworkcache.WorkCache) *DataStore {
-	return &DataStore{
+	dataStore := &DataStore{
 		TrackingId:       trackingId,
 		logwriter:        logwriter,
 		wc:               wc,
 		DataNodeStoreMap: make(map[string]*DataNodeStore, 0),
+	}
+	initDefaultNodeData(dataStore)
+	return dataStore
+}
+
+func initDefaultNodeData(dataStore *DataStore) {
+	dataStore.DataNodeStoreMap["Error"] = &DataNodeStore{
+		// 初始化数据中心中的 isNoError 值,出错时会被覆盖
+		NodeOutputDataMap: map[string]interface{}{"isNoError": true},
 	}
 }
