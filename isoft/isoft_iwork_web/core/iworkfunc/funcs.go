@@ -45,7 +45,12 @@ func (t *IWorkFuncProxy) GetFuncCallers() []map[string]string {
 		{"funcDemo": "getRequestParameters($url,$paramName)", "funcDesc": "从url地址中根据参数名获取参数值,返回的是数组"},
 		{"funcDemo": "getDomain($url)", "funcDesc": "从url地址中获取 domain 信息"},
 		{"funcDemo": "getNotEmpty($var1,$var2)", "funcDesc": "从参数列表中获取第一个非空值"},
+		{"funcDemo": "fmtSprintf($formatStr,$var)", "funcDesc": "字符串格式化操作,如 fmt.Sprintf(`%03d`, a)"},
 	}
+}
+
+func (t *IWorkFuncProxy) FmtSprintf(args []interface{}) interface{} {
+	return fmt.Sprintf(args[0].(string), args[1:]...)
 }
 
 func (t *IWorkFuncProxy) GetNotEmpty(args []interface{}) interface{} {
