@@ -66,7 +66,7 @@
       payConfirm:async function(good){
         const result = await NewOrder(good.id);
         if(result.status=="SUCCESS"){
-          this.$router.push({path:'/igood/pay_confirm'});
+          this.$router.push({path:'/igood/pay_confirm', query:{"good_id":good.id, "orderCode":result.orderCode}});
         }
       },
       refreshGoodList:async function () {
