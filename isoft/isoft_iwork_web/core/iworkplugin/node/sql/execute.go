@@ -22,10 +22,11 @@ func (this *SQLExecuteNode) Execute(trackingId string) {
 	sql = this.modifySqlInsertWithBatch(this.TmpDataMap, sql)
 	// sql_binding 参数获取
 	sql_binding := getSqlBinding(this.TmpDataMap)
-	affected := sqlutil.Execute(sql, sql_binding, dataSourceName)
+	lastInsertId, affected := sqlutil.Execute(sql, sql_binding, dataSourceName)
 	// 将数据数据存储到数据中心
 	// 存储 affected
-	this.DataStore.CacheDatas(this.WorkStep.WorkStepName, map[string]interface{}{iworkconst.NUMBER_PREFIX + "affected": affected})
+	paramMap := map[string]interface{}{iworkconst.NUMBER_PREFIX + "affected": affected, iworkconst.NUMBER_PREFIX + "lastInsertId": lastInsertId}
+	this.DataStore.CacheDatas(this.WorkStep.WorkStepName, paramMap)
 }
 
 func (this *SQLExecuteNode) modifySqlInsertWithBatch(tmpDataMap map[string]interface{}, sql string) string {
@@ -66,7 +67,7 @@ func (this *SQLExecuteNode) GetDefaultParamInputSchema() *iworkmodels.ParamInput
 }
 
 func (this *SQLExecuteNode) GetDefaultParamOutputSchema() *iworkmodels.ParamOutputSchema {
-	return this.BuildParamOutputSchemaWithSlice([]string{iworkconst.NUMBER_PREFIX + "affected"})
+	return this.BuildParamOutputSchemaWithSlice([]string{iworkconst.NUMBER_PREFIX + "affected", iworkconst.NUMBER_PREFIX + "lastInsertId"})
 }
 
 func (this *SQLExecuteNode) ValidateCustom() (checkResult []string) {
