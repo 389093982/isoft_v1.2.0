@@ -9,6 +9,7 @@ import (
 	"path/filepath"
 	"strconv"
 	"strings"
+	"time"
 )
 
 type IWorkFuncProxy struct {
@@ -46,7 +47,12 @@ func (t *IWorkFuncProxy) GetFuncCallers() []map[string]string {
 		{"funcDemo": "getDomain($url)", "funcDesc": "从url地址中获取 domain 信息"},
 		{"funcDemo": "getNotEmpty($var1,$var2)", "funcDesc": "从参数列表中获取第一个非空值"},
 		{"funcDemo": "fmtSprintf($formatStr,$var)", "funcDesc": "字符串格式化操作,如 fmt.Sprintf(`%03d`, a)"},
+		{"funcDemo": "formatNowTimeToYYYYMMDD()", "funcDesc": "当前日期格式化成 YYYYMMSS 格式"},
 	}
+}
+
+func (t *IWorkFuncProxy) FormatNowTimeToYYYYMMDD(args []interface{}) interface{} {
+	return time.Now().Format("20060102")
 }
 
 func (t *IWorkFuncProxy) FmtSprintf(args []interface{}) interface{} {
