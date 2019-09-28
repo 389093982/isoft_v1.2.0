@@ -110,7 +110,7 @@ func (this *BaseNode) SubmitParamOutputSchemaDataToDataStore(workStep *models.Wo
 }
 
 // 根据传入的 paramMap 构建 ParamInputSchema 对象
-func (this *BaseNode) BuildParamInputSchemaWithDefaultMap(paramMap map[int][]string) *iworkmodels.ParamInputSchema {
+func (this *BaseNode) BuildParamInputSchemaWithDefaultMap(paramMap map[int][]string, choicesMap ...map[string][]string) *iworkmodels.ParamInputSchema {
 	keys := datatypeutil.GetMapKeySlice(paramMap, []int{}).([]int)
 	sort.Ints(keys)
 	items := make([]iworkmodels.ParamInputSchemaItem, 0)
@@ -120,6 +120,7 @@ func (this *BaseNode) BuildParamInputSchemaWithDefaultMap(paramMap map[int][]str
 		paramName := _paramMap[0]
 		paramDesc := _paramMap[1]
 		item := iworkmodels.ParamInputSchemaItem{ParamName: paramName, ParamDesc: paramDesc}
+		this.fillParamChoicesAttr(&item, paramName, choicesMap...)
 		// 后面字段为 extra 字段
 		for _, paramExtra := range _paramMap[1:] {
 			if strings.HasPrefix(paramExtra, "repeatable__") {
@@ -130,6 +131,14 @@ func (this *BaseNode) BuildParamInputSchemaWithDefaultMap(paramMap map[int][]str
 		items = append(items, item)
 	}
 	return &iworkmodels.ParamInputSchema{ParamInputSchemaItems: items}
+}
+
+func (this *BaseNode) fillParamChoicesAttr(item *iworkmodels.ParamInputSchemaItem, paramName string, choicesMap ...map[string][]string) {
+	if len(choicesMap) > 0 {
+		if _, ok := choicesMap[0][paramName]; ok {
+			item.ParamChoices = choicesMap[0][paramName]
+		}
+	}
 }
 
 // 根据传入的 paramNames 构建 ParamOutputSchema 对象

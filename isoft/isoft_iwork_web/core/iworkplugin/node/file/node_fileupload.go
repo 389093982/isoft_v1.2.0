@@ -28,7 +28,11 @@ func (this *DoReceiveFileNode) Execute(trackingId string) {
 }
 
 func (this *DoReceiveFileNode) GetDefaultParamInputSchema() *iworkmodels.ParamInputSchema {
-	return &iworkmodels.ParamInputSchema{ParamInputSchemaItems: make([]iworkmodels.ParamInputSchemaItem, 0)}
+	paramMap := map[int][]string{
+		1: {iworkconst.BOOL_PREFIX + "calHash?", "是否计算hash值"},
+	}
+	choiceMap := map[string][]string{iworkconst.BOOL_PREFIX + "calHash?": {"`true`", "`false`"}}
+	return this.BuildParamInputSchemaWithDefaultMap(paramMap, choiceMap)
 }
 
 func (this *DoReceiveFileNode) GetDefaultParamOutputSchema() *iworkmodels.ParamOutputSchema {
