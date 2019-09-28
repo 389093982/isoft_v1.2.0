@@ -2,8 +2,8 @@ package iworkpool
 
 import (
 	"database/sql"
+	"errors"
 	_ "github.com/go-sql-driver/mysql" //导入mysql驱动包
-	"github.com/pkg/errors"
 	"isoft/isoft_iwork_web/models"
 	"sync"
 )

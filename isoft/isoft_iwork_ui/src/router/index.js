@@ -61,4 +61,12 @@ export default new Router({
   // History 模式,去除vue项目中的 #
   // mode: 'history',
   routes: IWorkRouter,
+  // 页面跳转时,让页面滚动在顶部
+  scrollBehavior(to,from,savedPosition){
+    if(savedPosition){
+      return savedPosition;
+    }else{
+      return {x:0,y:0}
+    }
+  },
 })
