@@ -2,7 +2,7 @@
   <div>
     <div v-if="good">
       <Row>
-        <Col span="12"><img :src="good_images[0]" width="100%" height="100%"/></Col>
+        <Col span="12"><img :src="good_images[0]" width="100%" height="400px"/></Col>
         <Col span="12">{{good.good_desc}}</Col>
       </Row>
       <Row style="text-align: right;" v-if="orderInfo">
