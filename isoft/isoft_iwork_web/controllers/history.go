@@ -1,10 +1,12 @@
 package controllers
 
 import (
+	"encoding/xml"
 	"errors"
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/orm"
 	"github.com/astaxie/beego/utils/pagination"
+	"io/ioutil"
 	"isoft/isoft/common/hashutil"
 	"isoft/isoft/common/pageutil"
 	"isoft/isoft_iwork_web/core/iworkcache"
@@ -62,4 +64,32 @@ func (this *WorkController) FilterPageWorkHistory() {
 		this.Data["json"] = &map[string]interface{}{"status": "ERROR", "errorMsg": err.Error()}
 	}
 	this.ServeJSON()
+}
+
+// @router /api/iwork/recover [get]
+func (this *WorkController) Recover() {
+	filepaths, _, _ := fileutil.GetAllSubFile(`D:\zhourui\program\go\goland_workspace\src\isoft\isoft_iwork_web\demo`)
+	for _, filepath := range filepaths {
+		recoverFile(filepath)
+	}
+	this.ServeJSON()
+}
+
+func recoverFile(filepath string) {
+	workCache := iworkcache.WorkCache{}
+	bytes, _ := ioutil.ReadFile(filepath)
+	xml.Unmarshal(bytes, &workCache)
+	work := workCache.Work
+	work.CreatedTime = time.Now()
+	work.LastUpdatedTime = time.Now()
+	if _, err := models.QueryWorkByName(work.WorkName, orm.NewOrm()); err == nil {
+		return
+	}
+	orm.NewOrm().Insert(&work)
+	models.InsertOrUpdateWork(&work, orm.NewOrm())
+	for _, step := range workCache.Steps {
+		step.CreatedTime = time.Now()
+		step.LastUpdatedTime = time.Now()
+		orm.NewOrm().Insert(&step)
+	}
 }
