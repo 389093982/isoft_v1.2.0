@@ -69,7 +69,7 @@ func (this *WorkController) EditSqlMigrate() {
 	if match, _ := regexp.MatchString(MIGRATE_NAME_FORMAT, migrate_name); match {
 		migrate_name = fmt.Sprintf("%s_%s", time.Now().Format("20060102150405"), migrate_name)
 	} else if match, _ := regexp.MatchString(DATE_MIGRATE_NAME_FORMAT, migrate_name); !match {
-		panic(errors.New(fmt.Sprintf("migrate_name must match with %s or %s", MIGRATE_NAME_FORMAT, DATE_MIGRATE_NAME_FORMAT)))
+		panic(errors.New(fmt.Sprintf("migrate_name must match with %s", MIGRATE_NAME_FORMAT)))
 	}
 	migrate_sql := this.GetString("migrate_sql")
 	migrate_sql = checkMigrateSqlFormat(migrate_sql) // 检查 sql 格式
@@ -145,7 +145,7 @@ func (this *WorkController) ToggleSqlMigrateEffective() {
 }
 
 func saveMigrate(migrate *models.SqlMigrate) error {
-	filepath := path.Join(fileServer, "migrate", migrate.MigrateName)
+	filepath := path.Join(iwork_persistent_path, "migrates", migrate.MigrateName)
 	fileutil.MkdirAll(filepath)
 	return fileutil.WriteFile(filepath, []byte(xmlutil.RenderToString(migrate)), false)
 }

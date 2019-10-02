@@ -16,11 +16,11 @@ import (
 	"time"
 )
 
-var fileServer = beego.AppConfig.String("work.cache.home")
+var iwork_persistent_path = beego.AppConfig.String("iwork_persistent_path")
 
 func deleteHistory(workName string) {
 	if workName != "" {
-		filepath := path.Join(fileServer, workName+".work")
+		filepath := path.Join(iwork_persistent_path, "works", workName+".work")
 		fileutil.RemoveFileOrDirectory(filepath)
 	}
 }
@@ -42,7 +42,7 @@ func saveHistory(wc *iworkcache.WorkCache) (err error) {
 			LastUpdatedTime: time.Now(),
 		}
 		_, err = models.InsertOrUpdateWorkHistory(history)
-		filepath := path.Join(fileServer, work.WorkName+".work")
+		filepath := path.Join(iwork_persistent_path, "works", work.WorkName+".work")
 		fileutil.WriteFile(filepath, []byte(workHistory), false)
 	}
 	return
