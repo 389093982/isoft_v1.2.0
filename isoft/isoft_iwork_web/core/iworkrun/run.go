@@ -60,8 +60,12 @@ func RunOneStep(args *interfaces.RunOneStepArgs) (receiver *entry.Receiver) {
 	// 统计耗费时间
 	defer args.Logwriter.RecordCostTimeLog(args.BlockStep.Step.WorkStepName, args.TrackingId, time.Now())
 	// 记录开始执行日志
-	log := "start execute blockStep: >>>>>>>>>> [[<span style='color:blue;'>%s<span>]]"
-	args.Logwriter.Write(args.TrackingId, "", iworkconst.LOG_LEVEL_INFO, fmt.Sprintf(log, args.BlockStep.Step.WorkStepName))
+	startLogStr := fmt.Sprintf("start execute blockStep: >>>>>>>>>> [[<span style='color:blue;'>%s<span>]]", args.BlockStep.Step.WorkStepName)
+	args.Logwriter.Write(args.TrackingId, "", iworkconst.LOG_LEVEL_INFO, startLogStr)
+	// 记录结束执行日志
+	endLogStr := fmt.Sprintf("end execute blockStep: >>>>>>>>>> [[%s]]", args.BlockStep.Step.WorkStepName)
+	defer args.Logwriter.Write(args.TrackingId, "", iworkconst.LOG_LEVEL_INFO, endLogStr)
+
 	// 由工厂代为执行步骤
 	factory := &node.WorkStepFactory{
 		WorkStep:         args.BlockStep.Step,
@@ -75,8 +79,6 @@ func RunOneStep(args *interfaces.RunOneStepArgs) (receiver *entry.Receiver) {
 		WorkCache:        args.WorkCache,
 	}
 	factory.Execute(args.TrackingId)
-	// 记录结束执行日志
-	args.Logwriter.Write(args.TrackingId, "", iworkconst.LOG_LEVEL_INFO, fmt.Sprintf("end execute blockStep: >>>>>>>>>> [[%s]]", args.BlockStep.Step.WorkStepName))
 	// factory 节点如果代理的是 work_end 节点,则传递 Receiver 出去
 	return factory.Receiver
 }
