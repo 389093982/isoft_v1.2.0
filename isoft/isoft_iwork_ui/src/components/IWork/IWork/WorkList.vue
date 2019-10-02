@@ -172,7 +172,17 @@
                   },
                   on: {
                     click: () => {
-                      this.deleteOrCopyWorkById('delete', this.works[params.index]['id']);
+                      var _this = this;
+                      _this.$Modal.confirm({
+                        title: '删除',
+                        content: '确认删除该条数据吗？请谨慎操作！',
+                        onOk: () => {
+                          _this.deleteOrCopyWorkById('delete', _this.works[params.index]['id']);
+                        },
+                        onCancel: () => {
+                          _this.$Message.info('取消操作');
+                        }
+                      });
                     }
                   }
                 }, '删除'),

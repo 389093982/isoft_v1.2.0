@@ -230,7 +230,6 @@
                                 _this.$Message.info('取消操作');
                               }
                             });
-
                             break;
                           case "copy":
                             _this.copyWorkStepByWorkStepId(_this.$route.query.work_id, params.row.work_step_id);
