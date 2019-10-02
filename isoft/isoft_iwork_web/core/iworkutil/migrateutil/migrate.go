@@ -12,6 +12,7 @@ import (
 	"isoft/isoft_iwork_web/models"
 	"strconv"
 	"strings"
+	"time"
 )
 
 type MigrateExecutor struct {
@@ -154,7 +155,7 @@ func (this *MigrateExecutor) InsertSqlMigrateLog(migrate_name, detail string, st
 		TrackingId:     this.TrackingId,
 		MigrateName:    migrate_name,
 		Status:         status,
-		TrackingDetail: detail,
+		TrackingDetail: fmt.Sprintf("%s [%s]", detail, time.Now().Format("2006-01-02 15:04:05")),
 	}
 	models.InsertSqlMigrateLog(log)
 }

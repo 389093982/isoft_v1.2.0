@@ -14,6 +14,7 @@ import (
 	"isoft/isoft_iwork_web/models"
 	"path"
 	"regexp"
+	"strings"
 	"time"
 )
 
@@ -27,7 +28,7 @@ func (this *WorkController) GetLastMigrateLogs() {
 	defer this.ServeJSON()
 	trackingId := this.GetString("trackingId")
 	logs, _ := models.QueryAllSqlMigrateLog(trackingId)
-	if logs[len(logs)-1].TrackingDetail == "__OVER__" {
+	if strings.Contains(logs[len(logs)-1].TrackingDetail, "__OVER__") {
 		this.Data["json"] = &map[string]interface{}{"status": "SUCCESS", "logs": logs, "over": true}
 	} else {
 		this.Data["json"] = &map[string]interface{}{"status": "SUCCESS", "logs": logs}
