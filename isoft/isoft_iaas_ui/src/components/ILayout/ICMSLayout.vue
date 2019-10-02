@@ -17,6 +17,7 @@
               <MenuItem name="1-3"><router-link to="/background/cms/catalog_list">列表管理</router-link></MenuItem>
               <MenuItem name="1-4"><router-link to="/background/cms/configuration">查看配置项</router-link></MenuItem>
               <MenuItem name="1-5"><router-link to="/background/cms/commonLinkList">友情链接</router-link></MenuItem>
+              <MenuItem name="1-6"><router-link to="/sso/loginRecord">登录记录</router-link></MenuItem>
             </Submenu>
             <Submenu name="2">
               <template slot="title">
