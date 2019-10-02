@@ -1,5 +1,5 @@
 package interfaces
 
 type IFileUpload interface {
-	SaveFile() (tempFileName, fileName, tempFilePath string)
+	SaveFile(suffixs []string) (tempFileName, fileName, tempFilePath string)
 }

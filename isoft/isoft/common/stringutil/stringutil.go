@@ -117,3 +117,12 @@ func AppendSuffix(str, suffix string) string {
 	}
 	return str
 }
+
+func AnyOf(str string, sli []string) bool {
+	for _, s := range sli {
+		if str == s {
+			return true
+		}
+	}
+	return false
+}

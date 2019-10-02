@@ -76,10 +76,13 @@ func ParseParam(ctx *context.Context, steps []models.WorkStep) map[string]interf
 	return mapData
 }
 
-func (this *WorkController) SaveFile() (tempFileName, fileName, tempFilePath string) {
+func (this *WorkController) SaveFile(suffixs []string) (tempFileName, fileName, tempFilePath string) {
 	// 判断是否是文件上传
 	f, h, err := this.GetFile("file")
 	checkError(err)
+	if !stringutil.AnyOf("*", suffixs) && !stringutil.AnyOf(path.Ext(h.Filename), suffixs) {
+		panic("check upload file suffix error!")
+	}
 	tempFileName = stringutil.RandomUUID() + path.Ext(h.Filename)
 	//得到文件的名称
 	fileName = h.Filename

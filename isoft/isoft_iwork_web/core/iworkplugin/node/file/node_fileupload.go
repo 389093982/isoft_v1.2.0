@@ -9,6 +9,7 @@ import (
 	"isoft/isoft_iwork_web/core/iworkplugin/node"
 	"isoft/isoft_iwork_web/models"
 	"path"
+	"strings"
 )
 
 type DoReceiveFileNode struct {
@@ -18,7 +19,9 @@ type DoReceiveFileNode struct {
 
 func (this *DoReceiveFileNode) Execute(trackingId string) {
 	fileUpload := this.Dispatcher.TmpDataMap[iworkconst.HTTP_REQUEST_IFILE_UPLOAD].(interfaces.IFileUpload)
-	tempFileName, fileName, tempFilePath := fileUpload.SaveFile()
+	suffixStr := this.TmpDataMap[iworkconst.STRING_PREFIX+"suffixs"].(string)
+	suffixs := strings.Split(suffixStr, ",")
+	tempFileName, fileName, tempFilePath := fileUpload.SaveFile(suffixs)
 	tempFileServerPath := "http://localhost:8086/api/files/" + tempFileName
 	paramMap := map[string]interface{}{
 		"fileName":           fileName,
@@ -37,6 +40,7 @@ func (this *DoReceiveFileNode) Execute(trackingId string) {
 func (this *DoReceiveFileNode) GetDefaultParamInputSchema() *iworkmodels.ParamInputSchema {
 	paramMap := map[int][]string{
 		1: {iworkconst.BOOL_PREFIX + "calHash?", "是否计算hash值"},
+		2: {iworkconst.STRING_PREFIX + "suffixs", "上传文件支持的后缀名,*表示支持任意类型的后缀,多个后缀用逗号分隔"},
 	}
 	choiceMap := map[string][]string{iworkconst.BOOL_PREFIX + "calHash?": {"`true`", "`false`"}}
 	return this.BuildParamInputSchemaWithDefaultMap(paramMap, choiceMap)
