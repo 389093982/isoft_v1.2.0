@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io"
 	"io/ioutil"
+	"isoft/isoft/common/fileutil"
 	"os"
 	"path/filepath"
 	"strings"
@@ -27,6 +28,13 @@ func WriteFile(filename string, data []byte, append bool) error {
 		return err
 	} else {
 		return ioutil.WriteFile(filename, data, 0666)
+	}
+}
+
+func MkdirAll(fp string) {
+	// 判断目标文件是否存在,不存在则创建
+	if exist, _ := fileutil.PathExists(fp); exist == false {
+		os.MkdirAll(filepath.Dir(fp), os.ModePerm)
 	}
 }
 
