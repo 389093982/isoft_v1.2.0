@@ -110,3 +110,10 @@ func ReplaceAllString(str, expr, replacement string) (string, error) {
 	}
 	return reg.ReplaceAllString(str, replacement), nil
 }
+
+func AppendSuffix(str, suffix string) string {
+	if !strings.HasSuffix(str, suffix) {
+		return str + suffix
+	}
+	return str
+}

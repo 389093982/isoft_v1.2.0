@@ -65,6 +65,7 @@ func (this *WorkController) EditSqlMigrate() {
 	id, _ := this.GetInt64("id")
 	migrate := new(models.SqlMigrate)
 	migrate_name := this.GetString("migrate_name")
+	migrate_name = stringutil.AppendSuffix(migrate_name, ".sql")
 	if match, _ := regexp.MatchString(MIGRATE_NAME_FORMAT, migrate_name); match {
 		migrate_name = fmt.Sprintf("%s_%s", time.Now().Format("20060102150405"), migrate_name)
 	} else if match, _ := regexp.MatchString(DATE_MIGRATE_NAME_FORMAT, migrate_name); !match {
