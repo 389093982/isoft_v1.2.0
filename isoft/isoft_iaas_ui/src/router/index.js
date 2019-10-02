@@ -111,8 +111,6 @@ const ISSOReouter = [{
   children: [
     {path: 'login',component: Login},
     {path: 'regist',component: Regist},
-    {path: 'appRegist',component: AppRegist},
-    {path: 'loginRecord',component: LoginRecord},
   ]
 }];
 
@@ -127,6 +125,8 @@ const ICMSReouter = [{
     {path: 'cms/placement_edit',component: EditPlacement},
     {path: 'cms/commonLinkList',component: CommonLinkList},
     {path: 'cms/configuration',component: Configuration},
+    {path: 'sso/appRegist',component: AppRegist},
+    {path: 'sso/loginRecord',component: LoginRecord},
   ]
 }];
 

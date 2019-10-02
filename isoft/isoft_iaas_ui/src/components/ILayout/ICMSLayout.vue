@@ -17,7 +17,6 @@
               <MenuItem name="1-3"><router-link to="/background/cms/catalog_list">列表管理</router-link></MenuItem>
               <MenuItem name="1-4"><router-link to="/background/cms/configuration">查看配置项</router-link></MenuItem>
               <MenuItem name="1-5"><router-link to="/background/cms/commonLinkList">友情链接</router-link></MenuItem>
-              <MenuItem name="1-6"><router-link to="/sso/loginRecord">登录记录</router-link></MenuItem>
             </Submenu>
             <Submenu name="2">
               <template slot="title">
@@ -38,6 +37,16 @@
                 流量计费统计
               </template>
               <MenuItem name="4-1"><router-link to="#">外部链接跳转上报信息统计</router-link></MenuItem>
+            </Submenu>
+            <Submenu name="5">
+              <template slot="title">
+                <Icon type="ios-barcode"></Icon>
+                日志管理
+              </template>
+              <MenuItem name="5-1"><router-link to="/background/sso/loginRecord">登录记录</router-link></MenuItem>
+              <MenuItem name="5-2">用户查询</MenuItem>
+              <MenuItem name="5-3">权限管理</MenuItem>
+              <MenuItem name="5-4"><router-link to="/background/sso/appRegist">注册管理</router-link></MenuItem>
             </Submenu>
           </Menu>
         </Sider>

@@ -1,27 +1,24 @@
 <template>
-  <LeftMenu>
-    <div style="margin: 10px;">
-      <ISimpleLeftRightRow>
-        <ISimpleSearch slot="right" @handleSimpleSearch="handleSearch"/>
-      </ISimpleLeftRightRow>
+  <div style="margin: 10px;">
+    <ISimpleLeftRightRow>
+      <ISimpleSearch slot="right" @handleSimpleSearch="handleSearch"/>
+    </ISimpleLeftRightRow>
 
-      <Table :columns="columns1" :data="loginRecords" size="small"></Table>
-      <Page :total="total" :page-size="offset" show-total show-sizer :styles="{'text-align': 'center','margin-top': '10px'}"
-            @on-change="handleChange" @on-page-size-change="handlePageSizeChange"/>
-    </div>
-  </LeftMenu>
+    <Table :columns="columns1" :data="loginRecords" size="small"></Table>
+    <Page :total="total" :page-size="offset" show-total show-sizer :styles="{'text-align': 'center','margin-top': '10px'}"
+          @on-change="handleChange" @on-page-size-change="handlePageSizeChange"/>
+  </div>
 </template>
 
 <script>
   import {formatDate} from "../../tools"
   import {LoginRecordList} from "../../api"
-  import LeftMenu from "./LeftMenu"
   import ISimpleLeftRightRow from "../Common/layout/ISimpleLeftRightRow"
   import ISimpleSearch from "../Common/search/ISimpleSearch"
 
   export default {
     name: "LoginRecord",
-    components: {LeftMenu,ISimpleLeftRightRow,ISimpleSearch},
+    components: {ISimpleLeftRightRow,ISimpleSearch},
     data(){
       return {
         // 当前页
