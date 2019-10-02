@@ -47,12 +47,11 @@ func (this *BlockStepOrdersRunner) recordLog(err interface{}) {
 }
 
 func (this *BlockStepOrdersRunner) Run() (receiver *entry.Receiver) {
-	parentStepId := this.ParentStepId // 记录当前的 parentStepId
 	defer func() {
 		if err := recover(); err != nil {
 			this.recordLog(err)
 			// 重置 parentStepId,并执行 end 节点
-			this.ParentStepId = parentStepId
+			this.ParentStepId = iworkconst.PARENT_STEP_ID_FOR_START_END
 			receiver = this.runDetail(true)
 		}
 	}()

@@ -12,8 +12,9 @@ import (
 	"time"
 )
 
-// dispatcher 为父流程遗传下来的参数
+// dispatcher 为父流程或者调用者传递下来的参数
 func RunOneWork(work_id int64, dispatcher *entry.Dispatcher) (trackingId string, receiver *entry.Receiver) {
+	// 缓冲日志写入对象
 	logwriter := createNewLoggerWriter(dispatcher)
 	defer logwriter.Close()
 	workCache, err := iworkcache.GetWorkCache(work_id)
@@ -30,7 +31,7 @@ func RunOneWork(work_id int64, dispatcher *entry.Dispatcher) (trackingId string,
 	initDataStore := datastore.InitDataStore(trackingId, logwriter, workCache)
 
 	bsoRunner := node.BlockStepOrdersRunner{
-		ParentStepId: -1,
+		ParentStepId: iworkconst.PARENT_STEP_ID_FOR_START_END,
 		WorkCache:    workCache,
 		TrackingId:   trackingId,
 		LogWriter:    logwriter,

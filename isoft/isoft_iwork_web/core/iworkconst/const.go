@@ -35,3 +35,5 @@ const DO_RESPONSE_RECEIVE_FILE = "__do_response_receive_file__"
 const TRACKING_ID = "__trackingId"
 
 var FORBIDDEN_WORK_NAMES = []string{"WORK", "RESOURCE", "GLOBAL"}
+
+const PARENT_STEP_ID_FOR_START_END = -1
