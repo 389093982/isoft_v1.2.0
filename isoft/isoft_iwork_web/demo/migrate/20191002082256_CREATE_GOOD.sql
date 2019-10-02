@@ -5,7 +5,7 @@
 	<MigrateHash>DPlwzHlOvGgfe/nRFv+4gJ/j5s9mYcHKeoG10PnBdDE=</MigrateHash>
 	<Effective>true</Effective>
 	<CreatedBy>SYSTEM</CreatedBy>
-	<CreatedTime>2019-10-02T08:22:56.1308434+08:00</CreatedTime>
+	<CreatedTime>2019-10-02T08:22:56+08:00</CreatedTime>
 	<LastUpdatedBy>SYSTEM</LastUpdatedBy>
-	<LastUpdatedTime>2019-10-02T08:22:56.1308434+08:00</LastUpdatedTime>
+	<LastUpdatedTime>2019-10-02T09:07:30+08:00</LastUpdatedTime>
 </SqlMigrate>
