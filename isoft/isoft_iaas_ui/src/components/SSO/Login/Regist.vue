@@ -2,7 +2,7 @@
   <div>
     <div id="header">
       <div class="login-link" id="login_link" style="position: absolute;top: 25px;right: 100px;">
-        <span style="font-size: 15px;font-weight: inherit;">已有账号,前去<a href="/user/login/">登录</a></span>
+        <span style="font-size: 15px;font-weight: inherit;">已有账号,前去<a href="/#/sso/login/">登录</a></span>
       </div>
     </div>
     <div id="nav">
