@@ -10,6 +10,7 @@ const hot_project_recommod = "hot_project_recommod";
 const frind_link = "frind_link";
 const Index_news_list = "Index_news_list";
 const element_course_publish_desc = "element_course_publish_desc";
+const user_protocol = "用户协议，归 isoft 公司所有！用户协议，归 isoft 公司所有！用户协议，归 isoft 公司所有！用户协议，归 isoft 公司所有！用户协议，归 isoft 公司所有！用户协议，归 isoft 公司所有！用户协议，归 isoft 公司所有！用户协议，归 isoft 公司所有！用户协议，归 isoft 公司所有！用户协议，归 isoft 公司所有！";
 
 export default {
   element_host_recommend_blog_tpyes,
@@ -24,4 +25,5 @@ export default {
   frind_link,
   Index_news_list,
   element_course_publish_desc,
+  user_protocol,
 }

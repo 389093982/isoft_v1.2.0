@@ -1,13 +1,15 @@
 <template>
   <div id="nav">
     依据《网络安全法》，为保障您的账户安全和正常使用，请尽快完善账号信息！新版本全面为您的账号安全护航！
-    <a href="javascript:;" id="account">完善账号资料</a>
+    <a href="javascript:;" id="account" @click="$router.push({path:'/sso/regist'})">完善账号资料</a>
   </div>
 </template>
 
 <script>
+  import IBeautifulLink2 from "../../Common/link/IBeautifulLink2";
   export default {
-    name: "ImproveAccount"
+    name: "ImproveAccount",
+    components: {IBeautifulLink2}
   }
 </script>
 
