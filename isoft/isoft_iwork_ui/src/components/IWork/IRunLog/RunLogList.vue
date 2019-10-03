@@ -109,6 +109,12 @@
     mounted: function () {
       this.refreshRunLogRecordList();
     },
+    watch:{
+      // 监听路由是否变化
+      '$route' (to, from) {
+        this.refreshRunLogRecordList();
+      }
+    },
   }
 </script>
 

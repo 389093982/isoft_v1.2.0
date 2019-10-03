@@ -73,8 +73,7 @@ func QueryRunLogRecord(work_id int64, logLevel string, page int, offset int) (ru
 	if logLevel != "" {
 		qs = qs.Filter("log_level", logLevel)
 	}
-	// Exclude 非顶级流程日志不查出来
-	qs = qs.Exclude("tracking_id__contains", ".").OrderBy("-last_updated_time")
+	qs = qs.OrderBy("-last_updated_time")
 	counts, _ = qs.Count()
 	qs = qs.Limit(offset, (page-1)*offset)
 	qs.All(&runLogRecords)
