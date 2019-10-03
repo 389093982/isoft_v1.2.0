@@ -248,6 +248,9 @@ func (this *SimpleParser) parseParamVauleWithPrefixNode() interface{} {
 	if strings.Contains(this.paramName, ".") {
 		_paramName := this.paramName[:strings.LastIndex(this.paramName, ".")]
 		datas := this.DataStore.GetData(nodeName, _paramName) // 作为对象属性
+		if datas == nil {
+			return nil // 对象直接不存在，后续不必执行
+		}
 		attr := this.paramName[strings.LastIndex(this.paramName, ".")+1:]
 		if reflect.TypeOf(datas).Kind() == reflect.Slice {
 			return reflect.ValueOf(datas).Index(0).Interface().(map[string]interface{})[attr]

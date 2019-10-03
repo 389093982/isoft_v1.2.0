@@ -39,7 +39,7 @@
           {
             title: 'referer',
             key: 'referer',
-            width:300
+            width:250
           },
           {
             title: '登录ip',
@@ -49,6 +49,11 @@
           {
             title: '登录用户',
             key: 'user_name',
+            width:100
+          },
+          {
+            title: '角色名称',
+            key: 'role_name',
             width:100
           },
           {

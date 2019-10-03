@@ -3,8 +3,8 @@ import {checkContainsInString} from "./index"
 import {checkEmpty} from "./index"
 
 const _checkAdminLogin = function () {
-  let adminLogin = getCookie("adminLogin");
-  return adminLogin == "adminLogin";
+  let roleName = getCookie("roleName");
+  return roleName == "admin";
 
 }
 

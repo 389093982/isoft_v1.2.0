@@ -189,7 +189,6 @@
                       showParam: this.showEditBtns && true,
                       showDelete: this.showEditBtns && !oneOf(this.worksteps[params.index]['work_step_type'], ["work_start","work_end"]),
                       showCopy: this.showEditBtns && !oneOf(this.worksteps[params.index]['work_step_type'], ["work_start","work_end"]),
-                      showDetail: this.showEditBtns && oneOf(this.worksteps[params.index]['work_step_type'], ["work_sub"]),
                       showRefer: this.showEditBtns && oneOf(this.worksteps[params.index]['work_step_type'], ["work_start"]),
                     },
                     on: {
@@ -233,9 +232,6 @@
                             break;
                           case "copy":
                             _this.copyWorkStepByWorkStepId(_this.$route.query.work_id, params.row.work_step_id);
-                            break;
-                          case "detail":
-                            _this.showWorkSubDetail(params.row);
                             break;
                           case "refer":
                             if(!checkEmpty(_this.$route.query.parent_href)){
@@ -456,14 +452,6 @@
           this.refreshWorkStepList();
         }else{
           this.$Message.error(result.errorMsg);
-        }
-      },
-      showWorkSubDetail:async function (currentworkStep) {
-        const result = await GetRelativeWork(currentworkStep['work_id']);
-        const work_subs = result.subworks.filter(subWork => subWork.id === currentworkStep['work_sub_id']);
-        if(work_subs.length > 0){
-          this.$router.push({ path: '/iwork/workstepList',
-            query: { work_id: work_subs[0].id, work_name: work_subs[0].work_name }});
         }
       },
       showRunLogList: function(){

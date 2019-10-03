@@ -10,7 +10,6 @@
     <Button v-if="showParam" type="info" size="small" @click="handleClick('param')" style="margin-right: 5px;">参数</Button>
     <Button v-if="showDelete" type="warning" size="small" @click="handleClick('delete')" style="margin-right: 5px;">删除</Button>
     <Button v-if="showCopy" type="success" size="small" @click="handleClick('copy')" style="margin-right: 5px;">复制</Button>
-    <Button v-if="showDetail" type="warning" size="small" @click="handleClick('detail')" style="margin-right: 5px;">详情</Button>
     <Button v-if="showRefer" type="warning" size="small" @click="handleClick('refer')" style="margin-right: 5px;">父流程</Button>
   </span>
 </template>
@@ -36,10 +35,6 @@
         default: true
       },
       showCopy: {
-        type: Boolean,
-        default: true
-      },
-      showDetail: {
         type: Boolean,
         default: true
       },
