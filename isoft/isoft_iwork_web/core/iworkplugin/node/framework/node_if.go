@@ -32,7 +32,7 @@ func (this *IFNode) Execute(trackingId string) {
 			TrackingId:   trackingId,
 			LogWriter:    this.LogWriter,
 			Store:        this.DataStore, // 获取数据中心
-			Dispatcher:   nil,
+			Dispatcher:   this.Dispatcher,
 			RunOneStep:   this.BlockStepRunFunc,
 		}
 		bsoRunner.Run()

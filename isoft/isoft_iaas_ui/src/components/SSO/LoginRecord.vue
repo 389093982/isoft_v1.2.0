@@ -39,7 +39,7 @@
           {
             title: 'referer',
             key: 'referer',
-            width:400
+            width:300
           },
           {
             title: '登录ip',
