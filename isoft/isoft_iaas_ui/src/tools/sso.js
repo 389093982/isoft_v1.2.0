@@ -25,10 +25,13 @@ const _getLoginUserName = function(){
 
 // sso 登陆拦截
 const _checkSSOLogin = function(to, from, next) {
-  // 非免登录白名单,并且不含登录标识的需要重新跳往登录页面
-  if(_mustLogin(to.path) && !_checkHasLogin()){
-    // 跳往登录页面
-    window.location.href = "/#/sso/login/?redirectUrl=" + window.location.href;
+  // 1、必须要登录但是没登录
+  // 2、必须要 admin 登录但是没登录或者不是 admin 登录
+  if((_mustLogin(to.path) && !_checkHasLogin()) || (_mustAdminLogin(to.path)  && (!_checkHasLogin() || !_checkAdminLogin()))){
+    if(!checkContainsInString(from.path, "/sso/login/")){
+      // 跳往登录页面
+      window.location.href = "/#/sso/login/?redirectUrl=" + window.location.href;
+    }
   }else{
     next();
   }
@@ -37,6 +40,11 @@ const _checkSSOLogin = function(to, from, next) {
 const _mustLogin = function(target){
   // 包含 /mine/ 是必须要检查登录状态的,其它地址是免登陆的
   return checkContainsInString(target, "/mine/");
+}
+
+const _mustAdminLogin = function(target){
+  // 包含 /background/ 必须 admin 登录
+  return checkContainsInString(target, "/background/");
 }
 
 const _checkNotLogin = function (){
