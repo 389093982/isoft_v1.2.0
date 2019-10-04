@@ -2,13 +2,13 @@
   <div style="background: #FFFFFF;padding: 10px;">
     <Row>
       <Col v-if="courses.length > 0" span="16">
-        <div style="border-bottom: 1px solid #ccc;padding: 15px;border-right: 1px solid #ccc;padding: 15px;" v-for="course in courses">
-          <Row>
+        <div style="border: 1px solid #f4f4f4;padding: 15px;margin-left: 5px;min-height: 500px;">
+          <Row style="border-bottom: 1px solid #f4f4f4;padding: 10px;" v-for="course in courses">
             <Col span="8">
               <router-link :to="{path:'/ilearning/course_detail',query:{course_id:course.id}}">
                 <h4>课程名称：{{course.course_name}}</h4>
-                <img v-if="course.small_image" :src="course.small_image" height="120" width="200"/>
-                <img v-else src="../../../assets/default.png" height="120px" width="120px"/>
+                <img v-if="course.small_image" :src="course.small_image" height="120" width="180"/>
+                <img v-else src="../../../assets/default.png" height="120" width="180"/>
               </router-link>
             </Col>
             <Col span="16">

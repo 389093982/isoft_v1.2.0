@@ -10,12 +10,12 @@
     </div>
     <!-- 图标形式显示 -->
     <IBeautifulCard v-else title="热门课程推荐">
-      <div slot="content" style="min-height:850px;padding: 20px;">
+      <div slot="content" style="min-height:850px;padding: 10px;">
         <ul>
           <li v-for="course in courses">
             <router-link :to="{path:'/ilearning/course_detail',query:{course_id:course.id}}">
-              <img v-if="course.small_image" :src="course.small_image" height="160px" width="120px"/>
-              <img v-else src="../../../assets/default.png" height="160px" width="120px"/>
+              <img v-if="course.small_image" :src="course.small_image" height="120" width="180"/>
+              <img v-else src="../../../assets/default.png" height="120" width="180"/>
               <p>{{course.course_name}}</p>
             </router-link>
           </li>
@@ -70,7 +70,7 @@
   li{
     float: left;
     padding: 10px 9px 0;
-    width: 140px;
+    width: 200px;
     border: 1px solid #FFFFFF;
     overflow: hidden;
     text-align: center;

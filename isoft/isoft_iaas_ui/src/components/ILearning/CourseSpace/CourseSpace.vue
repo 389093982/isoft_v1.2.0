@@ -27,9 +27,11 @@
 
 <script>
   import IBeautifulLink2 from "../../Common/link/IBeautifulLink2";
+  import IBeautifulCard from "../../../../../isoft_iwork_ui/src/components/Common/card/IBeautifulCard";
+  import RecentlyViewed from "./RecentlyViewed";
   export default {
     name: "CourseSpace",
-    components: {IBeautifulLink2},
+    components: {RecentlyViewed, IBeautifulCard, IBeautifulLink2},
   }
 </script>
 

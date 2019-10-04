@@ -1,15 +1,15 @@
 <template>
   <div>
     <Row>
-      <Col span="16" style="padding:20px;">
+      <Col span="12" style="padding:20px;">
         <Form ref="formValidate" :model="formValidate" :rules="ruleValidate" :label-width="100">
           <FormItem label="课程名称" prop="course_name">
             <Input v-model="formValidate.course_name" placeholder="Enter course name..."/>
           </FormItem>
           <FormItem label="课程类型" prop="course_type">
             <Row>
-              <Col span="19"><Input v-model="formValidate.course_type" placeholder="Enter course type..."></Input></Col>
-              <Col span="5"><ChooseHotCourseType @chooseCourseType="chooseCourseType"/></Col>
+              <Col span="14"><Input v-model="formValidate.course_type" placeholder="Enter course type..."></Input></Col>
+              <Col span="10"><ChooseHotCourseType @chooseCourseType="chooseCourseType"/></Col>
             </Row>
           </FormItem>
           <FormItem label="课程子类型" prop="course_sub_type">
@@ -24,7 +24,7 @@
           </FormItem>
         </Form>
       </Col>
-      <Col span="8">
+      <Col span="12">
         <MarkDownElementRender :placement_name="GLOBAL.element_course_publish_desc"/>
       </Col>
     </Row>
