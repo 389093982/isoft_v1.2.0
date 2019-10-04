@@ -11,6 +11,14 @@
       inLine:{
         type:Boolean,
         default:true,
+      },
+      fontWeight:{
+        type:[String,Number],
+        default:"normal",
+      },
+      initialColor:{
+        type:String,
+        default:'#626262',
       }
     },
     methods:{
@@ -25,6 +33,8 @@
           style.display = 'inline-block';
           style.height = 'inherit';
         }
+        style.fontWeight = this.fontWeight;
+        style.color = this.initialColor;
         return style;
       }
     },
@@ -32,9 +42,6 @@
 </script>
 
 <style scoped>
-  a{
-    color: #626262;
-  }
   a:hover{
     color: red;
   }

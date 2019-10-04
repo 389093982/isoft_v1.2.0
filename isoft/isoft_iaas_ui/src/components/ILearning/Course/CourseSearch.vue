@@ -17,8 +17,8 @@
           </Row>
         </div>
       </Col>
-      <Col v-else span="16">
-        未找到相应的搜索结果
+      <Col v-else span="16" style="padding:50px;">
+        未找到相应的搜索结果,<IBeautifulLink2 font-weight="bold" initial-color="green" @onclick="$router.push({path:'/ilearning/index'})">试试找找其它资源</IBeautifulLink2>
       </Col>
       <Col span="8">
         <SiteDashBoard style="border: 1px solid #ccc;padding: 15px;margin-left: 5px;"/>
@@ -31,10 +31,11 @@
   import {SearchCourseList} from "../../../api"
   import SiteDashBoard from "../Site/SiteDashBoard"
   import CourseMeta from "./CourseMeta";
+  import IBeautifulLink2 from "../../Common/link/IBeautifulLink2";
 
   export default {
     name: "CourseSearch",
-    components:{CourseMeta, SiteDashBoard},
+    components:{IBeautifulLink2, CourseMeta, SiteDashBoard},
     data(){
       return {
         courses:[],

@@ -6,7 +6,8 @@
       title="上传/更新视频"
       :mask-closable="false">
       <div>
-        <p>课程名称：{{course.course_name}}</p>
+        <p style="padding:10px;">课程名称：{{course.course_name}}</p>
+        <p style="background-color: rgba(255,0,0,0.09);padding: 10px;">上传规则：1、上传视频暂不支持删除功能！2、可上传替换每一集视频 3、视频格式仅支持 mp4 格式！</p>
 
         <div style="margin-top: 20px;margin-bottom: 20px;">
           <Button size="small" v-for="(cVideo, num) in cVideos"
