@@ -19,6 +19,16 @@
               </div>
             </div>
           </Panel>
+
+          <Panel>
+            全部
+            <div slot="content">
+              <div v-for="work in works"
+                   draggable="true" @dragstart="dragstart($event, 'work_name__' + work.work_name)">
+                <Tag>{{ work.work_name }}</Tag>
+              </div>
+            </div>
+          </Panel>
         </Collapse>
       </TabPane>
     </Tabs>
