@@ -15,10 +15,10 @@
           <Col span="16">
             <CourseMeta :course="course"/>
             <p>
-              <a href="javascript:;" v-if="course_collect==true" @click="toggle_favorite(course.id,'course_collect')">取消收藏</a>
-              <a href="javascript:;" v-else @click="toggle_favorite(course.id,'course_collect')">加入收藏</a>&nbsp;
-              <a href="javascript:;" v-if="course_parise==true" @click="toggle_favorite(course.id,'course_praise')">取消点赞</a>
-              <a href="javascript:;" v-else @click="toggle_favorite(course.id,'course_praise')">我要点赞</a>
+              <a href="javascript:;" v-if="course_collect==true" @click="toggle_favorite(course.id,'course_collect', '取消收藏')">取消收藏</a>
+              <a href="javascript:;" v-else @click="toggle_favorite(course.id,'course_collect', '收藏')">加入收藏</a>&nbsp;
+              <a href="javascript:;" v-if="course_parise==true" @click="toggle_favorite(course.id,'course_praise', '取消点赞')">取消点赞</a>
+              <a href="javascript:;" v-else @click="toggle_favorite(course.id,'course_praise', '点赞')">我要点赞</a>
             </p>
           </Col>
         </Row>
@@ -92,9 +92,10 @@
           this.course_parise = result.course_parise;
         }
       },
-      toggle_favorite:async function (favorite_id, favorite_type) {
+      toggle_favorite:async function (favorite_id, favorite_type, message) {
         const result = await ToggleFavorite(favorite_id, favorite_type);
         if(result.status=="SUCCESS"){
+          this.$Message.success(message + "成功!");
           this.refreshCourseDetail();
         }
       }
