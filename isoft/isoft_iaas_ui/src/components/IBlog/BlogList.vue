@@ -87,7 +87,7 @@
 
 <script>
   import HotCatalogItems from "./HotCatalogItems"
-  import {BlogList,UpdateBlogStatus} from "../../api"
+  import {queryPageBlog,UpdateBlogStatus} from "../../api"
   import CatalogList from "./CatalogList"
   import HotUser from "../User/HotUser"
   import HorizontalLinks from "../Elementviewers/HorizontalLinks";
@@ -130,7 +130,7 @@
         if(this.search_type == "_all"){
           search_type = "";
         }
-        const result = await BlogList(this.offset,this.current_page, search_type);
+        const result = await queryPageBlog(this.offset,this.current_page, search_type);
         if(result.status=="SUCCESS"){
           this.searchblogs = result.blogs;
           this.total = result.paginator.totalcount;

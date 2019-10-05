@@ -65,7 +65,7 @@
         }
       },
       refreshUserDetail:async function () {
-        let userName = this.getUserName();
+        let userName = this.$route.query.username == 'mine' ? GetLoginUserName() : this.$route.query.username;
         const result = await GetUserDetail(userName);
         if(result.status == "SUCCESS"){
           this.user = result.user;

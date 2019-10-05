@@ -178,6 +178,10 @@ export default new Router({
   routes: getAllRouters(),
   // 页面跳转时,让页面滚动在顶部
   scrollBehavior(to,from,savedPosition){
+    // from 和 to 相同路由页面不滚动到顶部
+    if(from.path === to.path){
+      return;
+    }
     if(savedPosition){
       return savedPosition;
     }else{
