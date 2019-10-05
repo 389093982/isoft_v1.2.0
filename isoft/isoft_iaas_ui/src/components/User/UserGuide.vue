@@ -1,0 +1,60 @@
+<template>
+  <div>
+    <ElementsLoader :placement_name="GLOBAL.element_user_guide" @onLoadElement="onLoadElement">
+      <IBeautifulCard :title="placement_label">
+        <div slot="content">
+          <Row style="min-height: 500px;padding: 20px;">
+            <Col span="6">
+              <div style="border: 2px solid rgba(255,158,0,0.5);padding: 30px;margin: 2px;">
+                <p v-if="elements.length > 0" v-for="(element, index) in elements" style="padding: 5px 0 0 5px;">
+                  <IBeautifulLink2 @onclick="showElement(index)">{{element.title}}</IBeautifulLink2>
+                </p>
+              </div>
+            </Col>
+            <Col span="18">
+              <div style="min-height: 500px;border:2px solid rgba(255,158,0,0.5);padding: 35px;margin: 2px;">
+                <IShowMarkdown v-if="elements[showElementIndex] && elements[showElementIndex].md_content" :content="elements[showElementIndex].md_content"/>
+              </div>
+            </Col>
+          </Row>
+        </div>
+      </IBeautifulCard>
+    </ElementsLoader>
+  </div>
+</template>
+
+<script>
+  import IShowMarkdown from "../Common/markdown/IShowMarkdown"
+  import ElementsLoader from "../Background/CMS/ElementsLoader";
+  import IBeautifulCard from "../../components/Common/card/IBeautifulCard";
+  export default {
+    name: "UserGuide",
+    components: {IShowMarkdown, IBeautifulCard, ElementsLoader},
+    props:{
+      placement_name:{
+        type:String,
+        default: '',
+      }
+    },
+    data(){
+      return {
+        elements:[],
+        placement_label:'',
+        showElementIndex: 0,
+      }
+    },
+    methods:{
+      showElement:function(index){
+        this.showElementIndex = index;
+      },
+      onLoadElement:function (placement_label, elements) {
+        this.placement_label = placement_label;
+        this.elements = elements;
+      }
+    }
+  }
+</script>
+
+<style scoped>
+
+</style>

@@ -3,6 +3,7 @@
     <div style="margin-bottom: 5px;">
       <ISearch @submitFunc="searchFunc"/>
       <div style="text-align: right;">
+        <IBeautifulLink2 style="margin-top: 5px;" @onclick="$router.push({path:'/user/guide'})">站点引导</IBeautifulLink2>
         <IBeautifulLink2 style="margin-top: 5px;">广告位招租</IBeautifulLink2>
 
         <IBeautifulLink2 style="margin-top: 5px;"

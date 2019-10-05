@@ -85,9 +85,31 @@
 		<LastUpdatedBy>SYSTEM</LastUpdatedBy>
 	</steps>
 	<steps>
-		<Id>795</Id>
+		<Id>1412</Id>
 		<WorkId>153</WorkId>
 		<WorkStepId>2</WorkStepId>
+		<WorkSubId>0</WorkSubId>
+		<WorkStepName>template_renderDynamicSql</WorkStepName>
+		<WorkStepDesc></WorkStepDesc>
+		<WorkStepType>template</WorkStepType>
+		<WorkStepIndent>0</WorkStepIndent>
+		<WorkStepInput></WorkStepInput>
+		<work_step_input_xml><![CDATA[<paramInputSchema></paramInputSchema>]]></work_step_input_xml>
+		<WorkStepOutput></WorkStepOutput>
+		<work_step_output_xml><![CDATA[<paramOutputSchema></paramOutputSchema>]]></work_step_output_xml>
+		<IsDefer>false</IsDefer>
+		<WorkStepParamMapping></WorkStepParamMapping>
+		<work_step_param_mapping_xml><![CDATA[<ParamMapping>
+	<ParamMappingName></ParamMappingName>
+	<ParamMappingDefault></ParamMappingDefault>
+</ParamMapping>]]></work_step_param_mapping_xml>
+		<CreatedBy>SYSTEM</CreatedBy>
+		<LastUpdatedBy>SYSTEM</LastUpdatedBy>
+	</steps>
+	<steps>
+		<Id>795</Id>
+		<WorkId>153</WorkId>
+		<WorkStepId>3</WorkStepId>
 		<WorkSubId>0</WorkSubId>
 		<WorkStepName>sql_query_queryPageBlog</WorkStepName>
 		<WorkStepDesc></WorkStepDesc>
@@ -392,7 +414,7 @@
 	<steps>
 		<Id>718</Id>
 		<WorkId>153</WorkId>
-		<WorkStepId>3</WorkStepId>
+		<WorkStepId>4</WorkStepId>
 		<WorkSubId>0</WorkSubId>
 		<WorkStepName>end</WorkStepName>
 		<WorkStepDesc>end节点</WorkStepDesc>
