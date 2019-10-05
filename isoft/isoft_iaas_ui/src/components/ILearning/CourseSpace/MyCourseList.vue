@@ -1,7 +1,7 @@
 <template>
   <div>
-    <div v-for="myCourse in myCourses" style="border-bottom: 1px solid #f4f4f4;padding: 10px;">
-      <Row>
+    <div v-if="myCourses.length > 0">
+      <Row v-for="myCourse in myCourses" style="border-bottom: 1px solid #f4f4f4;padding: 10px;">
         <Col span="8">
           <h4>课程名称：{{myCourse.course_name}}</h4>
           <p>
@@ -16,11 +16,12 @@
         <Col span="16">
           <CourseMeta :course="myCourse"/>
           <p><router-link :to="{path:'/ilearning/course_detail',query:{course_id:myCourse.id}}"
-              style="color:green;font-family: Arial;font-weight: 700;">查看视频详情</router-link></p>
+                          style="color:green;font-family: Arial;font-weight: 700;">查看视频详情</router-link></p>
           <p><UploadVideo :course="myCourse" @uploadComplete="uploadVideoComplete"/></p>
         </Col>
       </Row>
     </div>
+    <div v-else>您还没有任何课程奥，如果你想传播你的知识，<IBeautifulLink2 font-weight="bold">请前去开课！</IBeautifulLink2></div>
   </div>
 </template>
 
@@ -30,10 +31,11 @@
   import {getCookie} from "../../../tools"
   import CourseMeta from "../Course/CourseMeta";
   import IFileUpload from "../../Common/file/IFileUpload";
+  import IBeautifulLink2 from "../../Common/link/IBeautifulLink2";
 
   export default {
     name: "MyCourseList",
-    components:{IFileUpload,CourseMeta,UploadVideo},
+    components:{IBeautifulLink2, IFileUpload,CourseMeta,UploadVideo},
     data(){
       return {
         // 我的课程

@@ -23,11 +23,12 @@
         <Submenu name="7">
           <template slot="title">
             <span v-if="loginUserName">{{loginUserName}}</span>
-            <span v-else>登录</span>
+            <span v-else>未登录</span>
           </template>
           <MenuGroup title="账号管理">
-            <MenuItem name="7-1" @click.native="cancelUser">注销</MenuItem>
+            <MenuItem name="7-1" @click.native="cancelUser">前往登录</MenuItem>
             <MenuItem name="7-2" @click.native="cancelUser">切换账号</MenuItem>
+            <MenuItem name="7-3" @click.native="cancelUser">注销</MenuItem>
           </MenuGroup>
         </Submenu>
         <MenuItem name="8">
@@ -39,7 +40,7 @@
 </template>
 
 <script>
-  import {getCookie,delCookie} from '../../tools/index'
+  import {getCookie, delCookie, CheckHasLogin} from '../../tools/index'
   import {LoginAddr} from "../../api"
   import IBeautifulLink2 from "../Common/link/IBeautifulLink2";
 
@@ -62,7 +63,9 @@
       }
     },
     mounted:function(){
-      this.loginUserName = getCookie("userName");
+      if (CheckHasLogin()){
+        this.loginUserName = getCookie("userName");
+      }
     },
   }
 </script>
