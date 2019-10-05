@@ -45,7 +45,7 @@
       <Col span="8">
         <UserAbout :userName="course.course_author"/>
         <HotUser style="margin-left: 2px;"/>
-        <HotRecommend showMode="list"/>
+        <HotRecommend showMode="list" style="margin-left: 2px;"/>
         <!-- 推荐系统 -->
         <Recommand />
         <CommunicationGroup :placement_name="GLOBAL.communication_group"/>

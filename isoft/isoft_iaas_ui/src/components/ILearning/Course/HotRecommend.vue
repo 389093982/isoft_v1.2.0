@@ -1,12 +1,14 @@
 <template>
   <div>
     <!-- 列表形式显示 -->
-    <div v-if="showMode=='list'" style="border: 1px #dbdbdb solid;margin-left: 5px;margin-bottom: 5px;">
-      <Card title="热门课程推荐" icon="ios-options" :padding="0" shadow style="width: 100%;">
-        <Row  style="padding-left:10px;" v-for="course in courses">
-          <IBeautifulLink2 @click="$router.push({path:'/ilearning/course_detail',query:{course_id:course.id}})">{{course.course_name}}</IBeautifulLink2>
-        </Row>
-      </Card>
+    <div v-if="showMode=='list'">
+      <IBeautifulCard title="热门课程推荐">
+        <div slot="content" style="padding: 20px;">
+          <Row v-for="course in courses">
+            <IBeautifulLink2 @click="$router.push({path:'/ilearning/course_detail',query:{course_id:course.id}})">{{course.course_name}}</IBeautifulLink2>
+          </Row>
+        </div>
+      </IBeautifulCard>
     </div>
     <!-- 图标形式显示 -->
     <IBeautifulCard v-else title="热门课程推荐">

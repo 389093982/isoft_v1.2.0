@@ -305,7 +305,7 @@
                       props: {
                         trigger: 'hover',
                         title: '步骤名称:' + this.worksteps[params.index]['work_step_name'] + ' --- 步骤类型:' + this.worksteps[params.index]['work_step_type'],
-                        placement: "left",
+                        placement: params.index <= 6 ? "left-start" : "left-end",
                       },
                       style: {
                         marginRight: '10px',
