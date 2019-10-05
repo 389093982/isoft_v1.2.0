@@ -30,7 +30,7 @@
 </template>
 
 <script>
-  import {GetMyCourseList,EndUpdate,UpdateCourseIcon} from "../../../api"
+  import {GetCourseListByUserName,EndUpdate,UpdateCourseIcon} from "../../../api"
   import UploadVideo from "../Course/UploadVideo"
   import {getCookie} from "../../../tools"
   import CourseMeta from "../Course/CourseMeta";
@@ -58,7 +58,7 @@
       },
       refreshMyCourseList:async function () {
         var userName = getCookie("userName");
-        const result = await GetMyCourseList(userName);
+        const result = await GetCourseListByUserName(userName);
         if(result.status=="SUCCESS"){
           this.myCourses = result.courses;
         }

@@ -28,7 +28,7 @@
     <div style="min-height: 150px;background-color: #ffffff;margin: 10px 0 0 0; padding:10px;">
       <Row :gutter="10">
         <Col span="16">
-          <UserAbout :user-name="$route.query.username"/>
+          <UserAbout :user-name="_userName"/>
         </Col>
         <Col span="8">
           <HotUser/>
@@ -65,7 +65,7 @@
         }
       },
       refreshUserDetail:async function () {
-        let userName = this.$route.query.username == 'mine' ? GetLoginUserName() : this.$route.query.username;
+        let userName = this.getUserName();
         const result = await GetUserDetail(userName);
         if(result.status == "SUCCESS"){
           this.user = result.user;
@@ -75,6 +75,11 @@
     mounted(){
       if(this.$route.query.username != undefined && this.$route.query.username != null){
         this.refreshUserDetail();
+      }
+    },
+    computed:{
+      _userName:function () {
+        return this.$route.query.username == 'mine' ? GetLoginUserName() : this.$route.query.username;
       }
     },
     watch: {

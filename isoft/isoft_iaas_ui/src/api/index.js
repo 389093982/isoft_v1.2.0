@@ -49,8 +49,8 @@ export const ShowArticleDetail = (id) => ajax(BASE_URL+'/iwork/httpservice/ShowA
 export const NewCourse = (course_name,course_type,course_sub_type,course_short_desc) =>
   ajax(BASE_URL+"/iwork/httpservice/NewCourse2",{course_name,course_type,course_sub_type,course_short_desc},'GET');
 
-// 分页查询我的课程清单
-export const GetMyCourseList = (userName) => ajax(BASE_URL+"/iwork/httpservice/GetMyCourseList2",{userName},'GET');
+// 根据用户名查询用户的课程信息
+export const GetCourseListByUserName = (userName) => ajax(BASE_URL+"/iwork/httpservice/GetCourseListByUserName",{userName},'GET');
 
 // 完结视频更新
 export const UpdateCourseIcon = (course_id,small_image) => ajax(BASE_URL+"/iwork/httpservice/UpdateCourseIcon",{course_id,small_image},'GET');

@@ -38,7 +38,7 @@
 </template>
 
 <script>
-  import {GetMyCourseList,GetUserDetail} from "../../api"
+  import {GetCourseListByUserName,GetUserDetail} from "../../api"
   import IBeautifulLink2 from "../Common/link/IBeautifulLink2"
 
   export default {
@@ -70,7 +70,7 @@
         }
       },
       refreshCourseList:async function () {
-        const result = await GetMyCourseList(this.userName);
+        const result = await GetCourseListByUserName(this.userName);
         if(result.status=="SUCCESS"){
           this.courses = result.courses;
         }
@@ -87,6 +87,9 @@
         }
         return value;
       },
+    },
+    mounted(){
+      this.refreshUserInfo();
     }
   }
 </script>
