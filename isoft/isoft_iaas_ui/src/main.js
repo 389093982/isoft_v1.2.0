@@ -21,6 +21,12 @@ import mavonEditor from 'mavon-editor'
 import 'mavon-editor/dist/css/index.css'
 Vue.use(mavonEditor)
 
+// 注册自定义公共组件
+import isoftlazy from "./components/Common/isoft-lazy"
+import IBeautifulLink2 from "./components/Common/link/IBeautifulLink2"
+Vue.component('isoft-lazy', isoftlazy);
+Vue.component('IBeautifulLink2', IBeautifulLink2);
+
 Vue.config.productionTip = false
 
 
