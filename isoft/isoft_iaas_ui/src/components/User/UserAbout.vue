@@ -1,5 +1,5 @@
 <template>
-  <div v-if="userName" style="border: 1px #dbdbdb solid;margin-left: 5px;margin-bottom: 5px;padding: 15px;">
+  <div v-if="userName" style="border: 1px #dbdbdb solid;margin:2px 0 5px 5px;padding: 15px;">
     <IBeautifulLink2><Avatar :src="user_small_icon" icon="ios-person" size="default"/>&nbsp;{{userName}}</IBeautifulLink2>&nbsp;&nbsp;
     <IBeautifulLink2 style="font-size: 12px;float: right;"
       @onclick="$router.push({path:'/user/mine/detail',query:{username:'mine'}})">个人中心</IBeautifulLink2>

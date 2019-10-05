@@ -1,6 +1,6 @@
 <template>
   <div style="background: #FFFFFF;padding: 10px;">
-    <Row>
+    <Row :gutter="10">
       <!-- 左侧课程详情部分 -->
       <Col span="16">
         <!-- 头部 -->
@@ -44,9 +44,7 @@
 
       <Col span="8">
         <UserAbout :userName="course.course_author"/>
-        <div style="border: 1px #dbdbdb solid;margin-left: 5px;margin-bottom: 5px;padding: 15px;">
-          <HotUser/>
-        </div>
+        <HotUser style="margin-left: 2px;"/>
         <HotRecommend showMode="list"/>
         <!-- 推荐系统 -->
         <Recommand />

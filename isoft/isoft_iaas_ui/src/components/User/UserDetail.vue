@@ -23,15 +23,14 @@
           <Button @click="$router.push({path:'/user/mine/detail',query:{username:'mine'}})">编辑个人资料</Button>
         </Col>
       </Row>
-
     </div>
 
-    <div>
-      <Row>
-        <Col span="18">
+    <div style="min-height: 150px;background-color: #ffffff;margin: 10px 0 0 0; padding:10px;">
+      <Row :gutter="10">
+        <Col span="16">
           <UserAbout :user-name="$route.query.username"/>
         </Col>
-        <Col span="6">
+        <Col span="8">
           <HotUser/>
         </Col>
       </Row>
