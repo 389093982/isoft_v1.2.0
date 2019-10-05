@@ -62,7 +62,7 @@
           {
             title: 'status',
             key: 'status',
-            width:80,
+            width:100,
             render: (h,params)=> {
               return h('div', {
                 style:{
@@ -70,6 +70,31 @@
                 }
               },
               this.elements[params.index].status == 1 ?  '启用' : (this.elements[params.index].status == 0 ? '停用' : '失效'))
+            },
+            filters: [
+              {
+                label: '启用',
+                value: 1,
+              },
+              {
+                label: '停用',
+                value: 0,
+              },
+              {
+                label: '失效',
+                value: -1,
+              }
+            ],
+            filterMultiple: false,
+            filterMethod (value, row) {
+              if (value == 1) {
+                return row.status == 1;
+              }else if (value == 0) {
+                return row.status == 0;
+              }else{
+                return row.status < 0;
+              }
+              return true;
             }
           },
           {
