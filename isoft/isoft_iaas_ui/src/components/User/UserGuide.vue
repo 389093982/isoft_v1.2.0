@@ -1,12 +1,12 @@
 <template>
   <div>
     <ElementsLoader :placement_name="GLOBAL.element_user_guide" @onLoadElement="onLoadElement">
-      <IBeautifulCard :title="placement_label">
+      <IBeautifulCard :title="placement_label" v-if="elements.length > 0">
         <div slot="content">
           <Row style="min-height: 500px;padding: 20px;">
             <Col span="6">
               <div style="border: 2px solid rgba(255,158,0,0.5);padding: 30px;margin: 2px;">
-                <p v-if="elements.length > 0" v-for="(element, index) in elements" style="padding: 5px 0 0 5px;">
+                <p v-for="(element, index) in elements" style="padding: 5px 0 0 5px;">
                   <IBeautifulLink2 @onclick="showElement(index)">{{element.title}}</IBeautifulLink2>
                 </p>
               </div>
