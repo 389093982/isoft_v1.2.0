@@ -2,18 +2,16 @@
   <ElementsLoader :placement_name="placement_name" @onLoadElement="onLoadElement">
     <IBeautifulCard :title="placement_label">
       <div slot="content">
-        <div v-if="elements.length > 0">
-          <ul>
-            <li v-for="element in elements" class="li">
-              <a :href="element.linked_refer" target="_blank">
-                <img :src="element.img_path" width="30px" height="30px"/>
-                <p style="font-size: 12px;">{{element.title}}</p>
-              </a>
-            </li>
-          </ul>
-          <div style="clear: both;"></div>
-        </div>
-        <div v-else style="padding: 15px;">敬请期待</div>
+        <ul v-if="elements.length > 0">
+          <li v-for="element in elements" class="li">
+            <a :href="element.linked_refer" target="_blank">
+              <img :src="element.img_path" width="30px" height="30px"/>
+              <p style="font-size: 12px;">{{element.title}}</p>
+            </a>
+          </li>
+        </ul>
+        <p v-else style="padding: 15px;">敬请期待</p>
+        <div style="clear: both;"></div>
       </div>
     </IBeautifulCard>
   </ElementsLoader>
