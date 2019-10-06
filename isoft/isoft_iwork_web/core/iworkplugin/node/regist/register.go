@@ -25,7 +25,6 @@ func GetNodeMeta() []map[string]string {
 		{"name": "work_sub", "icon": "logo-buffer"},
 		{"name": "sql_query", "icon": "ios-cube-outline"},
 		{"name": "sql_execute", "icon": "ios-crop-outline"},
-		{"name": "db_parser", "icon": "ios-map-outline"},
 		{"name": "json_render", "icon": "ios-git-branch"},
 		{"name": "json_parser", "icon": "ios-git-compare"},
 		{"name": "http_request", "icon": "ios-globe-outline"},
