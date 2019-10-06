@@ -19,7 +19,7 @@ type WorkStep struct {
 	WorkStepId              int64     `json:"work_step_id"`
 	WorkSubId               int64     `json:"work_sub_id"` // 子流程 id
 	WorkStepName            string    `json:"work_step_name"`
-	WorkStepDesc            string    `json:"work_step_desc" orm:"type(text)"`
+	WorkStepDesc            string    `json:"work_step_desc" orm:"type(text);default('')"`
 	WorkStepType            string    `json:"work_step_type"`
 	WorkStepIndent          int       `json:"work_step_indent"` // 调整缩进级别
 	WorkStepInput           string    `json:"work_step_input" orm:"type(text)"`

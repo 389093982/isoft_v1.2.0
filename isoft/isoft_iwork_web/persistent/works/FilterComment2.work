@@ -8,7 +8,7 @@
 		<CreatedBy>SYSTEM</CreatedBy>
 		<LastUpdatedBy>SYSTEM</LastUpdatedBy>
 	</work>
-	<workstep>
+	<steps>
 		<Id>1149</Id>
 		<WorkId>246</WorkId>
 		<WorkStepId>1</WorkStepId>
@@ -109,8 +109,8 @@
 </ParamMapping>]]></work_step_param_mapping_xml>
 		<CreatedBy>SYSTEM</CreatedBy>
 		<LastUpdatedBy>SYSTEM</LastUpdatedBy>
-	</workstep>
-	<workstep>
+	</steps>
+	<steps>
 		<Id>1151</Id>
 		<WorkId>246</WorkId>
 		<WorkStepId>2</WorkStepId>
@@ -374,8 +374,8 @@
 </ParamMapping>]]></work_step_param_mapping_xml>
 		<CreatedBy>SYSTEM</CreatedBy>
 		<LastUpdatedBy>SYSTEM</LastUpdatedBy>
-	</workstep>
-	<workstep>
+	</steps>
+	<steps>
 		<Id>1150</Id>
 		<WorkId>246</WorkId>
 		<WorkStepId>3</WorkStepId>
@@ -450,5 +450,5 @@
 </ParamMapping>]]></work_step_param_mapping_xml>
 		<CreatedBy>SYSTEM</CreatedBy>
 		<LastUpdatedBy>SYSTEM</LastUpdatedBy>
-	</workstep>
+	</steps>
 </workdl>

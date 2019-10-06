@@ -8,7 +8,7 @@
 		<CreatedBy>SYSTEM</CreatedBy>
 		<LastUpdatedBy>SYSTEM</LastUpdatedBy>
 	</work>
-	<workstep>
+	<steps>
 		<Id>1076</Id>
 		<WorkId>236</WorkId>
 		<WorkStepId>1</WorkStepId>
@@ -53,11 +53,12 @@
 		<WorkStepParamMapping>[{&#34;paramMappingName&#34;:&#34;favorite_id&#34;,&#34;paramMappingType&#34;:&#34;default&#34;},{&#34;paramMappingName&#34;:&#34;favorite_type&#34;,&#34;paramMappingType&#34;:&#34;default&#34;}]</WorkStepParamMapping>
 		<work_step_param_mapping_xml><![CDATA[<ParamMapping>
 	<ParamMappingName></ParamMappingName>
+	<ParamMappingDefault></ParamMappingDefault>
 </ParamMapping>]]></work_step_param_mapping_xml>
 		<CreatedBy>SYSTEM</CreatedBy>
 		<LastUpdatedBy>SYSTEM</LastUpdatedBy>
-	</workstep>
-	<workstep>
+	</steps>
+	<steps>
 		<Id>1085</Id>
 		<WorkId>236</WorkId>
 		<WorkStepId>2</WorkStepId>
@@ -89,11 +90,12 @@
 		<WorkStepParamMapping></WorkStepParamMapping>
 		<work_step_param_mapping_xml><![CDATA[<ParamMapping>
 	<ParamMappingName></ParamMappingName>
+	<ParamMappingDefault></ParamMappingDefault>
 </ParamMapping>]]></work_step_param_mapping_xml>
 		<CreatedBy>SYSTEM</CreatedBy>
 		<LastUpdatedBy>SYSTEM</LastUpdatedBy>
-	</workstep>
-	<workstep>
+	</steps>
+	<steps>
 		<Id>1086</Id>
 		<WorkId>236</WorkId>
 		<WorkStepId>3</WorkStepId>
@@ -193,11 +195,12 @@
 		<WorkStepParamMapping>[]</WorkStepParamMapping>
 		<work_step_param_mapping_xml><![CDATA[<ParamMapping>
 	<ParamMappingName></ParamMappingName>
+	<ParamMappingDefault></ParamMappingDefault>
 </ParamMapping>]]></work_step_param_mapping_xml>
 		<CreatedBy>SYSTEM</CreatedBy>
 		<LastUpdatedBy>SYSTEM</LastUpdatedBy>
-	</workstep>
-	<workstep>
+	</steps>
+	<steps>
 		<Id>1087</Id>
 		<WorkId>236</WorkId>
 		<WorkStepId>4</WorkStepId>
@@ -229,11 +232,12 @@
 		<WorkStepParamMapping>[]</WorkStepParamMapping>
 		<work_step_param_mapping_xml><![CDATA[<ParamMapping>
 	<ParamMappingName></ParamMappingName>
+	<ParamMappingDefault></ParamMappingDefault>
 </ParamMapping>]]></work_step_param_mapping_xml>
 		<CreatedBy>SYSTEM</CreatedBy>
 		<LastUpdatedBy>SYSTEM</LastUpdatedBy>
-	</workstep>
-	<workstep>
+	</steps>
+	<steps>
 		<Id>1089</Id>
 		<WorkId>236</WorkId>
 		<WorkStepId>5</WorkStepId>
@@ -289,11 +293,12 @@
 		<WorkStepParamMapping>[]</WorkStepParamMapping>
 		<work_step_param_mapping_xml><![CDATA[<ParamMapping>
 	<ParamMappingName></ParamMappingName>
+	<ParamMappingDefault></ParamMappingDefault>
 </ParamMapping>]]></work_step_param_mapping_xml>
 		<CreatedBy>SYSTEM</CreatedBy>
 		<LastUpdatedBy>SYSTEM</LastUpdatedBy>
-	</workstep>
-	<workstep>
+	</steps>
+	<steps>
 		<Id>1088</Id>
 		<WorkId>236</WorkId>
 		<WorkStepId>6</WorkStepId>
@@ -310,11 +315,12 @@
 		<WorkStepParamMapping></WorkStepParamMapping>
 		<work_step_param_mapping_xml><![CDATA[<ParamMapping>
 	<ParamMappingName></ParamMappingName>
+	<ParamMappingDefault></ParamMappingDefault>
 </ParamMapping>]]></work_step_param_mapping_xml>
 		<CreatedBy>SYSTEM</CreatedBy>
 		<LastUpdatedBy>SYSTEM</LastUpdatedBy>
-	</workstep>
-	<workstep>
+	</steps>
+	<steps>
 		<Id>1090</Id>
 		<WorkId>236</WorkId>
 		<WorkStepId>7</WorkStepId>
@@ -370,11 +376,12 @@
 		<WorkStepParamMapping>[]</WorkStepParamMapping>
 		<work_step_param_mapping_xml><![CDATA[<ParamMapping>
 	<ParamMappingName></ParamMappingName>
+	<ParamMappingDefault></ParamMappingDefault>
 </ParamMapping>]]></work_step_param_mapping_xml>
 		<CreatedBy>SYSTEM</CreatedBy>
 		<LastUpdatedBy>SYSTEM</LastUpdatedBy>
-	</workstep>
-	<workstep>
+	</steps>
+	<steps>
 		<Id>1077</Id>
 		<WorkId>236</WorkId>
 		<WorkStepId>8</WorkStepId>
@@ -419,8 +426,9 @@
 		<WorkStepParamMapping>[{&#34;paramMappingName&#34;:&#34;status&#34;,&#34;paramMappingType&#34;:&#34;default&#34;},{&#34;paramMappingName&#34;:&#34;errorMsg&#34;,&#34;paramMappingType&#34;:&#34;default&#34;}]</WorkStepParamMapping>
 		<work_step_param_mapping_xml><![CDATA[<ParamMapping>
 	<ParamMappingName></ParamMappingName>
+	<ParamMappingDefault></ParamMappingDefault>
 </ParamMapping>]]></work_step_param_mapping_xml>
 		<CreatedBy>SYSTEM</CreatedBy>
 		<LastUpdatedBy>SYSTEM</LastUpdatedBy>
-	</workstep>
+	</steps>
 </workdl>

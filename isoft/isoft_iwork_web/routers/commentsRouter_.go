@@ -90,15 +90,6 @@ func init() {
 
 	beego.GlobalControllerRouter["isoft/isoft_iwork_web/controllers:WorkController"] = append(beego.GlobalControllerRouter["isoft/isoft_iwork_web/controllers:WorkController"],
 		beego.ControllerComments{
-			Method:           "Recover",
-			Router:           `/api/iwork/recover`,
-			AllowHTTPMethods: []string{"get"},
-			MethodParams:     param.Make(),
-			Filters:          nil,
-			Params:           nil})
-
-	beego.GlobalControllerRouter["isoft/isoft_iwork_web/controllers:WorkController"] = append(beego.GlobalControllerRouter["isoft/isoft_iwork_web/controllers:WorkController"],
-		beego.ControllerComments{
 			Method:           "ToggleSqlMigrateEffective",
 			Router:           `/api/iwork/toggleSqlMigrateEffective`,
 			AllowHTTPMethods: []string{"post"},

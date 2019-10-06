@@ -288,48 +288,9 @@
 		<LastUpdatedBy>SYSTEM</LastUpdatedBy>
 	</steps>
 	<steps>
-		<Id>1410</Id>
-		<WorkId>238</WorkId>
-		<WorkStepId>5</WorkStepId>
-		<WorkSubId>262</WorkSubId>
-		<WorkStepName>work_sub_UpdateUserPoints_500</WorkStepName>
-		<WorkStepDesc></WorkStepDesc>
-		<WorkStepType>work_sub</WorkStepType>
-		<WorkStepIndent>0</WorkStepIndent>
-		<WorkStepInput>{&#xA;&#x9;&#34;ParamInputSchemaItems&#34;: [&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;&#34;ParamName&#34;: &#34;str_work_sub&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamDesc&#34;: &#34;子流程信息&#34;,&#xA;&#x9;&#x9;&#x9;&#34;Repeatable&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ForeachRefer&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamChoices&#34;: null,&#xA;&#x9;&#x9;&#x9;&#34;PureText&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ParamValue&#34;: &#34;$WORK.UpdateUserPoints;&#34;&#xA;&#x9;&#x9;},&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;&#34;ParamName&#34;: &#34;point&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamDesc&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;Repeatable&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ForeachRefer&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamChoices&#34;: null,&#xA;&#x9;&#x9;&#x9;&#34;PureText&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ParamValue&#34;: &#34;500&#34;&#xA;&#x9;&#x9;}&#xA;&#x9;]&#xA;}</WorkStepInput>
-		<work_step_input_xml><![CDATA[<paramInputSchema>
-	<paramInputSchemaItem>
-		<paramName>str_work_sub</paramName>
-		<paramDesc>子流程信息</paramDesc>
-		<repeatable>false</repeatable>
-		<foreachRefer></foreachRefer>
-		<pureText>false</pureText>
-		<paramValue>$WORK.UpdateUserPoints;</paramValue>
-	</paramInputSchemaItem>
-	<paramInputSchemaItem>
-		<paramName>point</paramName>
-		<paramDesc></paramDesc>
-		<repeatable>false</repeatable>
-		<foreachRefer></foreachRefer>
-		<pureText>false</pureText>
-		<paramValue>500</paramValue>
-	</paramInputSchemaItem>
-</paramInputSchema>]]></work_step_input_xml>
-		<WorkStepOutput>{&#xA;&#x9;&#34;ParamOutputSchemaItems&#34;: null&#xA;}</WorkStepOutput>
-		<work_step_output_xml><![CDATA[<paramOutputSchema></paramOutputSchema>]]></work_step_output_xml>
-		<IsDefer>false</IsDefer>
-		<WorkStepParamMapping>[]</WorkStepParamMapping>
-		<work_step_param_mapping_xml><![CDATA[<ParamMapping>
-	<ParamMappingName></ParamMappingName>
-	<ParamMappingDefault></ParamMappingDefault>
-</ParamMapping>]]></work_step_param_mapping_xml>
-		<CreatedBy>SYSTEM</CreatedBy>
-		<LastUpdatedBy>SYSTEM</LastUpdatedBy>
-	</steps>
-	<steps>
 		<Id>1095</Id>
 		<WorkId>238</WorkId>
-		<WorkStepId>6</WorkStepId>
+		<WorkStepId>5</WorkStepId>
 		<WorkSubId>0</WorkSubId>
 		<WorkStepName>end</WorkStepName>
 		<WorkStepDesc>end节点</WorkStepDesc>

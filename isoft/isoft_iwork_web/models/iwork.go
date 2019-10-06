@@ -9,7 +9,7 @@ import (
 type Work struct {
 	Id              int64     `json:"id"`
 	WorkName        string    `json:"work_name" orm:"unique"`
-	WorkDesc        string    `json:"work_desc" orm:"type(text)"`
+	WorkDesc        string    `json:"work_desc" orm:"type(text);default('')"`
 	WorkType        string    `json:"work_type"`
 	ModuleName      string    `json:"module_name"`
 	CreatedBy       string    `json:"created_by"`
