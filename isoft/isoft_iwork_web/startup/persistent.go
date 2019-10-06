@@ -25,11 +25,11 @@ func backupTable(tableName, backupName string) {
 }
 
 func backupDB() {
-	sql_migrate_backup := fmt.Sprintf(`sql_migrate_backup%s`, time.Now().Format("20060102150405"))
+	sql_migrate_backup := fmt.Sprintf(`backup_sql_migrate_%s`, time.Now().Format("20060102150405"))
 	backupTable("sql_migrate", sql_migrate_backup)
-	work_backup := fmt.Sprintf(`work_backup%s`, time.Now().Format("20060102150405"))
+	work_backup := fmt.Sprintf(`backup_work_%s`, time.Now().Format("20060102150405"))
 	backupTable("work", work_backup)
-	workstep_backup := fmt.Sprintf(`work_step_backup%s`, time.Now().Format("20060102150405"))
+	workstep_backup := fmt.Sprintf(`backup_work_step_%s`, time.Now().Format("20060102150405"))
 	backupTable("work_step", workstep_backup)
 }
 
