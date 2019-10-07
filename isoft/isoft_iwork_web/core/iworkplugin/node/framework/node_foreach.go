@@ -8,7 +8,9 @@ import (
 	"isoft/isoft_iwork_web/core/iworkdata/entry"
 	"isoft/isoft_iwork_web/core/iworkmodels"
 	"isoft/isoft_iwork_web/core/iworkplugin/node"
+	"isoft/isoft_iwork_web/core/iworkutil/reflectutil"
 	"isoft/isoft_iwork_web/models"
+	"reflect"
 	"strings"
 )
 
@@ -21,32 +23,45 @@ type ForeachNode struct {
 
 func (this *ForeachNode) Execute(trackingId string) {
 	if this.BlockStep.HasChildren {
-		foreach_datas := this.TmpDataMap[iworkconst.FOREACH_PREFIX+"foreach_data"].([]map[string]interface{})
-		paramMap := make(map[string]interface{})
-		for index, foreach_data := range foreach_datas {
-			paramMap[iworkconst.NUMBER_PREFIX+"foreach_index"] = index
-
-			for key, value := range foreach_data {
-				_key := strings.TrimSpace(strings.ReplaceAll(key, ";", ""))
-				_key = _key[strings.LastIndex(_key, ".")+1:]
-				paramMap["item."+_key] = value
-			}
-			this.DataStore.CacheDatas(this.WorkStep.WorkStepName, paramMap)
-
-			bsoRunner := node.BlockStepOrdersRunner{
-				ParentStepId: this.WorkStep.WorkStepId,
-				WorkCache:    this.WorkCache,
-				TrackingId:   trackingId,
-				LogWriter:    this.LogWriter,
-				Store:        this.DataStore, // 获取数据中心
-				Dispatcher:   nil,
-				RunOneStep:   this.BlockStepRunFunc,
-			}
-			bsoRunner.Run()
+		foreach_data := this.TmpDataMap[iworkconst.FOREACH_PREFIX+"foreach_data"]
+		if !reflectutil.IsSlice(foreach_data) {
+			panic("foreach_data is not a array!")
+		}
+		slis := reflectutil.InterfaceToSlice(foreach_data)
+		for index, sli := range slis {
+			this.PrepareIterParam(index, sli)
+			this.runForeachChildren(trackingId)
 		}
 	} else {
 		panic(errors.New("empty foreach was found!"))
 	}
+}
+
+func (this *ForeachNode) PrepareIterParam(index int, v reflect.Value) {
+	paramMap := make(map[string]interface{})
+	paramMap[iworkconst.NUMBER_PREFIX+"foreach_index"] = index
+	if reflectutil.IsMap(v) {
+		keys, values := reflectutil.InterfaceToMap(v)
+		for i := 0; i < len(keys); i++ {
+			paramMap["item."+keys[i].String()] = values[i].Interface()
+		}
+	} else {
+		paramMap["item.data"] = v.Interface()
+	}
+	this.DataStore.CacheDatas(this.WorkStep.WorkStepName, paramMap)
+}
+
+func (this *ForeachNode) runForeachChildren(trackingId string) {
+	bsoRunner := node.BlockStepOrdersRunner{
+		ParentStepId: this.WorkStep.WorkStepId,
+		WorkCache:    this.WorkCache,
+		TrackingId:   trackingId,
+		LogWriter:    this.LogWriter,
+		Store:        this.DataStore, // 获取数据中心
+		Dispatcher:   nil,
+		RunOneStep:   this.BlockStepRunFunc,
+	}
+	bsoRunner.Run()
 }
 
 func (this *ForeachNode) GetDefaultParamInputSchema() *iworkmodels.ParamInputSchema {

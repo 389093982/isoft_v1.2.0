@@ -6,6 +6,31 @@ import (
 	"reflect"
 )
 
+func IsSlice(v interface{}) bool {
+	return reflect.TypeOf(v).Kind() == reflect.Slice
+}
+
+func IsMap(v interface{}) bool {
+	return reflect.TypeOf(v).Kind() == reflect.Map
+}
+
+func InterfaceToSlice(v interface{}) (values []reflect.Value) {
+	_v := reflect.ValueOf(v)
+	for i := 0; i < _v.Len(); i++ {
+		values = append(values, _v.Index(i))
+	}
+	return
+}
+
+func InterfaceToMap(v interface{}) (keys []reflect.Value, values []reflect.Value) {
+	_v := reflect.ValueOf(v)
+	keys = _v.MapKeys()
+	for _, key := range keys {
+		values = append(values, _v.MapIndex(key))
+	}
+	return
+}
+
 // 将结构体里的成员按照字段名字来赋值
 func FillFieldValueToStruct(ptr interface{}, fields map[string]interface{}) {
 	v := reflect.ValueOf(ptr).Elem() // the struct variable
