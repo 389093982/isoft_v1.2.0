@@ -89,6 +89,11 @@ func (this *BlockParser) ParseToChildrenBlockSteps(blockSteps []*BlockStep, bloc
 			for key, value := range childBlockStepMapper {
 				blockStepMapper[key] = value
 			}
+			// 将子级别 blockSteps 合并
+			blockSteps = append(blockSteps, childBlockSteps...)
+			for key, value := range childBlockStepMapper {
+				blockStepMapper[key] = value
+			}
 		}
 	}
 }

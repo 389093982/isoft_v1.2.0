@@ -1,6 +1,8 @@
 package datatypeutil
 
-import "reflect"
+import (
+	"reflect"
+)
 
 // m 对应的 map
 // s 返回的 key 切片
