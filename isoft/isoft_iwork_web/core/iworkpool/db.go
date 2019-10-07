@@ -2,7 +2,6 @@ package iworkpool
 
 import (
 	"database/sql"
-	"errors"
 	_ "github.com/go-sql-driver/mysql" //导入mysql驱动包
 	"isoft/isoft_iwork_web/models"
 	"sync"
@@ -28,11 +27,12 @@ func LoadAndCachePool() {
 func GetDBConn(driverName, dataSourceName string) (*sql.DB, error) {
 	m.RLock()
 	defer m.RUnlock()
+	// $RESOURCE 格式
 	if db, ok := dbMap[driverName+"_"+dataSourceName]; ok {
 		return db, nil
-	} else {
-		return nil, errors.New("invalid sql.DB for " + dataSourceName)
 	}
+	// 一般格式
+	return openConn(driverName, dataSourceName)
 }
 
 func OpenDBConn(driverName, dataSourceName string) (err error) {
