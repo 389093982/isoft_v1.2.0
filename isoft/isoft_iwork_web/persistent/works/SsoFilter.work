@@ -183,7 +183,7 @@
 		<WorkStepName>if_checkTokenStringError</WorkStepName>
 		<WorkStepDesc></WorkStepDesc>
 		<WorkStepType>if</WorkStepType>
-		<WorkStepIndent>0</WorkStepIndent>
+		<WorkStepIndent>1</WorkStepIndent>
 		<WorkStepInput>{&#xA;&#x9;&#34;ParamInputSchemaItems&#34;: [&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;&#34;ParamName&#34;: &#34;bool_expression&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamDesc&#34;: &#34;if条件表达式,值为 bool 类型!&#34;,&#xA;&#x9;&#x9;&#x9;&#34;Repeatable&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ForeachRefer&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamChoices&#34;: null,&#xA;&#x9;&#x9;&#x9;&#34;PureText&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ParamValue&#34;: &#34;isempty($parse_jwt_tokenString.username);\n&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamType&#34;: &#34;&#34;&#xA;&#x9;&#x9;}&#xA;&#x9;]&#xA;}</WorkStepInput>
 		<work_step_input_xml><![CDATA[<paramInputSchema>
 	<paramInputSchemaItem>
@@ -220,7 +220,7 @@
 		<WorkStepName>do_error_filter_validateError</WorkStepName>
 		<WorkStepDesc></WorkStepDesc>
 		<WorkStepType>do_error_filter</WorkStepType>
-		<WorkStepIndent>1</WorkStepIndent>
+		<WorkStepIndent>2</WorkStepIndent>
 		<WorkStepInput>{&#xA;&#x9;&#34;ParamInputSchemaItems&#34;: [&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;&#34;ParamName&#34;: &#34;headerCode&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamDesc&#34;: &#34;响应头 code&#34;,&#xA;&#x9;&#x9;&#x9;&#34;Repeatable&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ForeachRefer&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamChoices&#34;: null,&#xA;&#x9;&#x9;&#x9;&#34;PureText&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ParamValue&#34;: &#34;401&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamType&#34;: &#34;&#34;&#xA;&#x9;&#x9;}&#xA;&#x9;]&#xA;}</WorkStepInput>
 		<work_step_input_xml><![CDATA[<paramInputSchema>
 	<paramInputSchemaItem>

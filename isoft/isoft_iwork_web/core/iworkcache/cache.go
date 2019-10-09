@@ -173,7 +173,7 @@ func (this *WorkCache) FlushCache() {
 		this.StepsMap[step.WorkStepId] = &step
 	}
 
-	blockSteps := getBlockStepExecuteOrder(block.ParseToBlockStep(this.Steps))
+	blockSteps := getBlockStepExecuteOrder(block.GetTopLevelBlockSteps(block.ParseToBlockStep(this.Steps)))
 	// 缓存 blockStepOrder
 	this.BlockStepOrdersMap = map[int64][]*block.BlockStep{
 		-1: blockSteps,

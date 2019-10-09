@@ -22,3 +22,12 @@ func ParseToBlockStep(steps []models.WorkStep) []*BlockStep {
 	blockSteps, _ := parser.ParseToBlockSteps()
 	return blockSteps
 }
+
+func GetTopLevelBlockSteps(blockSteps []*BlockStep) (topLevelblockSteps []*BlockStep) {
+	for _, blockStep := range blockSteps {
+		if blockStep.ParentBlockStep == nil {
+			topLevelblockSteps = append(topLevelblockSteps, blockStep)
+		}
+	}
+	return
+}
