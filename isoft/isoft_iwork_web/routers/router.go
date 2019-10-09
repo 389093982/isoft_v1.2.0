@@ -1,9 +1,13 @@
 package routers
 
 import (
+	"fmt"
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/plugins/cors"
 	"isoft/isoft_iwork_web/controllers"
+	"reflect"
+	"runtime"
+	"strings"
 )
 
 func init() {
@@ -25,56 +29,75 @@ func init() {
 
 // egg: // @router /api/iwork/deleteModuleById [post]
 func loadloadIWorkerRouterDetail() {
-	beego.Router("/api/iwork/addQuartz", &controllers.WorkController{}, "post:AddQuartz")
-	beego.Router("/api/iwork/filterPageQuartz", &controllers.WorkController{}, "post:FilterPageQuartz")
-	beego.Router("/api/iwork/editQuartz", &controllers.WorkController{}, "post:EditQuartz")
-	beego.Router("/api/iwork/addResource", &controllers.WorkController{}, "post:AddResource")
-	beego.Router("/api/iwork/filterPageResource", &controllers.WorkController{}, "post:FilterPageResource")
-	beego.Router("/api/iwork/deleteResource", &controllers.WorkController{}, "post:DeleteResource")
-	beego.Router("/api/iwork/validateResource", &controllers.WorkController{}, "post:ValidateResource")
-	beego.Router("/api/iwork/getAllResource", &controllers.WorkController{}, "post:GetAllResource")
+	wc := &controllers.WorkController{}
+	beego.Router("/api/iwork/addQuartz", wc, "post:AddQuartz")
+	beego.Router("/api/iwork/filterPageQuartz", wc, "post:FilterPageQuartz")
+	beego.Router("/api/iwork/editQuartz", wc, "post:EditQuartz")
+	beego.Router("/api/iwork/addResource", wc, "post:AddResource")
+	beego.Router("/api/iwork/filterPageResource", wc, "post:FilterPageResource")
+	beego.Router("/api/iwork/deleteResource", wc, "post:DeleteResource")
+	beego.Router("/api/iwork/validateResource", wc, "post:ValidateResource")
+	beego.Router("/api/iwork/getAllResource", wc, "post:GetAllResource")
 
-	beego.Router("/api/iwork/filterPageWorkHistory", &controllers.WorkController{}, "post:FilterPageWorkHistory")
-	beego.Router("/api/iwork/filterPageWork", &controllers.WorkController{}, "post:FilterPageWork")
-	beego.Router("/api/iwork/editWork", &controllers.WorkController{}, "post:EditWork")
-	beego.Router("/api/iwork/deleteOrCopyWorkById", &controllers.WorkController{}, "post:DeleteOrCopyWorkById")
-	beego.Router("/api/iwork/addWorkStep", &controllers.WorkController{}, "post:AddWorkStep")
-	beego.Router("/api/iwork/editWorkStepBaseInfo", &controllers.WorkController{}, "post:EditWorkStepBaseInfo")
-	beego.Router("/api/iwork/deleteWorkStepByWorkStepId", &controllers.WorkController{}, "post:DeleteWorkStepByWorkStepId")
-	beego.Router("/api/iwork/copyWorkStepByWorkStepId", &controllers.WorkController{}, "post:CopyWorkStepByWorkStepId")
-	beego.Router("/api/iwork/loadWorkStepInfo", &controllers.WorkController{}, "post:LoadWorkStepInfo")
-	beego.Router("/api/iwork/getAllWorkStepInfo", &controllers.WorkController{}, "post:GetAllWorkStepInfo")
-	beego.Router("/api/iwork/changeWorkStepOrder", &controllers.WorkController{}, "post:ChangeWorkStepOrder")
-	beego.Router("/api/iwork/runWork", &controllers.WorkController{}, "post:RunWork")
-	beego.Router("/api/iwork/loadPreNodeOutput", &controllers.WorkController{}, "post:LoadPreNodeOutput")
-	beego.Router("/api/iwork/filterPageLogRecord", &controllers.WorkController{}, "post:FilterPageLogRecord")
-	beego.Router("/api/iwork/getLastRunLogDetail", &controllers.WorkController{}, "post:GetLastRunLogDetail")
-	beego.Router("/api/iwork/httpservice/:work_name", &controllers.WorkController{}, "get,post:PublishSerivce")
-	beego.Router("/api/iwork/getRelativeWork", &controllers.WorkController{}, "post:GetRelativeWork")
-	beego.Router("/api/iwork/filterPageEntity", &controllers.WorkController{}, "post:FilterPageEntity")
-	beego.Router("/api/iwork/editEntity", &controllers.WorkController{}, "post:EditEntity")
-	beego.Router("/api/iwork/deleteEntity", &controllers.WorkController{}, "post:DeleteEntity")
-	beego.Router("/api/iwork/buildIWorkDL", &controllers.WorkController{}, "post:BuildIWorkDL")
-	beego.Router("/api/iwork/validateWork", &controllers.WorkController{}, "post:ValidateWork")
-	beego.Router("/api/iwork/refactorWorkStepInfo", &controllers.WorkController{}, "post:RefactorWorkStepInfo")
-	beego.Router("/api/iwork/batchChangeIndent", &controllers.WorkController{}, "post:BatchChangeIndent")
-	beego.Router("/api/iwork/parseToMultiValue", &controllers.WorkController{}, "post:ParseToMultiValue")
+	beego.Router("/api/iwork/filterPageWorkHistory", wc, "post:FilterPageWorkHistory")
+	beego.Router("/api/iwork/filterPageWork", wc, "post:FilterPageWork")
+	beego.Router("/api/iwork/editWork", wc, "post:EditWork")
+	beego.Router("/api/iwork/deleteOrCopyWorkById", wc, "post:DeleteOrCopyWorkById")
+	beego.Router("/api/iwork/addWorkStep", wc, "post:AddWorkStep")
+	beego.Router("/api/iwork/editWorkStepBaseInfo", wc, "post:EditWorkStepBaseInfo")
+	beego.Router("/api/iwork/deleteWorkStepByWorkStepId", wc, "post:DeleteWorkStepByWorkStepId")
+	beego.Router("/api/iwork/copyWorkStepByWorkStepId", wc, "post:CopyWorkStepByWorkStepId")
+	beego.Router("/api/iwork/loadWorkStepInfo", wc, "post:LoadWorkStepInfo")
+	beego.Router("/api/iwork/getAllWorkStepInfo", wc, "post:GetAllWorkStepInfo")
+	beego.Router("/api/iwork/changeWorkStepOrder", wc, "post:ChangeWorkStepOrder")
+	beego.Router("/api/iwork/runWork", wc, "post:RunWork")
+	beego.Router("/api/iwork/loadPreNodeOutput", wc, "post:LoadPreNodeOutput")
+	beego.Router("/api/iwork/filterPageLogRecord", wc, "post:FilterPageLogRecord")
+	beego.Router("/api/iwork/getLastRunLogDetail", wc, "post:GetLastRunLogDetail")
+	beego.Router("/api/iwork/httpservice/:work_name", wc, "get,post:PublishSerivce")
+	beego.Router("/api/iwork/getRelativeWork", wc, "post:GetRelativeWork")
+	beego.Router("/api/iwork/filterPageEntity", wc, "post:FilterPageEntity")
+	beego.Router("/api/iwork/editEntity", wc, "post:EditEntity")
+	beego.Router("/api/iwork/deleteEntity", wc, "post:DeleteEntity")
+	beego.Router("/api/iwork/buildIWorkDL", wc, "post:BuildIWorkDL")
+	beego.Router("/api/iwork/validateWork", wc, "post:ValidateWork")
+	beego.Router("/api/iwork/refactorWorkStepInfo", wc, "post:RefactorWorkStepInfo")
+	beego.Router("/api/iwork/batchChangeIndent", wc, "post:BatchChangeIndent")
+	beego.Router("/api/iwork/parseToMultiValue", wc, "post:ParseToMultiValue")
 
-	beego.Router("/api/iwork/loadQuickSqlMeta", &controllers.WorkController{}, "post:LoadQuickSqlMeta")
+	beego.Router("/api/iwork/loadQuickSqlMeta", wc, "post:LoadQuickSqlMeta")
 
-	beego.Router("/api/iwork/globalVarList", &controllers.WorkController{}, "post:GlobalVarList")
-	beego.Router("/api/iwork/editGlobalVar", &controllers.WorkController{}, "post:EditGlobalVar")
-	beego.Router("/api/iwork/deleteGlobalVarById", &controllers.WorkController{}, "post:DeleteGlobalVarById")
+	beego.Router("/api/iwork/globalVarList", wc, "post:GlobalVarList")
+	beego.Router("/api/iwork/editGlobalVar", wc, "post:EditGlobalVar")
+	beego.Router("/api/iwork/deleteGlobalVarById", wc, "post:DeleteGlobalVarById")
 
-	beego.Router("/api/iwork/editTemplate", &controllers.WorkController{}, "post:EditTemplate")
-	beego.Router("/api/iwork/templateList", &controllers.WorkController{}, "post:TemplateList")
-	beego.Router("/api/iwork/deleteTemplateById", &controllers.WorkController{}, "post:DeleteTemplateById")
+	beego.Router("/api/iwork/editTemplate", wc, "post:EditTemplate")
+	beego.Router("/api/iwork/templateList", wc, "post:TemplateList")
+	beego.Router("/api/iwork/deleteTemplateById", wc, "post:DeleteTemplateById")
 
-	beego.Router("/api/iwork/download/:work_id", &controllers.WorkController{}, "get,post:Download")
+	beego.Router("/api/iwork/download/:work_id", wc, "get,post:Download")
 
-	beego.Router("/api/iwork/moduleList", &controllers.WorkController{}, "get,post:ModuleList")
-	beego.Router("/api/iwork/editModule", &controllers.WorkController{}, "get,post:EditModule")
-	beego.Router("/api/iwork/getAllFiltersAndWorks", &controllers.WorkController{}, "get,post:GetAllFiltersAndWorks")
-	beego.Router("/api/iwork/saveFilters", &controllers.WorkController{}, "get,post:SaveFilters")
-	beego.Router("/api/iwork/getMetaInfo", &controllers.WorkController{}, "get,post:GetMetaInfo")
+	beego.Router("/api/iwork/moduleList", wc, "get,post:ModuleList")
+	beego.Router("/api/iwork/editModule", wc, "get,post:EditModule")
+	beego.Router("/api/iwork/getAllFiltersAndWorks", wc, "get,post:GetAllFiltersAndWorks")
+	beego.Router("/api/iwork/saveFilters", wc, "get,post:SaveFilters")
+	//beego.Router("/api/iwork/getMetaInfo", wc, "get,post:GetMetaInfo")
+	registRouter("/api/iwork/getMetaInfo", wc, wc.GetMetaInfo)
+	registRouter("/api/iwork/queryWorkDetail", wc, wc.QueryWorkDetail)
+}
+
+func registRouter(rootpath string, c beego.ControllerInterface, callFunc func(), mappingMethods ...string) *beego.App {
+	// 'isoft/isoft_iwork_web/controllers.(*WorkController).GetMetaInfo-fm'
+	funcName := getFunctionName(callFunc)
+	funcName = funcName[strings.LastIndex(funcName, ".")+1 : strings.LastIndex(funcName, "-")]
+	if len(mappingMethods) > 0 {
+		mappingMethods[0] = fmt.Sprintf(`%s:%s`, mappingMethods[0], funcName)
+	} else {
+		mappingMethods = append(mappingMethods, fmt.Sprintf(`%s:%s`, "get,post", funcName))
+	}
+	return beego.Router(rootpath, c, mappingMethods...)
+}
+
+func getFunctionName(i interface{}) string {
+	return runtime.FuncForPC(reflect.ValueOf(i).Pointer()).Name()
 }

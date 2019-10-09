@@ -252,6 +252,16 @@ func (this *WorkController) GetAllFiltersAndWorks() {
 	this.ServeJSON()
 }
 
+func (this *WorkController) QueryWorkDetail() {
+	workId, _ := this.GetInt64("work_id", -1)
+	if work, err := models.QueryWorkById(workId, orm.NewOrm()); err == nil {
+		this.Data["json"] = &map[string]interface{}{"status": "SUCCESS", "work": work}
+	} else {
+		this.Data["json"] = &map[string]interface{}{"status": "ERROR"}
+	}
+	this.ServeJSON()
+}
+
 func (this *WorkController) GetMetaInfo() {
 	meta := this.GetString("meta")
 	resultMap := map[string]interface{}{"status": "SUCCESS"}

@@ -313,8 +313,11 @@ func checkVariableRelationShipForNodeDetail(work_id int64, referNodeName, referF
 }
 
 func parseReferNodeAndFiledName(refer string) (referNodeName, referFiledName string) {
+	// 去除前后可能存在的 $ 和 ;
+	refer = strings.TrimPrefix(refer, "$")
+	refer = strings.TrimSuffix(refer, ";")
 	if strings.Contains(refer, ".") {
-		referNodeName = refer[1:strings.Index(refer, ".")]
+		referNodeName = refer[:strings.Index(refer, ".")]
 		referFiledName = refer[strings.Index(refer, ".")+1:]
 	} else {
 		referNodeName = refer

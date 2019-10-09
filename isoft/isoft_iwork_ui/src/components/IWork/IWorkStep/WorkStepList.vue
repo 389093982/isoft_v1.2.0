@@ -3,7 +3,11 @@
     <WorkStepComponent ref="workStepComponent"/>
     <WorkDashboard ref="workDashboard" v-show="showWorkDashboard"/>
 
-    <h4 v-if="$route.query.work_name" style="text-align: center;margin-bottom: 10px;">当前流程为：{{$route.query.work_name}}</h4>
+    <h3 v-if="$route.query.work_name" style="text-align:center;">
+      流程名称：{{$route.query.work_name}}
+    </h3>
+    <p v-if="work" style="text-align: center;background: #fff5dd;padding: 10px;margin: 10px;">
+      所属模块：{{work.module_name}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;流程描述：{{work.work_desc}}</p>
 
     <Button type="success" size="small" @click="$router.push({ path:'/iwork/workList'})">返回列表</Button>
     <Row type="flex" justify="start" class="code-row-bg" style="margin-top: 10px;margin-bottom: 10px;">
@@ -49,7 +53,7 @@
 <script>
   import {WorkStepList,GetMetaInfo,DeleteWorkStepByWorkStepId,RunWork,
     CopyWorkStepByWorkStepId,ChangeWorkStepOrder,RefactorWorkStepInfo,
-    BatchChangeIndent,LoadValidateResult,AddWorkStep,EditWorkStepBaseInfo} from "../../../api"
+    BatchChangeIndent,LoadValidateResult,AddWorkStep,EditWorkStepBaseInfo,QueryWorkDetail} from "../../../api"
   import ParamInfo from "./ParamInfo/ParamInfo"
   import ISimpleLeftRightRow from "../../Common/layout/ISimpleLeftRightRow"
   import BaseInfo from "./BaseInfo/BaseInfo"
@@ -82,6 +86,7 @@
         usedMap: null,
         runLogRecordCount:{},
         showRunLogDrawer:false,
+        work: null,
       }
     },
     computed:{
@@ -485,13 +490,18 @@
         }
         return "";
       },
+      refreshWorkDetail:async function(){
+        const result = await QueryWorkDetail(this.$route.query.work_id);
+        if(result.status == "SUCCESS"){
+          this.work = result.work;
+        }
+      },
       refreshNodeMetas:async function () {
         const result = await GetMetaInfo("nodeMetas");
         if(result.status == "SUCCESS"){
           this.nodeMetas = result.nodeMetas;
           // 提交 action
           this.$store.dispatch('commitSetNodeMetas',{"nodeMetas":result.nodeMetas});
-
         }
       },
       getErrorOrTotalCount:function (workId, flag) {
@@ -504,6 +514,7 @@
       }
     },
     mounted: function () {
+      this.refreshWorkDetail();
       this.refreshWorkStepList();
       this.refreshNodeMetas();
     },
