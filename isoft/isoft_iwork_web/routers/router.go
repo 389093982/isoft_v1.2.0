@@ -40,6 +40,7 @@ func loadloadIWorkerRouterDetail() {
 	beego.Router("/api/iwork/getAllResource", wc, "post:GetAllResource")
 
 	registRouter("/api/iwork/filterPageWorkHistory", wc, wc.FilterPageWorkHistory)
+	registRouter("/api/iwork/restoreFromWorkHistory", wc, wc.RestoreFromWorkHistory)
 	registRouter("/api/iwork/filterPageWork", wc, wc.FilterPageWork)
 	beego.Router("/api/iwork/editWork", wc, "post:EditWork")
 	beego.Router("/api/iwork/deleteOrCopyWorkById", wc, "post:DeleteOrCopyWorkById")

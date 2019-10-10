@@ -18,7 +18,7 @@
 </template>
 
 <script>
-  import {FilterPageWorkHistory} from "../../../api/index"
+  import {FilterPageWorkHistory,RestoreFromWorkHistory} from "../../../api/index"
   import {formatDate} from "../../../tools/index"
   import ISimpleSearch from "../../Common/search/ISimpleSearch";
 
@@ -82,6 +82,20 @@
                     }
                   }
                 }, '查看详情'),
+                h('Button', {
+                  props: {
+                    type: 'warning',
+                    size: 'small'
+                  },
+                  style: {
+                    marginRight: '5px',
+                  },
+                  on: {
+                    click: () => {
+                      this.restoreFromWorkHistory(this.workHistories[params.index].id);
+                    }
+                  }
+                }, '还原'),
               ]);
             }
           }
@@ -89,6 +103,14 @@
       }
     },
     methods:{
+      restoreFromWorkHistory:async function(id){
+        const result = await RestoreFromWorkHistory(id);
+        if(result.status == "SUCCESS"){
+          this.$Message.success("还原成功！");
+        }else{
+          this.$Message.error("还原失败！");
+        }
+      },
       handleSearch(data){
         this.offset = 10;
         this.current_page = 1;

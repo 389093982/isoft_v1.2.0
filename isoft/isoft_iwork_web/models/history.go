@@ -19,6 +19,12 @@ type WorkHistory struct {
 	LastUpdatedTime time.Time `json:"last_updated_time"`
 }
 
+func QueryWorkHistoryById(id int64) (history WorkHistory, err error) {
+	o := orm.NewOrm()
+	err = o.QueryTable("work_history").Filter("id", id).One(&history)
+	return
+}
+
 func QueryWorkHistoryByHash(hash string) (history WorkHistory, err error) {
 	o := orm.NewOrm()
 	err = o.QueryTable("work_history").Filter("hash", hash).One(&history)
