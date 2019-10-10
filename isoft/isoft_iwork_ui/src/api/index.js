@@ -48,7 +48,7 @@ export const AddWorkStep = (work_id, work_step_id, work_step_meta) => ajax(BASE_
 export const RunWork = (work_id) => ajax(BASE_URL+"/iwork/runWork", {work_id},'POST');
 
 // 分页查询历史版本信息
-export const FilterPageWorkHistory = (offset,current_page) => ajax(BASE_URL+"/iwork/filterPageWorkHistory", {offset,current_page},'POST');
+export const FilterPageWorkHistory = (offset,current_page, search) => ajax(BASE_URL+"/iwork/filterPageWorkHistory", {offset,current_page, search},'POST');
 
 // 编辑 workstep 基本信息
 export const EditWorkStepBaseInfo = (work_id,work_step_id,work_step_name,work_step_desc,work_step_type, is_defer) => ajax(BASE_URL+"/iwork/editWorkStepBaseInfo", {work_id,work_step_id,work_step_name,work_step_desc,work_step_type, is_defer},'POST');

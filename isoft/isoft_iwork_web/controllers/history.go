@@ -49,7 +49,8 @@ func saveHistory(wc *iworkcache.WorkCache) (err error) {
 func (this *WorkController) FilterPageWorkHistory() {
 	offset, _ := this.GetInt("offset", 10)            // 每页记录数
 	current_page, _ := this.GetInt("current_page", 1) // 当前页
-	condArr := map[string]string{}
+	search := this.GetString("search")
+	condArr := map[string]string{"search": search}
 	histories, count, err := models.QueryWorkHistory(condArr, current_page, offset, orm.NewOrm())
 	if err == nil {
 		paginator := pagination.SetPaginator(this.Ctx, offset, count)

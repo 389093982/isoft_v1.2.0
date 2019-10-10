@@ -1,5 +1,7 @@
 <template>
   <span>
+    <ISimpleSearch slot="right" @handleSimpleSearch="handleSearch"/>
+
     <Table :columns="columns1" :data="workHistories" size="small"></Table>
     <Page :total="total" :page-size="offset" show-total show-sizer :styles="{'text-align': 'center','margin-top': '10px'}"
           @on-change="handleChange" @on-page-size-change="handlePageSizeChange"/>
@@ -18,15 +20,19 @@
 <script>
   import {FilterPageWorkHistory} from "../../../api/index"
   import {formatDate} from "../../../tools/index"
+  import ISimpleSearch from "../../Common/search/ISimpleSearch";
 
   export default {
     name: "WorkHistoryList",
+    components: {ISimpleSearch},
     data(){
       return {
         modal1: false,
         workHistory: "",
         // 当前页
         current_page:1,
+        // 搜索条件
+        search:"",
         // 总数
         total:0,
         // 每页记录数
@@ -83,8 +89,14 @@
       }
     },
     methods:{
+      handleSearch(data){
+        this.offset = 10;
+        this.current_page = 1;
+        this.search = data;
+        this.refreshWorkHistoryList();
+      },
       refreshWorkHistoryList:async function(){
-        const result = await FilterPageWorkHistory(this.offset,this.current_page);
+        const result = await FilterPageWorkHistory(this.offset,this.current_page, this.search);
         if(result.status=="SUCCESS"){
           this.workHistories = result.workHistories;
           this.total = result.paginator.totalcount;

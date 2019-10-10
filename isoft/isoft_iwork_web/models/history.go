@@ -40,7 +40,7 @@ func QueryWorkHistory(condArr map[string]string, page int, offset int, o orm.Orm
 	var cond = orm.NewCondition()
 	if search, ok := condArr["search"]; ok && strings.TrimSpace(search) != "" {
 		subCond := orm.NewCondition()
-		subCond = cond.And("work_name__contains", search)
+		subCond = cond.And("work_name__contains", search).Or("work_history__contains", search)
 		cond = cond.AndCond(subCond)
 	}
 	qs = qs.SetCond(cond)
