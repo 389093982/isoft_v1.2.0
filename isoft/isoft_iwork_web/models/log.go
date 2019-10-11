@@ -104,6 +104,7 @@ type ValidateLogDetail struct {
 	WorkStepId      int64     `json:"work_step_id"`
 	WorkName        string    `json:"work_name"`
 	WorkStepName    string    `json:"work_step_name"`
+	ParamName       string    `json:"param_name"`
 	Detail          string    `json:"detail" orm:"type(text)"`
 	CreatedBy       string    `json:"created_by"`
 	CreatedTime     time.Time `json:"created_time" orm:"auto_now_add;type(datetime)"`

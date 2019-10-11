@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"encoding/json"
 	"fmt"
 	"isoft/isoft/common/stringutil"
 	"isoft/isoft_iwork_web/core/iworkcache"
@@ -149,10 +150,21 @@ func validateStep(step *models.WorkStep, logCh chan *models.ValidateLogDetail, s
 	}()
 
 	for _, checkResult := range getCheckResultsForStep(step) {
+		var paramName, checkResultMsg string
+		checkResultMap := make(map[string]string)
+		if err := json.Unmarshal([]byte(checkResult), &checkResultMap); err == nil {
+			paramName = checkResultMap["paramName"]
+			checkResultMsg = checkResultMap["checkResultMsg"]
+		} else {
+			paramName = ""
+			checkResultMsg = checkResult
+		}
+
 		logCh <- &models.ValidateLogDetail{
 			WorkId:     step.WorkId,
 			WorkStepId: step.WorkStepId,
-			Detail:     checkResult,
+			ParamName:  paramName,
+			Detail:     checkResultMsg,
 		}
 	}
 }
@@ -224,9 +236,9 @@ func checkVariableRelationShipDetail(item iworkmodels.ParamInputSchemaItem, work
 				continue
 			}
 			if referNodeName == "Global" {
-				checkVariableRelationShipForGlobal(referFiledName, checkResultCh)
+				checkVariableRelationShipForGlobal(item.ParamName, referFiledName, checkResultCh)
 			} else {
-				checkVariableRelationShipForNode(referNodeName, referFiledName, preStepNodeNames, checkResultCh, work_id)
+				checkVariableRelationShipForNode(item.ParamName, referNodeName, referFiledName, preStepNodeNames, checkResultCh, work_id)
 			}
 		}
 	}
@@ -262,16 +274,24 @@ func getAllPreStepNodeName(work_id, work_step_id int64) []string {
 	return result
 }
 
-func checkVariableRelationShipForGlobal(referFiledName string, checkResultCh chan string) {
+func checkVariableRelationShipForGlobal(paramName, referFiledName string, checkResultCh chan string) {
 	if _, ok := memory.MemoryGlobalVarMap.Load(referFiledName); !ok {
-		checkResultCh <- fmt.Sprintf("Invalid referFiledName relationship for %s was found!", referFiledName)
+		bytes, _ := json.Marshal(&map[string]string{
+			"paramName":      paramName,
+			"checkResultMsg": fmt.Sprintf("Invalid referFiledName relationship for %s was found!", referFiledName),
+		})
+		checkResultCh <- string(bytes)
 	}
 }
 
-func checkVariableRelationShipForNode(referNodeName, referFiledName string, preStepNodeNames []string, checkResultCh chan string, work_id int64) {
+func checkVariableRelationShipForNode(paramName, referNodeName, referFiledName string, preStepNodeNames []string, checkResultCh chan string, work_id int64) {
 	// 判断节点名称是否有效
 	if !stringutil.CheckContains(referNodeName, preStepNodeNames) {
-		checkResultCh <- fmt.Sprintf("Invalid referNodeName relationship for %s was found!", referNodeName)
+		bytes, _ := json.Marshal(&map[string]string{
+			"paramName":      paramName,
+			"checkResultMsg": fmt.Sprintf("Invalid referNodeName relationship for %s was found!", referNodeName),
+		})
+		checkResultCh <- string(bytes)
 		return
 	}
 	// $NodeName;
