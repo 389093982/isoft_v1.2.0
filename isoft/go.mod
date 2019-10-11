@@ -5,7 +5,7 @@ require (
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/fastly/go-utils v0.0.0-20180712184237-d95a45783239 // indirect
 	github.com/go-sql-driver/mysql v1.4.1
-	github.com/golang-migrate/migrate/v4 v4.5.0
+	github.com/golang-migrate/migrate/v4 v4.5.0 // indirect
 	github.com/gopherjs/gopherjs v0.0.0-20180825215210-0210a2f0f73c // indirect
 	github.com/ivpusic/grpool v1.0.0
 	github.com/jehiah/go-strftime v0.0.0-20171201141054-1d33003b3869 // indirect
