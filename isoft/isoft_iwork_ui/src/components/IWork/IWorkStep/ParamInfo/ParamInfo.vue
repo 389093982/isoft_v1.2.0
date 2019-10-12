@@ -30,7 +30,8 @@
                   <ParamMapping :paramMappings="paramMappings" :work-step-type="workStepParamInfo.work_step_type"/>
                 </TabPane>
                 <TabPane label="edit" name="edit" v-if="showEdit" tab="tab_paramInfo" :index="2">
-                  <ParamInputEdit :paramInputSchemaItems="paramInputSchema.ParamInputSchemaItems"/>
+                  <ParamInputEdit ref="paramInputEdit" :work-id="workStepParamInfo.work_id" :work-step-id="workStepParamInfo.work_step_id"
+                                  :paramInputSchemaItems="paramInputSchema.ParamInputSchemaItems"/>
                 </TabPane>
                 <Button size="small" slot="extra">input</Button>
               </Tabs>
@@ -145,6 +146,8 @@
           this.$store.dispatch('commitSetCurrent',{"current_work_id":result.step.work_id, "current_work_step_id":result.step.work_step_id});
           // 异步请求加载完成之后才显示模态对话框
           this.showFormModal = true;
+          // 刷新校验结果
+          this.$refs.paramInputEdit.refreshWorkValidateDetail();
         }else{
           // 加载失败
           this.$Message.error('加载失败!');

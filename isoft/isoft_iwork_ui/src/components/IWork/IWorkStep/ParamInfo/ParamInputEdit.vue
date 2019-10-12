@@ -28,6 +28,7 @@
             <Button v-if="!item.ParamChoices" type="success" size="small" @click="handleReload(index, true)">查看/编辑</Button>
           </td>
         </tr>
+        <div><span style="color: red;">{{getValidateErrors(item.ParamName)}}</span></div>
       </div>
 
       <ParamInputEditDialog ref="paramInputEditDialog" @handleSubmit="refreshParamInputSchemaItems"
@@ -38,15 +39,29 @@
 
 <script>
   import ParamInputEditDialog from "./ParamInputEditDialog"
+  import {LoadValidateResult} from "../../../../api"
 
   export default {
     name: "ParamInputEdit",
     components:{ParamInputEditDialog},
     props:{
+      workId: {
+        type: Number,
+        default: -1
+      },
+      workStepId: {
+        type: Number,
+        default: -1
+      },
       paramInputSchemaItems:{
         type: Array,
         default: () => [],
       },
+    },
+    data(){
+      return {
+        validateErrors:[],
+      }
     },
     methods:{
       // 根据 paramIndex 重新加载
@@ -73,6 +88,19 @@
           title: "使用说明",
           content: paramDesc
         });
+      },
+      refreshWorkValidateDetail: async function(){
+        const result = await LoadValidateResult(this.workId);
+        if(result.status == "SUCCESS"){
+          let validateDetails = result.details;
+          this.validateErrors = validateDetails.filter(validateDetail => this.workId == validateDetail.work_id
+            && this.workStepId == validateDetail.work_step_id);
+        }
+      },
+      getValidateErrors:function (paramName) {
+        let _validateErrors = this.validateErrors.filter(validateDetail => validateDetail.param_name == paramName)
+          .map(validateDetail => validateDetail.detail).join(",");
+        return _validateErrors;
       }
     },
   }
