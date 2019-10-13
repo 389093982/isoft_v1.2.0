@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/astaxie/beego/orm"
 	"html"
+	"isoft/isoft/common/pageutil"
 	"isoft/isoft_iwork_web/core/interfaces"
 	"isoft/isoft_iwork_web/core/iworkcache"
 	"isoft/isoft_iwork_web/core/iworkconst"
@@ -115,6 +116,13 @@ func (this *BaseNode) fillParamFromDispatcher(item iworkmodels.ParamInputSchemaI
 	// 处理 xss
 	if paramMapping != nil && paramMapping.ParamMappingCleanXss {
 		tmpDataMap[item.ParamName] = html.EscapeString(tmpDataMap[item.ParamName].(string))
+	}
+	// 处理 ParamMappingSafePageNo 和 ParamMappingSafePageSize
+	if paramMapping != nil && paramMapping.ParamMappingSafePageNo {
+		tmpDataMap[item.ParamName] = pageutil.GetSafePageNo(datatypeutil.InterfaceConvertToInt64(tmpDataMap[item.ParamName]))
+	}
+	if paramMapping != nil && paramMapping.ParamMappingSafePageSize {
+		tmpDataMap[item.ParamName] = pageutil.GetSafePageSize(datatypeutil.InterfaceConvertToInt64(tmpDataMap[item.ParamName]))
 	}
 }
 

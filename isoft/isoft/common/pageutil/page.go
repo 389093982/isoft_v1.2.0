@@ -57,3 +57,17 @@ func GetPaginatorFields() []string {
 	paginatorFields := []string{"pages", "totalpages", "firstpage", "lastpage", "currpage", "pagesize", "totalcount"}
 	return paginatorFields
 }
+
+func GetSafePageNo(pageNo int64) int64 {
+	if pageNo < 1 {
+		return 1
+	}
+	return pageNo
+}
+
+func GetSafePageSize(pageSize int64) int64 {
+	if pageSize < 1 || pageSize > 100 {
+		return 100
+	}
+	return pageSize
+}

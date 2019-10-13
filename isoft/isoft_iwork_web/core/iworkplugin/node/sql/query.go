@@ -9,10 +9,10 @@ import (
 	"isoft/isoft_iwork_web/core/iworkmodels"
 	"isoft/isoft_iwork_web/core/iworkplugin/node"
 	"isoft/isoft_iwork_web/core/iworkpool"
+	"isoft/isoft_iwork_web/core/iworkutil/datatypeutil"
 	"isoft/isoft_iwork_web/core/iworkutil/sqlutil"
 	"isoft/isoft_iwork_web/models"
 	"reflect"
-	"strconv"
 	"strings"
 )
 
@@ -44,8 +44,8 @@ func (this *SQLQueryNode) Execute(trackingId string) {
 
 	isPage := false
 	if current_page != nil && page_size != nil {
-		_current_page, _ := strconv.Atoi(current_page.(string))
-		_page_size, _ := strconv.Atoi(page_size.(string))
+		_current_page := datatypeutil.InterfaceConvertToInt(current_page)
+		_page_size := datatypeutil.InterfaceConvertToInt(page_size)
 		if _current_page > 0 && _page_size > 0 { // 正数才表示分页
 			totalcount = sqlutil.QuerySelectCount(total_sql, sql_binding, dataSourceName)
 			sql_binding = append(sql_binding, (_current_page-1)*_page_size, _page_size)

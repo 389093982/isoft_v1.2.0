@@ -22,13 +22,19 @@ func InterfaceConvertToSlice(data interface{}) []interface{} {
 	return sli
 }
 
-func InterfaceConvertToInt(v interface{}, defaultVal int) int {
+func InterfaceConvertToInt(v interface{}, defaultVal ...int64) int {
+	return int(InterfaceConvertToInt64(v, defaultVal...))
+}
+
+func InterfaceConvertToInt64(v interface{}, defaultVal ...int64) int64 {
 	if value, ok := v.(int); ok {
+		return int64(value)
+	} else if value, ok := v.(int64); ok {
 		return value
 	} else if value, ok := v.(string); ok {
-		if intValue, err := strconv.Atoi(value); err == nil {
+		if intValue, err := strconv.ParseInt(value, 10, 64); err == nil {
 			return intValue
 		}
 	}
-	return defaultVal
+	return defaultVal[0]
 }

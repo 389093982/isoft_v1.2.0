@@ -19,8 +19,10 @@
             </td>
           </tr>
           <tr>
-            <td colspan="3" v-if="workStepType == 'work_start'">
+            <td colspan="3" v-if="workStepType == 'work_start'" style="padding: 2px 0 8px 0;">
                <Checkbox v-model="paramMapping.paramMappingCleanXss">CleanXss</Checkbox>
+               <Checkbox v-model="paramMapping.paramMappingSafePageNo">SafePageNo</Checkbox>
+               <Checkbox v-model="paramMapping.paramMappingSafePageSize">SafePageSize</Checkbox>
             </td>
           </tr>
         </table>
