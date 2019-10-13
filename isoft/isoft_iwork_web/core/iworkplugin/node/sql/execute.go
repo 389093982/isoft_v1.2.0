@@ -16,12 +16,12 @@ type SQLExecuteNode struct {
 }
 
 func (this *SQLExecuteNode) Execute(trackingId string) {
-	sql := this.TmpDataMap[iworkconst.STRING_PREFIX+"sql"].(string)
+	sql, namings := parseNamingSql(this.TmpDataMap[iworkconst.STRING_PREFIX+"sql"].(string))
 	dataSourceName := this.TmpDataMap[iworkconst.STRING_PREFIX+"db_conn"].(string)
 	// insert 语句且有批量操作时整改 sql 语句
 	sql = this.modifySqlInsertWithBatch(this.TmpDataMap, sql)
 	// sql_binding 参数获取
-	sql_binding := getSqlBinding(this.TmpDataMap)
+	sql_binding := getSqlBinding(this.TmpDataMap, namings)
 	lastInsertId, affected := sqlutil.Execute(sql, sql_binding, dataSourceName)
 	// 将数据数据存储到数据中心
 	// 存储 affected

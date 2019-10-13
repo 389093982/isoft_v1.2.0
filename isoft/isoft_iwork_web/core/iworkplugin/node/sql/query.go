@@ -25,13 +25,13 @@ func (this *SQLQueryNode) Execute(trackingId string) {
 	// 需要存储的中间数据
 	paramMap := make(map[string]interface{}, 0)
 	// 三种 sql
-	sql := this.TmpDataMap[iworkconst.STRING_PREFIX+"sql"].(string)
+	sql, namings := parseNamingSql(this.TmpDataMap[iworkconst.STRING_PREFIX+"sql"].(string))
 	total_sql := fmt.Sprintf(`select count(*) as count from (%s) ttt`, sql)
 	limit_sql := fmt.Sprintf(`%s limit ?,?`, sql)
 	// 数据源
 	dataSourceName := this.TmpDataMap[iworkconst.STRING_PREFIX+"db_conn"].(string)
 	// sql_binding 参数获取
-	sql_binding := getSqlBinding(this.TmpDataMap)
+	sql_binding := getSqlBinding(this.TmpDataMap, namings)
 
 	var (
 		totalcount int64                    // 分页查询时总数据量
@@ -169,13 +169,14 @@ func renderMetaData(columnNames []string) *iworkmodels.ParamOutputSchema {
 func getMetaDataQuietlyForQuery(step *models.WorkStep) *iworkmodels.ParamOutputSchema {
 	var columnNames []string
 	columnNamesStr := param.GetStaticParamValueWithStep(iworkconst.STRING_PREFIX+"columnNames?", step).(string)
-	metadataSql := param.GetStaticParamValueWithStep(iworkconst.STRING_PREFIX+"metadata_sql?", step).(string)
 	if columnNamesStr != "" {
 		columnNames = strings.Split(columnNamesStr, ",")
 	} else {
+		metadataSql := param.GetStaticParamValueWithStep(iworkconst.STRING_PREFIX+"metadata_sql?", step).(string)
 		if strings.TrimSpace(metadataSql) == "" {
 			metadataSql = param.GetStaticParamValueWithStep(iworkconst.STRING_PREFIX+"sql", step).(string)
 		}
+		metadataSql, _ = parseNamingSql(metadataSql)
 		dataSourceName := validateAndGetDataStoreName(step)
 		columnNames = sqlutil.GetMetaDatas(metadataSql, dataSourceName)
 	}
@@ -183,7 +184,7 @@ func getMetaDataQuietlyForQuery(step *models.WorkStep) *iworkmodels.ParamOutputS
 }
 
 // 从 tmpDataMap 获取 sql_binding 数据
-func getSqlBinding(tmpDataMap map[string]interface{}) []interface{} {
+func getSqlBinding(tmpDataMap map[string]interface{}, namings []string) []interface{} {
 	result := make([]interface{}, 0)
 	sql_binding := tmpDataMap[iworkconst.MULTI_PREFIX+"sql_binding?"]
 	if sql_binding == nil {
