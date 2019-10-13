@@ -53,7 +53,7 @@
           window.location.href = result.redirectUrl;
         }else{
           this.showError = true;
-          this.errorMsg = result.loginStatus;
+          this.errorMsg = result.errorMsg;
         }
       }
     }

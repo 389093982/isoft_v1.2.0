@@ -8,6 +8,7 @@
 
         <IBeautifulLink2 style="margin-top: 5px;"
                          @onclick="$router.push({path:'/user/mine/detail',query:{username:'mine'}})">个人中心</IBeautifulLink2>
+        <IBeautifulLink2 style="margin-top: 5px;">我的课程空间</IBeautifulLink2>
       </div>
     </div>
 
