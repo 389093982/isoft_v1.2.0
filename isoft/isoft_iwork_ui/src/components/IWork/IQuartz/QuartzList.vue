@@ -39,6 +39,7 @@
           {
             title: '任务名称',
             key: 'task_name',
+            width:"150",
           },
           {
             title: '任务类型',

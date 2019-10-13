@@ -8,7 +8,9 @@
         <Input v-model.trim="formValidate.task_name" placeholder="请输入任务名称"></Input>
       </FormItem>
       <FormItem label="任务类型" prop="task_type">
-        <Input v-model.trim="formValidate.task_type" placeholder="请输入任务类型"></Input>
+        <Select v-model="formValidate.task_type">
+          <Option value="iwork_quartz">iwork_quartz</Option>
+        </Select>
       </FormItem>
       <FormItem label="cron 表达式" prop="cron_str">
         <Input v-model.trim="formValidate.cron_str" placeholder="请输入 cron 表达式"></Input>
