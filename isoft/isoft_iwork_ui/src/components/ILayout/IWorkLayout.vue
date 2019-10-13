@@ -43,7 +43,7 @@
             <Submenu name="2">
               <template slot="title">
                 <Icon type="ios-keypad"></Icon>
-                资源原理
+                资源管理
               </template>
               <MenuItem name="2-1"><router-link to="/iwork/resourceList">资源列表</router-link></MenuItem>
               <MenuItem name="2-2"><router-link to="/iwork/migrateList">数据库迁移管理</router-link></MenuItem>

@@ -40,17 +40,17 @@
           {
             title: 'resource_name',
             key: 'resource_name',
-            width: 100,
+            width: 200,
           },
           {
             title: 'resource_type',
             key: 'resource_type',
-            width: 100,
+            width: 150,
           },
           {
             title: 'resource_url',
             key: 'resource_url',
-            width: 100,
+            width: 120,
           },
           {
             title: 'resource_dsn',
@@ -60,12 +60,12 @@
           {
             title: 'resource_username',
             key: 'resource_username',
-            width: 120,
+            width: 160,
           },
           {
             title: 'resource_password',
             key: 'resource_password',
-            width: 120,
+            width: 200,
           },
           {
             title: 'last_updated_time',
