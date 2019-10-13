@@ -6,18 +6,23 @@
       </Option>
     </Select>
 
-    <ul>
-      <li v-for="module in modules" style="list-style: none;margin-top: 20px;">
-        <Tag><span>{{module.module_name}}</span></Tag>
-        <Button type="success" size="small" @click="handleCheckAll(module.module_name)">全选</Button>
-        <CheckboxGroup v-model="checkedFilterWorks">
-          <Checkbox :label="moduleWork.work_name" v-for="moduleWork in works" v-if="moduleWork.module_name == module.module_name"></Checkbox>
-        </CheckboxGroup>
-      </li>
-    </ul>
+    <div style="margin: 20px 0 0 0;">模块清单：<Tag v-for="module in modules"><span>{{module.module_name}}</span></Tag></div>
+
+    <div v-for="module in modules" style="list-style: none;margin-top: 20px;">
+      <Row style="border-bottom: 1px solid rgba(0,34,232,0.16);">
+        <Col span="4">
+          <Tag><span>{{module.module_name}}</span></Tag>
+          <Button type="success" size="small" @click="handleCheckAll(module.module_name)">全选</Button>
+        </Col>
+        <Col span="20">
+          <CheckboxGroup v-model="checkedFilterWorks">
+            <Checkbox :label="moduleWork.work_name" v-for="moduleWork in works" v-if="moduleWork.module_name == module.module_name"></Checkbox>
+          </CheckboxGroup>
+        </Col>
+      </Row>
+    </div>
 
     <Button type="success" size="small" @click="saveFilters" style="margin-top: 20px;">保存</Button>
-
   </div>
 </template>
 
