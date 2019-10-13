@@ -23,7 +23,8 @@ func main() {
 	iworkpool.LoadAndCachePool()
 	regist.RegistNodes()
 	task.RegisterCronTask()
-	task.InitialIWorkGlobalVar() // 初始化全局变量
+
+	task.InitialData() // 初始化数据
 
 	fileServerPath := beego.AppConfig.String("file.server")
 	beego.SetStaticPath("/api/files", fileServerPath)
