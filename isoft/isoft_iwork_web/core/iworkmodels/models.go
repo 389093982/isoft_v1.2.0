@@ -6,8 +6,9 @@ import (
 )
 
 type ParamMapping struct {
-	ParamMappingName    string `json:"paramMappingName"`
-	ParamMappingDefault string `json:"paramMappingDefault"`
+	ParamMappingName     string `json:"paramMappingName"`
+	ParamMappingDefault  string `json:"paramMappingDefault"`
+	ParamMappingCleanXss bool   `json:"paramMappingCleanXss"`
 }
 
 type ParamInputSchemaItem struct {

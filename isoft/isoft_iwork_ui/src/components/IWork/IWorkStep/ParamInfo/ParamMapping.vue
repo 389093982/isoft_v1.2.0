@@ -18,6 +18,11 @@
               <ParamMappingAdd @handleSubmit="paramMappingAdd"/>
             </td>
           </tr>
+          <tr>
+            <td colspan="3" v-if="workStepType == 'work_start'">
+               <Checkbox v-model="paramMapping.paramMappingCleanXss">CleanXss</Checkbox>
+            </td>
+          </tr>
         </table>
       </div>
     </Row>

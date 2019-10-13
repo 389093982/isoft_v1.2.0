@@ -18,7 +18,7 @@
         </div>
       </Col>
       <Col v-else span="16" style="padding:50px;">
-        未找到相应的搜索结果,<IBeautifulLink2 font-weight="bold" @onclick="$router.push({path:'/ilearning/index'})">试试找找其它资源</IBeautifulLink2>
+        未找到 {{$route.query.search}} 的搜索结果,<IBeautifulLink2 font-weight="bold" @onclick="$router.push({path:'/ilearning/index'})">试试找找其它资源</IBeautifulLink2>
       </Col>
       <Col span="8">
         <SiteDashBoard style="border: 1px solid #ccc;padding: 15px;margin-left: 5px;"/>

@@ -3,6 +3,7 @@ package node
 import (
 	"fmt"
 	"github.com/astaxie/beego/orm"
+	"html"
 	"isoft/isoft_iwork_web/core/interfaces"
 	"isoft/isoft_iwork_web/core/iworkcache"
 	"isoft/isoft_iwork_web/core/iworkconst"
@@ -80,21 +81,40 @@ func (this *BaseNode) FillParamInputSchemaDataToTmp(workStep *models.WorkStep) {
 		for _, item := range paramInputSchema.ParamInputSchemaItems {
 			if item.ParamName != iworkconst.HTTP_REQUEST_OBJECT {
 				// 从父流程或者调度者中获取值,即从 Dispatcher 中获取值
-				value := this.Dispatcher.TmpDataMap[item.ParamName]
-				tmpDataMap[item.ParamName] = value
-				if value == nil || value == "" {
-					if this.WorkCache.ParamMappingDefault[item.ParamName] != nil {
-						tmpDataMap[item.ParamName] = this.WorkCache.ParamMappingDefault[item.ParamName]
-					}
-				} else {
-					tmpDataMap[item.ParamName] = this.Dispatcher.TmpDataMap[item.ParamName]
-				}
+				this.fillParamFromDispatcher(item, tmpDataMap)
 			}
 		}
 		this.TmpDataMap = tmpDataMap
 	} else {
 		pis := this.WorkCache.ParamInputSchemaMap[workStep.WorkStepId]
 		this.TmpDataMap = params.FillParamInputSchemaDataToTmp(pis, this.DataStore)
+	}
+}
+
+func (this *BaseNode) getParamMapping(item iworkmodels.ParamInputSchemaItem) *iworkmodels.ParamMapping {
+	if this.WorkCache.ParamMappings != nil {
+		for _, paramMapping := range this.WorkCache.ParamMappings {
+			if paramMapping.ParamMappingName == item.ParamName {
+				return &paramMapping
+			}
+		}
+	}
+	return nil
+}
+
+func (this *BaseNode) fillParamFromDispatcher(item iworkmodels.ParamInputSchemaItem, tmpDataMap map[string]interface{}) {
+	paramMapping := this.getParamMapping(item)
+	paramValue := this.Dispatcher.TmpDataMap[item.ParamName]
+	tmpDataMap[item.ParamName] = paramValue
+	if (paramValue == nil || paramValue == "") && paramMapping != nil {
+		tmpDataMap[item.ParamName] = paramMapping.ParamMappingDefault
+	} else {
+		tmpDataMap[item.ParamName] = this.Dispatcher.TmpDataMap[item.ParamName]
+	}
+
+	// 处理 xss
+	if paramMapping != nil && paramMapping.ParamMappingCleanXss {
+		tmpDataMap[item.ParamName] = html.EscapeString(tmpDataMap[item.ParamName].(string))
 	}
 }
 
