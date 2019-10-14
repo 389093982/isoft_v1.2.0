@@ -32,6 +32,15 @@ type BaseNode struct {
 	ParamSchemaCacheParser interfaces.IParamSchemaCacheParser
 }
 
+func (this *BaseNode) FilterParamInputSchemaItem(pis *iworkmodels.ParamInputSchema, paramName string) *iworkmodels.ParamInputSchemaItem {
+	for index, item := range pis.ParamInputSchemaItems {
+		if item.ParamName == paramName {
+			return &pis.ParamInputSchemaItems[index]
+		}
+	}
+	return nil
+}
+
 func (this *BaseNode) GetDefaultParamInputSchema() *iworkmodels.ParamInputSchema {
 	fmt.Println("execute default GetDefaultParamInputSchema method...")
 	return &iworkmodels.ParamInputSchema{}
