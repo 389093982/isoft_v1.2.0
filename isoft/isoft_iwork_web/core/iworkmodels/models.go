@@ -14,14 +14,15 @@ type ParamMapping struct {
 }
 
 type ParamInputSchemaItem struct {
-	XMLName      xml.Name `xml:"paramInputSchemaItem" json:"-"`
-	ParamName    string   `xml:"paramName"`
-	ParamDesc    string   `xml:"paramDesc"` // 使用说明信息
-	Repeatable   bool     `xml:"repeatable"`
-	ForeachRefer string   `xml:"foreachRefer"`
-	ParamChoices []string `xml:"paramChoices"`
-	PureText     bool     `xml:"pureText"`
-	ParamValue   string   `xml:"paramValue"`
+	XMLName           xml.Name `xml:"paramInputSchemaItem" json:"-"`
+	ParamName         string   `xml:"paramName"`
+	ParamDesc         string   `xml:"paramDesc"` // 使用说明信息
+	Repeatable        bool     `xml:"repeatable"`
+	ForeachRefer      string   `xml:"foreachRefer"`
+	ParamChoices      []string `xml:"paramChoices"`
+	PureText          bool     `xml:"pureText"`
+	ParamValue        string   `xml:"paramValue"`
+	ParamValueNamings []string `xml:paramValueNamings`
 }
 
 type ParamInputSchema struct {

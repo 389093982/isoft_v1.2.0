@@ -98,7 +98,7 @@ func (this *SQLQueryNode) GetDefaultParamOutputSchema() *iworkmodels.ParamOutput
 
 func (this *SQLQueryNode) GetRuntimeParamOutputSchema() *iworkmodels.ParamOutputSchema {
 	// 输出 metadata
-	pos := getMetaDataQuietlyForQuery(this.WorkStep)
+	pos, _ := getMetaDataQuietlyForQuery(this.WorkStep)
 	// 输出分页信息
 	current_page := param.GetStaticParamValueWithStep(iworkconst.NUMBER_PREFIX+"current_page?", this.WorkStep).(string)
 	page_size := param.GetStaticParamValueWithStep(iworkconst.NUMBER_PREFIX+"page_size?", this.WorkStep).(string)
@@ -166,8 +166,8 @@ func renderMetaData(columnNames []string) *iworkmodels.ParamOutputSchema {
 	return &iworkmodels.ParamOutputSchema{ParamOutputSchemaItems: items}
 }
 
-func getMetaDataQuietlyForQuery(step *models.WorkStep) *iworkmodels.ParamOutputSchema {
-	var columnNames []string
+func getMetaDataQuietlyForQuery(step *models.WorkStep) (*iworkmodels.ParamOutputSchema, []string) {
+	var columnNames, namings []string
 	columnNamesStr := param.GetStaticParamValueWithStep(iworkconst.STRING_PREFIX+"columnNames?", step).(string)
 	if columnNamesStr != "" {
 		columnNames = strings.Split(columnNamesStr, ",")
@@ -176,11 +176,11 @@ func getMetaDataQuietlyForQuery(step *models.WorkStep) *iworkmodels.ParamOutputS
 		if strings.TrimSpace(metadataSql) == "" {
 			metadataSql = param.GetStaticParamValueWithStep(iworkconst.STRING_PREFIX+"sql", step).(string)
 		}
-		metadataSql, _ = parseNamingSql(metadataSql)
+		metadataSql, namings = parseNamingSql(metadataSql)
 		dataSourceName := validateAndGetDataStoreName(step)
 		columnNames = sqlutil.GetMetaDatas(metadataSql, dataSourceName)
 	}
-	return renderMetaData(columnNames)
+	return renderMetaData(columnNames), namings
 }
 
 // 从 tmpDataMap 获取 sql_binding 数据
