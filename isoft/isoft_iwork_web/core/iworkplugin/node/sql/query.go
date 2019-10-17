@@ -229,6 +229,16 @@ func getSqlBinding(tmpDataMap map[string]interface{}, namings []string) []interf
 		} else {
 			result = append(result, sql_binding)
 		}
+	} else if t1.Kind() == reflect.Map {
+		if datas, ok := sql_binding.(map[string]interface{}); ok {
+			for key, value := range datas {
+				for _, name := range namings {
+					if name == ":"+key {
+						result = append(result, value)
+					}
+				}
+			}
+		}
 	} else {
 		result = append(result, sql_binding)
 	}

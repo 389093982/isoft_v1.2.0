@@ -29,3 +29,6 @@ SELECT * FROM article where
     {{end}}
 and book_id = -1 order by last_updated_time desc
 
+
+高级函数支持 renderMap
+

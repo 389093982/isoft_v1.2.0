@@ -52,6 +52,21 @@ func (t *IWorkFuncProxy) GetFuncCallers() []map[string]string {
 		{"funcDemo": "formatNowTimeToYYYYMMDD()", "funcDesc": "当前日期格式化成 YYYYMMSS 格式"},
 		{"funcDemo": "bcryptGenerateFromPassword($password)", "funcDesc": "对密码进行加密,密码对比时需要使用 bcryptCompareHashAndPassword 进行对比"},
 		{"funcDemo": "bcryptCompareHashAndPassword($hashedPassword, $password)", "funcDesc": "密码对比,密文密码($hashedPassword)和明文($password)对比,返回是否相等"},
+		{"funcDemo": "generateMap($key1, $value1, $key2, $value2)", "funcDesc": "产生 map 对象"},
+	}
+}
+
+func (t *IWorkFuncProxy) GenerateMap(args []interface{}) interface{} {
+	if len(args)%2 == 0 {
+		m := make(map[string]interface{}, 0)
+		for index, _ := range args {
+			if index%2 == 0 {
+				m[args[index].(string)] = args[index+1]
+			}
+		}
+		return m
+	} else {
+		panic("GenerateMap args length is mismatch!")
 	}
 }
 
