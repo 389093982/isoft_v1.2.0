@@ -36,10 +36,19 @@ func parseToDataMap(template_varName string, template_varValue []interface{}) ma
 	return dataMap
 }
 
+func (this *TemplateNode) convertTemplateVarValue() []interface{} {
+	if values, ok := this.TmpDataMap[iworkconst.COMPLEX_PREFIX+"template_varValue"].([]interface{}); ok {
+		return values
+	} else if value, ok := this.TmpDataMap[iworkconst.COMPLEX_PREFIX+"template_varValue"].(interface{}); ok {
+		return []interface{}{value}
+	}
+	panic("template_varValue is invalid parameter")
+}
+
 func (this *TemplateNode) Execute(trackingId string) {
 	template_text := this.TmpDataMap[iworkconst.STRING_PREFIX+"template_text"].(string)
 	template_varName := this.TmpDataMap[iworkconst.STRING_PREFIX+"template_varName"].(string)
-	template_varValue := this.TmpDataMap[iworkconst.COMPLEX_PREFIX+"template_varValue"].([]interface{})
+	template_varValue := this.convertTemplateVarValue()
 	dataMap := parseToDataMap(template_varName, template_varValue)
 	tmpl, err := template.New("template").Parse(template_text)
 	if err != nil {
