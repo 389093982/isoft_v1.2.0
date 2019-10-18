@@ -17,18 +17,7 @@
 支持动态 sql
 
 
-SELECT * FROM article where
-    {{if eq .search "_all"}}
-        1=1
-    {{else if eq .search "_hot"}}
-        1=1
-    {{else if eq .search "_personal"}}
-        created_by = :search
-    {{else}}
-        catalog_name = :search
-    {{end}}
-and book_id = -1 order by last_updated_time desc
+过滤器优化，支持全局设置，流程内部设置（跳转）
+    支持二级设置（参数过滤）
 
-
-高级函数支持 renderMap
 

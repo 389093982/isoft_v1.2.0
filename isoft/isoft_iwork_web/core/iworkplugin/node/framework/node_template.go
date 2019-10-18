@@ -10,6 +10,19 @@ import (
 	"text/template"
 )
 
+/**
+SELECT * FROM article where
+	{{if eq .search "_all"}}
+		1=1
+	{{else if eq .search "_hot"}}
+		1=1
+	{{else if eq .search "_personal"}}
+		created_by = :search
+	{{else}}
+		catalog_name = :search
+	{{end}}
+and book_id = -1 order by last_updated_time desc
+*/
 type TemplateNode struct {
 	node.BaseNode
 	WorkStep *models.WorkStep
