@@ -73,8 +73,7 @@
           </Scroll>
         </div>
         <div v-else>
-          <div v-if="ParamValueNamings"><Tag v-for="naming in ParamValueNamings">{{naming}}</Tag></div>
-          <Input v-model="inputTextData" type="textarea" :rows="10" placeholder="Enter something..."
+          <Input v-model="inputTextData" type="textarea" :rows="12" placeholder="Enter something..."
                  @drop.native="handleInputDrop" @dragover.native="handleDragover"/>
           <p style="margin-top: 5px;">变量占位符</p>
           <Scroll height="100">
@@ -127,7 +126,6 @@
         inputTextData:'',
         showMultiVals:false,  // 默认非多值视图
         multiVals:[],         // 存储多值列表
-        ParamValueNamings:null,
         paramIndex:1,
         prePosTreeNodeArr:[],
         variables:[],
@@ -202,7 +200,6 @@
       refreshParamInput: function(index, item, refreshOutput){
         this.showFormModal = true;
         this.item = item;
-        this.ParamValueNamings = item.ParamValueNamings;
         this.paramIndex = index;
         this.inputLabel = item.ParamName;
         this.pureText = item.PureText;

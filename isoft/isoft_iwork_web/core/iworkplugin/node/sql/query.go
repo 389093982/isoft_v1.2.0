@@ -85,15 +85,7 @@ func (this *SQLQueryNode) GetDefaultParamInputSchema() *iworkmodels.ParamInputSc
 		6: {iworkconst.NUMBER_PREFIX + "page_size?", "每页数据量"},
 		7: {iworkconst.STRING_PREFIX + "db_conn", "数据库连接信息,需要使用 $RESOURCE 全局参数"},
 	}
-	pis := this.BuildParamInputSchemaWithDefaultMap(paramMap)
-
-	_, namings := getMetaDataQuietlyForQuery(this.WorkStep)
-	if namings != nil && len(namings) > 0 {
-		bindingItem := this.FilterParamInputSchemaItem(pis, iworkconst.MULTI_PREFIX+"sql_binding?")
-		bindingItem.ParamValueNamings = namings
-	}
-
-	return pis
+	return this.BuildParamInputSchemaWithDefaultMap(paramMap)
 }
 
 func (this *SQLQueryNode) GetRuntimeParamInputSchema() *iworkmodels.ParamInputSchema {
