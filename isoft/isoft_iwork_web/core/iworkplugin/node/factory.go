@@ -53,15 +53,25 @@ func parseToError(err interface{}) error {
 func (this *WorkStepFactory) Execute(trackingId string) {
 	defer func() {
 		if err := recover(); err != nil {
+			insensitiveErrorFlag := false
+			if _err, ok := err.(*interfaces.InsensitiveError); ok {
+				insensitiveErrorFlag = true
+				err = _err.Error
+			}
 			wsError := interfaces.WorkStepError{
 				Err:          parseToError(err),
 				WorkStepName: this.WorkStep.WorkStepName,
 			}
+			insensitiveErrorMsg := wsError.Error()
+			if !insensitiveErrorFlag {
+				insensitiveErrorMsg = "系统繁忙"
+			}
 			// 将错误写入 Error 中去
 			this.DataStore.CacheDatas("Error", map[string]interface{}{
-				"isError":   true,
-				"isNoError": false,
-				"errorMsg":  wsError.Error(),
+				"isError":             true,
+				"isNoError":           false,
+				"errorMsg":            wsError.Error(),
+				"insensitiveErrorMsg": insensitiveErrorMsg,
 			})
 			panic(wsError) // 对已经进行包装,异常不吞掉,继续抛出
 		}

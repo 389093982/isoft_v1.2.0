@@ -2,6 +2,7 @@ package framework
 
 import (
 	"github.com/pkg/errors"
+	"isoft/isoft_iwork_web/core/interfaces"
 	"isoft/isoft_iwork_web/core/iworkconst"
 	"isoft/isoft_iwork_web/core/iworkmodels"
 	"isoft/isoft_iwork_web/core/iworkplugin/node"
@@ -17,7 +18,7 @@ func (this *PanicErrorNode) Execute(trackingId string) {
 	expression := this.TmpDataMap[iworkconst.BOOL_PREFIX+"panic_expression"].(bool)
 	if expression {
 		errorMsg := this.TmpDataMap[iworkconst.STRING_PREFIX+"panic_errorMsg?"].(string)
-		panic(errors.New(errorMsg))
+		panic(&interfaces.InsensitiveError{Error: errors.New(errorMsg)})
 	}
 }
 

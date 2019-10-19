@@ -64,6 +64,7 @@ func LoadErrorInfo() *iworkmodels.ParamOutputSchema {
 	pos.ParamOutputSchemaItems = append(pos.ParamOutputSchemaItems, iworkmodels.ParamOutputSchemaItem{ParamName: "isError"})
 	pos.ParamOutputSchemaItems = append(pos.ParamOutputSchemaItems, iworkmodels.ParamOutputSchemaItem{ParamName: "isNoError"})
 	pos.ParamOutputSchemaItems = append(pos.ParamOutputSchemaItems, iworkmodels.ParamOutputSchemaItem{ParamName: "errorMsg"})
+	pos.ParamOutputSchemaItems = append(pos.ParamOutputSchemaItems, iworkmodels.ParamOutputSchemaItem{ParamName: "insensitiveErrorMsg"})
 	return pos
 }
 
