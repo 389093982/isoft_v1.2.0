@@ -14,24 +14,30 @@
         <MenuItem name="4">
           <IBeautifulLink2 @onclick="$router.push({path:'/ifound/found_list'})">发现频道</IBeautifulLink2>
         </MenuItem>
-        <MenuItem name="5">
+        <MenuItem name="5"> 2
           <IBeautifulLink2 @onclick="$router.push({path:'/ifound/found_list'})">热门活动</IBeautifulLink2>
         </MenuItem>
         <MenuItem name="6">
           <IBeautifulLink2 @onclick="$router.push({path:'/igood/good_list'})">我要赚钱</IBeautifulLink2>
         </MenuItem>
-        <Submenu name="7">
+        <MenuItem name="7">
+          <IBeautifulLink2 @onclick="$router.push({path:'/igood/good_list'})">聚优惠</IBeautifulLink2>
+        </MenuItem>
+        <MenuItem name="8">
+          <IBeautifulLink2 @onclick="$router.push({path:'/igood/good_list'})">聚活动</IBeautifulLink2>
+        </MenuItem>
+        <Submenu name="9">
           <template slot="title">
             <span v-if="loginUserName">{{loginUserName}}</span>
             <span v-else>未登录</span>
           </template>
           <MenuGroup title="账号管理">
-            <MenuItem name="7-1" @click.native="cancelUser">前往登录</MenuItem>
-            <MenuItem name="7-2" @click.native="cancelUser">切换账号</MenuItem>
-            <MenuItem name="7-3" @click.native="cancelUser">注销</MenuItem>
+            <MenuItem name="9-1" @click.native="cancelUser">前往登录</MenuItem>
+            <MenuItem name="9-2" @click.native="cancelUser">切换账号</MenuItem>
+            <MenuItem name="9-3" @click.native="cancelUser">注销</MenuItem>
           </MenuGroup>
         </Submenu>
-        <MenuItem name="8">
+        <MenuItem name="10">
           <IBeautifulLink2 @onclick="$router.push({path:'/background/cms/placement_list'})">管理控制台</IBeautifulLink2>
         </MenuItem>
       </div>
@@ -72,7 +78,7 @@
 
 <style scoped>
   .layout-nav{
-    width: 860px;
+    width: 1060px;
     margin: 0 auto;
     margin-right: 5px;
   }
