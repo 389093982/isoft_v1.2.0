@@ -14,7 +14,7 @@
         <MenuItem name="4">
           <IBeautifulLink2 @onclick="$router.push({path:'/ifound/found_list'})">发现频道</IBeautifulLink2>
         </MenuItem>
-        <MenuItem name="5"> 2
+        <MenuItem name="5">
           <IBeautifulLink2 @onclick="$router.push({path:'/ifound/found_list'})">热门活动</IBeautifulLink2>
         </MenuItem>
         <MenuItem name="6">
