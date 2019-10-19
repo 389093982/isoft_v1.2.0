@@ -3,12 +3,12 @@
     <div style="margin-bottom: 5px;">
       <ISearch @submitFunc="searchFunc"/>
       <div style="text-align: right;">
-        <IBeautifulLink2 style="margin-top: 5px;" @onclick="$router.push({path:'/user/guide'})">站点引导</IBeautifulLink2>
-        <IBeautifulLink2 style="margin-top: 5px;">广告位招租</IBeautifulLink2>
+        <IBeautifulLink2 class="animation001" style="margin-top: 5px;" @onclick="$router.push({path:'/user/guide'})">站点引导</IBeautifulLink2>
+        <IBeautifulLink2 class="animation001" style="margin-top: 5px;">广告位招租</IBeautifulLink2>
 
-        <IBeautifulLink2 style="margin-top: 5px;"
+        <IBeautifulLink2 class="animation001" style="margin-top: 5px;"
                          @onclick="$router.push({path:'/user/mine/detail',query:{username:'mine'}})">个人中心</IBeautifulLink2>
-        <IBeautifulLink2 style="margin-top: 5px;">我的课程空间</IBeautifulLink2>
+        <IBeautifulLink2 class="animation001" style="margin-top: 5px;">我的课程空间</IBeautifulLink2>
       </div>
     </div>
 
@@ -69,5 +69,22 @@
 </script>
 
 <style scoped>
-
+  /* 动画效果 */
+  @keyframes animation001
+  {
+    0%   {background: rgba(255, 0, 0, 0.1); transform: rotate(0deg) translate(-20px,0px); padding: 5px;}
+    25%  {background: rgba(255, 255, 0, 0.1); transform: rotate(5deg) translate(-15px,0px); padding: 5px;}
+    50%  {background: rgba(0, 0, 255, 0.1); transform: rotate(0deg) translate(-10px,0px); padding: 5px;}
+    75%  {background: rgba(0, 128, 0, 0.1); transform: rotate(5deg) translate(-5px,0px); padding: 5px;}
+    100% {background: rgba(255, 0, 0, 0.1); transform: rotate(0deg) translate(0px,0px); padding: 5px;}
+  }
+  .animation001{
+    animation-name: animation001;
+    animation-duration: 3s;
+    animation-timing-function: linear;
+    animation-delay: 0s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    animation-play-state: running;
+  }
 </style>
