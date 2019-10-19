@@ -14,7 +14,7 @@
         </Col>
         <Col span="20">
           <CheckboxGroup v-model="checkedFilterWorks">
-            <Checkbox :label="moduleWork.work_name" v-for="moduleWork in works" v-if="moduleWork.module_name == module.module_name"></Checkbox>
+            <Checkbox :label="moduleWork.work_name" v-for="moduleWork in filterWorksWithModule(module.module_name)"></Checkbox>
           </CheckboxGroup>
         </Col>
       </Row>
@@ -43,6 +43,9 @@
       }
     },
     methods:{
+      filterWorksWithModule:function(moduleName){
+        return this.works.filter(work => work.module_name == moduleName);
+      },
       refreshFilterList:async function () {
         const result = await GetAllFiltersAndWorks();
         if(result.status == "SUCCESS"){
@@ -53,7 +56,7 @@
         }
       },
       handleCheckAll:function (module_name) {
-        let work_names = this.works.filter(work => work.module_name == module_name).map(work => work.work_name);
+        let work_names = this.filterWorksWithModule(module_name).map(work => work.work_name);
         var allInflag = true;
         for(var i=0; i<work_names.length; i++){
           let work_name = work_names[i];
