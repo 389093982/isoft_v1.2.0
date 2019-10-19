@@ -10,6 +10,8 @@
       所属模块：{{work.module_name}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;流程描述：{{work.work_desc}}</p>
 
     <Button type="success" size="small" @click="$router.push({ path:'/iwork/workList'})">返回列表</Button>
+    <Button type="warning" size="small" @click="$router.push({ path:'/iwork/filterList'})">过滤器配置</Button>
+
     <Row type="flex" justify="start" class="code-row-bg" style="margin-top: 10px;margin-bottom: 10px;">
       <Col span="2"><Button type="error" size="small" @click="$refs.workStepComponent.toggleShow()" style="margin-right: 5px;">显示组件</Button></Col>
       <Col span="2"><Button type="warning" size="small" @click="showRefactorModal">重构流程</Button></Col>
