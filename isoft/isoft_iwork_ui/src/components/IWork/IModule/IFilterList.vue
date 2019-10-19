@@ -9,8 +9,8 @@
     <div v-for="module in modules" style="list-style: none;margin-top: 20px;">
       <Row style="border-bottom: 1px solid rgba(0,34,232,0.16);">
         <Col span="4">
-          <Tag><span>{{module.module_name}}</span></Tag>
           <Button type="success" size="small" @click="handleCheckAll(module.module_name)">全选</Button>
+          <Tag><span>{{module.module_name}}</span></Tag>
         </Col>
         <Col span="20">
           <CheckboxGroup v-model="checkedFilterWorks">
