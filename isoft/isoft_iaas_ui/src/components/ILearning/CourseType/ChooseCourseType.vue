@@ -69,22 +69,5 @@
 </script>
 
 <style scoped>
-  /* 动画效果 */
-  @keyframes animation001
-  {
-    0%   {background: rgba(255, 0, 0, 0.1); transform: rotate(0deg) translate(-20px,0px); padding: 5px;}
-    25%  {background: rgba(255, 255, 0, 0.1); transform: rotate(5deg) translate(-15px,0px); padding: 5px;}
-    50%  {background: rgba(0, 0, 255, 0.1); transform: rotate(0deg) translate(-10px,0px); padding: 5px;}
-    75%  {background: rgba(0, 128, 0, 0.1); transform: rotate(5deg) translate(-5px,0px); padding: 5px;}
-    100% {background: rgba(255, 0, 0, 0.1); transform: rotate(0deg) translate(0px,0px); padding: 5px;}
-  }
-  .animation001{
-    animation-name: animation001;
-    animation-duration: 3s;
-    animation-timing-function: linear;
-    animation-delay: 0s;
-    animation-iteration-count: infinite;
-    animation-direction: alternate;
-    animation-play-state: running;
-  }
+  @import "../../../assets/css/isoft_common.css";
 </style>
