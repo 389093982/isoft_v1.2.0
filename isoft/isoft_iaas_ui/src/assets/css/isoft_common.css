@@ -1,0 +1,6 @@
+.newspaper{
+  padding: 20px;
+  column-count:3;
+  column-gap:40px;
+  column-rule:4px outset rgba(255, 0, 0, 0.11);
+}
