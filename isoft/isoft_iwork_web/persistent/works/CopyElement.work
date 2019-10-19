@@ -41,6 +41,9 @@
 		<work_step_param_mapping_xml><![CDATA[<ParamMapping>
 	<ParamMappingName></ParamMappingName>
 	<ParamMappingDefault></ParamMappingDefault>
+	<ParamMappingCleanXss>false</ParamMappingCleanXss>
+	<ParamMappingSafePageNo>false</ParamMappingSafePageNo>
+	<ParamMappingSafePageSize>false</ParamMappingSafePageSize>
 </ParamMapping>]]></work_step_param_mapping_xml>
 		<CreatedBy>SYSTEM</CreatedBy>
 		<LastUpdatedBy>SYSTEM</LastUpdatedBy>
@@ -54,7 +57,7 @@
 		<WorkStepDesc></WorkStepDesc>
 		<WorkStepType>sql_execute</WorkStepType>
 		<WorkStepIndent>0</WorkStepIndent>
-		<WorkStepInput>{&#xA;&#x9;&#34;ParamInputSchemaItems&#34;: [&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;&#34;ParamName&#34;: &#34;iter_batch_data?&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamDesc&#34;: &#34;仅供批量插入数据时使用&#34;,&#xA;&#x9;&#x9;&#x9;&#34;Repeatable&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ForeachRefer&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamChoices&#34;: null,&#xA;&#x9;&#x9;&#x9;&#34;PureText&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ParamValue&#34;: &#34;&#34;&#xA;&#x9;&#x9;},&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;&#34;ParamName&#34;: &#34;str_sql&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamDesc&#34;: &#34;执行sql语句&#34;,&#xA;&#x9;&#x9;&#x9;&#34;Repeatable&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ForeachRefer&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamChoices&#34;: null,&#xA;&#x9;&#x9;&#x9;&#34;PureText&#34;: true,&#xA;&#x9;&#x9;&#x9;&#34;ParamValue&#34;: &#34;INSERT INTO element (placement, title, content,md_content, linked_refer, created_by\n\t, created_time, last_updated_by, last_updated_time, img_path, status\n\t, navigation_level, navigation_parent_id)\nSELECT placement, title, content,md_content, linked_refer, created_by\n\t, created_time, last_updated_by, last_updated_time, img_path, status\n\t, navigation_level, navigation_parent_id\nFROM element\nWHERE id = ?&#34;&#xA;&#x9;&#x9;},&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;&#34;ParamName&#34;: &#34;multi_sql_binding?&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamDesc&#34;: &#34;sql绑定数据,个数必须和当前执行sql语句中的占位符参数个数相同&#34;,&#xA;&#x9;&#x9;&#x9;&#34;Repeatable&#34;: true,&#xA;&#x9;&#x9;&#x9;&#34;ForeachRefer&#34;: &#34;iter_batch_data?&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamChoices&#34;: null,&#xA;&#x9;&#x9;&#x9;&#34;PureText&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ParamValue&#34;: &#34;$start.id;\n&#34;&#xA;&#x9;&#x9;},&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;&#34;ParamName&#34;: &#34;str_db_conn&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamDesc&#34;: &#34;数据库连接信息,需要使用 $RESOURCE 全局参数&#34;,&#xA;&#x9;&#x9;&#x9;&#34;Repeatable&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ForeachRefer&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamChoices&#34;: null,&#xA;&#x9;&#x9;&#x9;&#34;PureText&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ParamValue&#34;: &#34;$RESOURCE.isoft_iaas;\n&#34;&#xA;&#x9;&#x9;}&#xA;&#x9;]&#xA;}</WorkStepInput>
+		<WorkStepInput>{&#xA;&#x9;&#34;ParamInputSchemaItems&#34;: [&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;&#34;ParamName&#34;: &#34;iter_batch_data?&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamDesc&#34;: &#34;仅供批量插入数据时使用&#34;,&#xA;&#x9;&#x9;&#x9;&#34;Repeatable&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ForeachRefer&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamChoices&#34;: null,&#xA;&#x9;&#x9;&#x9;&#34;PureText&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ParamValue&#34;: &#34;&#34;&#xA;&#x9;&#x9;},&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;&#34;ParamName&#34;: &#34;str_sql&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamDesc&#34;: &#34;执行sql语句&#34;,&#xA;&#x9;&#x9;&#x9;&#34;Repeatable&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ForeachRefer&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamChoices&#34;: null,&#xA;&#x9;&#x9;&#x9;&#34;PureText&#34;: true,&#xA;&#x9;&#x9;&#x9;&#34;ParamValue&#34;: &#34;INSERT INTO element (placement, title, content,md_content, linked_refer, created_by\n\t, created_time, last_updated_by, last_updated_time, img_path, status\n\t, navigation_level, navigation_parent_id)\nSELECT placement, title, content,md_content, linked_refer, created_by\n\t, now(), last_updated_by, now(), img_path, status\n\t, navigation_level, navigation_parent_id\nFROM element\nWHERE id = ?&#34;&#xA;&#x9;&#x9;},&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;&#34;ParamName&#34;: &#34;multi_sql_binding?&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamDesc&#34;: &#34;sql绑定数据,个数必须和当前执行sql语句中的占位符参数个数相同&#34;,&#xA;&#x9;&#x9;&#x9;&#34;Repeatable&#34;: true,&#xA;&#x9;&#x9;&#x9;&#34;ForeachRefer&#34;: &#34;iter_batch_data?&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamChoices&#34;: null,&#xA;&#x9;&#x9;&#x9;&#34;PureText&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ParamValue&#34;: &#34;$start.id;\n&#34;&#xA;&#x9;&#x9;},&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;&#34;ParamName&#34;: &#34;str_db_conn&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamDesc&#34;: &#34;数据库连接信息,需要使用 $RESOURCE 全局参数&#34;,&#xA;&#x9;&#x9;&#x9;&#34;Repeatable&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ForeachRefer&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamChoices&#34;: null,&#xA;&#x9;&#x9;&#x9;&#34;PureText&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ParamValue&#34;: &#34;$RESOURCE.isoft_iaas;\n&#34;&#xA;&#x9;&#x9;}&#xA;&#x9;]&#xA;}</WorkStepInput>
 		<work_step_input_xml><![CDATA[<paramInputSchema>
 	<paramInputSchemaItem>
 		<paramName>iter_batch_data?</paramName>
@@ -70,7 +73,7 @@
 		<repeatable>false</repeatable>
 		<foreachRefer></foreachRefer>
 		<pureText>true</pureText>
-		<paramValue>INSERT INTO element (placement, title, content,md_content, linked_refer, created_by&#xA;&#x9;, created_time, last_updated_by, last_updated_time, img_path, status&#xA;&#x9;, navigation_level, navigation_parent_id)&#xA;SELECT placement, title, content,md_content, linked_refer, created_by&#xA;&#x9;, created_time, last_updated_by, last_updated_time, img_path, status&#xA;&#x9;, navigation_level, navigation_parent_id&#xA;FROM element&#xA;WHERE id = ?</paramValue>
+		<paramValue>INSERT INTO element (placement, title, content,md_content, linked_refer, created_by&#xA;&#x9;, created_time, last_updated_by, last_updated_time, img_path, status&#xA;&#x9;, navigation_level, navigation_parent_id)&#xA;SELECT placement, title, content,md_content, linked_refer, created_by&#xA;&#x9;, now(), last_updated_by, now(), img_path, status&#xA;&#x9;, navigation_level, navigation_parent_id&#xA;FROM element&#xA;WHERE id = ?</paramValue>
 	</paramInputSchemaItem>
 	<paramInputSchemaItem>
 		<paramName>multi_sql_binding?</paramName>
@@ -89,11 +92,16 @@
 		<paramValue>$RESOURCE.isoft_iaas;&#xA;</paramValue>
 	</paramInputSchemaItem>
 </paramInputSchema>]]></work_step_input_xml>
-		<WorkStepOutput>{&#xA;&#x9;&#34;ParamOutputSchemaItems&#34;: [&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;&#34;ParentPath&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamName&#34;: &#34;number_affected&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamValue&#34;: &#34;&#34;&#xA;&#x9;&#x9;}&#xA;&#x9;]&#xA;}</WorkStepOutput>
+		<WorkStepOutput>{&#xA;&#x9;&#34;ParamOutputSchemaItems&#34;: [&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;&#34;ParentPath&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamName&#34;: &#34;number_affected&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamValue&#34;: &#34;&#34;&#xA;&#x9;&#x9;},&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;&#34;ParentPath&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamName&#34;: &#34;number_lastInsertId&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamValue&#34;: &#34;&#34;&#xA;&#x9;&#x9;}&#xA;&#x9;]&#xA;}</WorkStepOutput>
 		<work_step_output_xml><![CDATA[<paramOutputSchema>
 	<paramOutputSchemaItem>
 		<parentPath></parentPath>
 		<paramName>number_affected</paramName>
+		<paramValue></paramValue>
+	</paramOutputSchemaItem>
+	<paramOutputSchemaItem>
+		<parentPath></parentPath>
+		<paramName>number_lastInsertId</paramName>
 		<paramValue></paramValue>
 	</paramOutputSchemaItem>
 </paramOutputSchema>]]></work_step_output_xml>
@@ -102,6 +110,9 @@
 		<work_step_param_mapping_xml><![CDATA[<ParamMapping>
 	<ParamMappingName></ParamMappingName>
 	<ParamMappingDefault></ParamMappingDefault>
+	<ParamMappingCleanXss>false</ParamMappingCleanXss>
+	<ParamMappingSafePageNo>false</ParamMappingSafePageNo>
+	<ParamMappingSafePageSize>false</ParamMappingSafePageSize>
 </ParamMapping>]]></work_step_param_mapping_xml>
 		<CreatedBy>SYSTEM</CreatedBy>
 		<LastUpdatedBy>SYSTEM</LastUpdatedBy>
@@ -152,6 +163,9 @@
 		<work_step_param_mapping_xml><![CDATA[<ParamMapping>
 	<ParamMappingName></ParamMappingName>
 	<ParamMappingDefault></ParamMappingDefault>
+	<ParamMappingCleanXss>false</ParamMappingCleanXss>
+	<ParamMappingSafePageNo>false</ParamMappingSafePageNo>
+	<ParamMappingSafePageSize>false</ParamMappingSafePageSize>
 </ParamMapping>]]></work_step_param_mapping_xml>
 		<CreatedBy>SYSTEM</CreatedBy>
 		<LastUpdatedBy>SYSTEM</LastUpdatedBy>
