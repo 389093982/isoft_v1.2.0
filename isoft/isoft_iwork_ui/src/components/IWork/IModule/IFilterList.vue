@@ -6,8 +6,6 @@
       </Option>
     </Select>
 
-    <div style="margin: 20px 0 0 0;">模块清单：<Tag v-for="module in modules"><span>{{module.module_name}}</span></Tag></div>
-
     <div v-for="module in modules" style="list-style: none;margin-top: 20px;">
       <Row style="border-bottom: 1px solid rgba(0,34,232,0.16);">
         <Col span="4">

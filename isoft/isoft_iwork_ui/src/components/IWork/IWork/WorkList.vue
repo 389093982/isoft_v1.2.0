@@ -7,7 +7,9 @@
     <ISimpleLeftRightRow style="margin-bottom: 10px;margin-right: 10px;">
       <!-- left 插槽部分 -->
       <span slot="left">
-        <Button type="success" @click="addWork">新增</Button>
+        <Button type="success" size="small" @click="addWork">新增</Button>
+        <Button type="warning" size="small" @click="$router.push({ path:'/iwork/filterList'})">过滤器配置</Button>
+
         <ISimpleConfirmModal ref="workEditModal" modal-title="新增/编辑 Work" :modal-width="600" :footer-hide="true">
           <IKeyValueForm ref="workEditForm" form-key-label="work_name" form-value-label="work_desc"
                          form-key-placeholder="请输入 work_name" form-value-placeholder="请输入 work_desc"
