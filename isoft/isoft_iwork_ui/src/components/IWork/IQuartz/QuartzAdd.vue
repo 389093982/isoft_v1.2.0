@@ -5,7 +5,7 @@
     <!-- 表单信息 -->
     <Form ref="formValidate" :model="formValidate" :rules="ruleValidate" :label-width="100">
       <FormItem label="任务名称" prop="task_name">
-        <Input v-model.trim="formValidate.task_name" placeholder="请输入任务名称"></Input>
+        <Input v-model.trim="formValidate.task_name" placeholder="任务名称目前版本需要和流程名称保持一致"></Input>
       </FormItem>
       <FormItem label="任务类型" prop="task_type">
         <Select v-model="formValidate.task_type">

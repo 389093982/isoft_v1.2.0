@@ -253,7 +253,17 @@ func (this *WorkController) GetAllFiltersAndWorks() {
 
 func (this *WorkController) QueryWorkDetail() {
 	workId, _ := this.GetInt64("work_id", -1)
-	if work, err := models.QueryWorkById(workId, orm.NewOrm()); err == nil {
+	workName := this.GetString("work_name", "")
+	var (
+		work models.Work
+		err  error
+	)
+	if workId > 0 {
+		work, err = models.QueryWorkById(workId, orm.NewOrm())
+	} else if workName != "" {
+		work, err = models.QueryWorkByName(workName, orm.NewOrm())
+	}
+	if err == nil {
 		this.Data["json"] = &map[string]interface{}{"status": "SUCCESS", "work": work}
 	} else {
 		this.Data["json"] = &map[string]interface{}{"status": "ERROR"}

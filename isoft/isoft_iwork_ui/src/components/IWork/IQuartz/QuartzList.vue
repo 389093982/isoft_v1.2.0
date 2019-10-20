@@ -10,16 +10,24 @@
     <Table border :columns="columns1" :data="quartzs" size="small"></Table>
     <Page :total="total" :page-size="offset" show-total show-sizer :styles="{'text-align': 'center','margin-top': '10px'}"
           @on-change="handleChange" @on-page-size-change="handlePageSizeChange"/>
+
+    <h3>cron举例说明</h3>
+    <p>每隔5秒执行一次：<span style="color: red;">*/5 * * * * ?</span></p>
+    <p>每隔1分钟执行一次：<span style="color: red;">0 */1 * * * ?</span></p>
+    <p>每天23点执行一次：<span style="color: red;">0 0 23 * * ?</span></p>
+    <p>每天凌晨1点执行一次：<span style="color: red;">0 0 1 * * ?</span></p>
+    <p>每月1号凌晨1点执行一次：<span style="color: red;">0 0 1 1 * ?</span></p>
+    <p>在26分、29分、33分执行一次：<span style="color: red;">0 26,29,33 * * * ?</span></p>
+    <p>每天的0点、13点、18点、21点都执行一次：<span style="color: red;">0 0 0,13,18,21 * * ?</span></p>
   </div>
 </template>
 
 <script>
   import {formatDate} from "../../../tools/index"
-  import {QuartzList} from "../../../api"
+  import {QuartzList,QueryWorkDetail,EditQuartz} from "../../../api"
   import ISimpleLeftRightRow from "../../Common/layout/ISimpleLeftRightRow"
   import ISimpleSearch from "../../Common/search/ISimpleSearch"
   import QuartzAdd from "./QuartzAdd"
-  import {EditQuartz} from "../../../api"
 
   export default {
     name: "QuartzList",
@@ -39,23 +47,27 @@
           {
             title: '任务名称',
             key: 'task_name',
-            width:"150",
+            width: 200,
           },
           {
             title: '任务类型',
             key: 'task_type',
+            width: 120,
           },
           {
             title: 'cron表达式',
             key: 'cron_str',
+            width: 100,
           },
           {
             title: '启用状态',
             key: 'enable',
+            width: 100,
           },
           {
             title: '最后修改人',
             key: 'last_updated_by',
+            width: 180,
           },
           {
             title: '最后修改时间',
@@ -70,7 +82,8 @@
           {
             title: '操作',
             key: 'operate',
-            width: 180,
+            width: 280,
+            fixed: 'right',
             render: (h, params) => {
               return h('div', [
                 h('Button', {
@@ -115,6 +128,24 @@
                     }
                   }
                 }, '删除'),
+                h('Button', {
+                  props: {
+                    type: 'info',
+                    size: 'small'
+                  },
+                  style: {
+                    marginRight: '5px',
+                  },
+                  on: {
+                    click: async () => {
+                      const result = await QueryWorkDetail(this.$route.query.work_id);
+                      if(result.status == "SUCCESS"){
+                        this.$router.push({ path: '/iwork/runLogList', query: { work_id: result.work.id }});
+                      }
+
+                    }
+                  }
+                }, '调度记录'),
               ]);
             }
           }
