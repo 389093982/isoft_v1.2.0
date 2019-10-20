@@ -8,7 +8,7 @@ import (
 	"time"
 )
 
-const cacheLen = 10
+const cacheLen = 5
 
 type CacheLoggerWriter struct {
 	caches   []*models.RunLogDetail

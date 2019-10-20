@@ -64,7 +64,7 @@ func (this *WorkStepFactory) Execute(trackingId string) {
 			}
 			insensitiveErrorMsg := wsError.Error()
 			if !insensitiveErrorFlag {
-				insensitiveErrorMsg = "系统繁忙"
+				insensitiveErrorMsg = "InternalError"
 			}
 			// 将错误写入 Error 中去
 			this.DataStore.CacheDatas("Error", map[string]interface{}{
