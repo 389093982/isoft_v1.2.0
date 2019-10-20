@@ -113,43 +113,13 @@ func EditWorkService(serviceArgs map[string]interface{}) error {
 		if err := InsertStartEndWorkStepNode(work.Id, o); err != nil {
 			return err
 		}
-		if _, err := InsertOrUpdateAutoCronMeta(work.WorkName, -1, o); err != nil {
-			return err
-		}
 	} else {
 		// 修改 work 场景
 		if err := ChangeReferencesWorkName(oldWorkId, oldWorkName, work.WorkName, o); err != nil {
 			return err
 		}
-		var oldMetaId int64
-		if meta, err := models.QueryCronMetaByName(oldWorkName); err != nil {
-			oldMetaId = -1
-		} else {
-			oldMetaId = meta.Id
-		}
-		if _, err := InsertOrUpdateAutoCronMeta(work.WorkName, oldMetaId, o); err != nil {
-			return err
-		}
 	}
 	return nil
-}
-
-func InsertOrUpdateAutoCronMeta(task_name string, meta_id int64, o orm.Ormer) (id int64, err error) {
-	meta := &models.CronMeta{
-		TaskName:        task_name,
-		TaskType:        "iwork_quartz",
-		CronStr:         "0 * * * * ?",
-		Enable:          false,
-		CreatedBy:       "SYSTEM",
-		CreatedTime:     time.Now(),
-		LastUpdatedBy:   "SYSTEM",
-		LastUpdatedTime: time.Now(),
-	}
-	if meta_id > 0 {
-		meta.Id = meta_id
-	}
-	id, err = models.InsertOrUpdateCronMeta(meta, o)
-	return
 }
 
 func DeleteWorkByIdService(serviceArgs map[string]interface{}) error {
