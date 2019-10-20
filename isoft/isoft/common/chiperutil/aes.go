@@ -6,6 +6,7 @@ import (
 	"crypto/cipher"
 )
 
+// key 秘钥长度必须是 16/24/32
 func AesEncrypt(origData, key []byte) ([]byte, error) {
 	block, err := aes.NewCipher(key)
 	if err != nil {

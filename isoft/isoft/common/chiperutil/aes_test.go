@@ -7,7 +7,7 @@ import (
 )
 
 func Test_Aes(t *testing.T) {
-	key := []byte("0123456789abcdeffdsfsd")
+	key := []byte("0123456789abcdefffffffffffeeeeere")
 	result, err := AesEncrypt([]byte("hello worrftfdfdld"), key)
 	if err != nil {
 		panic(err)
