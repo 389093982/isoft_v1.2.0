@@ -1,6 +1,7 @@
 package iworkfunc
 
 import (
+	"encoding/base64"
 	"fmt"
 	"github.com/pkg/errors"
 	"isoft/isoft/common/chiperutil"
@@ -53,6 +54,8 @@ func (t *IWorkFuncProxy) GetFuncCallers() []map[string]string {
 		{"funcDemo": "bcryptGenerateFromPassword($password)", "funcDesc": "对密码进行加密,密码对比时需要使用 bcryptCompareHashAndPassword 进行对比"},
 		{"funcDemo": "bcryptCompareHashAndPassword($hashedPassword, $password)", "funcDesc": "密码对比,密文密码($hashedPassword)和明文($password)对比,返回是否相等"},
 		{"funcDemo": "generateMap($key1, $value1, $key2, $value2)", "funcDesc": "产生 map 对象"},
+		{"funcDemo": "AesEncrypt($origData, $key)", "funcDesc": "aes 加密算法,用于生成密文密码,origData为明文,key为密钥,返回值为密文"},
+		{"funcDemo": "AesDecrypt($crypted, $key)", "funcDesc": "aes 解密算法,用于解密密文密码,crypted为密文,key为密钥,返回值为明文"},
 	}
 }
 
@@ -68,6 +71,24 @@ func (t *IWorkFuncProxy) GenerateMap(args []interface{}) interface{} {
 	} else {
 		panic("GenerateMap args length is mismatch!")
 	}
+}
+
+func (t *IWorkFuncProxy) AesEncrypt(args []interface{}) interface{} {
+	pwd, err := chiperutil.AesEncrypt([]byte(args[0].(string)), []byte(args[1].(string)))
+	errorutil.CheckError(err)
+	return base64.StdEncoding.EncodeToString(pwd)
+}
+
+func (t *IWorkFuncProxy) AesDecrypt(args []interface{}) interface{} {
+	bytes, err := base64.StdEncoding.DecodeString(args[0].(string))
+	if err != nil {
+		return ""
+	}
+	bytes, err = chiperutil.AesDecrypt(bytes, []byte(args[1].(string)))
+	if err != nil {
+		return ""
+	}
+	return string(bytes)
 }
 
 func (t *IWorkFuncProxy) BcryptGenerateFromPassword(args []interface{}) interface{} {

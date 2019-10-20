@@ -281,7 +281,7 @@ func (this *SimpleParser) parseParamVauleFromResource() interface{} {
 func (this *SimpleParser) parseParamVauleFromGlobalVar() interface{} {
 	gvName := strings.TrimPrefix(this.paramVaule, "$Global.")
 	if gv, ok := memory.MemoryGlobalVarMap.Load(gvName); ok {
-		return gv.(models.GlobalVar).Name
+		return gv.(models.GlobalVar).Value
 	} else {
 		panic(errors.New(fmt.Sprintf("can't find globalVar for %s", gvName)))
 	}
