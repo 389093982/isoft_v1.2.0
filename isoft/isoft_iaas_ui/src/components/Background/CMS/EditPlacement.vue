@@ -16,6 +16,9 @@
           <FormItem prop="placement_desc" label="占位符描述">
             <Input type="text" v-model="formInline.placement_desc" placeholder="placement_desc" style="width: 80%;"/>
           </FormItem>
+          <FormItem prop="element_limit" label="元素显示数量">
+            <Input type="text" v-model="formInline.element_limit" placeholder="element_limit" style="width: 80%;"/>
+          </FormItem>
           <FormItem>
             <Button type="success" @click="handleSubmit" style="margin-right: 6px">提交</Button>
             <Button type="warning" @click="handleGoBack" style="margin-right: 6px">返回</Button>
@@ -37,6 +40,7 @@
           placement_name:'',
           placement_desc:'',
           placement_label:'',
+          element_limit:'-1',
         },
         ruleInline: {
           placement_name: [
@@ -48,6 +52,9 @@
           placement_label: [
             { required: true, message: 'Please fill in the placement_label.', trigger: 'blur' },
           ],
+          element_limit: [
+            { required: true, message: 'Please fill in the element_limit.', trigger: 'blur' },
+          ],
         }
       }
     },
@@ -56,7 +63,8 @@
         this.$refs['formInline'].validate(async (valid) => {
           if (valid) {
             let id = this.$route.query.id == undefined ? -1 : this.$route.query.id;
-              const result = await EditPlacement(id, this.formInline.placement_name, this.formInline.placement_desc, this.formInline.placement_label);
+              const result = await EditPlacement(id, this.formInline.placement_name, this.formInline.placement_desc,
+                this.formInline.placement_label, this.formInline.element_limit);
               if(result.status == "SUCCESS"){
                 this.$Message.success('提交成功!');
               }else{
@@ -77,6 +85,7 @@
           this.formInline.placement_name = placement.placement_name;
           this.formInline.placement_desc = placement.placement_desc;
           this.formInline.placement_label = placement.placement_label;
+          this.formInline.element_limit = placement.element_limit;
         }
       }
     },
