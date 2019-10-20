@@ -46,7 +46,7 @@ func (this *CacheLoggerWriter) flush() {
 	caches := this.caches // 使用临时变量进行参数传递
 	startup.RunLogPool.JobQueue <- func() {
 		if _, err := models.InsertMultiRunLogDetail(caches); err != nil {
-			fmt.Println(err.Error())
+			fmt.Println("@@@@@@@@@@@@@@@@@@@@@@@" + err.Error())
 		}
 	}
 }
