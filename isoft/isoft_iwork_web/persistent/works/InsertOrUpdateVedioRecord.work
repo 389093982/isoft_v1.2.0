@@ -4,7 +4,7 @@
 		<WorkName>InsertOrUpdateVedioRecord</WorkName>
 		<WorkDesc>自动创建子流程:InsertOrUpdateVedioRecord</WorkDesc>
 		<WorkType>work</WorkType>
-		<ModuleName></ModuleName>
+		<ModuleName>Course</ModuleName>
 		<CreatedBy>SYSTEM</CreatedBy>
 		<LastUpdatedBy>SYSTEM</LastUpdatedBy>
 	</work>

@@ -76,8 +76,11 @@ func QueryWork(condArr map[string]string, page int, offset int, o orm.Ormer) (wo
 	var cond = orm.NewCondition()
 	if search, ok := condArr["search"]; ok && strings.TrimSpace(search) != "" {
 		subCond := orm.NewCondition()
-		subCond = cond.And("work_name__icontains", search).Or("module_name", search).Or("work_type", search)
+		subCond = cond.And("work_name__icontains", strings.TrimSpace(search)).Or("module_name", strings.TrimSpace(search))
 		cond = cond.AndCond(subCond)
+	}
+	if searchWorkType, ok := condArr["search_work_type"]; ok && searchWorkType != "" && searchWorkType != "all" {
+		cond = cond.And("work_type", searchWorkType)
 	}
 	qs = qs.SetCond(cond)
 	counts, _ = qs.Count()

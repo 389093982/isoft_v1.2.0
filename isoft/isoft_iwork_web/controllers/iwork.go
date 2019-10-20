@@ -131,13 +131,12 @@ func (this *WorkController) EditWork() {
 	this.ServeJSON()
 }
 
-func (this *WorkController) FilterPageWork() {
+func (this *WorkController) FilterPageWorks() {
 	condArr := make(map[string]string)
 	offset, _ := this.GetInt("offset", 10)            // 每页记录数
 	current_page, _ := this.GetInt("current_page", 1) // 当前页
-	if search := this.GetString("search"); search != "" {
-		condArr["search"] = search
-	}
+	condArr["search"] = this.GetString("search")
+	condArr["search_work_type"] = this.GetString("search_work_type")
 	serviceArgs := map[string]interface{}{"condArr": condArr, "offset": offset, "current_page": current_page, "ctx": this.Ctx}
 	if result, err := service.ExecuteResultServiceWithTx(serviceArgs, service.FilterPageWorkService); err == nil {
 		this.Data["json"] = &map[string]interface{}{

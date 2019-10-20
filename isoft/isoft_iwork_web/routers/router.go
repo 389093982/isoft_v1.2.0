@@ -41,7 +41,7 @@ func loadloadIWorkerRouterDetail() {
 
 	registRouter("/api/iwork/filterPageWorkHistory", wc, wc.FilterPageWorkHistory)
 	registRouter("/api/iwork/restoreFromWorkHistory", wc, wc.RestoreFromWorkHistory)
-	registRouter("/api/iwork/filterPageWork", wc, wc.FilterPageWork)
+	registRouter("/api/iwork/filterPageWorks", wc, wc.FilterPageWorks)
 	beego.Router("/api/iwork/editWork", wc, "post:EditWork")
 	beego.Router("/api/iwork/deleteOrCopyWorkById", wc, "post:DeleteOrCopyWorkById")
 	beego.Router("/api/iwork/addWorkStep", wc, "post:AddWorkStep")

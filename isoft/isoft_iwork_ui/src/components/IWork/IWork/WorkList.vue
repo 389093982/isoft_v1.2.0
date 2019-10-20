@@ -40,6 +40,7 @@
     </ISimpleLeftRightRow>
 
     所有类型：
+    <Button size="small" :type="search_work_type == 'all' ? 'success' : 'default'" @click="filterWorkTypes('all')">all</Button>
     <Button size="small" :type="search_work_type == 'work' ? 'success' : 'default'" @click="filterWorkTypes('work')">work</Button>
     <Button size="small" :type="search_work_type == 'filter' ? 'success' : 'default'" @click="filterWorkTypes('filter')">filter</Button>
     <br/>
@@ -55,7 +56,7 @@
 </template>
 
 <script>
-  import {WorkList,DeleteOrCopyWorkById,RunWork,EditWork,GetAllModules} from "../../../api"
+  import {FilterPageWorks,DeleteOrCopyWorkById,RunWork,EditWork,GetAllModules} from "../../../api"
   import {checkEmpty, validateCommonPatternForString} from "../../../tools/index"
   const ISimpleLeftRightRow = () => import("@/components/Common/layout/ISimpleLeftRightRow");
   const ISimpleSearch = () => import("@/components/Common/search/ISimpleSearch");
@@ -69,7 +70,7 @@
     components:{ISimpleLeftRightRow,ISimpleSearch,IWorkDL,WorkValidate,ISimpleConfirmModal,IKeyValueForm},
     data(){
       return {
-        search_work_type:"work",
+        search_work_type:"all",
         // 当前页
         current_page:1,
         // 总数
@@ -258,7 +259,6 @@
       },
       filterWorkTypes:function(work_type){
         this.search_work_type = work_type;
-        this.search = this.search_work_type;
         this.refreshWorkList();
       },
       filterModuleWork:function(module_name){
@@ -266,7 +266,7 @@
         this.refreshWorkList();
       },
       refreshWorkList:async function () {
-        const result = await WorkList(this.offset,this.current_page,this.search);
+        const result = await FilterPageWorks(this.offset,this.current_page,this.search,this.search_work_type);
         if(result.status=="SUCCESS"){
           this.works = result.works;
           this.total = result.paginator.totalcount;
