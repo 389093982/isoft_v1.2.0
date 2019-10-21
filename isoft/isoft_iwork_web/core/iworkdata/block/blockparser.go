@@ -107,6 +107,14 @@ func (this *BlockParser) BuildParentRelation(blockSteps []*BlockStep, blockStep 
 		panic("无有效的父级节点")
 	}
 	parentBlockStep := lowPreLevelBlockSteps[len(lowPreLevelBlockSteps)-1]
+	// 父节点之后发现缩进大于 1 的更适合父节点
+	for i := parentBlockStep.Step.WorkStepId; i < blockStep.Step.WorkStepId; i++ {
+		for _, step := range this.Steps {
+			if i == step.WorkStepId && step.WorkStepIndent < parentBlockStep.Step.WorkStepIndent {
+				panic("父节点之后发现缩进大于 1 的更适合父节点")
+			}
+		}
+	}
 	parentBlockStep.ChildBlockSteps = append(parentBlockStep.ChildBlockSteps, blockStep)
 	parentBlockStep.HasChildren = true
 	blockStep.ParentBlockStep = parentBlockStep
