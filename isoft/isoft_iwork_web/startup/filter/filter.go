@@ -8,6 +8,8 @@ import (
 	"isoft/isoft_iwork_web/core/iworkdata/entry"
 	"isoft/isoft_iwork_web/core/iworkrun"
 	"isoft/isoft_iwork_web/core/iworkutil/datatypeutil"
+	"isoft/isoft_iwork_web/models"
+	"isoft/isoft_iwork_web/startup/memory"
 )
 
 func FilterFunc(ctx *context.Context) {
@@ -16,23 +18,39 @@ func FilterFunc(ctx *context.Context) {
 	if err != nil {
 		panic(err)
 	}
-	for _, filterName := range workCache.FilterNames {
-		if workCache, err := iworkcache.GetWorkCacheWithName(filterName); err == nil {
-			mapData := controllers.ParseParam(ctx, workCache.Steps)
-			mapData[iworkconst.HTTP_REQUEST_OBJECT] = ctx.Request // 传递 request 对象
-			trackingId, receiver := iworkrun.RunOneWork(workCache.WorkId, &entry.Dispatcher{TmpDataMap: mapData})
-			ctx.ResponseWriter.Header().Add(iworkconst.TRACKING_ID, trackingId)
-			if receiver != nil {
-				tempDataMap := receiver.TmpDataMap
-				if data, ok := tempDataMap[iworkconst.DO_ERROR_FILTER]; ok {
-					tmpDataMap := data.(map[string]interface{})
-					for key, value := range tmpDataMap {
-						if key == "headerCode" {
-							ctx.ResponseWriter.WriteHeader(datatypeutil.InterfaceConvertToInt(value, 200))
+	// TODO 是否有序？
+	memory.FilterMap.Range(func(k, v interface{}) bool {
+		filterWorkName := k.(string)
+		fs := v.([]models.Filters)
+		if intercept(fs, workCache) {
+			if workCache, err := iworkcache.GetWorkCacheWithName(filterWorkName); err == nil {
+				mapData := controllers.ParseParam(ctx, workCache.Steps)
+				mapData[iworkconst.HTTP_REQUEST_OBJECT] = ctx.Request // 传递 request 对象
+				trackingId, receiver := iworkrun.RunOneWork(workCache.WorkId, &entry.Dispatcher{TmpDataMap: mapData})
+				ctx.ResponseWriter.Header().Add(iworkconst.TRACKING_ID, trackingId)
+				if receiver != nil {
+					tempDataMap := receiver.TmpDataMap
+					if data, ok := tempDataMap[iworkconst.DO_ERROR_FILTER]; ok {
+						tmpDataMap := data.(map[string]interface{})
+						for key, value := range tmpDataMap {
+							if key == "headerCode" {
+								ctx.ResponseWriter.WriteHeader(datatypeutil.InterfaceConvertToInt(value, 200))
+							}
 						}
 					}
 				}
 			}
 		}
+		// 每个 filter 都要进行判断
+		return true
+	})
+}
+
+func intercept(fs []models.Filters, workCache *iworkcache.WorkCache) bool {
+	for _, filter := range fs {
+		if filter.WorkName == workCache.Work.WorkName {
+			return true
+		}
 	}
+	return false
 }

@@ -46,13 +46,6 @@ func getBlockStepExecuteOrder(blockSteps []*block.BlockStep) []*block.BlockStep 
 
 var workCacheMap sync.Map
 
-func ReloadAllWorkCache() {
-	works := models.QueryAllWorkInfo(orm.NewOrm())
-	for _, work := range works {
-		UpdateWorkCache(work.Id)
-	}
-}
-
 func DeleteWorkCache(work_id int64) {
 	workCacheMap.Delete(work_id)
 }
@@ -148,7 +141,6 @@ type WorkCache struct {
 	SubWorkNameMap      map[int64]string                        `xml:"-"` // key 为 WorkStepId
 	Usage               *Usage                                  `xml:"-"` // 引值计算,节点引用值统计
 	err                 error                                   `xml:"-"`
-	FilterNames         []string                                `xml:"filterNames"`
 	ParamMappings       []iworkmodels.ParamMapping              `xml:"-"`
 }
 
@@ -200,8 +192,6 @@ func (this *WorkCache) FlushCache() {
 	this.Usage = &Usage{}
 	// 缓存引值计数
 	this.cacheReferUsage()
-	// 计算 filters 引用
-	this.evalFilters(o)
 
 	this.evalParamMapping()
 }
@@ -212,14 +202,6 @@ func (this *WorkCache) evalParamMapping() {
 			var ParamMappings []iworkmodels.ParamMapping
 			json.Unmarshal([]byte(step.WorkStepParamMapping), &ParamMappings)
 			this.ParamMappings = ParamMappings
-		}
-	}
-}
-
-func (this *WorkCache) evalFilters(o orm.Ormer) {
-	if filters, err := models.QueryFiltersByWorkName(this.Work.WorkName); err == nil {
-		for _, filter := range filters {
-			this.FilterNames = append(this.FilterNames, filter.FilterWorkName)
 		}
 	}
 }
