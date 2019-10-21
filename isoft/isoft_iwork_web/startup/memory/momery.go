@@ -5,8 +5,8 @@ import (
 	"sync"
 )
 
-var MemoryGlobalVarMap sync.Map
-var MemoryResourceMap sync.Map
+var GlobalVarMap sync.Map
+var ResourceMap sync.Map
 
 func FlushAll() {
 	FlushMemoryGlobalVar()
@@ -16,13 +16,13 @@ func FlushAll() {
 func FlushMemoryGlobalVar() {
 	globalVars := models.QueryAllGlobalVar()
 	for _, globalVar := range globalVars {
-		MemoryGlobalVarMap.Store(globalVar.Name, globalVar)
+		GlobalVarMap.Store(globalVar.Name, globalVar)
 	}
 }
 
 func FlushMemoryResource() {
 	resources := models.QueryAllResource()
 	for _, resource := range resources {
-		MemoryResourceMap.Store(resource.ResourceName, resource)
+		ResourceMap.Store(resource.ResourceName, resource)
 	}
 }

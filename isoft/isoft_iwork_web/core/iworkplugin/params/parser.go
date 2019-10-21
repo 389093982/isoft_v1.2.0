@@ -264,7 +264,7 @@ func (this *SimpleParser) parseParamVauleWithPrefixNode() interface{} {
 // 尽量从缓存中获取
 func (this *SimpleParser) parseParamVauleFromResource() interface{} {
 	resource_name := strings.TrimPrefix(this.paramVaule, "$RESOURCE.")
-	if resource, ok := memory.MemoryResourceMap.Load(resource_name); ok {
+	if resource, ok := memory.ResourceMap.Load(resource_name); ok {
 		resource := resource.(models.Resource)
 		if resource.ResourceType == "db" {
 			return resource.ResourceDsn
@@ -280,7 +280,7 @@ func (this *SimpleParser) parseParamVauleFromResource() interface{} {
 // 尽量从缓存中获取
 func (this *SimpleParser) parseParamVauleFromGlobalVar() interface{} {
 	gvName := strings.TrimPrefix(this.paramVaule, "$Global.")
-	if gv, ok := memory.MemoryGlobalVarMap.Load(gvName); ok {
+	if gv, ok := memory.GlobalVarMap.Load(gvName); ok {
 		return gv.(models.GlobalVar).Value
 	} else {
 		panic(errors.New(fmt.Sprintf("can't find globalVar for %s", gvName)))

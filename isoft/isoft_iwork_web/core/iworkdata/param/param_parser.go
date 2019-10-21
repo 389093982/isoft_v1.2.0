@@ -50,7 +50,7 @@ func (this *ParamVauleParser) GetStaticParamValue() interface{} {
 		resource_name = strings.Replace(resource_name, ";", "", -1)
 		resource_name = strings.TrimSpace(resource_name)
 
-		if resource, ok := memory.MemoryResourceMap.Load(resource_name); ok {
+		if resource, ok := memory.ResourceMap.Load(resource_name); ok {
 			_resource := resource.(models.Resource)
 			if _resource.ResourceType == "db" {
 				return _resource.ResourceDsn
