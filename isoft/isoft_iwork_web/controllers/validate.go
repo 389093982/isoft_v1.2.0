@@ -20,7 +20,7 @@ import (
 	"time"
 )
 
-// @router /api/iwork/loadValidateResult [post]
+// 加载校验信息,校验失败异常信息也要返回给 UI,如缓存中的 BlockStep 信息获取不到(校验异常)也要提示出来
 func (this *WorkController) LoadValidateResult() {
 	defer this.ServeJSON()
 	defer func() {

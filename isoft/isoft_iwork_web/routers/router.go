@@ -84,6 +84,7 @@ func loadloadIWorkerRouterDetail() {
 	registRouter("/api/iwork/saveFilters", wc, wc.SaveFilters)
 	registRouter("/api/iwork/getMetaInfo", wc, wc.GetMetaInfo)
 	registRouter("/api/iwork/queryWorkDetail", wc, wc.QueryWorkDetail)
+	registRouter("/api/iwork/loadValidateResult", wc, wc.LoadValidateResult)
 }
 
 func registRouter(rootpath string, c beego.ControllerInterface, callFunc func(), mappingMethods ...string) *beego.App {
