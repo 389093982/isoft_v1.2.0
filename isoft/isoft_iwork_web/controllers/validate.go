@@ -22,6 +22,12 @@ import (
 
 // @router /api/iwork/loadValidateResult [post]
 func (this *WorkController) LoadValidateResult() {
+	defer this.ServeJSON()
+	defer func() {
+		if err := recover(); err != nil {
+			this.Data["json"] = &map[string]interface{}{"status": "ERROR", "errorMsg": errorutil.ToError(err).Error()}
+		}
+	}()
 	serviceArgs := make(map[string]interface{}, 0)
 	work_id, _ := this.GetInt64("work_id", -1)
 	validateWorks(work_id) // 触发校验
@@ -31,7 +37,7 @@ func (this *WorkController) LoadValidateResult() {
 	} else {
 		this.Data["json"] = &map[string]interface{}{"status": "ERROR", "errorMsg": err.Error()}
 	}
-	this.ServeJSON()
+
 }
 
 func (this *WorkController) ValidateWork() {

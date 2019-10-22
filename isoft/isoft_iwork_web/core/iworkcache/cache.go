@@ -54,7 +54,7 @@ func UpdateWorkCache(work_id int64) (err error) {
 	defer func() {
 		if err1 := recover(); err1 != nil {
 			fmt.Println(string(errorutil.PanicTrace(4)))
-			err = errorutil.ToError(err)
+			err = errorutil.ToError(err1)
 		}
 	}()
 	cache := &WorkCache{WorkId: work_id}

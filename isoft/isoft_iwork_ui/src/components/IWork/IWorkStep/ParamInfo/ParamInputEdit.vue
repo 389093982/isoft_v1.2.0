@@ -95,6 +95,8 @@
           let validateDetails = result.details;
           this.validateErrors = validateDetails.filter(validateDetail => this.workId == validateDetail.work_id
             && this.workStepId == validateDetail.work_step_id);
+        }else{
+          this.$Message.error(result.errorMsg);
         }
       },
       getValidateErrors:function (paramName) {

@@ -108,6 +108,8 @@
         if(result.status == "SUCCESS"){
           this.validateDetails = result.details;
           this.tracking_id = result.details[0].tracking_id;
+        }else{
+          this.$Message.error(result.errorMsg);
         }
       }
     }

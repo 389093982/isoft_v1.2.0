@@ -379,6 +379,8 @@
         const result = await LoadValidateResult(this.$route.query.work_id);
         if(result.status == "SUCCESS"){
           this.validateDetails = result.details;
+        }else{
+          this.$Message.error(result.errorMsg);
         }
       },
       refreshWorkStepList:async function () {
