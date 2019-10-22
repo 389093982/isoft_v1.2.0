@@ -10,22 +10,10 @@ import (
 
 func (this *WorkController) SaveFilters() {
 	filter_id, _ := this.GetInt64("filter_id", -1)
-	filter, _ := models.QueryWorkById(filter_id, orm.NewOrm())
-	work_names := this.GetString("work_names")
-	var workNames []string
-	json.Unmarshal([]byte(work_names), &workNames)
+	filterWork, _ := models.QueryWorkById(filter_id, orm.NewOrm())
 	filters := make([]*models.Filters, 0)
-	for _, work_name := range workNames {
-		filters = append(filters, &models.Filters{
-			FilterWorkId:    filter_id,
-			FilterWorkName:  filter.WorkName,
-			WorkName:        work_name,
-			CreatedBy:       "SYSTEM",
-			CreatedTime:     time.Now(),
-			LastUpdatedBy:   "SYSTEM",
-			LastUpdatedTime: time.Now(),
-		})
-	}
+	filters = this.appendSimpleWorkName(filters, filterWork)
+	filters = this.appendComplexWorkName(filters, filterWork)
 	_, err := models.InsertMultiFilters(filter_id, filters)
 	if err == nil {
 		flushMemoryFilter()
@@ -34,6 +22,39 @@ func (this *WorkController) SaveFilters() {
 		this.Data["json"] = &map[string]interface{}{"status": "ERROR", "errorMsg": err.Error()}
 	}
 	this.ServeJSON()
+}
+
+func (this *WorkController) appendSimpleWorkName(filters []*models.Filters, filterWork models.Work) []*models.Filters {
+	var workNames []string
+	work_names := this.GetString("workNames")
+	json.Unmarshal([]byte(work_names), &workNames)
+
+	for _, work_name := range workNames {
+		filters = append(filters, &models.Filters{
+			FilterWorkId:    filterWork.Id,
+			FilterWorkName:  filterWork.WorkName,
+			WorkName:        work_name,
+			CreatedBy:       "SYSTEM",
+			CreatedTime:     time.Now(),
+			LastUpdatedBy:   "SYSTEM",
+			LastUpdatedTime: time.Now(),
+		})
+	}
+	return filters
+}
+
+func (this *WorkController) appendComplexWorkName(filters []*models.Filters, filterWork models.Work) []*models.Filters {
+	complex_work_name := this.GetString("complexWorkName")
+	filters = append(filters, &models.Filters{
+		FilterWorkId:    filterWork.Id,
+		FilterWorkName:  filterWork.WorkName,
+		ComplexWorkName: complex_work_name,
+		CreatedBy:       "SYSTEM",
+		CreatedTime:     time.Now(),
+		LastUpdatedBy:   "SYSTEM",
+		LastUpdatedTime: time.Now(),
+	})
+	return filters
 }
 
 func flushMemoryFilter() {

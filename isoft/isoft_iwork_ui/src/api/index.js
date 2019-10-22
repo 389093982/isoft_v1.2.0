@@ -139,7 +139,7 @@ export const GetAllModules = () => ajax(BASE_URL+"/iwork/getAllModules", {},'POS
 
 export const GetAllFiltersAndWorks = () => ajax(BASE_URL+"/iwork/getAllFiltersAndWorks", {},'POST');
 
-export const SaveFilters = (filter_id, work_names) => ajax(BASE_URL+"/iwork/saveFilters", {filter_id, work_names},'POST');
+export const SaveFilters = (filter_id, workNames, complexWorkName) => ajax(BASE_URL+"/iwork/saveFilters", {filter_id, workNames, complexWorkName},'POST');
 
 export const GetMetaInfo = (meta) => ajax(BASE_URL+"/iwork/getMetaInfo", {meta},'POST');
 export const QueryWorkDetail = (work_id) => ajax(BASE_URL+"/iwork/queryWorkDetail", {work_id},'POST');

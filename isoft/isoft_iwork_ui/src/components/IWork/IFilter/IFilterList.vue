@@ -20,6 +20,8 @@
       </Row>
     </div>
 
+    <Input v-model.trim="complexWorkName" type="textarea" :rows="4" placeholder="复杂过滤器配置"></Input>
+
     <Button type="success" size="small" @click="saveFilters" style="margin-top: 20px;">保存</Button>
   </div>
 </template>
@@ -27,7 +29,7 @@
 <script>
   import {GetAllFiltersAndWorks} from "../../../api"
   import {SaveFilters} from "../../../api"
-  import {oneOf} from "../../../tools"
+  import {checkEmpty, oneOf} from "../../../tools"
 
   export default {
     name: "IFilterList",
@@ -40,6 +42,7 @@
         moduleWorks:[],
         current_filter_id:-1,
         choosedWorkNames:[],
+        complexWorkName:'',
       }
     },
     methods:{
@@ -50,9 +53,9 @@
         const result = await GetAllFiltersAndWorks();
         if(result.status == "SUCCESS"){
           this.filterWorks = result.filterWorks;
-          this.filters = result.filters;
           this.modules = result.modules;
           this.works = result.works;
+          this.filters = result.filters;
         }
       },
       handleCheckAll:function (module_name) {
@@ -79,7 +82,7 @@
         if(this.current_filter_id < 0){
           this.$Message.error('请选择 filter!');
         }else{
-          const result = await SaveFilters(this.current_filter_id, JSON.stringify(this.choosedWorkNames));
+          const result = await SaveFilters(this.current_filter_id, JSON.stringify(this.choosedWorkNames), this.complexWorkName);
           if(result.status == "SUCCESS"){
             this.$Message.success("保存成功！");
             this.refreshFilterList();
@@ -89,7 +92,14 @@
         }
       },
       chooseFilter:function () {
-        this.choosedWorkNames = this.filters.filter(filter => filter.filter_work_id == this.current_filter_id).map(filter => filter.work_name);
+        // 切换了有效的过滤器
+        if (this.current_filter_id > 0){
+          var current_filters = this.filters.filter(filter => filter.filter_work_id == this.current_filter_id);
+          this.choosedWorkNames = current_filters.filter(filter => !checkEmpty(filter.work_name)).map(filter => filter.work_name);
+          var complexWorkNames = current_filters.filter(filter => !checkEmpty(filter.complex_work_name)).map(filter => filter.complex_work_name);
+          this.complexWorkName = complexWorkNames == null ? "" : complexWorkNames[0];
+        }
+
       }
     },
     mounted(){
