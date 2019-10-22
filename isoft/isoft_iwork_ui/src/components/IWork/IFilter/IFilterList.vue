@@ -13,7 +13,7 @@
           <Tag><span>{{module.module_name}}</span></Tag>
         </Col>
         <Col span="20">
-          <CheckboxGroup v-model="checkedFilterWorks">
+          <CheckboxGroup v-model="choosedWorkNames">
             <Checkbox :label="moduleWork.work_name" v-for="moduleWork in filterWorksWithModule(module.module_name)"></Checkbox>
           </CheckboxGroup>
         </Col>
@@ -39,7 +39,7 @@
         works: [],
         moduleWorks:[],
         current_filter_id:-1,
-        checkedFilterWorks:[],
+        choosedWorkNames:[],
       }
     },
     methods:{
@@ -60,18 +60,18 @@
         var allInflag = true;
         for(var i=0; i<work_names.length; i++){
           let work_name = work_names[i];
-          if(!oneOf(work_name, this.checkedFilterWorks)){
+          if(!oneOf(work_name, this.choosedWorkNames)){
             allInflag = false;
             break;
           }
         }
         if(allInflag){
-          this.checkedFilterWorks = this.checkedFilterWorks.filter(checkWork => !oneOf(checkWork, work_names));
+          this.choosedWorkNames = this.choosedWorkNames.filter(checkWork => !oneOf(checkWork, work_names));
         }else{
-          let addWorks = work_names.filter(work_name => !oneOf(work_name, this.checkedFilterWorks));
+          let addWorks = work_names.filter(work_name => !oneOf(work_name, this.choosedWorkNames));
           for(var i=0; i<addWorks.length; i++){
             let work_name = addWorks[i];
-            this.checkedFilterWorks.push(work_name);
+            this.choosedWorkNames.push(work_name);
           }
         }
       },
@@ -79,7 +79,7 @@
         if(this.current_filter_id < 0){
           this.$Message.error('请选择 filter!');
         }else{
-          const result = await SaveFilters(this.current_filter_id, JSON.stringify(this.checkedFilterWorks));
+          const result = await SaveFilters(this.current_filter_id, JSON.stringify(this.choosedWorkNames));
           if(result.status == "SUCCESS"){
             this.$Message.success("保存成功！");
             this.refreshFilterList();
@@ -89,7 +89,7 @@
         }
       },
       chooseFilter:function () {
-        this.checkedFilterWorks = this.filters.filter(filter => filter.filter_work_id == this.current_filter_id).map(filter => filter.work_name);
+        this.choosedWorkNames = this.filters.filter(filter => filter.filter_work_id == this.current_filter_id).map(filter => filter.work_name);
       }
     },
     mounted(){

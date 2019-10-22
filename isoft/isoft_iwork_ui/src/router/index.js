@@ -20,7 +20,7 @@ const EntityList = () => import("@/components/IWork/IEntity/EntityList");
 const File = () => import("@/components/IWork/IFile/File");
 const DashBoard = () => import("@/components/IWork/IDashBoard/DashBoard");
 const IModuleList = () => import("@/components/IWork/IModule/IModuleList");
-const IFilterList = () => import("@/components/IWork/IModule/IFilterList");
+const IFilterList = () => import("@/components/IWork/IFilter/IFilterList");
 
 Vue.use(Router);
 
