@@ -23,7 +23,7 @@ func FilterFunc(ctx *context.Context) {
 	memory.FilterMap.Range(func(k, v interface{}) bool {
 		filterWorkName := k.(string)
 		fs := v.([]models.Filters)
-		if intercept(fs, workCache) {
+		if intercept(fs, workCache, ctx) {
 			if workCache, err := iworkcache.GetWorkCacheWithName(filterWorkName); err == nil {
 				mapData := controllers.ParseParam(ctx, workCache.Steps)
 				mapData[iworkconst.HTTP_REQUEST_OBJECT] = ctx.Request // 传递 request 对象
@@ -47,7 +47,7 @@ func FilterFunc(ctx *context.Context) {
 	})
 }
 
-func intercept(fs []models.Filters, workCache *iworkcache.WorkCache) bool {
+func intercept(fs []models.Filters, workCache *iworkcache.WorkCache, ctx *context.Context) bool {
 	// fs 有两条记录,一条简单过滤器配置,一条复杂过滤器配置
 	for _, filter := range fs {
 		if filter.WorkName != "" {
@@ -62,7 +62,7 @@ func intercept(fs []models.Filters, workCache *iworkcache.WorkCache) bool {
 			complexWorkNames := strings.Split(filter.ComplexWorkName, ",")
 			for _, complexWorkName := range complexWorkNames {
 				if strings.HasPrefix(complexWorkName, workCache.Work.WorkName) {
-					return interceptWithParameter()
+					return interceptWithParameter(complexWorkName, ctx)
 				}
 			}
 		}
@@ -73,6 +73,11 @@ func intercept(fs []models.Filters, workCache *iworkcache.WorkCache) bool {
 // 根据参数拦截
 // 支持以下几种场景
 // workName?paramName=paramValue
-func interceptWithParameter() bool {
+func interceptWithParameter(urlpattern string, ctx *context.Context) bool {
+	urlparamStr := urlpattern[strings.Index(urlpattern, "?")+1:]
+	urlparams := strings.Split(urlparamStr, "=")
+	if len(urlparams) == 2 && ctx.Input.Query(urlparams[0]) == urlparams[1] {
+		return true
+	}
 	return false
 }
