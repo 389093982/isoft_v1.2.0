@@ -30,7 +30,7 @@ func FilterFunc(ctx *context.Context) {
 				mapData[iworkconst.HTTP_REQUEST_OBJECT] = ctx.Request // 传递 request 对象
 				trackingId, receiver := iworkrun.RunOneWork(workCache.WorkId, &entry.Dispatcher{TmpDataMap: mapData})
 				// 将执行过的所有 filter_trackingId 记录到 ctx 中去
-				setTrackingIdData(ctx, workCache.Work.WorkName, trackingId)
+				recordFilterStackData(ctx, workCache.Work.WorkName, trackingId)
 				ctx.ResponseWriter.Header().Add(iworkconst.TRACKING_ID, trackingId)
 				if receiver != nil {
 					tempDataMap := receiver.TmpDataMap
@@ -85,7 +85,7 @@ func interceptWithParameter(urlpattern string, ctx *context.Context) bool {
 	return false
 }
 
-func setTrackingIdData(ctx *context.Context, filterWorkName, trackingId string) {
+func recordFilterStackData(ctx *context.Context, filterWorkName, trackingId string) {
 	filterTrackingIds := ctx.Request.Form.Get("filter" + iworkconst.TRACKING_ID)
 	filterTrackingIds = fmt.Sprintf("%s,%s[<span style='color:green;'>%s</span>]", filterTrackingIds, filterWorkName, trackingId)
 	filterTrackingIds = strings.TrimPrefix(filterTrackingIds, ",")
