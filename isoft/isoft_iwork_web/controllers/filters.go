@@ -1,7 +1,6 @@
 package controllers
 
 import (
-	"encoding/json"
 	"github.com/astaxie/beego/orm"
 	"isoft/isoft_iwork_web/models"
 	"isoft/isoft_iwork_web/startup/memory"
@@ -25,21 +24,17 @@ func (this *WorkController) SaveFilters() {
 }
 
 func (this *WorkController) appendSimpleWorkName(filters []*models.Filters, filterWork models.Work) []*models.Filters {
-	var workNames []string
-	work_names := this.GetString("workNames")
-	json.Unmarshal([]byte(work_names), &workNames)
-
-	for _, work_name := range workNames {
-		filters = append(filters, &models.Filters{
-			FilterWorkId:    filterWork.Id,
-			FilterWorkName:  filterWork.WorkName,
-			WorkName:        work_name,
-			CreatedBy:       "SYSTEM",
-			CreatedTime:     time.Now(),
-			LastUpdatedBy:   "SYSTEM",
-			LastUpdatedTime: time.Now(),
-		})
-	}
+	// workNames 以逗号分隔
+	workNames := this.GetString("workNames")
+	filters = append(filters, &models.Filters{
+		FilterWorkId:    filterWork.Id,
+		FilterWorkName:  filterWork.WorkName,
+		WorkName:        workNames,
+		CreatedBy:       "SYSTEM",
+		CreatedTime:     time.Now(),
+		LastUpdatedBy:   "SYSTEM",
+		LastUpdatedTime: time.Now(),
+	})
 	return filters
 }
 

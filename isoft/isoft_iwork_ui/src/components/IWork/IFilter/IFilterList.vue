@@ -82,7 +82,7 @@
         if(this.current_filter_id < 0){
           this.$Message.error('请选择 filter!');
         }else{
-          const result = await SaveFilters(this.current_filter_id, JSON.stringify(this.choosedWorkNames), this.complexWorkName);
+          const result = await SaveFilters(this.current_filter_id, this.choosedWorkNames.join(","), this.complexWorkName);
           if(result.status == "SUCCESS"){
             this.$Message.success("保存成功！");
             this.refreshFilterList();
@@ -95,9 +95,10 @@
         // 切换了有效的过滤器
         if (this.current_filter_id > 0){
           var current_filters = this.filters.filter(filter => filter.filter_work_id == this.current_filter_id);
-          this.choosedWorkNames = current_filters.filter(filter => !checkEmpty(filter.work_name)).map(filter => filter.work_name);
+          var _choosedWorkNames = current_filters.filter(filter => !checkEmpty(filter.work_name)).map(filter => filter.work_name);
+          this.choosedWorkNames = _choosedWorkNames != null && _choosedWorkNames.length > 0 ? _choosedWorkNames[0].split(",") : [];
           var complexWorkNames = current_filters.filter(filter => !checkEmpty(filter.complex_work_name)).map(filter => filter.complex_work_name);
-          this.complexWorkName = complexWorkNames == null ? "" : complexWorkNames[0];
+          this.complexWorkName = complexWorkNames != null && complexWorkNames.length > 0 ? complexWorkNames[0] : "";
         }
 
       }

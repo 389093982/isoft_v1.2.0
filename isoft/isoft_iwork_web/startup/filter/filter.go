@@ -10,6 +10,7 @@ import (
 	"isoft/isoft_iwork_web/core/iworkutil/datatypeutil"
 	"isoft/isoft_iwork_web/models"
 	"isoft/isoft_iwork_web/startup/memory"
+	"strings"
 )
 
 func FilterFunc(ctx *context.Context) {
@@ -47,10 +48,31 @@ func FilterFunc(ctx *context.Context) {
 }
 
 func intercept(fs []models.Filters, workCache *iworkcache.WorkCache) bool {
+	// fs 有两条记录,一条简单过滤器配置,一条复杂过滤器配置
 	for _, filter := range fs {
-		if filter.WorkName == workCache.Work.WorkName {
-			return true
+		if filter.WorkName != "" {
+			workNames := strings.Split(filter.WorkName, ",")
+			for _, workName := range workNames {
+				if workName == workCache.Work.WorkName {
+					return true
+				}
+			}
+		}
+		if filter.ComplexWorkName != "" {
+			complexWorkNames := strings.Split(filter.ComplexWorkName, ",")
+			for _, complexWorkName := range complexWorkNames {
+				if strings.HasPrefix(complexWorkName, workCache.Work.WorkName) {
+					return interceptWithParameter()
+				}
+			}
 		}
 	}
+	return false
+}
+
+// 根据参数拦截
+// 支持以下几种场景
+// workName?paramName=paramValue
+func interceptWithParameter() bool {
 	return false
 }
