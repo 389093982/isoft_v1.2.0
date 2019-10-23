@@ -582,7 +582,7 @@
 	</paramOutputSchemaItem>
 </paramOutputSchema>]]></work_step_output_xml>
 		<IsDefer>false</IsDefer>
-		<WorkStepParamMapping>[{&#34;paramMappingName&#34;:&#34;status&#34;,&#34;paramMappingDefault&#34;:&#34;&#34;},{&#34;paramMappingName&#34;:&#34;errorMsg&#34;,&#34;paramMappingDefault&#34;:&#34;&#34;},{&#34;paramMappingName&#34;:&#34;elements&#34;,&#34;paramMappingDefault&#34;:&#34;&#34;},{&#34;paramMappingName&#34;:&#34;placement&#34;,&#34;paramMappingDefault&#34;:&#34;&#34;}]</WorkStepParamMapping>
+		<WorkStepParamMapping>[{&#34;paramMappingName&#34;:&#34;status&#34;,&#34;paramMappingDefault&#34;:&#34;&#34;,&#34;paramMappingCleanXss&#34;:false,&#34;paramMappingSafePageNo&#34;:false,&#34;paramMappingSafePageSize&#34;:false},{&#34;paramMappingName&#34;:&#34;errorMsg&#34;,&#34;paramMappingDefault&#34;:&#34;&#34;,&#34;paramMappingCleanXss&#34;:false,&#34;paramMappingSafePageNo&#34;:false,&#34;paramMappingSafePageSize&#34;:false},{&#34;paramMappingName&#34;:&#34;elements&#34;,&#34;paramMappingDefault&#34;:&#34;&#34;,&#34;paramMappingCleanXss&#34;:false,&#34;paramMappingSafePageNo&#34;:false,&#34;paramMappingSafePageSize&#34;:false},{&#34;paramMappingName&#34;:&#34;placement&#34;,&#34;paramMappingDefault&#34;:&#34;&#34;,&#34;paramMappingCleanXss&#34;:false,&#34;paramMappingSafePageNo&#34;:false,&#34;paramMappingSafePageSize&#34;:false}]</WorkStepParamMapping>
 		<work_step_param_mapping_xml><![CDATA[<ParamMapping>
 	<ParamMappingName></ParamMappingName>
 	<ParamMappingDefault></ParamMappingDefault>

@@ -33,6 +33,7 @@ const HTTP_REQUEST_IFILE_UPLOAD = "____request_ifile_upload"
 const DO_ERROR_FILTER = "__doErrorFilter__"
 const DO_RESPONSE_RECEIVE_FILE = "__do_response_receive_file__"
 const TRACKING_ID = "__trackingId"
+const FILTER_TRACKING_ID_STACK = "filter__trackingId_stack"
 
 var FORBIDDEN_WORK_NAMES = []string{"WORK", "RESOURCE", "GLOBAL"}
 

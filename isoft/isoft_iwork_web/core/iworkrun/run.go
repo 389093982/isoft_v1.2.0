@@ -91,8 +91,8 @@ func RunOneStep(args *interfaces.RunOneStepArgs) (receiver *entry.Receiver) {
 
 func getFilterTrackingIds(dispatcher *entry.Dispatcher) string {
 	if request := dispatcher.TmpDataMap[iworkconst.HTTP_REQUEST_OBJECT].(*http.Request); request != nil {
-		if filterTrackingIds := request.Form.Get("__filter" + iworkconst.TRACKING_ID); filterTrackingIds != "" {
-			request.Form.Del("__filter" + iworkconst.TRACKING_ID)
+		if filterTrackingIds := request.Form.Get(iworkconst.FILTER_TRACKING_ID_STACK); filterTrackingIds != "" {
+			request.Form.Del(iworkconst.FILTER_TRACKING_ID_STACK)
 			return filterTrackingIds
 		}
 	}

@@ -86,9 +86,10 @@ func interceptWithParameter(urlpattern string, ctx *context.Context) bool {
 }
 
 func recordFilterStackData(ctx *context.Context, filterWorkName, trackingId string) {
-	filterTrackingIds := ctx.Request.Form.Get("filter" + iworkconst.TRACKING_ID)
-	filterTrackingIds = fmt.Sprintf("%s,%s[<span style='color:green;'>%s</span>]", filterTrackingIds, filterWorkName, trackingId)
+	// TODO 此处 ctx.Request.Form 为空时会出异常
+	filterTrackingIds := ctx.Request.Form.Get(iworkconst.FILTER_TRACKING_ID_STACK)
+	filterTrackingIds = fmt.Sprintf("%s,%s[<span style='color:blue;'>%s</span>]", filterTrackingIds, filterWorkName, trackingId)
 	filterTrackingIds = strings.TrimPrefix(filterTrackingIds, ",")
-	ctx.Request.Form.Set("__filter"+iworkconst.TRACKING_ID, filterTrackingIds)
+	ctx.Request.Form.Set(iworkconst.FILTER_TRACKING_ID_STACK, filterTrackingIds)
 
 }
