@@ -9,6 +9,7 @@ import (
 	"isoft/isoft_iwork_web/core/iworkdata/entry"
 	"isoft/isoft_iwork_web/core/iworklog"
 	"isoft/isoft_iwork_web/core/iworkplugin/node"
+	"net/http"
 	"time"
 )
 
@@ -24,6 +25,11 @@ func RunOneWork(work_id int64, dispatcher *entry.Dispatcher) (trackingId string,
 		logwriter.Write(trackingId, "", iworkconst.LOG_LEVEL_ERROR, fmt.Sprintf("<span style='color:red;'>internal error:%s</span>", err.Error()))
 	}
 	defer logwriter.RecordCostTimeLog("execute work", trackingId, time.Now())
+
+	// 记录前置 filterTrackingIds 信息
+	if filterTrackingIds := getFilterTrackingIds(dispatcher); filterTrackingIds != "" {
+		logwriter.Write(trackingId, "", iworkconst.LOG_LEVEL_INFO, fmt.Sprintf("filter stack:%s", filterTrackingIds))
+	}
 	// 记录日志详细
 	logwriter.Write(trackingId, "", iworkconst.LOG_LEVEL_INFO, fmt.Sprintf("~~~~~~~~~~start execute work:%s~~~~~~~~~~", workCache.Work.WorkName))
 
@@ -81,4 +87,14 @@ func RunOneStep(args *interfaces.RunOneStepArgs) (receiver *entry.Receiver) {
 	factory.Execute(args.TrackingId)
 	// factory 节点如果代理的是 work_end 节点,则传递 Receiver 出去
 	return factory.Receiver
+}
+
+func getFilterTrackingIds(dispatcher *entry.Dispatcher) string {
+	if request := dispatcher.TmpDataMap[iworkconst.HTTP_REQUEST_OBJECT].(*http.Request); request != nil {
+		if filterTrackingIds := request.Form.Get("__filter" + iworkconst.TRACKING_ID); filterTrackingIds != "" {
+			request.Form.Del("__filter" + iworkconst.TRACKING_ID)
+			return filterTrackingIds
+		}
+	}
+	return ""
 }
