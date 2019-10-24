@@ -12,6 +12,7 @@ type Work struct {
 	WorkDesc        string    `json:"work_desc" orm:"type(text);default('')"`
 	WorkType        string    `json:"work_type"`
 	ModuleName      string    `json:"module_name"`
+	CacheResult     bool      `json:"cache_result"`
 	CreatedBy       string    `json:"created_by"`
 	CreatedTime     time.Time `xml:"-" json:"created_time" orm:"auto_now_add;type(datetime)"`
 	LastUpdatedBy   string    `json:"last_updated_by"`

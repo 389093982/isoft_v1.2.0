@@ -10,7 +10,7 @@
         <Button type="success" size="small" @click="addWork">新增</Button>
         <Button type="warning" size="small" @click="$router.push({ path:'/iwork/filterList'})">过滤器配置</Button>
 
-        <ISimpleConfirmModal ref="workEditModal" modal-title="新增/编辑 Work" :modal-width="600" :footer-hide="true">
+        <ISimpleConfirmModal ref="workEditModal" modal-title="新增/编辑 Work" :modal-width="600" :footer-hide="true" modal-top="50px">
           <IKeyValueForm ref="workEditForm" form-key-label="work_name" form-value-label="work_desc"
                          form-key-placeholder="请输入 work_name" form-value-placeholder="请输入 work_desc"
                          @handleSubmit="editWork" :formkey-validator="workNameValidator">
@@ -31,6 +31,12 @@
                       </span>
                     </div>
                 </Poptip>
+              </FormItem>
+              <FormItem label="cache_result">
+                <Select :transfer="true" v-model="current_cache_result">
+                  <Option value="true" key="true">true</Option>
+                  <Option value="false" key="false">false</Option>
+                </Select>
               </FormItem>
             </span>
           </IKeyValueForm>
@@ -83,6 +89,7 @@
         runLogRecordCount:{},
         current_work_type: "work",
         current_module_name: "",
+        current_cache_result: "false",
         choose_module_name: "",
         modules: [],
         visible:false,
@@ -146,9 +153,10 @@
                   on: {
                     click: () => {
                       this.$refs.workEditModal.showModal();
-                      this.$refs.workEditForm.initFormData(this.works[params.index].id, this.works[params.index].work_name, this.works[params.index].work_desc);
+                      this.$refs.workEditForm.initFormData(this.works[params.index].id, this.works[params.index].work_name, this.works[params.index].work_desc, this.works[params.index].cache_result);
                       this.current_work_type = this.works[params.index].work_type;
                       this.current_module_name = this.works[params.index].module_name;
+                      this.current_cache_result = this.works[params.index].cache_result == true ? "true" : "false";
                     }
                   }
                 }, '编辑'),
@@ -304,7 +312,7 @@
           this.$Message.error("请选择模块！");
           return;
         }
-        const result = await EditWork(work_id, work_name, work_desc, this.current_work_type, this.current_module_name);
+        const result = await EditWork(work_id, work_name, work_desc, this.current_work_type, this.current_module_name, this.current_cache_result);
         if(result.status == "SUCCESS"){
           this.$refs.workEditModal.hideModal();
           this.$refs.workEditForm.handleSubmitSuccess("提交成功!");

@@ -7,7 +7,8 @@
       :transfer="false"
       :footer-hide="footerHide"
       @on-ok="handleSubmit"
-      :mask-closable="false">
+      :mask-closable="false"
+      :styles="{top: modalTop}">
       <div>
         <slot></slot>
       </div>
@@ -30,7 +31,11 @@
       footerHide: {
         type: Boolean,
         default: false,
-      }
+      },
+      modalTop: {
+        type: String,
+        default: '100px'
+      },
     },
     data(){
       return {

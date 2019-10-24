@@ -42,7 +42,6 @@
         type: Number,
         default: 800
       },
-
       modalTop: {
         type: String,
         default: '100px'

@@ -33,7 +33,7 @@ export const GetAllResource = (resource_type) => ajax(BASE_URL+"/iwork/getAllRes
 export const FilterPageWorks = (offset,current_page,search,search_work_type) => ajax(BASE_URL+"/iwork/filterPageWorks", {offset,current_page,search,search_work_type},'POST');
 
 // 编辑 work 记录
-export const EditWork = (work_id, work_name, work_desc, work_type, module_name) => ajax(BASE_URL+"/iwork/editWork", {work_id, work_name, work_desc, work_type, module_name},'POST');
+export const EditWork = (work_id, work_name, work_desc, work_type, module_name, cache_result) => ajax(BASE_URL+"/iwork/editWork", {work_id, work_name, work_desc, work_type, module_name, cache_result},'POST');
 
 // 删除 work 记录
 export const DeleteOrCopyWorkById = (operate,id) => ajax(BASE_URL+"/iwork/deleteOrCopyWorkById", {operate,id},'POST');

@@ -21,6 +21,7 @@
               <p>{{course.course_name}}</p>
             </router-link>
           </li>
+          <div style="clear: both;"></div>
         </ul>
       </div>
     </IBeautifulCard>

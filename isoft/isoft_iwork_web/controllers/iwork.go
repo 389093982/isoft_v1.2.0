@@ -110,6 +110,7 @@ func (this *WorkController) EditWork() {
 	work.WorkDesc = this.GetString("work_desc")
 	work.WorkType = this.GetString("work_type")
 	work.ModuleName = this.GetString("module_name")
+	work.CacheResult, _ = this.GetBool("cache_result", false)
 	work.CreatedBy = "SYSTEM"
 	work.CreatedTime = time.Now()
 	work.LastUpdatedBy = "SYSTEM"
