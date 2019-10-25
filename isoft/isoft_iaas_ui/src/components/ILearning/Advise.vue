@@ -14,17 +14,17 @@
       <Button type="success" style="width: 100px;margin: 10px 0 0 0;" @click="submitAdvise()">提交</Button>
     </div>
 
-    <div>
-      猜你喜欢
-    </div>
+    <GussYouLike style="margin-top: 50px;"/>
   </div>
 </template>
 
 <script>
   import {InsertAdvise} from "../../api"
+  import GussYouLike from "./GussYouLike";
 
   export default {
     name: "Advise",
+    components: {GussYouLike},
     data(){
       return {
         advise:'',
