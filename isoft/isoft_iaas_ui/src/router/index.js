@@ -33,6 +33,7 @@ const VideoPay = () => import("@/components/ILearning/Course/VideoPay");
 const Configuration = () => import("@/components/Background/CMS/Configuration");
 const CourseSearch = () => import("@/components/ILearning/Course/CourseSearch");
 const CommonLinkList = () => import("@/components/Background/CMS/CommonLinkList");
+const AdviseList = () => import("@/components/Background/AdviseList");
 const FoundList = () => import("@/components/IFound/FoundList");
 const GoodList = () => import("@/components/IGood/GoodList");
 const GoodEdit = () => import("@/components/IGood/GoodEdit");
@@ -122,6 +123,7 @@ const ICMSReouter = [{
     {path: 'cms/placement_edit',component: EditPlacement},
     {path: 'cms/commonLinkList',component: CommonLinkList},
     {path: 'cms/configuration',component: Configuration},
+    {path: 'advise_list',component: AdviseList},
     {path: 'sso/appRegist',component: AppRegist},
     {path: 'sso/loginRecord',component: LoginRecord},
   ]

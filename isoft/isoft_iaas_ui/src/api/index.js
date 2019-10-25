@@ -141,6 +141,7 @@ export const AddAppRegister = (app_address) => ajax(BASE_URL+"/iwork/httpservice
 export const LoginRecordList = (offset,current_page,search) => ajax(BASE_URL+"/iwork/httpservice/LoginRecordList2", {offset,current_page,search},'POST');
 
 export const InsertAdvise = (advise) => ajax(BASE_URL+"/iwork/httpservice/InsertAdvise", {advise},'POST');
+export const queryPageAdvise = (offset,current_page) => ajax(BASE_URL+'/iwork/httpservice/queryPageAdvise',{offset,current_page},'GET');
 
 
 // 跨模块使用,模块化部署时需要使用 nginx 代理

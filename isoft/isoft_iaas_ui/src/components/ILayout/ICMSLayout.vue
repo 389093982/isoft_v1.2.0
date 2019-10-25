@@ -27,9 +27,10 @@
             <Submenu name="3">
               <template slot="title">
                 <Icon type="ios-barcode"></Icon>
-                评论管理
+                评论/建议管理
               </template>
               <MenuItem name="3-1"><router-link to="#">评论列表</router-link></MenuItem>
+              <MenuItem name="3-1"><router-link to="/background/advise_list">意见建议列表</router-link></MenuItem>
             </Submenu>
             <Submenu name="4">
               <template slot="title">
