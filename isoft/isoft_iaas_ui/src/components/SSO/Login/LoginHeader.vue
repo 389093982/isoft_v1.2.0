@@ -1,6 +1,6 @@
 <template>
   <div id="header">
-    <div id="wellogin"/>
+    <div class="wellogin">欢迎登陆</div>
     <div style="position: absolute;top: 40px;right: 100px;">
       <b id="question"></b>
       <span><a href="#">加入我们</a> | <a href="#">我要吐槽</a></span>
@@ -10,7 +10,7 @@
 
 <script>
     export default {
-        name: "LoginHeader"
+      name: "LoginHeader"
     }
 </script>
 
@@ -21,14 +21,14 @@
     height:70px;
     padding:5px;
   }
-  #wellogin{
+  .wellogin{
     display: block;
     width: 110px;
     height: 40px;
     position: absolute;
     top: 20px;
-    left: 150px;
-    background: url('../../../assets/sso/welcome_login.png') no-repeat;
+    left: 50px;
+    font-size: 20px;
   }
   #question{
     display: inline-block;
