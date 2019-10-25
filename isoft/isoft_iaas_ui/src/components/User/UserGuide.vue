@@ -5,14 +5,14 @@
         <div slot="content">
           <Row style="min-height: 500px;padding: 20px;">
             <Col span="6">
-              <div style="border: 2px solid rgba(255,158,0,0.5);padding: 30px;margin: 2px;">
-                <p v-for="(element, index) in elements" style="padding: 5px 0 0 5px;">
+              <div style="min-height: 500px;border: 2px solid rgba(223,223,223,0.5);padding: 20px;margin: 2px;">
+                <p v-for="(element, index) in elements" style="font-size: 15px;">
                   <IBeautifulLink2 @onclick="showElement(index)">{{element.title}}</IBeautifulLink2>
                 </p>
               </div>
             </Col>
             <Col span="18">
-              <div style="min-height: 500px;border:2px solid rgba(255,158,0,0.5);padding: 35px;margin: 2px;">
+              <div style="min-height: 500px;border:2px solid rgba(223,223,223,0.5);padding: 20px;margin: 2px;">
                 <IShowMarkdown v-if="elements[showElementIndex] && elements[showElementIndex].md_content" :content="elements[showElementIndex].md_content"/>
               </div>
             </Col>
