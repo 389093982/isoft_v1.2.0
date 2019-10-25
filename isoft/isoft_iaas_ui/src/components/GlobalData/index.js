@@ -11,6 +11,8 @@ const frind_link = "frind_link";
 const Index_news_list = "Index_news_list";
 const element_course_publish_desc = "element_course_publish_desc";
 const element_user_guide = "element_user_guide";
+const element_discount_list = "element_discount_list";
+const element_activity_list = "element_activity_list";
 
 export default {
   element_host_recommend_blog_tpyes,
@@ -26,4 +28,6 @@ export default {
   Index_news_list,
   element_course_publish_desc,
   element_user_guide,
+  element_discount_list,
+  element_activity_list,
 }

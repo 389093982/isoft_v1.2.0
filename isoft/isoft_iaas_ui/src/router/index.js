@@ -35,6 +35,8 @@ const CourseSearch = () => import("@/components/ILearning/Course/CourseSearch");
 const CommonLinkList = () => import("@/components/Background/CMS/CommonLinkList");
 const AdviseList = () => import("@/components/Background/AdviseList");
 const FoundList = () => import("@/components/IFound/FoundList");
+const DiscountList = () => import("@/components/IFound/DiscountList");
+const ActivityList = () => import("@/components/IFound/ActivityList");
 const GoodList = () => import("@/components/IGood/GoodList");
 const GoodEdit = () => import("@/components/IGood/GoodEdit");
 const GoodDetail = () => import("@/components/IGood/GoodDetail");
@@ -144,6 +146,8 @@ const IFoundReouter = [{
   component: ILayout,
   children: [
     {path: 'found_list',component: FoundList},
+    {path: 'discount_list',component: DiscountList},
+    {path: 'activity_list',component: ActivityList},
   ]
 }];
 
