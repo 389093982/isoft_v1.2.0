@@ -3,7 +3,7 @@
     <div class="wellogin">欢迎登陆</div>
     <div style="position: absolute;top: 40px;right: 100px;">
       <b id="question"></b>
-      <span><a href="#">加入我们</a> | <a href="#">我要吐槽</a></span>
+      <span style="font-size: 14px;"><a href="#">加入我们</a> | <a @click="$router.push({path:'/ilearning/advise'})">我要吐槽 / 建议</a></span>
     </div>
   </div>
 </template>

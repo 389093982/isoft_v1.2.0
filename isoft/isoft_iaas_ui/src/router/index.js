@@ -28,6 +28,7 @@ const NewCourse = () => import("@/components/ILearning/CourseSpace/NewCourse");
 const RecentlyViewed = () => import("@/components/ILearning/CourseSpace/RecentlyViewed");
 const MyCourseList = () => import("@/components/ILearning/CourseSpace/MyCourseList");
 const CourseDetail = () => import("@/components/ILearning/Course/CourseDetail");
+const Advise = () => import("@/components/ILearning/Advise");
 const VideoPay = () => import("@/components/ILearning/Course/VideoPay");
 const Configuration = () => import("@/components/Background/CMS/Configuration");
 const CourseSearch = () => import("@/components/ILearning/Course/CourseSearch");
@@ -86,14 +87,9 @@ const ILearningRouter = {
         {path: 'RecentlyViewed',component: RecentlyViewed,},
       ]
     },
-    {
-      path: 'course_detail',
-      component: CourseDetail,
-    },
-    {
-      path: 'video_play',
-      component: VideoPay,
-    },
+    {path: 'course_detail',component: CourseDetail,},
+    {path: 'video_play',component: VideoPay,},
+    {path: 'advise',component: Advise,},
     {
       // this.$router.push({ name: 'xxx'});
       // this.$router.push({ path: 'xxx'});
