@@ -140,6 +140,8 @@ export const AddAppRegister = (app_address) => ajax(BASE_URL+"/iwork/httpservice
 // 登录记录分页查询
 export const LoginRecordList = (offset,current_page,search) => ajax(BASE_URL+"/iwork/httpservice/LoginRecordList2", {offset,current_page,search},'POST');
 
+export const InsertAdvise = (advise) => ajax(BASE_URL+"/iwork/httpservice/InsertAdvise", {advise},'POST');
+
 
 // 跨模块使用,模块化部署时需要使用 nginx 代理
 export const LoginAddr = "/#/sso/login/";
