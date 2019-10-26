@@ -1,6 +1,7 @@
 <template>
   <div style="background: #FFFFFF;padding: 10px;">
     <WhyChooseUs/>
+    <ShowUserExperience/>
     <ChooseCourseType/>
 
     <Row>
@@ -60,10 +61,12 @@
   import HorizontalLinks from "../Elementviewers/HorizontalLinks"
   import IHotRecommand from "../Common/recommend/IHotRecommand"
   import WhyChooseUs from "./WhyChooseUs";
+  import ShowUserExperience from "./ShowUserExperience";
 
   export default {
     name: "Index",
     components:{
+      ShowUserExperience,
       WhyChooseUs,
       IHotRecommand, HorizontalLinks, ChooseCourseType,HotRecommend,NewsNotice,HotIssue,ToolBox, IBeautifulTabLink,Fun},
   }

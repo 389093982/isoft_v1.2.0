@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div style="text-align: center;padding: 50px 0 20px 0;" v-if="showDetail">
+    <div style="text-align: center;padding: 50px 0 20px 0;">
       <p style="font-size: 20px;">为什么选择 ILearning?</p>
       <p style="margin: 20px 0 30px 0;color:#8295B0;font-size:18px;">ISO 27001信息安全认证，免费内容合规性的企业在线学习平台</p>
       <p>安全 稳定 智能 直播内容防泄密  保护企业数据主权  内容合规性保障 自研流媒体底层技术  世界级大会检验  多云部署 动态负载</p>
@@ -19,9 +19,6 @@
         </Col>
       </Row>
     </div>
-    <div v-else style="text-align: right;font-size: 12px;" @click="showDetail = true">
-      为什么选择 ILearning?
-    </div>
   </div>
 
 </template>
@@ -29,17 +26,6 @@
 <script>
   export default {
     name: "WhyChooseUs",
-    data(){
-      return {
-        showDetail:true,
-      }
-    },
-    mounted(){
-      var _this = this;
-      setTimeout(function(){
-        _this.showDetail = false;
-      }, 10000);
-    }
   }
 </script>
 
