@@ -27,11 +27,11 @@
 </template>
 
 <script>
-  import ArticleEdit from "../ArticleEdit";
-  import {BookArticleList} from "../../../api";
-  import IBeautifulCard from "../../Common/card/IBeautifulCard"
-  import IBeautifulLink2 from "../../Common/link/IBeautifulLink2"
-  import {checkFastClick} from "../../../tools"
+  import ArticleEdit from "../IBlog/ArticleEdit";
+  import {BookArticleList} from "../../api";
+  import IBeautifulCard from "../Common/card/IBeautifulCard"
+  import IBeautifulLink2 from "../Common/link/IBeautifulLink2"
+  import {checkFastClick} from "../../tools"
 
   export default {
     name: "BookCatalogEdit",

@@ -20,8 +20,8 @@
             <li v-for="book in books" style="float: left;list-style: none;">
               <div class="bookImg">
                 <router-link :to="{path:'/iblog/book_detail',query:{book_id:book.id}}">
-                  <img v-if="book.book_img" :src="book.book_img" height="160px" width="120px"/>
-                  <img v-else src="../../../assets/default.png" height="160px" width="120px"/>
+                  <img v-if="book.book_img" :src="book.book_img" height="160px" width="140px"/>
+                  <img v-else src="../../assets/default.png" height="160px" width="140px"/>
                   <p style="font-size: 12px;">{{book.book_name | filterLimitFunc}}</p>
                 </router-link>
               </div>
@@ -66,14 +66,14 @@
 </template>
 
 <script>
-  import {BookList,BookEdit,UpdateBookIcon,DeleteBookById} from "../../../api"
-  import IBeautifulCard from "../../Common/card/IBeautifulCard"
-  import IKeyValueForm from "../../Common/form/IKeyValueForm";
-  import ISimpleConfirmModal from "../../Common/modal/ISimpleConfirmModal"
-  import IBeautifulLink2 from "../../Common/link/IBeautifulLink2"
-  import IFileUpload from "../../Common/file/IFileUpload"
-  import HotUser from "../../User/HotUser";
-  import IndexCarousel from "../../ILearning/IndexCarousel";
+  import {BookList,BookEdit,UpdateBookIcon,DeleteBookById} from "../../api"
+  import IBeautifulCard from "../Common/card/IBeautifulCard"
+  import IKeyValueForm from "../Common/form/IKeyValueForm";
+  import ISimpleConfirmModal from "../Common/modal/ISimpleConfirmModal"
+  import IBeautifulLink2 from "../Common/link/IBeautifulLink2"
+  import IFileUpload from "../Common/file/IFileUpload"
+  import HotUser from "../User/HotUser";
+  import IndexCarousel from "../ILearning/IndexCarousel";
 
   export default {
     name: "BookList",
@@ -150,7 +150,7 @@
 
 <style scoped>
   /* 引入公共样式库 */
-  @import "../../../../static/css/common.css";
+  @import "../../../static/css/common.css";
 
   a{
     color: black;

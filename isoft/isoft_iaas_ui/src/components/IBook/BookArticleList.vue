@@ -33,10 +33,10 @@
 </template>
 
 <script>
-  import {BookArticleList} from "../../../api";
-  import IBeautifulLink2 from "../../Common/link/IBeautifulLink2";
-  import IShowMarkdown from "../../Common/markdown/IShowMarkdown"
-  import HorizontalLinks from "../../Elementviewers/HorizontalLinks";
+  import {BookArticleList} from "../../api";
+  import IBeautifulLink2 from "../Common/link/IBeautifulLink2";
+  import IShowMarkdown from "../Common/markdown/IShowMarkdown"
+  import HorizontalLinks from "../Elementviewers/HorizontalLinks";
 
   export default {
     name: "BookArticleList",
