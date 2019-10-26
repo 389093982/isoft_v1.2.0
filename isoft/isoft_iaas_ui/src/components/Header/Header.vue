@@ -43,6 +43,9 @@
         <MenuItem name="11">
           <IBeautifulLink2 @onclick="$router.push({path:'/background/cms/placement_list'})">管理控制台</IBeautifulLink2>
         </MenuItem>
+        <MenuItem name="12">
+          <IBeautifulLink2 @onclick="$router.push({path:'/ilearning/advise'})">我要吐槽/建议</IBeautifulLink2>
+        </MenuItem>
       </div>
     </Menu>
   </div>
@@ -81,7 +84,7 @@
 
 <style scoped>
   .layout-nav{
-    width: 1160px;
+    width: 1200px;
     margin: 0 auto;
     margin-right: 5px;
   }
