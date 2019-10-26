@@ -2,6 +2,7 @@
   <div style="background: #FFFFFF;padding: 10px;">
     <WhyChooseUs/>
     <ShowUserExperience/>
+    <Plan/>
     <ChooseCourseType/>
 
     <Row>
@@ -62,10 +63,12 @@
   import IHotRecommand from "../Common/recommend/IHotRecommand"
   import WhyChooseUs from "./WhyChooseUs";
   import ShowUserExperience from "./ShowUserExperience";
+  import Plan from "./Plan";
 
   export default {
     name: "Index",
     components:{
+      Plan,
       ShowUserExperience,
       WhyChooseUs,
       IHotRecommand, HorizontalLinks, ChooseCourseType,HotRecommend,NewsNotice,HotIssue,ToolBox, IBeautifulTabLink,Fun},
