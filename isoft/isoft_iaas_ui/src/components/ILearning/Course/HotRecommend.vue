@@ -18,6 +18,8 @@
             <router-link :to="{path:'/ilearning/course_detail',query:{course_id:course.id}}">
               <img v-if="course.small_image" :src="course.small_image" height="120" width="180"/>
               <img v-else src="../../../assets/default.png" height="120" width="180"/>
+              <!-- 播放图标 -->
+              <div class="ico_play"></div>
               <p>{{course.course_name}}</p>
             </router-link>
           </li>
@@ -86,4 +88,15 @@
   li:hover a{
     color:red;
   }
+  .ico_play{
+    background-image: url(../../../assets/ico_play.png);
+  }
+  .ico_play {
+    position: absolute;
+    top: 45px;
+    left: 65px;
+    width: 60px;
+    height: 60px;
+  }
+
 </style>
