@@ -26,9 +26,16 @@
         <MenuItem name="8">
           <IBeautifulLink2 @onclick="$router.push({path:'/ifound/activity_list'})">聚活动</IBeautifulLink2>
         </MenuItem>
-        <MenuItem name="9">
-          <IBeautifulLink2 @onclick="$router.push({path:'/ifound/activity_list'})">更多内容</IBeautifulLink2>
-        </MenuItem>
+        <Submenu name="9">
+          <template slot="title">
+            <span>更多内容</span>
+          </template>
+          <MenuGroup title="更多内容">
+            <MenuItem name="9-1">全部菜单项</MenuItem>
+            <MenuItem name="9-2">精选内容</MenuItem>
+            <MenuItem name="9-3">更多内容</MenuItem>
+          </MenuGroup>
+        </Submenu>
         <Submenu name="10">
           <template slot="title">
             <span v-if="loginUserName">{{loginUserName}}</span>
