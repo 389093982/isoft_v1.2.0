@@ -48,14 +48,14 @@
   .li {
     list-style: none;
     float: left;
-    padding: 10px 10px;
+    padding: 5px 5px;
     text-align: center;
     border: 1px solid transparent;
     cursor: pointer;
   }
   li:hover{
     background-color: #f4f4f4;
-    border: 1px solid #d0cdd2;
+    border: 1px solid #b2de8c;
   }
   li:hover a{
     color:red;
