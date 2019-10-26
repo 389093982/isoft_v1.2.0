@@ -64,6 +64,7 @@ golang.org/x/crypto/poly1305
 golang.org/x/crypto/ssh
 # golang.org/x/net v0.0.0-20190424112056-4829fb13d2c6
 golang.org/x/net/idna
+golang.org/x/net/websocket
 # golang.org/x/sys v0.0.0-20190426135247-a129542de9ae
 golang.org/x/sys/cpu
 golang.org/x/sys/unix
