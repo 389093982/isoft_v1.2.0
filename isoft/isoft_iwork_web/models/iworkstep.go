@@ -42,6 +42,21 @@ func (u *WorkStep) TableUnique() [][]string {
 	}
 }
 
+func SearchWorkIdsFromWorkStep(search string, o orm.Ormer) []int64 {
+	workIds := make([]int64, 0)
+	if search != "" {
+		lst := make(orm.ParamsList, 0)
+		_, err := o.QueryTable("work_step").Filter("work_step_input__icontains", search).
+			Filter("work_step_output__icontains", search).ValuesFlat(&lst, "work_id")
+		if err == nil {
+			for _, pl := range lst {
+				workIds = append(workIds, pl.(int64))
+			}
+		}
+	}
+	return workIds
+}
+
 func DeleteAllWorkStep(work_id int64, o orm.Ormer) error {
 	_, err := o.QueryTable("work_step").Filter("work_id", work_id).Delete()
 	return err
