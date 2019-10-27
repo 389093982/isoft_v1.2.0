@@ -4,11 +4,12 @@
       <Col span="6" style="background-color: #fff;border: 1px solid #e6e6e6;border-radius: 4px;padding: 20px;min-height: 500px;">
         <div>
           <Button @click="$router.push({path:'/iblog/mine/book_list',query:{type:'mine'}})">管理我的书单</Button>
-
-          <p v-for="bookCatalog in bookCatalogs">
-            <Icon type="ios-paper-outline"/>
-            <IBeautifulLink2 @onclick="showDetail(bookCatalog.id)">{{bookCatalog.catalog_name | filterLimitFunc}}</IBeautifulLink2>
-          </p>
+          <Scroll height="430" style="margin-top: 5px;">
+            <p v-for="bookCatalog in bookCatalogs">
+              <Icon type="ios-paper-outline"/>
+              <IBeautifulLink2 @onclick="showDetail(bookCatalog.id)">{{bookCatalog.catalog_name | filterLimitFunc}}</IBeautifulLink2>
+            </p>
+          </Scroll>
         </div>
       </Col>
       <Col span="18" style="background-color: #fff;border: 1px solid #e6e6e6;border-radius: 4px;padding: 20px;min-height: 500px;">
@@ -17,8 +18,8 @@
           <IBeautifulLink2>下一篇</IBeautifulLink2>
         </div>
 
-        <div v-if="bookArticle" style="min-height: 400px;">
-          <IShowMarkdown v-if="bookArticle.content" :content="bookArticle.content"/>
+        <div style="min-height: 400px;">
+          <IShowMarkdown v-if="bookArticle && bookArticle.content" :content="bookArticle.content"/>
         </div>
 
         <div style="text-align: right;">

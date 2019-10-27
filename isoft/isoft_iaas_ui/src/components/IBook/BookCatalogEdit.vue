@@ -7,15 +7,17 @@
           <Col span="6"><Button style="right: 50px;" size="small" @click="createBookCatalog">新建目录</Button></Col>
         </Row>
 
-        <div v-if="bookCatalogs && bookCatalogs.length > 0">
-          <p v-for="bookCatalog in bookCatalogs" style="margin-left: 15px;">
-            <Icon type="ios-paper-outline"/>
-            <IBeautifulLink2 @onclick="editBookArticle(bookCatalog.id)">{{bookCatalog.catalog_name | filterLimitFunc}}</IBeautifulLink2>
-          </p>
-        </div>
-        <div v-else>
-          暂未创建目录,直接在右边创建奥
-        </div>
+        <Scroll height="430" style="margin-top: 5px;">
+          <div v-if="bookCatalogs && bookCatalogs.length > 0">
+            <p v-for="bookCatalog in bookCatalogs" style="margin-left: 15px;">
+              <Icon type="ios-paper-outline"/>
+              <IBeautifulLink2 @onclick="editBookArticle(bookCatalog.id)">{{bookCatalog.catalog_name | filterLimitFunc}}</IBeautifulLink2>
+            </p>
+          </div>
+          <div v-else>
+            暂未创建目录,直接在右边创建奥
+          </div>
+        </Scroll>
       </Col>
       <Col span="18" style="background-color: #fff;border: 1px solid #e6e6e6;border-radius: 4px;padding: 20px;min-height: 500px;">
         <span>
