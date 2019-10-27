@@ -2,9 +2,9 @@
   <IBeautifulCard title="我的博客分类">
     <div slot="content" style="padding: 10px;">
       <span v-if="hasLogin">
-        <CatalogAdd v-if="showCatalogAdd" @handleSuccess="handleSuccess"/>
+        <BlogCatalogEdit v-if="showBlogCatalogEdit" @handleSuccess="handleSuccess"/>
         <Row>
-          <Col span="16">我的博客分类 <Icon type="md-add" @click="showCatalogAdd = !showCatalogAdd"/></Col>
+          <Col span="16">我的博客分类 <Icon type="md-add" @click="showBlogCatalogEdit = !showBlogCatalogEdit"/></Col>
           <Col span="8">创建时间</Col>
         </Row>
         <Row v-for="(catalog,index) in catalogs">
@@ -21,23 +21,23 @@
 
 <script>
   import {GetMyCatalogs} from "../../api"
-  import CatalogAdd from "./BlogCatalogEdit"
+  import BlogCatalogEdit from "./BlogCatalogEdit"
   import {CheckHasLogin} from "../../tools"
   import IBeautifulCard from "../../components/Common/card/IBeautifulCard"
   import ForwardLogin from "../SSO/ForwardLogin"
 
   export default {
     name: "CatalogList",
-    components:{ForwardLogin, IBeautifulCard, CatalogAdd},
+    components:{ForwardLogin, IBeautifulCard, BlogCatalogEdit},
     data(){
       return {
-        showCatalogAdd:false,
+        showBlogCatalogEdit:false,
         catalogs:[],
       }
     },
     methods:{
       handleSuccess:function(){
-        this.showCatalogAdd = false;
+        this.showBlogCatalogEdit = false;
         this.refreshMyCatalogList();
       },
       refreshMyCatalogList:async function(){

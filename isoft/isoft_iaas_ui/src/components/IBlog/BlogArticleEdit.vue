@@ -1,59 +1,68 @@
 <template>
-  <div style="padding: 30px;">
-    <Form ref="formValidate" :model="formValidate" :rules="ruleValidate" :label-width="80">
-      <Row>
-        <Col span="12">
-          <FormItem label="文章标题" prop="article_title">
-            <Input v-model="formValidate.article_title" placeholder="Enter blog title..."/>
+  <Row>
+    <Col span="6">
+      <CatalogList style="margin-top: 20px;"/>
+    </Col>
+    <Col span="18">
+      <div style="padding: 30px;">
+        <Form ref="formValidate" :model="formValidate" :rules="ruleValidate" :label-width="80">
+          <Row>
+            <Col span="12">
+              <FormItem label="文章标题" prop="article_title">
+                <Input v-model="formValidate.article_title" placeholder="Enter blog title..."/>
+              </FormItem>
+            </Col>
+            <Col span="12">
+              <FormItem label="简短描述" prop="short_desc">
+                <Input v-model="formValidate.short_desc" placeholder="Enter short_desc..."></Input>
+              </FormItem>
+            </Col>
+          </Row>
+          <Row>
+            <Col span="12">
+              <FormItem label="检索词条" prop="key_words">
+                <Input v-model="formValidate.key_words" placeholder="Enter key_words..."></Input>
+              </FormItem>
+            </Col>
+            <Col span="12">
+              <FormItem label="文章分类" prop="catalog_name">
+                <Select v-model="formValidate.catalog_name" filterable>
+                  <!-- 热门分类 -->
+                  <Option v-for="(hotCatalogItem,index) in hotCatalogItems" :value="hotCatalogItem.title"
+                          :key="'__hot__' + index + hotCatalogItem.title">热门分类： {{ hotCatalogItem.title }}</Option>
+                  <!-- 我的分类 -->
+                  <Option v-for="(mycatalog, index) in mycatalogs" :value="mycatalog.catalog_name"
+                          :key="'__mine__' + index + mycatalog.catalog_name">我的分类：{{ mycatalog.catalog_name }}</Option>
+                </Select>
+              </FormItem>
+            </Col>
+          </Row>
+          <FormItem label="文章内容" prop="content">
+            <mavon-editor ref="md" v-model="formValidate.content" @imgAdd="$imgAdd"
+                          :toolbars="toolbars" :ishljs = "true" style="z-index: 1;"/>
           </FormItem>
-        </Col>
-        <Col span="12">
-          <FormItem label="简短描述" prop="short_desc">
-            <Input v-model="formValidate.short_desc" placeholder="Enter short_desc..."></Input>
+          <FormItem label="分享链接" prop="link_href">
+            <Input v-model="formValidate.link_href" placeholder="请输入分享链接"></Input>
           </FormItem>
-        </Col>
-      </Row>
-      <Row>
-        <Col span="12">
-          <FormItem label="检索词条" prop="key_words">
-            <Input v-model="formValidate.key_words" placeholder="Enter key_words..."></Input>
+          <FormItem>
+            <Button type="success" @click="handleSubmit('formValidate')">提交</Button>
+            <Button type="error" v-if="formValidate.article_id > 0"
+                    style="margin-left: 8px" @click="handleDelete('formValidate')">删除该条目</Button>
           </FormItem>
-        </Col>
-        <Col span="12">
-          <FormItem label="文章分类" prop="catalog_name">
-            <Select v-model="formValidate.catalog_name" filterable>
-              <!-- 热门分类 -->
-              <Option v-for="(hotCatalogItem,index) in hotCatalogItems" :value="hotCatalogItem.title"
-                      :key="'__hot__' + index + hotCatalogItem.title">热门分类： {{ hotCatalogItem.title }}</Option>
-              <!-- 我的分类 -->
-              <Option v-for="(mycatalog, index) in mycatalogs" :value="mycatalog.catalog_name"
-                      :key="'__mine__' + index + mycatalog.catalog_name">我的分类：{{ mycatalog.catalog_name }}</Option>
-            </Select>
-          </FormItem>
-        </Col>
-      </Row>
-      <FormItem label="文章内容" prop="content">
-          <mavon-editor ref="md" v-model="formValidate.content" @imgAdd="$imgAdd"
-                      :toolbars="toolbars" :ishljs = "true" style="z-index: 1;"/>
-      </FormItem>
-      <FormItem label="分享链接" prop="link_href">
-        <Input v-model="formValidate.link_href" placeholder="请输入分享链接"></Input>
-      </FormItem>
-      <FormItem>
-        <Button type="success" @click="handleSubmit('formValidate')">提交</Button>
-        <Button type="error" v-if="formValidate.article_id > 0"
-                style="margin-left: 8px" @click="handleDelete('formValidate')">删除该条目</Button>
-      </FormItem>
-    </Form>
-  </div>
+        </Form>
+      </div>
+    </Col>
+  </Row>
 </template>
 
 <script>
   import {GetMyCatalogs,BlogArticleEdit,ArticleDelete,ShowBlogArticleDetail,FilterElementByPlacement} from "../../api"
   import axios from 'axios'
+  import CatalogList from "./CatalogList";
 
   export default {
     name: "BlogArticleEdit",
+    components: {CatalogList},
     props:{
       successEmit:{
         type:Boolean,
