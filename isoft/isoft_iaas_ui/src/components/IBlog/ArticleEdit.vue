@@ -136,12 +136,12 @@
           this.$refs.md.$img2Url(pos, result.data.fileServerPath);
         })
       },
-      createEmptyArticle:async function(book_id){
-        const result = await BlogEdit(-1, book_id, '新建文章', '', '', '', '','');
-        if(result.status == "SUCCESS"){
-            this.$emit("successEmitFunc");
-        }
-      },
+      // createEmptyArticle:async function(book_id){
+      //   const result = await BlogEdit(-1, book_id, '新建文章', '', '', '', '','');
+      //   if(result.status == "SUCCESS"){
+      //       this.$emit("successEmitFunc");
+      //   }
+      // },
       handleDelete: async function(name){
         if(this.formValidate.article_id > 0){
           const result = await ArticleDelete(this.formValidate.article_id);
@@ -178,16 +178,19 @@
       },
       refreshArticleDetail:async function (article_id) {
         var articleId = article_id > 0 ? article_id : this.$route.query.id;
+        this.formValidate.article_id = articleId;
         const result = await ShowArticleDetail(articleId);
         if(result.status=="SUCCESS"){
-          this.blog = result.blog;
-          this.formValidate.article_id = result.blog.id;
-          this.formValidate.article_title = result.blog.article_title;
-          this.formValidate.short_desc = result.blog.short_desc;
-          this.formValidate.key_words = result.blog.key_words;
-          this.formValidate.catalog_name = result.blog.catalog_name;
-          this.formValidate.content = result.blog.content;
-          this.formValidate.link_href = result.blog.link_href;
+          if(result.blog != null){
+            this.blog = result.blog;
+            this.formValidate.article_id = result.blog.id;
+            this.formValidate.article_title = result.blog.article_title;
+            this.formValidate.short_desc = result.blog.short_desc;
+            this.formValidate.key_words = result.blog.key_words;
+            this.formValidate.catalog_name = result.blog.catalog_name;
+            this.formValidate.content = result.blog.content;
+            this.formValidate.link_href = result.blog.link_href;
+          }
         }
       },
       refreshHotCatalogItems: async function () {

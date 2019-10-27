@@ -4,13 +4,13 @@
       <Col span="6" style="background-color: #fff;border: 1px solid #e6e6e6;border-radius: 4px;padding: 20px;min-height: 500px;">
         <Row>
           <Col span="18"><span style="color: green;font-weight: bold;">{{$route.query.book_name}}</span></Col>
-          <Col span="6"><Button style="right: 50px;" size="small" @click="createEmptyArticle">新建目录</Button></Col>
+          <Col span="6"><Button style="right: 50px;" size="small" @click="createBookCatalog">新建目录</Button></Col>
         </Row>
 
-        <div v-if="bookArticles && bookArticles.length > 0">
-          <p v-for="bookArticle in bookArticles" style="margin-left: 15px;">
+        <div v-if="bookCatalogs && bookCatalogs.length > 0">
+          <p v-for="bookCatalog in bookCatalogs" style="margin-left: 15px;">
             <Icon type="ios-paper-outline"/>
-            <IBeautifulLink2 @onclick="editBookArticle(bookArticle)">{{bookArticle.article_title | filterLimitFunc}}</IBeautifulLink2>
+            <IBeautifulLink2 @onclick="editBookArticle(bookCatalog.id)">{{bookCatalog.catalog_name | filterLimitFunc}}</IBeautifulLink2>
           </p>
         </div>
         <div v-else>
@@ -28,7 +28,7 @@
 
 <script>
   import ArticleEdit from "../IBlog/ArticleEdit";
-  import {BookArticleList} from "../../api";
+  import {BookArticleList,BookCatalogEdit,BookCatalogList} from "../../api";
   import IBeautifulCard from "../Common/card/IBeautifulCard"
   import IBeautifulLink2 from "../Common/link/IBeautifulLink2"
   import {checkFastClick} from "../../tools"
@@ -38,19 +38,26 @@
     components: {IBeautifulCard, ArticleEdit,IBeautifulLink2},
     data(){
       return {
+        bookCatalogs:[],
         bookArticles:[],
       }
     },
     methods:{
-      createEmptyArticle:function(){
-        if (checkFastClick()){
-          this.$Message.error("点击过快,请稍后重试!");
-          return;
+      createBookCatalog:async function(){
+        const result = await BookCatalogEdit(parseInt(this.$route.query.book_id), '新建目录');
+        if(result.status == "SUCCESS"){
+          this.$Message.success("新建成功!");
+          this.refreshBookCatalogList();
         }
-        this.$refs.blogArticleEdit.createEmptyArticle(parseInt(this.$route.query.book_id));
       },
-      editBookArticle:function (bookArticle){
-        this.$refs.blogArticleEdit.refreshArticleDetail(bookArticle.id);
+      editBookArticle:function (bookCatalogId){
+        this.$refs.blogArticleEdit.refreshArticleDetail(bookCatalogId);
+      },
+      refreshBookCatalogList:async function(){
+        const result = await BookCatalogList(this.$route.query.book_id);
+        if(result.status == "SUCCESS"){
+          this.bookCatalogs = result.bookCatalogs;
+        }
       },
       refreshBookInfo:async function () {
         const result = await BookArticleList(this.$route.query.book_id);
@@ -65,7 +72,7 @@
       },
     },
     mounted(){
-      this.refreshBookInfo();
+      this.refreshBookCatalogList();
     },
     filters:{
       // 内容超长则显示部分
