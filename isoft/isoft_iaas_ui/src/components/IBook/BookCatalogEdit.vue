@@ -44,7 +44,7 @@
 
 <script>
   import BookArticleEdit from "./BookArticleEdit";
-  import {BookArticleList,BookCatalogEdit,BookCatalogList} from "../../api";
+  import {BookArticleList,BookCatalogEdit,BookCatalogList,ShowBookCatalogDetail} from "../../api";
   import IBeautifulCard from "../Common/card/IBeautifulCard"
   import IBeautifulLink2 from "../Common/link/IBeautifulLink2"
   import ISimpleConfirmModal from "../Common/modal/ISimpleConfirmModal";
@@ -57,6 +57,7 @@
         bookCatalogs:[],
         bookArticles:[],
         formValidate: {
+          id:-1,
           catalogName: '',
         },
         ruleValidate: {
@@ -70,11 +71,12 @@
       handleSubmit (name) {
         this.$refs[name].validate(async (valid) => {
           if (valid) {
-            const result = await BookCatalogEdit(parseInt(this.$route.query.book_id), this.formValidate.catalogName);
+            const result = await BookCatalogEdit(parseInt(this.$route.query.book_id), this.formValidate.id, this.formValidate.catalogName);
             if(result.status == "SUCCESS"){
-              this.$Message.success("新建成功!");
+              this.$Message.success("编辑成功!");
               this.$refs.bookCatalogEditModal.hideModal();
               this.refreshBookCatalogList();
+              this.handleReset('formValidate');
             }
           }
         })
@@ -82,8 +84,18 @@
       handleReset (name) {
         this.$refs[name].resetFields();
       },
-      editBookCatalog: function(bookCatalogId){
-        this.$refs.bookCatalogEditModal.showModal();
+      editBookCatalog: async function(bookCatalogId){
+        if(bookCatalogId > 0){
+          const result = await ShowBookCatalogDetail(bookCatalogId);
+          if(result.status == "SUCCESS"){
+            this.formValidate.id = result.bookCatalog.id;
+            this.formValidate.catalogName = result.bookCatalog.catalog_name;
+            this.$refs.bookCatalogEditModal.showModal();
+          }
+        }else{
+          this.$refs.bookCatalogEditModal.showModal();
+        }
+
       },
       editBookArticle:function (bookCatalogId){
         this.$refs.bookArticleEdit.refreshBookArticleDetail(bookCatalogId);
