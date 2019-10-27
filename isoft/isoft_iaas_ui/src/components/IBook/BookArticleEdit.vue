@@ -44,6 +44,7 @@
           navigation: true // 导航目录
         },
         formValidate: {
+          id:-1,
           book_catalog_id:-1,
           content:"",
         },
@@ -77,9 +78,11 @@
         if(result.status=="SUCCESS"){
           if(result.bookArticle != null){
             this.bookArticle = result.bookArticle;
+            this.formValidate.id = result.bookArticle.id;
             this.formValidate.content = result.bookArticle.content;
           }else{
             this.bookArticle = null;
+            this.formValidate.id = -1;
             this.formValidate.content = "";
           }
         }else{
@@ -90,7 +93,7 @@
         var _this = this;
         this.$refs[name].validate(async (valid) => {
           if (valid) {
-            const result = await BookArticleEdit(_this.formValidate.book_catalog_id, _this.formValidate.content);
+            const result = await BookArticleEdit(_this.formValidate.id, _this.formValidate.book_catalog_id, _this.formValidate.content);
             if(result.status == "SUCCESS"){
               _this.$Message.success('提交成功!');
               if(this.successEmit){

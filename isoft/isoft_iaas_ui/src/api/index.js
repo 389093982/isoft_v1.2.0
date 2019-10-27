@@ -31,7 +31,7 @@ export const BookArticleList = (book_id) => ajax(BASE_URL+'/iwork/httpservice/Bo
 export const BookCatalogEdit = (book_id, catalog_name) => ajax(BASE_URL+'/iwork/httpservice/BookCatalogEdit',{book_id, catalog_name},'POST');
 export const BookCatalogList = (book_id) => ajax(BASE_URL+'/iwork/httpservice/BookCatalogList',{book_id},'POST');
 export const ShowBookArticleDetail = (book_catalog_id) => ajax(BASE_URL+'/iwork/httpservice/ShowBookArticleDetail',{book_catalog_id},'POST');
-export const BookArticleEdit = (book_catalog_id,content) => ajax(BASE_URL+'/iwork/httpservice/BookArticleEdit',{book_catalog_id,content},'POST');
+export const BookArticleEdit = (id,book_catalog_id,content) => ajax(BASE_URL+'/iwork/httpservice/BookArticleEdit',{id,book_catalog_id,content},'POST');
 
 export const GoodEdit = (good_id, good_name, good_desc, good_price, good_seller, seller_contact, good_images) =>
   ajax(BASE_URL+'/iwork/httpservice/GoodEdit',{good_id, good_name, good_desc, good_price, good_seller, seller_contact, good_images},'POST');
