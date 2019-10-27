@@ -4,7 +4,7 @@
       <Col span="6" style="background-color: #fff;border: 1px solid #e6e6e6;border-radius: 4px;padding: 20px;min-height: 500px;">
         <Row>
           <Col span="18"><span style="color: green;font-weight: bold;">{{$route.query.book_name}}</span></Col>
-          <Col span="6"><Button style="right: 50px;" size="small" @click="createEmptyArticle">新建文章</Button></Col>
+          <Col span="6"><Button style="right: 50px;" size="small" @click="createEmptyArticle">新建目录</Button></Col>
         </Row>
 
         <div v-if="bookArticles && bookArticles.length > 0">
