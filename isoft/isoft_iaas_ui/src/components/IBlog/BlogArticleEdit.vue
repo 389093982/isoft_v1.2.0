@@ -53,7 +53,7 @@
   import axios from 'axios'
 
   export default {
-    name: "ArticleEdit",
+    name: "BlogArticleEdit",
     props:{
       successEmit:{
         type:Boolean,

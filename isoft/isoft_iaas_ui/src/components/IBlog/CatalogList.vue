@@ -21,7 +21,7 @@
 
 <script>
   import {GetMyCatalogs} from "../../api"
-  import CatalogAdd from "./CatalogAdd"
+  import CatalogAdd from "./BlogCatalogEdit"
   import {CheckHasLogin} from "../../tools"
   import IBeautifulCard from "../../components/Common/card/IBeautifulCard"
   import ForwardLogin from "../SSO/ForwardLogin"

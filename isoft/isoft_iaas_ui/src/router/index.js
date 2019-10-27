@@ -15,8 +15,8 @@ const Placement = () => import("@/components/Background/CMS/Placement");
 const EditPlacement = () => import("@/components/Background/CMS/EditPlacement");
 const IBlog = () => import("@/components/IBlog/IBlog");
 const BlogList = () => import("@/components/IBlog/BlogList");
-const BlogDetail = () => import("@/components/IBlog/BlogDetail");
-const ArticleEdit = () => import("@/components/IBlog/ArticleEdit");
+const BlogArticleDetail = () => import("@/components/IBlog/BlogArticleDetail");
+const BlogArticleEdit = () => import("@/components/IBlog/BlogArticleEdit");
 const BookCatalogEdit = () => import("@/components/IBook/BookCatalogEdit");
 const BookList = () => import("@/components/IBook/BookList");
 const BookArticleDetail = () => import("@/components/IBook/BookArticleDetail");
@@ -64,8 +64,8 @@ const IBlogRouter = {
     {path: 'blog_list',component: BlogList},
     {path: 'book_list',component: BookList},
     {path: 'book_detail',component: BookArticleDetail},
-    {path: 'blog_detail',component: BlogDetail},
-    {path: 'mine/blog_edit',component: ArticleEdit},
+    {path: 'blog_detail',component: BlogArticleDetail},
+    {path: 'mine/blog_edit',component: BlogArticleEdit},
     {path: 'mine/book_edit',component: BookCatalogEdit},
     {path: 'mine/book_list',component: BookList},
   ]

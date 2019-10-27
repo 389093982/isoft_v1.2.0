@@ -19,7 +19,7 @@
   import {CatalogEdit} from "../../api"
 
   export default {
-    name: "CatalogAdd",
+    name: "BlogCatalogEdit",
     data () {
       return {
         formValidate: {

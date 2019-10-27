@@ -31,7 +31,7 @@
   import {CheckHasLogin,GetLoginUserName} from "../../tools"
 
   export default {
-    name: "BlogDetail",
+    name: "BlogArticleDetail",
     components:{IShowMarkdown,IEasyComment},
     data(){
       return {
