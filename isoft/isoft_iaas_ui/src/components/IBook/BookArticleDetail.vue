@@ -5,9 +5,9 @@
         <div>
           <Button @click="$router.push({path:'/iblog/mine/book_list',query:{type:'mine'}})">管理我的书单</Button>
 
-          <p v-for="bookArticle in bookArticles">
+          <p v-for="bookCatalog in bookCatalogs">
             <Icon type="ios-paper-outline"/>
-            <IBeautifulLink2 @onclick="showDetail(bookArticle)">{{bookArticle.article_title | filterLimitFunc}}</IBeautifulLink2>
+            <IBeautifulLink2 @onclick="showDetail(bookCatalog.id)">{{bookCatalog.catalog_name | filterLimitFunc}}</IBeautifulLink2>
           </p>
         </div>
       </Col>
@@ -33,23 +33,31 @@
 </template>
 
 <script>
-  import {BookArticleList} from "../../api";
+  import {BookArticleList,BookCatalogList,ShowBookArticleDetail} from "../../api";
   import IBeautifulLink2 from "../Common/link/IBeautifulLink2";
   import IShowMarkdown from "../Common/markdown/IShowMarkdown"
   import HorizontalLinks from "../Elementviewers/HorizontalLinks";
 
   export default {
-    name: "BookArticleList",
+    name: "BookArticleDetail",
     components: {HorizontalLinks, IBeautifulLink2,IShowMarkdown},
     data(){
       return {
         bookArticles:[],
         bookArticle:null,
+        bookCatalogs:[],
       }
     },
     methods:{
-      showDetail:function(bookArticle){
-        this.bookArticle = bookArticle;
+      showDetail:async function (book_catalog_id) {
+        const result = await ShowBookArticleDetail(book_catalog_id);
+        if(result.status=="SUCCESS"){
+          if(result.bookArticle != null){
+            this.bookArticle = result.bookArticle;
+          }
+        }else{
+          this.$Message.error("加载失败!");
+        }
       },
       refreshBookInfo:async function (book_id) {
         const result = await BookArticleList(book_id);
@@ -59,11 +67,17 @@
             this.showDetail(this.bookArticles[0]);
           }
         }
-      }
+      },
+      refreshBookCatalogList:async function(book_id){
+        const result = await BookCatalogList(book_id);
+        if(result.status == "SUCCESS"){
+          this.bookCatalogs = result.bookCatalogs;
+        }
+      },
     },
     mounted(){
       if(this.$route.query.book_id != undefined && this.$route.query.book_id != null){
-        this.refreshBookInfo(this.$route.query.book_id);
+        this.refreshBookCatalogList(this.$route.query.book_id);
       }
     },
     filters:{

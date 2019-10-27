@@ -19,7 +19,7 @@ const BlogDetail = () => import("@/components/IBlog/BlogDetail");
 const ArticleEdit = () => import("@/components/IBlog/ArticleEdit");
 const BookCatalogEdit = () => import("@/components/IBook/BookCatalogEdit");
 const BookList = () => import("@/components/IBook/BookList");
-const BookArticleList = () => import("@/components/IBook/BookArticleList");
+const BookArticleDetail = () => import("@/components/IBook/BookArticleDetail");
 const UserDetail = () => import("@/components/User/UserDetail");
 const UserGuide = () => import("@/components/User/UserGuide");
 const ILearningIndex = () => import("@/components/ILearning/Index");
@@ -63,7 +63,7 @@ const IBlogRouter = {
     {path: 'blog_index',component: IBlog},
     {path: 'blog_list',component: BlogList},
     {path: 'book_list',component: BookList},
-    {path: 'book_detail',component: BookArticleList},
+    {path: 'book_detail',component: BookArticleDetail},
     {path: 'blog_detail',component: BlogDetail},
     {path: 'mine/blog_edit',component: ArticleEdit},
     {path: 'mine/book_edit',component: BookCatalogEdit},
