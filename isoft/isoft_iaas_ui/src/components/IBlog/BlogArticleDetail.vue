@@ -25,7 +25,7 @@
 </template>
 
 <script>
-  import {ShowArticleDetail} from "../../api"
+  import {ShowBlogArticleDetail} from "../../api"
   import IShowMarkdown from "../Common/markdown/IShowMarkdown"
   import IEasyComment from "../Comment/IEasyComment"
   import {CheckHasLogin,GetLoginUserName} from "../../tools"
@@ -40,7 +40,7 @@
     },
     methods:{
       refreshArticleDetail:async function () {
-        const result = await ShowArticleDetail(this.$route.query.blog_id);
+        const result = await ShowBlogArticleDetail(this.$route.query.blog_id);
         if(result.status=="SUCCESS"){
           this.blog = result.blog;
         }

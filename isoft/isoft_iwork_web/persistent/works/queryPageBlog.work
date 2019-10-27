@@ -5,6 +5,7 @@
 		<WorkDesc>分页查询 blog 数据</WorkDesc>
 		<WorkType>work</WorkType>
 		<ModuleName>Blog</ModuleName>
+		<CacheResult>false</CacheResult>
 		<CreatedBy>SYSTEM</CreatedBy>
 		<LastUpdatedBy>SYSTEM</LastUpdatedBy>
 	</work>
@@ -96,7 +97,7 @@
 		<WorkStepDesc></WorkStepDesc>
 		<WorkStepType>template</WorkStepType>
 		<WorkStepIndent>0</WorkStepIndent>
-		<WorkStepInput>{&#xA;&#x9;&#34;ParamInputSchemaItems&#34;: [&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;&#34;ParamName&#34;: &#34;str_template_text&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamDesc&#34;: &#34;模板文字&#34;,&#xA;&#x9;&#x9;&#x9;&#34;Repeatable&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ForeachRefer&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamChoices&#34;: null,&#xA;&#x9;&#x9;&#x9;&#34;PureText&#34;: true,&#xA;&#x9;&#x9;&#x9;&#34;ParamValue&#34;: &#34;SELECT * FROM article where\n    {{if eq .search \&#34;_all\&#34;}}\n        1=1\n    {{else if eq .search \&#34;_hot\&#34;}}\n        1=1\n    {{else if eq .search \&#34;_personal\&#34;}}\n        created_by = :search\n    {{else}}\n        catalog_name = :search\n    {{end}}\nand book_id = -1 order by last_updated_time desc&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamValueNamings&#34;: null&#xA;&#x9;&#x9;},&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;&#34;ParamName&#34;: &#34;complex_template_dataMap&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamDesc&#34;: &#34;模板变量绑定数据&#34;,&#xA;&#x9;&#x9;&#x9;&#34;Repeatable&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ForeachRefer&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamChoices&#34;: null,&#xA;&#x9;&#x9;&#x9;&#34;PureText&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ParamValue&#34;: &#34;generateMap(`search`, $start.search_type);\n\n&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamValueNamings&#34;: null&#xA;&#x9;&#x9;}&#xA;&#x9;]&#xA;}</WorkStepInput>
+		<WorkStepInput>{&#xA;&#x9;&#34;ParamInputSchemaItems&#34;: [&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;&#34;ParamName&#34;: &#34;str_template_text&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamDesc&#34;: &#34;模板文字&#34;,&#xA;&#x9;&#x9;&#x9;&#34;Repeatable&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ForeachRefer&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamChoices&#34;: null,&#xA;&#x9;&#x9;&#x9;&#34;PureText&#34;: true,&#xA;&#x9;&#x9;&#x9;&#34;ParamValue&#34;: &#34;SELECT * FROM blog_article where\n    {{if eq .search \&#34;_all\&#34;}}\n        1=1\n    {{else if eq .search \&#34;_hot\&#34;}}\n        1=1\n    {{else if eq .search \&#34;_personal\&#34;}}\n        created_by = :search\n    {{else}}\n        catalog_name = :search\n    {{end}}\nand book_id = -1 order by last_updated_time desc&#34;&#xA;&#x9;&#x9;},&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;&#34;ParamName&#34;: &#34;complex_template_dataMap&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamDesc&#34;: &#34;模板变量绑定数据&#34;,&#xA;&#x9;&#x9;&#x9;&#34;Repeatable&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ForeachRefer&#34;: &#34;&#34;,&#xA;&#x9;&#x9;&#x9;&#34;ParamChoices&#34;: null,&#xA;&#x9;&#x9;&#x9;&#34;PureText&#34;: false,&#xA;&#x9;&#x9;&#x9;&#34;ParamValue&#34;: &#34;generateMap(`search`, $start.search_type);\n\n&#34;&#xA;&#x9;&#x9;}&#xA;&#x9;]&#xA;}</WorkStepInput>
 		<work_step_input_xml><![CDATA[<paramInputSchema>
 	<paramInputSchemaItem>
 		<paramName>str_template_text</paramName>
@@ -104,7 +105,7 @@
 		<repeatable>false</repeatable>
 		<foreachRefer></foreachRefer>
 		<pureText>true</pureText>
-		<paramValue>SELECT * FROM article where&#xA;    {{if eq .search &#34;_all&#34;}}&#xA;        1=1&#xA;    {{else if eq .search &#34;_hot&#34;}}&#xA;        1=1&#xA;    {{else if eq .search &#34;_personal&#34;}}&#xA;        created_by = :search&#xA;    {{else}}&#xA;        catalog_name = :search&#xA;    {{end}}&#xA;and book_id = -1 order by last_updated_time desc</paramValue>
+		<paramValue>SELECT * FROM blog_article where&#xA;    {{if eq .search &#34;_all&#34;}}&#xA;        1=1&#xA;    {{else if eq .search &#34;_hot&#34;}}&#xA;        1=1&#xA;    {{else if eq .search &#34;_personal&#34;}}&#xA;        created_by = :search&#xA;    {{else}}&#xA;        catalog_name = :search&#xA;    {{end}}&#xA;and book_id = -1 order by last_updated_time desc</paramValue>
 	</paramInputSchemaItem>
 	<paramInputSchemaItem>
 		<paramName>complex_template_dataMap</paramName>

@@ -47,7 +47,7 @@ export const UpdateUserIcon = (userName, small_icon) => ajax(BASE_URL+'/iwork/ht
 export const UpdateBlogStatus = (blog_status, blog_id) => ajax(BASE_URL+'/iwork/httpservice/UpdateBlogStatus',{blog_status, blog_id},'GET');
 
 // 根据 blog_id 查询 blog 详细信息
-export const ShowArticleDetail = (id) => ajax(BASE_URL+'/iwork/httpservice/ShowArticleDetail',{id},'GET');
+export const ShowBlogArticleDetail = (id) => ajax(BASE_URL+'/iwork/httpservice/ShowBlogArticleDetail',{id},'GET');
 
 // 新建课程
 export const NewCourse = (course_name,course_type,course_sub_type,course_short_desc) =>

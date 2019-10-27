@@ -49,7 +49,7 @@
 </template>
 
 <script>
-  import {GetMyCatalogs,BlogArticleEdit,ArticleDelete,ShowArticleDetail,FilterElementByPlacement} from "../../api"
+  import {GetMyCatalogs,BlogArticleEdit,ArticleDelete,ShowBlogArticleDetail,FilterElementByPlacement} from "../../api"
   import axios from 'axios'
 
   export default {
@@ -179,7 +179,7 @@
       refreshArticleDetail:async function (article_id) {
         var articleId = article_id > 0 ? article_id : this.$route.query.id;
         this.formValidate.article_id = articleId;
-        const result = await ShowArticleDetail(articleId);
+        const result = await ShowBlogArticleDetail(articleId);
         if(result.status=="SUCCESS"){
           if(result.blog != null){
             this.blog = result.blog;
