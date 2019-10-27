@@ -55,7 +55,6 @@
     data(){
       return {
         bookCatalogs:[],
-        bookArticles:[],
         formValidate: {
           id:-1,
           catalogName: '',
@@ -104,12 +103,6 @@
         const result = await BookCatalogList(this.$route.query.book_id);
         if(result.status == "SUCCESS"){
           this.bookCatalogs = result.bookCatalogs;
-        }
-      },
-      refreshBookInfo:async function () {
-        const result = await BookArticleList(this.$route.query.book_id);
-        if(result.status == "SUCCESS"){
-          this.bookArticles = result.books;
         }
       },
     },
