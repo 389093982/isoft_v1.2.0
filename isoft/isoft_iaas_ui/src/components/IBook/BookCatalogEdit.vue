@@ -4,7 +4,7 @@
       <Col span="6" style="background-color: #fff;border: 1px solid #e6e6e6;border-radius: 4px;padding: 20px;min-height: 500px;">
         <Row>
           <Col span="18"><span style="color: green;font-weight: bold;">{{$route.query.book_name}}</span></Col>
-          <Col span="6"><Button style="right: 50px;" size="small" @click="createBookCatalog">新建目录</Button></Col>
+          <Col span="6"><Button style="right: 50px;" size="small" @click="editBookCatalog">新建目录</Button></Col>
         </Row>
 
         <ISimpleConfirmModal ref="bookCatalogEditModal" modal-title="新增/编辑 目录" :modal-width="600" :footer-hide="true">
@@ -25,6 +25,7 @@
             <p v-for="bookCatalog in bookCatalogs" style="margin-left: 15px;">
               <Icon type="ios-paper-outline"/>
               <IBeautifulLink2 @onclick="editBookArticle(bookCatalog.id)">{{bookCatalog.catalog_name | filterLimitFunc}}</IBeautifulLink2>
+              <a class="catalogEditIcon" style="margin-left: 5px;" @click="editBookCatalog(bookCatalog.id)"><Icon type="md-create"/></a>
             </p>
           </div>
           <div v-else>
@@ -81,7 +82,7 @@
       handleReset (name) {
         this.$refs[name].resetFields();
       },
-      createBookCatalog: function(){
+      editBookCatalog: function(bookCatalogId){
         this.$refs.bookCatalogEditModal.showModal();
       },
       editBookArticle:function (bookCatalogId){
@@ -121,5 +122,10 @@
 </script>
 
 <style scoped>
-
+  p .catalogEditIcon{
+    display: none;
+  }
+  p:hover .catalogEditIcon{
+    display: inline;
+  }
 </style>
