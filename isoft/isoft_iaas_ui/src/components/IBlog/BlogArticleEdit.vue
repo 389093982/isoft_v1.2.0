@@ -49,7 +49,7 @@
 </template>
 
 <script>
-  import {GetMyCatalogs,BlogEdit,ArticleDelete,ShowArticleDetail,FilterElementByPlacement} from "../../api"
+  import {GetMyCatalogs,BlogArticleEdit,ArticleDelete,ShowArticleDetail,FilterElementByPlacement} from "../../api"
   import axios from 'axios'
 
   export default {
@@ -157,7 +157,7 @@
         var _this = this;
         this.$refs[name].validate(async (valid) => {
           if (valid) {
-            const result = await BlogEdit(_this.formValidate.article_id, this.bookId,
+            const result = await BlogArticleEdit(_this.formValidate.article_id, this.bookId,
               _this.formValidate.article_title,_this.formValidate.short_desc,
               _this.formValidate.key_words, _this.formValidate.catalog_name,
               _this.formValidate.content,_this.formValidate.link_href);

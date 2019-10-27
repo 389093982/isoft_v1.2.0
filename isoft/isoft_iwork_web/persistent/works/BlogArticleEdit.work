@@ -1,10 +1,11 @@
 <workdl work_id="256">
 	<work>
 		<Id>256</Id>
-		<WorkName>BlogEdit2</WorkName>
-		<WorkDesc>BlogEdit2</WorkDesc>
+		<WorkName>BlogArticleEdit</WorkName>
+		<WorkDesc>BlogArticleEdit</WorkDesc>
 		<WorkType>work</WorkType>
 		<ModuleName>Blog</ModuleName>
+		<CacheResult>false</CacheResult>
 		<CreatedBy>SYSTEM</CreatedBy>
 		<LastUpdatedBy>SYSTEM</LastUpdatedBy>
 	</work>
@@ -145,6 +146,9 @@
 		<work_step_param_mapping_xml><![CDATA[<ParamMapping>
 	<ParamMappingName></ParamMappingName>
 	<ParamMappingDefault></ParamMappingDefault>
+	<ParamMappingCleanXss>false</ParamMappingCleanXss>
+	<ParamMappingSafePageNo>false</ParamMappingSafePageNo>
+	<ParamMappingSafePageSize>false</ParamMappingSafePageSize>
 </ParamMapping>]]></work_step_param_mapping_xml>
 		<CreatedBy>SYSTEM</CreatedBy>
 		<LastUpdatedBy>SYSTEM</LastUpdatedBy>
@@ -182,6 +186,9 @@
 		<work_step_param_mapping_xml><![CDATA[<ParamMapping>
 	<ParamMappingName></ParamMappingName>
 	<ParamMappingDefault></ParamMappingDefault>
+	<ParamMappingCleanXss>false</ParamMappingCleanXss>
+	<ParamMappingSafePageNo>false</ParamMappingSafePageNo>
+	<ParamMappingSafePageSize>false</ParamMappingSafePageSize>
 </ParamMapping>]]></work_step_param_mapping_xml>
 		<CreatedBy>SYSTEM</CreatedBy>
 		<LastUpdatedBy>SYSTEM</LastUpdatedBy>
@@ -219,6 +226,9 @@
 		<work_step_param_mapping_xml><![CDATA[<ParamMapping>
 	<ParamMappingName></ParamMappingName>
 	<ParamMappingDefault></ParamMappingDefault>
+	<ParamMappingCleanXss>false</ParamMappingCleanXss>
+	<ParamMappingSafePageNo>false</ParamMappingSafePageNo>
+	<ParamMappingSafePageSize>false</ParamMappingSafePageSize>
 </ParamMapping>]]></work_step_param_mapping_xml>
 		<CreatedBy>SYSTEM</CreatedBy>
 		<LastUpdatedBy>SYSTEM</LastUpdatedBy>
@@ -285,6 +295,9 @@
 		<work_step_param_mapping_xml><![CDATA[<ParamMapping>
 	<ParamMappingName></ParamMappingName>
 	<ParamMappingDefault></ParamMappingDefault>
+	<ParamMappingCleanXss>false</ParamMappingCleanXss>
+	<ParamMappingSafePageNo>false</ParamMappingSafePageNo>
+	<ParamMappingSafePageSize>false</ParamMappingSafePageSize>
 </ParamMapping>]]></work_step_param_mapping_xml>
 		<CreatedBy>SYSTEM</CreatedBy>
 		<LastUpdatedBy>SYSTEM</LastUpdatedBy>
@@ -307,6 +320,9 @@
 		<work_step_param_mapping_xml><![CDATA[<ParamMapping>
 	<ParamMappingName></ParamMappingName>
 	<ParamMappingDefault></ParamMappingDefault>
+	<ParamMappingCleanXss>false</ParamMappingCleanXss>
+	<ParamMappingSafePageNo>false</ParamMappingSafePageNo>
+	<ParamMappingSafePageSize>false</ParamMappingSafePageSize>
 </ParamMapping>]]></work_step_param_mapping_xml>
 		<CreatedBy>SYSTEM</CreatedBy>
 		<LastUpdatedBy>SYSTEM</LastUpdatedBy>
@@ -373,6 +389,9 @@
 		<work_step_param_mapping_xml><![CDATA[<ParamMapping>
 	<ParamMappingName></ParamMappingName>
 	<ParamMappingDefault></ParamMappingDefault>
+	<ParamMappingCleanXss>false</ParamMappingCleanXss>
+	<ParamMappingSafePageNo>false</ParamMappingSafePageNo>
+	<ParamMappingSafePageSize>false</ParamMappingSafePageSize>
 </ParamMapping>]]></work_step_param_mapping_xml>
 		<CreatedBy>SYSTEM</CreatedBy>
 		<LastUpdatedBy>SYSTEM</LastUpdatedBy>
@@ -412,6 +431,9 @@
 		<work_step_param_mapping_xml><![CDATA[<ParamMapping>
 	<ParamMappingName></ParamMappingName>
 	<ParamMappingDefault></ParamMappingDefault>
+	<ParamMappingCleanXss>false</ParamMappingCleanXss>
+	<ParamMappingSafePageNo>false</ParamMappingSafePageNo>
+	<ParamMappingSafePageSize>false</ParamMappingSafePageSize>
 </ParamMapping>]]></work_step_param_mapping_xml>
 		<CreatedBy>SYSTEM</CreatedBy>
 		<LastUpdatedBy>SYSTEM</LastUpdatedBy>
@@ -462,9 +484,11 @@
 		<work_step_param_mapping_xml><![CDATA[<ParamMapping>
 	<ParamMappingName></ParamMappingName>
 	<ParamMappingDefault></ParamMappingDefault>
+	<ParamMappingCleanXss>false</ParamMappingCleanXss>
+	<ParamMappingSafePageNo>false</ParamMappingSafePageNo>
+	<ParamMappingSafePageSize>false</ParamMappingSafePageSize>
 </ParamMapping>]]></work_step_param_mapping_xml>
 		<CreatedBy>SYSTEM</CreatedBy>
 		<LastUpdatedBy>SYSTEM</LastUpdatedBy>
 	</steps>
-	<filterNames>SsoFilter</filterNames>
 </workdl>

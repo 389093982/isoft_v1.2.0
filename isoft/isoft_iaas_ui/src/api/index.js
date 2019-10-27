@@ -7,7 +7,7 @@ import ajax from './ajax'
 const BASE_URL = '/api'
 
 // 编辑或者新增博客分类
-export const CatalogEdit = (catalog_name, catalog_desc) => ajax(BASE_URL+'/iwork/httpservice/CatalogEdit2',{catalog_name, catalog_desc},'POST');
+export const BlogCatalogEdit = (catalog_name, catalog_desc) => ajax(BASE_URL+'/iwork/httpservice/BlogCatalogEdit',{catalog_name, catalog_desc},'POST');
 
 // 获取我的所有博客分类
 export const GetMyCatalogs = () => ajax(BASE_URL+'/iwork/httpservice/GetMyCatalogs2',{},'GET');
@@ -16,8 +16,8 @@ export const GetMyCatalogs = () => ajax(BASE_URL+'/iwork/httpservice/GetMyCatalo
 export const GetMyBlogs = () => ajax(BASE_URL+'/iwork/httpservice/GetMyBlogs2',{},'GET');
 
 // 编辑或者新增博客文章
-export const BlogEdit = (article_id, bookId, article_title, short_desc, key_words, catalog_name, content, link_href) =>
-  ajax(BASE_URL+'/iwork/httpservice/BlogEdit2',{article_id, bookId, article_title, short_desc, key_words, catalog_name, content, link_href},'POST');
+export const BlogArticleEdit = (article_id, bookId, article_title, short_desc, key_words, catalog_name, content, link_href) =>
+  ajax(BASE_URL+'/iwork/httpservice/BlogArticleEdit',{article_id, bookId, article_title, short_desc, key_words, catalog_name, content, link_href},'POST');
 export const ArticleDelete = (article_id) => ajax(BASE_URL+'/iwork/httpservice/ArticleDelete',{article_id},'POST');
 
 // 热门博客分页列表
