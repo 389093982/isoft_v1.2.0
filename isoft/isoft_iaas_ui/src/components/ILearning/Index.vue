@@ -2,7 +2,12 @@
   <div style="background: #FFFFFF;padding: 10px;">
     <WhyChooseUs/>
     <ShowUserExperience/>
+
     <Plan/>
+
+    <p style="font-size: 24px;margin: 20px 0 20px 0;">使用 Beego 的产品</p>
+    <p><a>通过 GitHub 提交案例</a> ，如果使用GitHub有任何问题，你可以直接发送产品信息到邮箱 <a>xiemengjun@gmail.com</a></p>
+
     <ChooseCourseType/>
 
     <Row>
