@@ -19,7 +19,7 @@
       </Col>
       <Col span="18" style="background-color: #fff;border: 1px solid #e6e6e6;border-radius: 4px;padding: 20px;min-height: 500px;">
         <span>
-          <ArticleEdit ref="blogArticleEdit" :book-id="_book_id" :success-emit="true" @successEmitFunc="refreshBookInfo"/>
+          <BookArticleEdit ref="bookArticleEdit" :success-emit="true" @successEmitFunc="refreshBookCatalogList"/>
         </span>
       </Col>
     </Row>
@@ -27,15 +27,14 @@
 </template>
 
 <script>
-  import ArticleEdit from "../IBlog/ArticleEdit";
+  import BookArticleEdit from "./BookArticleEdit";
   import {BookArticleList,BookCatalogEdit,BookCatalogList} from "../../api";
   import IBeautifulCard from "../Common/card/IBeautifulCard"
   import IBeautifulLink2 from "../Common/link/IBeautifulLink2"
-  import {checkFastClick} from "../../tools"
 
   export default {
     name: "BookCatalogEdit",
-    components: {IBeautifulCard, ArticleEdit,IBeautifulLink2},
+    components: {IBeautifulCard,IBeautifulLink2,BookArticleEdit},
     data(){
       return {
         bookCatalogs:[],
@@ -51,7 +50,7 @@
         }
       },
       editBookArticle:function (bookCatalogId){
-        this.$refs.blogArticleEdit.refreshArticleDetail(bookCatalogId);
+        this.$refs.bookArticleEdit.refreshBookArticleDetail(bookCatalogId);
       },
       refreshBookCatalogList:async function(){
         const result = await BookCatalogList(this.$route.query.book_id);
