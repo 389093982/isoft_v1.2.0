@@ -15,6 +15,9 @@
           <Col span="16">
             <CourseMeta :course="course"/>
             <p>
+              标签： <Tag>生动形象</Tag> <Tag>生动形象</Tag> <Tag>java</Tag> <Tag>java</Tag> <Tag>java</Tag>
+            </p>
+            <p>
               <a href="javascript:;" v-if="course_collect==true" @click="toggle_favorite(course.id,'course_collect', '取消收藏')">取消收藏</a>
               <a href="javascript:;" v-else @click="toggle_favorite(course.id,'course_collect', '收藏')">加入收藏</a>&nbsp;
               <a href="javascript:;" v-if="course_parise==true" @click="toggle_favorite(course.id,'course_praise', '取消点赞')">取消点赞</a>

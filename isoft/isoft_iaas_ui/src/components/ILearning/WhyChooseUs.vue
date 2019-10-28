@@ -6,15 +6,15 @@
       <p>安全 稳定 智能 直播内容防泄密  保护企业数据主权  内容合规性保障 自研流媒体底层技术  世界级大会检验  多云部署 动态负载</p>
       <Row>
         <Col span="8">
-          <img class="fadeIn" src="../../assets/section4-3-1.png" style="width: 374px;height: 251px;border: 2px solid rgba(0,33,255,0.2);"/>
+          <img src="../../assets/section4-3-1.png" style="width: 374px;height: 251px;border: 2px solid rgba(0,33,255,0.2);"/>
           <p>太智能啦</p>
         </Col>
         <Col span="8">
-          <img class="fadeIn" src="../../assets/section4-3-3.png" style="width: 374px;height: 251px;border: 2px solid rgba(0,33,255,0.2);"/>
+          <img src="../../assets/section4-3-3.png" style="width: 374px;height: 251px;border: 2px solid rgba(0,33,255,0.2);"/>
           <p>太智能啦</p>
         </Col>
         <Col span="8">
-          <img class="fadeIn" src="../../assets/section4-3-1.png" style="width: 374px;height: 251px;border: 2px solid rgba(0,33,255,0.2);"/>
+          <img src="../../assets/section4-3-1.png" style="width: 374px;height: 251px;border: 2px solid rgba(0,33,255,0.2);"/>
           <p>太智能啦</p>
         </Col>
       </Row>
@@ -30,5 +30,4 @@
 </script>
 
 <style scoped>
-  @import "../../assets/css/isoft_common.css";
 </style>
