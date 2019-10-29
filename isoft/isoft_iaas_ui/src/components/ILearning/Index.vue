@@ -1,6 +1,11 @@
 <template>
   <div style="background: #FFFFFF;padding: 10px;">
-    <WhyChooseUs/>
+    <HeavyRecommend/>
+
+    <div class="section01_bg">
+      <WhyChooseUs style="margin-left: 350px;"/>
+    </div>
+
     <ShowUserExperience/>
 
     <Plan/>
@@ -69,10 +74,12 @@
   import WhyChooseUs from "./WhyChooseUs";
   import ShowUserExperience from "./ShowUserExperience";
   import Plan from "./Plan";
+  import HeavyRecommend from "./HeavyRecommend";
 
   export default {
     name: "Index",
     components:{
+      HeavyRecommend,
       Plan,
       ShowUserExperience,
       WhyChooseUs,
@@ -84,5 +91,10 @@
   /* 引入公共样式库 */
   @import "../../../static/css/common.css";
   @import "../../assets/css/isoft_common.css";
+
+  .section01_bg{
+    height: 450px;
+    background: url(../../assets/3.jpg) 0px -300px no-repeat;
+  }
 
 </style>
