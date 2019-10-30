@@ -36,27 +36,6 @@
             <Col span="8"><IBeautifulLink2 style="font-size: 12px;">创意征集</IBeautifulLink2> &nbsp;|&nbsp;</Col>
             <Col span="8"><IBeautifulLink2 style="font-size: 12px;">创意征集</IBeautifulLink2> &nbsp;|&nbsp;</Col>
             <Col span="8"><IBeautifulLink2 style="font-size: 12px;">创意征集</IBeautifulLink2> &nbsp;|&nbsp;</Col>
-            <Col span="8"><IBeautifulLink2 style="font-size: 12px;">创意征集</IBeautifulLink2> &nbsp;|&nbsp;</Col>
-            <Col span="8"><IBeautifulLink2 style="font-size: 12px;">创意征集</IBeautifulLink2> &nbsp;|&nbsp;</Col>
-            <Col span="8"><IBeautifulLink2 style="font-size: 12px;">创意征集</IBeautifulLink2> &nbsp;|&nbsp;</Col>
-            <Col span="8"><IBeautifulLink2 style="font-size: 12px;">创意征集</IBeautifulLink2> &nbsp;|&nbsp;</Col>
-            <Col span="8"><IBeautifulLink2 style="font-size: 12px;">创意征集</IBeautifulLink2> &nbsp;|&nbsp;</Col>
-            <Col span="8"><IBeautifulLink2 style="font-size: 12px;">创意征集</IBeautifulLink2> &nbsp;|&nbsp;</Col>
-            <Col span="8"><IBeautifulLink2 style="font-size: 12px;">创意征集</IBeautifulLink2> &nbsp;|&nbsp;</Col>
-            <Col span="8"><IBeautifulLink2 style="font-size: 12px;">创意征集</IBeautifulLink2> &nbsp;|&nbsp;</Col>
-            <Col span="8"><IBeautifulLink2 style="font-size: 12px;">创意征集</IBeautifulLink2> &nbsp;|&nbsp;</Col>
-            <Col span="8"><IBeautifulLink2 style="font-size: 12px;">创意征集</IBeautifulLink2> &nbsp;|&nbsp;</Col>
-            <Col span="8"><IBeautifulLink2 style="font-size: 12px;">创意征集</IBeautifulLink2> &nbsp;|&nbsp;</Col>
-            <Col span="8"><IBeautifulLink2 style="font-size: 12px;">创意征集</IBeautifulLink2> &nbsp;|&nbsp;</Col>
-            <Col span="8"><IBeautifulLink2 style="font-size: 12px;">创意征集</IBeautifulLink2> &nbsp;|&nbsp;</Col>
-            <Col span="8"><IBeautifulLink2 style="font-size: 12px;">创意征集</IBeautifulLink2> &nbsp;|&nbsp;</Col>
-            <Col span="8"><IBeautifulLink2 style="font-size: 12px;">创意征集</IBeautifulLink2> &nbsp;|&nbsp;</Col>
-            <Col span="8"><IBeautifulLink2 style="font-size: 12px;">创意征集</IBeautifulLink2> &nbsp;|&nbsp;</Col>
-            <Col span="8"><IBeautifulLink2 style="font-size: 12px;">创意征集</IBeautifulLink2> &nbsp;|&nbsp;</Col>
-            <Col span="8"><IBeautifulLink2 style="font-size: 12px;">创意征集</IBeautifulLink2> &nbsp;|&nbsp;</Col>
-            <Col span="8"><IBeautifulLink2 style="font-size: 12px;">创意征集</IBeautifulLink2> &nbsp;|&nbsp;</Col>
-            <Col span="8"><IBeautifulLink2 style="font-size: 12px;">创意征集</IBeautifulLink2> &nbsp;|&nbsp;</Col>
-            <Col span="8"><IBeautifulLink2 style="font-size: 12px;">创意征集</IBeautifulLink2> &nbsp;|&nbsp;</Col>
           </Rol>
         </div>
       </Col>
@@ -75,6 +54,6 @@
     border: 2px solid  rgba(220,220,220,0.28);
     margin: 10px 0 10px 0;
     padding: 5px;
-    min-height: 400px;
+    min-height: 250px;
   }
 </style>
