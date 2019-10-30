@@ -6,12 +6,18 @@
       <WhyChooseUs style="margin-left: 350px;"/>
     </div>
 
-    <ShowUserExperience/>
+    <div style="font-size: 14px;text-align: right;padding: 5px 5px 5px 5px;">
+      使用 Beego 的产品<a>通过 GitHub 提交案例</a> ，如果使用GitHub有任何问题，你可以直接发送产品信息到邮箱 <a>xiemengjun@gmail.com</a>
+    </div>
 
-    <Plan/>
-
-    <p style="font-size: 24px;margin: 20px 0 20px 0;">使用 Beego 的产品</p>
-    <p><a>通过 GitHub 提交案例</a> ，如果使用GitHub有任何问题，你可以直接发送产品信息到邮箱 <a>xiemengjun@gmail.com</a></p>
+    <Row :gutter="10">
+      <Col span="16">
+        <ShowUserExperience/>
+      </Col>
+      <Col span="8">
+        <Plan/>
+      </Col>
+    </Row>
 
     <ChooseCourseType/>
 

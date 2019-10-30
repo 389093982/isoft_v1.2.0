@@ -4,7 +4,7 @@
       <p style="font-size: 20px;">用户体验</p>
     </div>
     <Row>
-      <Col span="8" style="text-align: center;">
+      <Col span="12">
         <Row>
           <Col span="10">
             <img src="../../assets/zx-icon.png" style="width: 100px;height: 100px;"/>
@@ -17,7 +17,7 @@
           </Col>
         </Row>
       </Col>
-      <Col span="8" style="text-align: center;">
+      <Col span="12">
         <Row>
           <Col span="10">
             <img src="../../assets/zx-icon.png" style="width: 100px;height: 100px;"/>
@@ -30,7 +30,7 @@
           </Col>
         </Row>
       </Col>
-      <Col span="8" style="text-align: center;">
+      <Col span="12">
         <Row>
           <Col span="10">
             <img src="../../assets/zx-icon.png" style="width: 100px;height: 100px;"/>
