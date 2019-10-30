@@ -94,7 +94,8 @@
 
   .section01_bg{
     height: 450px;
-    background: url(../../assets/3.jpg) 0px -300px no-repeat;
+    background: url(../../assets/1.jpg) no-repeat;
+    background-size: 100% 100%;
   }
 
 </style>
