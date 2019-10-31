@@ -3,29 +3,28 @@
     <div style="padding: 10px;">
       课程大类：
       <span v-for="element in elements">
-        <IBeautifulLink style="margin-right: 10px;" v-if="element.navigation_level == 0"
-                        @onclick="currentElement=element">{{element.title}}</IBeautifulLink>
+        <a style="margin-right: 10px;" v-if="element.navigation_level == 0"
+                        @click="currentElement=element">{{element.title}}</a>
       </span>
     </div>
     <div style="padding: 10px;">
       详细分类：
       <span v-for="element in elements" style="margin-right: 10px;"
             v-if="currentElement != null && element.navigation_parent_id == currentElement.id">
-        <IBeautifulLink @onclick="chooseCourseType(currentElement.title, element.title)">
+        <a @click="chooseCourseType(currentElement.title, element.title)">
           {{element.title}}
-        </IBeautifulLink>
+        </a>
       </span>
     </div>
   </ElementsLoader>
 </template>
 
 <script>
-  import IBeautifulLink from "../../Common/link/IBeautifulLink"
   import ElementsLoader from "../../Background/CMS/ElementsLoader"
 
   export default {
     name: "HotCourseType",
-    components:{IBeautifulLink,ElementsLoader},
+    components:{ElementsLoader},
     props:{
       placement_name:{
         type:String,
@@ -58,5 +57,6 @@
   }
   a:hover{
     color: red;
+    border-bottom: 2px solid red;
   }
 </style>
