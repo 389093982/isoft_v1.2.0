@@ -25,6 +25,9 @@ Vue.use(mavonEditor)
 import animated from 'animate.css'
 Vue.use(animated)
 
+// 使用全局的 hover.css
+import hovered from 'hover.css'
+Vue.use(hovered)
 
 // 注册自定义公共组件
 import isoftlazy from "./components/Common/isoft-lazy"

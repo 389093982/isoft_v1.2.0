@@ -34,7 +34,7 @@
               <Col span="18">{{cVideo.video_name}}</Col>
               <Col span="4">
                 <router-link :to="{path:'/ilearning/video_play',query:{course_id:course.id,video_id:cVideo.id}}">
-                  <Button size="small" type="success">立即播放</Button>
+                  <Button size="small" type="success" class="hovered hvr-grow">立即播放</Button>
                 </router-link>
               </Col>
             </Row>
