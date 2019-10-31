@@ -7,10 +7,11 @@
         <Row>
           <Col span="8">
             <h4>课程名称：{{course.course_name}}</h4>
-            <p>
+            <a class="course_img">
               <img v-if="course.small_image" :src="course.small_image" height="120" width="180"/>
               <img v-else src="../../../assets/default.png" height="120" width="180"/>
-            </p>
+              <div class="course_name">{{course.course_name}}</div>
+            </a>
           </Col>
           <Col span="16">
             <CourseMeta :course="course"/>
@@ -113,5 +114,19 @@
 <style scoped>
   a{
     color: red;
+  }
+  .course_img .course_name {
+    position: absolute;
+    bottom: 9px;
+    left: 0;
+    width: 60%;
+    height: 30px;
+    padding: 3px 0 0 10px;
+    background-color: rgba(0,0,0,0.6);
+    display: none;
+    color: white;
+  }
+  .course_img:hover .course_name {
+    display: block;
   }
 </style>
