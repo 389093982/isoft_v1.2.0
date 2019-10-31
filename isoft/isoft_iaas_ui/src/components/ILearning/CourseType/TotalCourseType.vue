@@ -11,7 +11,7 @@
     <ul style="overflow:hidden;">
         <li v-for="sub_course_type in sub_course_types"
             style="height: 32px;line-height: 32px;margin: 0 4px 5px;text-align: center;color: #333;float: left;display: inline;">
-          <a @click="chooseCourseType(current_course_type, sub_course_type)">{{sub_course_type.course_sub_type}}</a>
+          <a @click="chooseCourseType(current_course_type, sub_course_type.course_sub_type)">{{sub_course_type.course_sub_type}}</a>
         </li>
       </ul>
   </div>
