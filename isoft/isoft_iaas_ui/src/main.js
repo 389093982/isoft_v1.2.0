@@ -21,6 +21,11 @@ import mavonEditor from 'mavon-editor'
 import 'mavon-editor/dist/css/index.css'
 Vue.use(mavonEditor)
 
+// 使用全局的 animate.css
+import animated from 'animate.css'
+Vue.use(animated)
+
+
 // 注册自定义公共组件
 import isoftlazy from "./components/Common/isoft-lazy"
 import IBeautifulLink2 from "./components/Common/link/IBeautifulLink2"
