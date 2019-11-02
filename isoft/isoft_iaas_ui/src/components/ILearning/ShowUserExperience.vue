@@ -5,11 +5,13 @@
     </div>
     <Row>
       <Col span="18">
-        <img :src="this.userexs[currentIndex].img" width="595px;" height="360px;" style="margin-top: 5px;"/>
-        <span style="position: absolute;left: 0px;bottom: 7px;height: 50px;width: 595px;padding-left: 10px;
+        <a :href="this.userexs[currentIndex].link">
+          <img :src="this.userexs[currentIndex].img" width="595px;" height="360px;" style="margin-top: 5px;"/>
+          <span style="position: absolute;left: 0px;bottom: 7px;height: 50px;width: 595px;padding-left: 10px;
           background-color: rgba(0,0,0,0.6);line-height: 50px;color: white;font-size: 14px;">
           {{userexs[currentIndex].label}}
         </span>
+        </a>
       </Col>
       <Col span="6">
         <ul>
