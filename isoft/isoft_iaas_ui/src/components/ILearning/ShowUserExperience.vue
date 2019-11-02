@@ -1,13 +1,13 @@
 <template>
   <div style="margin: 10px 0 30px 0;">
     <div style="width:770px;text-align: center;background: rgba(220,220,220,0.28);margin: 10px 0 10px 0;padding: 10px;">
-      <p style="font-size: 20px;">用户体验</p>
+      <p style="font-size: 20px;" class="hovered hvr-grow hoverLinkColor">用户体验</p>
     </div>
     <Row>
       <Col span="18">
         <a :href="this.userexs[currentIndex].link">
           <img :src="this.userexs[currentIndex].img" width="595px;" height="360px;" style="margin-top: 5px;"/>
-          <span style="position: absolute;left: 0px;bottom: 7px;height: 50px;width: 595px;padding-left: 10px;
+          <span style="position: absolute;left: 0px;bottom: 7px;height: 50px;width: 595px;padding-left: 20px;
           background-color: rgba(0,0,0,0.6);line-height: 50px;color: white;font-size: 14px;">
           {{userexs[currentIndex].label}}
         </span>
@@ -81,4 +81,5 @@
 </script>
 
 <style scoped>
+  @import "../../assets/css/isoft_common.css";
 </style>
