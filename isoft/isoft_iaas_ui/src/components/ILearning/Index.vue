@@ -6,6 +6,41 @@
       <WhyChooseUs style="margin-left: 350px;"/>
     </div>
 
+    <Row :gutter="5" style="margin: 10px 0 0 0;">
+      <Col span="6">
+        <Row>
+          <Col span="12">
+            <div style="padding: 12px;border: 1px solid #efefef;">用户体验</div>
+          </Col>
+          <Col span="12">
+            <div style="padding: 12px;border: 1px solid #efefef;">常见问题</div>
+          </Col>
+          <Col span="12">
+            <div style="padding: 12px;border: 1px solid #efefef;">提升计划</div>
+          </Col>
+          <Col span="12">
+            <div style="padding: 12px;border: 1px solid #efefef;">创意空间</div>
+          </Col>
+        </Row>
+      </Col>
+      <Col span="18">
+        <Row :gutter="5">
+          <Col span="6">
+            <div class="index_item_box">用户体验</div>
+          </Col>
+          <Col span="6">
+            <div class="index_item_box">常见问题</div>
+          </Col>
+          <Col span="6">
+            <div class="index_item_box">提升计划</div>
+          </Col>
+          <Col span="6">
+            <div class="index_item_box">创意空间</div>
+          </Col>
+        </Row>
+      </Col>
+    </Row>
+
     <div style="font-size: 14px;text-align: right;padding: 5px 5px 5px 5px;">
       使用 Beego 的产品<a>通过 GitHub 提交案例</a> ，如果使用GitHub有任何问题，你可以直接发送产品信息到邮箱 <a>xiemengjun@gmail.com</a>
     </div>
@@ -104,4 +139,9 @@
     background-size: 100% 100%;
   }
 
+  .index_item_box{
+    height: 100px;
+    border: 1px solid #efefef;
+    border-radius: 5px;
+  }
 </style>
