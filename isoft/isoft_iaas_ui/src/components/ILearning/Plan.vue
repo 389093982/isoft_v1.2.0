@@ -9,7 +9,7 @@
           <IBeautifulLink2 style="font-size: 16px;">用户福利提升计划</IBeautifulLink2>
         </div>
         <div>
-          <Rol>
+          <Row>
             <Col span="8"><IBeautifulLink2 style="font-size: 12px;">网站招聘</IBeautifulLink2> &nbsp;|&nbsp;</Col>
             <Col span="8"><IBeautifulLink2 style="font-size: 12px;">交流活动</IBeautifulLink2> &nbsp;|&nbsp;</Col>
             <Col span="8"><IBeautifulLink2 style="font-size: 12px;">创意征集</IBeautifulLink2> &nbsp;|&nbsp;</Col>
@@ -36,7 +36,7 @@
             <Col span="8"><IBeautifulLink2 style="font-size: 12px;">创意征集</IBeautifulLink2> &nbsp;|&nbsp;</Col>
             <Col span="8"><IBeautifulLink2 style="font-size: 12px;">创意征集</IBeautifulLink2> &nbsp;|&nbsp;</Col>
             <Col span="8"><IBeautifulLink2 style="font-size: 12px;">创意征集</IBeautifulLink2> &nbsp;|&nbsp;</Col>
-          </Rol>
+          </Row>
         </div>
       </Col>
     </Row>

@@ -1,45 +1,78 @@
 <template>
   <div style="margin: 10px 0 30px 0;">
-    <div style="text-align: center;background: rgba(220,220,220,0.28);margin: 10px 0 10px 0;padding: 10px;">
+    <div style="width:770px;text-align: center;background: rgba(220,220,220,0.28);margin: 10px 0 10px 0;padding: 10px;">
       <p style="font-size: 20px;">用户体验</p>
     </div>
     <Row>
-      <Col span="12">
-        <Row>
-          <Col span="10">
-            <img src="../../assets/zx-icon.png" style="width: 100px;height: 100px;"/>
-            <p>张三</p>
-            <p>学生</p>
-            <p>考试成绩差</p>
-          </Col>
-          <Col span="14" style="margin-top: 10px;">
-            通过xxxxxx干了什么事情，啥时候干的，房贷首付hi士大夫hi的粉丝符号位oh但是犯得上发生俄文法文法大师傅十分hi的粉丝符号位oh但是犯得上发生俄文法文法大师傅十分
-          </Col>
-        </Row>
+      <Col span="18">
+        <img :src="this.userexs[currentIndex].img" width="595px;" height="360px;" style="margin-top: 5px;"/>
       </Col>
-      <Col span="12">
-        <Row>
-          <Col span="10">
-            <img src="../../assets/zx-icon.png" style="width: 100px;height: 100px;"/>
-            <p>张三</p>
-            <p>学生</p>
-            <p>考试成绩差</p>
-          </Col>
-          <Col span="14" style="margin-top: 10px;">
-            通过xxxxxx干了什么事情，啥时候干的，房贷首付hi士大夫hi的粉丝符号位oh但是犯得上发生俄文法文法大师傅十分hi的粉丝符号位oh但是犯得上发生俄文法文法大师傅十分
-          </Col>
-        </Row>
+      <Col span="6">
+        <ul>
+          <li v-for="(userex,index) in userexs" style="list-style: none;display: block;margin-top: 5px;">
+            <span style="width: 13px;height: 17px;float: left;position: relative;left: -3px;top: 35px;">
+              <img v-show="userex.choosed" src="../../assets/arrow_l.jpg"/>
+            </span>
+            <HoverBigImg @mouseenter="overShow(index)" :srcImg="userex.img"/>
+          </li>
+        </ul>
       </Col>
     </Row>
   </div>
 </template>
 
 <script>
+  import HoverBigImg from "../Common/img/HoverBigImg";
   export default {
-    name: "ShowUserExperience",     // 用户体验展示
+    name: "ShowUserExperience",
+    components: {HoverBigImg}, // 用户体验展示
+    data(){
+      return {
+        currentIndex:0,
+        userexs:[
+          {
+            img:require("../../assets/1.jpg"),
+            link:"http://www.baidu.com",
+            label:"eeeeeee",
+            choosed:true,
+          },
+          {
+            img:require("../../assets/2.jpeg"),
+            link:"http://www.baidu.com",
+            label:"eeeeeee",
+            choosed:false,
+          },
+          {
+            img:require("../../assets/1.jpg"),
+            link:"http://www.baidu.com",
+            label:"eeeeeee",
+            choosed:false,
+          },
+          {
+            img:require("../../assets/2.jpeg"),
+            link:"http://www.baidu.com",
+            label:"eeeeeee",
+            choosed:false,
+          }
+        ]
+      }
+    },
+    methods:{
+      overShow:function (index) {
+        this.currentIndex = index;
+        var _userexs = this.userexs;
+        for(var i=0; i<this.userexs.length; i++){
+          if(i == index){
+            _userexs[i].choosed = true;
+          }else{
+            _userexs[i].choosed = false;
+          }
+        }
+        this.$set(this.userexs, _userexs);
+      }
+    }
   }
 </script>
 
 <style scoped>
-
 </style>
