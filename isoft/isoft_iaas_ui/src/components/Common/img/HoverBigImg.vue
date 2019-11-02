@@ -29,7 +29,7 @@
   }
   .box img{
     cursor: pointer;
-    transition: all 3s;
+    transition: all 2s;
   }
   .box img:hover{
     transform: scale(1.4);

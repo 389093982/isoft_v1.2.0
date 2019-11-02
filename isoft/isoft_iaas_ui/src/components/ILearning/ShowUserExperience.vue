@@ -6,6 +6,10 @@
     <Row>
       <Col span="18">
         <img :src="this.userexs[currentIndex].img" width="595px;" height="360px;" style="margin-top: 5px;"/>
+        <span style="position: absolute;left: 0px;bottom: 7px;height: 50px;width: 595px;padding-left: 10px;
+          background-color: rgba(0,0,0,0.6);line-height: 50px;color: white;font-size: 14px;">
+          {{userexs[currentIndex].label}}
+        </span>
       </Col>
       <Col span="6">
         <ul>
@@ -33,25 +37,25 @@
           {
             img:require("../../assets/1.jpg"),
             link:"http://www.baidu.com",
-            label:"eeeeeee",
+            label:"eeeeeee11111111111111111111",
             choosed:true,
           },
           {
             img:require("../../assets/2.jpeg"),
             link:"http://www.baidu.com",
-            label:"eeeeeee",
+            label:"eeeeeee22222222222222222",
             choosed:false,
           },
           {
             img:require("../../assets/1.jpg"),
             link:"http://www.baidu.com",
-            label:"eeeeeee",
+            label:"eeeeeee333333333333333333333333",
             choosed:false,
           },
           {
             img:require("../../assets/2.jpeg"),
             link:"http://www.baidu.com",
-            label:"eeeeeee",
+            label:"eeeeeee44444444444444444444444444444444",
             choosed:false,
           }
         ]

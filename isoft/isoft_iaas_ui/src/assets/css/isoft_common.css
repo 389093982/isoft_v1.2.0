@@ -17,11 +17,4 @@
   margin-right: 5px;
 }
 
-.hoverScaleImg{
-  cursor: pointer;
-  transition: all 3s;
-}
-.hoverScaleImg:hover{
-  transform: scale(1.4);
-}
 
