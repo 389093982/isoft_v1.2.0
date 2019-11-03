@@ -2,10 +2,10 @@
   <ElementsLoader :placement_name="placement_name" @onLoadElement="onLoadElement">
     <IBeautifulCard :title="placement_label">
       <ul slot="content" style="padding-left: 0em;">
-        <li v-for="element in elements">
+        <li v-for="(element, index) in elements">
           <span style="float:right;color: #999;"><Time :time="element.created_time" type="date"/></span>
           <a target="_blank">
-            <img class="imgIcon" src="../../../assets/icon_b.png"/>{{element.title}} <img src="../../../assets/news.gif">
+            <img class="imgIcon" src="../../../assets/icon_b.png"/>{{element.title}} <img v-if="index < 10" src="../../../assets/news.gif">
           </a>
         </li>
       </ul>
