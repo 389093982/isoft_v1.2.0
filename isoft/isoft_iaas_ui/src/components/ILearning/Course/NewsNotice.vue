@@ -5,7 +5,7 @@
         <li v-for="element in elements">
           <span style="float:right;color: #999;"><Time :time="element.created_time" type="date"/></span>
           <a target="_blank">
-            {{element.title}} <img src="../../../assets/news.gif">
+            <img class="imgIcon" src="../../../assets/icon_b.png"/>{{element.title}} <img src="../../../assets/news.gif">
           </a>
         </li>
       </ul>
@@ -56,5 +56,10 @@
     padding: 3px 15px 0 15px;
     list-style: none;
     font-size: 14px;
+  }
+  .imgIcon{
+    position: relative;
+    top: 2px;
+    margin-right: 10px;
   }
 </style>
