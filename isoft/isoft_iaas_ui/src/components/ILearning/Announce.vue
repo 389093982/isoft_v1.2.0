@@ -1,7 +1,8 @@
 <template>
-  <div class="textBox">
+  <div class="textBox" style="padding-left: 50px;">
+    <img src="../../assets/notice.png" style="position: relative; top: 5px;left: -30px;"/>
     <transition name="slide">
-      <p class="text" :key="text.id">{{text.val}}</p>
+      <p class="text" :key="text.id" v-html="text.val"></p>
     </transition>
   </div>
 </template>
@@ -12,9 +13,10 @@
     data () {
       return {
         textArr: [
-          '1 第一条公告',
-          '2 第二条公告第二条公告',
-          '3 第三条公告第三条公告第三条公告'
+          "1 第一条公告第一条公告第一条公告第一<span style='color:red;font-weight: bold;'>条公告第一条公告第一条</span>公告第一条公告",
+          "2 第二条公告第二条公告第一条公告第一条公告第一条公告第一条公告第一条公告第一条公告",
+          "4 使用 Beego 的产品<a>通过 GitHub 提交案例</a> ，如果使用GitHub有任何问题，你可以直接发送产品信息到邮箱 <a>xiemengjun@gmail.com</a>",
+          "3 第三条公告第三条公告第三条公告第一条公告第一条公告第一条公告第一条公告第一条公告",
         ],
         number: 0
       }
@@ -34,7 +36,7 @@
       startMove () {
         // eslint-disable-next-line
         let timer = setTimeout(() => {
-          if (this.number === 2) {
+          if (this.number === 3) {        // number 最大行数索引
             this.number = 0;
           } else {
             this.number += 1;
@@ -47,16 +49,14 @@
 </script>
 
 <style scoped>
-  h2 {
-    padding: 20px 0
-  }
   .textBox {
     width: 100%;
     height: 40px;
-    margin: 0 auto;
     overflow: hidden;
     position: relative;
-    text-align: center;
+    border: 2px solid rgba(220,220,220,0.28);
+    margin: 5px 0 5px 0;
+    padding: 5px;
   }
   .text {
     width: 100%;
@@ -64,14 +64,15 @@
     bottom: 0;
   }
   .slide-enter-active, .slide-leave-active {
-    transition: all 0.5s linear;
+    transition: all 0.2s linear;
   }
   .slide-enter{
     transform: translateY(20px) scale(1);
     opacity: 1;
   }
   .slide-leave-to {
-    transform: translateY(-20px) scale(0.8);
+    /*transform: translateY(-20px) scale(0.8);*/
+    transform: translateY(-20px) scale(1);
     opacity: 0;
   }
 </style>

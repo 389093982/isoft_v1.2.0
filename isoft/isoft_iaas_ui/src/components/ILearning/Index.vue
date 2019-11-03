@@ -6,10 +6,6 @@
       <WhyChooseUs style="margin-left: 350px;"/>
     </div>
 
-    <div style="font-size: 14px;text-align: right;padding:10px;margin:5px 0 5px 0;border: 2px solid rgba(220,220,220,0.28);">
-      使用 Beego 的产品<a>通过 GitHub 提交案例</a> ，如果使用GitHub有任何问题，你可以直接发送产品信息到邮箱 <a>xiemengjun@gmail.com</a>
-    </div>
-
     <Announce/>
 
     <Row :gutter="10">
