@@ -11,6 +11,61 @@
     </div>
 
     <Row :gutter="10">
+      <Col span="6">
+        <div class="hoverBorderShadow" style="height: 100px;padding: 20px;">
+          <Row>
+            <Col span="8">
+              <img src="../../assets/icon_jy.png" style="width: 52px;height: 52px;"/>
+            </Col>
+            <Col span="16">
+              <h4>好评如潮</h4>
+              <p>好评如潮好评如潮</p>
+            </Col>
+          </Row>
+        </div>
+      </Col>
+      <Col span="6">
+        <div class="hoverBorderShadow" style="height: 100px;padding: 20px;">
+          <Row>
+            <Col span="8">
+              <img src="../../assets/icon_jy.png" style="width: 52px;height: 52px;"/>
+            </Col>
+            <Col span="16">
+              <h4>好评如潮</h4>
+              <p>好评如潮好评如潮</p>
+            </Col>
+          </Row>
+        </div>
+      </Col>
+      <Col span="6">
+        <div class="hoverBorderShadow" style="height: 100px;padding: 20px;">
+          <Row>
+            <Col span="8">
+              <img src="../../assets/icon_jy.png" style="width: 52px;height: 52px;"/>
+            </Col>
+            <Col span="16">
+              <h4>好评如潮</h4>
+              <p>好评如潮好评如潮</p>
+            </Col>
+          </Row>
+        </div>
+      </Col>
+      <Col span="6">
+        <div class="hoverBorderShadow" style="height: 100px;padding: 20px;">
+          <Row>
+            <Col span="8">
+              <img src="../../assets/icon_jy.png" style="width: 52px;height: 52px;"/>
+            </Col>
+            <Col span="16">
+              <h4>好评如潮</h4>
+              <p>好评如潮好评如潮</p>
+            </Col>
+          </Row>
+        </div>
+      </Col>
+    </Row>
+
+    <Row :gutter="10">
       <Col span="16">
         <ShowUserExperience/>
       </Col>

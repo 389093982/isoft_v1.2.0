@@ -17,4 +17,13 @@
   margin-right: 5px;
 }
 
+.hoverBorderShadow{
+  border: 1px solid #E5E5E5;
+}
+
+.hoverBorderShadow:hover{
+  box-shadow: 0 3px 7px 0 rgba(0, 0, 0, .1);
+  border-color: rgba(229, 229, 229, .73);
+}
+
 
