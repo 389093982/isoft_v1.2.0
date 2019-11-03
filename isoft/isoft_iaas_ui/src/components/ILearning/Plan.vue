@@ -1,45 +1,17 @@
 <template>
   <div class="section01">
-    <Row style="text-align: center;">
-      <Col span="12" style="padding-top: 10px;">
-        筑梦 IT,成就编程梦想
-      </Col>
-      <Col span="12">
-        <div>
-          <IBeautifulLink2 style="font-size: 16px;">用户福利提升计划</IBeautifulLink2>
-        </div>
-        <div>
-          <Row>
-            <Col span="8"><IBeautifulLink2 style="font-size: 12px;">网站招聘</IBeautifulLink2> &nbsp;|&nbsp;</Col>
-            <Col span="8"><IBeautifulLink2 style="font-size: 12px;">交流活动</IBeautifulLink2> &nbsp;|&nbsp;</Col>
-            <Col span="8"><IBeautifulLink2 style="font-size: 12px;">创意征集</IBeautifulLink2> &nbsp;|&nbsp;</Col>
-            <Col span="8"><IBeautifulLink2 style="font-size: 12px;">创意征集</IBeautifulLink2> &nbsp;|&nbsp;</Col>
-            <Col span="8"><IBeautifulLink2 style="font-size: 12px;">创意征集</IBeautifulLink2> &nbsp;|&nbsp;</Col>
-            <Col span="8"><IBeautifulLink2 style="font-size: 12px;">创意征集</IBeautifulLink2> &nbsp;|&nbsp;</Col>
-            <Col span="8"><IBeautifulLink2 style="font-size: 12px;">创意征集</IBeautifulLink2> &nbsp;|&nbsp;</Col>
-            <Col span="8"><IBeautifulLink2 style="font-size: 12px;">创意征集</IBeautifulLink2> &nbsp;|&nbsp;</Col>
-            <Col span="8"><IBeautifulLink2 style="font-size: 12px;">创意征集</IBeautifulLink2> &nbsp;|&nbsp;</Col>
-            <Col span="8"><IBeautifulLink2 style="font-size: 12px;">创意征集</IBeautifulLink2> &nbsp;|&nbsp;</Col>
-            <Col span="8"><IBeautifulLink2 style="font-size: 12px;">创意征集</IBeautifulLink2> &nbsp;|&nbsp;</Col>
-            <Col span="8"><IBeautifulLink2 style="font-size: 12px;">创意征集</IBeautifulLink2> &nbsp;|&nbsp;</Col>
-            <Col span="8"><IBeautifulLink2 style="font-size: 12px;">创意征集</IBeautifulLink2> &nbsp;|&nbsp;</Col>
-            <Col span="8"><IBeautifulLink2 style="font-size: 12px;">创意征集</IBeautifulLink2> &nbsp;|&nbsp;</Col>
-            <Col span="8"><IBeautifulLink2 style="font-size: 12px;">创意征集</IBeautifulLink2> &nbsp;|&nbsp;</Col>
-            <Col span="8"><IBeautifulLink2 style="font-size: 12px;">创意征集</IBeautifulLink2> &nbsp;|&nbsp;</Col>
-            <Col span="8"><IBeautifulLink2 style="font-size: 12px;">创意征集</IBeautifulLink2> &nbsp;|&nbsp;</Col>
-            <Col span="8"><IBeautifulLink2 style="font-size: 12px;">创意征集</IBeautifulLink2> &nbsp;|&nbsp;</Col>
-            <Col span="8"><IBeautifulLink2 style="font-size: 12px;">创意征集</IBeautifulLink2> &nbsp;|&nbsp;</Col>
-            <Col span="8"><IBeautifulLink2 style="font-size: 12px;">创意征集</IBeautifulLink2> &nbsp;|&nbsp;</Col>
-            <Col span="8"><IBeautifulLink2 style="font-size: 12px;">创意征集</IBeautifulLink2> &nbsp;|&nbsp;</Col>
-            <Col span="8"><IBeautifulLink2 style="font-size: 12px;">创意征集</IBeautifulLink2> &nbsp;|&nbsp;</Col>
-            <Col span="8"><IBeautifulLink2 style="font-size: 12px;">创意征集</IBeautifulLink2> &nbsp;|&nbsp;</Col>
-            <Col span="8"><IBeautifulLink2 style="font-size: 12px;">创意征集</IBeautifulLink2> &nbsp;|&nbsp;</Col>
-            <Col span="8"><IBeautifulLink2 style="font-size: 12px;">创意征集</IBeautifulLink2> &nbsp;|&nbsp;</Col>
-            <Col span="8"><IBeautifulLink2 style="font-size: 12px;">创意征集</IBeautifulLink2> &nbsp;|&nbsp;</Col>
-          </Row>
-        </div>
-      </Col>
-    </Row>
+    <p><img src="../../assets/icon_b.png"/><a>北京1101期Java培训 火爆开学！AAAAAAAAAAAAA</a></p>
+    <p><img src="../../assets/icon_b.png"/><a>北京1101期Java培训 火爆开学！</a></p>
+    <p><img src="../../assets/icon_b.png"/><a>北京1101期Java培训 火爆开学！</a></p>
+    <p><img src="../../assets/icon_b.png"/><a>北京1101期Java培训 火爆开学！</a></p>
+    <p><img src="../../assets/icon_b.png"/><a>北京1101期Java培训 火爆开学！</a></p>
+    <p><img src="../../assets/icon_b.png"/><a>北京1101期Java培训 火爆开学！</a></p>
+    <p><img src="../../assets/icon_b.png"/><a>北京1101期Java培训 火爆开学！</a></p>
+    <p><img src="../../assets/icon_b.png"/><a>北京1101期Java培训 火爆开学！</a></p>
+    <p><img src="../../assets/icon_b.png"/><a>北京1101期Java培训 火爆开学！</a></p>
+    <p><img src="../../assets/icon_b.png"/><a>北京1101期Java培训 火爆开学！</a></p>
+    <p><img src="../../assets/icon_b.png"/><a>北京1101期Java培训 火爆开学！</a></p>
+    <p><img src="../../assets/icon_b.png"/><a>北京1101期Java培训 火爆开学！</a></p>
   </div>
 </template>
 
@@ -50,10 +22,24 @@
 </script>
 
 <style scoped>
+  a{
+    color: black;
+  }
+  a:hover{
+    color: red;
+  }
   .section01{
     border: 2px solid  rgba(220,220,220,0.28);
     margin: 10px 0 10px 0;
-    padding: 5px;
+    padding: 15px;
     height: 420px;
+  }
+  img{
+    position: relative;
+    top: 2px;
+    margin-right: 10px;
+  }
+  p{
+    padding: 4px;
   }
 </style>
