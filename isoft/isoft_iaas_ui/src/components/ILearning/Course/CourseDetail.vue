@@ -4,7 +4,7 @@
       <!-- 左侧课程详情部分 -->
       <Col span="16">
         <!-- 头部 -->
-        <Row>
+        <Row class="header">
           <Col span="8">
             <h4>课程名称：{{course.course_name}}</h4>
             <a class="course_img">
@@ -30,9 +30,10 @@
         <!-- 视频链接 -->
         <Row style="margin: 10px 0 10px 0">
           <Col span="12" v-for="cVideo in cVideos" style="padding: 5px;">
-            <Row>
-              <Col span="2">{{cVideo.video_number}}</Col>
-              <Col span="18">{{cVideo.video_name}}</Col>
+            <Row style="background-color: #f8f8f8;padding: 3px;">
+              <Col span="20">
+                <IBeautifulLink>第{{cVideo.video_number}}集：{{cVideo.video_name}}</IBeautifulLink>
+              </Col>
               <Col span="4">
                 <router-link :to="{path:'/ilearning/video_play',query:{course_id:course.id,video_id:cVideo.id}}">
                   <Button size="small" type="success" class="hovered hvr-grow">立即播放</Button>
@@ -112,7 +113,7 @@
 </script>
 
 <style scoped>
-  a{
+  .header a{
     color: red;
   }
   .course_img .course_name {

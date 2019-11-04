@@ -31,9 +31,9 @@ Vue.use(hovered)
 
 // 注册自定义公共组件
 import isoftlazy from "./components/Common/isoft-lazy"
-import IBeautifulLink2 from "./components/Common/link/IBeautifulLink"
+import IBeautifulLink from "./components/Common/link/IBeautifulLink"
 Vue.component('isoft-lazy', isoftlazy);
-Vue.component('IBeautifulLink2', IBeautifulLink2);
+Vue.component('IBeautifulLink', IBeautifulLink);
 
 Vue.config.productionTip = false
 
