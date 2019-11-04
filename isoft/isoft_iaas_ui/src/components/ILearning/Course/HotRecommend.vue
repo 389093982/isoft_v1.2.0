@@ -5,7 +5,9 @@
       <IBeautifulCard title="热门课程推荐">
         <div slot="content" style="padding: 20px;">
           <Row v-for="course in courses">
-            <IBeautifulLink @click="$router.push({path:'/ilearning/course_detail',query:{course_id:course.id}})">{{course.course_name}}</IBeautifulLink>
+            <IBeautifulLink @click="$router.push({path:'/ilearning/course_detail',query:{course_id:course.id}})">
+              {{course.course_name}}
+            </IBeautifulLink>
           </Row>
         </div>
       </IBeautifulCard>
@@ -13,17 +15,16 @@
     <!-- 图标形式显示 -->
     <IBeautifulCard v-else title="热门课程推荐">
       <div slot="content" style="min-height:850px;padding: 10px;">
-        <ul>
+        <ul class="clear">
           <li v-for="course in courses">
             <router-link :to="{path:'/ilearning/course_detail',query:{course_id:course.id}}">
-              <img v-if="course.small_image" :src="course.small_image" height="120" width="180"/>
-              <img v-else src="../../../assets/default.png" height="120" width="180"/>
+              <img v-if="course.small_image" :src="course.small_image" height="100" width="155"/>
+              <img v-else src="../../../assets/default.png" height="100" width="155"/>
               <!-- 播放图标 -->
               <div class="ico_play"></div>
               <p>{{course.course_name}}</p>
             </router-link>
           </li>
-          <div style="clear: both;"></div>
         </ul>
 
         <div style="text-align: right;margin: 20px 70px 0 0;">
@@ -79,7 +80,7 @@
   li{
     float: left;
     padding: 10px 9px 0;
-    width: 200px;
+    width: 175px;
     border: 1px solid #FFFFFF;
     overflow: hidden;
     text-align: center;
@@ -97,8 +98,8 @@
   }
   .ico_play {
     position: absolute;
-    top: 45px;
-    left: 65px;
+    top: 35px;
+    left: 55px;
     width: 60px;
     height: 60px;
   }
