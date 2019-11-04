@@ -16,7 +16,7 @@
             <Input v-model="formValidate.course_sub_type" placeholder="Enter course sub type..."></Input>
           </FormItem>
           <FormItem label="课程描述" prop="course_short_desc">
-            <Input v-model="formValidate.course_short_desc" placeholder="Enter course short desc..."></Input>
+            <Input v-model="formValidate.course_short_desc" type="textarea" :rows="6" placeholder="Enter course short desc..."></Input>
           </FormItem>
           <FormItem>
             <Button type="success" @click="handleSubmit('formValidate')">提交</Button>
