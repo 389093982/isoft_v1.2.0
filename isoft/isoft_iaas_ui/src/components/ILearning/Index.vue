@@ -6,17 +6,6 @@
     <ChooseCourseType/>
 
     <Row>
-      <Col span="8">
-        <IndexCarousel/>
-        <IndexCarousel/>
-        <IndexCarousel/>
-      </Col>
-      <Col span="16">
-        <HotRecommend/>
-      </Col>
-    </Row>
-
-    <Row>
       <Col span="18">
         <!-- 热门推荐区域 -->
         <HotRecommend/>
