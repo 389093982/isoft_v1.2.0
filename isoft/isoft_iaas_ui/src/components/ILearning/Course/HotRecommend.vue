@@ -93,10 +93,8 @@
   li:hover a{
     color:red;
   }
-  .ico_play{
-    background-image: url(../../../assets/ico_play.png);
-  }
   .ico_play {
+    background: url(../../../assets/ico_play.png) no-repeat;
     position: absolute;
     top: 35px;
     left: 55px;
