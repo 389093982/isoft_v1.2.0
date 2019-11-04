@@ -6,6 +6,17 @@
     <ChooseCourseType/>
 
     <Row>
+      <Col span="8">
+        <IndexCarousel/>
+        <IndexCarousel/>
+        <IndexCarousel/>
+      </Col>
+      <Col span="16">
+        <HotRecommend/>
+      </Col>
+    </Row>
+
+    <Row>
       <Col span="18">
         <!-- 热门推荐区域 -->
         <HotRecommend/>
@@ -61,10 +72,12 @@
   import Fun from "./Fun"
   import HorizontalLinks from "../Elementviewers/HorizontalLinks"
   import IHotRecommand from "../Common/recommend/IHotRecommand"
+  import IndexCarousel from "./IndexCarousel";
 
   export default {
     name: "Index",
     components:{
+      IndexCarousel,
       IHotRecommand, HorizontalLinks, ChooseCourseType,HotRecommend,NewsNotice,HotIssue,ToolBox, IBeautifulTabLink,Fun},
   }
 </script>
