@@ -27,7 +27,7 @@
           </li>
         </ul>
 
-        <div style="text-align: right;margin: 20px 70px 0 0;">
+        <div style="text-align: right;margin: 20px 20px 0 0;">
           提供2019年至2020年最新热门编程视频，本视频每月定期更新，所有版本版权归xxx所有
         </div>
       </div>
