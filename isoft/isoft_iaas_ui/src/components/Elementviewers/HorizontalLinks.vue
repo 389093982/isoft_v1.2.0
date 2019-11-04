@@ -3,7 +3,7 @@
     <Row style="padding: 10px;">
       <Col span="2">{{placement_label}}</Col>
       <Col span="2" v-for="element in elements">
-        <IBeautifulLink2 @onclick="openLink(element)">{{element.title}}</IBeautifulLink2>
+        <IBeautifulLink @onclick="openLink(element)">{{element.title}}</IBeautifulLink>
       </Col>
     </Row>
   </ElementsLoader>
@@ -11,11 +11,11 @@
 
 <script>
   import ElementsLoader from "../Background/CMS/ElementsLoader"
-  import IBeautifulLink2 from "../Common/link/IBeautifulLink2"
+  import IBeautifulLink from "../Common/link/IBeautifulLink"
 
   export default {
     name: "HorizontalLinks",
-    components:{IBeautifulLink2,ElementsLoader},
+    components:{IBeautifulLink,ElementsLoader},
     props:{
       placement_name:{
         type:String,

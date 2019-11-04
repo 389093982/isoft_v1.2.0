@@ -1,17 +1,17 @@
 <template>
   <span>
-    您还未登录奥,前去 <IBeautifulLink2 @onclick="cancelUser">登录</IBeautifulLink2>
+    您还未登录奥,前去 <IBeautifulLink @onclick="cancelUser">登录</IBeautifulLink>
   </span>
 </template>
 
 <script>
-  import IBeautifulLink2 from "../Common/link/IBeautifulLink2";
+  import IBeautifulLink from "../Common/link/IBeautifulLink";
   import {LoginAddr} from "../../api"
   import {delCookie} from '../../tools/index'
 
   export default {
     name: "ForwardLogin",
-    components: {IBeautifulLink2},
+    components: {IBeautifulLink},
     methods: {
       cancelUser() {
         delCookie("tokenString");

@@ -24,7 +24,7 @@
           <div v-if="bookCatalogs && bookCatalogs.length > 0">
             <p v-for="bookCatalog in bookCatalogs" style="margin-left: 15px;">
               <Icon type="ios-paper-outline"/>
-              <IBeautifulLink2 @onclick="editBookArticle(bookCatalog.id)">{{bookCatalog.catalog_name | filterLimitFunc}}</IBeautifulLink2>
+              <IBeautifulLink @onclick="editBookArticle(bookCatalog.id)">{{bookCatalog.catalog_name | filterLimitFunc}}</IBeautifulLink>
               <a class="catalogEditIcon" style="margin-left: 5px;" @click="editBookCatalog(bookCatalog.id)"><Icon type="md-create"/></a>
             </p>
           </div>
@@ -46,12 +46,12 @@
   import BookArticleEdit from "./BookArticleEdit";
   import {BookArticleList,BookCatalogEdit,BookCatalogList,ShowBookCatalogDetail} from "../../api";
   import IBeautifulCard from "../Common/card/IBeautifulCard"
-  import IBeautifulLink2 from "../Common/link/IBeautifulLink2"
+  import IBeautifulLink from "../Common/link/IBeautifulLink"
   import ISimpleConfirmModal from "../Common/modal/ISimpleConfirmModal";
 
   export default {
     name: "BookCatalogEdit",
-    components: {ISimpleConfirmModal, IBeautifulCard,IBeautifulLink2,BookArticleEdit},
+    components: {ISimpleConfirmModal, IBeautifulCard,IBeautifulLink,BookArticleEdit},
     data(){
       return {
         bookCatalogs:[],

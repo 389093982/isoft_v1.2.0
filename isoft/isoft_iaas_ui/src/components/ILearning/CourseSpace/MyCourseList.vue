@@ -23,7 +23,7 @@
         </Row>
       </div>
       <div v-else>您还没有任何课程奥，如果你想传播你的知识，
-        <IBeautifulLink2 font-weight="bold" @onclick="$router.push({path:'/ilearning/mine/course_space/newCourse'})">请前去开课！</IBeautifulLink2>
+        <IBeautifulLink font-weight="bold" @onclick="$router.push({path:'/ilearning/mine/course_space/newCourse'})">请前去开课！</IBeautifulLink>
       </div>
     </isoft-lazy>
   </div>

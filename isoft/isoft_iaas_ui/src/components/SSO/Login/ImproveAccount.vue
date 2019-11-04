@@ -6,10 +6,10 @@
 </template>
 
 <script>
-  import IBeautifulLink2 from "../../Common/link/IBeautifulLink2";
+  import IBeautifulLink from "../../Common/link/IBeautifulLink";
   export default {
     name: "ImproveAccount",
-    components: {IBeautifulLink2}
+    components: {IBeautifulLink}
   }
 </script>
 

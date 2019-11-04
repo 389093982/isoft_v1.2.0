@@ -3,10 +3,10 @@
     <!-- 内外边距：上右下左 -->
     <Row style="padding: 15px 10px 10px 25px;">
       <Col span="2">
-        <IBeautifulLink2 @onclick="$router.push({path:'/igood/good_list'})">热销商品</IBeautifulLink2>
+        <IBeautifulLink @onclick="$router.push({path:'/igood/good_list'})">热销商品</IBeautifulLink>
       </Col>
       <Col span="2">
-        <IBeautifulLink2 @onclick="$router.push({path:'/igood/mine/good_list',query:{type:'mine'}})">我的店铺商品</IBeautifulLink2>
+        <IBeautifulLink @onclick="$router.push({path:'/igood/mine/good_list',query:{type:'mine'}})">我的店铺商品</IBeautifulLink>
       </Col>
     </Row>
 
@@ -23,8 +23,8 @@
             </Col>
             <Col span="12">
               <div style="height: 150px;width: 100%;word-wrap:break-word;word-break:break-all;overflow: hidden;">
-                <p>商品名称：<span><IBeautifulLink2>{{good.good_name}}</IBeautifulLink2></span></p>
-                <p>商品描述：<span><IBeautifulLink2 :in-line="false">{{good.good_desc}}</IBeautifulLink2></span></p>
+                <p>商品名称：<span><IBeautifulLink>{{good.good_name}}</IBeautifulLink></span></p>
+                <p>商品描述：<span><IBeautifulLink :in-line="false">{{good.good_desc}}</IBeautifulLink></span></p>
                 <p>商品价格：<span style="color: red;font-weight: bold;">￥{{good.good_price}}</span></p>
                 <p>卖家姓名：{{good.good_seller}}</p>
                 <p>卖家联系方式：{{good.seller_contact}}</p>
@@ -49,13 +49,13 @@
 </template>
 
 <script>
-  import IBeautifulLink2 from "../Common/link/IBeautifulLink2";
+  import IBeautifulLink from "../Common/link/IBeautifulLink";
   import {GoodList,NewOrder} from "../../api"
   import {CheckHasLogin,GetLoginUserName} from "../../tools"
 
   export default {
     name: "GoodList",
-    components: {IBeautifulLink2},
+    components: {IBeautifulLink},
     data(){
       return {
         showGoodEditModal:false,

@@ -5,13 +5,13 @@
         <IBeautifulCard title="我的课程空间">
           <div slot="content">
             <p style="padding: 5px 5px 5px 20px;">
-              <IBeautifulLink2 @onclick="$router.push({path:'/ilearning/mine/course_space/newCourse'})">我要开课</IBeautifulLink2>
+              <IBeautifulLink @onclick="$router.push({path:'/ilearning/mine/course_space/newCourse'})">我要开课</IBeautifulLink>
             </p>
             <p style="padding: 5px 5px 5px 20px;">
-              <IBeautifulLink2 @onclick="$router.push({path:'/ilearning/mine/course_space/myCourseList'})">我的课程</IBeautifulLink2>
+              <IBeautifulLink @onclick="$router.push({path:'/ilearning/mine/course_space/myCourseList'})">我的课程</IBeautifulLink>
             </p>
             <p style="padding: 5px 5px 5px 20px;">
-              <IBeautifulLink2 @onclick="$router.push({path:'/ilearning/mine/course_space/recentlyViewed'})">最近浏览</IBeautifulLink2>
+              <IBeautifulLink @onclick="$router.push({path:'/ilearning/mine/course_space/recentlyViewed'})">最近浏览</IBeautifulLink>
             </p>
           </div>
         </IBeautifulCard>
@@ -28,12 +28,12 @@
 </template>
 
 <script>
-  import IBeautifulLink2 from "../../Common/link/IBeautifulLink2";
+  import IBeautifulLink from "../../Common/link/IBeautifulLink";
   import IBeautifulCard from "../../Common/card/IBeautifulCard";
   import RecentlyViewed from "./RecentlyViewed";
   export default {
     name: "CourseSpace",
-    components: {RecentlyViewed, IBeautifulCard, IBeautifulLink2},
+    components: {RecentlyViewed, IBeautifulCard, IBeautifulLink},
   }
 </script>
 

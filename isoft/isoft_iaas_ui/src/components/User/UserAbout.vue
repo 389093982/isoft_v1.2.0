@@ -1,8 +1,8 @@
 <template>
   <div v-if="userName" style="border: 1px #dbdbdb solid;margin:2px 0 5px 5px;padding: 15px;">
-    <IBeautifulLink2><Avatar :src="user_small_icon" icon="ios-person" size="default"/>&nbsp;{{userName}}</IBeautifulLink2>&nbsp;&nbsp;
-    <IBeautifulLink2 style="font-size: 12px;float: right;"
-      @onclick="$router.push({path:'/user/mine/detail',query:{username:'mine'}})">个人中心</IBeautifulLink2>
+    <IBeautifulLink><Avatar :src="user_small_icon" icon="ios-person" size="default"/>&nbsp;{{userName}}</IBeautifulLink>&nbsp;&nbsp;
+    <IBeautifulLink style="font-size: 12px;float: right;"
+      @onclick="$router.push({path:'/user/mine/detail',query:{username:'mine'}})">个人中心</IBeautifulLink>
 
     <div style="margin-top: 5px;">
       <Tabs :animated="false">
@@ -14,19 +14,19 @@
           </Row>
           <Row v-for="course in courses" :gutter="10">
             <Col span="8">
-              <IBeautifulLink2 @onclick="$router.push({path:'/ilearning/course_detail',query:{course_id:course.id}})">
+              <IBeautifulLink @onclick="$router.push({path:'/ilearning/course_detail',query:{course_id:course.id}})">
                 {{course.course_name | filterLimitFunc}}
-              </IBeautifulLink2>
+              </IBeautifulLink>
             </Col>
             <Col span="8">
-              <IBeautifulLink2 @onclick="$router.push({ path:'/ilearning/course_search', query: { search: course.course_type }})">
+              <IBeautifulLink @onclick="$router.push({ path:'/ilearning/course_search', query: { search: course.course_type }})">
                 {{course.course_type | filterLimitFunc}}
-              </IBeautifulLink2>
+              </IBeautifulLink>
             </Col>
             <Col span="8">
-              <IBeautifulLink2 @onclick="$router.push({ path: '/ilearning/course_search', query: { search: course.course_sub_type }})">
+              <IBeautifulLink @onclick="$router.push({ path: '/ilearning/course_search', query: { search: course.course_sub_type }})">
                 {{course.course_sub_type | filterLimitFunc}}
-              </IBeautifulLink2>
+              </IBeautifulLink>
             </Col>
           </Row>
         </TabPane>
@@ -39,11 +39,11 @@
 
 <script>
   import {GetCourseListByUserName,GetUserDetail} from "../../api"
-  import IBeautifulLink2 from "../Common/link/IBeautifulLink2"
+  import IBeautifulLink from "../Common/link/IBeautifulLink"
 
   export default {
     name: "UserAbout",
-    components: {IBeautifulLink2},
+    components: {IBeautifulLink},
     props:{
       userName: {
         type: String,

@@ -5,7 +5,7 @@
       <IBeautifulCard title="热门课程推荐">
         <div slot="content" style="padding: 20px;">
           <Row v-for="course in courses">
-            <IBeautifulLink2 @click="$router.push({path:'/ilearning/course_detail',query:{course_id:course.id}})">{{course.course_name}}</IBeautifulLink2>
+            <IBeautifulLink @click="$router.push({path:'/ilearning/course_detail',query:{course_id:course.id}})">{{course.course_name}}</IBeautifulLink>
           </Row>
         </div>
       </IBeautifulCard>
@@ -37,12 +37,12 @@
 <script>
   import IBeautifulCard from "../../Common/card/IBeautifulCard"
   import {GetHotCourseRecommend} from "../../../api"
-  import IBeautifulLink2 from "../../Common/link/IBeautifulLink2";
+  import IBeautifulLink from "../../Common/link/IBeautifulLink";
 
 
   export default {
     name: "HotRecommend",
-    components:{IBeautifulLink2, IBeautifulCard},
+    components:{IBeautifulLink, IBeautifulCard},
     props:{
       // 显示方式,支持 detail 和 list
       showMode: {

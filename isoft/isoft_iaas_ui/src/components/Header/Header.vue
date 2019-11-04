@@ -3,28 +3,28 @@
     <Menu mode="horizontal" :theme="theme1" active-name="1">
       <div class="layout-nav">
         <MenuItem name="1">
-          <IBeautifulLink2 @onclick="$router.push({path:'/ilearning/index'})">精品课程</IBeautifulLink2>
+          <IBeautifulLink @onclick="$router.push({path:'/ilearning/index'})">精品课程</IBeautifulLink>
         </MenuItem>
         <MenuItem name="2">
-          <IBeautifulLink2 @onclick="$router.push({path:'/iblog/blog_list'})">话题博客</IBeautifulLink2>
+          <IBeautifulLink @onclick="$router.push({path:'/iblog/blog_list'})">话题博客</IBeautifulLink>
         </MenuItem>
         <MenuItem name="3">
-          <IBeautifulLink2 @onclick="$router.push({path:'/iblog/book_list'})">热门书单</IBeautifulLink2>
+          <IBeautifulLink @onclick="$router.push({path:'/iblog/book_list'})">热门书单</IBeautifulLink>
         </MenuItem>
         <MenuItem name="4">
-          <IBeautifulLink2 @onclick="$router.push({path:'/ifound/found_list'})">发现频道</IBeautifulLink2>
+          <IBeautifulLink @onclick="$router.push({path:'/ifound/found_list'})">发现频道</IBeautifulLink>
         </MenuItem>
         <MenuItem name="5">
-          <IBeautifulLink2 @onclick="$router.push({path:'/ifound/found_list'})">热门活动</IBeautifulLink2>
+          <IBeautifulLink @onclick="$router.push({path:'/ifound/found_list'})">热门活动</IBeautifulLink>
         </MenuItem>
         <MenuItem name="6">
-          <IBeautifulLink2 @onclick="$router.push({path:'/igood/good_list'})">我要赚钱</IBeautifulLink2>
+          <IBeautifulLink @onclick="$router.push({path:'/igood/good_list'})">我要赚钱</IBeautifulLink>
         </MenuItem>
         <MenuItem name="7">
-          <IBeautifulLink2 @onclick="$router.push({path:'/ifound/discount_list'})">聚优惠</IBeautifulLink2>
+          <IBeautifulLink @onclick="$router.push({path:'/ifound/discount_list'})">聚优惠</IBeautifulLink>
         </MenuItem>
         <MenuItem name="8">
-          <IBeautifulLink2 @onclick="$router.push({path:'/ifound/activity_list'})">聚活动</IBeautifulLink2>
+          <IBeautifulLink @onclick="$router.push({path:'/ifound/activity_list'})">聚活动</IBeautifulLink>
         </MenuItem>
         <Submenu name="9">
           <template slot="title">
@@ -48,10 +48,10 @@
           </MenuGroup>
         </Submenu>
         <MenuItem name="11">
-          <IBeautifulLink2 @onclick="$router.push({path:'/background/cms/placement_list'})">管理控制台</IBeautifulLink2>
+          <IBeautifulLink @onclick="$router.push({path:'/background/cms/placement_list'})">管理控制台</IBeautifulLink>
         </MenuItem>
         <MenuItem name="12">
-          <IBeautifulLink2 @onclick="$router.push({path:'/ilearning/advise'})">我要吐槽/建议</IBeautifulLink2>
+          <IBeautifulLink @onclick="$router.push({path:'/ilearning/advise'})">我要吐槽/建议</IBeautifulLink>
         </MenuItem>
       </div>
     </Menu>
@@ -61,11 +61,11 @@
 <script>
   import {getCookie, delCookie, CheckHasLogin} from '../../tools/index'
   import {LoginAddr} from "../../api"
-  import IBeautifulLink2 from "../Common/link/IBeautifulLink2";
+  import IBeautifulLink from "../Common/link/IBeautifulLink";
 
   export default {
     name: "Header",
-    components: {IBeautifulLink2},
+    components: {IBeautifulLink},
     data () {
       return {
         theme1: 'light',

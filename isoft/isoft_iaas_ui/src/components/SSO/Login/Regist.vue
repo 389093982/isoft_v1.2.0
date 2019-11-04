@@ -88,11 +88,11 @@
   import {validateUserName} from "../../../tools"
   import {validatePasswd} from "../../../tools"
   import ISimpleSearch from "../../Common/search/ISimpleSearch"
-  import IBeautifulLink2 from "../../Common/link/IBeautifulLink2";
+  import IBeautifulLink from "../../Common/link/IBeautifulLink";
 
   export default {
     name: "Regist",
-    components:{IBeautifulLink2, LoginFooter,ISimpleSearch},
+    components:{IBeautifulLink, LoginFooter,ISimpleSearch},
     data(){
       const _validateUserName = (rule, value, callback) => {
         if (value === '') {

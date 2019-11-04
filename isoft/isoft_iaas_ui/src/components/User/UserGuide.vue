@@ -7,7 +7,7 @@
             <Col span="6">
               <div style="min-height: 500px;border: 2px solid rgba(223,223,223,0.5);padding: 20px;margin: 2px;">
                 <p v-for="(element, index) in elements" style="font-size: 15px;">
-                  <IBeautifulLink2 @onclick="showElement(index)">{{element.title}}</IBeautifulLink2>
+                  <IBeautifulLink @onclick="showElement(index)">{{element.title}}</IBeautifulLink>
                 </p>
               </div>
             </Col>

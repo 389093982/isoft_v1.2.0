@@ -38,7 +38,7 @@
                 <span style="float: right;" v-if="isAdmin">
                   <span v-if="searchblog.blog_status == 1" style="color: #f16aff;">已启用</span>
                   <span v-else style="color: #f16aff;">已禁用</span>
-                  <IBeautifulLink2 @onclick="deleteBlog(searchblog.id, searchblog.blog_status)">启/禁用</IBeautifulLink2>
+                  <IBeautifulLink @onclick="deleteBlog(searchblog.id, searchblog.blog_status)">启/禁用</IBeautifulLink>
                 </span>
               </Col>
             </Row>
@@ -91,12 +91,12 @@
   import CatalogList from "./CatalogList"
   import HotUser from "../User/HotUser"
   import HorizontalLinks from "../Elementviewers/HorizontalLinks";
-  import IBeautifulLink2 from "../Common/link/IBeautifulLink2";
+  import IBeautifulLink from "../Common/link/IBeautifulLink";
   import {CheckAdminLogin} from "../../tools"
 
   export default {
     name: "BlogList",
-    components:{IBeautifulLink2, HorizontalLinks, CatalogList,HotCatalogItems,HotUser},
+    components:{IBeautifulLink, HorizontalLinks, CatalogList,HotCatalogItems,HotUser},
     data(){
       return {
         // 当前页

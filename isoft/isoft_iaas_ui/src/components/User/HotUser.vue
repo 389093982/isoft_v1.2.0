@@ -8,7 +8,7 @@
             <img width="30" height="30" v-else src="../../../src/assets/sso/default_user_small_icon.jpg">
           </Col>
           <Col span="10">
-            <IBeautifulLink2 @onclick="$router.push({path:'/user/detail',query:{username:user.user_name}})">{{user.user_name}}</IBeautifulLink2>
+            <IBeautifulLink @onclick="$router.push({path:'/user/detail',query:{username:user.user_name}})">{{user.user_name}}</IBeautifulLink>
           </Col>
           <Col span="10" class="small_font_size">
             用户积分数：{{user.user_points}}
@@ -22,11 +22,11 @@
 <script>
   import {GetHotUsers} from "../../api"
   import IBeautifulCard from "../../components/Common/card/IBeautifulCard";
-  import IBeautifulLink2 from "../Common/link/IBeautifulLink2";
+  import IBeautifulLink from "../Common/link/IBeautifulLink";
 
   export default {
     name: "HotUser",
-    components: {IBeautifulLink2, IBeautifulCard},
+    components: {IBeautifulLink, IBeautifulCard},
     data(){
       return {
         users:[],

@@ -6,7 +6,7 @@
 
 <script>
   export default {
-    name: "IBeautifulLink2",
+    name: "IBeautifulLink",
     props:{
       inLine:{
         type:Boolean,

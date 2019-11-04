@@ -10,7 +10,7 @@
         </li>
       </ul>
       <span slot="header_right">
-      <IBeautifulLink2 style="font-size: 12px;">更多</IBeautifulLink2>
+      <IBeautifulLink style="font-size: 12px;">更多</IBeautifulLink>
     </span>
     </IBeautifulCard>
   </ElementsLoader>
@@ -19,11 +19,11 @@
 <script>
   import IBeautifulCard from "../../Common/card/IBeautifulCard"
   import ElementsLoader from "../../Background/CMS/ElementsLoader"
-  import IBeautifulLink2 from "../../Common/link/IBeautifulLink2";
+  import IBeautifulLink from "../../Common/link/IBeautifulLink";
 
   export default {
     name: "NewsNotice",
-    components:{IBeautifulLink2, IBeautifulCard,ElementsLoader},
+    components:{IBeautifulLink, IBeautifulCard,ElementsLoader},
     props:{
       placement_name:{
         type:String,

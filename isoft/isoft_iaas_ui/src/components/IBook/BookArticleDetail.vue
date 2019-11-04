@@ -7,15 +7,15 @@
           <Scroll height="430" style="margin-top: 5px;">
             <p v-for="bookCatalog in bookCatalogs">
               <Icon type="ios-paper-outline"/>
-              <IBeautifulLink2 @onclick="showDetail(bookCatalog.id)">{{bookCatalog.catalog_name | filterLimitFunc}}</IBeautifulLink2>
+              <IBeautifulLink @onclick="showDetail(bookCatalog.id)">{{bookCatalog.catalog_name | filterLimitFunc}}</IBeautifulLink>
             </p>
           </Scroll>
         </div>
       </Col>
       <Col span="18" style="background-color: #fff;border: 1px solid #e6e6e6;border-radius: 4px;padding: 20px;min-height: 500px;">
         <div style="text-align: right;">
-          <IBeautifulLink2>上一篇</IBeautifulLink2>
-          <IBeautifulLink2>下一篇</IBeautifulLink2>
+          <IBeautifulLink>上一篇</IBeautifulLink>
+          <IBeautifulLink>下一篇</IBeautifulLink>
         </div>
 
         <div style="min-height: 400px;">
@@ -23,8 +23,8 @@
         </div>
 
         <div style="text-align: right;">
-          <IBeautifulLink2>上一篇</IBeautifulLink2>
-          <IBeautifulLink2>下一篇</IBeautifulLink2>
+          <IBeautifulLink>上一篇</IBeautifulLink>
+          <IBeautifulLink>下一篇</IBeautifulLink>
         </div>
       </Col>
     </Row>
@@ -35,13 +35,13 @@
 
 <script>
   import {BookArticleList,BookCatalogList,ShowBookArticleDetail} from "../../api";
-  import IBeautifulLink2 from "../Common/link/IBeautifulLink2";
+  import IBeautifulLink from "../Common/link/IBeautifulLink";
   import IShowMarkdown from "../Common/markdown/IShowMarkdown"
   import HorizontalLinks from "../Elementviewers/HorizontalLinks";
 
   export default {
     name: "BookArticleDetail",
-    components: {HorizontalLinks, IBeautifulLink2,IShowMarkdown},
+    components: {HorizontalLinks, IBeautifulLink,IShowMarkdown},
     data(){
       return {
         bookArticles:[],

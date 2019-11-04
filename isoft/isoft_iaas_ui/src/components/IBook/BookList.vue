@@ -5,13 +5,13 @@
         <!-- 内外边距：上右下左 -->
         <Row style="padding: 15px 10px 10px 25px;">
           <Col span="2">
-            <IBeautifulLink2 @onclick="$router.push({path:'/iblog/book_list'})">全部书单</IBeautifulLink2>
+            <IBeautifulLink @onclick="$router.push({path:'/iblog/book_list'})">全部书单</IBeautifulLink>
           </Col>
           <Col span="2">
-            <IBeautifulLink2 @onclick="$router.push({path:'/iblog/book_list'})">热门书单</IBeautifulLink2>
+            <IBeautifulLink @onclick="$router.push({path:'/iblog/book_list'})">热门书单</IBeautifulLink>
           </Col>
           <Col span="2">
-            <IBeautifulLink2 @onclick="$router.push({path:'/iblog/mine/book_list',query:{type:'mine'}})">我的书单</IBeautifulLink2>
+            <IBeautifulLink @onclick="$router.push({path:'/iblog/mine/book_list',query:{type:'mine'}})">我的书单</IBeautifulLink>
           </Col>
         </Row>
 
@@ -32,15 +32,15 @@
                                  :extra-data="book.id" @uploadComplete="uploadComplete" action="/api/iwork/httpservice/fileUpload" uploadLabel="换张图片"/>
                   </Col>
                   <Col span="12">
-                    <IBeautifulLink2 @onclick="deleteBook(book.id)">删除</IBeautifulLink2>
+                    <IBeautifulLink @onclick="deleteBook(book.id)">删除</IBeautifulLink>
                   </Col>
                 </Row>
                 <Row :gutter="10">
                   <Col span="12">
-                    <IBeautifulLink2 @onclick="showBookEditModal2(book)">修改信息</IBeautifulLink2>
+                    <IBeautifulLink @onclick="showBookEditModal2(book)">修改信息</IBeautifulLink>
                   </Col>
                   <Col span="12">
-                    <IBeautifulLink2 @onclick="$router.push({path:'/iblog/mine/book_edit',query:{book_id:book.id,book_name:book.book_name}})">编辑</IBeautifulLink2>
+                    <IBeautifulLink @onclick="$router.push({path:'/iblog/mine/book_edit',query:{book_id:book.id,book_name:book.book_name}})">编辑</IBeautifulLink>
                   </Col>
                 </Row>
               </div>
@@ -70,14 +70,14 @@
   import IBeautifulCard from "../Common/card/IBeautifulCard"
   import IKeyValueForm from "../Common/form/IKeyValueForm";
   import ISimpleConfirmModal from "../Common/modal/ISimpleConfirmModal"
-  import IBeautifulLink2 from "../Common/link/IBeautifulLink2"
+  import IBeautifulLink from "../Common/link/IBeautifulLink"
   import IFileUpload from "../Common/file/IFileUpload"
   import HotUser from "../User/HotUser";
   import IndexCarousel from "../ILearning/IndexCarousel";
 
   export default {
     name: "BookList",
-    components: {IndexCarousel, HotUser, IBeautifulLink2, IKeyValueForm, IBeautifulCard,ISimpleConfirmModal,IFileUpload},
+    components: {IndexCarousel, HotUser, IBeautifulLink, IKeyValueForm, IBeautifulCard,ISimpleConfirmModal,IFileUpload},
     data(){
       return {
         books:[],
