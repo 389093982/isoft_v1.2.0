@@ -5,6 +5,8 @@
 
     <ChooseCourseType/>
 
+    <GoodRank/>
+
     <Row>
       <Col span="18">
         <!-- 热门推荐区域 -->
@@ -62,10 +64,12 @@
   import HorizontalLinks from "../Elementviewers/HorizontalLinks"
   import IHotRecommand from "../Common/recommend/IHotRecommand"
   import IndexCarousel from "./IndexCarousel";
+  import GoodRank from "./GoodRank";
 
   export default {
     name: "Index",
     components:{
+      GoodRank,
       IndexCarousel,
       IHotRecommand, HorizontalLinks, ChooseCourseType,HotRecommend,NewsNotice,HotIssue,ToolBox, IBeautifulTabLink,Fun},
   }
