@@ -1,6 +1,6 @@
 <template>
-  <div class="box" @mouseenter="mouseenter">
-    <img :src="srcImg" width="154px;" height="86px;" class="hoverScaleImg"/>
+  <div class="box" @mouseenter="mouseenter" :style="styles" @click="onclick">
+    <img :src="srcImg" :style="styles" class="hoverScaleImg"/>
   </div>
 </template>
 
@@ -11,20 +11,37 @@
       srcImg:{
         type:String,
         default:"../../../assets/2.jpeg",
+      },
+      width:{
+        type:String,
+        default:"154px",
+      },
+      height:{
+        type:String,
+        default:"86px",
       }
     },
     methods:{
       mouseenter:function () {
         this.$emit("mouseenter");
+      },
+      onclick:function () {
+        this.$emit("onclick");
       }
-    }
+    },
+    computed: {
+      styles () {
+        let style = {};
+        style.width = this.width;
+        style.height = this.height;
+        return style;
+      }
+    },
   }
 </script>
 
 <style scoped>
   .box{
-    width: 154px;
-    height: 86px;
     overflow: hidden;
   }
   .box img{

@@ -1,5 +1,5 @@
 <template>
-  <div style="background-color: #f8f8f8;width: 385px;height: 750px;padding-top: 10px;">
+  <div style="background-color: #f8f8f8;height: 100%;padding-top: 10px;">
     <h2 class="good_rank">精品排行</h2>
     <a href="#" v-for="(rank, index) in ranks">
       <Row>
@@ -40,14 +40,14 @@
     position: relative;
     height: 40px;
     color: #111;
-    font-size: 30px;
+    font-size: 20px;
     font-weight: 400;
     line-height: 40px;
     white-space: nowrap;
   }
   a{
     margin: 0 20px;
-    padding: 18px 10px 15px 10px;
+    padding: 10px 10px 5px 10px;
     border-top: 1px solid #eee;
     display: block;
     position: relative;
@@ -55,17 +55,17 @@
   }
   .rank_red_index{
     color: #ff183e;
-    font-size: 28px;
+    font-size: 20px;
   }
   .rank_grey_index{
     color: #999;
-    font-size: 28px;
+    font-size: 20px;
   }
   .rank_name{
     color: #111;
-    font-size: 18px;
-    font-weight: 700;
-    line-height: 24px;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 20px;
     display: block;
     overflow: hidden;
     text-overflow: ellipsis;

@@ -3,9 +3,19 @@
 
     <a @click="$router.push({'path':'/ilearning/about'})">关于</a>
 
+
     <ChooseCourseType/>
 
-    <GoodRank/>
+    <WarmHeartRecommend/>
+
+    <Row>
+      <Col span="18">
+        <HotRecommend/>
+      </Col>
+      <Col span="6">
+        <GoodRank/>
+      </Col>
+    </Row>
 
     <Row>
       <Col span="18">
@@ -65,10 +75,12 @@
   import IHotRecommand from "../Common/recommend/IHotRecommand"
   import IndexCarousel from "./IndexCarousel";
   import GoodRank from "./GoodRank";
+  import WarmHeartRecommend from "./WarmHeartRecommend";
 
   export default {
     name: "Index",
     components:{
+      WarmHeartRecommend,
       GoodRank,
       IndexCarousel,
       IHotRecommand, HorizontalLinks, ChooseCourseType,HotRecommend,NewsNotice,HotIssue,ToolBox, IBeautifulTabLink,Fun},
