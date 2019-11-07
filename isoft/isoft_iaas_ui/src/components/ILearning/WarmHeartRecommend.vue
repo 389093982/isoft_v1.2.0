@@ -1,8 +1,6 @@
 <template>
   <div>
-    <div>
-      为您精选
-    </div>
+    <div class="header">为您精选</div>
     <Row>
       <Col span="12">
         <video ref="video" width="585px" height="365px" controls autoplay="autoplay">
@@ -12,10 +10,16 @@
         </video>
       </Col>
       <Col span="12">
-        <HoverBigImg width="154px" height="86px"/>
-        <HoverBigImg width="160px" height="90px"/>
-        <HoverBigImg width="154px" height="86px"/>
-        <HoverBigImg width="154px" height="86px"/>
+        <p style="height: 50px">AAAAAAAA BBBBBBBBBB CCCCCCCCC DDDDDDDDD</p>
+        <HoverBigImg width="184px" height="98px" style="float: left;margin: 0 10px 10px 0;"/>
+        <HoverBigImg width="184px" height="98px" style="float: left;margin: 0 10px 10px 0;"/>
+        <HoverBigImg width="184px" height="98px" style="float: left;margin: 0 10px 10px 0;"/>
+        <HoverBigImg width="184px" height="98px" style="float: left;margin: 0 10px 10px 0;"/>
+        <HoverBigImg width="184px" height="98px" style="float: left;margin: 0 10px 10px 0;"/>
+        <HoverBigImg width="184px" height="98px" style="float: left;margin: 0 10px 10px 0;"/>
+        <HoverBigImg width="184px" height="98px" style="float: left;margin: 0 10px 10px 0;"/>
+        <HoverBigImg width="184px" height="98px" style="float: left;margin: 0 10px 10px 0;"/>
+        <HoverBigImg width="184px" height="98px" style="float: left;margin: 0 10px 10px 0;"/>
       </Col>
     </Row>
 
@@ -31,5 +35,14 @@
 </script>
 
 <style scoped>
-
+  .header{
+    margin: 0 10px 10px 10px;
+    position: relative;
+    height: 40px;
+    color: #111;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 40px;
+    white-space: nowrap;
+  }
 </style>
