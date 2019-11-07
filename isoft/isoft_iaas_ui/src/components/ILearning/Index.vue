@@ -1,9 +1,6 @@
 <template>
   <div style="background: #FFFFFF;padding: 10px;">
 
-    <a @click="$router.push({'path':'/ilearning/about'})">关于</a>
-
-
     <ChooseCourseType/>
 
     <WarmHeartRecommend/>
