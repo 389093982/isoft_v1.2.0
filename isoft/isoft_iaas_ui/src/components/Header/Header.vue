@@ -28,31 +28,31 @@
         </MenuItem>
         <Submenu name="9">
           <template slot="title">
-            <span>更多内容</span>
-          </template>
-          <MenuGroup title="更多内容">
-            <MenuItem name="9-1">全部菜单项</MenuItem>
-            <MenuItem name="9-2">精选内容</MenuItem>
-            <MenuItem name="9-3">更多内容</MenuItem>
-          </MenuGroup>
-        </Submenu>
-        <Submenu name="10">
-          <template slot="title">
             <span v-if="loginUserName">{{loginUserName}}</span>
             <span v-else>未登录</span>
           </template>
           <MenuGroup title="账号管理">
-            <MenuItem name="10-1" @click.native="cancelUser">前往登录</MenuItem>
-            <MenuItem name="10-2" @click.native="cancelUser">切换账号</MenuItem>
-            <MenuItem name="10-3" @click.native="cancelUser">注销</MenuItem>
+            <MenuItem name="9-1" @click.native="cancelUser">前往登录</MenuItem>
+            <MenuItem name="9-2" @click.native="cancelUser">切换账号</MenuItem>
+            <MenuItem name="9-3" @click.native="cancelUser">注销</MenuItem>
           </MenuGroup>
         </Submenu>
-        <MenuItem name="11">
+        <MenuItem name="10">
           <IBeautifulLink @onclick="$router.push({path:'/background/cms/placement_list'})">管理控制台</IBeautifulLink>
         </MenuItem>
-        <MenuItem name="12">
+        <MenuItem name="11">
           <IBeautifulLink @onclick="$router.push({path:'/ilearning/advise'})">我要吐槽/建议</IBeautifulLink>
         </MenuItem>
+        <Submenu name="12">
+          <template slot="title">
+            <span>更多内容</span>
+          </template>
+          <MenuGroup title="更多内容">
+            <MenuItem name="12-1">全部菜单项</MenuItem>
+            <MenuItem name="12-2">精选内容</MenuItem>
+            <MenuItem name="12-3">更多内容</MenuItem>
+          </MenuGroup>
+        </Submenu>
       </div>
     </Menu>
   </div>
