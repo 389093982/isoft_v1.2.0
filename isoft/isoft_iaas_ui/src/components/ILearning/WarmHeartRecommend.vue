@@ -10,7 +10,7 @@
         </video>
       </Col>
       <Col span="12" style="padding-left: 10px;">
-        <p style="height: 50px">AAAAAAAA BBBBBBBBBB CCCCCCCCC DDDDDDDDD</p>
+        <p style="width:570px;height: 40px;padding:5px;margin-bottom:10px;background-color: #E5E5E5;">AAAAAAAA BBBBBBBBBB CCCCCCCCC DDDDDDDDD</p>
         <HoverBigImg class="hoverBorderShadow" width="184px" height="98px" src-img="http://localhost:8086/api/files/510825.gif" style="float: left;margin: 0 10px 10px 0;"/>
         <HoverBigImg class="hoverBorderShadow" width="184px" height="98px" src-img="http://localhost:8086/api/files/510825.gif" style="float: left;margin: 0 10px 10px 0;"/>
         <HoverBigImg class="hoverBorderShadow" width="184px" height="98px" src-img="http://localhost:8086/api/files/510825.gif" style="float: left;margin: 0 10px 10px 0;"/>
