@@ -1,1 +1,6 @@
 # git clone命令将存储库克隆到新目录中
+
+fatal: unable to access ‘https://github.com/XXX/HP_ONE/’: The requested URL returned error: 403
+大致意思是说没有权限访问，解决方案如下
+    >> 选择Settings
+    >> 输入添加人gitHub账号,点击Add collaborator
