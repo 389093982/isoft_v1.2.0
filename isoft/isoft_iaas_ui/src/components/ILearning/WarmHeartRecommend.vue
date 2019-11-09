@@ -10,7 +10,12 @@
         </video>
       </Col>
       <Col span="12" style="padding-left: 10px;">
-        <p style="width:570px;height: 40px;padding:5px;margin-bottom:10px;background-color: #E5E5E5;">AAAAAAAA BBBBBBBBBB CCCCCCCCC DDDDDDDDD</p>
+        <p style="width:570px;height: 40px;padding:7px;margin-bottom:10px;background-color: rgba(228,228,228,0.4);">
+          <a class="hovered hvr-grow hoverLinkColor mr5">热门</a>
+          <a class="hovered hvr-grow hoverLinkColor mr5">最新</a>
+          <a class="hovered hvr-grow hoverLinkColor mr5">高评</a>
+          <a class="hovered hvr-grow hoverLinkColor mr5">特色</a>
+        </p>
         <HoverBigImg class="hoverBorderShadow" width="184px" height="98px" src-img="http://localhost:8086/api/files/510825.gif" style="float: left;margin: 0 10px 10px 0;"/>
         <HoverBigImg class="hoverBorderShadow" width="184px" height="98px" src-img="http://localhost:8086/api/files/510825.gif" style="float: left;margin: 0 10px 10px 0;"/>
         <HoverBigImg class="hoverBorderShadow" width="184px" height="98px" src-img="http://localhost:8086/api/files/510825.gif" style="float: left;margin: 0 10px 10px 0;"/>
