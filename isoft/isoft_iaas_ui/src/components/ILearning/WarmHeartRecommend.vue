@@ -2,24 +2,24 @@
   <div>
     <div class="header">为您精选</div>
     <Row>
-      <Col span="12">
-        <video ref="video" width="585px" height="365px" controls autoplay="autoplay" src="http://localhost:8086/api/files/75dd3df4-a3db-47ce-948e-4cacd6348d88">
+      <Col span="12" style="width:585px;height:365px;">
+        <video ref="video" style="width:100%;height:100%;object-fit: fill" controls autoplay="autoplay" src="http://localhost:8086/api/files/75dd3df4-a3db-47ce-948e-4cacd6348d88">
           <source type="video/mp4">
           <source type="video/ogg">
           您的浏览器不支持Video标签。
         </video>
       </Col>
-      <Col span="12">
+      <Col span="12" style="padding-left: 10px;">
         <p style="height: 50px">AAAAAAAA BBBBBBBBBB CCCCCCCCC DDDDDDDDD</p>
-        <HoverBigImg width="184px" height="98px" src-img="http://localhost:8086/api/files/510825.gif" style="float: left;margin: 0 10px 10px 0;"/>
-        <HoverBigImg width="184px" height="98px" src-img="http://localhost:8086/api/files/510825.gif" style="float: left;margin: 0 10px 10px 0;"/>
-        <HoverBigImg width="184px" height="98px" src-img="http://localhost:8086/api/files/510825.gif" style="float: left;margin: 0 10px 10px 0;"/>
-        <HoverBigImg width="184px" height="98px" src-img="http://localhost:8086/api/files/510825.gif" style="float: left;margin: 0 10px 10px 0;"/>
-        <HoverBigImg width="184px" height="98px" src-img="http://localhost:8086/api/files/510825.gif" style="float: left;margin: 0 10px 10px 0;"/>
-        <HoverBigImg width="184px" height="98px" src-img="http://localhost:8086/api/files/510825.gif" style="float: left;margin: 0 10px 10px 0;"/>
-        <HoverBigImg width="184px" height="98px" src-img="http://localhost:8086/api/files/510825.gif" style="float: left;margin: 0 10px 10px 0;"/>
-        <HoverBigImg width="184px" height="98px" src-img="http://localhost:8086/api/files/510825.gif" style="float: left;margin: 0 10px 10px 0;"/>
-        <HoverBigImg width="184px" height="98px" src-img="http://localhost:8086/api/files/510825.gif" style="float: left;margin: 0 10px 10px 0;"/>
+        <HoverBigImg class="hoverBorderShadow" width="184px" height="98px" src-img="http://localhost:8086/api/files/510825.gif" style="float: left;margin: 0 10px 10px 0;"/>
+        <HoverBigImg class="hoverBorderShadow" width="184px" height="98px" src-img="http://localhost:8086/api/files/510825.gif" style="float: left;margin: 0 10px 10px 0;"/>
+        <HoverBigImg class="hoverBorderShadow" width="184px" height="98px" src-img="http://localhost:8086/api/files/510825.gif" style="float: left;margin: 0 10px 10px 0;"/>
+        <HoverBigImg class="hoverBorderShadow" width="184px" height="98px" src-img="http://localhost:8086/api/files/510825.gif" style="float: left;margin: 0 10px 10px 0;"/>
+        <HoverBigImg class="hoverBorderShadow" width="184px" height="98px" src-img="http://localhost:8086/api/files/510825.gif" style="float: left;margin: 0 10px 10px 0;"/>
+        <HoverBigImg class="hoverBorderShadow" width="184px" height="98px" src-img="http://localhost:8086/api/files/510825.gif" style="float: left;margin: 0 10px 10px 0;"/>
+        <HoverBigImg class="hoverBorderShadow" width="184px" height="98px" src-img="http://localhost:8086/api/files/510825.gif" style="float: left;margin: 0 10px 10px 0;"/>
+        <HoverBigImg class="hoverBorderShadow" width="184px" height="98px" src-img="http://localhost:8086/api/files/510825.gif" style="float: left;margin: 0 10px 10px 0;"/>
+        <HoverBigImg class="hoverBorderShadow" width="184px" height="98px" src-img="http://localhost:8086/api/files/510825.gif" style="float: left;margin: 0 10px 10px 0;"/>
       </Col>
     </Row>
 
@@ -35,6 +35,8 @@
 </script>
 
 <style scoped>
+  @import "../../assets/css/isoft_common.css";
+
   .header{
     margin: 0 10px 10px 10px;
     position: relative;
