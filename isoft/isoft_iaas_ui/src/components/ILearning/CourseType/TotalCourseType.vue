@@ -6,7 +6,7 @@
         <a style="margin-right: 10px;" @click="loadSubCourseType(course_type)">{{course_type.course_type}}</a>
       </span>
     </div>
-    <div style="padding: 10px;">
+    <div style="padding: 0 10px 10px 10px;">
       <span style="font-weight: bold;">详细分类：</span>
       <span v-for="sub_course_type in sub_course_types" style="margin-right: 10px;">
          <a @click="chooseCourseType(current_course_type, sub_course_type.course_sub_type)">{{sub_course_type.course_sub_type}}</a>
