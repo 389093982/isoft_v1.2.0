@@ -84,6 +84,5 @@
 
   .hover-anima:hover {
     border-bottom: 2px solid green;
-    transition: all 2s ease-in-out 0s;
   }
 </style>
