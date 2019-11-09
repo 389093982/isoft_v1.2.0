@@ -9,7 +9,6 @@
     </div>
     <div style="padding: 10px;">
       <span style="font-weight: bold;">详细分类：</span>
-
       <span v-for="element in elements" style="margin-right: 10px;"
             v-if="currentElement != null && element.navigation_parent_id == currentElement.id">
         <a @click="chooseCourseType(currentElement.title, element.title)">
