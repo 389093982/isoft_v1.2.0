@@ -16,6 +16,13 @@
       </Row>
     </div>
 
+    <div>
+      <span class="hover-anima">AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</span>
+      <span class="hover-anima">AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</span>
+      <span class="hover-anima">AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</span>
+      <span class="hover-anima">AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</span>
+    </div>
+
     <IBeautifulCard title="课程天地">
       <div slot="content" style="padding: 20px 20px 5px 20px;">
         <div>
@@ -74,4 +81,9 @@
 
 <style scoped>
   @import "../../../assets/css/isoft_common.css";
+
+  .hover-anima:hover {
+    border-bottom: 2px solid green;
+    transition: all 2s ease-in-out 0s;
+  }
 </style>
