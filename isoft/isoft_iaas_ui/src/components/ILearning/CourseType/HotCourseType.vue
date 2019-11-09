@@ -1,14 +1,15 @@
 <template>
   <ElementsLoader :placement_name="placement_name" @onLoadElement="onLoadElement">
     <div style="padding: 10px;">
-      课程大类：
+      <span style="font-weight: bold;">课程大类：</span>
       <span v-for="element in elements">
         <a style="margin-right: 10px;" v-if="element.navigation_level == 0"
                         @click="currentElement=element">{{element.title}}</a>
       </span>
     </div>
     <div style="padding: 10px;">
-      详细分类：
+      <span style="font-weight: bold;">详细分类：</span>
+
       <span v-for="element in elements" style="margin-right: 10px;"
             v-if="currentElement != null && element.navigation_parent_id == currentElement.id">
         <a @click="chooseCourseType(currentElement.title, element.title)">
