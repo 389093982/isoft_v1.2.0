@@ -45,12 +45,24 @@
     font-size: 14px;
   }
   .section01:hover{
-    background-color: red;
     background-color: rgba(0,0,0,0.6);
-    border-left: 1px solid yellow;
   }
   .section01:hover .title{
     color: yellow;
     font-weight: bold;
+  }
+  .section01::before{
+    content: '';
+    position: absolute;
+    margin-left: -20px;
+    margin-top: 10%;
+    border-left: 3px solid yellow;
+    transition: all 300ms ease-in-out;
+    height: 0;
+  }
+
+  .section01:hover::before{
+    margin-top: -20px;
+    height: 20%;
   }
 </style>

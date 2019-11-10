@@ -43,6 +43,9 @@
   transition: all 5s ease;
 }
 
+/**
+  水平 border-bottom 颜色渐变
+ */
 .linearTransitionBox{
   cursor: pointer;
   display: inline-block;
