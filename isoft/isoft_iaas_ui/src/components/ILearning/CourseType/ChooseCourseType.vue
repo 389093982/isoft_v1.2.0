@@ -2,7 +2,8 @@
   <div>
     <div style="margin-bottom: 5px;">
       <ISearch @submitFunc="searchFunc"/>
-      <Row>
+
+      <Row style="margin: 5px 0 5px 0;">
         <Col span="12" style="text-align: left;">
           <a @click="$router.push({path:'/ilearning/index'})" class="hovered hvr-grow hoverLinkColor mr5">返回首页</a>
         </Col>
