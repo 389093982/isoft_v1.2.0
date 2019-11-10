@@ -68,13 +68,16 @@
   }
 </script>
 
-<style scoped lang="stylus" rel="stylesheet/stylus">
-  .top
+<style scoped>
+  .top{
     padding: 10px;
     background: rgba(0, 153, 229, .7);
     color: #fff;
     text-align: center;
     border-radius: 2px;
-  #footer
-    background-color #ffffff
+  }
+  #footer{
+    background: #FFFFFF;
+    margin: 0 18px 0 18px;
+  }
 </style>
