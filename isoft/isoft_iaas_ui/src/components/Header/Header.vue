@@ -55,6 +55,8 @@
         </Submenu>
       </div>
     </Menu>
+
+    <LevelTwoHeader/>
   </div>
 </template>
 
@@ -62,10 +64,11 @@
   import {getCookie, delCookie, CheckHasLogin} from '../../tools/index'
   import {LoginAddr} from "../../api"
   import IBeautifulLink from "../Common/link/IBeautifulLink";
+  import LevelTwoHeader from "./LevelTwoHeader";
 
   export default {
     name: "Header",
-    components: {IBeautifulLink},
+    components: {LevelTwoHeader, IBeautifulLink},
     data () {
       return {
         theme1: 'light',
