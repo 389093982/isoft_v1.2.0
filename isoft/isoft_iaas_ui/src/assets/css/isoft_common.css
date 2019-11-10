@@ -43,3 +43,28 @@
   transition: all 5s ease;
 }
 
+.linearTransitionBox{
+  cursor: pointer;
+  display: inline-block;
+}
+
+.linearTransitionBorderBottom::after{
+  content: '';
+  position: relative;
+  bottom: 0;
+  border-top: 2px solid #ff6900;
+  display: block;
+  margin: 0 auto;
+  transition: all 120ms ease-in-out;
+  width: 0;
+}
+.linearTransitionBorderBottom:hover::after{
+  content: '';
+  position: relative;
+  bottom: 0;
+  border-top: 2px solid #ff6900;
+  display: block;
+  margin: 0 auto;
+  transition: all 120ms ease-in-out;
+  width: 100%;
+}
