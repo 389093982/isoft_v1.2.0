@@ -26,4 +26,20 @@
   border-color: rgba(229, 229, 229, .73);
 }
 
+/*
+  线性渐变背景色
+  在.box:hover中加入这行代码的意义是用于当鼠标移动上去时所产生的渐变效果,在.box中加入这行代码的意义是用于当鼠标移开时所产生的渐变效果,
+  如果有一方不加,则会导致不加的那一方在进行样式变化的时候不会产生渐变的效果
+*/
+.linearTransitionBg{
+  width: 500px;
+  height: 30px;
+  background-color: yellow;
+  transition: all 5s ease;
+}
+
+.linearTransitionBg:hover{
+  width: 100%;
+  transition: all 5s ease;
+}
 
