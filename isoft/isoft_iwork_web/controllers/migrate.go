@@ -145,7 +145,7 @@ func (this *WorkController) ToggleSqlMigrateEffective() {
 }
 
 func saveMigrate(migrate *models.SqlMigrate) error {
-	filepath := path.Join(iwork_persistent_path, "migrates", migrate.MigrateName)
+	filepath := path.Join(persistentPath, "migrates", migrate.MigrateName)
 	fileutil.MkdirAll(filepath)
 	return fileutil.WriteFile(filepath, []byte(xmlutil.RenderToString(migrate)), false)
 }

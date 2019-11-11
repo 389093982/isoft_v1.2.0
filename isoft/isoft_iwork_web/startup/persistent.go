@@ -10,6 +10,8 @@ import (
 	"isoft/isoft_iwork_web/core/iworkcache"
 	"isoft/isoft_iwork_web/core/iworkutil/errorutil"
 	"isoft/isoft_iwork_web/models"
+	"path/filepath"
+	"runtime"
 	"time"
 )
 
@@ -76,7 +78,12 @@ func Persistent() {
 	if persistent_initial, _ := beego.AppConfig.Bool("persistent.initial"); persistent_initial == true {
 		backupDB()
 		truncateDB()
-		persistentToDB(`D:\zhourui\program\go\goland_workspace\src\isoft\isoft_iwork_web\persistent\works`, persistentWorkFileToDB)
-		persistentToDB(`D:\zhourui\program\go\goland_workspace\src\isoft\isoft_iwork_web\persistent\migrates`, persistentSqlMigrateFileToDB)
+
+		// 获取 persistent 目录
+		_, file, _, _ := runtime.Caller(0)
+		persistentPath := fmt.Sprintf("%s/persistent", filepath.Dir(filepath.Dir(file)))
+
+		persistentToDB(fmt.Sprintf("%s/works", persistentPath), persistentWorkFileToDB)
+		persistentToDB(fmt.Sprintf("%s/migrates", persistentPath), persistentSqlMigrateFileToDB)
 	}
 }
