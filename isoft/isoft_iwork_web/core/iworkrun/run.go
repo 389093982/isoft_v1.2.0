@@ -90,10 +90,12 @@ func RunOneStep(args *interfaces.RunOneStepArgs) (receiver *entry.Receiver) {
 }
 
 func getFilterTrackingIds(dispatcher *entry.Dispatcher) string {
-	if request := dispatcher.TmpDataMap[iworkconst.HTTP_REQUEST_OBJECT].(*http.Request); request != nil {
-		if filterTrackingIds := request.Header.Get(iworkconst.FILTER_TRACKING_ID_STACK); filterTrackingIds != "" {
-			request.Header.Del(iworkconst.FILTER_TRACKING_ID_STACK)
-			return filterTrackingIds
+	if dispatcher != nil {
+		if request, ok := dispatcher.TmpDataMap[iworkconst.HTTP_REQUEST_OBJECT].(*http.Request); ok && request != nil {
+			if filterTrackingIds := request.Header.Get(iworkconst.FILTER_TRACKING_ID_STACK); filterTrackingIds != "" {
+				request.Header.Del(iworkconst.FILTER_TRACKING_ID_STACK)
+				return filterTrackingIds
+			}
 		}
 	}
 	return ""
