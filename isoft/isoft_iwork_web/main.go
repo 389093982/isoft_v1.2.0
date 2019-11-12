@@ -11,6 +11,7 @@ import (
 	"isoft/isoft_iwork_web/startup/filter"
 	_ "isoft/isoft_iwork_web/startup/logger"
 	"isoft/isoft_iwork_web/startup/memory"
+	"isoft/isoft_iwork_web/startup/runtimecfg"
 	_ "isoft/isoft_iwork_web/startup/sysconfig"
 	"isoft/isoft_iwork_web/startup/task"
 )
@@ -26,8 +27,7 @@ func main() {
 
 	task.InitialData() // 初始化数据
 
-	fileServerPath := beego.AppConfig.String("file.server")
-	beego.SetStaticPath("/api/files", fileServerPath)
+	beego.SetStaticPath("/api/files", runtimecfg.FileSavePath)
 
 	beego.Run()
 }

@@ -14,6 +14,7 @@ import (
 	"isoft/isoft_iwork_web/core/iworkutil/fileutil"
 	"isoft/isoft_iwork_web/models"
 	"isoft/isoft_iwork_web/service"
+	"isoft/isoft_iwork_web/startup/runtimecfg"
 	"path"
 	"strconv"
 	"sync"
@@ -231,7 +232,7 @@ func (this *WorkController) Download() {
 	work_id := this.Ctx.Input.Param(":work_id")
 	workId, _ := strconv.ParseInt(work_id, 10, 64)
 	workCache, _ := iworkcache.GetWorkCache(workId)
-	tofile := path.Join(beego.AppConfig.String("file.server"), stringutil.RandomUUID())
+	tofile := path.Join(runtimecfg.FileSavePath, stringutil.RandomUUID())
 	fileutil.WriteFile(tofile, []byte(workCache.RenderToString()), false)
 	defer fileutil.RemoveFileOrDirectory(tofile)
 	this.Ctx.Output.Download(tofile, fmt.Sprintf(`%s.txt`, workCache.Work.WorkName))

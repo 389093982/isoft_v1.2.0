@@ -2,7 +2,6 @@ package controllers
 
 import (
 	"fmt"
-	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/context"
 	"isoft/isoft/common/stringutil"
 	"isoft/isoft_iwork_web/core/iworkcache"
@@ -12,6 +11,7 @@ import (
 	"isoft/isoft_iwork_web/core/iworkrun"
 	"isoft/isoft_iwork_web/models"
 	"isoft/isoft_iwork_web/startup/memory"
+	"isoft/isoft_iwork_web/startup/runtimecfg"
 	"path"
 	"time"
 )
@@ -108,7 +108,7 @@ func (this *WorkController) SaveFile(suffixs []string) (tempFileName, fileName, 
 	//关闭上传的文件，不然的话会出现临时文件不能清除的情况
 	defer f.Close()
 	//保存文件到指定的位置,static/uploadfile,这个是文件的地址,第一个static前面不要有/
-	tempFilePath = path.Join(beego.AppConfig.String("file.server"), tempFileName)
+	tempFilePath = path.Join(runtimecfg.FileSavePath, tempFileName)
 	err = this.SaveToFile("file", tempFilePath)
 	checkError(err)
 	return tempFileName, fileName, tempFilePath
