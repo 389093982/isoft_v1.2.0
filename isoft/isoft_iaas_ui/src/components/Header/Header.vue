@@ -17,40 +17,31 @@
         <MenuItem name="5">
           <IBeautifulLink @onclick="$router.push({path:'/ifound/found_list'})">热门活动</IBeautifulLink>
         </MenuItem>
-        <MenuItem name="6">
-          <IBeautifulLink @onclick="$router.push({path:'/igood/good_list'})">我要赚钱</IBeautifulLink>
-        </MenuItem>
-        <MenuItem name="7">
-          <IBeautifulLink @onclick="$router.push({path:'/ifound/discount_list'})">聚优惠</IBeautifulLink>
-        </MenuItem>
-        <MenuItem name="8">
-          <IBeautifulLink @onclick="$router.push({path:'/ifound/activity_list'})">聚活动</IBeautifulLink>
-        </MenuItem>
-        <Submenu name="9">
+        <Submenu name="6">
           <template slot="title">
             <span v-if="loginUserName">{{loginUserName}}</span>
             <span v-else>未登录</span>
           </template>
           <MenuGroup title="账号管理">
-            <MenuItem name="9-1" @click.native="cancelUser">前往登录</MenuItem>
-            <MenuItem name="9-2" @click.native="cancelUser">切换账号</MenuItem>
-            <MenuItem name="9-3" @click.native="cancelUser">注销</MenuItem>
+            <MenuItem name="6-1" @click.native="cancelUser">前往登录</MenuItem>
+            <MenuItem name="6-2" @click.native="cancelUser">切换账号</MenuItem>
+            <MenuItem name="6-3" @click.native="cancelUser">注销</MenuItem>
           </MenuGroup>
         </Submenu>
-        <MenuItem name="10">
+        <MenuItem name="7">
           <IBeautifulLink @onclick="$router.push({path:'/background/cms/placement_list'})">管理控制台</IBeautifulLink>
         </MenuItem>
-        <MenuItem name="11">
+        <MenuItem name="8">
           <IBeautifulLink @onclick="$router.push({path:'/ilearning/advise'})">我要吐槽/建议</IBeautifulLink>
         </MenuItem>
-        <Submenu name="12">
+        <Submenu name="9">
           <template slot="title">
             <span>更多内容</span>
           </template>
           <MenuGroup title="更多内容">
-            <MenuItem name="12-1">全部菜单项</MenuItem>
-            <MenuItem name="12-2">精选内容</MenuItem>
-            <MenuItem name="12-3">更多内容</MenuItem>
+            <MenuItem name="9-1">全部菜单项</MenuItem>
+            <MenuItem name="9-2">精选内容</MenuItem>
+            <MenuItem name="9-3">更多内容</MenuItem>
           </MenuGroup>
         </Submenu>
       </div>
@@ -94,7 +85,7 @@
 
 <style scoped>
   .layout-nav{
-    width: 1220px;
+    width: 1020px;
     margin: 0 auto;
     margin-right: 5px;
   }

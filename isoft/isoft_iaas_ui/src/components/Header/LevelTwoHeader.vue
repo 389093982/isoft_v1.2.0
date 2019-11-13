@@ -11,9 +11,15 @@
             <div class="linearTransitionBg"></div>
 
             <div>
-              <span class="linearTransitionBox linearTransitionBorderBottom">AAAAAAAA</span>
-              <span class="linearTransitionBox linearTransitionBorderBottom">AAAAAAAA</span>
-              <span class="linearTransitionBox linearTransitionBorderBottom">AAAAAAAA</span>
+              <span class="linearTransitionBox linearTransitionBorderBottom" @click="$router.push({path:'/igood/good_list'})">
+                我要赚钱
+              </span>
+              <span class="linearTransitionBox linearTransitionBorderBottom" @click="$router.push({path:'/ifound/discount_list'})">
+                聚优惠
+              </span>
+              <span class="linearTransitionBox linearTransitionBorderBottom" @click="$router.push({path:'/ifound/activity_list'})">
+                聚活动
+              </span>
               <span class="linearTransitionBox linearTransitionBorderBottom">AAAAAAAA</span>
               <span class="linearTransitionBox linearTransitionBorderBottom">AAAAAAAA</span>
               <span class="linearTransitionBox linearTransitionBorderBottom">AAAAAAAA</span>
