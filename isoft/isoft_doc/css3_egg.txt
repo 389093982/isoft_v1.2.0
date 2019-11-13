@@ -1,1 +1,8 @@
 https://blog.csdn.net/tuzhiaichitang/article/details/76618194
+
+需求：当鼠标移动到一个元素A身上时，另外一个元素B显示。
+实现原理：
+A元素与B元素有一个相同的父级。
+B元素默认隐藏，A元素默认显示。
+当鼠标移动到A元素身上时，也可以看做是移动到了A元素的父级身上。A元素的父级获得一个鼠标的hover状态。
+css使用： .father:hover .b { display:block } 的方式，来定义鼠标移动到父级身上时，B元素的样式。

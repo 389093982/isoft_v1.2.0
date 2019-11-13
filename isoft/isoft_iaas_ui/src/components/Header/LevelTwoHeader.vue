@@ -7,6 +7,18 @@
           <div class="subArea" style="width: 1000px;right: 110px;">
             <div class="arrow"></div>
             BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB
+
+            <div class="linearTransitionBg"></div>
+
+            <div>
+              <span class="linearTransitionBox linearTransitionBorderBottom">AAAAAAAA</span>
+              <span class="linearTransitionBox linearTransitionBorderBottom">AAAAAAAA</span>
+              <span class="linearTransitionBox linearTransitionBorderBottom">AAAAAAAA</span>
+              <span class="linearTransitionBox linearTransitionBorderBottom">AAAAAAAA</span>
+              <span class="linearTransitionBox linearTransitionBorderBottom">AAAAAAAA</span>
+              <span class="linearTransitionBox linearTransitionBorderBottom">AAAAAAAA</span>
+              <span class="linearTransitionBox linearTransitionBorderBottom">AAAAAAAA</span>
+            </div>
           </div>
         </li>
         <li>
@@ -28,6 +40,8 @@
 </script>
 
 <style scoped>
+  @import "../../assets/css/isoft_common.css";
+
   li{
     float: left;
     list-style: none;

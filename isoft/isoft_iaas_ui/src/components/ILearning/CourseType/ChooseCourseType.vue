@@ -17,18 +17,6 @@
       </Row>
     </div>
 
-    <div class="linearTransitionBg"></div>
-
-    <div>
-      <span class="linearTransitionBox linearTransitionBorderBottom">AAAAAAAA</span>
-      <span class="linearTransitionBox linearTransitionBorderBottom">AAAAAAAA</span>
-      <span class="linearTransitionBox linearTransitionBorderBottom">AAAAAAAA</span>
-      <span class="linearTransitionBox linearTransitionBorderBottom">AAAAAAAA</span>
-      <span class="linearTransitionBox linearTransitionBorderBottom">AAAAAAAA</span>
-      <span class="linearTransitionBox linearTransitionBorderBottom">AAAAAAAA</span>
-      <span class="linearTransitionBox linearTransitionBorderBottom">AAAAAAAA</span>
-    </div>
-
     <IBeautifulCard title="课程天地">
       <div slot="content" style="padding: 20px 20px 5px 20px;">
         <div>
