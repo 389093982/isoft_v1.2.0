@@ -2,6 +2,7 @@
   <div>
     <div style="margin: 5px 20px 0 20px;float: right;" class="clear">
       <ul>
+        <li><span @click="$router.push({path:'/ilearning/advise'})">我要吐槽/建议</span></li>
         <li>
           网站导航 <Icon type="ios-arrow-down" />
           <div class="subArea" style="width: 1000px;right: 110px;">
