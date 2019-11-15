@@ -13,6 +13,8 @@ import (
 
 // 写文件,文件不存在时会自动创建
 func WriteFile(filename string, data []byte, append bool) error {
+	filename = fileutil.ChangeToLinuxSeparator(filename)
+	os.MkdirAll(filepath.Dir(filename), os.ModePerm)
 	if append {
 		f, err := os.OpenFile(filename, os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0666)
 		if err != nil {
