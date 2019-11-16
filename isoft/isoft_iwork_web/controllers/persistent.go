@@ -114,19 +114,27 @@ func backupDB() {
 }
 
 func truncateDB() {
+	orm.NewOrm().QueryTable("module").Filter("id__gt", 0).Delete()
 	orm.NewOrm().QueryTable("sql_migrate").Filter("id__gt", 0).Delete()
 	orm.NewOrm().QueryTable("work").Filter("id__gt", 0).Delete()
 	orm.NewOrm().QueryTable("work_step").Filter("id__gt", 0).Delete()
 }
 
-func persistentToDB(dirPath string, persistentFunc func(filepath string)) {
+func persistentToDB(dirPath string, persistentFunc func(v interface{}, filepath string), v interface{}) {
 	filepaths, _, _ := fileutils.GetAllSubFile(dirPath)
 	for _, filepath := range filepaths {
-		persistentFunc(filepath)
+		persistentFunc(v, filepath)
 	}
 }
 
-func persistentWorkFileToDB(filepath string) {
+func persistentModelToDB(v interface{}, filepath string) {
+	bytes, _ := ioutil.ReadFile(filepath)
+	xml.Unmarshal(bytes, v)
+	_, err := orm.NewOrm().Insert(v)
+	errorutil.CheckError(err)
+}
+
+func persistentWorksFileToDB(v interface{}, filepath string) {
 	workCache := iworkcache.WorkCache{}
 	bytes, _ := ioutil.ReadFile(filepath)
 	err := xml.Unmarshal(bytes, &workCache)
@@ -144,19 +152,12 @@ func persistentWorkFileToDB(filepath string) {
 	}
 }
 
-func persistentSqlMigrateFileToDB(filepath string) {
-	sqlMigrate := models.SqlMigrate{}
-	bytes, _ := ioutil.ReadFile(filepath)
-	xml.Unmarshal(bytes, &sqlMigrate)
-	_, err := orm.NewOrm().Insert(&sqlMigrate)
-	errorutil.CheckError(err)
-}
-
 func importProject() {
 	if persistent_initial, _ := beego.AppConfig.Bool("persistent.initial"); persistent_initial == true {
 		backupDB()
 		truncateDB()
-		persistentToDB(fmt.Sprintf("%s/works", persistentDirPath), persistentWorkFileToDB)
-		persistentToDB(fmt.Sprintf("%s/migrates", persistentDirPath), persistentSqlMigrateFileToDB)
+		persistentToDB(fmt.Sprintf("%s/modules", persistentDirPath), persistentModelToDB, &models.Module{})
+		persistentToDB(fmt.Sprintf("%s/works", persistentDirPath), persistentWorksFileToDB, nil)
+		persistentToDB(fmt.Sprintf("%s/migrates", persistentDirPath), persistentModelToDB, &models.SqlMigrate{})
 	}
 }
