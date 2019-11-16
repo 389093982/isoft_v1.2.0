@@ -37,28 +37,15 @@
         </Dropdown>
       </Col>
       <Col span="15">
-        <div class="operate_link">
-          <ul>
-            <li>
-              <span style="color: #657180;font-size: 14px;">
-                (参数索引-{{paramIndex}}<span v-if="inputLabel.indexOf('?')>0">可选参数</span>) - {{inputLabel}}
-              </span>
-            </li>
-            <li>
-              <Checkbox v-model="pureText">纯文本值</Checkbox>
-            </li>
-            <li>
-              <Button type="info" size="small" @click="parseToMultiValue()">多值预览</Button>
-            </li>
-            <li>
-              <router-link :to="{ path: '/iwork/quickSql' }" tag="a" target="_blank">
-                <Button type="warning" size="small">辅助工具</Button>
-              </router-link>
-            </li>
-            <li>
-              <Button type="success" size="small" @click="$refs.templateModal.showModal()">模板文字</Button>
-            </li>
-          </ul>
+        <div>
+          <span style="color: #657180;font-size: 14px;">
+            (参数索引-{{paramIndex}}<span v-if="inputLabel.indexOf('?')>0">可选参数</span>) - {{inputLabel}}
+          </span>
+          <Checkbox v-model="pureText">纯文本值</Checkbox>
+          <Button type="info" size="small" @click="parseToMultiValue()">多值预览</Button>
+          <router-link :to="{ path: '/iwork/quickSql' }" tag="a" target="_blank">
+            <Button type="warning" size="small">辅助工具</Button>
+          </router-link>
         </div>
         <div v-if="showMultiVals" style="margin-top: 20px;">
           <Scroll height="350">
@@ -68,7 +55,6 @@
                 <td><Input type="textarea" :value="val" :readonly="true"/></td>
               </tr>
             </table>
-
           </Scroll>
         </div>
         <div v-else>
@@ -278,9 +264,5 @@
 </script>
 
 <style scoped>
-  .operate_link ul li{
-   display: inline-block;
-   margin-left: 10px;
-   margin-bottom: 5px;
- }
+
 </style>
