@@ -21,6 +21,10 @@
               <Icon type="ios-paper"></Icon>
               <span @click="saveProject">保存项目</span>
             </MenuItem>
+            <MenuItem name="4">
+              <Icon type="ios-paper"></Icon>
+              <span @click="importProject">导入项目</span>
+            </MenuItem>
           </div>
         </Menu>
       </Header>
@@ -88,7 +92,7 @@
 </template>
 
 <script>
-  import {SaveProject} from "../../api"
+  import {SaveProject,ImportProject} from "../../api"
 
   export default {
     name: "IWorkLayout",
@@ -101,6 +105,12 @@
         const result = await SaveProject();
         if(result.status == "SUCCESS"){
           this.$Message.success("保存成功!");
+        }
+      },
+      importProject:async function () {
+        const result = await ImportProject();
+        if(result.status == "SUCCESS"){
+          this.$Message.success("导入成功!");
         }
       }
     }
@@ -126,7 +136,7 @@
     left: 20px;
   }
   .layout-nav{
-    width: 520px;
+    width: 620px;
     margin: 0 auto;
     margin-right: 20px;
   }

@@ -314,3 +314,9 @@ func (this *WorkController) SaveProject() {
 	this.Data["json"] = &map[string]interface{}{"status": "SUCCESS"}
 	this.ServeJSON()
 }
+
+func (this *WorkController) ImportProject() {
+	importProject()
+	this.Data["json"] = &map[string]interface{}{"status": "SUCCESS"}
+	this.ServeJSON()
+}

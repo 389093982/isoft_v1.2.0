@@ -5,7 +5,6 @@ import (
 	"isoft/isoft_iwork_web/core/iworkplugin/node/regist"
 	"isoft/isoft_iwork_web/core/iworkpool"
 	_ "isoft/isoft_iwork_web/routers"
-	"isoft/isoft_iwork_web/startup"
 	_ "isoft/isoft_iwork_web/startup/db"
 	_ "isoft/isoft_iwork_web/startup/dipool"
 	"isoft/isoft_iwork_web/startup/filter"
@@ -18,7 +17,6 @@ import (
 
 func main() {
 	beego.InsertFilter("/api/iwork/httpservice/*", beego.BeforeExec, filter.FilterFunc)
-	startup.Persistent()
 
 	memory.FlushAll()
 	iworkpool.LoadAndCachePool()

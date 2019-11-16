@@ -146,3 +146,4 @@ export const GetMetaInfo = (meta) => ajax(BASE_URL+"/iwork/getMetaInfo", {meta},
 export const QueryWorkDetail = (work_id) => ajax(BASE_URL+"/iwork/queryWorkDetail", {work_id},'POST');
 
 export const SaveProject = () => ajax(BASE_URL+"/iwork/saveProject", {},'POST');
+export const ImportProject = () => ajax(BASE_URL+"/iwork/importProject", {},'POST');
