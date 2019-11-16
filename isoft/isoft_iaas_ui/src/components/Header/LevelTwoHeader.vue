@@ -64,9 +64,7 @@
     z-index: 50;
     padding: 20px;
     display: none;
-  }
-  li:hover{
-    background-color: white;
+    border-radius:2px;
   }
   li:hover .subArea{
     display: block;
