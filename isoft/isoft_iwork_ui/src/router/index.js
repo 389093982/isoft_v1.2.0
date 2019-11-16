@@ -14,7 +14,6 @@ const MigrateList = () => import("@/components/IWork/IMigrate/MigrateList");
 const EditMigrate = () => import("@/components/IWork/IMigrate/EditMigrate");
 const QuickSql = () => import("@/components/IWork/IAssistant/QuickSql");
 const Format = () => import("@/components/IWork/IAssistant/Format");
-const Template = () => import("@/components/IWork/IAssistant/Template");
 const GlobalVarList = () => import("@/components/IWork/IGlobalVar/GlobalVarList");
 const File = () => import("@/components/IWork/IFile/File");
 const DashBoard = () => import("@/components/IWork/IDashBoard/DashBoard");
@@ -45,7 +44,6 @@ const IWorkRouter = [
       {path: 'editMigrate',component: EditMigrate},
       {path: 'quickSql',component: QuickSql},
       {path: 'format',component: Format},
-      {path: 'template',component: Template},
       {path: 'globalVarList',component: GlobalVarList},
       {path: 'files',component: File},
       {path: 'dashboard',component: DashBoard},

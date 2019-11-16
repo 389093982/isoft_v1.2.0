@@ -38,7 +38,6 @@
       </Col>
       <Col span="15">
         <div class="operate_link">
-          <TemplateChooser ref="templateModal" @chooseTemplate="chooseTemplate"/>
           <ul>
             <li>
               <span style="color: #657180;font-size: 14px;">
@@ -102,14 +101,13 @@
   import {LoadPreNodeOutput} from "../../../../api"
   import ISimpleBtnTriggerModal from "../../../Common/modal/ISimpleBtnTriggerModal"
   import {ParseToMultiValue} from "../../../../api"
-  import TemplateChooser from "./TemplateChooser"
   import {getMatchArrForString} from "../../../../tools"
   import ParamInputEditDataSource from "./ParamInputEditDataSource"
   import {checkEmpty} from "../../../../tools"
 
   export default {
     name: "ParamInputEditDialog",
-    components:{ISimpleBtnTriggerModal,TemplateChooser,ParamInputEditDataSource},
+    components:{ISimpleBtnTriggerModal,ParamInputEditDataSource},
     props:{
       paramInputSchemaItems:{
         type: Array,
@@ -244,10 +242,6 @@
         }else{
           this.inputTextData = this.inputTextData + datas;
         }
-      },
-      chooseTemplate:function (template) {
-        this.inputTextData = this.inputTextData + template.template_value;
-        this.$refs.templateModal.hideModal();
       },
       deleteVariable:function (index) {
         this.variables[index] = "";
