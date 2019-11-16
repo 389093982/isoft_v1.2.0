@@ -1,0 +1,11 @@
+<GlobalVar>
+	<Id>9</Id>
+	<Name>EncryptPwdKey</Name>
+	<Value>zhourui&amp;zhoupeng12345678</Value>
+	<Type>1</Type>
+	<Desc></Desc>
+	<CreatedBy>SYSTEM</CreatedBy>
+	<CreatedTime>2019-10-20T16:34:51+08:00</CreatedTime>
+	<LastUpdatedBy>SYSTEM</LastUpdatedBy>
+	<LastUpdatedTime>2019-10-20T16:34:51+08:00</LastUpdatedTime>
+</GlobalVar>
