@@ -19,7 +19,7 @@
             </MenuItem>
             <MenuItem name="4">
               <Icon type="ios-paper"></Icon>
-              系统支持
+              <span @click="saveProject">保存项目</span>
             </MenuItem>
           </div>
         </Menu>
@@ -88,12 +88,22 @@
 </template>
 
 <script>
+  import {SaveProject} from "../../api"
+
   export default {
     name: "IWorkLayout",
     data(){
       return {
       }
     },
+    methods:{
+      saveProject:async function () {
+        const result = await SaveProject();
+        if(result.status == "SUCCESS"){
+          this.$Message.success("保存成功!");
+        }
+      }
+    }
   }
 </script>
 

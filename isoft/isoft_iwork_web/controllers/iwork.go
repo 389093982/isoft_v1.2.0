@@ -308,3 +308,9 @@ func GetRunLogRecordCount(works []models.Work) interface{} {
 
 	return m
 }
+
+func (this *WorkController) SaveProject() {
+	persistentToFile()
+	this.Data["json"] = &map[string]interface{}{"status": "SUCCESS"}
+	this.ServeJSON()
+}
