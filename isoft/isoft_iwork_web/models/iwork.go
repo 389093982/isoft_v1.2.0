@@ -72,6 +72,12 @@ func QueryAllWorks() (works []Work, err error) {
 	return
 }
 
+func QueryAllFilterAndWorks() (works []Work, err error) {
+	o := orm.NewOrm()
+	_, err = o.QueryTable("work").All(&works)
+	return
+}
+
 func QueryWork(condArr map[string]string, page int, offset int, o orm.Ormer) (works []Work, counts int64, err error) {
 	qs := o.QueryTable("work")
 	var cond = orm.NewCondition()
