@@ -111,10 +111,24 @@ func backupDB() {
 	backupTable("work", work_backup)
 	workstep_backup := fmt.Sprintf(`backup_work_step_%s`, time.Now().Format("20060102150405"))
 	backupTable("work_step", workstep_backup)
+	filter_backup := fmt.Sprintf(`backup_filters_%s`, time.Now().Format("20060102150405"))
+	backupTable("filters", filter_backup)
+	cron_meta_backup := fmt.Sprintf(`backup_cron_meta_%s`, time.Now().Format("20060102150405"))
+	backupTable("cron_meta", cron_meta_backup)
+	resource_backup := fmt.Sprintf(`backup_resource_%s`, time.Now().Format("20060102150405"))
+	backupTable("resource", resource_backup)
+	module_backup := fmt.Sprintf(`backup_module_%s`, time.Now().Format("20060102150405"))
+	backupTable("module", module_backup)
+	globalVar_backup := fmt.Sprintf(`backup_globalVar_%s`, time.Now().Format("20060102150405"))
+	backupTable("global_var", globalVar_backup)
 }
 
 func truncateDB() {
+	orm.NewOrm().QueryTable("filters").Filter("id__gt", 0).Delete()
+	orm.NewOrm().QueryTable("cron_meta").Filter("id__gt", 0).Delete()
+	orm.NewOrm().QueryTable("resource").Filter("id__gt", 0).Delete()
 	orm.NewOrm().QueryTable("module").Filter("id__gt", 0).Delete()
+	orm.NewOrm().QueryTable("global_var").Filter("id__gt", 0).Delete()
 	orm.NewOrm().QueryTable("sql_migrate").Filter("id__gt", 0).Delete()
 	orm.NewOrm().QueryTable("work").Filter("id__gt", 0).Delete()
 	orm.NewOrm().QueryTable("work_step").Filter("id__gt", 0).Delete()
@@ -156,7 +170,11 @@ func importProject() {
 	if persistent_initial, _ := beego.AppConfig.Bool("persistent.initial"); persistent_initial == true {
 		backupDB()
 		truncateDB()
+		persistentToDB(fmt.Sprintf("%s/filters", persistentDirPath), persistentModelToDB, &models.Filters{})
+		persistentToDB(fmt.Sprintf("%s/quartzs", persistentDirPath), persistentModelToDB, &models.CronMeta{})
+		persistentToDB(fmt.Sprintf("%s/resources", persistentDirPath), persistentModelToDB, &models.Resource{})
 		persistentToDB(fmt.Sprintf("%s/modules", persistentDirPath), persistentModelToDB, &models.Module{})
+		persistentToDB(fmt.Sprintf("%s/globalVars", persistentDirPath), persistentModelToDB, &models.GlobalVar{})
 		persistentToDB(fmt.Sprintf("%s/works", persistentDirPath), persistentWorksFileToDB, nil)
 		persistentToDB(fmt.Sprintf("%s/migrates", persistentDirPath), persistentModelToDB, &models.SqlMigrate{})
 	}
