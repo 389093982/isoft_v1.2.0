@@ -5,7 +5,7 @@ import (
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/logs"
 	"isoft/isoft/common/apppath"
-	"isoft/isoft/common/fileutil"
+	"isoft/isoft/common/fileutils"
 	"os"
 )
 
@@ -15,9 +15,9 @@ func init() {
 		logDir = "../../../isoft_iwork_web_log"
 	} else {
 		// 日志文件所在目录
-		logDir = fileutil.ChangeToLinuxSeparator(apppath.GetAPPRootPath() + "/isoft_iwork_web_log")
+		logDir = fileutils.ChangeToLinuxSeparator(apppath.GetAPPRootPath() + "/isoft_iwork_web_log")
 	}
-	if ok, _ := fileutil.PathExists(logDir); !ok {
+	if ok, _ := fileutils.PathExists(logDir); !ok {
 		err := os.MkdirAll(logDir, os.ModePerm)
 		if err != nil {
 			fmt.Println(err.Error())

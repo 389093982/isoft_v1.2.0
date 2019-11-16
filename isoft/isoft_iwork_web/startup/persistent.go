@@ -6,7 +6,7 @@ import (
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/orm"
 	"io/ioutil"
-	"isoft/isoft/common/fileutil"
+	"isoft/isoft/common/fileutils"
 	"isoft/isoft_iwork_web/core/iworkcache"
 	"isoft/isoft_iwork_web/core/iworkutil/errorutil"
 	"isoft/isoft_iwork_web/models"
@@ -42,7 +42,7 @@ func truncateDB() {
 }
 
 func persistentToDB(dirPath string, persistentFunc func(filepath string)) {
-	filepaths, _, _ := fileutil.GetAllSubFile(dirPath)
+	filepaths, _, _ := fileutils.GetAllSubFile(dirPath)
 	for _, filepath := range filepaths {
 		persistentFunc(filepath)
 	}

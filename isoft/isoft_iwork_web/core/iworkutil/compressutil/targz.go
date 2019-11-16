@@ -4,13 +4,13 @@ import (
 	"archive/tar"
 	"compress/gzip"
 	"io"
-	"isoft/isoft/common/fileutil"
+	"isoft/isoft/common/fileutils"
 	"os"
 	"strings"
 )
 
 func CompressDir(dirPath, dest string) error {
-	filePaths, _, err := fileutil.GetAllFile(dirPath, false)
+	filePaths, _, err := fileutils.GetAllFile(dirPath, false)
 	if err != nil {
 		return err
 	}
@@ -29,7 +29,7 @@ func CompressDir(dirPath, dest string) error {
 
 //压缩 使用gzip压缩成tar.gz
 func Compress(files []*os.File, dest string) error {
-	dest = fileutil.ChangeToLinuxSeparator(dest)
+	dest = fileutils.ChangeToLinuxSeparator(dest)
 	// 文件夹不存在时需要创建文件夹
 	os.MkdirAll(string([]rune(dest)[0:strings.LastIndex(dest, "/")]), 0755)
 
@@ -91,9 +91,9 @@ func compress(file *os.File, prefix string, tw *tar.Writer) error {
 //解压 tar.gz
 func DeCompress(tarFile, dest string) error {
 	// 转成 Linux 路径分隔符 /
-	tarFile = fileutil.ChangeToLinuxSeparator(tarFile)
+	tarFile = fileutils.ChangeToLinuxSeparator(tarFile)
 	// dest 末尾补齐 /
-	dest = fileutil.ChangeToLinuxSeparator(dest)
+	dest = fileutils.ChangeToLinuxSeparator(dest)
 	if !strings.HasSuffix(dest, "/") {
 		dest += "/"
 	}

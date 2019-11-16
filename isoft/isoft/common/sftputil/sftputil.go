@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"github.com/pkg/sftp"
 	"golang.org/x/crypto/ssh"
-	"isoft/isoft/common/fileutil"
+	"isoft/isoft/common/fileutils"
 	"os"
 	"path"
 	"path/filepath"
@@ -51,7 +51,7 @@ func SFTPClientChmodXForShell(sftpClient *sftp.Client, filepath string) {
 }
 
 func sftpClientFileCopy(sftpClient *sftp.Client, localFilePath, remoteDir string) error {
-	if ok, err := fileutil.PathExists(localFilePath); ok == false {
+	if ok, err := fileutils.PathExists(localFilePath); ok == false {
 		return err
 	}
 
@@ -110,12 +110,12 @@ func SFTPDirectoryRenameCopy(user, password, host string, port int, localDirecto
 	}
 	defer sshClient.Close()
 	defer sftpClient.Close()
-	filepaths, _, err := fileutil.GetAllFile(localDirectoryPath, false)
+	filepaths, _, err := fileutils.GetAllFile(localDirectoryPath, false)
 	if err != nil {
 		return err
 	}
 	for _, fpath := range filepaths {
-		if fileutil.IsFile(fpath) {
+		if fileutils.IsFile(fpath) {
 			err = sftpClientFileCopy(sftpClient, fpath, remoteDir)
 			if err != nil {
 				return err
@@ -144,18 +144,18 @@ func SFTPDirectoryCopy(user, password, host string, port int, localDirectoryPath
 
 // localDirectoryPath、remoteDir 本地文件夹路径和远程机器上的文件夹,拷贝本地文件夹到远程机器指定文件夹里面
 func sftpClientCopyDirectoryInto(sftpClient *sftp.Client, localDirectoryPath, remoteDir string) error {
-	filepaths, _, err := fileutil.GetAllFile(localDirectoryPath, true)
+	filepaths, _, err := fileutils.GetAllFile(localDirectoryPath, true)
 	if err != nil {
 		return err
 	}
 
-	localDirectoryPath = fileutil.ChangeToLinuxSeparator(localDirectoryPath)
-	targetDirectoryPath := fileutil.ChangeToLinuxSeparator(remoteDir + "/" + path.Base(fileutil.ChangeToLinuxSeparator(localDirectoryPath)))
+	localDirectoryPath = fileutils.ChangeToLinuxSeparator(localDirectoryPath)
+	targetDirectoryPath := fileutils.ChangeToLinuxSeparator(remoteDir + "/" + path.Base(fileutils.ChangeToLinuxSeparator(localDirectoryPath)))
 
 	for _, filepath := range filepaths {
-		if ok, _ := fileutil.PathExists(filepath); ok {
-			if !fileutil.IsDir(filepath) {
-				localFilePath := fileutil.ChangeToLinuxSeparator(filepath)
+		if ok, _ := fileutils.PathExists(filepath); ok {
+			if !fileutils.IsDir(filepath) {
+				localFilePath := fileutils.ChangeToLinuxSeparator(filepath)
 
 				// 目标机器对应的文件路径
 				remoteFilePath := strings.Replace(localFilePath, localDirectoryPath, targetDirectoryPath, -1)

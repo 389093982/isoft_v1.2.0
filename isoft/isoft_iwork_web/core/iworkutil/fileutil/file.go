@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"io"
 	"io/ioutil"
-	"isoft/isoft/common/fileutil"
+	"isoft/isoft/common/fileutils"
 	"os"
 	"path/filepath"
 	"strings"
@@ -13,7 +13,7 @@ import (
 
 // 写文件,文件不存在时会自动创建
 func WriteFile(filename string, data []byte, append bool) error {
-	filename = fileutil.ChangeToLinuxSeparator(filename)
+	filename = fileutils.ChangeToLinuxSeparator(filename)
 	os.MkdirAll(filepath.Dir(filename), os.ModePerm)
 	if append {
 		f, err := os.OpenFile(filename, os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0666)
@@ -35,7 +35,7 @@ func WriteFile(filename string, data []byte, append bool) error {
 
 func MkdirAll(fp string) {
 	// 判断目标文件是否存在,不存在则创建
-	if exist, _ := fileutil.PathExists(fp); exist == false {
+	if exist, _ := fileutils.PathExists(fp); exist == false {
 		os.MkdirAll(filepath.Dir(fp), os.ModePerm)
 	}
 }
