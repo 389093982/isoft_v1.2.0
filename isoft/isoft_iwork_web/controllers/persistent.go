@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"isoft/isoft/common/fileutils"
 	"isoft/isoft/common/xmlutil"
+	"isoft/isoft_iwork_web/core/iworkcache"
 	"isoft/isoft_iwork_web/core/iworkutil/fileutil"
 	"isoft/isoft_iwork_web/models"
 	"path"
@@ -24,7 +25,9 @@ func persistentToFile() {
 	persistentModulesToFile()
 	persistentGlobalVarsToFile()
 	persistentQuartzsToFile()
-	persistentResourceToFile()
+	persistentResourcesToFile()
+	persistentMigratesToFile()
+	persistentWorkCahcesToFile()
 }
 
 func persistentModulesToFile() {
@@ -59,10 +62,26 @@ func persistentQuartzsToFile() {
 	}
 }
 
-func persistentResourceToFile() {
+func persistentResourcesToFile() {
 	resources := models.QueryAllResource()
 	for _, resource := range resources {
 		filepath := path.Join(persistentDirPath, "resources", fmt.Sprintf(`%s.resource`, resource.ResourceName))
 		fileutil.WriteFile(filepath, []byte(xmlutil.RenderToString(resource)), false)
+	}
+}
+
+func persistentMigratesToFile() {
+	migrates, _ := models.QueryAllSqlMigrate()
+	for _, migrate := range migrates {
+		filepath := path.Join(persistentDirPath, "migrates", fmt.Sprintf(`%s.migrates`, migrate.MigrateName))
+		fileutil.WriteFile(filepath, []byte(xmlutil.RenderToString(migrate)), false)
+	}
+}
+
+func persistentWorkCahcesToFile() {
+	workCahces := iworkcache.GetAllWorkCache()
+	for _, workCahce := range workCahces {
+		filepath := path.Join(persistentDirPath, "works", fmt.Sprintf(`%s.work`, workCahce.Work.WorkName))
+		fileutil.WriteFile(filepath, []byte(xmlutil.RenderToString(workCahce)), false)
 	}
 }
