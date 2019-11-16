@@ -68,19 +68,6 @@ func LoadErrorInfo() *iworkmodels.ParamOutputSchema {
 	return pos
 }
 
-func LoadEntityInfo() *iworkmodels.ParamOutputSchema {
-	pos := &iworkmodels.ParamOutputSchema{
-		ParamOutputSchemaItems: []iworkmodels.ParamOutputSchemaItem{},
-	}
-	entities := models.QueryAllEntityInfo()
-	for _, entity := range entities {
-		pos.ParamOutputSchemaItems = append(pos.ParamOutputSchemaItems, iworkmodels.ParamOutputSchemaItem{
-			ParamName: entity.EntityName,
-		})
-	}
-	return pos
-}
-
 // 加载前置节点输出参数
 func LoadPreNodeOutputService(serviceArgs map[string]interface{}) (result map[string]interface{}, err error) {
 	result = make(map[string]interface{}, 0)
@@ -94,9 +81,6 @@ func LoadPreNodeOutputService(serviceArgs map[string]interface{}) (result map[st
 	// 加载 work 参
 	pos = LoadWorkInfo()
 	prePosTreeNodeArr = append(prePosTreeNodeArr, pos.RenderToTreeNodes("$WORK"))
-	// 加载 entity 参数
-	pos = LoadEntityInfo()
-	prePosTreeNodeArr = append(prePosTreeNodeArr, pos.RenderToTreeNodes("$Entity"))
 
 	// 加载 error 参数
 	pos = LoadErrorInfo()

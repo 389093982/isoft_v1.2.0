@@ -83,15 +83,6 @@ export const GetLastRunLogDetail = (tracking_id) => ajax(BASE_URL+"/iwork/getLas
 // 获取相关流程
 export const GetRelativeWork = (work_id) => ajax(BASE_URL+"/iwork/getRelativeWork", {work_id},'POST');
 
-// 分页查询 entity 信息
-export const FilterPageEntity = (search, offset,current_page) => ajax(BASE_URL+"/iwork/filterPageEntity", {search, offset,current_page},'POST');
-
-// 编辑 entity
-export const EditEntity = (entity_id,entity_name,entity_type) => ajax(BASE_URL+"/iwork/editEntity", {entity_id,entity_name,entity_type},'POST');
-
-// 删除 entity
-export const DeleteEntity = (entity_id) => ajax(BASE_URL+"/iwork/deleteEntity", {entity_id},'POST');
-
 // 校验整个工程
 export const ValidateWork = (work_id) => ajax(BASE_URL+"/iwork/validateWork", {work_id},'POST');
 
