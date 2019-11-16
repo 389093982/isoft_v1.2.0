@@ -73,7 +73,7 @@ func persistentResourcesToFile() {
 func persistentMigratesToFile() {
 	migrates, _ := models.QueryAllSqlMigrate()
 	for _, migrate := range migrates {
-		filepath := path.Join(persistentDirPath, "migrates", fmt.Sprintf(`%s.migrates`, migrate.MigrateName))
+		filepath := path.Join(persistentDirPath, "migrates", fmt.Sprintf(`%s.migrate`, migrate.MigrateName))
 		fileutil.WriteFile(filepath, []byte(xmlutil.RenderToString(migrate)), false)
 	}
 }
