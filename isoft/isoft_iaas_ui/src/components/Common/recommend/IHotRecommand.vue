@@ -4,7 +4,7 @@
       <div>
         <h4 class="title" :title="placement_label">{{placement_label}}</h4>
       </div>
-      <div style="padding: 10px;background: linear-gradient(to right, rgba(29,255,139,0.14), rgba(206,54,255,0.23))">
+      <div style="padding: 10px;border: 1px solid #edeff0;">
         <Row :gutter="50">
           <Col span="6" style="margin-top: 12px;" v-for="element in elements">
             <span style="font-size: 14px;">{{element.title}}</span>

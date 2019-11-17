@@ -35,7 +35,7 @@
     </Row>
 
     <!-- 热门开源项目 -->
-    <IHotRecommand :placement_name="GLOBAL.hot_project_recommod"/>
+    <IHotRecommand style="margin: 10px 0 10px 0;" :placement_name="GLOBAL.hot_project_recommod"/>
 
     <IBeautifulTabLink/>
 
