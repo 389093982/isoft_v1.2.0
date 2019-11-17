@@ -3,6 +3,8 @@
 
     <ChooseCourseType/>
 
+    <Nav/>
+
     <WarmHeartRecommend/>
 
     <Row>
@@ -72,14 +74,25 @@
   import IndexCarousel from "./IndexCarousel";
   import GoodRank from "./GoodRank";
   import WarmHeartRecommend from "./WarmHeartRecommend";
+  import Nav from "./Site/Nav";
 
   export default {
     name: "Index",
     components:{
+      Nav,
       WarmHeartRecommend,
       GoodRank,
       IndexCarousel,
-      IHotRecommand, HorizontalLinks, ChooseCourseType,HotRecommend,NewsNotice,ToolBox, IBeautifulTabLink,Fun},
+      IHotRecommand,
+      HorizontalLinks,
+      ChooseCourseType,
+      HotRecommend,
+      NewsNotice,
+      ToolBox,
+      ToolBox,
+      IBeautifulTabLink,
+      Fun
+    },
   }
 </script>
 
