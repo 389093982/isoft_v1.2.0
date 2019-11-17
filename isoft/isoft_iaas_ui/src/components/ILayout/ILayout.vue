@@ -11,6 +11,8 @@
         <Footer/>
       </Footer>
     </Layout>
+
+    <LeftSuspensionMenu/>
   </div>
 </template>
 
@@ -18,10 +20,12 @@
 
   import Header from '../Header/Header'
   import Footer from '../Footer/Footer'
+  import LeftSuspensionMenu from "./LeftSuspensionMenu";
 
   export default {
     name: 'ILayout',
     components: {
+      LeftSuspensionMenu,
       Header,
       Footer
     },
