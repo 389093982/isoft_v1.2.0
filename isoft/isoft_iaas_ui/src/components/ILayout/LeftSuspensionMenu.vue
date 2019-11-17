@@ -13,11 +13,14 @@
 <style scoped>
   .leftSuspension {
     position: fixed;
-    width: 150px;
+    width: 20px;
     min-height: 200px;
     background-color: red;
     left: 0px;
     top: 40%;
     z-index: 999;
+  }
+  .leftSuspension:hover {
+    width: 60px;
   }
 </style>

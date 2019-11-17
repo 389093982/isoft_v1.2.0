@@ -20,7 +20,7 @@
 
 <script>
   import {InsertAdvise} from "../../api"
-  import GussYouLike from "./GussYouLike";
+  const GussYouLike = () => import("@/components/ILearning/GussYouLike");
 
   export default {
     name: "Advise",

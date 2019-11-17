@@ -39,8 +39,8 @@
    background-color: #ffffff;
  }
  .title {
-   height: 40px;
-   line-height: 40px;
+   height: 50px;
+   line-height: 50px;
    padding-left: 15px;
    padding-right: 15px;
    font-size: 16px;
