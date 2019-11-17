@@ -44,13 +44,11 @@
     display: inline-block;
     width: 110px;
     height: 23px;
-    line-height: 23px;
     color: #fff;
     background: #ff6225;
     text-align: center;
     text-decoration: none;
     cursor: pointer;
-    font-size: 14px;
-    font-family: "微软雅黑";
+    font: 14px/150% Arial,"Microsoft YaHei","宋体",serif;
   }
 </style>
