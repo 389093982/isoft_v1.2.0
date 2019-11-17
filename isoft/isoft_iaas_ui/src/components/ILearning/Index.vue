@@ -64,7 +64,6 @@
   import ChooseCourseType from "./CourseType/ChooseCourseType"
   import HotRecommend from "./Course/HotRecommend"
   import NewsNotice from "./Course/NewsNotice"
-  import HotIssue from "./Course/HotIssue"
   import ToolBox from "../Background/CMS/ToolBox"
   import IBeautifulTabLink from "../Common/link/IBeautifulTabLink"
   import Fun from "./Fun"
@@ -80,7 +79,7 @@
       WarmHeartRecommend,
       GoodRank,
       IndexCarousel,
-      IHotRecommand, HorizontalLinks, ChooseCourseType,HotRecommend,NewsNotice,HotIssue,ToolBox, IBeautifulTabLink,Fun},
+      IHotRecommand, HorizontalLinks, ChooseCourseType,HotRecommend,NewsNotice,ToolBox, IBeautifulTabLink,Fun},
   }
 </script>
 
