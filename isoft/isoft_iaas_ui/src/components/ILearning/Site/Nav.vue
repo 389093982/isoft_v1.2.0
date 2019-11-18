@@ -1,6 +1,7 @@
 <template>
   <div style="margin: 10px 0 10px 0;">
-    <Row>
+    <div class="container"></div>
+    <Row style="margin: -60px 50px 0 50px;">
       <Col span="6">
         <div class="box">
           <span class="title">农林牧渔、卫生、科学研究</span>
@@ -74,6 +75,10 @@
 </script>
 
 <style scoped>
+  .container{
+    background: url("../../../assets/banner1.jpg");
+    height: 350px;
+  }
   .box{
     height: 500px;
     background-color: #fff;
