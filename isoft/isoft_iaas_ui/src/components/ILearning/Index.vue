@@ -1,8 +1,6 @@
 <template>
   <div style="background: #FFFFFF;padding: 10px;">
 
-    <Nav/>
-
     <ChooseCourseType/>
 
     <WarmHeartRecommend/>
@@ -74,12 +72,10 @@
   import IndexCarousel from "./IndexCarousel";
   import GoodRank from "./GoodRank";
   import WarmHeartRecommend from "./WarmHeartRecommend";
-  import Nav from "./Site/Nav";
 
   export default {
     name: "Index",
     components:{
-      Nav,
       WarmHeartRecommend,
       GoodRank,
       IndexCarousel,
