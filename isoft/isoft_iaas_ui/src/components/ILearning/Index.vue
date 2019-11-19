@@ -1,9 +1,9 @@
 <template>
   <div style="background: #FFFFFF;padding: 10px;">
 
-    <ChooseCourseType/>
-
     <Nav/>
+
+    <ChooseCourseType/>
 
     <WarmHeartRecommend/>
 

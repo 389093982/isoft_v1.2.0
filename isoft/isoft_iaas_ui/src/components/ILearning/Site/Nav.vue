@@ -1,6 +1,19 @@
 <template>
   <div style="margin: 10px 0 10px 0;">
-    <div class="container"></div>
+    <div class="container">
+      <Row style="margin: 10px 0 10px 0;">
+        <Col span="12" style="text-align: left;">
+          <a @click="$router.push({path:'/ilearning/index'})" class="hovered hvr-grow hoverLinkColor mr5">返回首页</a>
+        </Col>
+        <Col span="12" style="text-align: right;">
+          <a @click="$router.push({path:'/ilearning/about'})" class="hovered hvr-grow hoverLinkColor mr5">关于ILearning</a>
+          <a @click="$router.push({path:'/user/guide'})" class="hovered hvr-grow hoverLinkColor mr5">站点引导</a>
+          <a @click="" class="hovered hvr-grow hoverLinkColor mr5">广告位招租</a>
+          <a @click="$router.push({path:'/user/mine/detail',query:{username:'mine'}})" class="hovered hvr-grow hoverLinkColor mr5">个人中心</a>
+          <a @click="" class="hovered hvr-grow hoverLinkColor mr5">我的课程空间</a>
+        </Col>
+      </Row>
+    </div>
     <Row style="margin: -60px 50px 0 50px;">
       <Col span="6">
         <div class="box">
@@ -75,6 +88,8 @@
 </script>
 
 <style scoped>
+  @import "../../../assets/css/isoft_common.css";
+
   .container{
     background: url("../../../assets/banner1.jpg");
     height: 350px;
