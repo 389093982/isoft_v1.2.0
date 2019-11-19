@@ -85,7 +85,6 @@
       HotRecommend,
       NewsNotice,
       ToolBox,
-      ToolBox,
       IBeautifulTabLink,
       Fun
     },
