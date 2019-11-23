@@ -1,6 +1,6 @@
 <template>
   <div class="box" @mouseenter="mouseenter" :style="styles" @click="onclick">
-    <img :src="srcImg" :style="styles" class="hoverScaleImg"/>
+    <img :src="srcImg" :style="styles" class="hoverScaleImg" @error="defImg()"/>
   </div>
 </template>
 
@@ -21,7 +21,17 @@
         default:"86px",
       }
     },
+    data(){
+      return {
+        defaultImg: require('../../../assets/default.png'),
+      }
+    },
     methods:{
+      defImg(){
+        let img = event.srcElement;
+        img.src = this.defaultImg;
+        img.onerror = null; //防止闪图
+      },
       mouseenter:function () {
         this.$emit("mouseenter");
       },
