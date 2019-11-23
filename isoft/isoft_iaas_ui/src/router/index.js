@@ -43,7 +43,10 @@ const GoodEdit = () => import("@/components/IGood/GoodEdit");
 const GoodDetail = () => import("@/components/IGood/GoodDetail");
 const PayConfirm = () => import("@/components/IGood/PayConfirm");
 const ILayout = () => import("@/components/ILayout/ILayout");
-
+import ArticleList from "../components/ShareArticle/ArticleList"
+import ArticleEdit from "../components/ShareArticle/ArticleEdit"
+import ShareArticlePlace from "../components/ShareArticle/ShareArticlePlace"
+import SharingHall from "../components/ShareArticle/SharingHall"
 
 import {joinArray} from "../tools"
 
@@ -165,6 +168,16 @@ const IGoodReouter = [{
   ]
 }];
 
+const ShareArticleReouter = [{
+  path:'/shareArticle',component: ILayout,
+  children: [
+    {path: 'shareArticlePlace', component: ShareArticlePlace},
+    {path: 'articleList',component: ArticleList},
+    {path: 'articleEdit',component: ArticleEdit},
+    {path: 'sharingHall',component: SharingHall},
+  ]
+}]
+
 function getAllRouters() {
   let allRouters = [];
   allRouters = joinArray(allRouters, IFoundReouter);
@@ -173,6 +186,7 @@ function getAllRouters() {
   allRouters = joinArray(allRouters, ILearningRouters);
   allRouters = joinArray(allRouters, ISSOReouter);
   allRouters = joinArray(allRouters, ICMSReouter);
+  allRouters = joinArray(allRouters, ShareArticleReouter);
   allRouters = joinArray(allRouters, getRootRouters());
   return allRouters;
 }
