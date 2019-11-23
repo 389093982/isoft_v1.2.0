@@ -36,9 +36,9 @@
 </script>
 
 <style scoped>
-  .SharingHall{ float:left;width:40%;border:1px;}
-  .Article{ float:right;width:60%;border:1px }
-  .Article-Edit{ float:left;width:60%;border:1px }
+  .SharingHall{ float:left;width:35%;border:1px;}
+  .Article{ float:right;width:65%;border:1px }
+  .Article-Edit{ float:left;width:65%;border:1px }
   .Article-List{ float:right;width:30%;border:1px }
 </style>
 
