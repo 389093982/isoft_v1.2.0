@@ -4,8 +4,7 @@
       <div slot="content" style="padding: 10px;">
         <Row v-for="user in users">
           <Col span="4">
-            <img width="30" height="30" v-if="user.small_icon" :src="user.small_icon">
-            <img width="30" height="30" v-else src="../../../src/assets/sso/default_user_small_icon.jpg">
+            <img width="30" height="30" :src="user.small_icon" @error="defImg()">
           </Col>
           <Col span="10">
             <IBeautifulLink @onclick="$router.push({path:'/user/detail',query:{username:user.user_name}})">{{user.user_name}}</IBeautifulLink>
@@ -30,9 +29,15 @@
     data(){
       return {
         users:[],
+        defaultImg: require('../../assets/default.png'),
       }
     },
     methods:{
+      defImg(){
+        let img = event.srcElement;
+        img.src = this.defaultImg;
+        img.onerror = null; //防止闪图
+      },
       refreshHotUsers:async function () {
         const result = await GetHotUsers();
         if (result.status == "SUCCESS"){

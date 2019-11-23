@@ -5,7 +5,7 @@
         <ul v-if="elements.length > 0">
           <li v-for="element in elements" class="li">
             <a :href="element.linked_refer" target="_blank">
-              <img :src="element.img_path" width="30px" height="30px"/>
+              <img :src="element.img_path" width="30px" height="30px" @error="defImg()"/>
               <p style="font-size: 12px;">{{element.title}}</p>
             </a>
           </li>
@@ -34,9 +34,15 @@
       return {
         elements:[],
         placement_label:'',
+        defaultImg: require('../../../assets/default.png'),
       }
     },
     methods:{
+      defImg(){
+        let img = event.srcElement;
+        img.src = this.defaultImg;
+        img.onerror = null; //防止闪图
+      },
       onLoadElement:function (placement_label, elements) {
         this.placement_label = placement_label;
         this.elements = elements;
