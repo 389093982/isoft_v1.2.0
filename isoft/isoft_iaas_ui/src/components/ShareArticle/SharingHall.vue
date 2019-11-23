@@ -1,6 +1,6 @@
 <template>
     <div>
-        大厅
+        分享大厅
     </div>
 </template>
 

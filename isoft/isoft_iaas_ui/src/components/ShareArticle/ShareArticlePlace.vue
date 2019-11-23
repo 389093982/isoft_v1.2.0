@@ -11,8 +11,8 @@
       <!--文章编辑-->
       <div class="Article-Edit">
         <ArticleEdit>
-          <div slot="title">title01</div>
-          <div slot="content">content01</div>
+          <!--<div slot="title">title01</div>-->
+          <!--<div slot="content">content01</div>-->
         </ArticleEdit>
       </div>
 
@@ -36,9 +36,9 @@
 </script>
 
 <style scoped>
-  .SharingHall{ float:left;width:40%;border:1px }
+  .SharingHall{ float:left;width:40%;border:1px;}
   .Article{ float:right;width:60%;border:1px }
-  .Article-Edit{ float:left;width:70%;border:1px }
+  .Article-Edit{ float:left;width:60%;border:1px }
   .Article-List{ float:right;width:30%;border:1px }
 </style>
 
