@@ -6,8 +6,7 @@
 
       <Row style="min-height: 150px;background-color: #ffffff;padding: 20px;">
         <Col span="6" style="top:-100px;">
-          <img width="150" height="150" v-if="user.small_icon" :src="user.small_icon">
-          <img width="150" height="150" v-else src="../../../src/assets/sso/default_user_small_icon.jpg">
+          <img width="150" height="150" v-if="user.small_icon" :src="user.small_icon" @error="defImg()">
           <p style="margin: 0 0 0 40px;" v-if="$route.query.username == 'mine'">
             <IFileUpload ref="fileUpload" @uploadComplete="uploadComplete" action="/api/iwork/httpservice/fileUpload" uploadLabel="上传头像"/>
           </p>
@@ -51,9 +50,15 @@
     data(){
       return {
         user:null,
+        defaultImg: require('../../assets/default.png'),
       }
     },
     methods:{
+      defImg(){
+        let img = event.srcElement;
+        img.src = this.defaultImg;
+        img.onerror = null; //防止闪图
+      },
       uploadComplete: async function (data) {
         if(data.status == "SUCCESS"){
           this.$refs.fileUpload.hideModal();
