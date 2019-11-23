@@ -10,7 +10,7 @@
           <div class="item" style="padding:10px; height: 100px;">
             <Row>
               <Col span="6">
-                <img :src="element.img_path" :alt="element.title" width="50px" height="50px"/>
+                <img :src="element.img_path" :alt="element.title" width="50px" height="50px" @error="defImg()"/>
               </Col>
               <Col span="18" style="padding-left: 5px;">
                 <p class="share_catalog_name">{{element.title}}</p>
@@ -41,6 +41,7 @@
         elements: [],
         // 当前页
         currentPageNo:1,
+        defaultImg: require('../../assets/default.png'),
       }
     },
     computed:{
@@ -57,6 +58,11 @@
       }
     },
     methods:{
+      defImg(){
+        let img = event.srcElement;
+        img.src = this.defaultImg;
+        img.onerror = null; //防止闪图
+      },
       // 获取前一页
       previous: function(){
         if(this.currentPageNo > 1){
