@@ -1,5 +1,7 @@
 <template>
-
+    <div>
+        大厅
+    </div>
 </template>
 
 <script>

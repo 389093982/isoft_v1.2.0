@@ -1,22 +1,25 @@
 <template>
   <div>
 
-    <div class="left-pane">
-        <!--共享大厅-->
+    <!--共享大厅-->
+    <div class="SharingHall">
         <SharingHall></SharingHall>
     </div>
 
-    <div class="center-pane">
+    <!--文章-->
+    <div class="Article">
       <!--文章编辑-->
-      <ArticleEdit>
-        <div slot="title">title01</div>
-        <div slot="content">content01</div>
-      </ArticleEdit>
-    </div>
+      <div class="Article-Edit">
+        <ArticleEdit>
+          <div slot="title">title01</div>
+          <div slot="content">content01</div>
+        </ArticleEdit>
+      </div>
 
-    <div class="right-pane">
       <!--文章列表-->
-      <ArticleList></ArticleList>
+      <div class="Article-List">
+        <ArticleList></ArticleList>
+      </div>
     </div>
 
   </div>
@@ -33,9 +36,10 @@
 </script>
 
 <style scoped>
-  .left-pane{ float:left;width:40%;border:1px }
-  .center-pane{ float:left;width:40%;border:1px }
-  .right-pane{ float:right;width:20%;border:1px }
+  .SharingHall{ float:left;width:40%;border:1px }
+  .Article{ float:right;width:60%;border:1px }
+  .Article-Edit{ float:left;width:70%;border:1px }
+  .Article-List{ float:right;width:30%;border:1px }
 </style>
 
 
