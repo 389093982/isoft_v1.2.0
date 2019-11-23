@@ -5,8 +5,8 @@
       <div v-if="article.title" class="SingleArticle-content">
         <input_textarea :content="article.content" :rows="rows" :maxlength="maxlength"></input_textarea>
       </div>
-      <!--<slot name="title"></slot>-->
-      <!--<slot name="content"></slot>-->
+      <slot name="title"></slot>
+      <slot name="content"></slot>
   </div>
 </template>
 
