@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"encoding/xml"
 	"github.com/astaxie/beego/orm"
 	"github.com/astaxie/beego/utils/pagination"
 	"isoft/isoft/common/pageutil"
@@ -63,6 +64,19 @@ func (this *WorkController) EditAuditTaskSource() {
 	colNames := sqlutil.GetMetaDatas(querySql, resource.ResourceDsn)
 	if len(colNames) > 0 {
 		this.Data["json"] = &map[string]interface{}{"status": "SUCCESS", "colNames": colNames}
+	} else {
+		this.Data["json"] = &map[string]interface{}{"status": "ERROR"}
+	}
+	this.ServeJSON()
+}
+
+func (this *WorkController) QueryTaskDetail() {
+	taskName := this.GetString("task_name")
+	task, err := models.QueryAuditTaskByTaskName(taskName, orm.NewOrm())
+	if err == nil {
+		var taskDetail models.TaskDetail
+		xml.Unmarshal([]byte(task.TaskDetail), &taskDetail)
+		this.Data["json"] = &map[string]interface{}{"status": "SUCCESS", "task": task, "taskDetail": taskDetail}
 	} else {
 		this.Data["json"] = &map[string]interface{}{"status": "ERROR"}
 	}
