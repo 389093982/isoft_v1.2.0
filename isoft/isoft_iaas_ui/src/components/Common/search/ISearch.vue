@@ -1,6 +1,6 @@
 <template>
   <div id="course_search" data-am-sticky style="background:rgba(255,1,24,0.59);height: 60px;">
-    <div style="position: relative;top:10px;float: left;left: 320px;">
+    <div style="position: relative;top:10px;float: left;left: 20px;">
       <div id="_search">
         <input class="search" title="请输入搜索文字" placeholder="请输入搜索文字" v-model.trim="search_data">
         <input class="submit" type="submit" title="提交" @click="submitFunc">
@@ -29,7 +29,7 @@
   .search{
     padding-left: 16px;
     float: left;
-    width: 550px;
+    width: 450px;
     background: #FFF;
     vertical-align: middle;
     height: 40px;

@@ -1,7 +1,12 @@
 <template>
   <div>
     <div style="margin-bottom: 5px;">
-      <ISearch @submitFunc="searchFunc"/>
+      <Row>
+        <Col span="12">左边</Col>
+        <Col span="12">
+          <ISearch @submitFunc="searchFunc"/>
+        </Col>
+      </Row>
 
       <Row style="margin: 5px 0 5px 0;background-color: rgba(0,255,21,0.25);padding: 5px 15px 5px 15px;">
         <Col span="12" style="text-align: left;">
