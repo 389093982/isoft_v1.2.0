@@ -2,7 +2,10 @@
   <div>
     <div style="margin-bottom: 5px;">
       <Row>
-        <Col span="12">左边</Col>
+        <Col span="12" style="padding: 10px 0 0 20px;">
+          <span style="color: #c3cbd6;font-size: 18px;">物联网时代，让交流更直接</span>
+          <IBeautifulLink style="margin-left: 20px;">加入我们</IBeautifulLink>
+        </Col>
         <Col span="12">
           <ISearch @submitFunc="searchFunc"/>
         </Col>

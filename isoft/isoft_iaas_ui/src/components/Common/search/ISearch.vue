@@ -1,8 +1,8 @@
 <template>
-  <div id="course_search" data-am-sticky style="background:rgba(255,1,24,0.59);height: 60px;">
-    <div style="position: relative;top:10px;float: left;left: 20px;">
+  <div id="course_search" style="height: 45px;">
+    <div style="position: relative;float: right;">
       <div id="_search">
-        <input class="search" title="请输入搜索文字" placeholder="请输入搜索文字" v-model.trim="search_data">
+        <input class="search_input" title="请输入搜索文字" placeholder="请输入搜索文字..." v-model.trim="search_data">
         <input class="submit" type="submit" title="提交" @click="submitFunc">
       </div>
     </div>
@@ -26,11 +26,11 @@
 </script>
 
 <style scoped>
-  .search{
+  .search_input{
     padding-left: 16px;
     float: left;
-    width: 450px;
-    background: #FFF;
+    width: 350px;
+    background: #efefef;
     vertical-align: middle;
     height: 40px;
     box-shadow: none;
@@ -39,6 +39,11 @@
     outline: 0;
     color: #333;
     font-size: 14px;
+    transition: all ease-in 500ms;
+  }
+  .search_input:focus{
+    width: 450px;
+    box-shadow: 0 0 3px rgba(142, 142, 142, 0.5);
   }
   .submit{
     background: url('../../../assets/search.png') 50% 50% no-repeat;
