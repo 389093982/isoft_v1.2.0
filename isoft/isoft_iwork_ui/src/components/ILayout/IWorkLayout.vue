@@ -75,6 +75,7 @@
               <MenuItem name="5-2"><router-link to="/iwork/format">在线格式化</router-link></MenuItem>
               <MenuItem name="5-3"><router-link to="/iwork/format">书签管理器</router-link></MenuItem>
               <MenuItem name="5-4"><router-link to="/iwork/files">文件服务器管理</router-link></MenuItem>
+              <MenuItem name="5-5"><router-link to="/iwork/audit">内容审核系统</router-link></MenuItem>
             </Submenu>
           </Menu>
         </Sider>
