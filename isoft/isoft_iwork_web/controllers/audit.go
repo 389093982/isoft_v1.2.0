@@ -4,6 +4,7 @@ import (
 	"github.com/astaxie/beego/orm"
 	"github.com/astaxie/beego/utils/pagination"
 	"isoft/isoft/common/pageutil"
+	"isoft/isoft_iwork_web/core/iworkutil/sqlutil"
 	"isoft/isoft_iwork_web/models"
 	"time"
 )
@@ -40,6 +41,19 @@ func (this *WorkController) QueryPageAuditTask() {
 	if err == nil {
 		this.Data["json"] = &map[string]interface{}{"status": "SUCCESS", "tasks": tasks,
 			"paginator": pageutil.Paginator(paginator.Page(), paginator.PerPageNums, paginator.Nums())}
+	} else {
+		this.Data["json"] = &map[string]interface{}{"status": "ERROR"}
+	}
+	this.ServeJSON()
+}
+
+func (this *WorkController) EditAuditTaskSource() {
+	resourceName := this.GetString("resource_name")
+	querySql := this.GetString("query_sql")
+	resource, _ := models.QueryResourceByName(resourceName)
+	colNames := sqlutil.GetMetaDatas(querySql, resource.ResourceDsn)
+	if len(colNames) > 0 {
+		this.Data["json"] = &map[string]interface{}{"status": "SUCCESS", "colNames": colNames}
 	} else {
 		this.Data["json"] = &map[string]interface{}{"status": "ERROR"}
 	}

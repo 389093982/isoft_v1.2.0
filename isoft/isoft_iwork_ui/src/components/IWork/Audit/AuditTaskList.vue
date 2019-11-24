@@ -1,14 +1,7 @@
 <template>
   <div>
-    <h4>内容审核系统</h4>
-    请选择数据源：
-    <Select v-model="select_resource_name" style="width:300px;margin: 10px 0;">
-      <Option v-for="(resource,index) in resources" :value="resource.resource_name" :key="resource.resource_name">
-        {{ resource.resource_name }} ~ {{ resource.resource_dsn }}
-      </Option>
-    </Select>
-
-    <Button type="success" @click="showAuditEdit = true">新增审核任务</Button>
+    <h2 style="text-align: center;">内容审核系统</h2>
+    <Button type="success" style="margin: 10px 0;" @click="showAuditEdit = true">新增审核任务</Button>
     <Modal
       v-model="showAuditEdit"
       title="编辑审核任务"
@@ -26,7 +19,7 @@
 </template>
 
 <script>
-  import {GetAllResource,QueryPageAuditTask} from "../../../api"
+  import {QueryPageAuditTask} from "../../../api"
   import AuditTaskEdit from "./AuditTaskEdit"
 
     export default {
@@ -35,8 +28,6 @@
       data(){
         return {
           showAuditEdit:false,
-          select_resource_name:'',
-          resources:[],
           total:0,    // 总数量
           offset:10,  // 每页数据量
           current_page: 1,
@@ -92,19 +83,12 @@
             this.total = result.paginator.totalcount;
           }
         },
-        refreshAllResource:async function(){
-          const result = await GetAllResource("db");
-          if(result.status == "SUCCESS"){
-            this.resources = result.resources;
-          }
-        },
         handleAuditEdit:function (task_name, task_desc) {
           this.showAuditEdit = false;
           this.refreshAllAuditTask();
         }
       },
       mounted (){
-        this.refreshAllResource();
         this.refreshAllAuditTask();
       }
     }
