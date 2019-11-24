@@ -13,6 +13,7 @@
       return{
         thisIsArticleList:"文章列表",
         items:[
+          {title:"送东阳马生序"},
           {title:"我的大学"},
           {title:"勇敢的第一步"},
           {title:"学会学习"},
