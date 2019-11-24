@@ -17,7 +17,9 @@
         <Button type="success" style="margin-top: 10px;" @click="editAuditTaskSource">提交</Button>
       </TabPane>
       <TabPane label="审核步骤">
-        审核步骤
+        <p v-for="(col_name, index) in taskDetail.col_names">
+          <Tag>{{col_name}}</Tag>
+        </p>
       </TabPane>
       <TabPane label="更新审核状态">
         更新审核状态
@@ -37,6 +39,7 @@
         taskDetail:{
           resource_name:'',
           query_sql:'',
+          col_names:[],
         },
       }
     },
@@ -60,6 +63,7 @@
         const result = await QueryTaskDetail(this.$route.query.task_name);
         if(result.status == "SUCCESS"){
           this.taskDetail = result.taskDetail;
+          this.taskDetail.col_names = JSON.parse(result.taskDetail.col_names);
         }
       }
     },

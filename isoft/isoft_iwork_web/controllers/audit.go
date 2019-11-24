@@ -4,6 +4,7 @@ import (
 	"encoding/xml"
 	"github.com/astaxie/beego/orm"
 	"github.com/astaxie/beego/utils/pagination"
+	"isoft/isoft/common/jsonutil"
 	"isoft/isoft/common/pageutil"
 	"isoft/isoft/common/xmlutil"
 	"isoft/isoft_iwork_web/core/iworkutil/sqlutil"
@@ -53,17 +54,18 @@ func (this *WorkController) EditAuditTaskSource() {
 	taskName := this.GetString("task_name")
 	resourceName := this.GetString("resource_name")
 	querySql := this.GetString("query_sql")
+	resource, _ := models.QueryResourceByName(resourceName)
+	colNames := sqlutil.GetMetaDatas(querySql, resource.ResourceDsn)
 	task, _ := models.QueryAuditTaskByTaskName(taskName, orm.NewOrm())
 	task.TaskDetail = xmlutil.RenderToString(&models.TaskDetail{
 		ResourceName: resourceName,
 		QuerySql:     querySql,
+		ColNames:     jsonutil.RenderToNoIndentJson(colNames),
 	})
 	// 配置入库
-	models.InsertOrUpdateAuditTask(&task, orm.NewOrm())
-	resource, _ := models.QueryResourceByName(resourceName)
-	colNames := sqlutil.GetMetaDatas(querySql, resource.ResourceDsn)
-	if len(colNames) > 0 {
-		this.Data["json"] = &map[string]interface{}{"status": "SUCCESS", "colNames": colNames}
+	_, err := models.InsertOrUpdateAuditTask(&task, orm.NewOrm())
+	if err == nil {
+		this.Data["json"] = &map[string]interface{}{"status": "SUCCESS"}
 	} else {
 		this.Data["json"] = &map[string]interface{}{"status": "ERROR"}
 	}
