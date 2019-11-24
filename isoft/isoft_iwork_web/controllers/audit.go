@@ -4,6 +4,7 @@ import (
 	"github.com/astaxie/beego/orm"
 	"github.com/astaxie/beego/utils/pagination"
 	"isoft/isoft/common/pageutil"
+	"isoft/isoft/common/xmlutil"
 	"isoft/isoft_iwork_web/core/iworkutil/sqlutil"
 	"isoft/isoft_iwork_web/models"
 	"time"
@@ -48,8 +49,16 @@ func (this *WorkController) QueryPageAuditTask() {
 }
 
 func (this *WorkController) EditAuditTaskSource() {
+	taskName := this.GetString("task_name")
 	resourceName := this.GetString("resource_name")
 	querySql := this.GetString("query_sql")
+	task, _ := models.QueryAuditTaskByTaskName(taskName, orm.NewOrm())
+	task.TaskDetail = xmlutil.RenderToString(&models.TaskDetail{
+		ResourceName: resourceName,
+		QuerySql:     querySql,
+	})
+	// 配置入库
+	models.InsertOrUpdateAuditTask(&task, orm.NewOrm())
 	resource, _ := models.QueryResourceByName(resourceName)
 	colNames := sqlutil.GetMetaDatas(querySql, resource.ResourceDsn)
 	if len(colNames) > 0 {

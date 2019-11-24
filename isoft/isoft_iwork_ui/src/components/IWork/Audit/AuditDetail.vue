@@ -40,7 +40,7 @@
     },
     methods:{
       editAuditTaskSource:async function(){
-        const result = await EditAuditTaskSource(this.select_resource_name, this.querySql);
+        const result = await EditAuditTaskSource(this.$route.query.task_name, this.select_resource_name, this.querySql);
         if(result.status == "SUCCESS"){
           alert(JSON.stringify(result));
         }else{
