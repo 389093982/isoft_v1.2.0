@@ -7,12 +7,9 @@ import (
 	"isoft/isoft/common/hashutil"
 	"isoft/isoft/common/pageutil"
 	"isoft/isoft/common/stringutil"
-	"isoft/isoft/common/xmlutil"
 	"isoft/isoft_iwork_web/core/iworkutil/errorutil"
-	"isoft/isoft_iwork_web/core/iworkutil/fileutil"
 	"isoft/isoft_iwork_web/core/iworkutil/migrateutil"
 	"isoft/isoft_iwork_web/models"
-	"path"
 	"regexp"
 	"strings"
 	"time"
@@ -84,7 +81,6 @@ func (this *WorkController) EditSqlMigrate() {
 	migrate.MigrateSql = migrate_sql
 	migrate.MigrateHash = migrate_hash
 	if _, err := models.InsertOrUpdateSqlMigrate(migrate); err == nil {
-		go saveMigrate(migrate)
 		this.Data["json"] = &map[string]interface{}{"status": "SUCCESS"}
 	} else {
 		this.Data["json"] = &map[string]interface{}{"status": "ERROR", "errorMsg": err.Error()}
@@ -134,12 +130,5 @@ func (this *WorkController) ToggleSqlMigrateEffective() {
 	migrate.Effective = !migrate.Effective
 	_, err = models.InsertOrUpdateSqlMigrate(&migrate)
 	checkError(err)
-	go saveMigrate(&migrate)
 	this.Data["json"] = &map[string]interface{}{"status": "SUCCESS"}
-}
-
-func saveMigrate(migrate *models.SqlMigrate) error {
-	filepath := path.Join(persistentPath, "migrates", migrate.MigrateName)
-	fileutil.MkdirAll(filepath)
-	return fileutil.WriteFile(filepath, []byte(xmlutil.RenderToString(migrate)), false)
 }

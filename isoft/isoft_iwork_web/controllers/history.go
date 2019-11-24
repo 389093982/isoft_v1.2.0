@@ -10,27 +10,9 @@ import (
 	"isoft/isoft/common/pageutil"
 	"isoft/isoft_iwork_web/core/iworkcache"
 	"isoft/isoft_iwork_web/core/iworkutil/errorutil"
-	"isoft/isoft_iwork_web/core/iworkutil/fileutil"
 	"isoft/isoft_iwork_web/models"
-	"path"
-	"path/filepath"
-	"runtime"
 	"time"
 )
-
-var persistentPath string
-
-func init() {
-	_, file, _, _ := runtime.Caller(0)
-	persistentPath = fmt.Sprintf("%s/persistent", filepath.Dir(filepath.Dir(file)))
-}
-
-func deleteHistory(workName string) {
-	if workName != "" {
-		filepath := path.Join(persistentPath, "works", workName+".work")
-		fileutil.RemoveFileOrDirectory(filepath)
-	}
-}
 
 func saveHistory(wc *iworkcache.WorkCache) (err error) {
 	work := wc.Work
@@ -49,8 +31,6 @@ func saveHistory(wc *iworkcache.WorkCache) (err error) {
 			LastUpdatedTime: time.Now(),
 		}
 		_, err = models.InsertOrUpdateWorkHistory(history)
-		filepath := path.Join(persistentPath, "works", work.WorkName+".work")
-		fileutil.WriteFile(filepath, []byte(workHistory), false)
 	}
 	return
 }
