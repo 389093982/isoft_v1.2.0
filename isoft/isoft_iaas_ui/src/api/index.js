@@ -16,8 +16,8 @@ export const GetMyCatalogs = () => ajax(BASE_URL+'/iwork/httpservice/GetMyCatalo
 export const GetMyBlogs = () => ajax(BASE_URL+'/iwork/httpservice/GetMyBlogs2',{},'GET');
 
 // 编辑或者新增博客文章
-export const BlogArticleEdit = (article_id, bookId, article_title, short_desc, key_words, catalog_name, content, link_href) =>
-  ajax(BASE_URL+'/iwork/httpservice/BlogArticleEdit',{article_id, bookId, article_title, short_desc, key_words, catalog_name, content, link_href},'POST');
+export const BlogArticleEdit = (article_id, bookId, blog_title, short_desc, key_words, catalog_name, content, link_href) =>
+  ajax(BASE_URL+'/iwork/httpservice/BlogArticleEdit',{article_id, bookId, blog_title, short_desc, key_words, catalog_name, content, link_href},'POST');
 export const ArticleDelete = (article_id) => ajax(BASE_URL+'/iwork/httpservice/ArticleDelete',{article_id},'POST');
 
 // 热门博客分页列表
