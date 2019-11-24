@@ -5,6 +5,7 @@
 		<WorkDesc>自动创建子流程:InsertOrUpdateVedioRecord</WorkDesc>
 		<WorkType>work</WorkType>
 		<ModuleName>Course</ModuleName>
+		<CacheResult>false</CacheResult>
 		<CreatedBy>SYSTEM</CreatedBy>
 		<LastUpdatedBy>SYSTEM</LastUpdatedBy>
 	</work>

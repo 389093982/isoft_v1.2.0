@@ -1,7 +1,15 @@
 <template>
   <div>
     <div style="margin-bottom: 5px;">
-      <ISearch @submitFunc="searchFunc"/>
+      <Row>
+        <Col span="12" style="padding: 10px 0 0 20px;">
+          <span style="color: #c3cbd6;font-size: 18px;">物联网时代，让交流更直接</span>
+          <IBeautifulLink style="margin-left: 20px;">加入我们</IBeautifulLink>
+        </Col>
+        <Col span="12">
+          <ISearch @submitFunc="searchFunc"/>
+        </Col>
+      </Row>
 
       <Row style="margin: 5px 0 5px 0;background-color: rgba(0,255,21,0.25);padding: 5px 15px 5px 15px;">
         <Col span="12" style="text-align: left;">

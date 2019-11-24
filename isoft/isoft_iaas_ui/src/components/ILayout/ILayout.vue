@@ -20,7 +20,7 @@
 
   import Header from '../Header/Header'
   import Footer from '../Footer/Footer'
-  import LeftSuspensionMenu from "./LeftSuspensionMenu";
+  import LeftSuspensionMenu from "./RightSuspensionMenu";
 
   export default {
     name: 'ILayout',

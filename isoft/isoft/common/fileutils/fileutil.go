@@ -10,6 +10,11 @@ import (
 	"strings"
 )
 
+func Rename(oldpath, newpath string) error {
+	os.MkdirAll(newpath, os.ModePerm)
+	return os.Rename(oldpath, newpath)
+}
+
 // golang判断文件或文件夹是否存在的方法为使用os.Stat()函数返回的错误值进行判断:
 // 如果返回的错误为nil,说明文件或文件夹存在
 // 如果返回的错误类型使用os.IsNotExist()判断为true,说明文件或文件夹不存在

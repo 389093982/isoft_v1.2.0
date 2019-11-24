@@ -23,10 +23,14 @@ var persistentDirPath string
 func init() {
 	// 获取 persistent 目录
 	_, file, _, _ := runtime.Caller(0)
-	persistentDirPath = fileutils.ChangeToLinuxSeparator(fmt.Sprintf("%s/persistent2", filepath.Dir(filepath.Dir(file))))
+	persistentDirPath = fileutils.ChangeToLinuxSeparator(fmt.Sprintf("%s/persistent", filepath.Dir(filepath.Dir(file))))
 }
 
 func persistentToFile() {
+	// 进行备份操作
+	fileutils.CopyDir(persistentDirPath, fmt.Sprintf(`%s_backup/%s`, persistentDirPath, time.Now().Format("20060102150405")))
+	// 进行清理操作
+	fileutils.RemoveFileOrDirectory(persistentDirPath)
 	persistentFiltersToFile()
 	persistentModulesToFile()
 	persistentGlobalVarsToFile()

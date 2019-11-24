@@ -7,11 +7,10 @@
         <Row class="header">
           <Col span="8">
             <h4>课程名称：{{course.course_name}}</h4>
-            <a class="course_img">
-              <img v-if="course.small_image" :src="course.small_image" height="120" width="180"/>
-              <img v-else src="../../../assets/default.png" height="120" width="180"/>
+            <div class="course_img">
+              <img :src="course.small_image" width="180" height="120" @error="defImg()"/>
               <div class="course_name">{{course.course_name}}</div>
-            </a>
+            </div>
           </Col>
           <Col span="16">
             <CourseMeta :course="course"/>
@@ -74,6 +73,7 @@
     components:{CourseMeta, IEasyComment,Recommand,CommunicationGroup,HotRecommend,UserAbout,HotUser},
     data(){
       return {
+        defaultImg: require('../../../assets/default.png'),
         // 当前课程
         course:{},
         // 视频清单
@@ -85,6 +85,11 @@
       }
     },
     methods:{
+      defImg(){
+        let img = event.srcElement;
+        img.src = this.defaultImg;
+        img.onerror = null; //防止闪图
+      },
       refreshCourseDetail:async function(){
         const course_id = this.$route.query.course_id;
         const result = await ShowCourseDetail(course_id);
@@ -116,18 +121,23 @@
   .header a{
     color: red;
   }
+  .course_img{
+    width: 180px;
+    height: 120px;
+    cursor: pointer;
+  }
   .course_img .course_name {
-    position: absolute;
-    bottom: 9px;
-    left: 0;
-    width: 60%;
-    height: 30px;
+    display: none;
     padding: 3px 0 0 10px;
     background-color: rgba(0,0,0,0.6);
-    display: none;
     color: white;
+    height: 30px;
+    position: relative;
+    top: 0px;
+    transition: all ease-in 1s;
   }
   .course_img:hover .course_name {
     display: block;
+    top: -30px;
   }
 </style>

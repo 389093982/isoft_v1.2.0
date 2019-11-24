@@ -7,12 +7,9 @@ import (
 	"isoft/isoft/common/hashutil"
 	"isoft/isoft/common/pageutil"
 	"isoft/isoft/common/stringutil"
-	"isoft/isoft/common/xmlutil"
 	"isoft/isoft_iwork_web/core/iworkutil/errorutil"
-	"isoft/isoft_iwork_web/core/iworkutil/fileutil"
 	"isoft/isoft_iwork_web/core/iworkutil/migrateutil"
 	"isoft/isoft_iwork_web/models"
-	"path"
 	"regexp"
 	"strings"
 	"time"
@@ -23,7 +20,6 @@ var (
 	DATE_MIGRATE_NAME_FORMAT = "^[0-9]{14}_(CREATE|UPDATE|DELETE|INSERT|ALTER|DROP)_[a-zA-Z0-9_]+\\.sql$"
 )
 
-// @router /api/iwork/getLastMigrateLogs [post]
 func (this *WorkController) GetLastMigrateLogs() {
 	defer this.ServeJSON()
 	trackingId := this.GetString("trackingId")
@@ -35,7 +31,6 @@ func (this *WorkController) GetLastMigrateLogs() {
 	}
 }
 
-// @router /api/iwork/executeMigrate [post]
 func (this *WorkController) ExecuteMigrate() {
 	resource_name := this.GetString("resource_name")
 	forceClean, _ := this.GetBool("forceClean", false)
@@ -54,7 +49,6 @@ func checkMigrateSqlFormat(sql string) string {
 	return sql
 }
 
-// @router /api/iwork/editSqlMigrate [post]
 func (this *WorkController) EditSqlMigrate() {
 	defer this.ServeJSON()
 	defer func() {
@@ -87,14 +81,12 @@ func (this *WorkController) EditSqlMigrate() {
 	migrate.MigrateSql = migrate_sql
 	migrate.MigrateHash = migrate_hash
 	if _, err := models.InsertOrUpdateSqlMigrate(migrate); err == nil {
-		go saveMigrate(migrate)
 		this.Data["json"] = &map[string]interface{}{"status": "SUCCESS"}
 	} else {
 		this.Data["json"] = &map[string]interface{}{"status": "ERROR", "errorMsg": err.Error()}
 	}
 }
 
-// @router /api/iwork/filterPageSqlMigrate [post]
 func (this *WorkController) FilterPageSqlMigrate() {
 	offset, _ := this.GetInt("offset", 10)            // 每页记录数
 	current_page, _ := this.GetInt("current_page", 1) // 当前页
@@ -114,7 +106,6 @@ func (this *WorkController) FilterPageSqlMigrate() {
 	this.ServeJSON()
 }
 
-// @router /api/iwork/getSqlMigrateInfo [post]
 func (this *WorkController) GetSqlMigrateInfo() {
 	defer this.ServeJSON()
 	id, _ := this.GetInt64("id")
@@ -126,7 +117,6 @@ func (this *WorkController) GetSqlMigrateInfo() {
 	}
 }
 
-// @router /api/iwork/toggleSqlMigrateEffective [post]
 func (this *WorkController) ToggleSqlMigrateEffective() {
 	defer this.ServeJSON()
 	defer func() {
@@ -140,12 +130,5 @@ func (this *WorkController) ToggleSqlMigrateEffective() {
 	migrate.Effective = !migrate.Effective
 	_, err = models.InsertOrUpdateSqlMigrate(&migrate)
 	checkError(err)
-	go saveMigrate(&migrate)
 	this.Data["json"] = &map[string]interface{}{"status": "SUCCESS"}
-}
-
-func saveMigrate(migrate *models.SqlMigrate) error {
-	filepath := path.Join(persistentPath, "migrates", migrate.MigrateName)
-	fileutil.MkdirAll(filepath)
-	return fileutil.WriteFile(filepath, []byte(xmlutil.RenderToString(migrate)), false)
 }

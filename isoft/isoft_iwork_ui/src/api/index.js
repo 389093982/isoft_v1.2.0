@@ -137,4 +137,11 @@ export const GetMetaInfo = (meta) => ajax(BASE_URL+"/iwork/getMetaInfo", {meta},
 export const QueryWorkDetail = (work_id) => ajax(BASE_URL+"/iwork/queryWorkDetail", {work_id},'POST');
 
 export const SaveProject = () => ajax(BASE_URL+"/iwork/saveProject", {},'POST');
+
 export const ImportProject = () => ajax(BASE_URL+"/iwork/importProject", {},'POST');
+
+export const EditAuditTask = (task_name, task_desc) => ajax(BASE_URL+"/iwork/editAuditTask", {task_name, task_desc},'POST');
+
+export const QueryPageAuditTask = (offset,current_page) => ajax(BASE_URL+"/iwork/queryPageAuditTask", {offset,current_page},'POST');
+
+export const EditAuditTaskSource = (resource_name, query_sql) => ajax(BASE_URL+"/iwork/editAuditTaskSource", {resource_name, query_sql},'POST');

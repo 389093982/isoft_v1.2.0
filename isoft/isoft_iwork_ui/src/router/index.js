@@ -19,6 +19,8 @@ const File = () => import("@/components/IWork/IFile/File");
 const DashBoard = () => import("@/components/IWork/IDashBoard/DashBoard");
 const IModuleList = () => import("@/components/IWork/IModule/IModuleList");
 const IFilterList = () => import("@/components/IWork/IFilter/IFilterList");
+import AuditTaskList from "../components/IWork/Audit/AuditTaskList"
+import AuditDetail from "../components/IWork/Audit/AuditDetail"
 
 Vue.use(Router);
 
@@ -47,6 +49,8 @@ const IWorkRouter = [
       {path: 'globalVarList',component: GlobalVarList},
       {path: 'files',component: File},
       {path: 'dashboard',component: DashBoard},
+      {path: 'audit',component: AuditTaskList},
+      {path: 'audit_detail',component: AuditDetail},
     ]
   }
 ];

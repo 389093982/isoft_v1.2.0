@@ -119,11 +119,9 @@ func (this *WorkController) EditWork() {
 	if stringutil.CheckIgnoreCaseContains(work.WorkName, iworkconst.FORBIDDEN_WORK_NAMES) {
 		this.Data["json"] = &map[string]interface{}{"status": "ERROR", "errorMsg": "非法名称!"}
 	} else {
-		oldWorkName, _ := service.GetOldWorkInfoById(work.Id, orm.NewOrm())
 		serviceArgs := map[string]interface{}{"work": work}
 		if err := service.ExecuteWithTx(serviceArgs, service.EditWorkService); err == nil {
 			work, _ := models.QueryWorkByName(work.WorkName, orm.NewOrm())
-			deleteHistory(oldWorkName)
 			flushCache(work.Id)
 			this.Data["json"] = &map[string]interface{}{"status": "SUCCESS"}
 		} else {
@@ -188,7 +186,6 @@ func flushOneWorkCache(work_id int64, work_name string) {
 	work, err := models.QueryWorkById(work_id, orm.NewOrm())
 	if err != nil && errors.As(err, &orm.ErrNoRows) {
 		iworkcache.DeleteWorkCache(work_id) // 不存在则删除
-		deleteHistory(work_name)
 	} else {
 		serviceArgs := map[string]interface{}{"work_id": work_id}
 		if result, err := service.ExecuteResultServiceWithTx(serviceArgs, service.GetRelativeWorkService); err == nil {

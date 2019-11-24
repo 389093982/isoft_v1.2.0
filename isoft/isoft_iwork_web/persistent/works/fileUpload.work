@@ -5,6 +5,7 @@
 		<WorkDesc>fileUpload</WorkDesc>
 		<WorkType>work</WorkType>
 		<ModuleName>CMS</ModuleName>
+		<CacheResult>false</CacheResult>
 		<CreatedBy>SYSTEM</CreatedBy>
 		<LastUpdatedBy>SYSTEM</LastUpdatedBy>
 	</work>
@@ -26,6 +27,9 @@
 		<work_step_param_mapping_xml><![CDATA[<ParamMapping>
 	<ParamMappingName></ParamMappingName>
 	<ParamMappingDefault></ParamMappingDefault>
+	<ParamMappingCleanXss>false</ParamMappingCleanXss>
+	<ParamMappingSafePageNo>false</ParamMappingSafePageNo>
+	<ParamMappingSafePageSize>false</ParamMappingSafePageSize>
 </ParamMapping>]]></work_step_param_mapping_xml>
 		<CreatedBy>SYSTEM</CreatedBy>
 		<LastUpdatedBy>SYSTEM</LastUpdatedBy>
@@ -98,6 +102,9 @@
 		<work_step_param_mapping_xml><![CDATA[<ParamMapping>
 	<ParamMappingName></ParamMappingName>
 	<ParamMappingDefault></ParamMappingDefault>
+	<ParamMappingCleanXss>false</ParamMappingCleanXss>
+	<ParamMappingSafePageNo>false</ParamMappingSafePageNo>
+	<ParamMappingSafePageSize>false</ParamMappingSafePageSize>
 </ParamMapping>]]></work_step_param_mapping_xml>
 		<CreatedBy>SYSTEM</CreatedBy>
 		<LastUpdatedBy>SYSTEM</LastUpdatedBy>
@@ -151,6 +158,9 @@
 		<work_step_param_mapping_xml><![CDATA[<ParamMapping>
 	<ParamMappingName></ParamMappingName>
 	<ParamMappingDefault></ParamMappingDefault>
+	<ParamMappingCleanXss>false</ParamMappingCleanXss>
+	<ParamMappingSafePageNo>false</ParamMappingSafePageNo>
+	<ParamMappingSafePageSize>false</ParamMappingSafePageSize>
 </ParamMapping>]]></work_step_param_mapping_xml>
 		<CreatedBy>SYSTEM</CreatedBy>
 		<LastUpdatedBy>SYSTEM</LastUpdatedBy>
@@ -214,6 +224,9 @@
 		<work_step_param_mapping_xml><![CDATA[<ParamMapping>
 	<ParamMappingName></ParamMappingName>
 	<ParamMappingDefault></ParamMappingDefault>
+	<ParamMappingCleanXss>false</ParamMappingCleanXss>
+	<ParamMappingSafePageNo>false</ParamMappingSafePageNo>
+	<ParamMappingSafePageSize>false</ParamMappingSafePageSize>
 </ParamMapping>]]></work_step_param_mapping_xml>
 		<CreatedBy>SYSTEM</CreatedBy>
 		<LastUpdatedBy>SYSTEM</LastUpdatedBy>
@@ -236,6 +249,9 @@
 		<work_step_param_mapping_xml><![CDATA[<ParamMapping>
 	<ParamMappingName></ParamMappingName>
 	<ParamMappingDefault></ParamMappingDefault>
+	<ParamMappingCleanXss>false</ParamMappingCleanXss>
+	<ParamMappingSafePageNo>false</ParamMappingSafePageNo>
+	<ParamMappingSafePageSize>false</ParamMappingSafePageSize>
 </ParamMapping>]]></work_step_param_mapping_xml>
 		<CreatedBy>SYSTEM</CreatedBy>
 		<LastUpdatedBy>SYSTEM</LastUpdatedBy>
