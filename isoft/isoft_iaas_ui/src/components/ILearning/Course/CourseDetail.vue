@@ -8,8 +8,7 @@
           <Col span="8">
             <h4>课程名称：{{course.course_name}}</h4>
             <a class="course_img">
-              <img v-if="course.small_image" :src="course.small_image" height="120" width="180"/>
-              <img v-else src="../../../assets/default.png" height="120" width="180"/>
+              <img :src="course.small_image" height="120" width="180" @error="defImg()"/>
               <div class="course_name">{{course.course_name}}</div>
             </a>
           </Col>
@@ -74,6 +73,7 @@
     components:{CourseMeta, IEasyComment,Recommand,CommunicationGroup,HotRecommend,UserAbout,HotUser},
     data(){
       return {
+        defaultImg: require('../../../assets/default.png'),
         // 当前课程
         course:{},
         // 视频清单
@@ -85,6 +85,11 @@
       }
     },
     methods:{
+      defImg(){
+        let img = event.srcElement;
+        img.src = this.defaultImg;
+        img.onerror = null; //防止闪图
+      },
       refreshCourseDetail:async function(){
         const course_id = this.$route.query.course_id;
         const result = await ShowCourseDetail(course_id);
