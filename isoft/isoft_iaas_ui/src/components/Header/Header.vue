@@ -6,8 +6,8 @@
           <IBeautifulLink @onclick="$router.push({path:'/ilearning/index'})">精品课程</IBeautifulLink>
         </MenuItem>
         <MenuItem name="2">
-          <IBeautifulLink @onclick="$router.push({path:'/iblog/blog_list'})">话题博客</IBeautifulLink>
-        </MenuItem>
+        <IBeautifulLink @onclick="$router.push({path:'/iblog/blog_list'})">话题博客</IBeautifulLink>
+      </MenuItem>
         <MenuItem name="3">
           <IBeautifulLink @onclick="$router.push({path:'/iblog/book_list'})">热门书单</IBeautifulLink>
         </MenuItem>
@@ -41,6 +41,9 @@
             <MenuItem name="8-3" @click.native="cancelUser">注销</MenuItem>
           </MenuGroup>
         </Submenu>
+        <MenuItem name="9">
+          <IBeautifulLink @onclick="$router.push({path:'/shareArticle/shareArticlePlace'})">作文分享</IBeautifulLink>
+        </MenuItem>
       </div>
     </Menu>
 
@@ -82,7 +85,7 @@
 
 <style scoped>
   .layout-nav{
-    width: 850px;
+    width: 950px;
     margin: 0 auto;
     margin-right: 5px;
   }
