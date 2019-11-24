@@ -14,7 +14,7 @@
       title="编辑审核任务"
       :mask-closable="false"
       :footer-hide="true">
-      <AuditEdit @handleSucess="handleAuditEdit"/>
+      <AuditTaskEdit @handleSucess="handleAuditEdit"/>
     </Modal>
 
 
@@ -27,11 +27,11 @@
 
 <script>
   import {GetAllResource,QueryPageAuditTask} from "../../../api"
-  import AuditEdit from "./AuditEdit"
+  import AuditTaskEdit from "./AuditTaskEdit"
 
     export default {
-      name: "AuditList",
-      components:{AuditEdit},
+      name: "AuditTaskList",
+      components:{AuditTaskEdit},
       data(){
         return {
           showAuditEdit:false,
@@ -42,17 +42,36 @@
           current_page: 1,
           columns1: [
             {
-              title: 'id',
+              title: '任务名称',
               key: 'task_name'
             },
             {
-              title: '条目名称',
+              title: '任务描述',
               key: 'task_desc'
             },
             {
-              title: '审核源',
-              key: 'source'
-            }
+              title: '操作',
+              key: 'operate',
+              fixed: 'right',
+              render: (h, params) => {
+                return h('div', [
+                  h('Button', {
+                    props: {
+                      type: 'success',
+                      size: 'small'
+                    },
+                    style: {
+                      marginRight: '5px',
+                    },
+                    on: {
+                      click: () => {
+                        this.$router.push({ path: '/iwork/audit_detail', query: { task_name: this.tasks[params.index].task_name }});
+                      }
+                    }
+                  }, '编辑任务详情'),
+                ]);
+              }
+            },
           ],
           tasks: []
         }

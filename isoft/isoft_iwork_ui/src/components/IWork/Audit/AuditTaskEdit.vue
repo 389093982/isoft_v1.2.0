@@ -20,7 +20,7 @@
   import {EditAuditTask} from "../../../api"
 
   export default {
-    name: "AuditEdit",
+    name: "AuditTaskEdit",
     data () {
       return {
         formInline: {
