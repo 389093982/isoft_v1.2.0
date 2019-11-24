@@ -17,6 +17,8 @@
 </template>
 
 <script>
+  import {EditAuditTask} from "../../../api"
+
   export default {
     name: "AuditEdit",
     data () {
@@ -37,10 +39,16 @@
     },
     methods: {
       handleSubmit(name) {
-        this.$refs[name].validate((valid) => {
+        this.$refs[name].validate(async (valid) => {
           if (valid) {
-            this.$emit("handleSucesss", this.formInline.task_name, this.formInline.task_desc);
-            this.$refs[name].resetFields();
+            const result = await EditAuditTask(this.formInline.task_name, this.formInline.task_desc);
+            if(result.status == "SUCCESS"){
+              this.$Message.success('提交成功!');
+              this.$emit("handleSucess");
+              this.$refs[name].resetFields();
+            }else{
+              this.$Message.error('提交失败!');
+            }
           } else {
             this.$Message.error('校验失败!');
           }

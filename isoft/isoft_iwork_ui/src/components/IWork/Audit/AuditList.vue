@@ -14,7 +14,7 @@
       title="编辑审核任务"
       :mask-closable="false"
       :footer-hide="true">
-      <AuditEdit @handleSucesss="handleAuditEdit"/>
+      <AuditEdit @handleSucess="handleAuditEdit"/>
     </Modal>
 
 
@@ -26,7 +26,7 @@
 </template>
 
 <script>
-  import {GetAllResource} from "../../../api"
+  import {GetAllResource,QueryPageAuditTask} from "../../../api"
   import AuditEdit from "./AuditEdit"
 
     export default {
@@ -39,6 +39,7 @@
           resources:[],
           total:0,    // 总数量
           offset:10,  // 每页数据量
+          current_page: 1,
           columns1: [
             {
               title: 'id',
@@ -53,30 +54,26 @@
               key: 'source'
             }
           ],
-          tasks: [
-            {
-              task_name: 'John Brown',
-              task_desc: 'New York No. 1 Lake Park',
-            },
-            {
-              task_name: 'John Brown',
-              task_desc: 'New York No. 1 Lake Park',
-            },
-            {
-              task_name: 'John Brown',
-              task_desc: 'New York No. 1 Lake Park',
-            },
-          ]
+          tasks: []
         }
       },
       methods:{
-        handleChange:function(){
-
+        handleChange(page){
+          this.current_page = page;
+          this.refreshAllAuditTask();
         },
-        handlePageSizeChange:function(){
-
+        handlePageSizeChange(pageSize){
+          this.offset = pageSize;
+          this.refreshAllAuditTask();
         },
-        async refreshAllResource (){
+        refreshAllAuditTask:async function (){
+          const result = await QueryPageAuditTask(this.offset, this.current_page);
+          if(result.status == "SUCCESS"){
+            this.tasks = result.tasks;
+            this.total = result.paginator.totalcount;
+          }
+        },
+        refreshAllResource:async function(){
           const result = await GetAllResource("db");
           if(result.status == "SUCCESS"){
             this.resources = result.resources;
@@ -84,12 +81,12 @@
         },
         handleAuditEdit:function (task_name, task_desc) {
           this.showAuditEdit = false;
-          this.tasks.push({'task_name': task_name, "task_desc":task_desc});
-          this.total = this.tasks.length;
+          this.refreshAllAuditTask();
         }
       },
       mounted (){
         this.refreshAllResource();
+        this.refreshAllAuditTask();
       }
     }
 </script>
