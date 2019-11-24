@@ -45,7 +45,6 @@ func (this *WorkController) EditWorkStepBaseInfo() {
 	this.ServeJSON()
 }
 
-// @router /api/iwork/workStepList [post]
 func (this *WorkController) WorkStepList() {
 	jsonMap := make(map[string]interface{})
 	work_id, _ := this.GetInt64("work_id")
@@ -181,7 +180,6 @@ func (this *WorkController) BatchChangeIndent() {
 	this.ServeJSON()
 }
 
-// @router /api/iwork/editWorkStepParamInfo [post]
 func (this *WorkController) EditWorkStepParamInfo() {
 	workId, _ := this.GetInt64("work_id")
 	workStepId, _ := this.GetInt64("work_step_id", -1)

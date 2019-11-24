@@ -23,7 +23,6 @@ var (
 	DATE_MIGRATE_NAME_FORMAT = "^[0-9]{14}_(CREATE|UPDATE|DELETE|INSERT|ALTER|DROP)_[a-zA-Z0-9_]+\\.sql$"
 )
 
-// @router /api/iwork/getLastMigrateLogs [post]
 func (this *WorkController) GetLastMigrateLogs() {
 	defer this.ServeJSON()
 	trackingId := this.GetString("trackingId")
@@ -35,7 +34,6 @@ func (this *WorkController) GetLastMigrateLogs() {
 	}
 }
 
-// @router /api/iwork/executeMigrate [post]
 func (this *WorkController) ExecuteMigrate() {
 	resource_name := this.GetString("resource_name")
 	forceClean, _ := this.GetBool("forceClean", false)
@@ -54,7 +52,6 @@ func checkMigrateSqlFormat(sql string) string {
 	return sql
 }
 
-// @router /api/iwork/editSqlMigrate [post]
 func (this *WorkController) EditSqlMigrate() {
 	defer this.ServeJSON()
 	defer func() {
@@ -94,7 +91,6 @@ func (this *WorkController) EditSqlMigrate() {
 	}
 }
 
-// @router /api/iwork/filterPageSqlMigrate [post]
 func (this *WorkController) FilterPageSqlMigrate() {
 	offset, _ := this.GetInt("offset", 10)            // 每页记录数
 	current_page, _ := this.GetInt("current_page", 1) // 当前页
@@ -114,7 +110,6 @@ func (this *WorkController) FilterPageSqlMigrate() {
 	this.ServeJSON()
 }
 
-// @router /api/iwork/getSqlMigrateInfo [post]
 func (this *WorkController) GetSqlMigrateInfo() {
 	defer this.ServeJSON()
 	id, _ := this.GetInt64("id")
@@ -126,7 +121,6 @@ func (this *WorkController) GetSqlMigrateInfo() {
 	}
 }
 
-// @router /api/iwork/toggleSqlMigrateEffective [post]
 func (this *WorkController) ToggleSqlMigrateEffective() {
 	defer this.ServeJSON()
 	defer func() {

@@ -47,7 +47,6 @@ func (this *WorkController) EditModule() {
 	this.ServeJSON()
 }
 
-// @router /api/iwork/deleteModuleById [post]
 func (this *WorkController) DeleteModuleById() {
 	id, _ := this.GetInt64("id")
 	_, err := models.DeleteModuleById(id, orm.NewOrm())
@@ -59,7 +58,6 @@ func (this *WorkController) DeleteModuleById() {
 	this.ServeJSON()
 }
 
-// @router /api/iwork/getAllModules [post]
 func (this *WorkController) GetAllModules() {
 	moudles, err := models.QueryAllModules()
 	if err == nil {
