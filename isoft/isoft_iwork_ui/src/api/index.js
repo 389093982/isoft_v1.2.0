@@ -144,4 +144,6 @@ export const EditAuditTask = (task_name, task_desc) => ajax(BASE_URL+"/iwork/edi
 
 export const QueryPageAuditTask = (offset,current_page) => ajax(BASE_URL+"/iwork/queryPageAuditTask", {offset,current_page},'POST');
 
-export const EditAuditTaskSource = (resource_name, query_sql) => ajax(BASE_URL+"/iwork/editAuditTaskSource", {resource_name, query_sql},'POST');
+export const EditAuditTaskSource = (task_name, resource_name, query_sql) => ajax(BASE_URL+"/iwork/editAuditTaskSource", {task_name, resource_name, query_sql},'POST');
+
+export const QueryTaskDetail = (task_name) => ajax(BASE_URL+"/iwork/queryTaskDetail", {task_name},'POST');

@@ -9,10 +9,17 @@ type AuditTask struct {
 	Id              int64     `json:"id"`
 	TaskName        string    `json:"task_name"`
 	TaskDesc        string    `json:"task_desc" orm:"type(text)"`
+	TaskDetail      string    `json:"task_detail" orm:"type(text)"`
 	CreatedBy       string    `json:"created_by"`
 	CreatedTime     time.Time `json:"created_time" orm:"auto_now_add;type(datetime)"`
 	LastUpdatedBy   string    `json:"last_updated_by"`
 	LastUpdatedTime time.Time `json:"last_updated_time"`
+}
+
+type TaskDetail struct {
+	ResourceName string `json:"resource_name"`
+	QuerySql     string `json:"query_sql"`
+	ColNames     string `json:"col_names"`
 }
 
 func InsertOrUpdateAuditTask(task *AuditTask, o orm.Ormer) (id int64, err error) {
@@ -21,6 +28,11 @@ func InsertOrUpdateAuditTask(task *AuditTask, o orm.Ormer) (id int64, err error)
 	} else {
 		id, err = o.Insert(task)
 	}
+	return
+}
+
+func QueryAuditTaskByTaskName(task_name string, o orm.Ormer) (task AuditTask, err error) {
+	err = o.QueryTable("audit_task").Filter("task_name", task_name).One(&task)
 	return
 }
 
