@@ -7,11 +7,14 @@
 </template>
 
 <script>
+  import {queryArticleTitleList} from "../../api"
   export default {
     name: "ArticleList",
     data(){
       return{
         thisIsArticleList:"文章列表",
+        offset:20,
+        current_page:1,
         items:[
           {title:"送东阳马生序"},
           {title:"我的大学"},
@@ -35,6 +38,9 @@
         ]
       }
     },
+    created: async function () {
+      var articleTitleList = await queryArticleTitleList(this.offset,this.current_page)
+    }
   }
 </script>
 
