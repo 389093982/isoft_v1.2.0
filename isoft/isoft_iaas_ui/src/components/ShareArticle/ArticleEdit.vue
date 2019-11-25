@@ -11,8 +11,8 @@
           <Input type="textarea" v-model="article.content" :rows="rows" :maxlength="max" show-word-limit="true" placeholder="Enter content" style="width:100%"/>
         </div>
         <!--按钮-->
-            <Button type="primary">发布</Button>
-            <Button type="success">保存</Button>
+            <Button type="primary" @click="publish">发布</Button>
+            <Button type="success" @click="save">保存</Button>
         <div>
 
         </div>
@@ -47,7 +47,15 @@
             rows:15,
             max:2000,
           }
-      }
+      },
+      methods:{
+        save:function () {
+          this.$Message.success('保存成功')
+        },
+        publish:function () {
+          this.$Message.success('发布成功')
+        },
+      },
     }
 </script>
 

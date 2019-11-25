@@ -148,6 +148,8 @@ export const LoginRecordList = (offset,current_page,search) => ajax(BASE_URL+"/i
 export const InsertAdvise = (advise) => ajax(BASE_URL+"/iwork/httpservice/InsertAdvise", {advise},'POST');
 export const queryPageAdvise = (offset,current_page) => ajax(BASE_URL+'/iwork/httpservice/queryPageAdvise',{offset,current_page},'GET');
 
+//作文分享-查询title
+export const queryArticleTitleList = (offset,current_page) => ajax(BASE_URL+'iwork/httpservice/queryArticleTitleList',{offset,current_page},'POST')
 
 // 跨模块使用,模块化部署时需要使用 nginx 代理
 export const LoginAddr = "/#/sso/login/";
