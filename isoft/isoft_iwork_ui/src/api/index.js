@@ -149,3 +149,5 @@ export const EditAuditTaskSource = (task_name, resource_name, query_sql) => ajax
 export const QueryTaskDetail = (task_name) => ajax(BASE_URL+"/iwork/queryTaskDetail", {task_name},'POST');
 
 export const EditAuditTaskTarget = (task_name, update_cases) => ajax(BASE_URL+"/iwork/editAuditTaskTarget", {task_name, update_cases},'POST');
+
+export const GetAuditHandleData = (task_name, current_page, offset) => ajax(BASE_URL+"/iwork/getAuditHandleData", {task_name, current_page, offset},'POST');
