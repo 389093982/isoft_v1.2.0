@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"encoding/json"
 	"encoding/xml"
 	"github.com/astaxie/beego/orm"
 	"github.com/astaxie/beego/utils/pagination"
@@ -44,6 +45,24 @@ func (this *WorkController) QueryPageAuditTask() {
 	if err == nil {
 		this.Data["json"] = &map[string]interface{}{"status": "SUCCESS", "tasks": tasks,
 			"paginator": pageutil.Paginator(paginator.Page(), paginator.PerPageNums, paginator.Nums())}
+	} else {
+		this.Data["json"] = &map[string]interface{}{"status": "ERROR"}
+	}
+	this.ServeJSON()
+}
+
+func (this *WorkController) EditAuditTaskTarget() {
+	taskName := this.GetString("task_name")
+	update_cases := this.GetString("update_cases")
+	task, _ := models.QueryAuditTaskByTaskName(taskName, orm.NewOrm())
+	var taskDetail models.TaskDetail
+	xml.Unmarshal([]byte(task.TaskDetail), &taskDetail)
+	json.Unmarshal([]byte(update_cases), &taskDetail.UpdateCases)
+	task.TaskDetail = xmlutil.RenderToString(taskDetail)
+	// 配置入库
+	_, err := models.InsertOrUpdateAuditTask(&task, orm.NewOrm())
+	if err == nil {
+		this.Data["json"] = &map[string]interface{}{"status": "SUCCESS"}
 	} else {
 		this.Data["json"] = &map[string]interface{}{"status": "ERROR"}
 	}

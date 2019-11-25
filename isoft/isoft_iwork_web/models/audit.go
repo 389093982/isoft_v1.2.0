@@ -17,9 +17,16 @@ type AuditTask struct {
 }
 
 type TaskDetail struct {
-	ResourceName string `json:"resource_name"`
-	QuerySql     string `json:"query_sql"`
-	ColNames     string `json:"col_names"`
+	ResourceName string       `json:"resource_name"`
+	QuerySql     string       `json:"query_sql"`
+	ColNames     string       `json:"col_names"`
+	UpdateCases  []UpdateCase `json:"update_cases"`
+}
+
+type UpdateCase struct {
+	CaseName   string `json:"case_name"`
+	UpdateSql  string `json:"update_sql"`
+	UpdateDesc string `json:"update_desc"`
 }
 
 func InsertOrUpdateAuditTask(task *AuditTask, o orm.Ormer) (id int64, err error) {
