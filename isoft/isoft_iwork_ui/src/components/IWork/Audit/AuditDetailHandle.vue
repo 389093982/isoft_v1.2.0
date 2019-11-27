@@ -1,7 +1,9 @@
 <template>
   <div>
-    <div v-for="rowData in rowDatas" style="background-color: rgba(236,236,236,0.4);margin: 5px;padding: 10px;">
-      <span v-for="(value,key,index) in rowData" style="margin-right: 10px;"> <Tag color="orange">字段名：{{key}}</Tag> {{value}}</span>
+    <div v-for="rowData in rowDatas" style="background-color: rgba(236,236,236,0.3);margin: 5px;padding: 10px;">
+      <span v-for="(colName, index) in colNames" style="margin-right: 10px;">
+        <Tag color="orange">字段名：{{colName}}</Tag> {{rowData[colName]}}<br/>
+      </span>
     </div>
 
     <Page :total="total" :page-size="offset" show-total show-sizer :styles="{'text-align': 'center','margin-top': '10px'}"
@@ -16,6 +18,7 @@
     data(){
       return {
         rowDatas:[],
+        colNames:[],
         // 当前页
         current_page:1,
         // 总数
@@ -38,6 +41,7 @@
         const result = await GetAuditHandleData(this.$route.query.task_name, this.current_page, this.offset);
         if(result.status == "SUCCESS"){
           this.rowDatas = result.rowDatas;
+          this.colNames = JSON.parse(JSON.parse(result.colNames));
           this.total = result.totalcount;
         }
       }

@@ -65,7 +65,12 @@ func (this *WorkController) GetAuditHandleData() {
 		[]interface{}{}, resource.ResourceDsn)
 	_, rowDatas := sqlutil.Query(fmt.Sprintf(`%s limit ?,?`, taskDetail.QuerySql), []interface{}{(current_page - 1) * offset, offset}, resource.ResourceDsn)
 	if len(rowDatas) > 0 {
-		this.Data["json"] = &map[string]interface{}{"status": "SUCCESS", "rowDatas": rowDatas, "totalcount": rowDatas0[0]["totalcount"]}
+		this.Data["json"] = &map[string]interface{}{
+			"status":     "SUCCESS",
+			"rowDatas":   rowDatas,
+			"totalcount": rowDatas0[0]["totalcount"],
+			"colNames":   taskDetail.ColNames,
+		}
 	} else {
 		this.Data["json"] = &map[string]interface{}{"status": "ERROR"}
 	}
