@@ -2,13 +2,13 @@
   <div>
     <Tabs :animated="false" name="tab_level_2" style="width: 80%;">
       <TabPane v-for="(item, index) in update_cases" :label="item.case_name ? item.case_name : '场景 ' + (index + 1)" tab="tab_level_2">
-        场景名称:
+        场景名称: <span style="color: #00ce00;">参考案例：生效、失效、审核通过、内容不合法等中文或英文</span>
+        <span style="margin-left: 100px;">删除按钮颜色设置：<ColorPicker v-model="item.case_color" size="small" alpha recommend/></span>
         <Button type="error" size="small" @click="handleRemove(index)">删除</Button>
-        <ColorPicker v-model="item.case_color" size="small" alpha recommend/>
         <Input type="text" v-model="item.case_name" placeholder="请输入场景名称" style="margin: 5px 0;"></Input>
-        场景更新sql:
+        场景更新sql: <span style="color: #00ce00;">参考案例：update blog set status = 1 where id = :id</span>
         <Input type="textarea" :rows="6" v-model="item.update_sql" placeholder="请输入 update_sql" style="margin: 5px 0;"></Input>
-        场景描述:
+        场景描述: <span style="color: #00ce00;">参考案例：根据 id 更新状态为 1(生效状态)</span>
         <Input type="textarea" :rows="5" v-model="item.update_desc" placeholder="请输入描述" style="margin: 10px 0;"></Input>
 
       </TabPane>
