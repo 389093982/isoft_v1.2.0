@@ -41,7 +41,7 @@
         const result = await GetAuditHandleData(this.$route.query.task_name, this.current_page, this.offset);
         if(result.status == "SUCCESS"){
           this.rowDatas = result.rowDatas;
-          this.colNames = JSON.parse(JSON.parse(result.colNames));
+          this.colNames = JSON.parse(result.colNames);
           this.total = result.totalcount;
         }
       }
