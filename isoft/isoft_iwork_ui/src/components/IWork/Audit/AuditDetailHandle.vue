@@ -9,8 +9,8 @@
         </Col>
         <Col span="4">
           <span v-if="update_cases" v-for="update_case in update_cases">
-            <span v-if="update_case.case_name" class="operate"
-                  :style="{'color': update_case.case_color}">{{update_case.case_name}}</span>
+            <span v-if="update_case.case_name" class="operate" :style="{'color': update_case.case_color}"
+              @click="handleOperate(update_case, rowData)">{{update_case.case_name}}</span>
           </span>
         </Col>
       </Row>
@@ -23,6 +23,8 @@
 
 <script>
   import {GetAuditHandleData,QueryTaskDetail} from "../../../api"
+  import {getMatchArrForString,startsWith} from "../../../tools"
+
   export default {
     name: "AuditDetailHandle",
     data(){
@@ -61,6 +63,18 @@
         if(result.status == "SUCCESS"){
           this.update_cases = result.taskDetail.update_cases;
         }
+      },
+      handleOperate(update_case, rowData){
+        var sqlStr = update_case.update_sql;
+        // 所有占位符变量
+        let replaces = getMatchArrForString(sqlStr, /:[a-zA-Z0-9_]+/g);
+        for(var i=0; i<replaces.length; i++){
+          var replace = replaces[i];
+          if(startsWith(replace, ":")){
+            sqlStr = sqlStr.replace(replace, rowData[replace.slice(1)]);
+          }
+        }
+        alert(sqlStr);
       }
     },
     mounted(){
@@ -74,7 +88,7 @@
   .operate{
     font-size: 14px;
     cursor: pointer;
-    margin: 2px;
+    margin: 2px 10px;
   }
   .operate:hover{
     border-bottom: 1px solid red;
