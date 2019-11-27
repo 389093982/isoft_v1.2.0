@@ -25,6 +25,7 @@ type TaskDetail struct {
 
 type UpdateCase struct {
 	CaseName   string `json:"case_name"`
+	CaseColor  string `json:"case_color"`
 	UpdateSql  string `json:"update_sql"`
 	UpdateDesc string `json:"update_desc"`
 }

@@ -9,7 +9,7 @@
         </Col>
         <Col span="4">
           <span v-if="update_cases" v-for="update_case in update_cases">
-            <Button v-if="update_case.case_name" type="success" size="small" style="margin-right: 5px;">{{update_case.case_name}}</Button>
+            <button v-if="update_case.case_name" class="btn" :style="{'background-color': update_case.case_color}">{{update_case.case_name}}</button>
           </span>
         </Col>
       </Row>
@@ -70,5 +70,15 @@
 </script>
 
 <style scoped>
-
+  .btn{
+    border: none;
+    color: white;
+    padding: 2px 12px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+    margin-right: 5px;
+    cursor: pointer;
+  }
 </style>

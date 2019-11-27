@@ -1,8 +1,10 @@
 <template>
   <div>
-    <Tabs :animated="false" name="tab_level_2">
+    <Tabs :animated="false" name="tab_level_2" style="width: 80%;">
       <TabPane v-for="(item, index) in update_cases" :label="item.case_name ? item.case_name : '场景 ' + (index + 1)" tab="tab_level_2">
-        场景名称: <Button type="error" size="small" @click="handleRemove(index)">删除</Button>
+        场景名称:
+        <Button type="error" size="small" @click="handleRemove(index)">删除</Button>
+        <ColorPicker v-model="item.case_color" size="small"/>
         <Input type="text" v-model="item.case_name" placeholder="请输入场景名称" style="margin: 5px 0;"></Input>
         场景更新sql:
         <Input type="textarea" :rows="5" v-model="item.update_sql" placeholder="请输入 update_sql" style="margin: 5px 0;"></Input>
@@ -12,8 +14,8 @@
       </TabPane>
     </Tabs>
     <div>
-      <Button type="success" @click="handleAdd">新增场景</Button>
-      <Button type="info" @click="handleSubmit">保存场景</Button>
+      <Button type="success" size="small" @click="handleAdd">新增场景</Button>
+      <Button type="info" size="small" @click="handleSubmit">保存场景</Button>
     </div>
   </div>
 </template>
@@ -30,6 +32,7 @@
             case_name:'',
             update_sql:'',
             update_desc:'',
+            case_color:'',
           }
         ]
       }
@@ -49,6 +52,7 @@
           case_name:'',
             update_sql: '',
             update_desc: '',
+          case_color: '#19be6b',
         });
       },
       handleRemove (index) {
