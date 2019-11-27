@@ -1,7 +1,7 @@
 <template>
   <div>
     <Tabs :animated="false" name="tab_level_2">
-      <TabPane v-for="(item, index) in update_cases" :label="'场景 ' + (index + 1)" tab="tab_level_2">
+      <TabPane v-for="(item, index) in update_cases" :label="item.case_name ? item.case_name : '场景 ' + (index + 1)" tab="tab_level_2">
         场景名称: <Button type="error" size="small" @click="handleRemove(index)">删除</Button>
         <Input type="text" v-model="item.case_name" placeholder="请输入场景名称" style="margin: 5px 0;"></Input>
         场景更新sql:
