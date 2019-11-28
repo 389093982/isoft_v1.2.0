@@ -1,13 +1,23 @@
 <template>
     <div>
-
-        分享大厅
+      <div>分享大厅</div>
+      <div>
+        <SharingUser :article="article"></SharingUser><br>
+      </div>
     </div>
 </template>
 
 <script>
+    import SharingUser from "../ShareArticle/SharingUser"
     export default {
-        name: "SharingHall"
+      props:{
+        article:{
+          title:String,
+          content:String
+        },
+      },
+      name: "SharingHall",
+      components:{SharingUser},
     }
 </script>
 
