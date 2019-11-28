@@ -149,7 +149,11 @@ export const InsertAdvise = (advise) => ajax(BASE_URL+"/iwork/httpservice/Insert
 export const queryPageAdvise = (offset,current_page) => ajax(BASE_URL+'/iwork/httpservice/queryPageAdvise',{offset,current_page},'GET');
 
 //作文分享-查询title
-export const queryArticleTitleList = (offset,current_page) => ajax(BASE_URL+'iwork/httpservice/queryArticleTitleList',{offset,current_page},'POST')
+export const queryArticleTitleList = (offset,current_page) => ajax(BASE_URL+'iwork/httpservice/queryArticleTitleList',{offset,current_page},'POST');
+//作文分享-保存作文
+export const saveArticle = (title,content) => ajax(BASE_URL+'iwork/httpservice/saveArticle',{title,content},'POST');
+//作文分享-发布作文
+export const publishArticle = (title,content) => ajax(BASE_URL+'iwork/httpservice/publishArticle',{title,content},'POST');
 
 // 跨模块使用,模块化部署时需要使用 nginx 代理
 export const LoginAddr = "/#/sso/login/";
