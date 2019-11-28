@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div>{{onView}}</div>
+    <div>正在编辑</div>
     <!--标题-->
     <div class="SingleArticle-title">
       <Input v-model="article.title" placeholder="Enter title..." maxlength="20" style="width: 100%" />
@@ -8,11 +8,11 @@
     <!--内容-->
     <div class="SingleArticle-content">
       <Input type="textarea" v-model="article.content" @keydown.tab.native="tab" :rows="rows" :maxlength="max" show-word-limit="true" placeholder="Enter content" style="width:100%"/>
-      <span style="float: right">{{getAlreadyInput}}/{{max}}</span>
+      <span style="float: right;color: #9ea7b4">{{getAlreadyInput}}/{{max}}</span>
     </div>
     <!--按钮-->
     <Button type="success" @click="saveArticle">保存</Button>
-    <Button type="primary" @click="publishArticle">发布</Button>
+    <Button type="primary" @click="publishArticle">发表</Button>
 
     <div> </div>
     <slot name="title"></slot>
@@ -33,8 +33,7 @@
       components:{},
       data(){
         return{
-          onView:"正在预览",
-          rows:15,
+          rows:17,
           max:2000,
           alreadyInput:0,
         }
@@ -52,6 +51,7 @@
         publishArticle:async function () {
           // let publishResult = await publishArticle(this.article.title,this.article.content);
           this.$Message.success("发布成功")
+          this.$emit("toPublishArticle",this.article)
         },
         tab:function(){
           this.$Message.success("tab")
