@@ -10,15 +10,12 @@
     <div class="Article">
       <!--文章编辑-->
       <div class="Article-Edit">
-        <ArticleEdit>
-          <!--<div slot="title">title01</div>-->
-          <!--<div slot="content">content01</div>-->
-        </ArticleEdit>
+        <ArticleEdit :article="article"></ArticleEdit>
       </div>
 
       <!--文章列表-->
       <div class="Article-List">
-        <ArticleList></ArticleList>
+        <ArticleList @toEditArticle="toEditArticle"></ArticleList>
       </div>
     </div>
 
@@ -31,7 +28,17 @@
   import ArticleEdit from "../ShareArticle/ArticleEdit"
   export default {
     name: "ShareArticlePlace",
-    components:{ArticleEdit,SharingHall,ArticleList}
+    components:{ArticleEdit,SharingHall,ArticleList},
+    data(){
+      return{
+        article:{title:"",content:""},
+      }
+  },
+    methods:{
+      toEditArticle:function (article) {
+        this.article = article
+      }
+    },
   }
 </script>
 
