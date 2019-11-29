@@ -1,10 +1,10 @@
 <template>
   <div>
-    <div v-for="rowData in rowDatas" style="background-color: rgba(236,236,236,0.3);margin: 5px;padding: 10px;">
+    <div v-for="rowData in rowDatas" style="border:1px solid rgba(199,199,199,0.4);margin: 5px;padding: 10px;">
       <Row>
         <Col span="20">
           <span v-for="(colName, index) in colNames" style="margin-right: 10px;">
-            <Tag color="orange">字段名：{{colName}}</Tag> {{rowData[colName]}}<br/>
+            <Tag>字段名：{{colName}}</Tag> {{rowData[colName]}}<br/>
           </span>
         </Col>
         <Col span="4">
