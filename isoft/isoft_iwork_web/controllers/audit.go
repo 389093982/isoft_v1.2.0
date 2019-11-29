@@ -130,3 +130,19 @@ func (this *WorkController) QueryTaskDetail() {
 	}
 	this.ServeJSON()
 }
+
+func (this *WorkController) ExecuteAuditTask() {
+	taskName := this.GetString("task_name")
+	sql_str := this.GetString("sql_str")
+	task, _ := models.QueryAuditTaskByTaskName(taskName, orm.NewOrm())
+	var taskDetail models.TaskDetail
+	xml.Unmarshal([]byte(task.TaskDetail), &taskDetail)
+	resource, _ := models.QueryResourceByName(taskDetail.ResourceName)
+	_, affected, err := sqlutil.ExecuteSql(sql_str, nil, resource.ResourceDsn)
+	if err == nil && affected > 0 {
+		this.Data["json"] = &map[string]interface{}{"status": "SUCCESS"}
+	} else {
+		this.Data["json"] = &map[string]interface{}{"status": "ERROR", "errorMsg": err.Error()}
+	}
+	this.ServeJSON()
+}

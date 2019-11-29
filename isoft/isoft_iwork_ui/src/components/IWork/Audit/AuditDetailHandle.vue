@@ -22,7 +22,7 @@
 </template>
 
 <script>
-  import {GetAuditHandleData,QueryTaskDetail} from "../../../api"
+  import {GetAuditHandleData,QueryTaskDetail,ExecuteAuditTask} from "../../../api"
   import {getMatchArrForString,startsWith} from "../../../tools"
 
   export default {
@@ -64,7 +64,7 @@
           this.update_cases = result.taskDetail.update_cases;
         }
       },
-      handleOperate(update_case, rowData){
+      handleOperate:async function(update_case, rowData){
         var sqlStr = update_case.update_sql;
         // 所有占位符变量
         let replaces = getMatchArrForString(sqlStr, /:[a-zA-Z0-9_]+/g);
@@ -74,7 +74,13 @@
             sqlStr = sqlStr.replace(replace, rowData[replace.slice(1)]);
           }
         }
-        alert(sqlStr);
+        const result = await ExecuteAuditTask(this.$route.query.task_name, sqlStr);
+        if(result.status == "SUCCESS"){
+          this.$Message.error("操作成功！");
+          this.refreshHandleData();
+        }else{
+          this.$Message.error("操作失败！" + result.errorMsg);
+        }
       }
     },
     mounted(){

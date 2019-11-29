@@ -96,6 +96,7 @@ func loadloadIWorkerRouterDetail() {
 	registRouter("/api/iwork/queryTaskDetail", wc, wc.QueryTaskDetail, "get,post:QueryTaskDetail")
 	registRouter("/api/iwork/editAuditTaskTarget", wc, wc.EditAuditTaskTarget, "get,post:EditAuditTaskTarget")
 	registRouter("/api/iwork/getAuditHandleData", wc, wc.GetAuditHandleData, "get,post:GetAuditHandleData")
+	registRouter("/api/iwork/executeAuditTask", wc, wc.ExecuteAuditTask, "get,post:ExecuteAuditTask")
 }
 
 func registRouter(rootpath string, c beego.ControllerInterface, callFunc func(), mappingMethods ...string) *beego.App {
