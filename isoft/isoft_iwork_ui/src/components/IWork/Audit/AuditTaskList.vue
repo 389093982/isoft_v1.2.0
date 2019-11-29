@@ -1,7 +1,7 @@
 <template>
   <div>
     <h2 style="text-align: center;">内容审核系统</h2>
-    <Button type="success" style="margin: 10px 0;" @click="showAuditEdit = true">新增审核任务</Button>
+    <Button type="success" size="small" style="margin: 10px 0;" @click="showAuditEdit = true">新增审核任务</Button>
     <Modal
       v-model="showAuditEdit"
       title="编辑审核任务"
@@ -59,7 +59,7 @@
                         this.$router.push({ path: '/iwork/audit_detail', query: { task_name: this.tasks[params.index].task_name }});
                       }
                     }
-                  }, '编辑任务详情'),
+                  }, '详情编辑'),
                 ]);
               }
             },

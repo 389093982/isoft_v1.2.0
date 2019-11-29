@@ -12,7 +12,7 @@
     请输入查询 Sql
     <Input type="textarea" :rows="5" v-model="taskDetail.query_sql"/>
 
-    <Button type="success" style="margin-top: 10px;" @click="editAuditTaskSource">提交</Button>
+    <Button type="success" size="small" style="margin-top: 10px;" @click="editAuditTaskSource">提交</Button>
 
     <p v-for="(col_name, index) in taskDetail.col_names">
       <Tag>{{col_name}}</Tag>
@@ -41,7 +41,7 @@
         const result = await EditAuditTaskSource(this.$route.query.task_name, this.taskDetail.resource_name, this.taskDetail.query_sql);
         if(result.status == "SUCCESS"){
           this.$Message.success("保存成功！");
-          this.refreshAuditDetail();
+          this.$router.go(0);     // 强制刷新页面
         }else{
           this.$Message.error("配置错误!");
         }

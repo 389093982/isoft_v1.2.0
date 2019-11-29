@@ -18,10 +18,22 @@
 
 <script>
   import {EditAuditTask} from "../../../api"
+  import {startsWith} from "../../../tools"
 
   export default {
     name: "AuditTaskEdit",
     data () {
+      const validateTaskName = (rule, value, callback) => {
+        if (value === '') {
+          callback(new Error("任务名称不能为空!"));
+        } else if (!startsWith(value, "task_")) {
+          callback(new Error("任务名称必须以 'task_' 开头!"));
+        } else if (value.length < 10) {
+          callback(new Error("任务名称太短,必须大于 10 个字符!"));
+        } else {
+          callback();
+        }
+      };
       return {
         formInline: {
           task_name: '',
@@ -29,7 +41,8 @@
         },
         ruleInline: {
           task_name: [
-            { required: true, message: 'Please fill in the task_name', trigger: 'blur' }
+            { required: true, message: 'Please fill in the task_name', trigger: 'blur' },
+            { validator: validateTaskName, trigger: 'blur' }
           ],
           task_desc: [
             { required: true, message: 'Please fill in task_desc.', trigger: 'blur' },
