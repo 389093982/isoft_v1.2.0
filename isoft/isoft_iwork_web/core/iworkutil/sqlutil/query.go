@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"github.com/pkg/errors"
 	"isoft/isoft_iwork_web/core/iworkpool"
+	"isoft/isoft_iwork_web/core/iworkutil/errorutil"
 	"strconv"
 	"strings"
 )
@@ -30,6 +31,17 @@ func GetMetaDatas(sql, dataSourceName string) (colNames []string) {
 		return
 	}
 	return colNames
+}
+
+func QuerySql(sql string, sql_binding []interface{}, dataSourceName string) (
+	datacounts int64, rowDatas []map[string]interface{}, err error) {
+	defer func() {
+		if err1 := recover(); err1 != nil {
+			err = errorutil.ToError(err1)
+		}
+	}()
+	datacounts, rowDatas = Query(sql, sql_binding, dataSourceName)
+	return
 }
 
 func Query(sql string, sql_binding []interface{}, dataSourceName string) (

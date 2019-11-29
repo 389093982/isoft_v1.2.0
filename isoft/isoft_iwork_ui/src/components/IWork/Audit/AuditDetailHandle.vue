@@ -57,7 +57,7 @@
           this.colNames = JSON.parse(result.colNames);
           this.total = result.totalcount;
         }else{
-          this.$Message.error("数据加载失败！");
+          this.$Message.error("数据加载失败！" + result.errorMsg);
         }
       },
       refreshAuditDetail:async function () {

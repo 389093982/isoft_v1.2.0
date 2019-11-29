@@ -9,6 +9,7 @@ import (
 	"isoft/isoft/common/jsonutil"
 	"isoft/isoft/common/pageutil"
 	"isoft/isoft/common/xmlutil"
+	"isoft/isoft_iwork_web/core/iworkutil/errorutil"
 	"isoft/isoft_iwork_web/core/iworkutil/sqlutil"
 	"isoft/isoft_iwork_web/models"
 	"strings"
@@ -61,10 +62,10 @@ func (this *WorkController) GetAuditHandleData() {
 	var taskDetail models.TaskDetail
 	xml.Unmarshal([]byte(task.TaskDetail), &taskDetail)
 	resource, _ := models.QueryResourceByName(taskDetail.ResourceName)
-	_, rowDatas0 := sqlutil.Query(strings.Replace(taskDetail.QuerySql, "*", "count(*) as totalcount", -1),
+	_, rowDatas0, err1 := sqlutil.QuerySql(strings.Replace(taskDetail.QuerySql, "*", "count(*) as totalcount", -1),
 		[]interface{}{}, resource.ResourceDsn)
-	_, rowDatas := sqlutil.Query(fmt.Sprintf(`%s limit ?,?`, taskDetail.QuerySql), []interface{}{(current_page - 1) * offset, offset}, resource.ResourceDsn)
-	if len(rowDatas) > 0 {
+	_, rowDatas, err2 := sqlutil.QuerySql(fmt.Sprintf(`%s limit ?,?`, taskDetail.QuerySql), []interface{}{(current_page - 1) * offset, offset}, resource.ResourceDsn)
+	if err1 == nil && err2 == nil && len(rowDatas) > 0 {
 		this.Data["json"] = &map[string]interface{}{
 			"status":     "SUCCESS",
 			"rowDatas":   rowDatas,
@@ -72,7 +73,7 @@ func (this *WorkController) GetAuditHandleData() {
 			"colNames":   taskDetail.ColNames,
 		}
 	} else {
-		this.Data["json"] = &map[string]interface{}{"status": "ERROR"}
+		this.Data["json"] = &map[string]interface{}{"status": "ERROR", "errorMsg": errorutil.GetFirstError(err1, err2).Error()}
 	}
 	this.ServeJSON()
 }
