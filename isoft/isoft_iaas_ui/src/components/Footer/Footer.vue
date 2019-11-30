@@ -1,7 +1,7 @@
 <template>
   <div id="footer">
     <BackTop>
-      <div class="top">返回顶端</div>
+      <div class="top">返回</div>
     </BackTop>
 
     <Row>
@@ -78,6 +78,6 @@
   }
   #footer{
     background: #FFFFFF;
-    margin: 0 18px 0 18px;
+    margin: 0 100px 0 100px;
   }
 </style>

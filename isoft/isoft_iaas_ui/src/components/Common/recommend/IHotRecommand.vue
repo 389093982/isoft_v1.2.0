@@ -6,7 +6,7 @@
       </div>
       <div style="padding: 10px;border-top: 2px solid #edeff0;border-bottom: 2px solid #edeff0;">
         <Row :gutter="50">
-          <Col span="6" style="margin-top: 12px;" v-for="element in elements">
+          <Col span="8" style="margin-top: 12px;" v-for="element in elements">
             <span style="font-size: 14px;">{{element.title}}</span>
             <IBeautifulButtonLink msg="点击了解详情" floatstyle="right" :hrefaddr="element.linked_refer"/>
           </Col>

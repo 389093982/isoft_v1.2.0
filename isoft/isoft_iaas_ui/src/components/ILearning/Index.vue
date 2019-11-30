@@ -6,20 +6,20 @@
     <WarmHeartRecommend/>
 
     <Row>
-      <Col span="18">
+      <Col span="17">
         <HotRecommend/>
       </Col>
-      <Col span="6">
+      <Col span="7">
         <GoodRank/>
       </Col>
     </Row>
 
     <Row>
-      <Col span="18">
+      <Col span="17">
         <!-- 热门推荐区域 -->
         <HotRecommend/>
       </Col>
-      <Col span="6">
+      <Col span="7">
         <ToolBox :placement_name="GLOBAL.element_host_app_recommand"/>
         <NewsNotice :placement_name="GLOBAL.Index_news_list"/>
       </Col>

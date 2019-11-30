@@ -14,6 +14,7 @@
 
     <Button type="success" size="small" style="margin-top: 10px;" @click="editAuditTaskSource">提交</Button>
 
+    <h3 style="margin-top: 20px;">字段显示类型：</h3>
     <p v-for="(col_name, index) in taskDetail.col_names">
       <Tag>{{col_name}}</Tag>
     </p>

@@ -4,7 +4,7 @@
       <Header>
         <Header/>
       </Header>
-      <Content :style="{padding: '18px', paddingTop: '5px', minHeight: '550px', background: '#f5f6f7', lineHeight: '24px', fontSize: '14px'}">
+      <Content :style="{padding: '18px 100px', paddingTop: '5px', minHeight: '550px', background: '#f5f6f7', lineHeight: '24px', fontSize: '14px'}">
         <router-view/>
       </Content>
       <Footer>
