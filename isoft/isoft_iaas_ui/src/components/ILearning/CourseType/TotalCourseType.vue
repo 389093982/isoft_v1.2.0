@@ -11,7 +11,6 @@
           </span>
         </Col>
       </Row>
-
       <Row>
         <Col span="2">
           <span style="font-weight: bold;">详细分类：</span>
