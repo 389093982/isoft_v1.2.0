@@ -34,6 +34,8 @@
               </Col>
               <Col span="12">
                 <a style="color: #499ef3;font-weight: bold;" @click="chooseItem(searchblog.catalog_name)">所属分类：{{ searchblog.catalog_name }}</a>
+
+                <span v-if="searchblog.blog_status == -1" style="float: right;color: red;">审核不通过！</span>
               </Col>
             </Row>
             <p style="margin-bottom: 4px;font-size: 14px;color: #8a8a8a;line-height: 24px;">
