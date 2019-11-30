@@ -1,12 +1,12 @@
 <template>
   <div>
-    <Form ref="formInline" :model="formInline" :rules="ruleInline">
-      <FormItem prop="task_name">
-        <Input type="text" v-model="formInline.task_name" placeholder="task_name">
+    <Form ref="formInline" :model="formInline" :rules="ruleInline" :label-width="100">
+      <FormItem prop="task_name" label="任务名称">
+        <Input type="text" v-model.trim="formInline.task_name" placeholder="task_name">
         </Input>
       </FormItem>
-      <FormItem prop="task_desc">
-        <Input type="textarea" :rows="5" v-model="formInline.task_desc" placeholder="task_desc">
+      <FormItem prop="task_desc" label="任务描述">
+        <Input type="textarea" :rows="5" v-model.trim="formInline.task_desc" placeholder="task_desc">
         </Input>
       </FormItem>
       <FormItem>
@@ -41,11 +41,11 @@
         },
         ruleInline: {
           task_name: [
-            { required: true, message: 'Please fill in the task_name', trigger: 'blur' },
+            { required: true, message: '请输入任务名称', trigger: 'blur' },
             { validator: validateTaskName, trigger: 'blur' }
           ],
           task_desc: [
-            { required: true, message: 'Please fill in task_desc.', trigger: 'blur' },
+            { required: true, message: '请输入任务描述', trigger: 'blur' },
           ]
         }
       }

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2 style="text-align: center;">内容审核系统</h2>
+    <h2 style="text-align: center;" class="press">智能内容审核系统</h2>
     <Button type="success" size="small" style="margin: 10px 0;" @click="showAuditEdit = true">新增审核任务</Button>
     <Modal
       v-model="showAuditEdit"
@@ -95,5 +95,10 @@
 </script>
 
 <style scoped>
-
+  .press {
+    color: transparent;
+    background-color : black;
+    text-shadow : rgba(255,255,255,0.5) 0 5px 6px, rgba(255,255,255,0.2) 1px 3px 3px;
+    -webkit-background-clip : text;
+  }
 </style>
