@@ -4,23 +4,25 @@
 
     <WarmHeartRecommend style="margin-top: 8px;"/>
 
-    <Row class="isoft_bg_white isoft_pd10" style="margin-top: 8px;">
-      <Col span="17">
-        <HotRecommend/>
+    <Row style="margin-top: 8px;">
+      <Col span="17" style="padding-right: 8px;">
+        <HotRecommend class="isoft_bg_white isoft_pd10"/>
       </Col>
       <Col span="7">
-        <GoodRank/>
+        <GoodRank class="isoft_bg_white isoft_pd10"/>
       </Col>
     </Row>
 
-    <Row class="isoft_bg_white isoft_pd10" style="margin-top: 8px;">
-      <Col span="17">
+    <Row style="margin-top: 8px;">
+      <Col span="17" style="padding-right: 8px;">
         <!-- 热门推荐区域 -->
-        <HotRecommend/>
+        <HotRecommend class="isoft_bg_white isoft_pd10"/>
       </Col>
       <Col span="7">
-        <ToolBox :placement_name="GLOBAL.element_host_app_recommand"/>
-        <NewsNotice :placement_name="GLOBAL.Index_news_list"/>
+        <div class="isoft_bg_white isoft_pd10">
+          <ToolBox :placement_name="GLOBAL.element_host_app_recommand"/>
+          <NewsNotice :placement_name="GLOBAL.Index_news_list"/>
+        </div>
       </Col>
     </Row>
 
