@@ -5,6 +5,10 @@
   display:block;
 }
 
+.isoft_bordertop_red{
+  border-top:3px solid rgba(255, 0, 0, 0.2);
+}
+
 .isoft_pd10 {
   padding: 10px;
 }
