@@ -78,7 +78,7 @@
         }
         const result = await ExecuteAuditTask(this.$route.query.task_name, sqlStr);
         if(result.status == "SUCCESS"){
-          this.$Message.error("操作成功！");
+          this.$Message.success("操作成功！");
           this.refreshHandleData();
         }else{
           this.$Message.error("操作失败！" + result.errorMsg);

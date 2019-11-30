@@ -1,0 +1,10 @@
+<AuditTask>
+	<Id>11</Id>
+	<TaskName>task_audit_table_blog_article</TaskName>
+	<TaskDesc>审核 blog_article 表的文章</TaskDesc>
+	<TaskDetail>&lt;TaskDetail&gt;&#xA;&#x9;&lt;ResourceName&gt;isoft_iaas&lt;/ResourceName&gt;&#xA;&#x9;&lt;QuerySql&gt;select * from blog_article&lt;/QuerySql&gt;&#xA;&#x9;&lt;ColNames&gt;[&amp;#xA;&amp;#x9;&amp;#34;id&amp;#34;,&amp;#xA;&amp;#x9;&amp;#34;author&amp;#34;,&amp;#xA;&amp;#x9;&amp;#34;blog_title&amp;#34;,&amp;#xA;&amp;#x9;&amp;#34;key_words&amp;#34;,&amp;#xA;&amp;#x9;&amp;#34;content&amp;#34;,&amp;#xA;&amp;#x9;&amp;#34;blog_type&amp;#34;,&amp;#xA;&amp;#x9;&amp;#34;blog_status&amp;#34;,&amp;#xA;&amp;#x9;&amp;#34;views&amp;#34;,&amp;#xA;&amp;#x9;&amp;#34;edits&amp;#34;,&amp;#xA;&amp;#x9;&amp;#34;created_by&amp;#34;,&amp;#xA;&amp;#x9;&amp;#34;created_time&amp;#34;,&amp;#xA;&amp;#x9;&amp;#34;last_updated_by&amp;#34;,&amp;#xA;&amp;#x9;&amp;#34;last_updated_time&amp;#34;,&amp;#xA;&amp;#x9;&amp;#34;short_desc&amp;#34;,&amp;#xA;&amp;#x9;&amp;#34;catalog_name&amp;#34;,&amp;#xA;&amp;#x9;&amp;#34;link_href&amp;#34;&amp;#xA;]&lt;/ColNames&gt;&#xA;&#x9;&lt;UpdateCases&gt;&#xA;&#x9;&#x9;&lt;CaseName&gt;生效&lt;/CaseName&gt;&#xA;&#x9;&#x9;&lt;CaseColor&gt;#19be6b&lt;/CaseColor&gt;&#xA;&#x9;&#x9;&lt;UpdateSql&gt;update blog_article set blog_status = 1 where id = :id&lt;/UpdateSql&gt;&#xA;&#x9;&#x9;&lt;UpdateDesc&gt;文章审核通过&lt;/UpdateDesc&gt;&#xA;&#x9;&lt;/UpdateCases&gt;&#xA;&#x9;&lt;UpdateCases&gt;&#xA;&#x9;&#x9;&lt;CaseName&gt;失效&lt;/CaseName&gt;&#xA;&#x9;&#x9;&lt;CaseColor&gt;#19be6b&lt;/CaseColor&gt;&#xA;&#x9;&#x9;&lt;UpdateSql&gt;update blog_article set blog_status = -1 where id = :id&lt;/UpdateSql&gt;&#xA;&#x9;&#x9;&lt;UpdateDesc&gt;文章审核不通过&lt;/UpdateDesc&gt;&#xA;&#x9;&lt;/UpdateCases&gt;&#xA;&lt;/TaskDetail&gt;</TaskDetail>
+	<CreatedBy>SYSTEM</CreatedBy>
+	<CreatedTime>2019-11-30T14:53:06+08:00</CreatedTime>
+	<LastUpdatedBy>SYSTEM</LastUpdatedBy>
+	<LastUpdatedTime>2019-11-30T14:53:06+08:00</LastUpdatedTime>
+</AuditTask>
