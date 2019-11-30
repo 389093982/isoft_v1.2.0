@@ -51,3 +51,8 @@ func QueryPageAuditTask(page int, offset int, o orm.Ormer) (tasks []AuditTask, c
 	qs.All(&tasks)
 	return
 }
+
+func QueryAllAuditTasks(o orm.Ormer) (tasks []AuditTask, err error) {
+	_, err = o.QueryTable("audit_task").All(&tasks)
+	return
+}

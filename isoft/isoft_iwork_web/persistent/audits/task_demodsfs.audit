@@ -1,0 +1,10 @@
+<AuditTask>
+	<Id>8</Id>
+	<TaskName>task_demodsfs</TaskName>
+	<TaskDesc>1111fdfsfsfdsfsdf</TaskDesc>
+	<TaskDetail>&lt;TaskDetail&gt;&#xA;&#x9;&lt;ResourceName&gt;isoft_iaas&lt;/ResourceName&gt;&#xA;&#x9;&lt;QuerySql&gt;select * from app_regist&lt;/QuerySql&gt;&#xA;&#x9;&lt;ColNames&gt;null&lt;/ColNames&gt;&#xA;&#x9;&lt;UpdateCases&gt;&#xA;&#x9;&#x9;&lt;CaseName&gt;生效&lt;/CaseName&gt;&#xA;&#x9;&#x9;&lt;CaseColor&gt;#19be6b&lt;/CaseColor&gt;&#xA;&#x9;&#x9;&lt;UpdateSql&gt;update app_regist set app_name = &amp;#39;test&amp;#39; where id = :id&lt;/UpdateSql&gt;&#xA;&#x9;&#x9;&lt;UpdateDesc&gt;生效&lt;/UpdateDesc&gt;&#xA;&#x9;&lt;/UpdateCases&gt;&#xA;&#x9;&lt;UpdateCases&gt;&#xA;&#x9;&#x9;&lt;CaseName&gt;失效&lt;/CaseName&gt;&#xA;&#x9;&#x9;&lt;CaseColor&gt;#19be6b&lt;/CaseColor&gt;&#xA;&#x9;&#x9;&lt;UpdateSql&gt;update app_regist set app_name = &amp;#39;test123&amp;#39; where id = :id&lt;/UpdateSql&gt;&#xA;&#x9;&#x9;&lt;UpdateDesc&gt;失效&lt;/UpdateDesc&gt;&#xA;&#x9;&lt;/UpdateCases&gt;&#xA;&lt;/TaskDetail&gt;</TaskDetail>
+	<CreatedBy>SYSTEM</CreatedBy>
+	<CreatedTime>2019-11-29T21:34:20+08:00</CreatedTime>
+	<LastUpdatedBy>SYSTEM</LastUpdatedBy>
+	<LastUpdatedTime>2019-11-29T21:34:20+08:00</LastUpdatedTime>
+</AuditTask>

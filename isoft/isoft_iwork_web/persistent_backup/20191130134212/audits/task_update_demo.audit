@@ -1,0 +1,10 @@
+<AuditTask>
+	<Id>10</Id>
+	<TaskName>task_update_demo</TaskName>
+	<TaskDesc>gtyhd</TaskDesc>
+	<TaskDetail>&lt;TaskDetail&gt;&#xA;&#x9;&lt;ResourceName&gt;isoft_iaas&lt;/ResourceName&gt;&#xA;&#x9;&lt;QuerySql&gt;111111111111111111111111111&lt;/QuerySql&gt;&#xA;&#x9;&lt;ColNames&gt;null&lt;/ColNames&gt;&#xA;&lt;/TaskDetail&gt;</TaskDetail>
+	<CreatedBy>SYSTEM</CreatedBy>
+	<CreatedTime>2019-11-30T12:07:03+08:00</CreatedTime>
+	<LastUpdatedBy>SYSTEM</LastUpdatedBy>
+	<LastUpdatedTime>2019-11-30T12:07:03+08:00</LastUpdatedTime>
+</AuditTask>
