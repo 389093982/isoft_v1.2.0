@@ -147,3 +147,14 @@ func (this *WorkController) ExecuteAuditTask() {
 	}
 	this.ServeJSON()
 }
+
+func (this *WorkController) DeleteAuditTask() {
+	taskName := this.GetString("task_name")
+	err := models.DeleteAuditTask(taskName, orm.NewOrm())
+	if err == nil {
+		this.Data["json"] = &map[string]interface{}{"status": "SUCCESS"}
+	} else {
+		this.Data["json"] = &map[string]interface{}{"status": "ERROR"}
+	}
+	this.ServeJSON()
+}

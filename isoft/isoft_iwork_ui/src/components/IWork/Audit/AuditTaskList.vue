@@ -19,7 +19,7 @@
 </template>
 
 <script>
-  import {QueryPageAuditTask} from "../../../api"
+  import {QueryPageAuditTask,DeleteAuditTask} from "../../../api"
   import AuditTaskEdit from "./AuditTaskEdit"
 
     export default {
@@ -60,6 +60,29 @@
                       }
                     }
                   }, '详情编辑'),
+                  h('Button', {
+                    props: {
+                      type: 'error',
+                      size: 'small'
+                    },
+                    style: {
+                      marginRight: '5px',
+                    },
+                    on: {
+                      click: () => {
+                        this.$Modal.confirm({
+                          title: '删除',
+                          content: '确认删除该条数据吗？请谨慎操作！',
+                          onOk: () => {
+                            this.deleteAuditTask(this.tasks[params.index].task_name);
+                          },
+                          onCancel: () => {
+                            this.$Message.info('取消操作');
+                          }
+                        });
+                      }
+                    }
+                  }, '删除'),
                 ]);
               }
             },
@@ -81,6 +104,15 @@
           if(result.status == "SUCCESS"){
             this.tasks = result.tasks;
             this.total = result.paginator.totalcount;
+          }
+        },
+        deleteAuditTask:async function(task_name){
+          const result = await DeleteAuditTask(task_name);
+          if(result.status == "SUCCESS"){
+            this.$Message.success("删除成功!");
+            this.refreshAllAuditTask();
+          }else{
+            this.$Message.error("删除失败!");
           }
         },
         handleAuditEdit:function (task_name, task_desc) {

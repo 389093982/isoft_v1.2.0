@@ -184,7 +184,7 @@ func persistentWorksFileToDB(v interface{}, filepath string) {
 
 func importProject() {
 	if persistent_initial, _ := beego.AppConfig.Bool("persistent.initial"); persistent_initial == true {
-		backupDB()
+		// backupDB()
 		truncateDB()
 		persistentToDB(fmt.Sprintf("%s/filters", persistentDirPath), persistentModelToDB, &models.Filters{})
 		persistentToDB(fmt.Sprintf("%s/quartzs", persistentDirPath), persistentModelToDB, &models.CronMeta{})

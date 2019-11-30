@@ -26,8 +26,8 @@
       const validateTaskName = (rule, value, callback) => {
         if (value === '') {
           callback(new Error("任务名称不能为空!"));
-        } else if (!startsWith(value, "task_")) {
-          callback(new Error("任务名称必须以 'task_' 开头!"));
+        } else if (!startsWith(value, "task_audit_")) {
+          callback(new Error("任务名称必须以 'task_audit_' 开头!"));
         } else if (value.length < 10) {
           callback(new Error("任务名称太短,必须大于 10 个字符!"));
         } else {
