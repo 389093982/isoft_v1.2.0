@@ -40,6 +40,7 @@
       }
     },
     computed: {
+
       styles () {
         let style = {};
         style.width = this.width;
