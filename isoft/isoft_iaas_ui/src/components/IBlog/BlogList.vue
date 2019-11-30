@@ -5,7 +5,7 @@
 
    <div style="margin: 0 15px;background-color: #fff;border: 1px solid #e6e6e6;border-radius: 4px;">
     <Row>
-      <Col span="18" style="padding: 0 0 20px;border-right: 1px solid #e6e6e6;">
+      <Col span="17" style="padding: 0 0 20px;border-right: 1px solid #e6e6e6;">
         <div style="border-bottom: 1px solid #e6e6e6;padding: 20px;height: 62px;">
           <Row class="_search">
             <Col span="4" style="text-align: center;font-size: 20px;color: #333;">
@@ -70,7 +70,7 @@
         <Page :total="total" :page-size="offset" show-total show-sizer :styles="{'text-align': 'center','margin-top': '10px'}"
               @on-change="handleChange" @on-page-size-change="handlePageSizeChange"/>
       </Col>
-        <Col span="6">
+        <Col span="7">
           <HotUser/>
           <CatalogList/>
         </Col>

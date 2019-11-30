@@ -1,5 +1,5 @@
 <template>
-  <div style="width: 265px;height: 450px;position: absolute;top: 100px;left: 65px;z-index: 10;">
+  <div style="width: 265px;height: 450px;position: absolute;top: 100px;left: 115px;z-index: 10;">
     <a class="section01">
       <p class="title">编程语言</p>
       <p class="content">汇集各种流行编程语言精华</p>
