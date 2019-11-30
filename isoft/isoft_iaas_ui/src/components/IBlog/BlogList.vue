@@ -34,12 +34,6 @@
               </Col>
               <Col span="12">
                 <a style="color: #499ef3;font-weight: bold;" @click="chooseItem(searchblog.catalog_name)">所属分类：{{ searchblog.catalog_name }}</a>
-
-                <span style="float: right;" v-if="isAdmin">
-                  <span v-if="searchblog.blog_status == 1" style="color: #f16aff;">已启用</span>
-                  <span v-else style="color: #f16aff;">已禁用</span>
-                  <IBeautifulLink @onclick="deleteBlog(searchblog.id, searchblog.blog_status)">启/禁用</IBeautifulLink>
-                </span>
               </Col>
             </Row>
             <p style="margin-bottom: 4px;font-size: 14px;color: #8a8a8a;line-height: 24px;">
@@ -87,12 +81,11 @@
 
 <script>
   import HotCatalogItems from "./HotCatalogItems"
-  import {queryPageBlog,UpdateBlogStatus} from "../../api"
+  import {queryPageBlog} from "../../api"
   import CatalogList from "./CatalogList"
   import HotUser from "../User/HotUser"
   import HorizontalLinks from "../Elementviewers/HorizontalLinks";
   import IBeautifulLink from "../Common/link/IBeautifulLink";
-  import {CheckAdminLogin} from "../../tools"
 
   export default {
     name: "BlogList",
@@ -133,13 +126,6 @@
           this.total = result.paginator.totalcount;
         }
       },
-      deleteBlog:async function(blog_id, blog_status){
-        blog_status = blog_status == 1 ? -1 : 1;
-        const result = await UpdateBlogStatus(blog_status, blog_id);
-        if(result.status=="SUCCESS"){
-          this.refreshBlogList();
-        }
-      }
     },
     mounted: function () {
       this.refreshBlogList();
@@ -153,11 +139,6 @@
         return value;
       },
     },
-    computed:{
-      isAdmin:function () {
-        return CheckAdminLogin();
-      }
-    }
   }
 </script>
 
