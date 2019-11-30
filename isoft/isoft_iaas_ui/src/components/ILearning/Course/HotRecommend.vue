@@ -72,7 +72,7 @@
 
 <style scoped>
   /* 引入公共样式库 */
-  @import "../../../../static/css/common.css";
+  @import "../../../assets/css/isoft_common.css";
 
   a{
     color: black;
