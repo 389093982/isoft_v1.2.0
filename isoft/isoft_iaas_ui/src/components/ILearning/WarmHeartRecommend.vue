@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="isoft_bg_white isoft_pd10">
     <div class="header">为您精选</div>
     <Row>
       <Col span="12" style="height:365px;">

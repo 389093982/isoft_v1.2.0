@@ -1,6 +1,5 @@
 <template>
-  <div>
-    <div style="margin-bottom: 5px;">
+  <div class="isoft_bg_white isoft_pd10">
       <Row>
         <Col span="12" style="padding: 10px 0 0 20px;">
           <span style="color: #c3cbd6;font-size: 18px;">物联网时代，让交流更直接</span>
@@ -23,7 +22,6 @@
           <a @click="" class="hovered hvr-grow hoverLinkColor">我的课程空间</a>
         </Col>
       </Row>
-    </div>
 
     <IBeautifulCard title="课程天地">
       <div slot="content" style="padding: 20px 20px 5px 20px;">

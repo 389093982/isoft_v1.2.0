@@ -5,10 +5,17 @@
   display:block;
 }
 
-.bgcolor {
+.isoft_pd10 {
+  padding: 10px;
+}
+
+.isoft_bgcolor {
   background: #eee;
 }
 
+.isoft_bg_white {
+  background: #FFFFFF;
+}
 
 .newspaper{
   padding: 20px;

@@ -3,11 +3,11 @@
    <!-- 热门分类 -->
    <HotCatalogItems @chooseItem="chooseItem"/>
 
-   <div style="margin: 0 15px;background-color: #fff;border: 1px solid #e6e6e6;border-radius: 4px;">
+   <div>
     <Row>
-      <Col span="17" style="padding: 0 0 20px;border-right: 1px solid #e6e6e6;">
-        <div style="border-bottom: 1px solid #e6e6e6;padding: 20px;height: 62px;">
-          <Row class="_search">
+      <Col span="17" style="padding: 0 8px 0 0;">
+        <div class="isoft_bg_white isoft_pd10">
+          <Row class="_search" style="border-bottom: 1px solid #e6e6e6;padding: 20px;height: 62px;">
             <Col span="4" style="text-align: center;font-size: 20px;color: #333;">
               <span v-if="search_type==='_all'">全部分类</span>
               <span v-else-if="search_type==='_hot'">热门分享</span>
@@ -19,65 +19,69 @@
             <Col span="3" style="text-align: center;"><a href="javascript:;" @click="chooseItem('_personal')">我的博客</a></Col>
             <Col span="3" style="text-align: center;"><router-link to="/iblog/mine/blog_edit">我也要发布</router-link></Col>
           </Row>
-        </div>
-        <ul>
-          <li v-for="searchblog in searchblogs" style="list-style:none;padding: 10px 10px;background: #fff;border-bottom: 1px solid #f4f4f4;">
-            <Row>
-              <Col span="12">
-                <router-link to="" style="float: left;">
-                  <Avatar size="small" src="https://i.loli.net/2017/08/21/599a521472424.jpg" />
-                </router-link>
-                <!-- 使用v-bind动态绑定id传递给目标路径 -->
-                <router-link :to="{path:'/iblog/blog_detail',query:{blog_id:searchblog.id}}">
-                  <h4>{{searchblog.blog_title}}</h4>
-                </router-link>
-              </Col>
-              <Col span="12">
-                <a style="color: #499ef3;font-weight: bold;" @click="chooseItem(searchblog.catalog_name)">所属分类：{{ searchblog.catalog_name }}</a>
 
-                <span v-if="searchblog.blog_status == -1" style="float: right;color: red;">审核不通过！</span>
-              </Col>
-            </Row>
-            <p style="margin-bottom: 4px;font-size: 14px;color: #8a8a8a;line-height: 24px;">
-              {{searchblog.short_desc | filterLimitFunc}}
-            </p>
-            <p>
+          <ul>
+            <li v-for="searchblog in searchblogs" style="list-style:none;padding: 10px 10px;background: #fff;border-bottom: 1px solid #f4f4f4;">
               <Row>
-                <Col span="17">
-                  <!-- 作者详情 -->
-                  <router-link :to="{path:'/iblog/author',query:{author:searchblog.author}}">{{searchblog.author}}</router-link>
-                  发布于:<Time :time="searchblog.created_time" style="color:red;"/>&nbsp;
-                  更新于:<Time :time="searchblog.last_updated_time" style="color:red;"/>&nbsp;
-                </Col>
-                <Col span="2">
+                <Col span="12">
+                  <router-link to="" style="float: left;">
+                    <Avatar size="small" src="https://i.loli.net/2017/08/21/599a521472424.jpg" />
+                  </router-link>
+                  <!-- 使用v-bind动态绑定id传递给目标路径 -->
                   <router-link :to="{path:'/iblog/blog_detail',query:{blog_id:searchblog.id}}">
-                    <span style="color: red;">{{searchblog.views}}</span>阅读
+                    <h4>{{searchblog.blog_title}}</h4>
                   </router-link>
                 </Col>
-                <Col span="2">
-                  <router-link :to="{path:'/iblog/blog_detail',query:{blog_id:searchblog.id}}">
-                    <span style="color: red;">0</span>条评论
-                  </router-link>
-                </Col>
-                <Col span="3">
-                  <router-link :to="{path:'/iblog/mine/blog_edit'}">我也要发布</router-link>
+                <Col span="12">
+                  <a style="color: #499ef3;font-weight: bold;" @click="chooseItem(searchblog.catalog_name)">所属分类：{{ searchblog.catalog_name }}</a>
+
+                  <span v-if="searchblog.blog_status == -1" style="float: right;color: red;">审核不通过！</span>
                 </Col>
               </Row>
-            </p>
-          </li>
-        </ul>
+              <p style="margin-bottom: 4px;font-size: 14px;color: #8a8a8a;line-height: 24px;">
+                {{searchblog.short_desc | filterLimitFunc}}
+              </p>
+              <p>
+                <Row>
+                  <Col span="17">
+                    <!-- 作者详情 -->
+                    <router-link :to="{path:'/iblog/author',query:{author:searchblog.author}}">{{searchblog.author}}</router-link>
+                    发布于:<Time :time="searchblog.created_time" style="color:red;"/>&nbsp;
+                    更新于:<Time :time="searchblog.last_updated_time" style="color:red;"/>&nbsp;
+                  </Col>
+                  <Col span="2">
+                    <router-link :to="{path:'/iblog/blog_detail',query:{blog_id:searchblog.id}}">
+                      <span style="color: red;">{{searchblog.views}}</span>阅读
+                    </router-link>
+                  </Col>
+                  <Col span="2">
+                    <router-link :to="{path:'/iblog/blog_detail',query:{blog_id:searchblog.id}}">
+                      <span style="color: red;">0</span>条评论
+                    </router-link>
+                  </Col>
+                  <Col span="3">
+                    <router-link :to="{path:'/iblog/mine/blog_edit'}">我也要发布</router-link>
+                  </Col>
+                </Row>
+              </p>
+            </li>
+          </ul>
 
-        <Page :total="total" :page-size="offset" show-total show-sizer :styles="{'text-align': 'center','margin-top': '10px'}"
-              @on-change="handleChange" @on-page-size-change="handlePageSizeChange"/>
+          <Page :total="total" :page-size="offset" show-total show-sizer :styles="{'text-align': 'center','margin-top': '10px'}"
+                @on-change="handleChange" @on-page-size-change="handlePageSizeChange"/>
+        </div>
       </Col>
-        <Col span="7">
+        <Col span="7" class="isoft_bg_white isoft_pd10">
           <HotUser/>
           <CatalogList/>
         </Col>
     </Row>
    </div>
 
-   <HorizontalLinks :placement_name="GLOBAL.element_want_to_find" style="margin: 20px;"/>
+   <div class="isoft_bg_white isoft_pd10" style="margin-top: 8px;">
+     <HorizontalLinks :placement_name="GLOBAL.element_want_to_find"/>
+   </div>
+
  </div>
 </template>
 
@@ -145,6 +149,8 @@
 </script>
 
 <style scoped>
+  @import "../../assets/css/isoft_common.css";
+
   a{
     color: #3d3d3d;
   }
