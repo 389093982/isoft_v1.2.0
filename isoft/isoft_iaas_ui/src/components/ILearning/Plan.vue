@@ -1,6 +1,6 @@
 <template>
   <div class="section01">
-    <p style="background-color: #eeeeee;"><img src="../../assets/icon_b.png"/><a>北京1101期Java培训 火爆开学！AAAAAAAAAAAAA</a></p>
+    <p style="background-color: #eeeeee;"><img src="../../assets/icon_b.png"/><a>北京1101期Java培训 火爆开学！</a></p>
     <p><img src="../../assets/icon_b.png"/><a>北京1101期Java培训 火爆开学！</a></p>
     <p><img src="../../assets/icon_b.png"/><a>北京1101期Java培训 火爆开学！</a></p>
     <p><img src="../../assets/icon_b.png"/><a>北京1101期Java培训 火爆开学！</a></p>

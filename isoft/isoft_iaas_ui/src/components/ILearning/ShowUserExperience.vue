@@ -43,7 +43,7 @@
             choosed:true,
           },
           {
-            img:require("../../assets/2.jpeg"),
+            img:require("../../assets/default.png"),
             link:"http://www.baidu.com",
             label:"eeeeeee22222222222222222",
             choosed:false,
@@ -55,7 +55,7 @@
             choosed:false,
           },
           {
-            img:require("../../assets/2.jpeg"),
+            img:require("../../assets/default.png"),
             link:"http://www.baidu.com",
             label:"eeeeeee44444444444444444444444444444444",
             choosed:false,
