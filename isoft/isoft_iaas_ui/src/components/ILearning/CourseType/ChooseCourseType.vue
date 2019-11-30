@@ -11,7 +11,7 @@
         </Col>
       </Row>
 
-      <Row style="margin: 5px 0 5px 0;background-color: rgba(0,255,21,0.25);padding: 5px 15px 5px 15px;">
+      <Row style="margin: 5px 0 5px 0;padding: 5px 15px 5px 15px;font-size: 12px;">
         <Col span="12" style="text-align: left;">
           <a @click="$router.push({path:'/ilearning/index'})" class="hovered hvr-grow hoverLinkColor mr5">返回首页</a>
         </Col>
@@ -20,7 +20,7 @@
           <a @click="$router.push({path:'/user/guide'})" class="hovered hvr-grow hoverLinkColor mr5">站点引导</a>
           <a @click="" class="hovered hvr-grow hoverLinkColor mr5">广告位招租</a>
           <a @click="$router.push({path:'/user/mine/detail',query:{username:'mine'}})" class="hovered hvr-grow hoverLinkColor mr5">个人中心</a>
-          <a @click="" class="hovered hvr-grow hoverLinkColor mr5">我的课程空间</a>
+          <a @click="" class="hovered hvr-grow hoverLinkColor">我的课程空间</a>
         </Col>
       </Row>
     </div>
