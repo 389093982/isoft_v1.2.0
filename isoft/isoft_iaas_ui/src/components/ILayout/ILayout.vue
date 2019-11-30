@@ -12,7 +12,7 @@
       </Footer>
     </Layout>
 
-    <LeftSuspensionMenu/>
+    <RightSuspensionMenu/>
   </div>
 </template>
 
@@ -20,7 +20,7 @@
 
   import Header from '../Header/Header'
   import Footer from '../Footer/Footer'
-  import LeftSuspensionMenu from "./RightSuspensionMenu";
+  import RightSuspensionMenu from "./RightSuspensionMenu";
 
   export default {
     name: 'ILayout',
