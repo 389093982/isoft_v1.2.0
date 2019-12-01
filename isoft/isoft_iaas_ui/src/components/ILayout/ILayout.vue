@@ -4,7 +4,7 @@
       <Header>
         <Header/>
       </Header>
-      <Content :style="{padding: '18px', paddingTop: '5px', minHeight: '550px', background: '#f5f6f7', lineHeight: '24px', fontSize: '14px'}">
+      <Content :style="{margin: '0px 100px 18px 100px', paddingTop: '5px', minHeight: '550px', background: '#f5f6f7', lineHeight: '24px', fontSize: '14px'}">
         <router-view/>
       </Content>
       <Footer>
@@ -12,7 +12,7 @@
       </Footer>
     </Layout>
 
-    <LeftSuspensionMenu/>
+    <RightSuspensionMenu/>
   </div>
 </template>
 
@@ -20,18 +20,19 @@
 
   import Header from '../Header/Header'
   import Footer from '../Footer/Footer'
-  import LeftSuspensionMenu from "./RightSuspensionMenu";
+  import RightSuspensionMenu from "./RightSuspensionMenu";
 
   export default {
     name: 'ILayout',
     components: {
-      LeftSuspensionMenu,
+      RightSuspensionMenu,
       Header,
       Footer
     },
   }
 </script>
 
-<style lang="stylus" type="text/stylus" rel="stylesheet/stylus">
-
+<style scoped>
+  .bgArea{
+  }
 </style>

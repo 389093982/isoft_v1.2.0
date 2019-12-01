@@ -1,6 +1,10 @@
 <template>
   <div class="leftSuspension">
-    右侧悬浮菜单
+    <div class="itemArea">问题反馈</div>
+    <div class="itemArea">问题反馈</div>
+    <div class="itemArea">问题反馈</div>
+    <div class="itemArea">问题反馈</div>
+    <div class="itemArea">问题反馈</div>
   </div>
 </template>
 
@@ -13,15 +17,23 @@
 <style scoped>
   .leftSuspension {
     position: fixed;
-    width: 60px;
+    width: 50px;
     min-height: 200px;
-    background-color: rgba(234, 234, 234, 0.99);
     right: -40px;
-    top: 40%;
+    top: 30%;
     z-index: 999;
     transition: right ease-in 200ms;
   }
   .leftSuspension:hover {
     right: 0px;
+  }
+  .itemArea{
+    background-color: rgba(234, 234, 234, 0.99);
+    height: 50px;
+    margin: 10px 0;
+    color: white;
+  }
+  .itemArea:hover{
+    background-color: red;
   }
 </style>

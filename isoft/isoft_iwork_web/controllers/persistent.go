@@ -38,6 +38,15 @@ func persistentToFile() {
 	persistentResourcesToFile()
 	persistentMigratesToFile()
 	persistentWorkCahcesToFile()
+	persistentAuditTasksToFile()
+}
+
+func persistentAuditTasksToFile() {
+	tasks, _ := models.QueryAllAuditTasks(orm.NewOrm())
+	for _, task := range tasks {
+		filepath := path.Join(persistentDirPath, "audits", fmt.Sprintf(`%s.audit`, task.TaskName))
+		fileutil.WriteFile(filepath, []byte(xmlutil.RenderToString(task)), false)
+	}
 }
 
 func persistentModulesToFile() {
@@ -125,6 +134,8 @@ func backupDB() {
 	backupTable("module", module_backup)
 	globalVar_backup := fmt.Sprintf(`backup_globalVar_%s`, time.Now().Format("20060102150405"))
 	backupTable("global_var", globalVar_backup)
+	audit_task_backup := fmt.Sprintf(`backup_audit_task_%s`, time.Now().Format("20060102150405"))
+	backupTable("audit_task", audit_task_backup)
 }
 
 func truncateDB() {
@@ -136,6 +147,7 @@ func truncateDB() {
 	orm.NewOrm().QueryTable("sql_migrate").Filter("id__gt", 0).Delete()
 	orm.NewOrm().QueryTable("work").Filter("id__gt", 0).Delete()
 	orm.NewOrm().QueryTable("work_step").Filter("id__gt", 0).Delete()
+	orm.NewOrm().QueryTable("audit_task").Filter("id__gt", 0).Delete()
 }
 
 func persistentToDB(dirPath string, persistentFunc func(v interface{}, filepath string), v interface{}) {
@@ -172,7 +184,7 @@ func persistentWorksFileToDB(v interface{}, filepath string) {
 
 func importProject() {
 	if persistent_initial, _ := beego.AppConfig.Bool("persistent.initial"); persistent_initial == true {
-		backupDB()
+		// backupDB()
 		truncateDB()
 		persistentToDB(fmt.Sprintf("%s/filters", persistentDirPath), persistentModelToDB, &models.Filters{})
 		persistentToDB(fmt.Sprintf("%s/quartzs", persistentDirPath), persistentModelToDB, &models.CronMeta{})
@@ -181,5 +193,6 @@ func importProject() {
 		persistentToDB(fmt.Sprintf("%s/globalVars", persistentDirPath), persistentModelToDB, &models.GlobalVar{})
 		persistentToDB(fmt.Sprintf("%s/works", persistentDirPath), persistentWorksFileToDB, nil)
 		persistentToDB(fmt.Sprintf("%s/migrates", persistentDirPath), persistentModelToDB, &models.SqlMigrate{})
+		persistentToDB(fmt.Sprintf("%s/audits", persistentDirPath), persistentModelToDB, &models.AuditTask{})
 	}
 }

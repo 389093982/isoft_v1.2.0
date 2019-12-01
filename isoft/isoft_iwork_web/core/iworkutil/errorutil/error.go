@@ -12,6 +12,15 @@ func CheckError(err error) {
 	}
 }
 
+func GetFirstError(errs ...error) error {
+	for _, err := range errs {
+		if err != nil {
+			return err
+		}
+	}
+	return errors.New("")
+}
+
 func ToError(err interface{}) error {
 	if _err, ok := err.(error); ok {
 		return _err

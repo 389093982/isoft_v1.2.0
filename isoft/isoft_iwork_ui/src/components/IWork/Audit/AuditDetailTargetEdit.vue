@@ -42,7 +42,7 @@
         const result = await EditAuditTaskTarget(this.$route.query.task_name, JSON.stringify(this.update_cases));
         if(result.status == "SUCCESS"){
           this.$Message.success("保存成功！");
-          this.refreshAuditDetail();
+          this.$router.go(0);     // 强制刷新页面
         }else{
           this.$Message.error("保存失败!");
         }

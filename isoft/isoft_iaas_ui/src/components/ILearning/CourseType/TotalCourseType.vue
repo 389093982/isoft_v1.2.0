@@ -1,16 +1,26 @@
 <template>
   <div>
     <div style="padding: 10px;">
-      <span style="font-weight: bold;">课程大类：</span>
-      <span v-for="course_type in course_types">
-        <a style="margin-right: 10px;" @click="loadSubCourseType(course_type)">{{course_type.course_type}}</a>
-      </span>
-    </div>
-    <div style="padding: 0 10px 10px 10px;">
-      <span style="font-weight: bold;">详细分类：</span>
-      <span v-for="sub_course_type in sub_course_types" style="margin-right: 10px;">
-         <a @click="chooseCourseType(current_course_type, sub_course_type.course_sub_type)">{{sub_course_type.course_sub_type}}</a>
-      </span>
+      <Row>
+        <Col span="2">
+          <span style="font-weight: bold;">课程大类：</span>
+        </Col>
+        <Col span="22">
+          <span v-for="course_type in course_types">
+            <a style="margin-right: 10px;" @click="loadSubCourseType(course_type)">{{course_type.course_type}}</a>
+          </span>
+        </Col>
+      </Row>
+      <Row>
+        <Col span="2">
+          <span style="font-weight: bold;">详细分类：</span>
+        </Col>
+        <Col span="22">
+          <span v-for="sub_course_type in sub_course_types" style="margin-right:10px;">
+             <a @click="chooseCourseType(current_course_type, sub_course_type.course_sub_type)">{{sub_course_type.course_sub_type}}</a>
+          </span>
+        </Col>
+      </Row>
     </div>
   </div>
 </template>

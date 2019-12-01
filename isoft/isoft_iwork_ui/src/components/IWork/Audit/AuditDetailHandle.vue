@@ -1,10 +1,10 @@
 <template>
   <div>
-    <div v-for="rowData in rowDatas" style="background-color: rgba(236,236,236,0.3);margin: 5px;padding: 10px;">
+    <div v-for="rowData in rowDatas" style="border:1px solid rgba(199,199,199,0.4);margin: 5px;padding: 10px;">
       <Row>
         <Col span="20">
           <span v-for="(colName, index) in colNames" style="margin-right: 10px;">
-            <Tag color="orange">字段名：{{colName}}</Tag> {{rowData[colName]}}<br/>
+            <Tag>字段名：{{colName}}</Tag> {{rowData[colName]}}<br/>
           </span>
         </Col>
         <Col span="4">
@@ -22,7 +22,7 @@
 </template>
 
 <script>
-  import {GetAuditHandleData,QueryTaskDetail} from "../../../api"
+  import {GetAuditHandleData,QueryTaskDetail,ExecuteAuditTask} from "../../../api"
   import {getMatchArrForString,startsWith} from "../../../tools"
 
   export default {
@@ -56,6 +56,8 @@
           this.rowDatas = result.rowDatas;
           this.colNames = JSON.parse(result.colNames);
           this.total = result.totalcount;
+        }else{
+          this.$Message.error("数据加载失败！" + result.errorMsg);
         }
       },
       refreshAuditDetail:async function () {
@@ -64,7 +66,7 @@
           this.update_cases = result.taskDetail.update_cases;
         }
       },
-      handleOperate(update_case, rowData){
+      handleOperate:async function(update_case, rowData){
         var sqlStr = update_case.update_sql;
         // 所有占位符变量
         let replaces = getMatchArrForString(sqlStr, /:[a-zA-Z0-9_]+/g);
@@ -74,7 +76,13 @@
             sqlStr = sqlStr.replace(replace, rowData[replace.slice(1)]);
           }
         }
-        alert(sqlStr);
+        const result = await ExecuteAuditTask(this.$route.query.task_name, sqlStr);
+        if(result.status == "SUCCESS"){
+          this.$Message.success("操作成功！");
+          this.refreshHandleData();
+        }else{
+          this.$Message.error("操作失败！" + result.errorMsg);
+        }
       }
     },
     mounted(){

@@ -1,12 +1,12 @@
 <template>
   <div>
-    <Form ref="formInline" :model="formInline" :rules="ruleInline">
-      <FormItem prop="task_name">
-        <Input type="text" v-model="formInline.task_name" placeholder="task_name">
+    <Form ref="formInline" :model="formInline" :rules="ruleInline" :label-width="100">
+      <FormItem prop="task_name" label="任务名称">
+        <Input type="text" v-model.trim="formInline.task_name" placeholder="task_name">
         </Input>
       </FormItem>
-      <FormItem prop="task_desc">
-        <Input type="textarea" :rows="5" v-model="formInline.task_desc" placeholder="task_desc">
+      <FormItem prop="task_desc" label="任务描述">
+        <Input type="textarea" :rows="5" v-model.trim="formInline.task_desc" placeholder="task_desc">
         </Input>
       </FormItem>
       <FormItem>
@@ -18,10 +18,22 @@
 
 <script>
   import {EditAuditTask} from "../../../api"
+  import {startsWith} from "../../../tools"
 
   export default {
     name: "AuditTaskEdit",
     data () {
+      const validateTaskName = (rule, value, callback) => {
+        if (value === '') {
+          callback(new Error("任务名称不能为空!"));
+        } else if (!startsWith(value, "task_audit_")) {
+          callback(new Error("任务名称必须以 'task_audit_' 开头!"));
+        } else if (value.length < 10) {
+          callback(new Error("任务名称太短,必须大于 10 个字符!"));
+        } else {
+          callback();
+        }
+      };
       return {
         formInline: {
           task_name: '',
@@ -29,10 +41,11 @@
         },
         ruleInline: {
           task_name: [
-            { required: true, message: 'Please fill in the task_name', trigger: 'blur' }
+            { required: true, message: '请输入任务名称', trigger: 'blur' },
+            { validator: validateTaskName, trigger: 'blur' }
           ],
           task_desc: [
-            { required: true, message: 'Please fill in task_desc.', trigger: 'blur' },
+            { required: true, message: '请输入任务描述', trigger: 'blur' },
           ]
         }
       }

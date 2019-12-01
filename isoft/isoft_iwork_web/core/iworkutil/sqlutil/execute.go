@@ -19,3 +19,13 @@ func Execute(sqlstring string, sql_binding []interface{}, dataSourceName string)
 	lastInsertId, _ = result.LastInsertId()
 	return
 }
+
+func ExecuteSql(sqlstring string, sql_binding []interface{}, dataSourceName string) (lastInsertId, affected int64, err error) {
+	defer func() {
+		if err1 := recover(); err1 != nil {
+			err = errorutil.ToError(err1)
+		}
+	}()
+	lastInsertId, affected = Execute(sqlstring, sql_binding, dataSourceName)
+	return
+}

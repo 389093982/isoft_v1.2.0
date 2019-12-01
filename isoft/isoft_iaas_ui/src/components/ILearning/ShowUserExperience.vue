@@ -1,25 +1,25 @@
 <template>
   <div style="margin: 10px 0 30px 0;">
-    <div style="width:770px;text-align: center;background: rgba(220,220,220,0.28);margin: 10px 0 10px 0;padding: 10px;">
+    <div style="width:690px;text-align: center;background: rgba(220,220,220,0.28);margin: 10px 0 10px 0;padding: 10px;">
       <p style="font-size: 20px;" class="hovered hvr-grow hoverLinkColor">用户体验</p>
     </div>
     <Row>
       <Col span="18">
         <a :href="this.userexs[currentIndex].link">
-          <img :src="this.userexs[currentIndex].img" width="595px;" height="360px;" style="margin-top: 5px;"/>
-          <span style="position: absolute;left: 0px;bottom: 7px;height: 50px;width: 595px;padding-left: 20px;
+          <img :src="this.userexs[currentIndex].img" width="525px;" height="360px;" style="margin-top: 5px;"/>
+          <span style="position: absolute;left: 0px;bottom: 7px;height: 50px;width: 525px;padding-left: 20px;
           background-color: rgba(0,0,0,0.6);line-height: 50px;color: white;font-size: 14px;">
           {{userexs[currentIndex].label}}
         </span>
         </a>
       </Col>
-      <Col span="6">
+      <Col span="6" style="padding-left: 12px;">
         <ul>
           <li v-for="(userex,index) in userexs" style="list-style: none;display: block;margin-top: 5px;">
             <span style="width: 13px;height: 17px;float: left;position: relative;left: -3px;top: 35px;">
               <img v-show="userex.choosed" src="../../assets/arrow_l.jpg"/>
             </span>
-            <HoverBigImg @mouseenter="overShow(index)" :srcImg="userex.img"/>
+            <HoverBigImg @mouseenter="overShow(index)" :srcImg="userex.img" width="144px"/>
           </li>
         </ul>
       </Col>
@@ -43,7 +43,7 @@
             choosed:true,
           },
           {
-            img:require("../../assets/2.jpeg"),
+            img:require("../../assets/default.png"),
             link:"http://www.baidu.com",
             label:"eeeeeee22222222222222222",
             choosed:false,
@@ -55,7 +55,7 @@
             choosed:false,
           },
           {
-            img:require("../../assets/2.jpeg"),
+            img:require("../../assets/default.png"),
             link:"http://www.baidu.com",
             label:"eeeeeee44444444444444444444444444444444",
             choosed:false,

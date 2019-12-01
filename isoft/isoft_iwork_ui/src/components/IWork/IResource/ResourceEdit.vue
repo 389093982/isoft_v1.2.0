@@ -1,7 +1,7 @@
 <template>
   <!-- 按钮触发模态框 -->
   <!-- ref 的作用是为了在其它地方方便的获取到当前子组件 -->
-  <ISimpleBtnTriggerModal ref="triggerModal" btn-text="新增" modal-title="新增资源信息" :modal-width="600">
+  <ISimpleBtnTriggerModal ref="triggerModal" btn-text="新增资源信息" btn-size="small" modal-title="新增/编辑资源信息" modal-top="50px" :modal-width="600">
     <!-- 表单信息 -->
     <Form ref="formValidate" :model="formValidate" :rules="ruleValidate" :label-width="140">
       <FormItem label="resource_name" prop="resource_name">
@@ -36,14 +36,15 @@
 
 <script>
   import ISimpleBtnTriggerModal from "../../Common/modal/ISimpleBtnTriggerModal"
-  import {AddResource} from "../../../api/index"
+  import {EditResource,GetResourceById} from "../../../api"
 
   export default {
-    name: "ResourceAdd",
+    name: "ResourceEdit",
     components:{ISimpleBtnTriggerModal},
     data(){
       return {
         formValidate: {
+          resource_id:-1,
           resource_name: '',
           resource_type: '',
           resource_url: '',
@@ -75,10 +76,24 @@
       }
     },
     methods:{
+      initData:async function(resource_id){
+        this.$refs.triggerModal.triggerClick();
+        const result = await GetResourceById(resource_id);
+        if(result.status == "SUCCESS"){
+          this.formValidate.resource_id =result.resource.id;
+          this.formValidate.resource_name =result.resource.resource_name;
+          this.formValidate.resource_type =result.resource.resource_type;
+          this.formValidate.resource_url =result.resource.resource_url;
+          this.formValidate.resource_dsn =result.resource.resource_dsn;
+          this.formValidate.resource_username =result.resource.resource_username;
+          this.formValidate.resource_password =result.resource.resource_password;
+          this.formValidate.env_name =result.resource.env_name;
+        }
+      },
       handleSubmit (name) {
         this.$refs[name].validate(async (valid) => {
           if (valid) {
-            const result = await AddResource(this.formValidate.resource_name,
+            const result = await EditResource(this.formValidate.resource_id,this.formValidate.resource_name,
               this.formValidate.resource_type,this.formValidate.resource_url,this.formValidate.resource_dsn,
               this.formValidate.resource_username,this.formValidate.resource_password);
             if(result.status == "SUCCESS"){

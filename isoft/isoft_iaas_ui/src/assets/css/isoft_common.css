@@ -1,3 +1,26 @@
+/* 清除浮动只需要添加 class=clear 即可 */
+.clear::after {
+  content:"";
+  clear:both;
+  display:block;
+}
+
+.isoft_bordertop_red{
+  border-top:3px solid rgba(255, 0, 0, 0.2);
+}
+
+.isoft_pd10 {
+  padding: 10px;
+}
+
+.isoft_bgcolor {
+  background: #eee;
+}
+
+.isoft_bg_white {
+  background: #FFFFFF;
+}
+
 .newspaper{
   padding: 20px;
   column-count:3;

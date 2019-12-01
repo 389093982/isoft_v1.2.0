@@ -2,7 +2,7 @@
   <div style="margin: 10px;">
     <ISimpleLeftRightRow style="margin-bottom: 10px;margin-right: 10px;">
       <!-- left 插槽部分 -->
-      <ResourceAdd slot="left" @handleSuccess="refreshResourceList"/>
+      <ResourceEdit ref="resource_edit" slot="left" @handleSuccess="refreshResourceList"/>
       <!-- right 插槽部分 -->
       <ISimpleSearch slot="right" @handleSimpleSearch="handleSearch"/>
     </ISimpleLeftRightRow>
@@ -20,11 +20,11 @@
   import {ValidateResource} from "../../../api/index"
   import ISimpleLeftRightRow from "../../Common/layout/ISimpleLeftRightRow"
   import ISimpleSearch from "../../Common/search/ISimpleSearch"
-  import ResourceAdd from "./ResourceAdd"
+  import ResourceEdit from "./ResourceEdit"
 
   export default {
     name: "ResourceList",
-    components:{ISimpleLeftRightRow,ISimpleSearch,ResourceAdd},
+    components:{ISimpleLeftRightRow,ISimpleSearch,ResourceEdit},
     data(){
       return {
         // 当前页
@@ -40,12 +40,12 @@
           {
             title: 'resource_name',
             key: 'resource_name',
-            width: 200,
+            width: 130,
           },
           {
             title: 'resource_type',
             key: 'resource_type',
-            width: 150,
+            width: 130,
           },
           {
             title: 'resource_url',
@@ -55,7 +55,7 @@
           {
             title: 'resource_dsn',
             key: 'resource_dsn',
-            width: 300,
+            width: 320,
           },
           {
             title: 'resource_username',
@@ -80,7 +80,7 @@
           {
             title: '操作',
             key: 'operate',
-            width: 180,
+            width: 280,
             fixed: 'right',
             render: (h, params) => {
               return h('div', [
@@ -101,6 +101,20 @@
                 h('Button', {
                   props: {
                     type: 'success',
+                    size: 'small'
+                  },
+                  style: {
+                    marginRight: '5px',
+                  },
+                  on: {
+                    click: () => {
+                      this.$refs.resource_edit.initData(this.resources[params.index]['id']);
+                    }
+                  }
+                }, '编辑'),
+                h('Button', {
+                  props: {
+                    type: 'warning',
                     size: 'small'
                   },
                   style: {

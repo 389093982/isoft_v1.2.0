@@ -1,11 +1,11 @@
 <template>
   <div>
-    <div style="margin: 5px 20px 0 20px;float: right;" class="clear">
+    <div style="margin: 5px 100px 0 100px;float: right;" class="clear">
       <ul>
         <li><span @click="$router.push({path:'/ilearning/advise'})">我要吐槽/建议</span></li>
         <li>
           网站导航 <Icon type="ios-arrow-down" />
-          <div class="subArea" style="width: 1000px;right: 110px;">
+          <div class="subArea" style="width: 1000px;right: 190px;">
             <div class="arrow"></div>
             BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB
 
@@ -30,7 +30,7 @@
         </li>
         <li>
           热点 APP <Icon type="ios-arrow-down" />
-          <div class="subArea" style="width: 1000px;right: 30px;">
+          <div class="subArea" style="width: 1000px;right: 110px;">
             <div class="arrow"></div>
             BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB
           </div>

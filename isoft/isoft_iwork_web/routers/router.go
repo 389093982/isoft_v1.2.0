@@ -28,11 +28,12 @@ func loadloadIWorkerRouterDetail() {
 	registRouter("/api/iwork/addQuartz", wc, wc.AddQuartz, "get,post:AddQuartz")
 	registRouter("/api/iwork/filterPageQuartz", wc, wc.FilterPageQuartz, "get,post:FilterPageQuartz")
 	registRouter("/api/iwork/editQuartz", wc, wc.EditQuartz, "get,post:EditQuartz")
-	registRouter("/api/iwork/addResource", wc, wc.AddResource, "get,post:AddResource")
+	registRouter("/api/iwork/editResource", wc, wc.EditResource, "get,post:EditResource")
 	registRouter("/api/iwork/filterPageResource", wc, wc.FilterPageResource, "get,post:FilterPageResource")
 	registRouter("/api/iwork/deleteResource", wc, wc.DeleteResource, "get,post:DeleteResource")
 	registRouter("/api/iwork/validateResource", wc, wc.ValidateResource, "get,post:ValidateResource")
 	registRouter("/api/iwork/getAllResource", wc, wc.GetAllResource, "get,post:GetAllResource")
+	registRouter("/api/iwork/getResourceById", wc, wc.GetResourceById, "get,post:GetResourceById")
 
 	registRouter("/api/iwork/filterPageWorkHistory", wc, wc.FilterPageWorkHistory, "get,post:FilterPageWorkHistory")
 	registRouter("/api/iwork/restoreFromWorkHistory", wc, wc.RestoreFromWorkHistory, "get,post:RestoreFromWorkHistory")
@@ -96,6 +97,8 @@ func loadloadIWorkerRouterDetail() {
 	registRouter("/api/iwork/queryTaskDetail", wc, wc.QueryTaskDetail, "get,post:QueryTaskDetail")
 	registRouter("/api/iwork/editAuditTaskTarget", wc, wc.EditAuditTaskTarget, "get,post:EditAuditTaskTarget")
 	registRouter("/api/iwork/getAuditHandleData", wc, wc.GetAuditHandleData, "get,post:GetAuditHandleData")
+	registRouter("/api/iwork/executeAuditTask", wc, wc.ExecuteAuditTask, "get,post:ExecuteAuditTask")
+	registRouter("/api/iwork/deleteAuditTask", wc, wc.DeleteAuditTask, "get,post:DeleteAuditTask")
 }
 
 func registRouter(rootpath string, c beego.ControllerInterface, callFunc func(), mappingMethods ...string) *beego.App {

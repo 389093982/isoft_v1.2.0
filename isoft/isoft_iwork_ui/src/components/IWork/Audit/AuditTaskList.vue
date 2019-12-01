@@ -1,7 +1,7 @@
 <template>
   <div>
-    <h2 style="text-align: center;">内容审核系统</h2>
-    <Button type="success" style="margin: 10px 0;" @click="showAuditEdit = true">新增审核任务</Button>
+    <h2 style="text-align: center;" class="press">智能内容审核系统</h2>
+    <Button type="success" size="small" style="margin: 10px 0;" @click="showAuditEdit = true">新增审核任务</Button>
     <Modal
       v-model="showAuditEdit"
       title="编辑审核任务"
@@ -19,7 +19,7 @@
 </template>
 
 <script>
-  import {QueryPageAuditTask} from "../../../api"
+  import {QueryPageAuditTask,DeleteAuditTask} from "../../../api"
   import AuditTaskEdit from "./AuditTaskEdit"
 
     export default {
@@ -59,7 +59,30 @@
                         this.$router.push({ path: '/iwork/audit_detail', query: { task_name: this.tasks[params.index].task_name }});
                       }
                     }
-                  }, '编辑任务详情'),
+                  }, '详情编辑'),
+                  h('Button', {
+                    props: {
+                      type: 'error',
+                      size: 'small'
+                    },
+                    style: {
+                      marginRight: '5px',
+                    },
+                    on: {
+                      click: () => {
+                        this.$Modal.confirm({
+                          title: '删除',
+                          content: '确认删除该条数据吗？请谨慎操作！',
+                          onOk: () => {
+                            this.deleteAuditTask(this.tasks[params.index].task_name);
+                          },
+                          onCancel: () => {
+                            this.$Message.info('取消操作');
+                          }
+                        });
+                      }
+                    }
+                  }, '删除'),
                 ]);
               }
             },
@@ -83,6 +106,15 @@
             this.total = result.paginator.totalcount;
           }
         },
+        deleteAuditTask:async function(task_name){
+          const result = await DeleteAuditTask(task_name);
+          if(result.status == "SUCCESS"){
+            this.$Message.success("删除成功!");
+            this.refreshAllAuditTask();
+          }else{
+            this.$Message.error("删除失败!");
+          }
+        },
         handleAuditEdit:function (task_name, task_desc) {
           this.showAuditEdit = false;
           this.refreshAllAuditTask();
@@ -95,5 +127,10 @@
 </script>
 
 <style scoped>
-
+  .press {
+    color: transparent;
+    background-color : black;
+    text-shadow : rgba(255,255,255,0.5) 0 5px 6px, rgba(255,255,255,0.2) 1px 3px 3px;
+    -webkit-background-clip : text;
+  }
 </style>

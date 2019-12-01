@@ -44,9 +44,6 @@ export const GetOrderDetail = (orderCode) => ajax(BASE_URL+'/iwork/httpservice/G
 export const GetUserDetail = (userName) => ajax(BASE_URL+'/iwork/httpservice/GetUserDetail',{userName},'POST');
 export const UpdateUserIcon = (userName, small_icon) => ajax(BASE_URL+'/iwork/httpservice/UpdateUserIcon',{userName, small_icon},'POST');
 
-// 更新博客状态
-export const UpdateBlogStatus = (blog_status, blog_id) => ajax(BASE_URL+'/iwork/httpservice/UpdateBlogStatus',{blog_status, blog_id},'GET');
-
 // 根据 blog_id 查询 blog 详细信息
 export const ShowBlogArticleDetail = (id) => ajax(BASE_URL+'/iwork/httpservice/ShowBlogArticleDetail',{id},'GET');
 

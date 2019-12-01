@@ -1,14 +1,14 @@
 <template>
   <div id="footer">
     <BackTop>
-      <div class="top">返回顶端</div>
+      <div class="top">返回</div>
     </BackTop>
 
-    <Row>
+    <Row class="isoft_bg_white isoft_pd10">
       <FrindLink/>
     </Row>
 
-    <Row>
+    <Row class="isoft_bg_white isoft_pd10" style="margin-top: 8px;">
       <Col span="4" style="padding: 50px;">
         <IVerticalList :showRightBorder="true" title="新手帮助">
           <IVerticalListItem>新手引导</IVerticalListItem>
@@ -69,6 +69,8 @@
 </script>
 
 <style scoped>
+  @import "../../assets/css/isoft_common.css";
+
   .top{
     padding: 10px;
     background: rgba(0, 153, 229, .7);
@@ -77,7 +79,6 @@
     border-radius: 2px;
   }
   #footer{
-    background: #FFFFFF;
-    margin: 0 18px 0 18px;
+    margin: 0 100px 0 100px;
   }
 </style>

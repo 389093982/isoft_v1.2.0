@@ -85,9 +85,8 @@
 
 <style scoped>
   .layout-nav{
-    width: 950px;
-    margin: 0 auto;
-    margin-right: 5px;
+    float: right;
+    width: 1050px;
   }
 </style>
 

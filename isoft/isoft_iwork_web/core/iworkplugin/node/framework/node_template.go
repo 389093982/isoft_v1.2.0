@@ -63,7 +63,8 @@ func (this *TemplateNode) Execute(trackingId string) {
 		panic(err)
 	}
 	this.DataStore.CacheDatas(this.WorkStep.WorkStepName, map[string]interface{}{
-		iworkconst.STRING_PREFIX + "template_text": w.s,
+		iworkconst.STRING_PREFIX + "template_text":     w.s,
+		iworkconst.COMPLEX_PREFIX + "template_dataMap": dataMap,
 	})
 }
 
@@ -76,5 +77,5 @@ func (this *TemplateNode) GetDefaultParamInputSchema() *iworkmodels.ParamInputSc
 }
 
 func (this *TemplateNode) GetDefaultParamOutputSchema() *iworkmodels.ParamOutputSchema {
-	return this.BuildParamOutputSchemaWithSlice([]string{iworkconst.STRING_PREFIX + "template_text"})
+	return this.BuildParamOutputSchemaWithSlice([]string{iworkconst.STRING_PREFIX + "template_text", iworkconst.COMPLEX_PREFIX + "template_dataMap"})
 }
