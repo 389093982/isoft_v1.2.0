@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="isoft_bg_white isoft_pd10">
+    <div class="isoft_bg_white" style="padding: 10px 10px 0 10px;">
       <Row>
         <Col span="12" style="padding: 10px 0 0 20px;">
           <span style="color: #c3cbd6;font-size: 18px;">物联网时代，让交流更直接</span>
@@ -11,7 +11,7 @@
         </Col>
       </Row>
 
-      <Row style="margin: 5px 0 5px 0;padding: 5px 15px 5px 15px;font-size: 12px;">
+      <Row style="margin: 5px 0 5px 0;padding: 5px 15px 0px 15px;font-size: 12px;">
         <Col span="12" style="text-align: left;">
           <a @click="$router.push({path:'/ilearning/index'})" class="hovered hvr-grow hoverLinkColor mr5">返回首页</a>
         </Col>
