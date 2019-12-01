@@ -75,14 +75,14 @@ export function validateCommonPatternForString(str) {
   return uPattern.test(str);
 }
 
-// 校验密码
+// 校验用户名
 export function validateUserName(username) {
   // 6至20位，以字母开头，字母，数字，减号，下划线!
   var uPattern = /^[a-zA-Z]([-_a-zA-Z0-9]{5,19})+$/;
   return uPattern.test(username);
 }
 
-// 校验用户名
+// 校验密码
 export function validatePasswd(passwd) {
   // 最少6位，至少1个大小写字母，数字和特殊字符!
   var pPattern = /^.*(?=.{6,})(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*? ]).*$/;
