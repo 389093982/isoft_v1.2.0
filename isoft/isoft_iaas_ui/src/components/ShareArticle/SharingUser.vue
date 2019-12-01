@@ -7,7 +7,7 @@
         </a>
       </Col>
       <Col span="14">
-        <p>发表文章：<a>{{article.title}}</a></p>
+        <p>二月：<a>{{article.title}}</a></p>
         <p style="color:#9ea7b4; font-size: 12px">7 人关注 • 20 个回复 • 208 次浏览 • 1 小时前</p>
       </Col>
       <Col span="8">
