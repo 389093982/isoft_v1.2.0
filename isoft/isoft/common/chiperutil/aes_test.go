@@ -1,21 +1,16 @@
 package chiperutil
 
 import (
-	"encoding/base64"
 	"fmt"
 	"testing"
 )
 
 func Test_Aes(t *testing.T) {
-	key := []byte("0123456789abcdefffffffffffeeeeere")
-	result, err := AesEncrypt([]byte("hello worrftfdfdld"), key)
-	if err != nil {
-		panic(err)
-	}
-	fmt.Println(base64.StdEncoding.EncodeToString(result))
-	origData, err := AesDecrypt(result, key)
-	if err != nil {
-		panic(err)
-	}
-	fmt.Println(string(origData))
+	//str := GenerateRandSeq(32)
+	str := "BpLnfgDsc2WD8F2qNfHK5a84jjJkwzDk"
+	fmt.Println(str)
+	encryptStr := AesEncryptToStr("3306", str)
+	fmt.Println(encryptStr)
+	decryptStr := AesDecryptToStr(encryptStr, str)
+	fmt.Println(decryptStr)
 }
