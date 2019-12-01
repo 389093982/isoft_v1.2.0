@@ -11,8 +11,9 @@ import (
 	"time"
 )
 
-func (this *WorkController) AddResource() {
+func (this *WorkController) EditResource() {
 	var resource models.Resource
+	resource.Id, _ = this.GetInt64("resource_id", -1)
 	resource.ResourceName = this.GetString("resource_name")
 	resource.ResourceType = this.GetString("resource_type")
 	resource.ResourceUrl = this.GetString("resource_url")
@@ -26,6 +27,17 @@ func (this *WorkController) AddResource() {
 	if _, err := models.InsertOrUpdateResource(&resource); err == nil {
 		flushMemoryResource()
 		this.Data["json"] = &map[string]interface{}{"status": "SUCCESS"}
+	} else {
+		this.Data["json"] = &map[string]interface{}{"status": "ERROR"}
+	}
+	this.ServeJSON()
+}
+
+func (this *WorkController) GetResourceById() {
+	id, _ := this.GetInt64("id", -1)
+	resource, err := models.QueryResourceById(id)
+	if err == nil {
+		this.Data["json"] = &map[string]interface{}{"status": "SUCCESS", "resource": resource}
 	} else {
 		this.Data["json"] = &map[string]interface{}{"status": "ERROR"}
 	}

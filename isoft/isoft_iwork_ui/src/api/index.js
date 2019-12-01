@@ -19,10 +19,14 @@ export const AddQuartz = (task_name,task_type,cron_str) => ajax(BASE_URL+"/iwork
 export const ResourceList = (offset,current_page,search) => ajax(BASE_URL+"/iwork/filterPageResource", {offset,current_page,search},'POST');
 
 // 添加 resource 记录
-export const AddResource = (resource_name,resource_type,resource_url,resource_dsn,resource_username,resource_password) => ajax(BASE_URL+"/iwork/addResource", {resource_name,resource_type,resource_url,resource_dsn,resource_username,resource_password},'POST');
+export const EditResource = (resource_id,resource_name,resource_type,resource_url,resource_dsn,resource_username,resource_password) =>
+  ajax(BASE_URL+"/iwork/editResource", {resource_id,resource_name,resource_type,resource_url,resource_dsn,resource_username,resource_password},'POST');
 
 // 删除 resource 记录
 export const DeleteResource = (id) => ajax(BASE_URL+"/iwork/deleteResource", {id},'POST');
+
+// 查询 resource 记录
+export const GetResourceById = (id) => ajax(BASE_URL+"/iwork/getResourceById", {id},'POST');
 
 // 验证 resource
 export const ValidateResource = (id) => ajax(BASE_URL+"/iwork/validateResource", {id},'POST');
