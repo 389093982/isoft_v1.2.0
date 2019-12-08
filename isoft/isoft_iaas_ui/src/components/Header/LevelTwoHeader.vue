@@ -23,7 +23,7 @@
               <span class="linearTransitionBox linearTransitionBorderBottom">AAAAAAAA</span>
               <span class="linearTransitionBox linearTransitionBorderBottom">AAAAAAAA</span>
               <span class="linearTransitionBox linearTransitionBorderBottom">AAAAAAAA</span>
-              <span class="linearTransitionBox linearTransitionBorderBottom">AAAAAAAA</span>
+              <span class="linearTransitionBox linearTransitionBorderBottom">A8AAAAAAA</span>
             </div>
           </div>
         </li>
