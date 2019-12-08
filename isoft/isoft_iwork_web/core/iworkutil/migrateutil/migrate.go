@@ -124,12 +124,12 @@ func (this *MigrateExecutor) insertOrUpdateMigrateVersion(migrate_name, migrate_
 			recordLog string
 			err       error
 		)
-		if successFlag {
+		if !successFlag {
 			recordLog = `INSERT INTO migrate_version(migrate_name,migrate_hash,created_time, success) VALUES (?,?,NOW(), false);`
 			_, err = this.ExecSQL(recordLog, migrate_name, migrate_hash)
 		} else {
 			recordLog = `UPDATE migrate_version SET success = true where migrate_name = ?;`
-			_, err = this.ExecSQL(migrate_name)
+			_, err = this.ExecSQL(recordLog, migrate_name)
 		}
 
 		return err
@@ -181,9 +181,10 @@ func (this *MigrateExecutor) migrateOne(migrate models.SqlMigrate) error {
 	// 每次迁移都有可能有多个执行 sql
 	executeSqls := strings.Split(migrate.MigrateSql, ";")
 	executeSqls = datatypeutil.FilterSlice(executeSqls, datatypeutil.CheckNotEmpty)
+	// 开启事务前先插入一条 false 记录
+	this.insertOrUpdateMigrateVersion(migrate.MigrateName, hash, false)
 	tx, err := this.db.Begin()
 	errorutil.CheckError(err)
-	this.insertOrUpdateMigrateVersion(migrate.MigrateName, hash, false)
 	for _, executeSql := range executeSqls {
 		if _, err := this.ExecSQL(executeSql); err != nil {
 			tx.Rollback()
@@ -195,7 +196,8 @@ func (this *MigrateExecutor) migrateOne(migrate models.SqlMigrate) error {
 			return err
 		}
 	}
-	err = this.insertOrUpdateMigrateVersion(migrate.MigrateName, hash, true) // 控制在同一个事务中执行 migrate_version 表
+	// 控制在同一个事务中执行 migrate_version 表
+	err = this.insertOrUpdateMigrateVersion(migrate.MigrateName, hash, true)
 	tx.Commit()
 	detail := fmt.Sprintf(`%s was migrated success ...`, migrate.MigrateName)
 	this.InsertSqlMigrateLog(migrate.MigrateName, detail, true)
