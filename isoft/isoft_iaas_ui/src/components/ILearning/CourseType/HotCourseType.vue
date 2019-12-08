@@ -1,6 +1,6 @@
 <template>
   <ElementsLoader :placement_name="placement_name" @onLoadElement="onLoadElement">
-    <div style="padding: 10px;">
+    <div style="padding-top: 10px;">
       <Row>
         <Col span="2">
           <span style="font-weight: bold;">课程大类：</span>
@@ -64,6 +64,7 @@
 <style scoped>
   a{
     color: #657180;
+    font-size: 12px;
     font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
   }
   a:hover{

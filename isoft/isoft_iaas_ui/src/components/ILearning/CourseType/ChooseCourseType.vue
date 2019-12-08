@@ -27,7 +27,7 @@
 
     <div class="isoft_bg_white isoft_pd10 isoft_bordertop_red" style="margin-top: 5px;">
       <IBeautifulCard title="课程天地">
-        <div slot="content" style="padding: 20px 20px 5px 20px;">
+        <div slot="content" style="padding: 5px;">
           <div>
             <div style="border-bottom: 2px solid #edf1f2;">
               <a href="javascript:;" @click="showCourseType=true" style="color: red;">热门课程推荐</a>
