@@ -3,8 +3,11 @@
     <div style="margin: 5px 100px 0 100px;float: right;" class="clear">
       <ul>
         <li><span @click="$router.push({path:'/ilearning/advise'})">我要吐槽/建议</span></li>
-        <li>
-          网站导航 <Icon type="ios-arrow-down" />
+        <li @mouseenter="handleMouseenter(0)"
+            @mouseleave="handleMouseleave(0)">
+          网站导航
+          <Icon type="ios-arrow-up" v-if="showUpFlag[0]"/>
+          <Icon type="ios-arrow-down" v-else/>
           <div class="subArea">
             BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB
 
@@ -27,10 +30,10 @@
             </div>
           </div>
         </li>
-        <li @mouseenter="handleMouseenter"
-            @mouseleave="handleMouseleave">
+        <li @mouseenter="handleMouseenter(1)"
+            @mouseleave="handleMouseleave(1)">
           热点 APP
-          <Icon type="ios-arrow-up" v-if="up"/>
+          <Icon type="ios-arrow-up" v-if="showUpFlag[1]"/>
           <Icon type="ios-arrow-down" v-else/>
           <div class="subArea">
             BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB
@@ -46,15 +49,15 @@
     name: "LevelTwoHeader",
     data(){
       return {
-        up:false,
+        showUpFlag:[false,false],
       }
     },
     methods:{
-      handleMouseenter () {
-        this.up = true;
+      handleMouseenter (index) {
+        this.$set(this.showUpFlag, index, true);
       },
-      handleMouseleave () {
-        this.up = false;
+      handleMouseleave (index) {
+        this.$set(this.showUpFlag, index, false);
       },
     }
   }
