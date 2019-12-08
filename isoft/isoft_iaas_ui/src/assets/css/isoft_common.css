@@ -21,6 +21,10 @@
   background: #FFFFFF;
 }
 
+.isoft_bg_black {
+  background: #212121;
+}
+
 .newspaper{
   padding: 20px;
   column-count:3;

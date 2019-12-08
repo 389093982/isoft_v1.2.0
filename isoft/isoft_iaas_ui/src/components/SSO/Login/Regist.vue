@@ -60,8 +60,6 @@
         </div>
       </Col>
     </Row>
-
-
     <LoginFooter/>
   </div>
 </template>
