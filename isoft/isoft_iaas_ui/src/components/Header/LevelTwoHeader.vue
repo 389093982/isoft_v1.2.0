@@ -2,6 +2,7 @@
   <div>
     <div style="margin: 5px 100px 0 100px;float: right;" class="clear">
       <ul>
+        <li><span @click="$router.push({path:'/ilearning/index'})">返回首页</span></li>
         <li><span @click="$router.push({path:'/ilearning/advise'})">我要吐槽/建议</span></li>
         <li @mouseenter="handleMouseenter(0)"
             @mouseleave="handleMouseleave(0)">

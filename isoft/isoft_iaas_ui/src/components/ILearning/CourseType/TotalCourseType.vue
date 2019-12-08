@@ -7,7 +7,7 @@
         </Col>
         <Col span="22">
           <span v-for="course_type in course_types">
-            <a style="margin-right: 10px;" @click="loadSubCourseType(course_type)">{{course_type.course_type}}</a>
+            <a class="isoft_font12" style="margin-right: 10px;" @click="loadSubCourseType(course_type)">{{course_type.course_type}}</a>
           </span>
         </Col>
       </Row>
@@ -17,7 +17,7 @@
         </Col>
         <Col span="22">
           <span v-for="sub_course_type in sub_course_types" style="margin-right:10px;">
-             <a @click="chooseCourseType(current_course_type, sub_course_type.course_sub_type)">{{sub_course_type.course_sub_type}}</a>
+             <a class="isoft_font12" @click="chooseCourseType(current_course_type, sub_course_type.course_sub_type)">{{sub_course_type.course_sub_type}}</a>
           </span>
         </Col>
       </Row>
@@ -65,13 +65,10 @@
 </script>
 
 <style scoped>
-  *{
-    font-size: 14px;
-  }
+  @import "../../../assets/css/isoft_common.css";
+
   a{
     color: #657180;
-    font-size: 12px;
-    font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
   }
   a:hover{
     color: red;

@@ -7,7 +7,7 @@
         </Col>
         <Col span="22">
           <span v-for="element in elements">
-            <a style="margin-right: 10px;" v-if="element.navigation_level == 0"
+            <a class="isoft_font12" style="margin-right: 10px;" v-if="element.navigation_level == 0"
                @click="currentElement=element">{{element.title}}</a>
           </span>
         </Col>
@@ -19,7 +19,7 @@
         <Col span="22">
           <span v-for="element in elements" style="margin-right:10px;"
                 v-if="currentElement != null && element.navigation_parent_id == currentElement.id">
-            <a @click="chooseCourseType(currentElement.title, element.title)">
+            <a class="isoft_font12" @click="chooseCourseType(currentElement.title, element.title)">
               {{element.title}}
             </a>
           </span>
@@ -62,10 +62,10 @@
 </script>
 
 <style scoped>
+  @import "../../../assets/css/isoft_common.css";
+
   a{
     color: #657180;
-    font-size: 12px;
-    font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
   }
   a:hover{
     color: red;
