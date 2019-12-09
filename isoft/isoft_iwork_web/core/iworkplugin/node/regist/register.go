@@ -8,6 +8,7 @@ import (
 	"isoft/isoft_iwork_web/core/iworkplugin/node/framework"
 	"isoft/isoft_iwork_web/core/iworkplugin/node/http"
 	"isoft/isoft_iwork_web/core/iworkplugin/node/json"
+	"isoft/isoft_iwork_web/core/iworkplugin/node/mail"
 	"isoft/isoft_iwork_web/core/iworkplugin/node/os"
 	"isoft/isoft_iwork_web/core/iworkplugin/node/sql"
 	"isoft/isoft_iwork_web/core/iworkplugin/node/zip"
@@ -63,6 +64,7 @@ func GetNodeMeta() []map[string]string {
 		{"name": "create_jwt", "icon": "md-hammer"},
 		{"name": "parse_jwt", "icon": "md-hammer"},
 		{"name": "do_error_filter", "icon": "md-hammer"},
+		{"name": "send_mail", "icon": "md-hammer"},
 	}
 }
 
@@ -112,6 +114,7 @@ func RegistNodes() {
 		chiper.Base64DecodeNode{},
 		chiper.CreateJWTNode{},
 		chiper.ParseJWTNode{},
+		mail.SendMailNode{},
 	}
 	for _, v := range vs {
 		t := reflect.ValueOf(v).Type()

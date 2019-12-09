@@ -64,7 +64,6 @@ golang.org/x/crypto/poly1305
 golang.org/x/crypto/ssh
 # golang.org/x/net v0.0.0-20190424112056-4829fb13d2c6
 golang.org/x/net/idna
-golang.org/x/net/websocket
 # golang.org/x/sys v0.0.0-20190426135247-a129542de9ae
 golang.org/x/sys/cpu
 golang.org/x/sys/unix
@@ -75,6 +74,10 @@ golang.org/x/text/unicode/bidi
 golang.org/x/text/unicode/norm
 # google.golang.org/appengine v1.5.0
 google.golang.org/appengine/cloudsql
+# gopkg.in/alexcesaro/quotedprintable.v3 v3.0.0-20150716171945-2caba252f4dc
+gopkg.in/alexcesaro/quotedprintable.v3
+# gopkg.in/gomail.v2 v2.0.0-20160411212932-81ebce5c23df
+gopkg.in/gomail.v2
 # gopkg.in/ini.v1 v1.42.0
 gopkg.in/ini.v1
 # gopkg.in/yaml.v2 v2.2.2

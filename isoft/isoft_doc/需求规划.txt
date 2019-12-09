@@ -46,3 +46,5 @@ whois 域名查询服务
 Golang goland idea+golint+go fmt+goimports+gometalinter+go vet+GoReporter 代码优化及质量检测
 
 migrate 执行但是执行结果未写入 DB bug修复,完整性控制
+
+视频发布--文件上传优化
