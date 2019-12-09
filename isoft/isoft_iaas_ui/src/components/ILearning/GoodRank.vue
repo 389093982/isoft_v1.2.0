@@ -1,5 +1,5 @@
 <template>
-  <div style="height: 100%;padding-top: 10px;">
+  <div style="height: 850px;padding-top: 10px;">
     <h2 class="good_rank">精品排行</h2>
     <a href="#" v-for="(rank, index) in ranks">
       <Row>
