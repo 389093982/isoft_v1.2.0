@@ -1,39 +1,62 @@
 <template>
   <div>
-      <div>{{onView}}</div>
-      <div v-if="article.title" class="SingleArticle-title">{{article.title}}</div>
-      <div v-if="article.title" class="SingleArticle-content">
-        <input_textarea :content="article.content" :rows="rows" :maxlength="maxlength"></input_textarea>
-      </div>
-      <!--<slot name="title"></slot>-->
-      <!--<slot name="content"></slot>-->
+    <div>正在编辑</div>
+    <!--标题-->
+    <div class="SingleArticle-title">
+      <Input v-model="article.title" placeholder="Enter title..." maxlength="20" style="width: 100%" />
+    </div>
+    <!--内容-->
+    <div class="SingleArticle-content">
+      <Input type="textarea" v-model="article.content" @keydown.tab.native="tab" :rows="rows" :maxlength="max" show-word-limit="true" placeholder="Enter content" style="width:100%"/>
+      <span style="float: right;color: #9ea7b4">{{getAlreadyInput}}/{{max}}</span>
+    </div>
+    <!--按钮-->
+    <Button type="success" @click="saveArticle">保存</Button>
+    <Button type="primary" @click="publishArticle">发表</Button>
+
+    <div> </div>
+    <slot name="title"></slot>
+    <slot name="content"></slot>
   </div>
 </template>
 
 <script>
-    import input_textarea from "../Utils/input_textarea"
+    import {saveArticle,publishArticle} from "../../api"
     export default {
+      props:{
+        article:{
+          title:String,
+          content:String,
+        },
+      },
       name: "ArticleEdit",
-      components:{input_textarea},
+      components:{},
       data(){
-          return{
-            onView:"正在预览",
-            article:{
-              title:"勇敢的第一步",
-              content:"这里是文章内容,这里是文章内容,这里是文章内容," +
-              "这里是文章内容,这里是文章内容,这里是文章内容," +
-              "这里是文章内容,这里是文章内容,这里是文章内容," +
-              "这里是文章内容,这里是文章内容,这里是文章内容," +
-              "这里是文章内容,这里是文章内容,这里是文章内容," +
-              "这里是文章内容,这里是文章内容,这里是文章内容," +
-              "这里是文章内容,这里是文章内容,这里是文章内容," +
-              "这里是文章内容,这里是文章内容,这里是文章内容," +
-              "这里是文章内容,这里是文章内容,这里是文章内容,"
-            },
-            rows:15,
-            maxlength:2000,
-          }
-      }
+        return{
+          rows:17,
+          max:2000,
+          alreadyInput:0,
+        }
+      },
+      computed:{
+        getAlreadyInput:function(){
+          return this.article.content.length
+        }
+      },
+      methods:{
+        saveArticle:async function () {
+          // let saveResult = await saveArticle(this.article.title,this.article.content);
+          this.$Message.success("保存成功")
+        },
+        publishArticle:async function () {
+          // let publishResult = await publishArticle(this.article.title,this.article.content);
+          this.$Message.success("发布成功")
+          this.$emit("toPublishArticle",this.article)
+        },
+        tab:function(){
+          this.$Message.success("tab")
+        },
+      },
     }
 </script>
 
