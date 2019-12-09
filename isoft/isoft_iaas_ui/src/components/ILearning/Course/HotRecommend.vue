@@ -21,8 +21,8 @@
               <img v-if="course.small_image" :src="course.small_image" height="100" width="155"/>
               <img v-else src="../../../assets/default.png" height="100" width="155"/>
               <!-- 播放图标 -->
-              <div class="ico_play"></div>
-              <p>{{course.course_name}}</p>
+              <div v-if="showDisplayIcon" class="ico_play"></div>
+              <p class="isoft_font12">{{course.course_name}}</p>
             </router-link>
           </li>
         </ul>
@@ -50,6 +50,10 @@
         type: [String],
         default: 'detail'
       },
+      showDisplayIcon:{
+        type:Boolean,
+        default:false,
+      }
     },
     data(){
       return {

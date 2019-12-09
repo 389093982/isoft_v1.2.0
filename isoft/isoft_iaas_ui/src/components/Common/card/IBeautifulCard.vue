@@ -51,6 +51,6 @@
     transition: all 2s ease-in;
  }
  .leftHeaderLeft:hover{
-    color: #00f500;
+    color: #00b500;
  }
 </style>

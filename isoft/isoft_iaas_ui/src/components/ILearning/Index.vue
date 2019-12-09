@@ -6,7 +6,7 @@
 
     <Row style="margin-top: 5px;">
       <Col span="17" style="padding-right: 5px;">
-        <HotRecommend class="isoft_bg_white isoft_pd10"/>
+        <HotRecommend class="isoft_bg_white isoft_pd10" :show-display-icon="true"/>
       </Col>
       <Col span="7">
         <GoodRank class="isoft_bg_white isoft_pd10"/>
