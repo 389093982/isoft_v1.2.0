@@ -1,13 +1,13 @@
 <template>
   <ElementsLoader :placement_name="placement_name" @onLoadElement="onLoadElement">
-    <div style="padding: 10px;">
+    <div style="padding-top: 10px;">
       <Row>
         <Col span="2">
           <span style="font-weight: bold;">课程大类：</span>
         </Col>
         <Col span="22">
           <span v-for="element in elements">
-            <a style="margin-right: 10px;" v-if="element.navigation_level == 0"
+            <a class="isoft_font12" style="margin-right: 10px;" v-if="element.navigation_level == 0"
                @click="currentElement=element">{{element.title}}</a>
           </span>
         </Col>
@@ -19,7 +19,7 @@
         <Col span="22">
           <span v-for="element in elements" style="margin-right:10px;"
                 v-if="currentElement != null && element.navigation_parent_id == currentElement.id">
-            <a @click="chooseCourseType(currentElement.title, element.title)">
+            <a class="isoft_font12" @click="chooseCourseType(currentElement.title, element.title)">
               {{element.title}}
             </a>
           </span>
@@ -62,8 +62,10 @@
 </script>
 
 <style scoped>
+  @import "../../../assets/css/isoft_common.css";
+
   a{
-    color: #626262;
+    color: #657180;
   }
   a:hover{
     color: red;

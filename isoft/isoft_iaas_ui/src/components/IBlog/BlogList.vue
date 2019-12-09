@@ -33,7 +33,8 @@
                   </router-link>
                 </Col>
                 <Col span="12">
-                  <a style="color: #499ef3;font-weight: bold;" @click="chooseItem(searchblog.catalog_name)">所属分类：{{ searchblog.catalog_name }}</a>
+                  <Tag v-if="searchblog.to_top > 0" color="error">置顶</Tag>
+                  <a style="color: rgba(43,0,206,0.4);font-weight: 600;" @click="chooseItem(searchblog.catalog_name)">所属分类：{{ searchblog.catalog_name }}</a>
 
                   <span v-if="searchblog.blog_status == -1" style="float: right;color: red;">审核不通过！</span>
                 </Col>
@@ -51,16 +52,18 @@
                   </Col>
                   <Col span="2">
                     <router-link :to="{path:'/iblog/blog_detail',query:{blog_id:searchblog.id}}">
-                      <span style="color: red;">{{searchblog.views}}</span>阅读
+                      <span class="isoft_font12"><span style="color: red;">{{searchblog.views}}</span>阅读</span>
                     </router-link>
                   </Col>
                   <Col span="2">
                     <router-link :to="{path:'/iblog/blog_detail',query:{blog_id:searchblog.id}}">
-                      <span style="color: red;">0</span>条评论
+                      <span class="isoft_font12"><span style="color: red;">0</span>条评论</span>
                     </router-link>
                   </Col>
                   <Col span="3">
-                    <router-link :to="{path:'/iblog/mine/blog_edit'}">我也要发布</router-link>
+                    <router-link :to="{path:'/iblog/mine/blog_edit'}">
+                      <span class="isoft_font12">我也要发布</span>
+                    </router-link>
                   </Col>
                 </Row>
               </p>

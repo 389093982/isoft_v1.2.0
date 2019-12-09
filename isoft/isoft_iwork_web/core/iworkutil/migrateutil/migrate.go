@@ -95,7 +95,7 @@ func (this *MigrateExecutor) initial() {
 		panic(err)
 	}
 	versionTable := `CREATE TABLE IF NOT EXISTS migrate_version (id INT(20) PRIMARY KEY AUTO_INCREMENT, 
-	migrate_name CHAR(200), migrate_hash CHAR(200), created_time datetime);`
+	MIGRATE_NAME CHAR(200), MIGRATE_HASH CHAR(200), CREATED_TIME DATETIME, SUCCESS BOOLEAN);`
 	if _, err := this.ExecSQL(versionTable); err != nil {
 		panic(err)
 	}
@@ -118,10 +118,20 @@ func (this *MigrateExecutor) QueryRowSQL(sql string, args ...interface{}) (row *
 	return
 }
 
-func (this *MigrateExecutor) insertMigrateVersion(migrate_name, migrate_hash string) error {
+func (this *MigrateExecutor) insertOrUpdateMigrateVersion(migrate_name, migrate_hash string, successFlag bool) error {
 	if this.db != nil {
-		recordLog := `INSERT INTO migrate_version(migrate_name,migrate_hash,created_time) VALUES (?,?,NOW());`
-		_, err := this.ExecSQL(recordLog, migrate_name, migrate_hash)
+		var (
+			recordLog string
+			err       error
+		)
+		if !successFlag {
+			recordLog = `INSERT INTO migrate_version(migrate_name,migrate_hash,created_time, success) VALUES (?,?,NOW(), false);`
+			_, err = this.ExecSQL(recordLog, migrate_name, migrate_hash)
+		} else {
+			recordLog = `UPDATE migrate_version SET success = true where migrate_name = ?;`
+			_, err = this.ExecSQL(recordLog, migrate_name)
+		}
+
 		return err
 	}
 	return nil
@@ -171,6 +181,8 @@ func (this *MigrateExecutor) migrateOne(migrate models.SqlMigrate) error {
 	// 每次迁移都有可能有多个执行 sql
 	executeSqls := strings.Split(migrate.MigrateSql, ";")
 	executeSqls = datatypeutil.FilterSlice(executeSqls, datatypeutil.CheckNotEmpty)
+	// 开启事务前先插入一条 false 记录
+	this.insertOrUpdateMigrateVersion(migrate.MigrateName, hash, false)
 	tx, err := this.db.Begin()
 	errorutil.CheckError(err)
 	for _, executeSql := range executeSqls {
@@ -184,12 +196,11 @@ func (this *MigrateExecutor) migrateOne(migrate models.SqlMigrate) error {
 			return err
 		}
 	}
+	// 控制在同一个事务中执行 migrate_version 表
+	err = this.insertOrUpdateMigrateVersion(migrate.MigrateName, hash, true)
 	tx.Commit()
 	detail := fmt.Sprintf(`%s was migrated success ...`, migrate.MigrateName)
 	this.InsertSqlMigrateLog(migrate.MigrateName, detail, true)
-
-	// 计算hash 值
-	this.insertMigrateVersion(migrate.MigrateName, hash)
 	return nil
 }
 

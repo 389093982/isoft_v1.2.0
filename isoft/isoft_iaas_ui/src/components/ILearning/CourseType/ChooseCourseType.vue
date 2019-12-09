@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="isoft_bg_white isoft_pd10">
+    <div class="isoft_bg_white" style="padding: 10px 10px 0 10px;">
       <Row>
         <Col span="12" style="padding: 10px 0 0 20px;">
           <span style="color: #c3cbd6;font-size: 18px;">物联网时代，让交流更直接</span>
@@ -11,7 +11,7 @@
         </Col>
       </Row>
 
-      <Row style="margin: 5px 0 5px 0;padding: 5px 15px 5px 15px;font-size: 12px;">
+      <Row style="margin: 5px 0 5px 0;padding: 5px 15px 0px 15px;font-size: 12px;">
         <Col span="12" style="text-align: left;">
           <a @click="$router.push({path:'/ilearning/index'})" class="hovered hvr-grow hoverLinkColor mr5">返回首页</a>
         </Col>
@@ -20,14 +20,14 @@
           <a @click="$router.push({path:'/user/guide'})" class="hovered hvr-grow hoverLinkColor mr5">站点引导</a>
           <a @click="" class="hovered hvr-grow hoverLinkColor mr5">广告位招租</a>
           <a @click="$router.push({path:'/user/mine/detail',query:{username:'mine'}})" class="hovered hvr-grow hoverLinkColor mr5">个人中心</a>
-          <a @click="" class="hovered hvr-grow hoverLinkColor">我的课程空间</a>
+          <a @click="$router.push({ path: '/ilearning/mine/course_space'})" class="hovered hvr-grow hoverLinkColor">我的课程空间</a>
         </Col>
       </Row>
     </div>
 
     <div class="isoft_bg_white isoft_pd10 isoft_bordertop_red" style="margin-top: 5px;">
       <IBeautifulCard title="课程天地">
-        <div slot="content" style="padding: 20px 20px 5px 20px;">
+        <div slot="content" style="padding: 5px;">
           <div>
             <div style="border-bottom: 2px solid #edf1f2;">
               <a href="javascript:;" @click="showCourseType=true" style="color: red;">热门课程推荐</a>

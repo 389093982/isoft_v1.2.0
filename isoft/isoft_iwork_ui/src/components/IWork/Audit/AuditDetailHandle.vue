@@ -2,17 +2,19 @@
   <div>
     <div v-for="rowData in rowDatas" style="border:1px solid rgba(199,199,199,0.4);margin: 5px;padding: 10px;">
       <Row>
-        <Col span="20">
-          <span v-for="(colName, index) in colNames" style="margin-right: 10px;">
-            <Tag>字段名：{{colName}}</Tag> {{rowData[colName]}}<br/>
-          </span>
-        </Col>
-        <Col span="4">
+        <Scroll height="200">
+          <Row>
+            <Col span="12" v-for="(colName, index) in colNames">
+              <Tag>字段名：{{colName}}</Tag> {{rowData[colName]}}
+            </Col>
+          </Row>
+        </Scroll>
+        <div>
           <span v-if="update_cases" v-for="update_case in update_cases">
             <span v-if="update_case.case_name" class="operate" :style="{'color': update_case.case_color}"
-              @click="handleOperate(update_case, rowData)">{{update_case.case_name}}</span>
+                  @click="handleOperate(update_case, rowData)">{{update_case.case_name}}</span>
           </span>
-        </Col>
+        </div>
       </Row>
     </div>
 

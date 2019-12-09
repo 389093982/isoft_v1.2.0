@@ -2,11 +2,14 @@
   <div>
     <div style="margin: 5px 100px 0 100px;float: right;" class="clear">
       <ul>
+        <li><span @click="$router.push({path:'/ilearning/index'})">返回首页</span></li>
         <li><span @click="$router.push({path:'/ilearning/advise'})">我要吐槽/建议</span></li>
-        <li>
-          网站导航 <Icon type="ios-arrow-down" />
-          <div class="subArea" style="width: 1000px;right: 190px;">
-            <div class="arrow"></div>
+        <li @mouseenter="handleMouseenter(0)"
+            @mouseleave="handleMouseleave(0)">
+          网站导航
+          <Icon type="ios-arrow-up" v-if="showUpFlag[0]"/>
+          <Icon type="ios-arrow-down" v-else/>
+          <div class="subArea">
             BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB
 
             <div class="linearTransitionBg"></div>
@@ -24,14 +27,16 @@
               <span class="linearTransitionBox linearTransitionBorderBottom">AAAAAAAA</span>
               <span class="linearTransitionBox linearTransitionBorderBottom">AAAAAAAA</span>
               <span class="linearTransitionBox linearTransitionBorderBottom">AAAAAAAA</span>
-              <span class="linearTransitionBox linearTransitionBorderBottom">AAAAAAAA</span>
+              <span class="linearTransitionBox linearTransitionBorderBottom">A8AAAAAAA</span>
             </div>
           </div>
         </li>
-        <li>
-          热点 APP <Icon type="ios-arrow-down" />
-          <div class="subArea" style="width: 1000px;right: 110px;">
-            <div class="arrow"></div>
+        <li @mouseenter="handleMouseenter(1)"
+            @mouseleave="handleMouseleave(1)">
+          热点 APP
+          <Icon type="ios-arrow-up" v-if="showUpFlag[1]"/>
+          <Icon type="ios-arrow-down" v-else/>
+          <div class="subArea">
             BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB
           </div>
         </li>
@@ -42,7 +47,20 @@
 
 <script>
   export default {
-    name: "LevelTwoHeader"
+    name: "LevelTwoHeader",
+    data(){
+      return {
+        showUpFlag:[false,false],
+      }
+    },
+    methods:{
+      handleMouseenter (index) {
+        this.$set(this.showUpFlag, index, true);
+      },
+      handleMouseleave (index) {
+        this.$set(this.showUpFlag, index, false);
+      },
+    }
   }
 </script>
 
@@ -52,13 +70,17 @@
   li{
     float: left;
     list-style: none;
-    margin-right: 10px;
+    margin-left: 10px;
+    padding: 2px 5px;
     display: inline-block;
     cursor: pointer;
+    background-color: rgba(255, 81, 0, 0.15);
   }
   .subArea{
     background-color: white;
     position: absolute;
+    width: 84%;
+    right: 8%;
     min-height: 300px;
     border: 1px solid #e1e1e1;
     z-index: 50;
@@ -68,16 +90,5 @@
   }
   li:hover .subArea{
     display: block;
-  }
-  .arrow{
-    position: absolute;
-    right: 25px;
-    top: -10px;
-    width: 0;
-    height: 0;
-    border-width: 5px;
-    border-style: solid;
-    border-color: transparent #e1e1e1 transparent transparent;
-    transform: rotate(90deg); /*顺时针旋转90°*/
   }
 </style>

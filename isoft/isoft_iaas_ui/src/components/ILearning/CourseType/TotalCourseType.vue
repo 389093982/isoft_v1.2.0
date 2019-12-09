@@ -1,13 +1,13 @@
 <template>
   <div>
-    <div style="padding: 10px;">
+    <div style="padding-top: 10px;">
       <Row>
         <Col span="2">
           <span style="font-weight: bold;">课程大类：</span>
         </Col>
         <Col span="22">
           <span v-for="course_type in course_types">
-            <a style="margin-right: 10px;" @click="loadSubCourseType(course_type)">{{course_type.course_type}}</a>
+            <a class="isoft_font12" style="margin-right: 10px;" @click="loadSubCourseType(course_type)">{{course_type.course_type}}</a>
           </span>
         </Col>
       </Row>
@@ -17,7 +17,7 @@
         </Col>
         <Col span="22">
           <span v-for="sub_course_type in sub_course_types" style="margin-right:10px;">
-             <a @click="chooseCourseType(current_course_type, sub_course_type.course_sub_type)">{{sub_course_type.course_sub_type}}</a>
+             <a class="isoft_font12" @click="chooseCourseType(current_course_type, sub_course_type.course_sub_type)">{{sub_course_type.course_sub_type}}</a>
           </span>
         </Col>
       </Row>
@@ -65,8 +65,10 @@
 </script>
 
 <style scoped>
+  @import "../../../assets/css/isoft_common.css";
+
   a{
-    color: #626262;
+    color: #657180;
   }
   a:hover{
     color: red;
