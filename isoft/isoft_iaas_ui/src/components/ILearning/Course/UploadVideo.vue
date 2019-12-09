@@ -2,14 +2,16 @@
   <span>
     <Modal
       v-model="showDialog"
-      width="500"
+      width="700"
       title="上传/更新视频"
       :mask-closable="false">
       <div>
         <p style="padding:10px;">课程名称：{{course.course_name}}</p>
-        <p style="background-color: rgba(255,0,0,0.09);padding: 10px;">上传规则：1、上传视频暂不支持删除功能！2、可上传替换每一集视频 3、视频格式仅支持 mp4 格式！</p>
+        <p style="background-color: rgba(253,0,0,0.25);padding: 10px;">
+          上传规则：1、上传视频暂不支持删除功能！2、可上传替换每一集视频 3、视频格式仅支持 mp4 格式！
+        </p>
 
-        <div style="margin-top: 20px;margin-bottom: 20px;">
+        <div style="margin: 20px 0;">
           <Button size="small" v-for="(cVideo, num) in cVideos"
                   type="success" @click="uploadVideoNum = num + 1" style="margin: 5px;">第{{num + 1}}集: {{cVideo.video_name}}</Button>
           <Button size="small" type="success" @click="uploadVideoNum = cVideos.length + 1">新一集{{cVideos.length + 1}}</Button>

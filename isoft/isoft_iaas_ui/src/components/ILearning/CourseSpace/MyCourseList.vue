@@ -22,8 +22,12 @@
           </Col>
         </Row>
       </div>
-      <div v-else>您还没有任何课程奥，如果你想传播你的知识，
+      <div v-else style="padding: 30px 10px;">
+        您还没有任何课程奥，如果你想传播你的知识，
         <IBeautifulLink font-weight="bold" @onclick="$router.push({path:'/ilearning/mine/course_space/newCourse'})">请前去开课！</IBeautifulLink>
+
+        <IBeautifulLink @onclick="">如何开课呢？</IBeautifulLink>
+
       </div>
     </isoft-lazy>
   </div>

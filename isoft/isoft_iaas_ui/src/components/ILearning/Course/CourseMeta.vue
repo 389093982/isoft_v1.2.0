@@ -7,8 +7,12 @@
     </p>
     <p>
       课程名称：{{course.course_name}}
-      <span class="isoft_hover_red" @click="$router.push({path:'/ilearning/index'})" style="margin-left: 30px;">搜索同类资源</span>
-      <span class="isoft_hover_red" @click="$router.push($router.push({ path: '/ilearning/mine/course_space'}))" style="margin-left: 30px;">我的课程空间</span>
+      <span class="isoft_hover_red" @click="$router.push({path:'/ilearning/index'})"
+            style="margin-left: 30px;">搜索同类资源</span>
+      <span class="isoft_hover_red" @click="$router.push($router.push({ path: '/ilearning/mine/course_space'}))"
+            style="margin-left: 30px;">我的课程空间</span>
+      <span class="isoft_hover_red" @click=""
+            style="margin-left: 30px;">开课流程</span>
     </p>
     <p>作者：{{course.course_author}}</p>
     <p>课程类型：{{course.course_type}}</p>
