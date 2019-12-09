@@ -45,6 +45,7 @@
         if(result.loginSuccess == true || result.loginSuccess == "SUCCESS"){
           setCookie("tokenString",result.tokenString,365,result.domain);
           setCookie("userName",username,365,result.domain);
+          setCookie("nickName",result.nickName,365,result.domain);
           setCookie("isLogin","isLogin",365,result.domain);
           setCookie("roleName",result.roleName,365,result.domain);
           let expireSecond = new Date().getTime() + result.expireSecond * 1000;     // 时间戳

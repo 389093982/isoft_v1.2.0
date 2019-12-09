@@ -82,6 +82,12 @@ export function validateUserName(username) {
   return uPattern.test(username);
 }
 
+// 校验邮箱
+export function validateEmail(email) {
+  var uPattern = /^([a-zA-Z]|[0-9])(\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$/;
+  return uPattern.test(email);
+}
+
 // 校验密码
 export function validatePasswd(passwd) {
   // 最少6位，至少1个大小写字母，数字和特殊字符!

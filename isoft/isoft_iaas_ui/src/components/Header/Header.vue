@@ -77,7 +77,7 @@
     },
     mounted:function(){
       if (CheckHasLogin()){
-        this.loginUserName = getCookie("userName");
+        this.loginUserName = getCookie("nickName");
       }
     },
   }

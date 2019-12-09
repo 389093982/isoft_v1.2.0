@@ -19,7 +19,10 @@
           </div>
           <Form ref="formValidate" :model="formValidate" :rules="ruleValidate" :label-width="80">
             <FormItem label="用户名" prop="username">
-              <Input v-model.trim="formValidate.username" placeholder="请输入用户名"></Input>
+              <Input v-model.trim="formValidate.username" placeholder="请输入注册邮箱"></Input>
+            </FormItem>
+            <FormItem label="用户昵称" prop="nickname">
+              <Input v-model.trim="formValidate.nickname" placeholder="请输入用户昵称"></Input>
             </FormItem>
             <FormItem label="密码" prop="passwd">
               <Input v-model.trim="formValidate.passwd" type="password" placeholder="请输入密码"></Input>
@@ -67,7 +70,7 @@
 <script>
   import LoginFooter from "./LoginFooter"
   import {Regist} from "../../../api"
-  import {validateUserName} from "../../../tools"
+  import {validateUserName, validateEmail} from "../../../tools"
   import ISimpleSearch from "../../Common/search/ISimpleSearch"
   import IBeautifulLink from "../../Common/link/IBeautifulLink";
 
@@ -78,8 +81,8 @@
       const _validateUserName = (rule, value, callback) => {
         if (value === '') {
           callback(new Error('用户名不能为空!'));
-        } else if (!validateUserName(value)) {
-          callback(new Error('6至20位，以字母开头，字母，数字，减号，下划线!'));
+        } else if (!validateEmail(value)) {
+          callback(new Error('邮箱不合法!'));
         } else {
           callback();
         }
@@ -104,6 +107,7 @@
       return {
         formValidate: {
           username: '',
+          nickname: '',
           passwd: '',
           repasswd: '',
           protocol:[],
@@ -111,6 +115,9 @@
         ruleValidate: {
           username: [
             { required: true, validator: _validateUserName, trigger: 'blur' }
+          ],
+          nickname: [
+            { required: true, trigger: 'blur' }
           ],
           passwd: [
             { required: true, validator: _validatePasswd, trigger: 'blur' },
@@ -136,9 +143,7 @@
         })
       },
       regist:async function () {
-        var username = this.formValidate.username;
-        var passwd = this.formValidate.passwd;
-        const result = await Regist(username,passwd);
+        const result = await Regist(this.formValidate.username,this.formValidate.passwd,this.formValidate.nickname);
         if(result.status=="SUCCESS"){
           this.$Message.success('注册成功!');
           this.$router.push({path:'/sso/login'});

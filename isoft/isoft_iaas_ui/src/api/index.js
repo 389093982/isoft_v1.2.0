@@ -129,7 +129,7 @@ export const QueryElementById = (id) => ajax(BASE_URL+'/iwork/httpservice/QueryE
 export const Login = (username,passwd,redirectUrl) => ajax(BASE_URL+"/iwork/httpservice/PostLogin2", {username,passwd,redirectUrl},'POST');
 
 // 注册接口
-export const Regist = (username,passwd) => ajax(BASE_URL+"/iwork/httpservice/Regist2", {username,passwd},'POST');
+export const Regist = (username,passwd,nickname) => ajax(BASE_URL+"/iwork/httpservice/Regist2", {username,passwd,nickname},'POST');
 
 export const GetHotUsers = () => ajax(BASE_URL+"/iwork/httpservice/GetHotUsers", {},'POST');
 
