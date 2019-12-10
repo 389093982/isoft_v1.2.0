@@ -20,15 +20,16 @@ type DoReceiveFileNode struct {
 func (this *DoReceiveFileNode) Execute(trackingId string) {
 	fileUpload := this.Dispatcher.TmpDataMap[iworkconst.HTTP_REQUEST_IFILE_UPLOAD].(interfaces.IFileUpload)
 	suffixStr := this.TmpDataMap[iworkconst.STRING_PREFIX+"suffixs"].(string)
+	// fileServerAddr := "http://localhost:8086/api/files/"
+	fileServerAddr := this.TmpDataMap[iworkconst.STRING_PREFIX+"fileServerAddr"].(string)
 	suffixs := strings.Split(suffixStr, ",")
 	tempFileName, fileName, tempFilePath := fileUpload.SaveFile(suffixs)
-	tempFileServerPath := "http://localhost:8086/api/files/" + tempFileName
 	paramMap := map[string]interface{}{
-		"fileName":           fileName,
-		"tempFileName":       tempFileName,
-		"fileExt":            path.Ext(fileName),
-		"tempFilePath":       tempFilePath,
-		"tempFileServerPath": tempFileServerPath,
+		"fileName":       fileName,
+		"tempFileName":   tempFileName,
+		"fileExt":        path.Ext(fileName),
+		"tempFilePath":   tempFilePath,
+		"fileServerAddr": fileServerAddr,
 	}
 	if calHash := this.TmpDataMap[iworkconst.BOOL_PREFIX+"calHash?"].(string); calHash == "true" {
 		hash, _ := hashutil.CalculateHashWithFile(tempFilePath)
@@ -41,13 +42,14 @@ func (this *DoReceiveFileNode) GetDefaultParamInputSchema() *iworkmodels.ParamIn
 	paramMap := map[int][]string{
 		1: {iworkconst.BOOL_PREFIX + "calHash?", "是否计算hash值"},
 		2: {iworkconst.STRING_PREFIX + "suffixs", "上传文件支持的后缀名,*表示支持任意类型的后缀,多个后缀用逗号分隔"},
+		3: {iworkconst.STRING_PREFIX + "fileServerAddr", "上传文件服务器访问路径"},
 	}
 	choiceMap := map[string][]string{iworkconst.BOOL_PREFIX + "calHash?": {"`true`", "`false`"}}
 	return this.BuildParamInputSchemaWithDefaultMap(paramMap, choiceMap)
 }
 
 func (this *DoReceiveFileNode) GetDefaultParamOutputSchema() *iworkmodels.ParamOutputSchema {
-	return this.BuildParamOutputSchemaWithSlice([]string{"fileName", "tempFileName", "fileExt", "tempFilePath", "tempFileServerPath"})
+	return this.BuildParamOutputSchemaWithSlice([]string{"fileName", "tempFileName", "fileExt", "tempFilePath", "fileServerAddr"})
 }
 
 func (this *DoReceiveFileNode) GetRuntimeParamOutputSchema() *iworkmodels.ParamOutputSchema {
