@@ -71,6 +71,7 @@
         if(result.status=="SUCCESS"){
           // 传递 extraData 数据
           result.extraData = this.extraData;
+          result.extraData.file = file;
           // 父子组件通信
           this.$emit('uploadComplete',result);
           this.$Notice.success({

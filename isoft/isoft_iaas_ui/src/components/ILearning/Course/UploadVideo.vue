@@ -12,9 +12,12 @@
         </p>
 
         <div style="margin: 20px 0;">
-          <Button size="small" v-for="(cVideo, num) in cVideos"
-                  type="success" @click="uploadVideoNum = num + 1" style="margin: 5px;">第{{num + 1}}集: {{cVideo.video_name}}</Button>
-          <Button size="small" type="success" @click="uploadVideoNum = cVideos.length + 1">新一集{{cVideos.length + 1}}</Button>
+          <Tag v-for="(cVideo, num) in cVideos" style="margin: 5px;">
+            <span @click="uploadVideoNum = num + 1">第{{num + 1}}集: {{cVideo.video_name}}</span>
+          </Tag>
+          <Tag>
+            <span @click="uploadVideoNum = cVideos.length + 1">新一集</span>
+          </Tag>
         </div>
 
          <IFileUpload ref="fileUpload" btn-size="small" :auto-hide-modal="true" :multiple="false"
@@ -52,9 +55,10 @@
           let uploadFilePath = data.fileServerPath;
           let courseId = data.extraData.id;
           let video_number = data.extraData.video_number;
-          const result = await UploadVideo(courseId, video_number, '1111111111111',uploadFilePath);
+          let filename = data.extraData.file.name;      // 上传文件名称
+          const result = await UploadVideo(courseId, video_number, filename,uploadFilePath);
           if(result.status == "SUCCESS"){
-            this.showDialog = false;
+            this.refreshCourseDetail(courseId);
             this.$emit('uploadComplete');
           }
         }
