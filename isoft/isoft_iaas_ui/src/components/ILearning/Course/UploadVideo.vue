@@ -17,7 +17,8 @@
           <Button size="small" type="success" @click="uploadVideoNum = cVideos.length + 1">新一集{{cVideos.length + 1}}</Button>
         </div>
 
-         <IFileUpload ref="fileUpload" btn-size="small" :auto-hide-modal="true" :extra-data="{'id':course.id, 'video_number':uploadVideoNum}"
+         <IFileUpload ref="fileUpload" btn-size="small" :auto-hide-modal="true" :multiple="false"
+                      :file-suffixs="['mp4']" :extra-data="{'id':course.id, 'video_number':uploadVideoNum}"
                       @uploadComplete="uploadComplete" action="/api/iwork/httpservice/fileUpload" uploadLabel="上传视频"/>
         <span v-if="uploadVideoNum > 0" style="color: green;">*当前更新第{{uploadVideoNum}}集</span>
         <span v-else style="color: red;">请选择更新集数</span>

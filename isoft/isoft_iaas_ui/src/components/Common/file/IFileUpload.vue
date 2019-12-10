@@ -9,7 +9,9 @@
     <div>
       <Upload
         ref="upload"
-        multiple
+        :multiple="multiple"
+        :format="fileSuffixs"
+        :on-format-error="handleFormatError"
         :on-success="uploadComplete"
         :action="action">
         <Button icon="ios-cloud-upload-outline">{{ uploadLabel }}</Button>
@@ -23,6 +25,14 @@
   export default {
     name: "IFileUpload",
     props: {
+      fileSuffixs:{
+        type:Array,
+        default: () => {return ['jpg','jpeg','png']},
+      },
+      multiple:{
+        type:Boolean,
+        default:true,
+      },
       autoHideModal:{
         type:Boolean,
         default:false,
@@ -51,6 +61,12 @@
       }
     },
     methods:{
+      handleFormatError (file) {
+        this.$Notice.warning({
+          title: '温馨提示',
+          desc: '上传文件 ' + file.name + ' 格式不合法！'
+        });
+      },
       uploadComplete(result, file) {
         if(result.status=="SUCCESS"){
           // 传递 extraData 数据
