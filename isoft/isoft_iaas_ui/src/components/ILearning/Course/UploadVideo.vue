@@ -18,6 +18,7 @@
           <Tag>
             <span @click="uploadVideoNum = cVideos.length + 1">新一集</span>
           </Tag>
+          <Spin fix size="large" v-if="isLoading"></Spin>
         </Scroll>
 
          <IFileUpload ref="fileUpload" btn-size="small" :auto-hide-modal="true" :multiple="false"
@@ -43,6 +44,7 @@
     props:["course"],
     data(){
       return {
+        isLoading:true,
         showDialog:false,
         // 当前更新视频集数
         uploadVideoNum:-1,
@@ -80,9 +82,13 @@
         }
       },
       refreshCourseDetail:async function(course_id){
-        const result = await ShowCourseDetail(course_id);
-        if(result.status=="SUCCESS"){
-          this.cVideos = result.cVideos;
+        try {
+          const result = await ShowCourseDetail(course_id);
+          if(result.status=="SUCCESS"){
+            this.cVideos = result.cVideos;
+          }
+        } finally {
+          this.isLoading = false;
         }
       },
       uploadVideoFunc:function () {
