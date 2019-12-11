@@ -49,3 +49,7 @@ migrate 执行但是执行结果未写入 DB bug修复,完整性控制
 
 视频发布--文件上传优化             支持删除和调整顺序
                                 上传文件支持 hash 去重
+                                文件同步 fileSync 是否支持 skipExistTarget
+
+
+Go实现接口访问速率限制: 参考 https://studygolang.com/articles/9138
