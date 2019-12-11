@@ -33,7 +33,7 @@
 <script>
   import {GetCourseListByUserName,EndUpdate,UpdateCourseIcon} from "../../../api"
   import UploadVideo from "../Course/UploadVideo"
-  import {getCookie} from "../../../tools"
+  import {getCookie, handleSpecial} from "../../../tools"
   import CourseMeta from "../Course/CourseMeta";
   import IFileUpload from "../../Common/file/IFileUpload";
 
@@ -52,7 +52,7 @@
         if(data.status == "SUCCESS"){
           let uploadFilePath = data.fileServerPath;
           let courseId = data.extraData;
-          const result = await UpdateCourseIcon(courseId, uploadFilePath);
+          const result = await UpdateCourseIcon(courseId, handleSpecial(uploadFilePath));
           if(result.status == "SUCCESS"){
             this.refreshMyCourseList();
           }
