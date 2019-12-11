@@ -9,6 +9,7 @@ import (
 	"isoft/isoft_iwork_web/core/iworkutil/stringutil"
 	"isoft/isoft_iwork_web/models"
 	"os"
+	"path"
 	"strings"
 )
 
@@ -104,7 +105,12 @@ func (this *FileSyncNode) Execute(trackingId string) {
 		err = os.Rename(file_path, new_file_path)
 	}
 	if err == nil {
-		this.DataStore.CacheDatas(this.WorkStep.WorkStepName, map[string]interface{}{"file_path": new_file_path})
+		paramMap := map[string]interface{}{
+			"file_path":     new_file_path,
+			"new_file_name": path.Base(new_file_path),
+			"new_file_ext":  path.Ext(new_file_path),
+		}
+		this.DataStore.CacheDatas(this.WorkStep.WorkStepName, paramMap)
 	} else {
 		panic(err)
 	}
@@ -120,7 +126,7 @@ func (this *FileSyncNode) GetDefaultParamInputSchema() *iworkmodels.ParamInputSc
 }
 
 func (this *FileSyncNode) GetDefaultParamOutputSchema() *iworkmodels.ParamOutputSchema {
-	return this.BuildParamOutputSchemaWithSlice([]string{"new_file_path"})
+	return this.BuildParamOutputSchemaWithSlice([]string{"new_file_path", "new_file_name", "new_file_ext"})
 }
 
 type FileDeleteNode struct {
