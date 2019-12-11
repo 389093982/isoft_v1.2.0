@@ -27,7 +27,7 @@
         </Row>
         <hr style="margin-top: 10px;">
         <!-- 视频链接 -->
-        <Row style="margin: 10px 0 10px 0">
+        <Row style="margin: 10px 0;min-height: 200px;">
           <Col span="12" v-for="cVideo in cVideos" style="padding: 5px;">
             <Row style="background-color: #f8f8f8;padding: 3px;">
               <Col span="20">
@@ -40,6 +40,7 @@
               </Col>
             </Row>
           </Col>
+          <Spin fix size="large" v-if="isLoading"></Spin>
         </Row>
         <hr>
         <!-- 评论模块 -->
@@ -73,6 +74,7 @@
     components:{CourseMeta, IEasyComment,Recommand,CommunicationGroup,HotRecommend,UserAbout,HotUser},
     data(){
       return {
+        isLoading:true,
         defaultImg: require('../../../assets/default.png'),
         // 当前课程
         course:{},
@@ -91,13 +93,18 @@
         img.onerror = null; //防止闪图
       },
       refreshCourseDetail:async function(){
-        const course_id = this.$route.query.course_id;
-        const result = await ShowCourseDetail(course_id);
-        if(result.status=="SUCCESS"){
-          this.course = result.course;
-          this.cVideos = result.cVideos;
-          this.course_collect = result.course_collect;
-          this.course_parise = result.course_parise;
+        this.isLoading = true;
+        try{
+          const course_id = this.$route.query.course_id;
+          const result = await ShowCourseDetail(course_id);
+          if(result.status=="SUCCESS"){
+            this.course = result.course;
+            this.cVideos = result.cVideos;
+            this.course_collect = result.course_collect;
+            this.course_parise = result.course_parise;
+          }
+        } finally {
+          this.isLoading = false;
         }
       },
       toggle_favorite:async function (favorite_id, favorite_type, message) {
