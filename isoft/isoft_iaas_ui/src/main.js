@@ -30,9 +30,7 @@ import hovered from 'hover.css'
 Vue.use(hovered)
 
 // 注册自定义公共组件
-import isoftlazy from "./components/Common/isoft-lazy"
 import IBeautifulLink from "./components/Common/link/IBeautifulLink"
-Vue.component('isoft-lazy', isoftlazy);
 Vue.component('IBeautifulLink', IBeautifulLink);
 
 Vue.config.productionTip = false
