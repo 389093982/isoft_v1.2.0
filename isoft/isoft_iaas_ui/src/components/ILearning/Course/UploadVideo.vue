@@ -7,18 +7,18 @@
       :mask-closable="false">
       <div>
         <p style="padding:10px;">课程名称：{{course.course_name}}</p>
-        <p style="background-color: rgba(253,0,0,0.25);padding: 10px;">
+        <p style="background-color: rgba(253,0,0,0.11);padding: 10px;">
           上传规则：1、上传视频暂不支持删除功能！2、可上传替换每一集视频 3、视频格式仅支持 mp4 格式！
         </p>
 
-        <div style="margin: 20px 0;">
+        <Scroll height="220" style="margin: 5px 0;">
           <Tag v-for="(cVideo, num) in cVideos" style="margin: 5px;">
             <span @click="uploadVideoNum = num + 1">第{{num + 1}}集: {{cVideo.video_name}}</span>
           </Tag>
           <Tag>
             <span @click="uploadVideoNum = cVideos.length + 1">新一集</span>
           </Tag>
-        </div>
+        </Scroll>
 
          <IFileUpload ref="fileUpload" btn-size="small" :auto-hide-modal="true" :multiple="false"
                       :file-suffixs="['mp4']" :extra-data="{'id':course.id, 'video_number':uploadVideoNum}"
