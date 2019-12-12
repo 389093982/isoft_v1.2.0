@@ -1,7 +1,7 @@
 <template>
   <Row :gutter="10">
     <Col span="6">
-      <div style="background-color: #fff;border: 1px solid #e6e6e6;padding: 20px;margin-right:1px;min-height: 500px;">
+      <div style="background-color: #fff;border: 1px solid #e6e6e6;padding: 20px;min-height: 500px;">
         <Button size="small" @click="editBookCatalog">新建目录</Button>
 
         <ISimpleConfirmModal ref="bookCatalogEditModal" modal-title="新增/编辑 目录" :modal-width="600" :footer-hide="true">
