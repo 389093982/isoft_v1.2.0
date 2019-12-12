@@ -25,6 +25,10 @@
   background: #212121;
 }
 
+.isoft_bold{
+  font-weight: bold;
+}
+
 .isoft_inline_ellipsis{
   overflow: hidden;
   white-space: nowrap;

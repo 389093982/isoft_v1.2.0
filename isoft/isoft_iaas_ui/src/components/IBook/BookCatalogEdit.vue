@@ -21,7 +21,7 @@
           <div v-if="bookCatalogs && bookCatalogs.length > 0">
             <dl>
               <dt><span style="color: green;font-weight: bold;">{{$route.query.book_name}}</span></dt>
-              <dd class="isoft_font12 isoft_inline_ellipsis" v-for="bookCatalog in bookCatalogs">
+              <dd class="isoft_font12 isoft_inline_ellipsis isoft_bold" v-for="bookCatalog in bookCatalogs">
                 <Icon type="ios-paper-outline"/>
                 <span class="isoft_hover_red" @onclick="editBookArticle(bookCatalog.id)">{{bookCatalog.catalog_name}}</span>
                 <a class="catalogEditIcon" style="margin-left: 5px;" @click="editBookCatalog(bookCatalog.id)"><Icon type="md-create"/></a>
