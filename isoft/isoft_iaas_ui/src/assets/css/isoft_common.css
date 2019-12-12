@@ -25,6 +25,12 @@
   background: #212121;
 }
 
+.isoft_inline_ellipsis{
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
 .isoft_font12 {
   font-size: 12px;
   font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;

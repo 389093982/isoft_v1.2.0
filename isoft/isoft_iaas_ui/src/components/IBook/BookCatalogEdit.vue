@@ -21,9 +21,9 @@
           <div v-if="bookCatalogs && bookCatalogs.length > 0">
             <dl>
               <dt><span style="color: green;font-weight: bold;">{{$route.query.book_name}}</span></dt>
-              <dd v-for="bookCatalog in bookCatalogs">
+              <dd class="isoft_font12 isoft_inline_ellipsis" v-for="bookCatalog in bookCatalogs">
                 <Icon type="ios-paper-outline"/>
-                <IBeautifulLink @onclick="editBookArticle(bookCatalog.id)">{{bookCatalog.catalog_name | filterLimitFunc}}</IBeautifulLink>
+                <span class="isoft_hover_red" @onclick="editBookArticle(bookCatalog.id)">{{bookCatalog.catalog_name}}</span>
                 <a class="catalogEditIcon" style="margin-left: 5px;" @click="editBookCatalog(bookCatalog.id)"><Icon type="md-create"/></a>
               </dd>
             </dl>
@@ -112,19 +112,12 @@
     mounted(){
       this.refreshBookCatalogList();
     },
-    filters:{
-      // 内容超长则显示部分
-      filterLimitFunc:function (value) {
-        if(value && value.length > 30) {
-          value= value.substring(0,30) + '...';
-        }
-        return value;
-      },
-    }
   }
 </script>
 
 <style scoped>
+  @import "../../assets/css/isoft_common.css";
+
   dd .catalogEditIcon{
     display: none;
   }
