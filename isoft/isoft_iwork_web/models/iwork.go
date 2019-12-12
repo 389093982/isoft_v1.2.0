@@ -92,6 +92,11 @@ func QueryWork(condArr map[string]string, page int, offset int, o orm.Ormer) (wo
 	if searchWorkType, ok := condArr["search_work_type"]; ok && searchWorkType != "" && searchWorkType != "all" {
 		cond = cond.And("work_type", searchWorkType)
 	}
+
+	if searchModule, ok := condArr["search_module"]; ok && searchModule != "" && searchModule != "all" {
+		cond = cond.And("module_name", searchModule)
+	}
+
 	qs = qs.SetCond(cond)
 	counts, _ = qs.Count()
 	qs = qs.OrderBy("-last_updated_time").Limit(offset, (page-1)*offset)

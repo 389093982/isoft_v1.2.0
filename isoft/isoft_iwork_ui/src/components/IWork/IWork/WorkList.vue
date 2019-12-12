@@ -46,13 +46,24 @@
     </ISimpleLeftRightRow>
 
     所有类型：
-    <Button size="small" :type="search_work_type == 'all' ? 'success' : 'default'" @click="filterWorkTypes('all')">all</Button>
-    <Button size="small" :type="search_work_type == 'work' ? 'success' : 'default'" @click="filterWorkTypes('work')">work</Button>
-    <Button size="small" :type="search_work_type == 'filter' ? 'success' : 'default'" @click="filterWorkTypes('filter')">filter</Button>
+    <Tag :color="search_work_type == 'all' ? 'success' : 'default'">
+      <span @click="filterWorkTypes('all')">all</span>
+    </Tag>
+    <Tag :color="search_work_type == 'work' ? 'success' : 'default'">
+      <span @click="filterWorkTypes('work')">work</span>
+    </Tag>
+    <Tag :color="search_work_type == 'filter' ? 'success' : 'default'">
+      <span @click="filterWorkTypes('filter')">filter</span>
+    </Tag>
     <br/>
     所有模块：
+    <Tag :color="search_module == 'all' ? 'success' : 'default'">
+      <span @click="filterModuleWork('all')">all</span>
+    </Tag>
     <span v-for="module in modules">
-      <Tag><a @click="filterModuleWork(module.module_name)">{{module.module_name}}</a></Tag>
+      <Tag :color="search_module == module.module_name ? 'success' : 'default'">
+        <span @click="filterModuleWork(module.module_name)">{{module.module_name}}</span>
+      </Tag>
     </span>
 
     <Table border :columns="columns1" :data="works" size="small"></Table>
@@ -77,6 +88,7 @@
     data(){
       return {
         search_work_type:"all",
+        search_module:"all",
         // 当前页
         current_page:1,
         // 总数
@@ -270,11 +282,11 @@
         this.refreshWorkList();
       },
       filterModuleWork:function(module_name){
-        this.search = module_name;
+        this.search_module = module_name;
         this.refreshWorkList();
       },
       refreshWorkList:async function () {
-        const result = await FilterPageWorks(this.offset,this.current_page,this.search,this.search_work_type);
+        const result = await FilterPageWorks(this.offset,this.current_page,this.search,this.search_work_type,this.search_module);
         if(result.status=="SUCCESS"){
           this.works = result.works;
           this.total = result.paginator.totalcount;

@@ -34,7 +34,8 @@ export const ValidateResource = (id) => ajax(BASE_URL+"/iwork/validateResource",
 export const GetAllResource = (resource_type) => ajax(BASE_URL+"/iwork/getAllResource", {resource_type},'POST');
 
 // work 分页查询
-export const FilterPageWorks = (offset,current_page,search,search_work_type) => ajax(BASE_URL+"/iwork/filterPageWorks", {offset,current_page,search,search_work_type},'POST');
+export const FilterPageWorks = (offset,current_page,search,search_work_type,search_module) =>
+  ajax(BASE_URL+"/iwork/filterPageWorks", {offset,current_page,search,search_work_type,search_module},'POST');
 
 // 编辑 work 记录
 export const EditWork = (work_id, work_name, work_desc, work_type, module_name, cache_result) => ajax(BASE_URL+"/iwork/editWork", {work_id, work_name, work_desc, work_type, module_name, cache_result},'POST');

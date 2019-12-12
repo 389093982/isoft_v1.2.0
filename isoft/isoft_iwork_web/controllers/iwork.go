@@ -137,6 +137,7 @@ func (this *WorkController) FilterPageWorks() {
 	current_page, _ := this.GetInt("current_page", 1) // 当前页
 	condArr["search"] = this.GetString("search")
 	condArr["search_work_type"] = this.GetString("search_work_type")
+	condArr["search_module"] = this.GetString("search_module")
 	serviceArgs := map[string]interface{}{"condArr": condArr, "offset": offset, "current_page": current_page, "ctx": this.Ctx}
 	if result, err := service.ExecuteResultServiceWithTx(serviceArgs, service.FilterPageWorkService); err == nil {
 		this.Data["json"] = &map[string]interface{}{
