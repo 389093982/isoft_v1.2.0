@@ -1,7 +1,7 @@
 <template>
   <div>
-    <Form ref="formValidate" :model="formValidate" :rules="ruleValidate" :label-width="80">
-      <FormItem label="文章内容" prop="content">
+    <Form ref="formValidate" :model="formValidate" :rules="ruleValidate">
+      <FormItem prop="content">
         <mavon-editor ref="md" v-model="formValidate.content" @imgAdd="$imgAdd"
                       :toolbars="toolbars" :ishljs = "true" style="z-index: 1;min-height: 500px;"/>
       </FormItem>

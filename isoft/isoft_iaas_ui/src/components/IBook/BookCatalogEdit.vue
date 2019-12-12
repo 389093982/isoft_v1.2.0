@@ -1,7 +1,7 @@
 <template>
   <div>
-    <Row>
-      <Col span="6" style="background-color: #fff;border: 1px solid #e6e6e6;border-radius: 4px;padding: 20px;min-height: 500px;">
+    <Row :gutter="10">
+      <Col span="6" style="background-color: #fff;border: 1px solid #e6e6e6;padding: 20px;min-height: 500px;">
         <Button size="small" @click="editBookCatalog">新建目录</Button>
 
         <ISimpleConfirmModal ref="bookCatalogEditModal" modal-title="新增/编辑 目录" :modal-width="600" :footer-hide="true">
@@ -17,7 +17,7 @@
           </Form>
         </ISimpleConfirmModal>
 
-        <Scroll height="430" style="margin-top: 5px;">
+        <div style="margin-top: 5px;min-height: 250px;">
           <div v-if="bookCatalogs && bookCatalogs.length > 0">
             <dl>
               <dt><span style="color: green;font-weight: bold;">{{$route.query.book_name}}</span></dt>
@@ -31,7 +31,7 @@
           <div v-else>
             暂未创建目录,直接在右边创建奥
           </div>
-        </Scroll>
+        </div>
       </Col>
       <Col span="18" style="background-color: #fff;border: 1px solid #e6e6e6;border-radius: 4px;padding: 20px;min-height: 500px;">
         <span>
