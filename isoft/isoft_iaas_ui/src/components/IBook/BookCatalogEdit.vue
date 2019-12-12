@@ -1,7 +1,7 @@
 <template>
-  <div>
-    <Row :gutter="10">
-      <Col span="6" style="background-color: #fff;border: 1px solid #e6e6e6;padding: 20px;min-height: 500px;">
+  <Row :gutter="10">
+    <Col span="6">
+      <div style="background-color: #fff;border: 1px solid #e6e6e6;padding: 20px;margin-right:1px;min-height: 500px;">
         <Button size="small" @click="editBookCatalog">新建目录</Button>
 
         <ISimpleConfirmModal ref="bookCatalogEditModal" modal-title="新增/编辑 目录" :modal-width="600" :footer-hide="true">
@@ -32,14 +32,12 @@
             暂未创建目录,直接在右边创建奥
           </div>
         </div>
-      </Col>
-      <Col span="18" style="background-color: #fff;border: 1px solid #e6e6e6;border-radius: 4px;padding: 20px;min-height: 500px;">
-        <span>
-          <BookArticleEdit ref="bookArticleEdit" :success-emit="true" @successEmitFunc="refreshBookCatalogList"/>
-        </span>
-      </Col>
-    </Row>
-  </div>
+      </div>
+    </Col>
+    <Col span="18">
+      <BookArticleEdit ref="bookArticleEdit" :success-emit="true" @successEmitFunc="refreshBookCatalogList"/>
+    </Col>
+  </Row>
 </template>
 
 <script>
