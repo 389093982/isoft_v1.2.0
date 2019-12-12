@@ -2,10 +2,7 @@
   <div>
     <Row>
       <Col span="6" style="background-color: #fff;border: 1px solid #e6e6e6;border-radius: 4px;padding: 20px;min-height: 500px;">
-        <Row>
-          <Col span="18"><span style="color: green;font-weight: bold;">{{$route.query.book_name}}</span></Col>
-          <Col span="6"><Button style="right: 50px;" size="small" @click="editBookCatalog">新建目录</Button></Col>
-        </Row>
+        <Button size="small" @click="editBookCatalog">新建目录</Button>
 
         <ISimpleConfirmModal ref="bookCatalogEditModal" modal-title="新增/编辑 目录" :modal-width="600" :footer-hide="true">
           <!-- 表单信息 -->
@@ -22,11 +19,14 @@
 
         <Scroll height="430" style="margin-top: 5px;">
           <div v-if="bookCatalogs && bookCatalogs.length > 0">
-            <p v-for="bookCatalog in bookCatalogs" style="margin-left: 15px;">
-              <Icon type="ios-paper-outline"/>
-              <IBeautifulLink @onclick="editBookArticle(bookCatalog.id)">{{bookCatalog.catalog_name | filterLimitFunc}}</IBeautifulLink>
-              <a class="catalogEditIcon" style="margin-left: 5px;" @click="editBookCatalog(bookCatalog.id)"><Icon type="md-create"/></a>
-            </p>
+            <dl>
+              <dt><span style="color: green;font-weight: bold;">{{$route.query.book_name}}</span></dt>
+              <dd v-for="bookCatalog in bookCatalogs">
+                <Icon type="ios-paper-outline"/>
+                <IBeautifulLink @onclick="editBookArticle(bookCatalog.id)">{{bookCatalog.catalog_name | filterLimitFunc}}</IBeautifulLink>
+                <a class="catalogEditIcon" style="margin-left: 5px;" @click="editBookCatalog(bookCatalog.id)"><Icon type="md-create"/></a>
+              </dd>
+            </dl>
           </div>
           <div v-else>
             暂未创建目录,直接在右边创建奥
@@ -127,10 +127,10 @@
 </script>
 
 <style scoped>
-  p .catalogEditIcon{
+  dd .catalogEditIcon{
     display: none;
   }
-  p:hover .catalogEditIcon{
+  dd:hover .catalogEditIcon{
     display: inline;
   }
 </style>
