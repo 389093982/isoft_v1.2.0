@@ -18,7 +18,9 @@
           <Tag>
             <span @click="uploadVideoNum = cVideos.length + 1">新一集</span>
           </Tag>
-          <Spin fix size="large" v-if="isLoading"></Spin>
+          <Spin fix size="large" v-if="isLoading">
+             <div class="isoft_loading"></div>
+          </Spin>
         </Scroll>
 
          <IFileUpload ref="fileUpload" btn-size="small" :auto-hide-modal="true" :multiple="false"
@@ -86,5 +88,6 @@
 </script>
 
 <style scoped>
+  @import "../../../assets/css/isoft_common.css";
 
 </style>

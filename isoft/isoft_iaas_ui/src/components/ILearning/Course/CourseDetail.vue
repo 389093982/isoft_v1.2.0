@@ -40,7 +40,9 @@
               </Col>
             </Row>
           </Col>
-          <Spin fix size="large" v-if="isLoading"></Spin>
+          <Spin fix size="large" v-if="isLoading">
+            <div class="isoft_loading"></div>
+          </Spin>
         </Row>
         <hr>
         <!-- 评论模块 -->
@@ -125,6 +127,8 @@
 </script>
 
 <style scoped>
+  @import "../../../assets/css/isoft_common.css";
+
   .header a{
     color: red;
   }

@@ -124,3 +124,20 @@
   transition: all 120ms ease-in-out;
   width: 100%;
 }
+
+.isoft_loading {
+  width: 65px;
+  height: 65px;
+  border-radius: 100%;
+  border: 5px rgba(33, 235, 9, 0.15) solid;
+  border-right-color: #03eb00;
+  animation: isoft_loading 1s linear infinite;
+}
+@keyframes isoft_loading {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

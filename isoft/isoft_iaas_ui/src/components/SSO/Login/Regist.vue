@@ -10,7 +10,7 @@
 
     <Row>
       <Col span="14">
-        <div style="margin:80px 200px;">
+        <div style="margin:50px 200px;">
           <div style="text-align: center;padding-left: 50px;">
             <span style="height: 60px;line-height: 60px;font-size: 16px;color: #000;">用户注册</span>
             <span>
@@ -87,17 +87,19 @@
           callback();
         }
       };
-      const _validatePasswd = (rule, value, callback) => {
-        if (value === '') {
-          callback(new Error('密码不能为空!'));
-        } else {
-          callback();
-        }
+      const checkEmptyValidator = function (emptyMsg) {
+        return (rule, value, callback) => {
+          if (value === '') {
+            callback(new Error(emptyMsg));
+          } else {
+            callback();
+          }
+        };
       };
       // 确认密码校验 validatePassCheck
       const validatePassCheck = (rule, value, callback) =>  {
         if (value === '') {
-          callback(new Error('请输入密码进行确认!'));
+          callback(new Error('确认密码不能为空!'));
         } else if (value !== this.formValidate.passwd) {
           callback(new Error('两次输入密码不一致!'));
         } else {
@@ -114,13 +116,13 @@
         },
         ruleValidate: {
           username: [
-            { required: true, validator: _validateUserName, trigger: 'blur' }
+            { required: true, validator: _validateUserName,  trigger: 'blur' }
           ],
           nickname: [
-            { required: true, trigger: 'blur' }
+            { required: true, validator: checkEmptyValidator("用户昵称不能为空!"), trigger: 'blur' }
           ],
           passwd: [
-            { required: true, validator: _validatePasswd, trigger: 'blur' },
+            { required: true, validator: checkEmptyValidator("密码不能为空!"), trigger: 'blur' },
           ],
           repasswd: [        // 确认密码校验 validatePassCheck
             { required: true, validator: validatePassCheck, trigger: 'blur' }

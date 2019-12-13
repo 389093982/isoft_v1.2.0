@@ -1,6 +1,8 @@
 <template>
   <div>
-    <Spin fix size="large" v-if="isLoading"></Spin>
+    <Spin fix size="large" v-if="isLoading">
+      <div class="isoft_loading"></div>
+    </Spin>
     <Form ref="formValidate" :model="formValidate" :rules="ruleValidate">
       <FormItem prop="content">
         <mavon-editor ref="md" v-model="formValidate.content" @imgAdd="$imgAdd"
@@ -119,5 +121,6 @@
 </script>
 
 <style scoped>
+  @import "../../assets/css/isoft_common.css";
 
 </style>

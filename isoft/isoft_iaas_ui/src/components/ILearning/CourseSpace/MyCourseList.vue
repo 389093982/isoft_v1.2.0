@@ -26,7 +26,9 @@
       <IBeautifulLink font-weight="bold" @onclick="$router.push({path:'/ilearning/mine/course_space/newCourse'})">请前去开课！</IBeautifulLink>
       <IBeautifulLink @onclick="">如何开课呢？</IBeautifulLink>
     </div>
-    <Spin fix size="large" v-if="isLoading"></Spin>
+    <Spin fix size="large" v-if="isLoading">
+      <div class="isoft_loading"></div>
+    </Spin>
   </div>
 </template>
 
@@ -81,5 +83,6 @@
 </script>
 
 <style scoped>
+  @import "../../../assets/css/isoft_common.css";
 
 </style>
