@@ -37,9 +37,9 @@
                   <Poptip v-model="visible" placement="left" width="420">
                     <Button style="margin-left: 5px;">选择步骤类型</Button>
                     <div slot="content">
-                  <span v-for="default_work_step_type in nodeMetas" style="margin: 5px;float: left;">
-                    <Tag><span @click="closePoptip(default_work_step_type.name)">{{default_work_step_type.name}}</span></Tag>
-                  </span>
+                      <span v-for="default_work_step_type in nodeMetas" style="margin: 5px;float: left;">
+                        <Tag><span @click="closePoptip(default_work_step_type.name)">{{default_work_step_type.name}}</span></Tag>
+                      </span>
                     </div>
                   </Poptip>
                 </Col>

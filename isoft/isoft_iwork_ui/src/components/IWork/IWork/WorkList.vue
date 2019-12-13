@@ -4,7 +4,7 @@
       <Col span="3"><IWorkDL/></Col>
       <Col span="3"><WorkValidate/></Col>
     </Row>
-    <ISimpleLeftRightRow style="margin-bottom: 10px;margin-right: 10px;">
+    <ISimpleLeftRightRow style="margin: 10px 10px;">
       <!-- left 插槽部分 -->
       <span slot="left">
         <Button type="success" size="small" @click="addWork">新增</Button>
@@ -42,7 +42,21 @@
           </IKeyValueForm>
         </ISimpleConfirmModal>
       </span>
-      <ISimpleSearch slot="right" @handleSimpleSearch="handleSearch"/>
+      <Row slot="right">
+        <Col span="4">
+          <Poptip trigger="hover" title="根据步骤类型搜索" content="content" :width="500" :word-wrap="true">
+            <Button size="small">步骤类型</Button>
+            <div slot="content">
+              <Tag v-for="(default_work_step_type,index) in nodeMetas">
+                <span @click="chooseWorkStepType(default_work_step_type.name)">{{default_work_step_type.name}}</span>
+              </Tag>
+            </div>
+          </Poptip>
+
+        </Col>
+        <Col span="20"><ISimpleSearch ref="search" @handleSimpleSearch="handleSearch"/></Col>
+      </Row>
+
     </ISimpleLeftRightRow>
 
     所有类型：
@@ -73,7 +87,7 @@
 </template>
 
 <script>
-  import {FilterPageWorks,DeleteOrCopyWorkById,RunWork,EditWork,GetAllModules} from "../../../api"
+  import {FilterPageWorks,DeleteOrCopyWorkById,RunWork,EditWork,GetAllModules,GetMetaInfo} from "../../../api"
   import {checkEmpty, validateCommonPatternForString} from "../../../tools/index"
   const ISimpleLeftRightRow = () => import("@/components/Common/layout/ISimpleLeftRightRow");
   const ISimpleSearch = () => import("@/components/Common/search/ISimpleSearch");
@@ -87,6 +101,7 @@
     components:{ISimpleLeftRightRow,ISimpleSearch,IWorkDL,WorkValidate,ISimpleConfirmModal,IKeyValueForm},
     data(){
       return {
+        nodeMetas: [],
         search_work_type:"all",
         search_module:"all",
         // 当前页
@@ -273,6 +288,11 @@
       }
     },
     methods:{
+      chooseWorkStepType:function(work_type){
+        this.$refs.search.initSearchText(work_type);
+        this.search = work_type;
+        this.refreshWorkList();
+      },
       closePoptip (module_name) {
         this.current_module_name=module_name;
         this.visible = false;
@@ -362,12 +382,18 @@
         if(result.status == "SUCCESS"){
           this.modules = result.moudles;
         }
+      },
+      refreshNodeMetas:async function () {
+        const result = await GetMetaInfo("nodeMetas");
+        if(result.status == "SUCCESS"){
+          this.nodeMetas = result.nodeMetas;
+        }
       }
     },
     mounted: function () {
       this.refreshWorkList();
-
       this.refreshAllModules();
+      this.refreshNodeMetas();
     },
   }
 </script>

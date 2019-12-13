@@ -19,6 +19,9 @@
       }
     },
     methods:{
+      initSearchText(searchText){
+        this.search = searchText;
+      },
       handleSimpleSearch:function(){
         this.$emit('handleSimpleSearch', this.search);
       },
