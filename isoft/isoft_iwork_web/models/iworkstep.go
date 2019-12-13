@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"github.com/astaxie/beego/orm"
 	"isoft/isoft_iwork_web/core/iworkmodels"
+	"strings"
 	"time"
 )
 
@@ -46,8 +47,11 @@ func SearchWorkIdsFromWorkStep(search string, o orm.Ormer) []int64 {
 	workIds := make([]int64, 0)
 	if search != "" {
 		lst := make(orm.ParamsList, 0)
-		_, err := o.QueryTable("work_step").Filter("work_step_input__icontains", search).
-			Filter("work_step_output__icontains", search).ValuesFlat(&lst, "work_id")
+		var cond = orm.NewCondition()
+		cond = cond.And("work_step_input__icontains", strings.TrimSpace(search)).
+			Or("work_step_output__icontains", strings.TrimSpace(search)).
+			Or("work_step_type", strings.TrimSpace(search))
+		_, err := o.QueryTable("work_step").SetCond(cond).ValuesFlat(&lst, "work_id")
 		if err == nil {
 			for _, pl := range lst {
 				workIds = append(workIds, pl.(int64))

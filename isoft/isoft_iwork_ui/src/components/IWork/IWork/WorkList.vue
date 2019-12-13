@@ -45,7 +45,7 @@
       <Row slot="right">
         <Col span="4">
           <Poptip trigger="hover" title="根据步骤类型搜索" content="content" :width="500" :word-wrap="true">
-            <Button size="small">步骤类型</Button>
+            <Button size="small">步骤类型搜索</Button>
             <div slot="content">
               <Tag v-for="(default_work_step_type,index) in nodeMetas">
                 <span @click="chooseWorkStepType(default_work_step_type.name)">{{default_work_step_type.name}}</span>
