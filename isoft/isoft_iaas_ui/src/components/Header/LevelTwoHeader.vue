@@ -4,6 +4,7 @@
       <ul>
         <li><span @click="$router.push({path:'/ilearning/index'})">返回首页</span></li>
         <li><span @click="$router.push({path:'/ilearning/advise'})">我要吐槽/建议</span></li>
+        <li><span @click="$router.push({path:'/ilearning/advise'})">更多问题 FAQ</span></li>
         <li @mouseenter="handleMouseenter(0)"
             @mouseleave="handleMouseleave(0)">
           网站导航

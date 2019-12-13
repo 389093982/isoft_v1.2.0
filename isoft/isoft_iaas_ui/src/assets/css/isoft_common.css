@@ -29,6 +29,12 @@
   font-weight: bold;
 }
 
+.isoft_font{
+  font-family: "Helvetica Neue","Luxi Sans","DejaVu Sans",Tahoma,"Hiragino Sans GB","Microsoft Yahei",sans-serif;
+}
+
+
+
 .isoft_inline_ellipsis{
   overflow: hidden;
   white-space: nowrap;
