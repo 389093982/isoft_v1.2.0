@@ -10,7 +10,8 @@
 
     <Row>
       <Col span="14">
-        <Regist/>
+        <Forget v-if="$route.query.pattern && $route.query.pattern == 2"/>
+        <Regist v-else/>
       </Col>
       <Col span="8">
         <div style="margin: 40px 0px 0px 0px;min-height: 400px;padding:25px;
@@ -38,10 +39,11 @@
 <script>
   import LoginFooter from "./LoginFooter"
   import Regist from "./Regist";
+  import Forget from "./Forget";
 
   export default {
     name: "RegistOrForget",
-    components:{Regist, LoginFooter},
+    components:{Regist, Forget, LoginFooter},
     data(){
       return {}
     },
