@@ -1,5 +1,6 @@
 <template>
   <div>
+    <Spin fix size="large" v-if="isLoading"></Spin>
     <Form ref="formValidate" :model="formValidate" :rules="ruleValidate">
       <FormItem prop="content">
         <mavon-editor ref="md" v-model="formValidate.content" @imgAdd="$imgAdd"
@@ -21,6 +22,7 @@
     name: "BookArticleEdit",
     data(){
       return {
+        isLoading:false,
         bookArticle:null,
         toolbars: {
           bold: true, // 粗体
@@ -73,20 +75,25 @@
         })
       },
       refreshBookArticleDetail:async function (book_catalog_id) {
-        this.formValidate.book_catalog_id = book_catalog_id;
-        const result = await ShowBookArticleDetail(book_catalog_id);
-        if(result.status=="SUCCESS"){
-          if(result.bookArticle != null){
-            this.bookArticle = result.bookArticle;
-            this.formValidate.id = result.bookArticle.id;
-            this.formValidate.content = result.bookArticle.content;
+        this.isLoading = true;
+        try {
+          this.formValidate.book_catalog_id = book_catalog_id;
+          const result = await ShowBookArticleDetail(book_catalog_id);
+          if(result.status=="SUCCESS"){
+            if(result.bookArticle != null){
+              this.bookArticle = result.bookArticle;
+              this.formValidate.id = result.bookArticle.id;
+              this.formValidate.content = result.bookArticle.content;
+            }else{
+              this.bookArticle = null;
+              this.formValidate.id = -1;
+              this.formValidate.content = "";
+            }
           }else{
-            this.bookArticle = null;
-            this.formValidate.id = -1;
-            this.formValidate.content = "";
+            this.$Message.error("加载失败!");
           }
-        }else{
-          this.$Message.error("加载失败!");
+        } finally {
+          this.isLoading = false;
         }
       },
       handleSubmit: function(name) {

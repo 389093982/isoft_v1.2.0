@@ -23,7 +23,7 @@
               <dt><span style="color: green;font-weight: bold;">{{$route.query.book_name}}</span></dt>
               <dd class="isoft_font isoft_inline_ellipsis" style="color: #333333;" v-for="bookCatalog in bookCatalogs">
                 <Icon type="ios-paper-outline"/>
-                <span class="isoft_hover_red" @onclick="editBookArticle(bookCatalog.id)">{{bookCatalog.catalog_name}}</span>
+                <span class="isoft_hover_red" @click="editBookArticle(bookCatalog.id)">{{bookCatalog.catalog_name}}</span>
                 <a class="catalogEditIcon" style="margin-left: 5px;" @click="editBookCatalog(bookCatalog.id)"><Icon type="md-create"/></a>
               </dd>
             </dl>
