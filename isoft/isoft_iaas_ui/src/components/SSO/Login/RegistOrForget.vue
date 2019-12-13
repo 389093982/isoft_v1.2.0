@@ -75,7 +75,7 @@
   import IBeautifulLink from "../../Common/link/IBeautifulLink";
 
   export default {
-    name: "Regist",
+    name: "RegistOrForget",
     components:{IBeautifulLink, LoginFooter,ISimpleSearch},
     data(){
       const _validateUserName = (rule, value, callback) => {

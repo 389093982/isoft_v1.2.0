@@ -9,12 +9,12 @@
       <span id="error_msg" v-if="showError">{{errorMsg}}</span>
       <p>
         <input id="submit" type="submit" value="登录" @click="login">
-        <router-link :to="{path:'/sso/user/forgetPwd'}" style="float: right;color: #2e82ff;">忘记密码？</router-link>
+        <router-link :to="{path:'/sso/forget', query: { pattern: 2 }}" style="float: right;color: #2e82ff;">忘记密码？</router-link>
       </p>
     </div>
     <div id="login_footer">
       <router-link :to="{path:'/sso/user/friendLogin'}" style="float: left;color: #2e82ff;">友情登录</router-link>
-      <router-link :to="{path:'/sso/regist'}" style="float: right;color: #2e82ff;">立即注册</router-link>
+      <router-link :to="{path:'/sso/regist', query: { pattern: 1 }}" style="float: right;color: #2e82ff;">立即注册</router-link>
     </div>
   </div>
 </template>

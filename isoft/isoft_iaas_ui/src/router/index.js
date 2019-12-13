@@ -3,7 +3,7 @@ import Router from 'vue-router'
 
 // es6 import 异步语法,使用异步组件加载机制减少耗时操作
 const Login = () => import("@/components/SSO/Login/Login");
-const Regist = () => import("@/components/SSO/Login/Regist");
+const RegistOrForget = () => import("@/components/SSO/Login/RegistOrForget");
 const AppRegist = () => import("@/components/SSO/AppRegist");
 const LoginRecord = () => import("@/components/SSO/LoginRecord");
 const IEmptyLayout = () => import("@/components/ILayout/IEmptyLayout");
@@ -115,7 +115,8 @@ const ISSOReouter = [{
   component: IEmptyLayout,
   children: [
     {path: 'login',component: Login},
-    {path: 'regist',component: Regist},
+    {path: 'regist',component: RegistOrForget},
+    {path: 'forget',component: RegistOrForget},
   ]
 }];
 
