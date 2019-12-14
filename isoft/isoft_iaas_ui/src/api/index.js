@@ -133,6 +133,8 @@ export const Regist = (username,passwd,nickname) => ajax(BASE_URL+"/iwork/httpse
 
 export const CreateVerifyCode = (username) => ajax(BASE_URL+"/iwork/httpservice/createVerifyCode", {username},'POST');
 
+export const ModifyPwd = (username,passwd,verifyCode) => ajax(BASE_URL+"/iwork/httpservice/modifyPwd", {username,passwd,verifyCode},'POST');
+
 export const GetHotUsers = () => ajax(BASE_URL+"/iwork/httpservice/GetHotUsers", {},'POST');
 
 // 系统注册分页查询

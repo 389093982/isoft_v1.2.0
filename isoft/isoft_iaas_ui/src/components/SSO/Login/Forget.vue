@@ -29,7 +29,7 @@
 
 <script>
   import {validateEmail} from "../../../tools"
-  import {CreateVerifyCode} from "../../../api"
+  import {CreateVerifyCode,ModifyPwd} from "../../../api"
 
   export default {
     name: "Forget",
@@ -98,10 +98,9 @@
       },
       handleSubmit: function (name) {
         this.$refs[name].validate(async (valid) => {
-          alert(valid);
           if (valid) {
             // 校验通过则进行注册
-            this.forgetPwd();
+            this.modifyPwd();
           } else {
             this.$Message.error('信息校验失败!');
           }
@@ -115,8 +114,13 @@
           this.$Message.error(result.errorMsg);
         }
       },
-      forgetPwd:function () {
-        alert(11111);
+      modifyPwd:async function () {
+        const result = await ModifyPwd(this.formValidate.username, this.formValidate.passwd, this.formValidate.verifycode);
+        if(result.status == "SUCCESS"){
+          this.$Message.success("密码修改成功!");
+        }else{
+          this.$Message.error(result.errorMsg);
+        }
       }
     }
   }
