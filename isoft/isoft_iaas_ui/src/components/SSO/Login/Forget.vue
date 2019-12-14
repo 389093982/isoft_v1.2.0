@@ -29,6 +29,7 @@
 
 <script>
   import {validateEmail} from "../../../tools"
+  import {CreateVerifyCode} from "../../../api"
 
   export default {
     name: "Forget",
@@ -89,7 +90,7 @@
         this.$refs[name].validateField('username', async (err) => {
           if (!err) {
             // 校验通过则进行注册
-            this.createVerifyCode();
+            this.createVerifyCode(this.formValidate.username);
           } else {
             this.$Message.error('信息校验失败!');
           }
@@ -106,8 +107,11 @@
           }
         })
       },
-      createVerifyCode:function () {
-        alert(11111);
+      createVerifyCode:async function (username) {
+        const result = await CreateVerifyCode(username);
+        if(result.status == "SUCCESS"){
+          this.$Message.success("验证码发送成功,请注意查收!");
+        }
       },
       forgetPwd:function () {
         alert(11111);
