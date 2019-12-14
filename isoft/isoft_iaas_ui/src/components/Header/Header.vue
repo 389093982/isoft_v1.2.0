@@ -44,6 +44,9 @@
         <MenuItem name="9">
           <IBeautifulLink @onclick="$router.push({path:'/shareArticle/shareArticlePlace'})">作文分享</IBeautifulLink>
         </MenuItem>
+        <MenuItem name="10">
+          <IBeautifulLink @onclick="$router.push({path:'/vipcenter/vipIntroduction'})">会员中心</IBeautifulLink>
+        </MenuItem>
       </div>
     </Menu>
 

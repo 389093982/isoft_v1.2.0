@@ -43,6 +43,8 @@ const GoodEdit = () => import("@/components/IGood/GoodEdit");
 const GoodDetail = () => import("@/components/IGood/GoodDetail");
 const PayConfirm = () => import("@/components/IGood/PayConfirm");
 const ILayout = () => import("@/components/ILayout/ILayout");
+const VipIntroduction = () => import("@/components/VipCenter/VipIntroduction");
+const Recharge = () => import("@/components/VipCenter/Recharge");
 import ArticleList from "../components/ShareArticle/ArticleList"
 import ArticleEdit from "../components/ShareArticle/ArticleEdit"
 import ShareArticlePlace from "../components/ShareArticle/ShareArticlePlace"
@@ -176,7 +178,15 @@ const ShareArticleReouter = [{
     {path: 'articleEdit',component: ArticleEdit},
     {path: 'sharingHall',component: SharingHall},
   ]
-}]
+}];
+
+const VipCenterReouter = [{
+  path:'/vipcenter',component: ILayout,
+  children: [
+    {path: 'vipIntroduction',component: VipIntroduction},
+    {path: 'recharge',component: Recharge},
+  ]
+}];
 
 function getAllRouters() {
   let allRouters = [];
@@ -187,6 +197,7 @@ function getAllRouters() {
   allRouters = joinArray(allRouters, ISSOReouter);
   allRouters = joinArray(allRouters, ICMSReouter);
   allRouters = joinArray(allRouters, ShareArticleReouter);
+  allRouters = joinArray(allRouters, VipCenterReouter);
   allRouters = joinArray(allRouters, getRootRouters());
   return allRouters;
 }

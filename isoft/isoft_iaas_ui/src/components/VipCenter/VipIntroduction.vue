@@ -1,0 +1,91 @@
+<template>
+  <div>
+    <div class="vipCenterUp">
+      <div style="font-size: 30px;padding: 70px 20px 30px 400px">
+        <p style="color: #ff6600">会员尊享，处处为师</p>
+      </div>
+      <dvi style="font-size: 30px;padding: 70px 20px 30px 480px">
+        <Button shape="circle"  style="color:#3c88e4" size="large">
+          <a style="color: #ff6600;font-size: 20px;">开通会员</a>
+        </Button>
+      </dvi>
+    </div>
+    <div>
+      <Table stripe :columns="columns1" :data="data1"></Table>
+    </div>
+    <div class="vipCenterDown">
+      <div class="demo-split">
+        <Split v-model="split1">
+          <div slot="left" class="demo-split-pane">
+            <a><p style="color: #ff6600">非会员简介:</p></a>
+          </div>
+          <div slot="right" class="demo-split-pane">
+            <a><p style="color: #ff6600;font-size: 15px">会员介绍:</p></a>
+          </div>
+        </Split>
+      </div>
+    </div>
+  </div>
+</template>
+<script>
+  export default {
+    name: "VipIntroduction",
+    data () {
+      return {
+        split1: 0.5,
+        columns1: [
+          {
+            title: '非会员',
+            key: 'notVip'
+          },
+          {
+            title: '会员',
+            key: 'isVip'
+          },
+          {
+            title: '尊享特权',
+            key: 'privilege'
+          }
+        ],
+        data1: [
+          {
+            notVip: '学习时间有限',
+            isVip: '学习时间不限',
+            privilege: '随时随地都可以登录学习',
+          },
+          {
+            notVip: '视频数量20，长度30分钟',
+            isVip: '视频数量200，长度120分钟',
+            privilege: '上传视频自己开课',
+          },
+
+        ]
+      }
+    },
+  }
+</script>
+<style>
+  .vipCenterUp{
+    float: left;
+    width: 100%;
+    height:246px;
+    background-image:url("../../../static/images/vipCenter/vipCenterImg.png");
+    background-position-x: center;
+    background-position-y: center;
+  }
+  .vipCenterDown{
+    float: left;
+    width: 100%;
+    height:500px;
+    background-position-x: center;
+    background-position-y: center;
+  }
+  .demo-split{
+    height: 500px;
+    border: 1px solid #dcdee2;
+  }
+  .demo-split-pane{
+    padding: 10px;
+  }
+
+</style>
