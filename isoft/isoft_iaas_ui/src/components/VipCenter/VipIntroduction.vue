@@ -2,11 +2,11 @@
   <div>
     <div class="vipCenterUp">
       <div style="font-size: 30px;padding: 70px 20px 30px 38%">
-        <span style="color: #ff6600">会员尊享，处处为师</span>
+        <span style="color: #ff6600">会员尊享，学而不止</span>
       </div>
-      <dvi style="font-size: 30px;padding: 70px 55% 30px 45%">
-        <Button shape="circle" size="large">
-          <a style="color: #ff6600;font-size: 20px;">开通会员</a>
+      <dvi style="font-size: 30px;padding: 70px 54% 30px 46%">
+        <Button shape="circle" size="large" @click="toRecharge()" style="color: #ff6600;font-size: 20px;">
+          开通会员
         </Button>
       </dvi>
     </div>
@@ -58,8 +58,23 @@
             isVip: '视频数量200，长度120分钟',
             privilege: '上传视频自己开课',
           },
+          {
+            notVip: '学习时间有限',
+            isVip: '学习时间不限',
+            privilege: '随时随地都可以登录学习',
+          },
+          {
+            notVip: '视频数量20，长度30分钟',
+            isVip: '视频数量200，长度120分钟',
+            privilege: '上传视频自己开课',
+          },
 
         ]
+      }
+    },
+    methods:{
+      toRecharge:function () {
+        window.location.href = "#/vipcenter/recharge/";
       }
     },
   }
