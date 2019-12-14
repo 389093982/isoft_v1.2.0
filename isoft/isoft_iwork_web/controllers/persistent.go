@@ -151,14 +151,22 @@ func truncateDB() {
 	orm.NewOrm().QueryTable("audit_task").Filter("id__gt", 0).Delete()
 }
 
-func persistentSingleToDB(dirPath string, persistentFunc func(v interface{}, filepath string), v interface{}) {
+// 长度过长可能会批量导入失败,需要进一步拆分
+func persistentWorkFilesToDB(dirPath string) {
 	filepaths, _, _ := fileutils.GetAllSubFile(dirPath)
+	var err error
+	works := make([]models.Work, 0)
+	workSteps := make([]models.WorkStep, 0)
 	for _, filepath := range filepaths {
-		persistentFunc(v, filepath)
+		works, workSteps = parseWorkFile(filepath, works, workSteps)
 	}
+	_, err = orm.NewOrm().InsertMulti(len(works), works)
+	errorutil.CheckError(err)
+	_, err = orm.NewOrm().InsertMulti(len(workSteps), workSteps)
+	errorutil.CheckError(err)
 }
 
-func persistentWorksFileToDB(v interface{}, filepath string) {
+func parseWorkFile(filepath string, works []models.Work, workSteps []models.WorkStep) ([]models.Work, []models.WorkStep) {
 	workCache := iworkcache.WorkCache{}
 	bytes, _ := ioutil.ReadFile(filepath)
 	err := xml.Unmarshal(bytes, &workCache)
@@ -166,14 +174,14 @@ func persistentWorksFileToDB(v interface{}, filepath string) {
 	work := workCache.Work
 	work.CreatedTime = time.Now()
 	work.LastUpdatedTime = time.Now()
-	_, err = orm.NewOrm().Insert(&work)
+	works = append(works, work)
 	errorutil.CheckError(err)
 	for _, step := range workCache.Steps {
 		step.CreatedTime = time.Now()
 		step.LastUpdatedTime = time.Now()
-		_, err := orm.NewOrm().Insert(&step)
-		errorutil.CheckError(err)
+		workSteps = append(workSteps, step)
 	}
+	return works, workSteps
 }
 
 func Insert(slice interface{}, pos int, value interface{}) interface{} {
@@ -217,6 +225,6 @@ func importProject() {
 		persistentMultiToDB(fmt.Sprintf("%s/globalVars", persistentDirPath), reflect.TypeOf(models.GlobalVar{}))
 		persistentMultiToDB(fmt.Sprintf("%s/migrates", persistentDirPath), reflect.TypeOf(models.SqlMigrate{}))
 		persistentMultiToDB(fmt.Sprintf("%s/audits", persistentDirPath), reflect.TypeOf(models.AuditTask{}))
-		persistentSingleToDB(fmt.Sprintf("%s/works", persistentDirPath), persistentWorksFileToDB, nil)
+		persistentWorkFilesToDB(fmt.Sprintf("%s/works", persistentDirPath))
 	}
 }
