@@ -111,6 +111,8 @@
         const result = await CreateVerifyCode(username);
         if(result.status == "SUCCESS"){
           this.$Message.success("验证码发送成功,请注意查收!");
+        }else{
+          this.$Message.error(result.errorMsg);
         }
       },
       forgetPwd:function () {

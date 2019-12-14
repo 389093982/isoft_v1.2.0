@@ -8,7 +8,7 @@
             <!--text-overflow: ellipsis; //超出部分用....代替-->
             <!--overflow: hidden; //超出隐藏-->
             <!--鼠标移动过去的时候显示全部文字,也很简单,给title赋值就可以了-->
-            <div style="width: 100px;color: green;text-align: right;white-space: nowrap;text-overflow: ellipsis;overflow: hidden;"
+            <div style="width: 150px;color: green;text-align: right;white-space: nowrap;text-overflow: ellipsis;overflow: hidden;"
               :title="item.ParamName">
               {{item.ParamName}}
             </div>
