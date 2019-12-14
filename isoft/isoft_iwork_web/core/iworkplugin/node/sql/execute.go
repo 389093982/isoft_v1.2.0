@@ -1,6 +1,8 @@
 package sql
 
 import (
+	"errors"
+	"isoft/isoft_iwork_web/core/interfaces"
 	"isoft/isoft_iwork_web/core/iworkconst"
 	"isoft/isoft_iwork_web/core/iworkmodels"
 	"isoft/isoft_iwork_web/core/iworkplugin/node"
@@ -18,15 +20,28 @@ type SQLExecuteNode struct {
 func (this *SQLExecuteNode) Execute(trackingId string) {
 	sql, namings := parseNamingSql(this.TmpDataMap[iworkconst.STRING_PREFIX+"sql"].(string))
 	dataSourceName := this.TmpDataMap[iworkconst.STRING_PREFIX+"db_conn"].(string)
+
 	// insert 语句且有批量操作时整改 sql 语句
 	sql = this.modifySqlInsertWithBatch(this.TmpDataMap, sql)
 	// sql_binding 参数获取
 	sql_binding := getSqlBinding(this.TmpDataMap, namings)
 	lastInsertId, affected := sqlutil.Execute(sql, sql_binding, dataSourceName)
+	this.checkPanicNoAffectedMsg(affected)
 	// 将数据数据存储到数据中心
 	// 存储 affected
 	paramMap := map[string]interface{}{iworkconst.NUMBER_PREFIX + "affected": affected, iworkconst.NUMBER_PREFIX + "lastInsertId": lastInsertId}
 	this.DataStore.CacheDatas(this.WorkStep.WorkStepName, paramMap)
+}
+
+// 当影响条数为 0 时,是否报出异常信息
+func (this *SQLExecuteNode) checkPanicNoAffectedMsg(affected int64) {
+	if panicNoAffected := this.TmpDataMap[iworkconst.STRING_PREFIX+"panic_no_affected?"]; panicNoAffected != nil {
+		panicNoAffectedMsg := panicNoAffected.(string)
+		if affected == 0 && panicNoAffectedMsg != "" {
+			panic(&interfaces.InsensitiveError{Error: errors.New(panicNoAffectedMsg)})
+		}
+	}
+
 }
 
 func (this *SQLExecuteNode) modifySqlInsertWithBatch(tmpDataMap map[string]interface{}, sql string) string {
@@ -61,7 +76,8 @@ func (this *SQLExecuteNode) GetDefaultParamInputSchema() *iworkmodels.ParamInput
 		1: {iworkconst.FOREACH_PREFIX + "batch_data?", "仅供批量插入数据时使用"},
 		2: {iworkconst.STRING_PREFIX + "sql", "执行sql语句"},
 		3: {iworkconst.MULTI_PREFIX + "sql_binding?", "sql绑定数据,个数必须和当前执行sql语句中的占位符参数个数相同", "repeatable__" + iworkconst.FOREACH_PREFIX + "batch_data?"},
-		4: {iworkconst.STRING_PREFIX + "db_conn", "数据库连接信息,需要使用 $RESOURCE 全局参数"},
+		4: {iworkconst.STRING_PREFIX + "panic_no_affected?", "执行 sql 影响条数为 0 时,抛出的异常信息,为空时不抛出异常!"},
+		5: {iworkconst.STRING_PREFIX + "db_conn", "数据库连接信息,需要使用 $RESOURCE 全局参数"},
 	}
 	return this.BuildParamInputSchemaWithDefaultMap(paramMap)
 }

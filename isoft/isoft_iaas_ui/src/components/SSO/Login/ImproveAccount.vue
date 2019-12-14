@@ -1,7 +1,7 @@
 <template>
   <div id="nav">
     依据《网络安全法》，为保障您的账户安全和正常使用，请尽快完善账号信息！新版本全面为您的账号安全护航！
-    <a href="javascript:;" id="account" @click="$router.push({path:'/sso/regist'})">完善账号资料</a>
+    <a href="javascript:;" id="account" @click="$router.push({path:'/sso/regist', query: { pattern: 1 }})">完善账号资料</a>
   </div>
 </template>
 

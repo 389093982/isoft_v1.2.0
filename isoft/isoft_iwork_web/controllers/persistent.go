@@ -14,6 +14,7 @@ import (
 	"isoft/isoft_iwork_web/models"
 	"path"
 	"path/filepath"
+	"reflect"
 	"runtime"
 	"time"
 )
@@ -150,21 +151,22 @@ func truncateDB() {
 	orm.NewOrm().QueryTable("audit_task").Filter("id__gt", 0).Delete()
 }
 
-func persistentToDB(dirPath string, persistentFunc func(v interface{}, filepath string), v interface{}) {
+// 长度过长可能会批量导入失败,需要进一步拆分
+func persistentWorkFilesToDB(dirPath string) {
 	filepaths, _, _ := fileutils.GetAllSubFile(dirPath)
+	var err error
+	works := make([]models.Work, 0)
+	workSteps := make([]models.WorkStep, 0)
 	for _, filepath := range filepaths {
-		persistentFunc(v, filepath)
+		works, workSteps = parseWorkFile(filepath, works, workSteps)
 	}
-}
-
-func persistentModelToDB(v interface{}, filepath string) {
-	bytes, _ := ioutil.ReadFile(filepath)
-	xml.Unmarshal(bytes, v)
-	_, err := orm.NewOrm().Insert(v)
+	_, err = orm.NewOrm().InsertMulti(len(works), works)
+	errorutil.CheckError(err)
+	_, err = orm.NewOrm().InsertMulti(len(workSteps), workSteps)
 	errorutil.CheckError(err)
 }
 
-func persistentWorksFileToDB(v interface{}, filepath string) {
+func parseWorkFile(filepath string, works []models.Work, workSteps []models.WorkStep) ([]models.Work, []models.WorkStep) {
 	workCache := iworkcache.WorkCache{}
 	bytes, _ := ioutil.ReadFile(filepath)
 	err := xml.Unmarshal(bytes, &workCache)
@@ -172,27 +174,57 @@ func persistentWorksFileToDB(v interface{}, filepath string) {
 	work := workCache.Work
 	work.CreatedTime = time.Now()
 	work.LastUpdatedTime = time.Now()
-	_, err = orm.NewOrm().Insert(&work)
+	works = append(works, work)
 	errorutil.CheckError(err)
 	for _, step := range workCache.Steps {
 		step.CreatedTime = time.Now()
 		step.LastUpdatedTime = time.Now()
-		_, err := orm.NewOrm().Insert(&step)
-		errorutil.CheckError(err)
+		workSteps = append(workSteps, step)
 	}
+	return works, workSteps
+}
+
+func Insert(slice interface{}, pos int, value interface{}) interface{} {
+	v := reflect.ValueOf(slice)
+	appendSlice := reflect.MakeSlice(reflect.SliceOf(reflect.TypeOf(value)), 1, 1)
+	appendSlice.Index(0).Set(reflect.ValueOf(value))
+	v = reflect.AppendSlice(v.Slice(0, pos), reflect.AppendSlice(appendSlice, v.Slice(pos, v.Len())))
+	return v.Interface()
+}
+
+func Append(slice interface{}, value interface{}) interface{} {
+	v := reflect.ValueOf(slice)
+	return Insert(slice, v.Len(), value)
+}
+
+// 批量插入 DB
+func persistentMultiToDB(dirPath string, tp reflect.Type) {
+	filepaths, _, _ := fileutils.GetAllSubFile(dirPath)
+	// reflect.PtrTo 返回类型t的指针的类型
+	// reflect.SliceOf 返回类型t的切片的类型
+	rows := reflect.MakeSlice(reflect.SliceOf(reflect.PtrTo(tp)), 0, 0).Interface()
+	for _, filepath := range filepaths {
+		bytes, _ := ioutil.ReadFile(filepath)
+		// reflect.New 返回一个Value类型值,该值持有一个指向类型为typ的新申请的零值的指针,返回值的Type为PtrTo(typ)
+		val := reflect.New(tp).Interface()
+		xml.Unmarshal(bytes, val)
+		rows = Append(rows, val)
+	}
+	_, err := orm.NewOrm().InsertMulti(len(filepaths), rows)
+	errorutil.CheckError(err)
 }
 
 func importProject() {
 	if persistent_initial, _ := beego.AppConfig.Bool("persistent.initial"); persistent_initial == true {
-		// backupDB()
+		backupDB()
 		truncateDB()
-		persistentToDB(fmt.Sprintf("%s/filters", persistentDirPath), persistentModelToDB, &models.Filters{})
-		persistentToDB(fmt.Sprintf("%s/quartzs", persistentDirPath), persistentModelToDB, &models.CronMeta{})
-		persistentToDB(fmt.Sprintf("%s/resources", persistentDirPath), persistentModelToDB, &models.Resource{})
-		persistentToDB(fmt.Sprintf("%s/modules", persistentDirPath), persistentModelToDB, &models.Module{})
-		persistentToDB(fmt.Sprintf("%s/globalVars", persistentDirPath), persistentModelToDB, &models.GlobalVar{})
-		persistentToDB(fmt.Sprintf("%s/works", persistentDirPath), persistentWorksFileToDB, nil)
-		persistentToDB(fmt.Sprintf("%s/migrates", persistentDirPath), persistentModelToDB, &models.SqlMigrate{})
-		persistentToDB(fmt.Sprintf("%s/audits", persistentDirPath), persistentModelToDB, &models.AuditTask{})
+		persistentMultiToDB(fmt.Sprintf("%s/filters", persistentDirPath), reflect.TypeOf(models.Filters{}))
+		persistentMultiToDB(fmt.Sprintf("%s/quartzs", persistentDirPath), reflect.TypeOf(models.CronMeta{}))
+		persistentMultiToDB(fmt.Sprintf("%s/resources", persistentDirPath), reflect.TypeOf(models.Resource{}))
+		persistentMultiToDB(fmt.Sprintf("%s/modules", persistentDirPath), reflect.TypeOf(models.Module{}))
+		persistentMultiToDB(fmt.Sprintf("%s/globalVars", persistentDirPath), reflect.TypeOf(models.GlobalVar{}))
+		persistentMultiToDB(fmt.Sprintf("%s/migrates", persistentDirPath), reflect.TypeOf(models.SqlMigrate{}))
+		persistentMultiToDB(fmt.Sprintf("%s/audits", persistentDirPath), reflect.TypeOf(models.AuditTask{}))
+		persistentWorkFilesToDB(fmt.Sprintf("%s/works", persistentDirPath))
 	}
 }

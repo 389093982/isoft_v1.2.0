@@ -7,6 +7,7 @@ import (
 	"isoft/isoft/common/chiperutil"
 	"isoft/isoft/common/stringutil"
 	"isoft/isoft_iwork_web/core/iworkutil/errorutil"
+	"math/rand"
 	"net/url"
 	"path"
 	"path/filepath"
@@ -56,7 +57,22 @@ func (t *IWorkFuncProxy) GetFuncCallers() []map[string]string {
 		{"funcDemo": "generateMap($key1, $value1, $key2, $value2)", "funcDesc": "产生 map 对象"},
 		{"funcDemo": "AesEncrypt($origData, $key)", "funcDesc": "aes 加密算法,用于生成密文密码,origData为明文,key为密钥(秘钥字符串长度必须是16/24/32),返回值为密文"},
 		{"funcDemo": "AesDecrypt($crypted, $key)", "funcDesc": "aes 解密算法,用于解密密文密码,crypted为密文,key为密钥(秘钥字符串长度必须是16/24/32),返回值为明文"},
+		{"funcDemo": "randNumberString($len)", "funcDesc": "生成指定长度的随机数"},
 	}
+}
+
+func (t *IWorkFuncProxy) RandNumberString(args []interface{}) interface{} {
+	arr := parseArgsToInt64Arr(args)
+	width := arr[0]
+	numeric := [10]byte{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}
+	r := len(numeric)
+	rand.Seed(time.Now().UnixNano())
+
+	var sb strings.Builder
+	for i := 0; i < int(width); i++ {
+		fmt.Fprintf(&sb, "%d", numeric[rand.Intn(r)])
+	}
+	return sb.String()
 }
 
 func (t *IWorkFuncProxy) GenerateMap(args []interface{}) interface{} {
