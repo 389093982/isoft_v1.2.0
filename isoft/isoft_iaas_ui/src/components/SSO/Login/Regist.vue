@@ -35,6 +35,7 @@
 
 <script>
   import {validateEmail} from "../../../tools"
+  import {Regist} from "../../../api"
 
   export default {
     name: "Regist",
@@ -110,7 +111,11 @@
         const result = await Regist(this.formValidate.username,this.formValidate.passwd,this.formValidate.nickname);
         if(result.status=="SUCCESS"){
           this.$Message.success('注册成功!');
-          this.$router.push({path:'/sso/login'});
+          // 注册成功延迟 2s 跳往登录页面
+          setTimeout(function(){
+            this.$router.push({path:'/sso/login'});
+          },2000);
+
         }else{
           if(result.errorMsg == "regist_exist"){
             this.$Message.error("该用户已经被注册!");

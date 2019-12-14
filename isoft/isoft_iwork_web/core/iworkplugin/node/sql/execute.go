@@ -35,10 +35,13 @@ func (this *SQLExecuteNode) Execute(trackingId string) {
 
 // 当影响条数为 0 时,是否报出异常信息
 func (this *SQLExecuteNode) checkPanicNoAffectedMsg(affected int64) {
-	panicNoAffectedMsg := this.TmpDataMap[iworkconst.STRING_PREFIX+"panic_no_affected?"].(string)
-	if affected == 0 && panicNoAffectedMsg != "" {
-		panic(&interfaces.InsensitiveError{Error: errors.New(panicNoAffectedMsg)})
+	if panicNoAffected := this.TmpDataMap[iworkconst.STRING_PREFIX+"panic_no_affected?"]; panicNoAffected != nil {
+		panicNoAffectedMsg := panicNoAffected.(string)
+		if affected == 0 && panicNoAffectedMsg != "" {
+			panic(&interfaces.InsensitiveError{Error: errors.New(panicNoAffectedMsg)})
+		}
 	}
+
 }
 
 func (this *SQLExecuteNode) modifySqlInsertWithBatch(tmpDataMap map[string]interface{}, sql string) string {
