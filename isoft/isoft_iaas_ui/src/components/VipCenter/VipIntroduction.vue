@@ -1,11 +1,11 @@
 <template>
   <div>
     <div class="vipCenterUp">
-      <div style="font-size: 30px;padding: 70px 20px 30px 400px">
-        <p style="color: #ff6600">会员尊享，处处为师</p>
+      <div style="font-size: 30px;padding: 70px 20px 30px 38%">
+        <span style="color: #ff6600">会员尊享，处处为师</span>
       </div>
-      <dvi style="font-size: 30px;padding: 70px 20px 30px 480px">
-        <Button shape="circle"  style="color:#3c88e4" size="large">
+      <dvi style="font-size: 30px;padding: 70px 55% 30px 45%">
+        <Button shape="circle" size="large">
           <a style="color: #ff6600;font-size: 20px;">开通会员</a>
         </Button>
       </dvi>
