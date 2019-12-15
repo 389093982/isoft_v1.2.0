@@ -22,10 +22,10 @@
       <FormItem>
         <Row :gutter="10">
           <Col span="12">
-            <div @click="getVerifyCode('formValidate')" class="submitBtn">获取验证码</div>
+            <Button type="primary" @click="getVerifyCode('formValidate')" :disabled="VerDisableFlag" size="large">{{VerifyCodeButtonDesc}}</Button>
           </Col>
           <Col span="12">
-            <div @click="handleSubmit('formValidate')" class="submitBtn">提交</div>
+            <Button type="primary" @click="handleSubmit('formValidate')" size="large">&nbsp;&nbsp;&nbsp;&nbsp;提交&nbsp;&nbsp;&nbsp;&nbsp;</Button>
           </Col>
         </Row>
       </FormItem>
@@ -69,6 +69,9 @@
         }
       };
       return {
+        VerDisableFlag:false,
+        totalTime:30,
+        VerifyCodeButtonDesc:'获取验证码',
         formValidate: {
           username: '',
           verifycode: '',
@@ -116,6 +119,19 @@
         const result = await CreateVerifyCode(username);
         if(result.status == "SUCCESS"){
           this.$Message.success("验证码发送成功,请注意查收!");
+          //这里进行30秒的置灰设置
+          this.VerDisableFlag = true;
+          this.VerifyCodeButtonDesc = this.totalTime + 's后重新获取';//展示30
+          let clock = window.setInterval(() => {
+            this.totalTime--;
+            this.VerifyCodeButtonDesc = this.totalTime + 's后重新获取';
+            if (this.totalTime < 0) {//当倒计时小于0时清除定时器
+              window.clearInterval(clock);
+              this.VerifyCodeButtonDesc = '获取验证码';
+              this.VerDisableFlag = false;
+              this.totalTime = 30
+            }
+          },1000);
         }else{
           this.$Message.error(result.errorMsg);
         }
