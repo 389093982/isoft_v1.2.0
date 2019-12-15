@@ -6,6 +6,7 @@ import (
 	"isoft/isoft_iwork_web/core/interfaces"
 	"isoft/isoft_iwork_web/core/iworkcache"
 	"isoft/isoft_iwork_web/core/iworkconst"
+	"isoft/isoft_iwork_web/core/iworkdata/block"
 	"isoft/isoft_iwork_web/core/iworkdata/datastore"
 	"isoft/isoft_iwork_web/core/iworkdata/entry"
 	"isoft/isoft_iwork_web/core/iworklog"
@@ -69,10 +70,7 @@ func (this *BlockStepOrdersRunner) runDetail(runEnd ...bool) (receiver *entry.Re
 	// 存储前置步骤 afterJudgeInterrupt 属性
 	afterJudgeInterrupt := false
 	for _, blockStep := range this.WorkCache.BlockStepOrdersMap[this.ParentStepId] {
-		if len(runEnd) > 0 && runEnd[0] == true && blockStep.Step.WorkStepType != "work_end" { // 不满足 runEnd 条件
-			continue
-		}
-		if blockStep.Step.WorkStepType == "empty" {
+		if this.skippable(blockStep, runEnd...) {
 			continue
 		}
 		args := &interfaces.RunOneStepArgs{
@@ -97,4 +95,15 @@ func (this *BlockStepOrdersRunner) runDetail(runEnd ...bool) (receiver *entry.Re
 		}
 	}
 	return receiver
+}
+
+// 当前 blockStep 是否可以跳过
+func (this *BlockStepOrdersRunner) skippable(blockStep *block.BlockStep, runEnd ...bool) bool {
+	if len(runEnd) > 0 && runEnd[0] == true && blockStep.Step.WorkStepType != "work_end" { // 不满足 runEnd 条件
+		return true
+	}
+	if blockStep.Step.WorkStepType == "empty" {
+		return true
+	}
+	return false
 }
