@@ -35,15 +35,15 @@ func RunOneWork(work_id int64, dispatcher *entry.Dispatcher) (trackingId string,
 	defer recordStartEndLog(trackingId, logwriter, workCache, "end")
 
 	// 初始化数据中心
-	dataStore := datastore.InitDataStore(trackingId, logwriter, workCache)
+	initDataStore := datastore.InitDataStore(trackingId, logwriter, workCache, dispatcher, &node.TxManager{})
 
 	bsoRunner := node.BlockStepOrdersRunner{
 		ParentStepId: iworkconst.PARENT_STEP_ID_FOR_START_END,
 		WorkCache:    workCache,
 		TrackingId:   trackingId,
 		LogWriter:    logwriter,
-		Store:        dataStore,  // 获取数据中心
-		Dispatcher:   dispatcher, // dispatcher 是全流程共享的
+		Store:        initDataStore, // 获取数据中心
+		Dispatcher:   dispatcher,    // dispatcher 是全流程共享的
 		RunOneStep:   RunOneStep,
 	}
 	receiver = bsoRunner.Run()

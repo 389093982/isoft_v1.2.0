@@ -5,6 +5,7 @@ import (
 	"isoft/isoft/common/stringutil"
 	"isoft/isoft_iwork_web/core/iworkcache"
 	"isoft/isoft_iwork_web/core/iworkconst"
+	"isoft/isoft_iwork_web/core/iworkdata/entry"
 	"isoft/isoft_iwork_web/core/iworklog"
 	"isoft/isoft_iwork_web/startup/sysconfig"
 	"strings"
@@ -80,15 +81,25 @@ func (this *DataStore) GetData(nodeName, paramName string) interface{} {
 }
 
 // 获取数据中心
-func InitDataStore(trackingId string, logwriter *iworklog.CacheLoggerWriter, wc *iworkcache.WorkCache) *DataStore {
+func InitDataStore(trackingId string, logwriter *iworklog.CacheLoggerWriter, wc *iworkcache.WorkCache,
+	dispatcher *entry.Dispatcher, tx interface{}) *DataStore {
 	dataStore := &DataStore{
 		TrackingId:       trackingId,
 		logwriter:        logwriter,
 		wc:               wc,
 		DataNodeStoreMap: make(map[string]*DataNodeStore, 0),
+		TxManger:         getTxManager(dispatcher, tx),
 	}
 	initDefaultNodeData(dataStore)
 	return dataStore
+}
+
+// 获取事务控制器, 获取顺序: 先从 dispatcher 中获取,没有再使用新值
+func getTxManager(dispatcher *entry.Dispatcher, tx interface{}) interface{} {
+	if dispatcher != nil && dispatcher.TxManger != nil {
+		tx = dispatcher.TxManger
+	}
+	return tx
 }
 
 func initDefaultNodeData(dataStore *DataStore) {

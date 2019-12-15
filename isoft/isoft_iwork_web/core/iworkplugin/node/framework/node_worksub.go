@@ -38,7 +38,7 @@ func (this *WorkSubNode) RunOnceSubWork(work_id int64, trackingId string,
 	// 继续传递 request 对象
 	tmpDataMap[iworkconst.HTTP_REQUEST_OBJECT] = this.Dispatcher.TmpDataMap[iworkconst.HTTP_REQUEST_OBJECT]
 	tmpDataMap["logwriter"] = this.LogWriter // 共享 LoggerWriter
-	trackingId, receiver := this.WorkSubRunFunc(work_id, &entry.Dispatcher{TrackingId: trackingId, TmpDataMap: tmpDataMap})
+	trackingId, receiver := this.WorkSubRunFunc(work_id, &entry.Dispatcher{TrackingId: trackingId, TmpDataMap: tmpDataMap, TxManger: this.DataStore.TxManger})
 	// 接收子流程数据存入 dataStore
 	for paramName, paramValue := range receiver.TmpDataMap {
 		dataStore.CacheDatas(this.WorkStep.WorkStepName, map[string]interface{}{paramName: paramValue})
