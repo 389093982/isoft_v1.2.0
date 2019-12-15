@@ -1,6 +1,12 @@
 <template>
   <div id="login_area">
-    <div id="login_header">用户名密码登录</div>
+    <div id="login_header" style="float: right;width: 94%">
+      <h4>
+        密码登录
+        <a style="float: right;width: 30%;color:#2E82FF" href="/sso/login">访问首页</a>
+      </h4>
+    </div>
+
     <div id="login_content" style="margin: 0 auto;padding:20px;">
       <input class="focus" name="username" placeholder="请输入用户名" type="text" style="width: 100%;height: 40px;" required/>
       <input type="password" style="display:none">
@@ -74,7 +80,7 @@
   #login_header{
     height: 80px;
     line-height: 80px;
-    text-align: center;
+    text-align: left;
     font-size: 16px;
     color: #000;
   }
