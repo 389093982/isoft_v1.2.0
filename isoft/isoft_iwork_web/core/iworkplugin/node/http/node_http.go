@@ -63,7 +63,7 @@ func (this *HttpRequestNode) GetDefaultParamInputSchema() *iworkmodels.ParamInpu
 }
 
 func (this *HttpRequestNode) GetDefaultParamOutputSchema() *iworkmodels.ParamOutputSchema {
-	return this.BuildParamOutputSchemaWithSlice([]string{
+	return this.BPOS1([]string{
 		iworkconst.STRING_PREFIX + "response_data",
 		iworkconst.BYTE_ARRAY_PREFIX + "response_data",
 		iworkconst.BASE64STRING_PREFIX + "response_data",

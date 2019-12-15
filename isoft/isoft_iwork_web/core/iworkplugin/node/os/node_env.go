@@ -26,7 +26,7 @@ func (this *GetEnvNode) GetDefaultParamInputSchema() *iworkmodels.ParamInputSche
 }
 
 func (this *GetEnvNode) GetDefaultParamOutputSchema() *iworkmodels.ParamOutputSchema {
-	return this.BuildParamOutputSchemaWithSlice([]string{iworkconst.STRING_PREFIX + "env_var_value"})
+	return this.BPOS1([]string{iworkconst.STRING_PREFIX + "env_var_value"})
 }
 
 type SetEnvNode struct {

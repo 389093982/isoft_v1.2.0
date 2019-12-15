@@ -49,7 +49,7 @@ func (this *DoReceiveFileNode) GetDefaultParamInputSchema() *iworkmodels.ParamIn
 }
 
 func (this *DoReceiveFileNode) GetDefaultParamOutputSchema() *iworkmodels.ParamOutputSchema {
-	return this.BuildParamOutputSchemaWithSlice([]string{"fileName", "tempFileName", "fileExt", "tempFilePath", "fileServerAddr"})
+	return this.BPOS1([]string{"fileName", "tempFileName", "fileExt", "tempFilePath", "fileServerAddr"})
 }
 
 func (this *DoReceiveFileNode) GetRuntimeParamOutputSchema() *iworkmodels.ParamOutputSchema {
@@ -87,5 +87,5 @@ func (this *DoResponseReceiveFileNode) GetDefaultParamInputSchema() *iworkmodels
 }
 
 func (this *DoResponseReceiveFileNode) GetDefaultParamOutputSchema() *iworkmodels.ParamOutputSchema {
-	return this.BuildParamOutputSchemaWithSlice([]string{"fileName", "fileServerPath", "errorMsg"})
+	return this.BPOS1([]string{"fileName", "fileServerPath", "errorMsg"})
 }

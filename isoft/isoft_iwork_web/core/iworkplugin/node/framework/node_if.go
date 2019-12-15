@@ -50,7 +50,7 @@ func (this *IFNode) GetDefaultParamInputSchema() *iworkmodels.ParamInputSchema {
 }
 
 func (this *IFNode) GetDefaultParamOutputSchema() *iworkmodels.ParamOutputSchema {
-	return this.BuildParamOutputSchemaWithSlice([]string{iworkconst.BOOL_PREFIX + "expression"})
+	return this.BPOS1([]string{iworkconst.BOOL_PREFIX + "expression"})
 }
 
 type ElIfNode struct {
@@ -94,7 +94,7 @@ func (this *ElIfNode) GetDefaultParamInputSchema() *iworkmodels.ParamInputSchema
 }
 
 func (this *ElIfNode) GetDefaultParamOutputSchema() *iworkmodels.ParamOutputSchema {
-	return this.BuildParamOutputSchemaWithSlice([]string{iworkconst.BOOL_PREFIX + "expression"})
+	return this.BPOS1([]string{iworkconst.BOOL_PREFIX + "expression"})
 }
 
 type ElseNode struct {

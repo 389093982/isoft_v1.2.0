@@ -32,7 +32,7 @@ func (this *TarGzUnCompressNode) GetDefaultParamInputSchema() *iworkmodels.Param
 }
 
 func (this *TarGzUnCompressNode) GetDefaultParamOutputSchema() *iworkmodels.ParamOutputSchema {
-	return this.BuildParamOutputSchemaWithSlice([]string{iworkconst.STRING_PREFIX + "dest_dir_path"})
+	return this.BPOS1([]string{iworkconst.STRING_PREFIX + "dest_dir_path"})
 }
 
 type TarGzCompressNode struct {
@@ -59,5 +59,5 @@ func (this *TarGzCompressNode) GetDefaultParamInputSchema() *iworkmodels.ParamIn
 }
 
 func (this *TarGzCompressNode) GetDefaultParamOutputSchema() *iworkmodels.ParamOutputSchema {
-	return this.BuildParamOutputSchemaWithSlice([]string{iworkconst.STRING_PREFIX + "dest_file_path"})
+	return this.BPOS1([]string{iworkconst.STRING_PREFIX + "dest_file_path"})
 }

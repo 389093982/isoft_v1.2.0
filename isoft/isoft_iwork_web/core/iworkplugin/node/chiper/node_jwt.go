@@ -55,7 +55,7 @@ func (this *CreateJWTNode) GetRuntimeParamInputSchema() *iworkmodels.ParamInputS
 }
 
 func (this *CreateJWTNode) GetDefaultParamOutputSchema() *iworkmodels.ParamOutputSchema {
-	return this.BuildParamOutputSchemaWithSlice([]string{iworkconst.STRING_PREFIX + "tokenString"})
+	return this.BPOS1([]string{iworkconst.STRING_PREFIX + "tokenString"})
 }
 
 type ParseJWTNode struct {

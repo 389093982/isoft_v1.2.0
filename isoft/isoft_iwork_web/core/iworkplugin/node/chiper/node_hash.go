@@ -27,5 +27,5 @@ func (this *CalHashNode) GetDefaultParamInputSchema() *iworkmodels.ParamInputSch
 }
 
 func (this *CalHashNode) GetDefaultParamOutputSchema() *iworkmodels.ParamOutputSchema {
-	return this.BuildParamOutputSchemaWithSlice([]string{iworkconst.STRING_PREFIX + "hash"})
+	return this.BPOS1([]string{iworkconst.STRING_PREFIX + "hash"})
 }

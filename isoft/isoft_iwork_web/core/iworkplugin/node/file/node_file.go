@@ -38,7 +38,7 @@ func (this *FileReadNode) GetDefaultParamInputSchema() *iworkmodels.ParamInputSc
 }
 
 func (this *FileReadNode) GetDefaultParamOutputSchema() *iworkmodels.ParamOutputSchema {
-	return this.BuildParamOutputSchemaWithSlice([]string{iworkconst.STRING_PREFIX + "file_path", "data"})
+	return this.BPOS1([]string{iworkconst.STRING_PREFIX + "file_path", "data"})
 }
 
 type FileWriteNode struct {
@@ -86,7 +86,7 @@ func (this *FileWriteNode) GetDefaultParamInputSchema() *iworkmodels.ParamInputS
 }
 
 func (this *FileWriteNode) GetDefaultParamOutputSchema() *iworkmodels.ParamOutputSchema {
-	return this.BuildParamOutputSchemaWithSlice([]string{iworkconst.STRING_PREFIX + "file_path"})
+	return this.BPOS1([]string{iworkconst.STRING_PREFIX + "file_path"})
 }
 
 type FileSyncNode struct {
@@ -126,7 +126,7 @@ func (this *FileSyncNode) GetDefaultParamInputSchema() *iworkmodels.ParamInputSc
 }
 
 func (this *FileSyncNode) GetDefaultParamOutputSchema() *iworkmodels.ParamOutputSchema {
-	return this.BuildParamOutputSchemaWithSlice([]string{"new_file_path", "new_file_name", "new_file_ext"})
+	return this.BPOS1([]string{"new_file_path", "new_file_name", "new_file_ext"})
 }
 
 type FileDeleteNode struct {

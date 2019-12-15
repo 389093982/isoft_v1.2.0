@@ -37,5 +37,5 @@ func (this *HrefParserNode) GetDefaultParamInputSchema() *iworkmodels.ParamInput
 }
 
 func (this *HrefParserNode) GetDefaultParamOutputSchema() *iworkmodels.ParamOutputSchema {
-	return this.BuildParamOutputSchemaWithSlice([]string{iworkconst.MULTI_PREFIX + "hrefs", iworkconst.NUMBER_PREFIX + "href_amounts"})
+	return this.BPOS1([]string{iworkconst.MULTI_PREFIX + "hrefs", iworkconst.NUMBER_PREFIX + "href_amounts"})
 }

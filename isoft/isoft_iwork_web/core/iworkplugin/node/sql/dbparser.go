@@ -28,5 +28,5 @@ func (this *DBParserNode) GetDefaultParamInputSchema() *iworkmodels.ParamInputSc
 }
 
 func (this *DBParserNode) GetDefaultParamOutputSchema() *iworkmodels.ParamOutputSchema {
-	return this.BuildParamOutputSchemaWithSlice([]string{"tableNames"})
+	return this.BPOS1([]string{"tableNames"})
 }

@@ -27,7 +27,7 @@ func (this *Base64EncodeNode) GetDefaultParamInputSchema() *iworkmodels.ParamInp
 }
 
 func (this *Base64EncodeNode) GetDefaultParamOutputSchema() *iworkmodels.ParamOutputSchema {
-	return this.BuildParamOutputSchemaWithSlice([]string{iworkconst.STRING_PREFIX + "encode_data"})
+	return this.BPOS1([]string{iworkconst.STRING_PREFIX + "encode_data"})
 }
 
 type Base64DecodeNode struct {
@@ -56,5 +56,5 @@ func (this *Base64DecodeNode) GetDefaultParamInputSchema() *iworkmodels.ParamInp
 }
 
 func (this *Base64DecodeNode) GetDefaultParamOutputSchema() *iworkmodels.ParamOutputSchema {
-	return this.BuildParamOutputSchemaWithSlice([]string{iworkconst.STRING_PREFIX + "decode_data", iworkconst.BYTE_ARRAY_PREFIX + "decode_data"})
+	return this.BPOS1([]string{iworkconst.STRING_PREFIX + "decode_data", iworkconst.BYTE_ARRAY_PREFIX + "decode_data"})
 }

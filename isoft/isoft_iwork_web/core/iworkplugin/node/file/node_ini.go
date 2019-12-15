@@ -38,7 +38,7 @@ func (this *IniReadNode) GetDefaultParamInputSchema() *iworkmodels.ParamInputSch
 }
 
 func (this *IniReadNode) GetDefaultParamOutputSchema() *iworkmodels.ParamOutputSchema {
-	return this.BuildParamOutputSchemaWithSlice([]string{iworkconst.STRING_PREFIX + "value"})
+	return this.BPOS1([]string{iworkconst.STRING_PREFIX + "value"})
 }
 
 type IniWriteNode struct {

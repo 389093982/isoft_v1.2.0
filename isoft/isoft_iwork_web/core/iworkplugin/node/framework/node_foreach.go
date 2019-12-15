@@ -100,5 +100,5 @@ func (this *ForeachNode) GetRuntimeParamOutputSchema() *iworkmodels.ParamOutputS
 }
 
 func (this *ForeachNode) GetDefaultParamOutputSchema() *iworkmodels.ParamOutputSchema {
-	return this.BuildParamOutputSchemaWithSlice([]string{iworkconst.NUMBER_PREFIX + "foreach_index"})
+	return this.BPOS1([]string{iworkconst.NUMBER_PREFIX + "foreach_index"})
 }

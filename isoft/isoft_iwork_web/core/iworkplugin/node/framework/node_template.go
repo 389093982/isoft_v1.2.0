@@ -77,5 +77,5 @@ func (this *TemplateNode) GetDefaultParamInputSchema() *iworkmodels.ParamInputSc
 }
 
 func (this *TemplateNode) GetDefaultParamOutputSchema() *iworkmodels.ParamOutputSchema {
-	return this.BuildParamOutputSchemaWithSlice([]string{iworkconst.STRING_PREFIX + "template_text", iworkconst.COMPLEX_PREFIX + "template_dataMap"})
+	return this.BPOS1([]string{iworkconst.STRING_PREFIX + "template_text", iworkconst.COMPLEX_PREFIX + "template_dataMap"})
 }

@@ -93,7 +93,7 @@ func (this *SQLQueryNode) GetRuntimeParamInputSchema() *iworkmodels.ParamInputSc
 }
 
 func (this *SQLQueryNode) GetDefaultParamOutputSchema() *iworkmodels.ParamOutputSchema {
-	return this.BuildParamOutputSchemaWithSlice([]string{iworkconst.NUMBER_PREFIX + "datacounts", "rows", "row"})
+	return this.BPOS1([]string{iworkconst.NUMBER_PREFIX + "datacounts", "rows", "row"})
 }
 
 func (this *SQLQueryNode) GetRuntimeParamOutputSchema() *iworkmodels.ParamOutputSchema {

@@ -179,7 +179,11 @@ func (this *BaseNode) fillParamChoicesAttr(item *iworkmodels.ParamInputSchemaIte
 }
 
 // 根据传入的 paramNames 构建 ParamOutputSchema 对象
-func (this *BaseNode) BuildParamOutputSchemaWithSlice(paramNames []string) *iworkmodels.ParamOutputSchema {
+func (this *BaseNode) BPOS1(paramNames []string) *iworkmodels.ParamOutputSchema {
+	return this.buildParamOutputSchemaWithSlice(paramNames) // 主要作用是简写方法名称
+}
+
+func (this *BaseNode) buildParamOutputSchemaWithSlice(paramNames []string) *iworkmodels.ParamOutputSchema {
 	items := make([]iworkmodels.ParamOutputSchemaItem, 0)
 	for _, paramName := range paramNames {
 		items = append(items, iworkmodels.ParamOutputSchemaItem{ParamName: paramName})

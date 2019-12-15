@@ -38,5 +38,5 @@ func (this *SftpUploadNode) GetDefaultParamInputSchema() *iworkmodels.ParamInput
 }
 
 func (this *SftpUploadNode) GetDefaultParamOutputSchema() *iworkmodels.ParamOutputSchema {
-	return this.BuildParamOutputSchemaWithSlice([]string{iworkconst.STRING_PREFIX + "remote_file_path"})
+	return this.BPOS1([]string{iworkconst.STRING_PREFIX + "remote_file_path"})
 }

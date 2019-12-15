@@ -32,7 +32,7 @@ func (this *JsonRenderNode) GetDefaultParamInputSchema() *iworkmodels.ParamInput
 }
 
 func (this *JsonRenderNode) GetDefaultParamOutputSchema() *iworkmodels.ParamOutputSchema {
-	return this.BuildParamOutputSchemaWithSlice([]string{iworkconst.STRING_PREFIX + "json_data"})
+	return this.BPOS1([]string{iworkconst.STRING_PREFIX + "json_data"})
 }
 
 type JsonParserNode struct {

@@ -46,7 +46,7 @@ func (this *HttpRequestParserNode) GetDefaultParamInputSchema() *iworkmodels.Par
 }
 
 func (this *HttpRequestParserNode) GetDefaultParamOutputSchema() *iworkmodels.ParamOutputSchema {
-	return this.BuildParamOutputSchemaWithSlice([]string{"ip"})
+	return this.BPOS1([]string{"ip"})
 }
 
 func (this *HttpRequestParserNode) GetRuntimeParamOutputSchema() *iworkmodels.ParamOutputSchema {

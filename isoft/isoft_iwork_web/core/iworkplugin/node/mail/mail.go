@@ -57,7 +57,7 @@ func (this *SendMailNode) GetDefaultParamInputSchema() *iworkmodels.ParamInputSc
 }
 
 func (this *SendMailNode) GetDefaultParamOutputSchema() *iworkmodels.ParamOutputSchema {
-	return this.BuildParamOutputSchemaWithSlice([]string{"flag"})
+	return this.BPOS1([]string{"flag"})
 }
 
 //定义邮箱服务器连接信息,如果是阿里邮箱 pass填密码,qq邮箱填授权码

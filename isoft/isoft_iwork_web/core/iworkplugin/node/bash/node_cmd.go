@@ -73,5 +73,5 @@ func (this *RunCmdNode) GetDefaultParamInputSchema() *iworkmodels.ParamInputSche
 }
 
 func (this *RunCmdNode) GetDefaultParamOutputSchema() *iworkmodels.ParamOutputSchema {
-	return this.BuildParamOutputSchemaWithSlice([]string{iworkconst.STRING_PREFIX + "command_result"})
+	return this.BPOS1([]string{iworkconst.STRING_PREFIX + "command_result"})
 }

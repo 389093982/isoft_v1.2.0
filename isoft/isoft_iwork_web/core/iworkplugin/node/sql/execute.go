@@ -83,7 +83,7 @@ func (this *SQLExecuteNode) GetDefaultParamInputSchema() *iworkmodels.ParamInput
 }
 
 func (this *SQLExecuteNode) GetDefaultParamOutputSchema() *iworkmodels.ParamOutputSchema {
-	return this.BuildParamOutputSchemaWithSlice([]string{iworkconst.NUMBER_PREFIX + "affected", iworkconst.NUMBER_PREFIX + "lastInsertId"})
+	return this.BPOS1([]string{iworkconst.NUMBER_PREFIX + "affected", iworkconst.NUMBER_PREFIX + "lastInsertId"})
 }
 
 func (this *SQLExecuteNode) ValidateCustom() (checkResult []string) {
