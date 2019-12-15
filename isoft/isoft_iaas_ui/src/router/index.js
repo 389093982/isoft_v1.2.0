@@ -8,10 +8,6 @@ const AppRegist = () => import("@/components/SSO/AppRegist");
 const LoginRecord = () => import("@/components/SSO/LoginRecord");
 const IEmptyLayout = () => import("@/components/ILayout/IEmptyLayout");
 const ICMSLayout = () => import("@/components/ILayout/ICMSLayout");
-const Element = () => import("@/components/Background/CMS/Element");
-const EditElement = () => import("@/components/Background/CMS/EditElement");
-const Placement = () => import("@/components/Background/CMS/Placement");
-const EditPlacement = () => import("@/components/Background/CMS/EditPlacement");
 const IBlog = () => import("@/components/IBlog/IBlog");
 const BlogList = () => import("@/components/IBlog/BlogList");
 const BlogArticleDetail = () => import("@/components/IBlog/BlogArticleDetail");
@@ -124,10 +120,6 @@ const ICMSReouter = [{
   path: '/background',
   component: ICMSLayout,
   children: [
-    {path: 'cms/element_edit',component: EditElement},
-    {path: 'cms/element_list',component: Element},
-    {path: 'cms/placement_list',component: Placement},
-    {path: 'cms/placement_edit',component: EditPlacement},
     {path: 'cms/configuration',component: Configuration},
     {path: 'advise_list',component: AdviseList},
     {path: 'sso/appRegist',component: AppRegist},

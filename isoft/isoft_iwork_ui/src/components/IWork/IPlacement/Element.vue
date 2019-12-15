@@ -2,8 +2,8 @@
   <div>
     <ISimpleLeftRightRow>
       <span slot="left">
-        <Button type="success" size="small" @click="$router.push({ path: '/background/cms/element_edit'})">新增页面元素</Button>
-        <Button type="info" size="small" @click="exportAll">全部导出</Button>
+        <Button type="success" size="small" @click="$router.push({ path: '/iwork/elementEdit'})">新增页面元素</Button>
+        <Button type="info" size="small" @click="importElement">导入</Button>
       </span>
 
       <!-- right 插槽部分 -->
@@ -21,7 +21,7 @@
 </template>
 
 <script>
-  import {FilterElements,UpdateElementStatus,GetAllPlacements,CopyElement,ExportAllElements} from "../../../api"
+  import {FilterElements,UpdateElementStatus,GetAllPlacements,CopyElement,ImportElement} from "../../../api"
   import ISimpleSearch from "../../Common/search/ISimpleSearch"
   import MultiClickButton from "../../Common/button/MultiClickButton"
   import ISimpleLeftRightRow from "../../Common/layout/ISimpleLeftRightRow"
@@ -134,7 +134,7 @@
                   on:{
                     handleClick:async function (index, bindData) {
                       if (bindData == 2){   // 编辑模式
-                        _this.$router.push({ path: '/background/cms/element_edit', query: { id: _this.elements[params.index].id }});
+                        _this.$router.push({ path: '/iwork/elementEdit', query: { id: _this.elements[params.index].id }});
                       }else if (bindData == 3){   // 复制模式
                         _this.copyElement(_this.elements[params.index].id);
                       }else{
@@ -193,8 +193,8 @@
         this.search = data;
         this.refreshElementList();
       },
-      exportAll:async function () {
-        const result = await ExportAllElements();
+      importElement:async function () {
+        const result = await ImportElement();
         alert(result);
       }
     },

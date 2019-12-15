@@ -99,6 +99,19 @@ func loadloadIWorkerRouterDetail() {
 	registRouter("/api/iwork/getAuditHandleData", wc, wc.GetAuditHandleData, "get,post:GetAuditHandleData")
 	registRouter("/api/iwork/executeAuditTask", wc, wc.ExecuteAuditTask, "get,post:ExecuteAuditTask")
 	registRouter("/api/iwork/deleteAuditTask", wc, wc.DeleteAuditTask, "get,post:DeleteAuditTask")
+
+	registRouter("/api/iwork/filterPagePlacement", wc, wc.FilterPagePlacement, "get,post:FilterPagePlacement")
+	registRouter("/api/iwork/editPlacement", wc, wc.EditPlacement, "get,post:EditPlacement")
+	registRouter("/api/iwork/queryPlacementById", wc, wc.QueryPlacementById, "get,post:QueryPlacementById")
+	registRouter("/api/iwork/deletePlacementById", wc, wc.DeletePlacementById, "get,post:DeletePlacementById")
+	registRouter("/api/iwork/copyPlacement", wc, wc.CopyPlacement, "get,post:CopyPlacement")
+	registRouter("/api/iwork/getAllPlacements", wc, wc.GetAllPlacements, "get,post:GetAllPlacements")
+	registRouter("/api/iwork/filterPageElement", wc, wc.FilterPageElement, "get,post:FilterPageElement")
+	registRouter("/api/iwork/editElement", wc, wc.EditElement, "get,post:EditElement")
+	registRouter("/api/iwork/updateElementStatus", wc, wc.UpdateElementStatus, "get,post:UpdateElementStatus")
+	registRouter("/api/iwork/queryElementById", wc, wc.QueryElementById, "get,post:QueryElementById")
+	registRouter("/api/iwork/copyElement", wc, wc.CopyElement, "get,post:CopyElement")
+	registRouter("/api/iwork/filterElementByPlacement", wc, wc.FilterElementByPlacement, "get,post:FilterElementByPlacement")
 }
 
 func registRouter(rootpath string, c beego.ControllerInterface, callFunc func(), mappingMethods ...string) *beego.App {

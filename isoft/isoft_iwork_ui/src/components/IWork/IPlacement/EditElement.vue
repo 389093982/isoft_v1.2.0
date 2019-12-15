@@ -61,7 +61,7 @@
   import IBaseChooser from "../../Common/IBaseChooser"
   import Placement from "./Placement"
   import Element from "./Element"
-  import IFileUpload from "../../IFile/IFileUpload"
+  import IFileUpload from "../IFile/IFileUpload"
   import {EditElement,FilterElementByPlacement,QueryElementById} from "../../../api"
   import {checkEmpty} from "../../../tools"
 
@@ -114,7 +114,7 @@
       handleSubmit() {
         this.$refs['formInline'].validate(async (valid) => {
           if (valid) {
-            let id = this.$route.query.id == undefined ? -1 : this.$route.query.id;
+            let id = this.$route.query.id == undefined ? 0 : this.$route.query.id;
             const result = await EditElement(id, this.formInline.placement, this.formInline.navigation_level,
               this.formInline.navigation_parent_id, this.formInline.title, this.formInline.content, this.formInline.md_content,
               this.formInline.imgpath, this.formInline.linked_refer);
@@ -130,7 +130,7 @@
       },
       handleGoBack:function(){
         let search = checkEmpty(this.formInline.placement) ? "" : this.formInline.placement;
-        this.$router.push({ path: '/background/cms/element_list', query: { search: search }});
+        this.$router.push({ path: '/iwork/elementList', query: { search: search }});
       },
       choosePlacement:function (placement_name) {
         this.formInline.placement = placement_name;

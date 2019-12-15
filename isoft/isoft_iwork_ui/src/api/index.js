@@ -160,3 +160,30 @@ export const ExecuteAuditTask = (task_name, sql_str) => ajax(BASE_URL+"/iwork/ex
 export const EditAuditTaskTarget = (task_name, update_cases) => ajax(BASE_URL+"/iwork/editAuditTaskTarget", {task_name, update_cases},'POST');
 
 export const GetAuditHandleData = (task_name, current_page, offset) => ajax(BASE_URL+"/iwork/getAuditHandleData", {task_name, current_page, offset},'POST');
+
+// 占位符、页面元素模块
+export const FilterElements = (offset,current_page,search) => ajax(BASE_URL+'/iwork/filterPageElement',{offset,current_page,search},'GET');
+
+export const EditElement = (id, placement, navigation_level, navigation_parent_id, title, content, md_content, imgpath, linked_refer) =>
+  ajax(BASE_URL+'/iwork/editElement',{id, placement, navigation_level, navigation_parent_id, title, content, md_content, imgpath, linked_refer},'POST');
+
+export const UpdateElementStatus = (id, status) => ajax(BASE_URL+'/iwork/updateElementStatus',{id, status},'GET');
+
+export const EditPlacement = (id, placement_name, placement_desc, placement_label, element_limit) =>
+  ajax(BASE_URL+'/iwork/editPlacement',{id, placement_name, placement_desc, placement_label, element_limit},'GET');
+
+export const QueryPlacementById = (id) => ajax(BASE_URL+'/iwork/queryPlacementById',{id},'GET');
+
+export const FilterPlacement = (offset,current_page,search) => ajax(BASE_URL+'/iwork/filterPagePlacement',{offset,current_page,search},'GET');
+
+export const GetAllPlacements = () => ajax(BASE_URL+'/iwork/getAllPlacements',{},'GET');
+
+export const CopyElement = (id) => ajax(BASE_URL+'/iwork/copyElement',{id},'GET');
+
+export const ImportElement = () => ajax(BASE_URL+'/iwork/importElement',{},'GET');
+
+export const DeletePlacementById = (id) => ajax(BASE_URL+'/iwork/deletePlacementById',{id},'GET');
+
+export const CopyPlacement = (id) => ajax(BASE_URL+'/iwork/copyPlacement',{id},'GET');
+
+export const QueryElementById = (id) => ajax(BASE_URL+'/iwork/queryElementById',{id},'GET');

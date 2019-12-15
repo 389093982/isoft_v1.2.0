@@ -2,7 +2,7 @@
   <div>
     <ISimpleLeftRightRow style="margin-bottom: 10px;margin-right: 10px;">
       <!-- left 插槽部分 -->
-      <Button type="success" size="small" slot="left" @click="$router.push({ path: '/background/cms/placement_edit'})" v-if="!this.chooserMode">新增占位符</Button>
+      <Button type="success" size="small" slot="left" @click="$router.push({ path: '/iwork/placementEdit'})" v-if="!this.chooserMode">新增占位符</Button>
 
       <!-- right 插槽部分 -->
       <ISimpleSearch slot="right" @handleSimpleSearch="handleSearch"/>
@@ -110,7 +110,7 @@
                   },
                   on: {
                     click: () => {
-                      this.$router.push({ path: '/background/cms/placement_edit', query: { id: this.placements[params.index].id }});
+                      this.$router.push({ path: '/iwork/placementEdit', query: { id: this.placements[params.index].id }});
                     }
                   }
                 }, '编辑'),
@@ -140,7 +140,7 @@
                   },
                   on: {
                     click: () => {
-                      this.$router.push({path:'/background/cms/element_list',query:{ placement_name: this.placements[params.index].placement_name }});
+                      this.$router.push({path:'/iwork/elementList',query:{ placement_name: this.placements[params.index].placement_name }});
                     }
                   }
                 }, '元素管理'),

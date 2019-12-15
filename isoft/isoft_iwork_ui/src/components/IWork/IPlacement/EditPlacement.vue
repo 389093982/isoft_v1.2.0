@@ -62,7 +62,7 @@
       handleSubmit() {
         this.$refs['formInline'].validate(async (valid) => {
           if (valid) {
-            let id = this.$route.query.id == undefined ? -1 : this.$route.query.id;
+            let id = this.$route.query.id == undefined ? 0 : this.$route.query.id;
               const result = await EditPlacement(id, this.formInline.placement_name, this.formInline.placement_desc,
                 this.formInline.placement_label, this.formInline.element_limit);
               if(result.status == "SUCCESS"){
@@ -76,7 +76,7 @@
         })
       },
       handleGoBack:function(){
-        this.$router.push({ path: '/background/cms/placement_list'});
+        this.$router.push({ path: '/iwork/placementList'});
       },
       refreshPlacement:async function (id) {
         const result = await QueryPlacementById(id);

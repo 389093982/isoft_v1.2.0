@@ -18,6 +18,15 @@ func CheckError(err error) {
 	}
 }
 
+func GetFirstError2(errs ...error) error {
+	for _, err := range errs {
+		if err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
 func GetFirstError(errs ...error) error {
 	for _, err := range errs {
 		if err != nil {

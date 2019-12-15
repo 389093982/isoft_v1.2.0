@@ -90,34 +90,7 @@ export const SearchCourseList = (search) => ajax(BASE_URL+'/iwork/httpservice/Se
 export const AddConfiguration = (parent_id, configuration_name, configuration_value) =>
   ajax(BASE_URL+'/iwork/httpservice/AddConfiguration2',{parent_id, configuration_name, configuration_value},'GET');
 
-// 分页查询配置项信息
-export const FilterConfigurations = (search,offset,current_page) => ajax(BASE_URL+'/iwork/httpservice/FilterConfigurations2',{search, offset,current_page},'GET');
-
-export const FilterElements = (offset,current_page,search) => ajax(BASE_URL+'/iwork/httpservice/FilterElements2',{offset,current_page,search},'GET');
-
-export const EditElement = (id, placement, navigation_level, navigation_parent_id, title, content, md_content, imgpath, linked_refer) =>
-  ajax(BASE_URL+'/iwork/httpservice/EditElement2',{id, placement, navigation_level, navigation_parent_id, title, content, md_content, imgpath, linked_refer},'POST');
-
-export const UpdateElementStatus = (id, status) => ajax(BASE_URL+'/iwork/httpservice/UpdateElementStatus2',{id, status},'GET');
-
-export const EditPlacement = (id, placement_name, placement_desc, placement_label, element_limit) =>
-  ajax(BASE_URL+'/iwork/httpservice/EditPlacement2',{id, placement_name, placement_desc, placement_label, element_limit},'GET');
-
-export const QueryPlacementById = (id) => ajax(BASE_URL+'/iwork/httpservice/QueryPlacementById',{id},'GET');
-
-export const FilterPlacement = (offset,current_page,search) => ajax(BASE_URL+'/iwork/httpservice/FilterPlacement2',{offset,current_page,search},'GET');
-
-export const GetAllPlacements = () => ajax(BASE_URL+'/iwork/httpservice/GetAllPlacements2',{},'GET');
-
-export const CopyElement = (id) => ajax(BASE_URL+'/iwork/httpservice/CopyElement',{id},'GET');
-
-export const ExportAllElements = () => ajax(BASE_URL+'/iwork/httpservice/ExportAllElements',{},'GET');
-
-export const DeletePlacementById = (id) => ajax(BASE_URL+'/iwork/httpservice/DeletePlacementById2',{id},'GET');
-export const CopyPlacement = (id) => ajax(BASE_URL+'/iwork/httpservice/CopyPlacement',{id},'GET');
-
-export const FilterElementByPlacement = (placement) => ajax(BASE_URL+'/iwork/httpservice/FilterElementByPlacement2',{placement},'GET');
-export const QueryElementById = (id) => ajax(BASE_URL+'/iwork/httpservice/QueryElementById',{id},'GET');
+export const FilterElementByPlacement = (placement) => ajax(BASE_URL+'/iwork/filterElementByPlacement',{placement},'GET');
 
 // 登录接口
 export const Login = (username,passwd,redirectUrl) => ajax(BASE_URL+"/iwork/httpservice/PostLogin2", {username,passwd,redirectUrl},'POST');
