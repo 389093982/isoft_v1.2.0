@@ -18,7 +18,7 @@
           <IBeautifulLink @onclick="$router.push({path:'/ifound/found_list'})">热门活动</IBeautifulLink>
         </MenuItem>
         <MenuItem name="6">
-          <IBeautifulLink @onclick="$router.push({path:'/background/cms/placement_list'})">管理控制台</IBeautifulLink>
+          <IBeautifulLink @onclick="$router.push({path:'/background/cms/configuration'})">管理控制台</IBeautifulLink>
         </MenuItem>
         <Submenu name="7">
           <template slot="title">
