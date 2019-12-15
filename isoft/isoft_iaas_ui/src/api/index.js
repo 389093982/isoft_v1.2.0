@@ -90,18 +90,8 @@ export const SearchCourseList = (search) => ajax(BASE_URL+'/iwork/httpservice/Se
 export const AddConfiguration = (parent_id, configuration_name, configuration_value) =>
   ajax(BASE_URL+'/iwork/httpservice/AddConfiguration2',{parent_id, configuration_name, configuration_value},'GET');
 
-
 // 分页查询配置项信息
 export const FilterConfigurations = (search,offset,current_page) => ajax(BASE_URL+'/iwork/httpservice/FilterConfigurations2',{search, offset,current_page},'GET');
-
-// 获取随机数量的友情链接地址
-export const QueryRandomCommonLink = (link_type) => ajax(BASE_URL+'/iwork/httpservice/QueryRandomCommonLink2',{link_type},'GET');
-
-// 分页查询友情链接地址
-export const FilterCommonLinks = (offset,current_page,search) => ajax(BASE_URL+'/iwork/httpservice/FilterCommonLinks2',{offset,current_page,search},'GET');
-
-// 添加友情链接地址
-export const AddCommonLink = (link_type, link_name, link_addr) => ajax(BASE_URL+'/iwork/httpservice/AddCommonLink2',{link_type, link_name, link_addr},'GET');
 
 export const FilterElements = (offset,current_page,search) => ajax(BASE_URL+'/iwork/httpservice/FilterElements2',{offset,current_page,search},'GET');
 

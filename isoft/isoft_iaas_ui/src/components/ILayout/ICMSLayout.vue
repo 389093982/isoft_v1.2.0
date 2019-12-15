@@ -14,9 +14,7 @@
               </template>
               <MenuItem name="1-1"><router-link to="/background/cms/placement_list">占位符管理</router-link></MenuItem>
               <MenuItem name="1-2"><router-link to="/background/cms/element_list">页面元素管理</router-link></MenuItem>
-              <MenuItem name="1-3"><router-link to="/background/cms/catalog_list">列表管理</router-link></MenuItem>
-              <MenuItem name="1-4"><router-link to="/background/cms/configuration">查看配置项</router-link></MenuItem>
-              <MenuItem name="1-5"><router-link to="/background/cms/commonLinkList">友情链接</router-link></MenuItem>
+              <MenuItem name="1-3"><router-link to="/background/cms/configuration">查看配置项</router-link></MenuItem>
             </Submenu>
             <Submenu name="2">
               <template slot="title">

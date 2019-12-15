@@ -10,7 +10,6 @@ const IEmptyLayout = () => import("@/components/ILayout/IEmptyLayout");
 const ICMSLayout = () => import("@/components/ILayout/ICMSLayout");
 const Element = () => import("@/components/Background/CMS/Element");
 const EditElement = () => import("@/components/Background/CMS/EditElement");
-const Catalog = () => import("@/components/Background/CMS/Catalog");
 const Placement = () => import("@/components/Background/CMS/Placement");
 const EditPlacement = () => import("@/components/Background/CMS/EditPlacement");
 const IBlog = () => import("@/components/IBlog/IBlog");
@@ -33,7 +32,6 @@ const About = () => import("@/components/ILearning/About");
 const VideoPay = () => import("@/components/ILearning/Course/VideoPay");
 const Configuration = () => import("@/components/Background/CMS/Configuration");
 const CourseSearch = () => import("@/components/ILearning/Course/CourseSearch");
-const CommonLinkList = () => import("@/components/Background/CMS/CommonLinkList");
 const AdviseList = () => import("@/components/Background/AdviseList");
 const FoundList = () => import("@/components/IFound/FoundList");
 const DiscountList = () => import("@/components/IFound/DiscountList");
@@ -128,10 +126,8 @@ const ICMSReouter = [{
   children: [
     {path: 'cms/element_edit',component: EditElement},
     {path: 'cms/element_list',component: Element},
-    {path: 'cms/catalog_list',component: Catalog},
     {path: 'cms/placement_list',component: Placement},
     {path: 'cms/placement_edit',component: EditPlacement},
-    {path: 'cms/commonLinkList',component: CommonLinkList},
     {path: 'cms/configuration',component: Configuration},
     {path: 'advise_list',component: AdviseList},
     {path: 'sso/appRegist',component: AppRegist},
