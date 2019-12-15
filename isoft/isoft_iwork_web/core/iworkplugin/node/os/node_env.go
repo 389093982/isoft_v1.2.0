@@ -22,7 +22,7 @@ func (this *GetEnvNode) GetDefaultParamInputSchema() *iworkmodels.ParamInputSche
 	paramMap := map[int][]string{
 		1: {iworkconst.STRING_PREFIX + "env_var_name", "环境变量名称"},
 	}
-	return this.BuildParamInputSchemaWithDefaultMap(paramMap)
+	return this.BPIS1(paramMap)
 }
 
 func (this *GetEnvNode) GetDefaultParamOutputSchema() *iworkmodels.ParamOutputSchema {
@@ -47,5 +47,5 @@ func (this *SetEnvNode) GetDefaultParamInputSchema() *iworkmodels.ParamInputSche
 		1: {iworkconst.STRING_PREFIX + "env_var_name", "环境变量名称"},
 		2: {iworkconst.STRING_PREFIX + "env_var_value", "环境变量值"},
 	}
-	return this.BuildParamInputSchemaWithDefaultMap(paramMap)
+	return this.BPIS1(paramMap)
 }

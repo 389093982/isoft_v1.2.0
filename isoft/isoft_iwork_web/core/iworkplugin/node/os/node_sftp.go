@@ -34,7 +34,7 @@ func (this *SftpUploadNode) GetDefaultParamInputSchema() *iworkmodels.ParamInput
 		2: {iworkconst.STRING_PREFIX + "local_file_path", "本地文件路径"},
 		3: {iworkconst.STRING_PREFIX + "remote_dir_path", "远程文件夹路径"},
 	}
-	return this.BuildParamInputSchemaWithDefaultMap(paramMap)
+	return this.BPIS1(paramMap)
 }
 
 func (this *SftpUploadNode) GetDefaultParamOutputSchema() *iworkmodels.ParamOutputSchema {

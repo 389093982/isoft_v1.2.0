@@ -28,7 +28,7 @@ func (this *TarGzUnCompressNode) GetDefaultParamInputSchema() *iworkmodels.Param
 		1: {iworkconst.STRING_PREFIX + "targz_file_path", "targz 文件路径"},
 		2: {iworkconst.STRING_PREFIX + "dest_dir_path", "解压后的文件夹路径"},
 	}
-	return this.BuildParamInputSchemaWithDefaultMap(paramMap)
+	return this.BPIS1(paramMap)
 }
 
 func (this *TarGzUnCompressNode) GetDefaultParamOutputSchema() *iworkmodels.ParamOutputSchema {
@@ -55,7 +55,7 @@ func (this *TarGzCompressNode) GetDefaultParamInputSchema() *iworkmodels.ParamIn
 		1: {iworkconst.STRING_PREFIX + "src_dir_path", "待压缩的文件夹路径"},
 		2: {iworkconst.STRING_PREFIX + "dest_file_path", "压缩后的targz文件路径"},
 	}
-	return this.BuildParamInputSchemaWithDefaultMap(paramMap)
+	return this.BPIS1(paramMap)
 }
 
 func (this *TarGzCompressNode) GetDefaultParamOutputSchema() *iworkmodels.ParamOutputSchema {

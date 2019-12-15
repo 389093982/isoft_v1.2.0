@@ -53,7 +53,7 @@ func (this *SendMailNode) GetDefaultParamInputSchema() *iworkmodels.ParamInputSc
 		7: {iworkconst.STRING_PREFIX + "subject", "邮件主题"},
 		8: {iworkconst.STRING_PREFIX + "body", "邮件正文"},
 	}
-	return this.BuildParamInputSchemaWithDefaultMap(paramMap)
+	return this.BPIS1(paramMap)
 }
 
 func (this *SendMailNode) GetDefaultParamOutputSchema() *iworkmodels.ParamOutputSchema {

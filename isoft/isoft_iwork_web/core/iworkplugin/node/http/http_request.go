@@ -42,7 +42,7 @@ func (this *HttpRequestParserNode) GetDefaultParamInputSchema() *iworkmodels.Par
 		1: {iworkconst.STRING_PREFIX + "headers?", "解析的请求头参数,多个参数使用逗号分隔"},
 		2: {iworkconst.STRING_PREFIX + "cookies?", "解析的 cookies 参数,多个参数使用逗号分隔"},
 	}
-	return this.BuildParamInputSchemaWithDefaultMap(paramMap)
+	return this.BPIS1(paramMap)
 }
 
 func (this *HttpRequestParserNode) GetDefaultParamOutputSchema() *iworkmodels.ParamOutputSchema {

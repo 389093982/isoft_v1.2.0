@@ -34,7 +34,7 @@ func (this *IniReadNode) GetDefaultParamInputSchema() *iworkmodels.ParamInputSch
 		2: {iworkconst.STRING_PREFIX + "section_name?", "section 名称,可为空"},
 		3: {iworkconst.STRING_PREFIX + "key", "key 值"},
 	}
-	return this.BuildParamInputSchemaWithDefaultMap(paramMap)
+	return this.BPIS1(paramMap)
 }
 
 func (this *IniReadNode) GetDefaultParamOutputSchema() *iworkmodels.ParamOutputSchema {
@@ -67,5 +67,5 @@ func (this *IniWriteNode) GetDefaultParamInputSchema() *iworkmodels.ParamInputSc
 		3: {iworkconst.STRING_PREFIX + "key", "key 值"},
 		4: {iworkconst.STRING_PREFIX + "value", "value 值"},
 	}
-	return this.BuildParamInputSchemaWithDefaultMap(paramMap)
+	return this.BPIS1(paramMap)
 }

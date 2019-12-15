@@ -23,7 +23,7 @@ func (this *CalHashNode) GetDefaultParamInputSchema() *iworkmodels.ParamInputSch
 	paramMap := map[int][]string{
 		1: {iworkconst.STRING_PREFIX + "str_data", "需要计算hash值的字符串"},
 	}
-	return this.BuildParamInputSchemaWithDefaultMap(paramMap)
+	return this.BPIS1(paramMap)
 }
 
 func (this *CalHashNode) GetDefaultParamOutputSchema() *iworkmodels.ParamOutputSchema {

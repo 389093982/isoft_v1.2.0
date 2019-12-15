@@ -22,7 +22,7 @@ func (this *DefineVarNode) GetDefaultParamInputSchema() *iworkmodels.ParamInputS
 	paramMap := map[int][]string{
 		1: {iworkconst.STRING_PREFIX + "define_vars", "待定义的变量"},
 	}
-	return this.BuildParamInputSchemaWithDefaultMap(paramMap)
+	return this.BPIS1(paramMap)
 }
 
 func (this *DefineVarNode) GetRuntimeParamOutputSchema() *iworkmodels.ParamOutputSchema {

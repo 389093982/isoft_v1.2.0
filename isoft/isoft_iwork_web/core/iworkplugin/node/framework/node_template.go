@@ -73,7 +73,7 @@ func (this *TemplateNode) GetDefaultParamInputSchema() *iworkmodels.ParamInputSc
 		1: {iworkconst.STRING_PREFIX + "template_text", "模板文字"},
 		2: {iworkconst.COMPLEX_PREFIX + "template_dataMap", "模板变量绑定数据"},
 	}
-	return this.BuildParamInputSchemaWithDefaultMap(paramMap)
+	return this.BPIS1(paramMap)
 }
 
 func (this *TemplateNode) GetDefaultParamOutputSchema() *iworkmodels.ParamOutputSchema {

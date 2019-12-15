@@ -34,7 +34,7 @@ func (this *FileReadNode) GetDefaultParamInputSchema() *iworkmodels.ParamInputSc
 	paramMap := map[int][]string{
 		1: {iworkconst.STRING_PREFIX + "file_path", "读取文件的绝对路径"},
 	}
-	return this.BuildParamInputSchemaWithDefaultMap(paramMap)
+	return this.BPIS1(paramMap)
 }
 
 func (this *FileReadNode) GetDefaultParamOutputSchema() *iworkmodels.ParamOutputSchema {
@@ -82,7 +82,7 @@ func (this *FileWriteNode) GetDefaultParamInputSchema() *iworkmodels.ParamInputS
 		4: {iworkconst.BOOL_PREFIX + "append?", "可选参数,文件追加模式,值为空表示覆盖,有值表示追加"},
 		5: {iworkconst.BOOL_PREFIX + "linesep?", "可选参数,行分隔符,默认没有分割符,有值表示使用换行符进行分割"},
 	}
-	return this.BuildParamInputSchemaWithDefaultMap(paramMap)
+	return this.BPIS1(paramMap)
 }
 
 func (this *FileWriteNode) GetDefaultParamOutputSchema() *iworkmodels.ParamOutputSchema {
@@ -122,7 +122,7 @@ func (this *FileSyncNode) GetDefaultParamInputSchema() *iworkmodels.ParamInputSc
 		2: {iworkconst.STRING_PREFIX + "file_path", "需要进行同步操作的文件路径"},
 		3: {iworkconst.STRING_PREFIX + "new_file_path", "同步操作后的文件路径"},
 	}
-	return this.BuildParamInputSchemaWithDefaultMap(paramMap)
+	return this.BPIS1(paramMap)
 }
 
 func (this *FileSyncNode) GetDefaultParamOutputSchema() *iworkmodels.ParamOutputSchema {
@@ -146,5 +146,5 @@ func (this *FileDeleteNode) GetDefaultParamInputSchema() *iworkmodels.ParamInput
 	paramMap := map[int][]string{
 		1: {iworkconst.STRING_PREFIX + "delete_file_path", "待删除的文件或文件夹路径"},
 	}
-	return this.BuildParamInputSchemaWithDefaultMap(paramMap)
+	return this.BPIS1(paramMap)
 }

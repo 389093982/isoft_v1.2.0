@@ -23,7 +23,7 @@ func (this *Base64EncodeNode) GetDefaultParamInputSchema() *iworkmodels.ParamInp
 	paramMap := map[int][]string{
 		1: {iworkconst.STRING_PREFIX + "input", "待编码的输入字符串"},
 	}
-	return this.BuildParamInputSchemaWithDefaultMap(paramMap)
+	return this.BPIS1(paramMap)
 }
 
 func (this *Base64EncodeNode) GetDefaultParamOutputSchema() *iworkmodels.ParamOutputSchema {
@@ -52,7 +52,7 @@ func (this *Base64DecodeNode) GetDefaultParamInputSchema() *iworkmodels.ParamInp
 	paramMap := map[int][]string{
 		1: {iworkconst.STRING_PREFIX + "input", "待解码的输入字符串"},
 	}
-	return this.BuildParamInputSchemaWithDefaultMap(paramMap)
+	return this.BPIS1(paramMap)
 }
 
 func (this *Base64DecodeNode) GetDefaultParamOutputSchema() *iworkmodels.ParamOutputSchema {

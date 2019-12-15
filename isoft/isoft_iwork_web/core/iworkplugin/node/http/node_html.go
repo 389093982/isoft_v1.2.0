@@ -33,7 +33,7 @@ func (this *HrefParserNode) GetDefaultParamInputSchema() *iworkmodels.ParamInput
 	paramMap := map[int][]string{
 		1: []string{iworkconst.STRING_PREFIX + "url", "需要分析资源的url地址"},
 	}
-	return this.BuildParamInputSchemaWithDefaultMap(paramMap)
+	return this.BPIS1(paramMap)
 }
 
 func (this *HrefParserNode) GetDefaultParamOutputSchema() *iworkmodels.ParamOutputSchema {

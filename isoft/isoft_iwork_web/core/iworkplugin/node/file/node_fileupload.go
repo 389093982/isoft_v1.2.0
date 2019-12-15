@@ -45,7 +45,7 @@ func (this *DoReceiveFileNode) GetDefaultParamInputSchema() *iworkmodels.ParamIn
 		3: {iworkconst.STRING_PREFIX + "fileServerAddr", "上传文件服务器访问路径"},
 	}
 	choiceMap := map[string][]string{iworkconst.BOOL_PREFIX + "calHash?": {"`true`", "`false`"}}
-	return this.BuildParamInputSchemaWithDefaultMap(paramMap, choiceMap)
+	return this.BPIS1(paramMap, choiceMap)
 }
 
 func (this *DoReceiveFileNode) GetDefaultParamOutputSchema() *iworkmodels.ParamOutputSchema {
@@ -83,7 +83,7 @@ func (this *DoResponseReceiveFileNode) GetDefaultParamInputSchema() *iworkmodels
 		2: {"fileServerPath", "最终的服务器地址"},
 		3: {"errorMsg?", "异常信息"},
 	}
-	return this.BuildParamInputSchemaWithDefaultMap(paramMap)
+	return this.BPIS1(paramMap)
 }
 
 func (this *DoResponseReceiveFileNode) GetDefaultParamOutputSchema() *iworkmodels.ParamOutputSchema {

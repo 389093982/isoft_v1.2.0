@@ -41,7 +41,7 @@ func (this *CreateJWTNode) GetDefaultParamInputSchema() *iworkmodels.ParamInputS
 		2: {iworkconst.STRING_PREFIX + "claimsMap", "加密参数,多个参数逗号分隔"},
 		3: {iworkconst.NUMBER_PREFIX + "expireSecond", "过期秒数"},
 	}
-	return this.BuildParamInputSchemaWithDefaultMap(paramMap)
+	return this.BPIS1(paramMap)
 }
 
 func (this *CreateJWTNode) GetRuntimeParamInputSchema() *iworkmodels.ParamInputSchema {
@@ -79,7 +79,7 @@ func (this *ParseJWTNode) GetDefaultParamInputSchema() *iworkmodels.ParamInputSc
 		2: {iworkconst.STRING_PREFIX + "secretKey", "密钥"},
 		3: {iworkconst.STRING_PREFIX + "claimsMap", "解密参数,多个参数逗号分隔"},
 	}
-	return this.BuildParamInputSchemaWithDefaultMap(paramMap)
+	return this.BPIS1(paramMap)
 }
 
 func (this *ParseJWTNode) GetRuntimeParamOutputSchema() *iworkmodels.ParamOutputSchema {

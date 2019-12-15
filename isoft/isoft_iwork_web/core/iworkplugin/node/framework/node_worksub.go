@@ -49,7 +49,7 @@ func (this *WorkSubNode) GetDefaultParamInputSchema() *iworkmodels.ParamInputSch
 	paramMap := map[int][]string{
 		1: {iworkconst.STRING_PREFIX + "work_sub", "子流程信息"},
 	}
-	return this.BuildParamInputSchemaWithDefaultMap(paramMap)
+	return this.BPIS1(paramMap)
 }
 
 func (this *WorkSubNode) getOrmer() orm.Ormer {

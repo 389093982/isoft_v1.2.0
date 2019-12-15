@@ -147,7 +147,11 @@ func (this *BaseNode) SubmitParamOutputSchemaDataToDataStore(workStep *models.Wo
 }
 
 // 根据传入的 paramMap 构建 ParamInputSchema 对象
-func (this *BaseNode) BuildParamInputSchemaWithDefaultMap(paramMap map[int][]string, choicesMap ...map[string][]string) *iworkmodels.ParamInputSchema {
+func (this *BaseNode) BPIS1(paramMap map[int][]string, choicesMap ...map[string][]string) *iworkmodels.ParamInputSchema {
+	return this.buildParamInputSchemaWithDefaultMap(paramMap, choicesMap...) // 主要作用是简写方法名称
+}
+
+func (this *BaseNode) buildParamInputSchemaWithDefaultMap(paramMap map[int][]string, choicesMap ...map[string][]string) *iworkmodels.ParamInputSchema {
 	keys := datatypeutil.GetMapKeySlice(paramMap, []int{}).([]int)
 	sort.Ints(keys)
 	items := make([]iworkmodels.ParamInputSchemaItem, 0)

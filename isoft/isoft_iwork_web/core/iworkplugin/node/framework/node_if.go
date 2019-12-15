@@ -46,7 +46,7 @@ func (this *IFNode) GetDefaultParamInputSchema() *iworkmodels.ParamInputSchema {
 	paramMap := map[int][]string{
 		1: {iworkconst.BOOL_PREFIX + "expression", "if条件表达式,值为 bool 类型!"},
 	}
-	return this.BuildParamInputSchemaWithDefaultMap(paramMap)
+	return this.BPIS1(paramMap)
 }
 
 func (this *IFNode) GetDefaultParamOutputSchema() *iworkmodels.ParamOutputSchema {
@@ -90,7 +90,7 @@ func (this *ElIfNode) GetDefaultParamInputSchema() *iworkmodels.ParamInputSchema
 	paramMap := map[int][]string{
 		1: {iworkconst.BOOL_PREFIX + "expression", "if条件表达式,值为 bool 类型!"},
 	}
-	return this.BuildParamInputSchemaWithDefaultMap(paramMap)
+	return this.BPIS1(paramMap)
 }
 
 func (this *ElIfNode) GetDefaultParamOutputSchema() *iworkmodels.ParamOutputSchema {

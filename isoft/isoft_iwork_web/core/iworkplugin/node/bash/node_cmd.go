@@ -69,7 +69,7 @@ func (this *RunCmdNode) GetDefaultParamInputSchema() *iworkmodels.ParamInputSche
 		2: {iworkconst.STRING_PREFIX + "command_name", "执行命令"},
 		3: {iworkconst.STRING_PREFIX + "command_args", "执行命令参数列表"},
 	}
-	return this.BuildParamInputSchemaWithDefaultMap(paramMap)
+	return this.BPIS1(paramMap)
 }
 
 func (this *RunCmdNode) GetDefaultParamOutputSchema() *iworkmodels.ParamOutputSchema {

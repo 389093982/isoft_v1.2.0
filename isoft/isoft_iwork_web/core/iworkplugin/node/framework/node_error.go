@@ -34,5 +34,5 @@ func (this *PanicErrorNode) GetDefaultParamInputSchema() *iworkmodels.ParamInput
 		1: {iworkconst.BOOL_PREFIX + "panic_expression", "抛出异常的条件,值为 bool 类型!"},
 		2: {iworkconst.STRING_PREFIX + "panic_errorMsg?", "抛出异常的信息,值为字符串类型!"},
 	}
-	return this.BuildParamInputSchemaWithDefaultMap(paramMap)
+	return this.BPIS1(paramMap)
 }

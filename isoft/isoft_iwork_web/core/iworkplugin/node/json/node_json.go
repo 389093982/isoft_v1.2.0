@@ -28,7 +28,7 @@ func (this *JsonRenderNode) GetDefaultParamInputSchema() *iworkmodels.ParamInput
 	paramMap := map[int][]string{
 		1: {iworkconst.COMPLEX_PREFIX + "json_data", "需要传入json对象"},
 	}
-	return this.BuildParamInputSchemaWithDefaultMap(paramMap)
+	return this.BPIS1(paramMap)
 }
 
 func (this *JsonRenderNode) GetDefaultParamOutputSchema() *iworkmodels.ParamOutputSchema {
@@ -64,7 +64,7 @@ func (this *JsonParserNode) GetDefaultParamInputSchema() *iworkmodels.ParamInput
 		1: {iworkconst.STRING_PREFIX + "json_data", "需要转换成json对象的字符串"},
 		2: {"json_fields", "json对象的字段列表"},
 	}
-	return this.BuildParamInputSchemaWithDefaultMap(paramMap)
+	return this.BPIS1(paramMap)
 }
 
 func (this *JsonParserNode) GetRuntimeParamOutputSchema() *iworkmodels.ParamOutputSchema {

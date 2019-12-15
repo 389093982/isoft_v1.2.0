@@ -20,5 +20,5 @@ func (this *DoErrorFilterNode) GetDefaultParamInputSchema() *iworkmodels.ParamIn
 	paramMap := map[int][]string{
 		1: {"headerCode", "响应头 code"},
 	}
-	return this.BuildParamInputSchemaWithDefaultMap(paramMap)
+	return this.BPIS1(paramMap)
 }

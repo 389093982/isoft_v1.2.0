@@ -24,7 +24,7 @@ func (this *DBParserNode) GetDefaultParamInputSchema() *iworkmodels.ParamInputSc
 	paramMap := map[int][]string{
 		1: {iworkconst.STRING_PREFIX + "db_conn", "数据库连接信息,需要使用 $RESOURCE 全局参数"},
 	}
-	return this.BuildParamInputSchemaWithDefaultMap(paramMap)
+	return this.BPIS1(paramMap)
 }
 
 func (this *DBParserNode) GetDefaultParamOutputSchema() *iworkmodels.ParamOutputSchema {

@@ -30,7 +30,7 @@ func (this *AssignVarNode) GetDefaultParamInputSchema() *iworkmodels.ParamInputS
 	paramMap := map[int][]string{
 		1: {iworkconst.STRING_PREFIX + "assign_node", "待赋值的对象"},
 	}
-	return this.BuildParamInputSchemaWithDefaultMap(paramMap)
+	return this.BPIS1(paramMap)
 }
 
 func (this *AssignVarNode) getAssignNodeName() string {

@@ -79,7 +79,7 @@ func (this *SQLExecuteNode) GetDefaultParamInputSchema() *iworkmodels.ParamInput
 		4: {iworkconst.STRING_PREFIX + "panic_no_affected?", "执行 sql 影响条数为 0 时,抛出的异常信息,为空时不抛出异常!"},
 		5: {iworkconst.STRING_PREFIX + "db_conn", "数据库连接信息,需要使用 $RESOURCE 全局参数"},
 	}
-	return this.BuildParamInputSchemaWithDefaultMap(paramMap)
+	return this.BPIS1(paramMap)
 }
 
 func (this *SQLExecuteNode) GetDefaultParamOutputSchema() *iworkmodels.ParamOutputSchema {
