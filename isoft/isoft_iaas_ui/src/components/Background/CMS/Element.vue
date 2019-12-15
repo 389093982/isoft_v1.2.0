@@ -1,7 +1,11 @@
 <template>
   <div>
     <ISimpleLeftRightRow>
-      <Button type="success" slot="left" @click="$router.push({ path: '/background/cms/element_edit'})">新增页面元素</Button>
+      <span slot="left">
+              <Button type="success" size="small" @click="$router.push({ path: '/background/cms/element_edit'})">新增页面元素</Button>
+              <Button type="info" size="small" @click="exportAll">全部导出</Button>
+      </span>
+
       <!-- right 插槽部分 -->
       <ISimpleSearch slot="right" @handleSimpleSearch="handleSearch"/>
     </ISimpleLeftRightRow>
@@ -189,6 +193,9 @@
         this.search = data;
         this.refreshElementList();
       },
+      exportAll:function () {
+        alert(111111);
+      }
     },
     mounted(){
       if(this.$route.query.search != undefined){

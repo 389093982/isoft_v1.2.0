@@ -2,7 +2,7 @@
   <div>
     <ISimpleLeftRightRow style="margin-bottom: 10px;margin-right: 10px;">
       <!-- left 插槽部分 -->
-      <Button type="success" slot="left" @click="$router.push({ path: '/background/cms/placement_edit'})" v-if="!this.chooserMode">新增占位符</Button>
+      <Button type="success" size="small" slot="left" @click="$router.push({ path: '/background/cms/placement_edit'})" v-if="!this.chooserMode">新增占位符</Button>
 
       <!-- right 插槽部分 -->
       <ISimpleSearch slot="right" @handleSimpleSearch="handleSearch"/>
