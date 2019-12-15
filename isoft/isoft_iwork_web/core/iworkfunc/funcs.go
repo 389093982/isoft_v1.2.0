@@ -1,7 +1,6 @@
 package iworkfunc
 
 import (
-	"encoding/base64"
 	"fmt"
 	"github.com/pkg/errors"
 	"isoft/isoft/common/chiperutil"
@@ -90,21 +89,11 @@ func (t *IWorkFuncProxy) GenerateMap(args []interface{}) interface{} {
 }
 
 func (t *IWorkFuncProxy) AesEncrypt(args []interface{}) interface{} {
-	pwd, err := chiperutil.AesEncrypt([]byte(args[0].(string)), []byte(args[1].(string)))
-	errorutil.CheckError(err)
-	return base64.StdEncoding.EncodeToString(pwd)
+	return chiperutil.AesEncryptToStr(args[0].(string), args[1].(string))
 }
 
 func (t *IWorkFuncProxy) AesDecrypt(args []interface{}) interface{} {
-	bytes, err := base64.StdEncoding.DecodeString(args[0].(string))
-	if err != nil {
-		return ""
-	}
-	bytes, err = chiperutil.AesDecrypt(bytes, []byte(args[1].(string)))
-	if err != nil {
-		return ""
-	}
-	return string(bytes)
+	return chiperutil.AesDecryptToStr(args[0].(string), args[1].(string))
 }
 
 func (t *IWorkFuncProxy) BcryptGenerateFromPassword(args []interface{}) interface{} {

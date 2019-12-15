@@ -25,9 +25,11 @@ func (this *TxManager) FirstBegin(dataSourceName string) {
 }
 
 func (this *TxManager) Commit(flag bool) {
-	if flag {
-		this.Tx.Commit()
-	} else {
-		this.Tx.Rollback()
+	if this.Tx != nil {
+		if flag {
+			this.Tx.Commit()
+		} else {
+			this.Tx.Rollback()
+		}
 	}
 }
