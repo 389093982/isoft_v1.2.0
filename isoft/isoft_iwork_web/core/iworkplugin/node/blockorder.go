@@ -1,7 +1,6 @@
 package node
 
 import (
-	"fmt"
 	"isoft/isoft/common/stringutil"
 	"isoft/isoft_iwork_web/core/interfaces"
 	"isoft/isoft_iwork_web/core/iworkcache"
@@ -39,8 +38,8 @@ func (this *BlockStepOrdersRunner) recordLog(err interface{}) {
 
 	errorMsg = strings.Join([]string{
 		"~~~~~~~~~~~~~~~~~~~~~~~~ internal error trace stack ~~~~~~~~~~~~~~~~~~~~~~~~~~",
-		strings.ReplaceAll(string(errorutil.PanicTrace(4)), "\n", "<br/>"), // 记录 4 kb大小的堆栈信息
-		fmt.Sprintf("<span style='color:red;'>internal error:%s</span>", _err),
+		errorutil.PanicTraceForHtml(4), // 记录 4 kb大小的堆栈信息
+		errorutil.FormatInternalError(_err),
 		"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~",
 	},
 		"<br/>")

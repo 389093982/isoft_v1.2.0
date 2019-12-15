@@ -9,6 +9,7 @@ import (
 	"isoft/isoft_iwork_web/core/iworkdata/entry"
 	"isoft/isoft_iwork_web/core/iworklog"
 	"isoft/isoft_iwork_web/core/iworkplugin/node"
+	"isoft/isoft_iwork_web/core/iworkutil/errorutil"
 	"net/http"
 	"time"
 )
@@ -22,16 +23,18 @@ func RunOneWork(work_id int64, dispatcher *entry.Dispatcher) (trackingId string,
 	// 为当前流程创建新的 trackingId, 前提条件 cacheContext.Work 一定存在
 	trackingId = createNewTrackingIdForWork(dispatcher, workCache.Work)
 	if err != nil {
-		logwriter.Write(trackingId, "", iworkconst.LOG_LEVEL_ERROR, fmt.Sprintf("<span style='color:red;'>internal error:%s</span>", err.Error()))
+		logwriter.Write(trackingId, "", iworkconst.LOG_LEVEL_ERROR, errorutil.FormatInternalError(err))
 	}
 	defer logwriter.RecordCostTimeLog("execute work", trackingId, time.Now())
 
 	// 记录前置 filterTrackingIds 信息
 	if filterTrackingIds := getFilterTrackingIds(dispatcher); filterTrackingIds != "" {
-		logwriter.Write(trackingId, "", iworkconst.LOG_LEVEL_INFO, fmt.Sprintf("filter stack:%s", filterTrackingIds))
+		msg := fmt.Sprintf("filter stack:%s", filterTrackingIds)
+		logwriter.Write(trackingId, "", iworkconst.LOG_LEVEL_INFO, msg)
 	}
 	// 记录日志详细
-	logwriter.Write(trackingId, "", iworkconst.LOG_LEVEL_INFO, fmt.Sprintf("~~~~~~~~~~start execute work:%s~~~~~~~~~~", workCache.Work.WorkName))
+	msg := fmt.Sprintf("~~~~~~~~~~start execute work:%s~~~~~~~~~~", workCache.Work.WorkName)
+	logwriter.Write(trackingId, "", iworkconst.LOG_LEVEL_INFO, msg)
 
 	// 初始化数据中心
 	initDataStore := datastore.InitDataStore(trackingId, logwriter, workCache)
@@ -46,7 +49,8 @@ func RunOneWork(work_id int64, dispatcher *entry.Dispatcher) (trackingId string,
 		RunOneStep:   RunOneStep,
 	}
 	receiver = bsoRunner.Run()
-	logwriter.Write(trackingId, "", iworkconst.LOG_LEVEL_INFO, fmt.Sprintf("~~~~~~~~~~end execute work:%s~~~~~~~~~~", workCache.Work.WorkName))
+	msg = fmt.Sprintf("~~~~~~~~~~end execute work:%s~~~~~~~~~~", workCache.Work.WorkName)
+	logwriter.Write(trackingId, "", iworkconst.LOG_LEVEL_INFO, msg)
 	return
 }
 

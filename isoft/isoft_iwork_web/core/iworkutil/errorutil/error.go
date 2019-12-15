@@ -2,9 +2,15 @@ package errorutil
 
 import (
 	"bytes"
+	"fmt"
 	"github.com/pkg/errors"
 	"runtime"
+	"strings"
 )
+
+func FormatInternalError(err interface{}) string {
+	return fmt.Sprintf("<span style='color:red;'>internal error:%s</span>", ToError(err).Error())
+}
 
 func CheckError(err error) {
 	if err != nil {
@@ -53,4 +59,9 @@ func PanicTrace(kb int) []byte {
 	}
 	stack = bytes.TrimRight(stack, "\n")
 	return stack
+}
+
+// 记录指定 kb 大小的堆栈信息,并将其格式化成 HTML
+func PanicTraceForHtml(kb int) string {
+	return strings.ReplaceAll(string(PanicTrace(kb)), "\n", "<br/>")
 }
