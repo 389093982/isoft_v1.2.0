@@ -6,8 +6,8 @@ import (
 	"isoft/isoft_iwork_web/core/iworkutil/errorutil"
 )
 
-func ExecuteWithDB(sqlstring string, sql_binding []interface{}, db *sql.DB) (lastInsertId, affected int64) {
-	stmt, err := db.Prepare(sqlstring)
+func ExecuteWithTx(sqlstring string, sql_binding []interface{}, tx *sql.Tx) (lastInsertId, affected int64) {
+	stmt, err := tx.Prepare(sqlstring)
 	errorutil.CheckError(err)
 	result, err := stmt.Exec(sql_binding...)
 	errorutil.CheckError(err)
@@ -21,7 +21,8 @@ func ExecuteWithDB(sqlstring string, sql_binding []interface{}, db *sql.DB) (las
 func Execute(sqlstring string, sql_binding []interface{}, dataSourceName string) (lastInsertId, affected int64) {
 	db, err := iworkpool.GetDBConn("mysql", dataSourceName)
 	errorutil.CheckError(err)
-	return ExecuteWithDB(sqlstring, sql_binding, db)
+	tx, _ := db.Begin()
+	return ExecuteWithTx(sqlstring, sql_binding, tx)
 }
 
 func ExecuteSql(sqlstring string, sql_binding []interface{}, dataSourceName string) (lastInsertId, affected int64, err error) {

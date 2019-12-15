@@ -36,7 +36,12 @@ func RunOneWork(work_id int64, dispatcher *entry.Dispatcher) (trackingId string,
 
 	// 初始化数据中心
 	initDataStore := datastore.InitDataStore(trackingId, logwriter, workCache, dispatcher, &node.TxManager{})
-
+	if dispatcher == nil || dispatcher.TxManger == nil { // dispatcher 不含事务管理器,则代表是最外层流程
+		defer func() {
+			tsm := initDataStore.TxManger.(*node.TxManager)
+			tsm.Commit(true) // 提交事务,暂不支持事务回退,只支持事务提交
+		}()
+	}
 	bsoRunner := node.BlockStepOrdersRunner{
 		ParentStepId: iworkconst.PARENT_STEP_ID_FOR_START_END,
 		WorkCache:    workCache,

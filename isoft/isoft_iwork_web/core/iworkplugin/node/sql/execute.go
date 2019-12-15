@@ -25,7 +25,11 @@ func (this *SQLExecuteNode) Execute(trackingId string) {
 	sql = this.modifySqlInsertWithBatch(this.TmpDataMap, sql)
 	// sql_binding 参数获取
 	sql_binding := getSqlBinding(this.TmpDataMap, namings)
-	lastInsertId, affected := sqlutil.Execute(sql, sql_binding, dataSourceName)
+
+	txm := this.DataStore.TxManger.(*node.TxManager)
+	txm.FirstBegin(dataSourceName)
+
+	lastInsertId, affected := sqlutil.ExecuteWithTx(sql, sql_binding, txm.Tx)
 	this.checkPanicNoAffectedMsg(affected)
 	// 将数据数据存储到数据中心
 	// 存储 affected
