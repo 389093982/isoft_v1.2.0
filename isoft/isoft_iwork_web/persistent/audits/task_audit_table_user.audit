@@ -1,0 +1,10 @@
+<AuditTask>
+	<Id>13</Id>
+	<TaskName>task_audit_table_user</TaskName>
+	<TaskDesc>用户表审核</TaskDesc>
+	<TaskDetail>&lt;TaskDetail&gt;&#xA;&#x9;&lt;ResourceName&gt;isoft_iaas&lt;/ResourceName&gt;&#xA;&#x9;&lt;QuerySql&gt;select * from user&lt;/QuerySql&gt;&#xA;&#x9;&lt;ColNames&gt;[&amp;#xA;&amp;#x9;&amp;#34;id&amp;#34;,&amp;#xA;&amp;#x9;&amp;#34;user_name&amp;#34;,&amp;#xA;&amp;#x9;&amp;#34;pass_wd&amp;#34;,&amp;#xA;&amp;#x9;&amp;#34;created_by&amp;#34;,&amp;#xA;&amp;#x9;&amp;#34;created_time&amp;#34;,&amp;#xA;&amp;#x9;&amp;#34;last_updated_by&amp;#34;,&amp;#xA;&amp;#x9;&amp;#34;last_updated_time&amp;#34;,&amp;#xA;&amp;#x9;&amp;#34;small_icon&amp;#34;,&amp;#xA;&amp;#x9;&amp;#34;user_points&amp;#34;,&amp;#xA;&amp;#x9;&amp;#34;nick_name&amp;#34;,&amp;#xA;&amp;#x9;&amp;#34;verify_code&amp;#34;,&amp;#xA;&amp;#x9;&amp;#34;verify_code_expired&amp;#34;,&amp;#xA;&amp;#x9;&amp;#34;role_name&amp;#34;,&amp;#xA;&amp;#x9;&amp;#34;vip_level&amp;#34;,&amp;#xA;&amp;#x9;&amp;#34;vip_expired_time&amp;#34;&amp;#xA;]&lt;/ColNames&gt;&#xA;&#x9;&lt;UpdateCases&gt;&#xA;&#x9;&#x9;&lt;CaseName&gt;普通用户&lt;/CaseName&gt;&#xA;&#x9;&#x9;&lt;CaseColor&gt;#19be6b&lt;/CaseColor&gt;&#xA;&#x9;&#x9;&lt;UpdateSql&gt;update user set role_name = &amp;#39;common&amp;#39; where id = :id&lt;/UpdateSql&gt;&#xA;&#x9;&#x9;&lt;UpdateDesc&gt;审核用户为普通用户&lt;/UpdateDesc&gt;&#xA;&#x9;&lt;/UpdateCases&gt;&#xA;&#x9;&lt;UpdateCases&gt;&#xA;&#x9;&#x9;&lt;CaseName&gt;管理员&lt;/CaseName&gt;&#xA;&#x9;&#x9;&lt;CaseColor&gt;#19be6b&lt;/CaseColor&gt;&#xA;&#x9;&#x9;&lt;UpdateSql&gt;update user set role_name = &amp;#39;admin&amp;#39; where id = :id&lt;/UpdateSql&gt;&#xA;&#x9;&#x9;&lt;UpdateDesc&gt;审核用户为管理员&lt;/UpdateDesc&gt;&#xA;&#x9;&lt;/UpdateCases&gt;&#xA;&lt;/TaskDetail&gt;</TaskDetail>
+	<CreatedBy>SYSTEM</CreatedBy>
+	<CreatedTime>2019-12-15T19:52:33+08:00</CreatedTime>
+	<LastUpdatedBy>SYSTEM</LastUpdatedBy>
+	<LastUpdatedTime>2019-12-15T19:52:33+08:00</LastUpdatedTime>
+</AuditTask>
