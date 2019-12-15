@@ -22,6 +22,7 @@ func Execute(sqlstring string, sql_binding []interface{}, dataSourceName string)
 	db, err := iworkpool.GetDBConn("mysql", dataSourceName)
 	errorutil.CheckError(err)
 	tx, _ := db.Begin()
+	defer tx.Commit()
 	return ExecuteWithTx(sqlstring, sql_binding, tx)
 }
 
