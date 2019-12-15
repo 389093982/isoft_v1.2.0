@@ -13,7 +13,7 @@
       </p>
     </div>
     <div id="login_footer">
-      <router-link :to="{path:'/sso/user/friendLogin'}" style="float: left;color: #2e82ff;">友情登录</router-link>
+      <router-link :to="{path:'/sso/user/loginProblem'}" style="float: left;color: #2e82ff;">常见登录问题</router-link>
       <router-link :to="{path:'/sso/regist', query: { pattern: 1 }}" style="float: right;color: #2e82ff;">立即注册</router-link>
     </div>
   </div>
