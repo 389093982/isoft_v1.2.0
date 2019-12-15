@@ -1,8 +1,10 @@
 package sql
 
 import (
+	"errors"
 	"fmt"
 	"isoft/isoft/common/pageutil"
+	"isoft/isoft_iwork_web/core/interfaces"
 	"isoft/isoft_iwork_web/core/iworkconst"
 	"isoft/isoft_iwork_web/core/iworkdata/param"
 	"isoft/isoft_iwork_web/core/iworkfunc"
@@ -62,6 +64,7 @@ func (this *SQLQueryNode) Execute(trackingId string) {
 	if !isPage {
 		datacounts, rowDatas = sqlutil.Query(sql, sql_binding, dataSourceName)
 	}
+	this.checkPanicNoDataCount(datacounts)
 
 	// 将数据数据存储到数据中心
 	// 存储 datacounts
@@ -71,8 +74,17 @@ func (this *SQLQueryNode) Execute(trackingId string) {
 	if len(rowDatas) > 0 {
 		paramMap["row"] = rowDatas[0]
 	}
-
 	this.DataStore.CacheDatas(this.WorkStep.WorkStepName, paramMap)
+}
+
+// 当影响条数为 0 时,是否报出异常信息
+func (this *SQLQueryNode) checkPanicNoDataCount(datacounts int64) {
+	if panicNoAffected := this.TmpDataMap[iworkconst.STRING_PREFIX+"panic_no_datacounts?"]; panicNoAffected != nil {
+		panicNoAffectedMsg := panicNoAffected.(string)
+		if datacounts == 0 && panicNoAffectedMsg != "" {
+			panic(&interfaces.InsensitiveError{Error: errors.New(panicNoAffectedMsg)})
+		}
+	}
 }
 
 func (this *SQLQueryNode) GetDefaultParamInputSchema() *iworkmodels.ParamInputSchema {
@@ -83,7 +95,8 @@ func (this *SQLQueryNode) GetDefaultParamInputSchema() *iworkmodels.ParamInputSc
 		4: {iworkconst.MULTI_PREFIX + "sql_binding?", "sql绑定数据,个数和sql中的?数量相同"},
 		5: {iworkconst.NUMBER_PREFIX + "current_page?", "当前页数"},
 		6: {iworkconst.NUMBER_PREFIX + "page_size?", "每页数据量"},
-		7: {iworkconst.STRING_PREFIX + "db_conn", "数据库连接信息,需要使用 $RESOURCE 全局参数"},
+		7: {iworkconst.STRING_PREFIX + "panic_no_datacounts?", "查询数据量为 0 时,抛出的异常信息,为空时不抛出异常!"},
+		8: {iworkconst.STRING_PREFIX + "db_conn", "数据库连接信息,需要使用 $RESOURCE 全局参数"},
 	}
 	return this.BPIS1(paramMap)
 }

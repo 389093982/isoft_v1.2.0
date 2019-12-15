@@ -45,7 +45,6 @@ func (this *SQLExecuteNode) checkPanicNoAffectedMsg(affected int64) {
 			panic(&interfaces.InsensitiveError{Error: errors.New(panicNoAffectedMsg)})
 		}
 	}
-
 }
 
 func (this *SQLExecuteNode) modifySqlInsertWithBatch(tmpDataMap map[string]interface{}, sql string) string {
