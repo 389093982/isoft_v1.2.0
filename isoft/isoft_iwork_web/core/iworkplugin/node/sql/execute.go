@@ -30,11 +30,11 @@ func (this *SQLExecuteNode) Execute(trackingId string) {
 	txm.FirstBegin(dataSourceName)
 
 	lastInsertId, affected := sqlutil.ExecuteWithTx(sql, sql_binding, txm.Tx)
-	this.checkPanicNoAffectedMsg(affected)
 	// 将数据数据存储到数据中心
 	// 存储 affected
 	paramMap := map[string]interface{}{iworkconst.NUMBER_PREFIX + "affected": affected, iworkconst.NUMBER_PREFIX + "lastInsertId": lastInsertId}
 	this.DataStore.CacheDatas(this.WorkStep.WorkStepName, paramMap)
+	this.checkPanicNoAffectedMsg(affected)
 }
 
 // 当影响条数为 0 时,是否报出异常信息

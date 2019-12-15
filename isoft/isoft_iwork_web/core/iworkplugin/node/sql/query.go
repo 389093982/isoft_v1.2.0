@@ -64,8 +64,6 @@ func (this *SQLQueryNode) Execute(trackingId string) {
 	if !isPage {
 		datacounts, rowDatas = sqlutil.Query(sql, sql_binding, dataSourceName)
 	}
-	this.checkPanicNoDataCount(datacounts)
-
 	// 将数据数据存储到数据中心
 	// 存储 datacounts
 	paramMap[iworkconst.NUMBER_PREFIX+"datacounts"] = datacounts
@@ -75,6 +73,7 @@ func (this *SQLQueryNode) Execute(trackingId string) {
 		paramMap["row"] = rowDatas[0]
 	}
 	this.DataStore.CacheDatas(this.WorkStep.WorkStepName, paramMap)
+	this.checkPanicNoDataCount(datacounts)
 }
 
 // 当影响条数为 0 时,是否报出异常信息
