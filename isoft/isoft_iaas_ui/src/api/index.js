@@ -106,8 +106,12 @@ export const EditPlacement = (id, placement_name, placement_desc, placement_labe
 export const QueryPlacementById = (id) => ajax(BASE_URL+'/iwork/httpservice/QueryPlacementById',{id},'GET');
 
 export const FilterPlacement = (offset,current_page,search) => ajax(BASE_URL+'/iwork/httpservice/FilterPlacement2',{offset,current_page,search},'GET');
+
 export const GetAllPlacements = () => ajax(BASE_URL+'/iwork/httpservice/GetAllPlacements2',{},'GET');
+
 export const CopyElement = (id) => ajax(BASE_URL+'/iwork/httpservice/CopyElement',{id},'GET');
+
+export const ExportAllElements = () => ajax(BASE_URL+'/iwork/httpservice/ExportAllElements',{},'GET');
 
 export const DeletePlacementById = (id) => ajax(BASE_URL+'/iwork/httpservice/DeletePlacementById2',{id},'GET');
 export const CopyPlacement = (id) => ajax(BASE_URL+'/iwork/httpservice/CopyPlacement',{id},'GET');
