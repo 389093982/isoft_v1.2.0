@@ -75,6 +75,14 @@
               <MenuItem name="5-2"><router-link to="/iwork/files">文件服务器管理</router-link></MenuItem>
               <MenuItem name="5-3"><router-link to="/iwork/audit">内容审核系统</router-link></MenuItem>
             </Submenu>
+            <Submenu name="6">
+              <template slot="title">
+                <Icon type="ios-barcode"></Icon>
+                内容管理
+              </template>
+              <MenuItem name="6-1"><router-link to="/iwork/placementList">占位符管理</router-link></MenuItem>
+              <MenuItem name="6-2"><router-link to="/iwork/elementList">页面元素管理</router-link></MenuItem>
+            </Submenu>
           </Menu>
         </Sider>
         <Layout :style="{padding: '24px'}">

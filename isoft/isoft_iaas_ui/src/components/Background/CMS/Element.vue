@@ -2,8 +2,8 @@
   <div>
     <ISimpleLeftRightRow>
       <span slot="left">
-              <Button type="success" size="small" @click="$router.push({ path: '/background/cms/element_edit'})">新增页面元素</Button>
-              <Button type="info" size="small" @click="exportAll">全部导出</Button>
+        <Button type="success" size="small" @click="$router.push({ path: '/background/cms/element_edit'})">新增页面元素</Button>
+        <Button type="info" size="small" @click="exportAll">全部导出</Button>
       </span>
 
       <!-- right 插槽部分 -->
@@ -21,7 +21,7 @@
 </template>
 
 <script>
-  import {FilterElements,UpdateElementStatus,GetAllPlacements,CopyElement} from "../../../api"
+  import {FilterElements,UpdateElementStatus,GetAllPlacements,CopyElement,ExportAllElements} from "../../../api"
   import ISimpleSearch from "../../Common/search/ISimpleSearch"
   import MultiClickButton from "../../Common/button/MultiClickButton"
   import ISimpleLeftRightRow from "../../Common/layout/ISimpleLeftRightRow"
@@ -193,8 +193,9 @@
         this.search = data;
         this.refreshElementList();
       },
-      exportAll:function () {
-        alert(111111);
+      exportAll:async function () {
+        const result = await ExportAllElements();
+        alert(result);
       }
     },
     mounted(){
