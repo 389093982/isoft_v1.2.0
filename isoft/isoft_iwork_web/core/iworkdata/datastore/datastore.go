@@ -14,11 +14,13 @@ type DataNodeStore struct {
 	NodeOutputDataMap map[string]interface{} // 当前节点的输出参数 map
 }
 
+// 当前流程数据存储仓库,只在当前流程有效,父子流程之间通信使用 Dispatcher 和 Receiver
 type DataStore struct {
 	TrackingId       string
 	wc               *iworkcache.WorkCache
 	logwriter        *iworklog.CacheLoggerWriter
 	DataNodeStoreMap map[string]*DataNodeStore
+	TxManger         interface{} // 事务管理器
 }
 
 // 向数据中心缓存数据

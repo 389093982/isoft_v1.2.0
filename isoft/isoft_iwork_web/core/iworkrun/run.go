@@ -27,31 +27,41 @@ func RunOneWork(work_id int64, dispatcher *entry.Dispatcher) (trackingId string,
 	}
 	defer logwriter.RecordCostTimeLog("execute work", trackingId, time.Now())
 
-	// 记录前置 filterTrackingIds 信息
-	if filterTrackingIds := getFilterTrackingIds(dispatcher); filterTrackingIds != "" {
-		msg := fmt.Sprintf("filter stack:%s", filterTrackingIds)
-		logwriter.Write(trackingId, "", iworkconst.LOG_LEVEL_INFO, msg)
-	}
-	// 记录日志详细
-	msg := fmt.Sprintf("~~~~~~~~~~start execute work:%s~~~~~~~~~~", workCache.Work.WorkName)
-	logwriter.Write(trackingId, "", iworkconst.LOG_LEVEL_INFO, msg)
+	// 记录继承下来的日志: 如前置 filterTrackingIds 信息
+	recordExtendLog(dispatcher, logwriter, trackingId)
+
+	// 记录日志: 标记流程执行开始和结束
+	recordStartEndLog(trackingId, logwriter, workCache, "start")
+	defer recordStartEndLog(trackingId, logwriter, workCache, "end")
 
 	// 初始化数据中心
-	initDataStore := datastore.InitDataStore(trackingId, logwriter, workCache)
+	dataStore := datastore.InitDataStore(trackingId, logwriter, workCache)
 
 	bsoRunner := node.BlockStepOrdersRunner{
 		ParentStepId: iworkconst.PARENT_STEP_ID_FOR_START_END,
 		WorkCache:    workCache,
 		TrackingId:   trackingId,
 		LogWriter:    logwriter,
-		Store:        initDataStore, // 获取数据中心
-		Dispatcher:   dispatcher,    // dispatcher 是全流程共享的
+		Store:        dataStore,  // 获取数据中心
+		Dispatcher:   dispatcher, // dispatcher 是全流程共享的
 		RunOneStep:   RunOneStep,
 	}
 	receiver = bsoRunner.Run()
-	msg = fmt.Sprintf("~~~~~~~~~~end execute work:%s~~~~~~~~~~", workCache.Work.WorkName)
-	logwriter.Write(trackingId, "", iworkconst.LOG_LEVEL_INFO, msg)
 	return
+}
+
+// 记录前置 filterTrackingIds 信息
+func recordExtendLog(dispatcher *entry.Dispatcher, logwriter *iworklog.CacheLoggerWriter, trackingId string) {
+	if filterTrackingIds := getFilterTrackingIds(dispatcher); filterTrackingIds != "" {
+		msg := fmt.Sprintf("filter stack:%s", filterTrackingIds)
+		logwriter.Write(trackingId, "", iworkconst.LOG_LEVEL_INFO, msg)
+	}
+}
+
+func recordStartEndLog(trackingId string, logwriter *iworklog.CacheLoggerWriter, workCache *iworkcache.WorkCache, pattern string) {
+	msg := fmt.Sprintf("~~~~~~~~~~%s execute work:%s~~~~~~~~~~", pattern, workCache.Work.WorkName)
+	logwriter.Write(trackingId, "", iworkconst.LOG_LEVEL_INFO, msg)
+
 }
 
 func createNewLoggerWriter(dispatcher *entry.Dispatcher) *iworklog.CacheLoggerWriter {
