@@ -108,12 +108,13 @@
         })
       },
       regist:async function () {
+        var _this = this;
         const result = await Regist(this.formValidate.username,this.formValidate.passwd,this.formValidate.nickname);
         if(result.status=="SUCCESS"){
           this.$Message.success('注册成功!');
           // 注册成功延迟 2s 跳往登录页面
           setTimeout(function(){
-            this.$router.push({path:'/sso/login'});
+            _this.$router.push({path:'/sso/login'});
           },2000);
 
         }else{
