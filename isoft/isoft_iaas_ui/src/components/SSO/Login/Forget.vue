@@ -1,5 +1,11 @@
 <template>
   <div style="margin:50px 200px;">
+    <div style="text-align: center;padding-left: 50px;">
+      <span style="height: 60px;line-height: 60px;font-size: 16px;color: #000;">修改账号</span>
+      <span>
+        <a href="/#/sso/login/" style="font-size: 15px;font-weight: inherit;">已有账号,前去登录</a>
+      </span>
+    </div>
     <Form ref="formValidate" :model="formValidate" :rules="ruleValidate" :label-width="80">
       <FormItem label="用户名" prop="username">
         <Input v-model.trim="formValidate.username" placeholder="请输入注册邮箱"></Input>
@@ -115,9 +121,14 @@
         }
       },
       modifyPwd:async function () {
+        var _this = this;
         const result = await ModifyPwd(this.formValidate.username, this.formValidate.passwd, this.formValidate.verifycode);
         if(result.status == "SUCCESS"){
           this.$Message.success("密码修改成功!");
+          // 注册成功延迟 2s 跳往登录页面
+          setTimeout(function(){
+            _this.$router.push({path:'/sso/login'});
+          },2000);
         }else{
           this.$Message.error(result.errorMsg);
         }
