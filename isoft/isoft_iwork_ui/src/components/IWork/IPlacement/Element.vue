@@ -60,10 +60,10 @@
             render: (h,params)=> {
               return h('div', {
                   style:{
-                    color: this.elements[params.index].status == 1 ?  'green' : (this.elements[params.index].status == 0 ? 'red' : 'grey'),
+                    color: this.elements[params.index].status == 1 ?  'green' : 'red',
                   }
                 },
-                this.elements[params.index].status == 1 ?  '启用' : (this.elements[params.index].status == 0 ? '停用' : '失效'))
+                this.elements[params.index].status == 1 ?  '启用' : '停用')
             },
             filters: [
               {
@@ -72,24 +72,9 @@
               },
               {
                 label: '停用',
-                value: 0,
-              },
-              {
-                label: '失效',
                 value: -1,
-              }
+              },
             ],
-            filterMultiple: false,
-            filterMethod (value, row) {
-              if (value == 1) {
-                return row.status == 1;
-              }else if (value == 0) {
-                return row.status == 0;
-              }else{
-                return row.status < 0;
-              }
-              return true;
-            }
           },
           {
             title: '导航级别',
@@ -131,10 +116,10 @@
                 h(MultiClickButton,{
                   props:{
                     btnCounts: 5,
-                    btnTypes: ['primary','info','warning',"error", 'success'],
+                    btnTypes: ['primary','info','error',"warning", 'success'],
                     btnShows: [true, true, true, true, true, true],
-                    btnBindDatas: [1, 0, -1, 2, 3],
-                    btnTexts: ['启用', '停用', '失效', '编辑', "复制"],
+                    btnBindDatas: [1, -1, -2, 2, 3],
+                    btnTexts: ['启用', '停用', '删除', '编辑', "复制"],
                   },
                   on:{
                     handleClick:async function (index, bindData) {

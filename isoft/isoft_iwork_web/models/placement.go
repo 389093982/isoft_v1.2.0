@@ -149,3 +149,8 @@ func CopyElement(id int64) (err error) {
 	_, err2 := InsertOrUpdateElement(&element)
 	return errorutil.GetFirstError2(err1, err2)
 }
+
+func DeleteElementById(id int64) (err error) {
+	_, err = orm.NewOrm().QueryTable("element").Filter("id", id).Delete()
+	return
+}

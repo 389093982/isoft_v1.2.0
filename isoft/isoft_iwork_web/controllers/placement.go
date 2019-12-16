@@ -146,9 +146,14 @@ func (this *WorkController) EditElement() {
 func (this *WorkController) UpdateElementStatus() {
 	id, _ := this.GetInt64("id", 0)
 	status, _ := this.GetInt64("status", 0)
-	element, _ := models.QueryElementById(id)
-	element.Status = status
-	_, err := models.InsertOrUpdateElement(&element)
+	var err error
+	if status == -2 {
+		err = models.DeleteElementById(id)
+	} else {
+		element, _ := models.QueryElementById(id)
+		element.Status = status
+		_, err = models.InsertOrUpdateElement(&element)
+	}
 	if err == nil {
 		this.Data["json"] = &map[string]interface{}{"status": "SUCCESS"}
 	} else {
