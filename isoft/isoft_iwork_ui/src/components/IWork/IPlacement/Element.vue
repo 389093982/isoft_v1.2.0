@@ -44,24 +44,14 @@
         elements: [],
         columns1: [
           {
+            title: 'id',
+            key: 'id',
+            width:100
+          },
+          {
             title: 'placement',
             key: 'placement',
             width:250
-          },
-          {
-            title: '导航级别',
-            key: 'navigation_level',
-            width:100
-          },
-          {
-            title: '父 id',
-            key: 'navigation_parent_id',
-            width:100
-          },
-          {
-            title: 'title',
-            key: 'title',
-            width:150
           },
           {
             title: 'status',
@@ -69,11 +59,11 @@
             width:100,
             render: (h,params)=> {
               return h('div', {
-                style:{
-                  color: this.elements[params.index].status == 1 ?  'green' : (this.elements[params.index].status == 0 ? 'red' : 'grey'),
-                }
-              },
-              this.elements[params.index].status == 1 ?  '启用' : (this.elements[params.index].status == 0 ? '停用' : '失效'))
+                  style:{
+                    color: this.elements[params.index].status == 1 ?  'green' : (this.elements[params.index].status == 0 ? 'red' : 'grey'),
+                  }
+                },
+                this.elements[params.index].status == 1 ?  '启用' : (this.elements[params.index].status == 0 ? '停用' : '失效'))
             },
             filters: [
               {
@@ -100,6 +90,21 @@
               }
               return true;
             }
+          },
+          {
+            title: '导航级别',
+            key: 'navigation_level',
+            width:100
+          },
+          {
+            title: '父 id',
+            key: 'navigation_parent_id',
+            width:100
+          },
+          {
+            title: 'title',
+            key: 'title',
+            width:150
           },
           {
             title: 'img_path',
@@ -140,9 +145,10 @@
                       }else{
                         const result = await UpdateElementStatus(_this.elements[params.index].id, bindData);
                         if(result.status == "SUCCESS"){
+                          _this.$Message.success("操作成功!");
                           _this.refreshElementList();
                         }else{
-                          _this.$Message.error("状态更新失败!");
+                          _this.$Message.error("操作失败!");
                         }
                       }
                     }

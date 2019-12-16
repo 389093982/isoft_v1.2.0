@@ -55,6 +55,11 @@ func QueryPagePlacement(condArr map[string]string, page int, offset int, o orm.O
 func InsertOrUpdatePlacement(placement *Placement) (id int64, err error) {
 	o := orm.NewOrm()
 	if placement.Id > 0 {
+		old, _ := QueryPlacementById(placement.Id)
+		if old.PlacementName != placement.PlacementName {
+			// 更新 element
+			_, err = o.QueryTable("element").Filter("placement", old.PlacementName).Update(orm.Params{"placement": placement.PlacementName})
+		}
 		id, err = o.Update(placement)
 	} else {
 		_, err := QueryPlacementByName(placement.PlacementName)
@@ -139,7 +144,8 @@ func QueryLimitValidElementByPlaceName(placement_name string, limit int64) (elem
 func CopyElement(id int64) (err error) {
 	var element Element
 	err1 := orm.NewOrm().QueryTable("element").Filter("id", id).One(&element)
-	element.Id = 0 // 重置 id 为 0
+	element.Id = 0      // 重置 id 为 0
+	element.Status = -1 // 复制的默认失效
 	_, err2 := InsertOrUpdateElement(&element)
 	return errorutil.GetFirstError2(err1, err2)
 }
