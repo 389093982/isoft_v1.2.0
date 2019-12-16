@@ -14,6 +14,11 @@ import iView from 'iview'
 import 'iview/dist/styles/iview.css'
 Vue.use(iView);
 
+// 使用 vue-markdown
+import mavonEditor from 'mavon-editor'
+import 'mavon-editor/dist/css/index.css'
+Vue.use(mavonEditor)
+
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */

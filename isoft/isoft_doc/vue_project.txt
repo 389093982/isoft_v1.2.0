@@ -138,3 +138,4 @@ npm install marked --save
 npm install highlight.js
 
 
+设置registry >> npm config set registry https://registry.npm.taobao.org
