@@ -181,13 +181,24 @@
         this.offset = pageSize;
         this.refreshPlacementList();
       },
-      deletePlacementById: async function(id){
-        const result = await DeletePlacementById(id);
-        if(result.status == "SUCCESS"){
-          this.refreshPlacementList();
-        }else{
-          this.$Message.error(result.errorMsg);
-        }
+      deletePlacementById: function(id){
+        var _this = this;
+        _this.$Modal.confirm({
+          title: '删除',
+          content: '确认删除该条数据吗？请谨慎操作！',
+          onOk: async () => {
+            const result = await DeletePlacementById(id);
+            if(result.status == "SUCCESS"){
+              _this.$Message.success("删除成功！");
+              _this.refreshPlacementList();
+            }else{
+              _this.$Message.error(result.errorMsg);
+            }
+          },
+          onCancel: () => {
+            _this.$Message.info('取消操作');
+          }
+        });
       }
     },
     mounted(){

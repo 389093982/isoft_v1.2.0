@@ -17,7 +17,7 @@
             <Input type="text" v-model="formInline.placement_desc" placeholder="placement_desc" style="width: 80%;"/>
           </FormItem>
           <FormItem prop="element_limit" label="元素显示数量">
-            <Input type="text" v-model="formInline.element_limit" placeholder="element_limit" style="width: 80%;"/>
+            <Input type="number" v-model="formInline.element_limit" placeholder="element_limit" style="width: 80%;"/>
           </FormItem>
           <FormItem>
             <Button type="success" @click="handleSubmit" style="margin-right: 6px">提交</Button>

@@ -1,6 +1,7 @@
 package models
 
 import (
+	"errors"
 	"github.com/astaxie/beego/orm"
 	"isoft/isoft_iwork_web/core/iworkutil/errorutil"
 	"strings"
@@ -38,9 +39,13 @@ type Element struct {
 
 func QueryPagePlacement(condArr map[string]string, page int, offset int, o orm.Ormer) (placements []Placement, counts int64, err error) {
 	qs := o.QueryTable("placement")
+	var cond = orm.NewCondition()
 	if search, ok := condArr["search"]; ok && strings.TrimSpace(search) != "" {
-		qs = qs.Filter("placement_name__contains", search) // 或者描述搜索
+		subCond := orm.NewCondition()
+		subCond = cond.And("placement_name__contains", search).Or("placement_label__contains", search).Or("placement_desc__contains", search)
+		cond = cond.AndCond(subCond)
 	}
+	qs = qs.SetCond(cond)
 	counts, _ = qs.Count()
 	qs = qs.OrderBy("-last_updated_time").Limit(offset, (page-1)*offset)
 	qs.All(&placements)
@@ -68,6 +73,11 @@ func QueryPlacementById(id int64) (placement Placement, err error) {
 }
 
 func DeletePlacementById(id int64) (err error) {
+	placement, _ := QueryPlacementById(id)
+	count, _ := orm.NewOrm().QueryTable("element").Filter("placement", placement.PlacementName).Count()
+	if count > 0 {
+		return errors.New("请先删除 placement 关联的 element 元素，然后再进行删除操作！")
+	}
 	_, err = orm.NewOrm().QueryTable("placement").Filter("id", id).Delete()
 	return
 }
@@ -87,11 +97,15 @@ func GetAllPlacements() (placements []Placement, err error) {
 
 func FilterPageElement(condArr map[string]string, page int, offset int, o orm.Ormer) (elements []Element, counts int64, err error) {
 	qs := o.QueryTable("element")
+	var cond = orm.NewCondition()
 	if search, ok := condArr["search"]; ok && strings.TrimSpace(search) != "" {
-		qs = qs.Filter("placement__contains", search) // ...
+		subCond := orm.NewCondition()
+		subCond = cond.And("placement__contains", search).Or("title__contains", search)
+		cond = cond.AndCond(subCond)
 	}
+	qs = qs.SetCond(cond)
 	counts, _ = qs.Count()
-	qs = qs.OrderBy("-last_updated_time").Limit(offset, (page-1)*offset)
+	qs = qs.OrderBy("placement", "navigation_level", "navigation_parent_id", "-last_updated_time").Limit(offset, (page-1)*offset)
 	qs.All(&elements)
 	return
 }
