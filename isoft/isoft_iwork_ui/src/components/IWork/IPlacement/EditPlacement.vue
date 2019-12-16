@@ -68,7 +68,7 @@
               if(result.status == "SUCCESS"){
                 this.$Message.success('提交成功!');
               }else{
-                this.$Message.error('提交失败!');
+                this.$Message.error(result.errorMsg);
               }
             } else {
             this.$Message.error('校验不通过!');

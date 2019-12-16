@@ -57,6 +57,10 @@ func InsertOrUpdatePlacement(placement *Placement) (id int64, err error) {
 	if placement.Id > 0 {
 		id, err = o.Update(placement)
 	} else {
+		_, err := QueryPlacementByName(placement.PlacementName)
+		if err == nil {
+			return -1, errors.New("占位符已存在,请修改占位符名称！")
+		}
 		id, err = o.Insert(placement)
 	}
 	return
@@ -86,6 +90,7 @@ func CopyPlacement(id int64) (err error) {
 	var placement Placement
 	err1 := orm.NewOrm().QueryTable("placement").Filter("id", id).One(&placement)
 	placement.Id = 0 // 重置 id 为 0
+	placement.PlacementName = placement.PlacementName + "_copy"
 	_, err2 := InsertOrUpdatePlacement(&placement)
 	return errorutil.GetFirstError2(err1, err2)
 }
