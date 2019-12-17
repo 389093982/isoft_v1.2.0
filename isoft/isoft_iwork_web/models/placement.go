@@ -8,6 +8,11 @@ import (
 	"time"
 )
 
+type PlacementElementMppaer struct {
+	Placement Placement `json:"placement"`
+	Elements  []Element `json:"elements"`
+}
+
 type Placement struct {
 	Id              int64     `json:"id"`
 	PlacementName   string    `json:"placement_name"`
@@ -127,6 +132,11 @@ func InsertOrUpdateElement(element *Element) (id int64, err error) {
 	} else {
 		id, err = o.Insert(element)
 	}
+	return
+}
+
+func QueryElementByPlacementAndTitle(placement, title string) (element Element, err error) {
+	err = orm.NewOrm().QueryTable("element").Filter("placement", placement).Filter("title", title).One(&element)
 	return
 }
 

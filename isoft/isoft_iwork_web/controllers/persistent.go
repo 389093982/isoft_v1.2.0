@@ -48,9 +48,9 @@ func persistentPlacementsToFile() {
 	for _, placement := range placements {
 		elements, _ := models.QueryElementsByPlacename(placement.PlacementName)
 		filepath := path.Join(persistentDirPath, "placements", fmt.Sprintf(`%s.placement`, placement.PlacementName))
-		data := &map[string]interface{}{
-			"placement": placement,
-			"elements":  elements,
+		data := &models.PlacementElementMppaer{
+			Placement: placement,
+			Elements:  elements,
 		}
 		fileutil.WriteFile(filepath, []byte(xmlutil.RenderToString(data)), false)
 	}

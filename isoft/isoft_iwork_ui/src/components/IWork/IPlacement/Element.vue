@@ -3,7 +3,7 @@
     <ISimpleLeftRightRow>
       <span slot="left">
         <Button type="success" size="small" @click="$router.push({ path: '/iwork/elementEdit'})">新增页面元素</Button>
-        <Button type="info" size="small" @click="importElement">导入</Button>
+        <IFileUpload size="small" ref="fileUpload" @uploadComplete="uploadComplete" action="/api/iwork/import" uploadLabel="导入"/>
       </span>
 
       <!-- right 插槽部分 -->
@@ -25,10 +25,11 @@
   import ISimpleSearch from "../../Common/search/ISimpleSearch"
   import MultiClickButton from "../../Common/button/MultiClickButton"
   import ISimpleLeftRightRow from "../../Common/layout/ISimpleLeftRightRow"
+  import IFileUpload from "../../Common/file/IFileUpload"
 
   export default {
     name: "Element",
-    components:{ISimpleLeftRightRow,MultiClickButton,ISimpleSearch},
+    components:{ISimpleLeftRightRow,MultiClickButton,ISimpleSearch,IFileUpload},
     data () {
       var _this = this;
       return {
@@ -184,10 +185,14 @@
         this.search = data;
         this.refreshElementList();
       },
-      importElement:async function () {
-        const result = await ImportElement();
-        alert(result);
-      }
+      uploadComplete: function (result) {
+        if(result.status == "SUCCESS"){
+          this.refreshElementList();
+          this.$Message.success("导入成功！");
+        }else{
+          this.$Message.error(result.errorMsg);
+        }
+      },
     },
     mounted(){
       if(this.$route.query.search != undefined){

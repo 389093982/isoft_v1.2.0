@@ -180,8 +180,6 @@ export const GetAllPlacements = () => ajax(BASE_URL+'/iwork/getAllPlacements',{}
 
 export const CopyElement = (id) => ajax(BASE_URL+'/iwork/copyElement',{id},'GET');
 
-export const ImportElement = () => ajax(BASE_URL+'/iwork/importElement',{},'GET');
-
 export const DeletePlacementById = (id) => ajax(BASE_URL+'/iwork/deletePlacementById',{id},'GET');
 
 export const CopyPlacement = (id) => ajax(BASE_URL+'/iwork/copyPlacement',{id},'GET');

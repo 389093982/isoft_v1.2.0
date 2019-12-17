@@ -102,11 +102,11 @@ func (this *WorkController) SaveFile(suffixs []string) (tempFileName, fileName, 
 	if !stringutil.AnyOf("*", suffixs) && !stringutil.AnyOf(path.Ext(h.Filename), suffixs) {
 		panic("check upload file suffix error!")
 	}
+	//关闭上传的文件，不然的话会出现临时文件不能清除的情况
+	defer f.Close()
 	tempFileName = stringutil.RandomUUID() + path.Ext(h.Filename)
 	//得到文件的名称
 	fileName = h.Filename
-	//关闭上传的文件，不然的话会出现临时文件不能清除的情况
-	defer f.Close()
 	//保存文件到指定的位置,static/uploadfile,这个是文件的地址,第一个static前面不要有/
 	tempFilePath = path.Join(runtimecfg.FileSavePath, tempFileName)
 	err = this.SaveToFile("file", tempFilePath)

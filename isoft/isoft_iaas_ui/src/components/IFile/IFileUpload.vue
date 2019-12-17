@@ -1,6 +1,6 @@
 <template>
 <span>
-  <Button type="success" @click="fileUploadModal = true">{{ uploadLabel }}</Button>
+  <Button :size="size" type="success" @click="fileUploadModal = true">{{ uploadLabel }}</Button>
   <Modal
     v-model="fileUploadModal"
     width="500"
@@ -30,6 +30,10 @@
       action: {
         type: String,
         default: ''
+      },
+      size: {
+        type: String,
+        default: 'default'
       }
     },
     data () {
@@ -54,6 +58,9 @@
           });
         }
       },
+      hideModal(){
+        this.fileUploadModal = false;
+      }
     }
   }
 </script>
