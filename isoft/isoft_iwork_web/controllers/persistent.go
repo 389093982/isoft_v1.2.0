@@ -40,6 +40,20 @@ func persistentToFile() {
 	persistentMigratesToFile()
 	persistentWorkCahcesToFile()
 	persistentAuditTasksToFile()
+	persistentPlacementsToFile()
+}
+
+func persistentPlacementsToFile() {
+	placements, _ := models.GetAllPlacements()
+	for _, placement := range placements {
+		elements, _ := models.QueryElementsByPlacename(placement.PlacementName)
+		filepath := path.Join(persistentDirPath, "placements", fmt.Sprintf(`%s.placement`, placement.PlacementName))
+		data := &map[string]interface{}{
+			"placement": placement,
+			"elements":  elements,
+		}
+		fileutil.WriteFile(filepath, []byte(xmlutil.RenderToString(data)), false)
+	}
 }
 
 func persistentAuditTasksToFile() {
@@ -93,7 +107,7 @@ func persistentResourcesToFile() {
 func persistentMigratesToFile() {
 	migrates, _ := models.QueryAllSqlMigrate()
 	for _, migrate := range migrates {
-		filepath := path.Join(persistentDirPath, "migrates", fmt.Sprintf(`%s.migrate`, migrate.MigrateName))
+		filepath := path.Join(persistentDirPath, "migrates", fmt.Sprintf(`%s`, migrate.MigrateName))
 		fileutil.WriteFile(filepath, []byte(xmlutil.RenderToString(migrate)), false)
 	}
 }
