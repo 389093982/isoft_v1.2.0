@@ -13,6 +13,7 @@
 	<Elements>
 		<Id>281</Id>
 		<Placement>element_course_publish_desc</Placement>
+		<ElementName>课程发布规范说明</ElementName>
 		<Title>课程发布规范说明</Title>
 		<Content></Content>
 		<LinkedRefer></LinkedRefer>
@@ -29,6 +30,7 @@
 	<Elements>
 		<Id>282</Id>
 		<Placement>element_course_publish_desc</Placement>
+		<ElementName>eeeeeeeeeeeeee</ElementName>
 		<Title>eeeeeeeeeeeeee</Title>
 		<Content></Content>
 		<LinkedRefer></LinkedRefer>

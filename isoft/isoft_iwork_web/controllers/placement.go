@@ -111,6 +111,7 @@ func (this *WorkController) FilterPageElement() {
 func (this *WorkController) EditElement() {
 	id, _ := this.GetInt64("id", 0)
 	placement := this.GetString("placement")
+	element_name := this.GetString("element_name")
 	navigation_level, _ := this.GetInt64("navigation_level", 0)
 	navigation_parent_id, _ := this.GetInt64("navigation_parent_id", 0)
 	title := this.GetString("title")
@@ -122,6 +123,7 @@ func (this *WorkController) EditElement() {
 	element := &models.Element{
 		Id:                 id,
 		Placement:          placement,
+		ElementName:        element_name,
 		NavigationLevel:    navigation_level,
 		NavigationParentId: navigation_parent_id,
 		Title:              title,

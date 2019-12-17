@@ -164,8 +164,8 @@ export const GetAuditHandleData = (task_name, current_page, offset) => ajax(BASE
 // 占位符、页面元素模块
 export const FilterElements = (offset,current_page,search) => ajax(BASE_URL+'/iwork/filterPageElement',{offset,current_page,search},'GET');
 
-export const EditElement = (id, placement, navigation_level, navigation_parent_id, title, content, md_content, imgpath, linked_refer) =>
-  ajax(BASE_URL+'/iwork/editElement',{id, placement, navigation_level, navigation_parent_id, title, content, md_content, imgpath, linked_refer},'POST');
+export const EditElement = (id, placement, element_name, navigation_level, navigation_parent_id, title, content, md_content, imgpath, linked_refer) =>
+  ajax(BASE_URL+'/iwork/editElement',{id, placement, element_name, navigation_level, navigation_parent_id, title, content, md_content, imgpath, linked_refer},'POST');
 
 export const UpdateElementStatus = (id, status) => ajax(BASE_URL+'/iwork/updateElementStatus',{id, status},'GET');
 

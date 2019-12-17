@@ -13,6 +13,7 @@
 	<Elements>
 		<Id>337</Id>
 		<Placement>element_discount_list</Placement>
+		<ElementName>淘宝优惠券便宜啦</ElementName>
 		<Title>淘宝优惠券便宜啦</Title>
 		<Content>华为手机优惠券领取华为手机优惠券领取华为手机优惠券领取</Content>
 		<LinkedRefer>http://www.baidu.com?aaaaaaaaaaa=bbbbbbbbb</LinkedRefer>
@@ -29,6 +30,7 @@
 	<Elements>
 		<Id>338</Id>
 		<Placement>element_discount_list</Placement>
+		<ElementName>华为手机优惠券领取</ElementName>
 		<Title>华为手机优惠券领取</Title>
 		<Content>华为手机优惠券领取华为手机优惠券领取华为手机优惠券领取</Content>
 		<LinkedRefer></LinkedRefer>
@@ -45,6 +47,7 @@
 	<Elements>
 		<Id>339</Id>
 		<Placement>element_discount_list</Placement>
+		<ElementName>华为手机优惠券领取</ElementName>
 		<Title>华为手机优惠券领取</Title>
 		<Content>华为手机优惠券领取华为手机优惠券领取华为手机优惠券领取</Content>
 		<LinkedRefer></LinkedRefer>
@@ -61,6 +64,7 @@
 	<Elements>
 		<Id>340</Id>
 		<Placement>element_discount_list</Placement>
+		<ElementName>华为手机优惠券领取</ElementName>
 		<Title>华为手机优惠券领取</Title>
 		<Content>华为手机优惠券领取华为手机优惠券领取华为手机优惠券领取</Content>
 		<LinkedRefer></LinkedRefer>

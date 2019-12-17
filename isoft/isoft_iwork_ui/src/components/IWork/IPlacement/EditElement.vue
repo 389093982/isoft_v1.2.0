@@ -7,14 +7,13 @@
     <Form ref="formInline" :model="formInline" :rules="ruleInline" :label-width="100">
       <Row>
         <Col span="12">
-          <FormItem label="占位符">
-            <Input type="text" readonly="readonly" v-model="formInline.placement" placeholder="placement" style="width: 80%;"/>
-            <Button type="success" @click="$refs.placement_chooser.showModal()">选择</Button>
+          <FormItem prop="element_name" label="元素名称">
+            <Input type="text" v-model="formInline.element_name" placeholder="element_name" style="width: 80%;"/>
           </FormItem>
           <FormItem prop="navigation_level" label="导航级别">
             <Input type="text" readonly="readonly" v-model="formInline.navigation_level" placeholder="navigation_level" style="width: 80%;"/>
           </FormItem>
-          <FormItem prop="navigation_parent_id"  label="父级关联 id">
+          <FormItem prop="navigation_parent_id" label="父级关联 id">
             <Input type="text" readonly="readonly" v-model="formInline.navigation_parent_id" placeholder="navigation_parent_id" style="width: 80%;"/>
             <Poptip v-model="visible_choose_element" placement="left-start" width="400" @on-popper-show="showChooseElement">
               <a href="javascript:;">选择父级</a>
@@ -30,6 +29,10 @@
           </FormItem>
         </Col>
         <Col span="12">
+          <FormItem label="占位符">
+            <Input type="text" readonly="readonly" v-model="formInline.placement" placeholder="placement" style="width: 80%;"/>
+            <Button type="success" @click="$refs.placement_chooser.showModal()">选择</Button>
+          </FormItem>
           <FormItem prop="title" label="标题">
             <Input type="text" v-model="formInline.title" placeholder="title" style="width: 80%;"/>
           </FormItem>
@@ -95,6 +98,7 @@
         elements:[],
         formInline: {
           placement:'',
+          element_name:'',
           navigation_level:0,  // 元素层级
           navigation_parent_id:0,   // 父级元素 id
           title: '',
@@ -115,7 +119,7 @@
         this.$refs['formInline'].validate(async (valid) => {
           if (valid) {
             let id = this.$route.query.id == undefined ? 0 : this.$route.query.id;
-            const result = await EditElement(id, this.formInline.placement, this.formInline.navigation_level,
+            const result = await EditElement(id, this.formInline.placement, this.formInline.element_name, this.formInline.navigation_level,
               this.formInline.navigation_parent_id, this.formInline.title, this.formInline.content, this.formInline.md_content,
               this.formInline.imgpath, this.formInline.linked_refer);
             if(result.status=="SUCCESS"){
@@ -159,6 +163,7 @@
         if(result.status == "SUCCESS"){
           let element = result.element;
           this.formInline.placement = element.placement;
+          this.formInline.element_name = element.element_name;
           this.formInline.title = element.title;
           this.formInline.content = element.content;
           this.formInline.md_content = element.md_content;

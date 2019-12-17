@@ -13,6 +13,7 @@
 	<Elements>
 		<Id>30</Id>
 		<Placement>element_host_recommend_blog_tpyes</Placement>
+		<ElementName>java社区</ElementName>
 		<Title>java社区</Title>
 		<Content>人生苦短，我用python</Content>
 		<LinkedRefer>java社区</LinkedRefer>
@@ -29,6 +30,7 @@
 	<Elements>
 		<Id>31</Id>
 		<Placement>element_host_recommend_blog_tpyes</Placement>
+		<ElementName>python社区</ElementName>
 		<Title>python社区</Title>
 		<Content>人生苦短，我用python</Content>
 		<LinkedRefer>python社区</LinkedRefer>
@@ -45,6 +47,7 @@
 	<Elements>
 		<Id>32</Id>
 		<Placement>element_host_recommend_blog_tpyes</Placement>
+		<ElementName>golang社区</ElementName>
 		<Title>golang社区</Title>
 		<Content>人生苦短，我用python</Content>
 		<LinkedRefer>golang社区</LinkedRefer>
@@ -61,6 +64,7 @@
 	<Elements>
 		<Id>33</Id>
 		<Placement>element_host_recommend_blog_tpyes</Placement>
+		<ElementName>招聘空间</ElementName>
 		<Title>招聘空间</Title>
 		<Content>人生苦短，我用python</Content>
 		<LinkedRefer>招聘空间</LinkedRefer>
@@ -77,6 +81,7 @@
 	<Elements>
 		<Id>34</Id>
 		<Placement>element_host_recommend_blog_tpyes</Placement>
+		<ElementName>开源项目</ElementName>
 		<Title>开源项目</Title>
 		<Content>人生苦短，我用java</Content>
 		<LinkedRefer>开源项目</LinkedRefer>
@@ -93,6 +98,7 @@
 	<Elements>
 		<Id>35</Id>
 		<Placement>element_host_recommend_blog_tpyes</Placement>
+		<ElementName>个性空间</ElementName>
 		<Title>个性空间</Title>
 		<Content>人生苦短，我用java</Content>
 		<LinkedRefer>个性空间</LinkedRefer>
@@ -109,6 +115,7 @@
 	<Elements>
 		<Id>283</Id>
 		<Placement>element_host_recommend_blog_tpyes</Placement>
+		<ElementName>官方声明</ElementName>
 		<Title>官方声明</Title>
 		<Content>人生苦短，我用java</Content>
 		<LinkedRefer>官方声明</LinkedRefer>
@@ -121,5 +128,22 @@
 		<CreatedTime>2019-07-07T20:05:05+08:00</CreatedTime>
 		<LastUpdatedBy>SYSTEM</LastUpdatedBy>
 		<LastUpdatedTime>2019-07-07T20:05:05+08:00</LastUpdatedTime>
+	</Elements>
+	<Elements>
+		<Id>355</Id>
+		<Placement>element_host_recommend_blog_tpyes</Placement>
+		<ElementName>656756fsddsf</ElementName>
+		<Title>ghfffgfdfgf</Title>
+		<Content></Content>
+		<LinkedRefer></LinkedRefer>
+		<ImgPath></ImgPath>
+		<Status>1</Status>
+		<NavigationLevel>0</NavigationLevel>
+		<NavigationParentId>0</NavigationParentId>
+		<MdContent></MdContent>
+		<CreatedBy>SYSTEM</CreatedBy>
+		<CreatedTime>2019-12-17T22:52:40+08:00</CreatedTime>
+		<LastUpdatedBy>SYSTEM</LastUpdatedBy>
+		<LastUpdatedTime>2019-12-17T22:52:40+08:00</LastUpdatedTime>
 	</Elements>
 </PlacementElementMppaer>

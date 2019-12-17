@@ -13,6 +13,7 @@
 	<Elements>
 		<Id>285</Id>
 		<Placement>element_user_guide</Placement>
+		<ElementName>站点引导</ElementName>
 		<Title>站点引导</Title>
 		<Content></Content>
 		<LinkedRefer></LinkedRefer>
@@ -29,6 +30,7 @@
 	<Elements>
 		<Id>286</Id>
 		<Placement>element_user_guide</Placement>
+		<ElementName>广告位招租</ElementName>
 		<Title>广告位招租</Title>
 		<Content></Content>
 		<LinkedRefer></LinkedRefer>
@@ -45,6 +47,7 @@
 	<Elements>
 		<Id>287</Id>
 		<Placement>element_user_guide</Placement>
+		<ElementName>邀请好友赢取 VIP</ElementName>
 		<Title>邀请好友赢取 VIP</Title>
 		<Content></Content>
 		<LinkedRefer></LinkedRefer>
@@ -61,6 +64,7 @@
 	<Elements>
 		<Id>288</Id>
 		<Placement>element_user_guide</Placement>
+		<ElementName>如何开课</ElementName>
 		<Title>如何开课</Title>
 		<Content></Content>
 		<LinkedRefer></LinkedRefer>
@@ -77,6 +81,7 @@
 	<Elements>
 		<Id>289</Id>
 		<Placement>element_user_guide</Placement>
+		<ElementName>如何开课</ElementName>
 		<Title>如何开课</Title>
 		<Content></Content>
 		<LinkedRefer></LinkedRefer>
@@ -93,6 +98,7 @@
 	<Elements>
 		<Id>290</Id>
 		<Placement>element_user_guide</Placement>
+		<ElementName>如何开课</ElementName>
 		<Title>如何开课</Title>
 		<Content></Content>
 		<LinkedRefer></LinkedRefer>
@@ -109,6 +115,7 @@
 	<Elements>
 		<Id>291</Id>
 		<Placement>element_user_guide</Placement>
+		<ElementName>如何开课</ElementName>
 		<Title>如何开课</Title>
 		<Content></Content>
 		<LinkedRefer></LinkedRefer>

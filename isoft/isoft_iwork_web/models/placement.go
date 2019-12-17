@@ -28,6 +28,7 @@ type Placement struct {
 type Element struct {
 	Id                 int64     `json:"id"`
 	Placement          string    `json:"placement"`
+	ElementName        string    `json:"element_name"`
 	Title              string    `json:"title"`
 	Content            string    `json:"content" orm:"type(text)"`
 	LinkedRefer        string    `json:"linked_refer"`
@@ -115,7 +116,7 @@ func FilterPageElement(condArr map[string]string, page int, offset int, o orm.Or
 	var cond = orm.NewCondition()
 	if search, ok := condArr["search"]; ok && strings.TrimSpace(search) != "" {
 		subCond := orm.NewCondition()
-		subCond = cond.And("placement__contains", search).Or("title__contains", search)
+		subCond = cond.And("placement__contains", search).Or("element_name__contains", search).Or("title__contains", search)
 		cond = cond.AndCond(subCond)
 	}
 	qs = qs.SetCond(cond)
@@ -135,8 +136,8 @@ func InsertOrUpdateElement(element *Element) (id int64, err error) {
 	return
 }
 
-func QueryElementByPlacementAndTitle(placement, title string) (element Element, err error) {
-	err = orm.NewOrm().QueryTable("element").Filter("placement", placement).Filter("title", title).One(&element)
+func QueryElementByPlacementAndElementName(placement, element_name string) (element Element, err error) {
+	err = orm.NewOrm().QueryTable("element").Filter("placement", placement).Filter("element_name", element_name).One(&element)
 	return
 }
 

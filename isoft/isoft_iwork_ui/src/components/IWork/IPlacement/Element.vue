@@ -52,7 +52,12 @@
           {
             title: 'placement',
             key: 'placement',
-            width:250
+            width:150
+          },
+          {
+            title: 'element_name',
+            key: 'element_name',
+            width:150
           },
           {
             title: 'status',

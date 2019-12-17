@@ -56,7 +56,7 @@ func (this *WorkController) ImportPlacementFile(filepath string) error {
 	}
 	// 导入或者更新 Element
 	for _, element := range pem.Elements {
-		elm, err := models.QueryElementByPlacementAndTitle(placement.PlacementName, element.Title)
+		elm, err := models.QueryElementByPlacementAndElementName(placement.PlacementName, element.ElementName)
 		if err == nil {
 			element.Id = elm.Id
 		} else {

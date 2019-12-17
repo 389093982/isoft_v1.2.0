@@ -13,6 +13,7 @@
 	<Elements>
 		<Id>124</Id>
 		<Placement>element_host_app_recommand</Placement>
+		<ElementName>开心辞典</ElementName>
 		<Title>开心辞典</Title>
 		<Content></Content>
 		<LinkedRefer></LinkedRefer>
@@ -29,6 +30,7 @@
 	<Elements>
 		<Id>125</Id>
 		<Placement>element_host_app_recommand</Placement>
+		<ElementName>热门游戏</ElementName>
 		<Title>热门游戏</Title>
 		<Content></Content>
 		<LinkedRefer></LinkedRefer>
@@ -45,6 +47,7 @@
 	<Elements>
 		<Id>126</Id>
 		<Placement>element_host_app_recommand</Placement>
+		<ElementName>颜值好物</ElementName>
 		<Title>颜值好物</Title>
 		<Content></Content>
 		<LinkedRefer></LinkedRefer>
@@ -61,6 +64,7 @@
 	<Elements>
 		<Id>127</Id>
 		<Placement>element_host_app_recommand</Placement>
+		<ElementName>百度一下</ElementName>
 		<Title>百度一下</Title>
 		<Content></Content>
 		<LinkedRefer></LinkedRefer>
@@ -77,6 +81,7 @@
 	<Elements>
 		<Id>128</Id>
 		<Placement>element_host_app_recommand</Placement>
+		<ElementName>百度一下</ElementName>
 		<Title>百度一下</Title>
 		<Content></Content>
 		<LinkedRefer></LinkedRefer>
@@ -93,6 +98,7 @@
 	<Elements>
 		<Id>129</Id>
 		<Placement>element_host_app_recommand</Placement>
+		<ElementName>百度一下</ElementName>
 		<Title>百度一下</Title>
 		<Content></Content>
 		<LinkedRefer></LinkedRefer>
@@ -109,6 +115,7 @@
 	<Elements>
 		<Id>130</Id>
 		<Placement>element_host_app_recommand</Placement>
+		<ElementName>百度一下</ElementName>
 		<Title>百度一下</Title>
 		<Content></Content>
 		<LinkedRefer></LinkedRefer>
@@ -125,6 +132,7 @@
 	<Elements>
 		<Id>131</Id>
 		<Placement>element_host_app_recommand</Placement>
+		<ElementName>百度一下</ElementName>
 		<Title>百度一下</Title>
 		<Content></Content>
 		<LinkedRefer></LinkedRefer>
@@ -141,6 +149,7 @@
 	<Elements>
 		<Id>132</Id>
 		<Placement>element_host_app_recommand</Placement>
+		<ElementName>百度一下</ElementName>
 		<Title>百度一下</Title>
 		<Content></Content>
 		<LinkedRefer></LinkedRefer>
@@ -157,6 +166,7 @@
 	<Elements>
 		<Id>133</Id>
 		<Placement>element_host_app_recommand</Placement>
+		<ElementName>百度一下</ElementName>
 		<Title>百度一下</Title>
 		<Content></Content>
 		<LinkedRefer></LinkedRefer>
@@ -173,6 +183,7 @@
 	<Elements>
 		<Id>134</Id>
 		<Placement>element_host_app_recommand</Placement>
+		<ElementName>百度一下</ElementName>
 		<Title>百度一下</Title>
 		<Content></Content>
 		<LinkedRefer></LinkedRefer>
@@ -189,6 +200,7 @@
 	<Elements>
 		<Id>135</Id>
 		<Placement>element_host_app_recommand</Placement>
+		<ElementName>百度一下</ElementName>
 		<Title>百度一下</Title>
 		<Content></Content>
 		<LinkedRefer></LinkedRefer>
@@ -205,6 +217,7 @@
 	<Elements>
 		<Id>136</Id>
 		<Placement>element_host_app_recommand</Placement>
+		<ElementName>百度一下</ElementName>
 		<Title>百度一下</Title>
 		<Content></Content>
 		<LinkedRefer></LinkedRefer>
@@ -221,6 +234,7 @@
 	<Elements>
 		<Id>137</Id>
 		<Placement>element_host_app_recommand</Placement>
+		<ElementName>百度一下</ElementName>
 		<Title>百度一下</Title>
 		<Content></Content>
 		<LinkedRefer></LinkedRefer>
@@ -237,6 +251,7 @@
 	<Elements>
 		<Id>138</Id>
 		<Placement>element_host_app_recommand</Placement>
+		<ElementName>GOCN</ElementName>
 		<Title>GOCN</Title>
 		<Content></Content>
 		<LinkedRefer></LinkedRefer>
@@ -253,6 +268,7 @@
 	<Elements>
 		<Id>139</Id>
 		<Placement>element_host_app_recommand</Placement>
+		<ElementName>百度一下</ElementName>
 		<Title>百度一下</Title>
 		<Content></Content>
 		<LinkedRefer></LinkedRefer>
@@ -269,6 +285,7 @@
 	<Elements>
 		<Id>345</Id>
 		<Placement>element_host_app_recommand</Placement>
+		<ElementName>淘手游</ElementName>
 		<Title>淘手游</Title>
 		<Content></Content>
 		<LinkedRefer>https://www.taoshouyou.com/</LinkedRefer>
