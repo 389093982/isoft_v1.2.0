@@ -1,18 +1,18 @@
 <PlacementElementMppaer>
 	<Placement>
 		<Id>63</Id>
-		<PlacementName>element_discount_list</PlacementName>
+		<PlacementName>placement_discount_list</PlacementName>
 		<PlacementLabel>聚优惠列表</PlacementLabel>
 		<PlacementDesc>聚优惠列表</PlacementDesc>
 		<CreatedBy>SYSTEM</CreatedBy>
-		<CreatedTime>2019-10-25T23:51:05+08:00</CreatedTime>
+		<CreatedTime>2019-12-18T20:42:42+08:00</CreatedTime>
 		<LastUpdatedBy>SYSTEM</LastUpdatedBy>
-		<LastUpdatedTime>2019-10-25T23:51:05+08:00</LastUpdatedTime>
+		<LastUpdatedTime>2019-12-18T20:42:42+08:00</LastUpdatedTime>
 		<ElementLimit>-1</ElementLimit>
 	</Placement>
 	<Elements>
 		<Id>337</Id>
-		<Placement>element_discount_list</Placement>
+		<Placement>placement_discount_list</Placement>
 		<ElementName>淘宝优惠券便宜啦</ElementName>
 		<Title>淘宝优惠券便宜啦</Title>
 		<Content>华为手机优惠券领取华为手机优惠券领取华为手机优惠券领取</Content>
@@ -29,7 +29,7 @@
 	</Elements>
 	<Elements>
 		<Id>338</Id>
-		<Placement>element_discount_list</Placement>
+		<Placement>placement_discount_list</Placement>
 		<ElementName>华为手机优惠券领取</ElementName>
 		<Title>华为手机优惠券领取</Title>
 		<Content>华为手机优惠券领取华为手机优惠券领取华为手机优惠券领取</Content>
@@ -46,7 +46,7 @@
 	</Elements>
 	<Elements>
 		<Id>339</Id>
-		<Placement>element_discount_list</Placement>
+		<Placement>placement_discount_list</Placement>
 		<ElementName>华为手机优惠券领取</ElementName>
 		<Title>华为手机优惠券领取</Title>
 		<Content>华为手机优惠券领取华为手机优惠券领取华为手机优惠券领取</Content>
@@ -63,7 +63,7 @@
 	</Elements>
 	<Elements>
 		<Id>340</Id>
-		<Placement>element_discount_list</Placement>
+		<Placement>placement_discount_list</Placement>
 		<ElementName>华为手机优惠券领取</ElementName>
 		<Title>华为手机优惠券领取</Title>
 		<Content>华为手机优惠券领取华为手机优惠券领取华为手机优惠券领取</Content>

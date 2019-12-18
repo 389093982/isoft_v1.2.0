@@ -1,18 +1,18 @@
 <PlacementElementMppaer>
 	<Placement>
 		<Id>55</Id>
-		<PlacementName>Index_news_list</PlacementName>
+		<PlacementName>placement_Index_news_list</PlacementName>
 		<PlacementLabel>新闻公告</PlacementLabel>
 		<PlacementDesc>新闻公告</PlacementDesc>
 		<CreatedBy>SYSTEM</CreatedBy>
-		<CreatedTime>2019-09-02T23:02:26+08:00</CreatedTime>
+		<CreatedTime>2019-12-18T20:43:40+08:00</CreatedTime>
 		<LastUpdatedBy>SYSTEM</LastUpdatedBy>
-		<LastUpdatedTime>2019-09-02T23:02:26+08:00</LastUpdatedTime>
+		<LastUpdatedTime>2019-12-18T20:43:40+08:00</LastUpdatedTime>
 		<ElementLimit>20</ElementLimit>
 	</Placement>
 	<Elements>
 		<Id>203</Id>
-		<Placement>Index_news_list</Placement>
+		<Placement>placement_Index_news_list</Placement>
 		<ElementName>2018年起会员积分调整</ElementName>
 		<Title>2018年起会员积分调整</Title>
 		<Content></Content>
@@ -29,7 +29,7 @@
 	</Elements>
 	<Elements>
 		<Id>215</Id>
-		<Placement>Index_news_list</Placement>
+		<Placement>placement_Index_news_list</Placement>
 		<ElementName>2018年起会员积分调整</ElementName>
 		<Title>2018年起会员积分调整</Title>
 		<Content></Content>
@@ -46,7 +46,7 @@
 	</Elements>
 	<Elements>
 		<Id>299</Id>
-		<Placement>Index_news_list</Placement>
+		<Placement>placement_Index_news_list</Placement>
 		<ElementName>2018年起会员积分调整</ElementName>
 		<Title>2018年起会员积分调整</Title>
 		<Content></Content>
@@ -63,7 +63,7 @@
 	</Elements>
 	<Elements>
 		<Id>300</Id>
-		<Placement>Index_news_list</Placement>
+		<Placement>placement_Index_news_list</Placement>
 		<ElementName>2018年起会员积分调整</ElementName>
 		<Title>2018年起会员积分调整</Title>
 		<Content></Content>
@@ -80,7 +80,7 @@
 	</Elements>
 	<Elements>
 		<Id>301</Id>
-		<Placement>Index_news_list</Placement>
+		<Placement>placement_Index_news_list</Placement>
 		<ElementName>2018年起会员积分调整</ElementName>
 		<Title>2018年起会员积分调整</Title>
 		<Content></Content>
@@ -97,7 +97,7 @@
 	</Elements>
 	<Elements>
 		<Id>302</Id>
-		<Placement>Index_news_list</Placement>
+		<Placement>placement_Index_news_list</Placement>
 		<ElementName>2018年起会员积分调整</ElementName>
 		<Title>2018年起会员积分调整</Title>
 		<Content></Content>
@@ -114,7 +114,7 @@
 	</Elements>
 	<Elements>
 		<Id>303</Id>
-		<Placement>Index_news_list</Placement>
+		<Placement>placement_Index_news_list</Placement>
 		<ElementName>2018年起会员积分调整</ElementName>
 		<Title>2018年起会员积分调整</Title>
 		<Content></Content>
@@ -131,7 +131,7 @@
 	</Elements>
 	<Elements>
 		<Id>304</Id>
-		<Placement>Index_news_list</Placement>
+		<Placement>placement_Index_news_list</Placement>
 		<ElementName>2018年起会员积分调整</ElementName>
 		<Title>2018年起会员积分调整</Title>
 		<Content></Content>
@@ -148,7 +148,7 @@
 	</Elements>
 	<Elements>
 		<Id>305</Id>
-		<Placement>Index_news_list</Placement>
+		<Placement>placement_Index_news_list</Placement>
 		<ElementName>2018年起会员积分调整</ElementName>
 		<Title>2018年起会员积分调整</Title>
 		<Content></Content>
@@ -165,7 +165,7 @@
 	</Elements>
 	<Elements>
 		<Id>306</Id>
-		<Placement>Index_news_list</Placement>
+		<Placement>placement_Index_news_list</Placement>
 		<ElementName>2018年起会员积分调整</ElementName>
 		<Title>2018年起会员积分调整</Title>
 		<Content></Content>
@@ -182,7 +182,7 @@
 	</Elements>
 	<Elements>
 		<Id>307</Id>
-		<Placement>Index_news_list</Placement>
+		<Placement>placement_Index_news_list</Placement>
 		<ElementName>2018年起会员积分调整</ElementName>
 		<Title>2018年起会员积分调整</Title>
 		<Content></Content>
@@ -199,7 +199,7 @@
 	</Elements>
 	<Elements>
 		<Id>308</Id>
-		<Placement>Index_news_list</Placement>
+		<Placement>placement_Index_news_list</Placement>
 		<ElementName>2018年起会员积分调整</ElementName>
 		<Title>2018年起会员积分调整</Title>
 		<Content></Content>
@@ -216,7 +216,7 @@
 	</Elements>
 	<Elements>
 		<Id>309</Id>
-		<Placement>Index_news_list</Placement>
+		<Placement>placement_Index_news_list</Placement>
 		<ElementName>2018年起会员积分调整</ElementName>
 		<Title>2018年起会员积分调整</Title>
 		<Content></Content>
@@ -233,7 +233,7 @@
 	</Elements>
 	<Elements>
 		<Id>310</Id>
-		<Placement>Index_news_list</Placement>
+		<Placement>placement_Index_news_list</Placement>
 		<ElementName>2018年起会员积分调整</ElementName>
 		<Title>2018年起会员积分调整</Title>
 		<Content></Content>
@@ -250,7 +250,7 @@
 	</Elements>
 	<Elements>
 		<Id>311</Id>
-		<Placement>Index_news_list</Placement>
+		<Placement>placement_Index_news_list</Placement>
 		<ElementName>2018年起会员积分调整</ElementName>
 		<Title>2018年起会员积分调整</Title>
 		<Content></Content>
@@ -267,7 +267,7 @@
 	</Elements>
 	<Elements>
 		<Id>312</Id>
-		<Placement>Index_news_list</Placement>
+		<Placement>placement_Index_news_list</Placement>
 		<ElementName>2018年起会员积分调整</ElementName>
 		<Title>2018年起会员积分调整</Title>
 		<Content></Content>
@@ -284,7 +284,7 @@
 	</Elements>
 	<Elements>
 		<Id>313</Id>
-		<Placement>Index_news_list</Placement>
+		<Placement>placement_Index_news_list</Placement>
 		<ElementName>2018年起会员积分调整</ElementName>
 		<Title>2018年起会员积分调整</Title>
 		<Content></Content>
@@ -301,7 +301,7 @@
 	</Elements>
 	<Elements>
 		<Id>314</Id>
-		<Placement>Index_news_list</Placement>
+		<Placement>placement_Index_news_list</Placement>
 		<ElementName>2018年起会员积分调整</ElementName>
 		<Title>2018年起会员积分调整</Title>
 		<Content></Content>
@@ -318,7 +318,7 @@
 	</Elements>
 	<Elements>
 		<Id>315</Id>
-		<Placement>Index_news_list</Placement>
+		<Placement>placement_Index_news_list</Placement>
 		<ElementName>2018年起会员积分调整</ElementName>
 		<Title>2018年起会员积分调整</Title>
 		<Content></Content>
@@ -335,7 +335,7 @@
 	</Elements>
 	<Elements>
 		<Id>316</Id>
-		<Placement>Index_news_list</Placement>
+		<Placement>placement_Index_news_list</Placement>
 		<ElementName>2018年起会员积分调整</ElementName>
 		<Title>2018年起会员积分调整</Title>
 		<Content></Content>
@@ -352,7 +352,7 @@
 	</Elements>
 	<Elements>
 		<Id>317</Id>
-		<Placement>Index_news_list</Placement>
+		<Placement>placement_Index_news_list</Placement>
 		<ElementName>2018年起会员积分调整</ElementName>
 		<Title>2018年起会员积分调整</Title>
 		<Content></Content>
@@ -369,7 +369,7 @@
 	</Elements>
 	<Elements>
 		<Id>318</Id>
-		<Placement>Index_news_list</Placement>
+		<Placement>placement_Index_news_list</Placement>
 		<ElementName>2018年起会员积分调整</ElementName>
 		<Title>2018年起会员积分调整</Title>
 		<Content></Content>
@@ -386,7 +386,7 @@
 	</Elements>
 	<Elements>
 		<Id>319</Id>
-		<Placement>Index_news_list</Placement>
+		<Placement>placement_Index_news_list</Placement>
 		<ElementName>2018年起会员积分调整</ElementName>
 		<Title>2018年起会员积分调整</Title>
 		<Content></Content>
@@ -403,7 +403,7 @@
 	</Elements>
 	<Elements>
 		<Id>320</Id>
-		<Placement>Index_news_list</Placement>
+		<Placement>placement_Index_news_list</Placement>
 		<ElementName>2018年起会员积分调整</ElementName>
 		<Title>2018年起会员积分调整</Title>
 		<Content></Content>
@@ -420,7 +420,7 @@
 	</Elements>
 	<Elements>
 		<Id>321</Id>
-		<Placement>Index_news_list</Placement>
+		<Placement>placement_Index_news_list</Placement>
 		<ElementName>2018年起会员积分调整</ElementName>
 		<Title>2018年起会员积分调整</Title>
 		<Content></Content>
@@ -437,7 +437,7 @@
 	</Elements>
 	<Elements>
 		<Id>322</Id>
-		<Placement>Index_news_list</Placement>
+		<Placement>placement_Index_news_list</Placement>
 		<ElementName>2018年起会员积分调整</ElementName>
 		<Title>2018年起会员积分调整</Title>
 		<Content></Content>
@@ -454,7 +454,7 @@
 	</Elements>
 	<Elements>
 		<Id>323</Id>
-		<Placement>Index_news_list</Placement>
+		<Placement>placement_Index_news_list</Placement>
 		<ElementName>2018年起会员积分调整</ElementName>
 		<Title>2018年起会员积分调整</Title>
 		<Content></Content>
@@ -471,7 +471,7 @@
 	</Elements>
 	<Elements>
 		<Id>324</Id>
-		<Placement>Index_news_list</Placement>
+		<Placement>placement_Index_news_list</Placement>
 		<ElementName>2018年起会员积分调整</ElementName>
 		<Title>2018年起会员积分调整</Title>
 		<Content></Content>
@@ -488,7 +488,7 @@
 	</Elements>
 	<Elements>
 		<Id>325</Id>
-		<Placement>Index_news_list</Placement>
+		<Placement>placement_Index_news_list</Placement>
 		<ElementName>2018年起会员积分调整</ElementName>
 		<Title>2018年起会员积分调整</Title>
 		<Content></Content>
@@ -505,7 +505,7 @@
 	</Elements>
 	<Elements>
 		<Id>326</Id>
-		<Placement>Index_news_list</Placement>
+		<Placement>placement_Index_news_list</Placement>
 		<ElementName>2018年起会员积分调整</ElementName>
 		<Title>2018年起会员积分调整</Title>
 		<Content></Content>
@@ -522,7 +522,7 @@
 	</Elements>
 	<Elements>
 		<Id>327</Id>
-		<Placement>Index_news_list</Placement>
+		<Placement>placement_Index_news_list</Placement>
 		<ElementName>2018年起会员积分调整</ElementName>
 		<Title>2018年起会员积分调整</Title>
 		<Content></Content>
@@ -539,7 +539,7 @@
 	</Elements>
 	<Elements>
 		<Id>328</Id>
-		<Placement>Index_news_list</Placement>
+		<Placement>placement_Index_news_list</Placement>
 		<ElementName>2018年起会员积分调整</ElementName>
 		<Title>2018年起会员积分调整</Title>
 		<Content></Content>
@@ -556,7 +556,7 @@
 	</Elements>
 	<Elements>
 		<Id>329</Id>
-		<Placement>Index_news_list</Placement>
+		<Placement>placement_Index_news_list</Placement>
 		<ElementName>2018年起会员积分调整</ElementName>
 		<Title>2018年起会员积分调整</Title>
 		<Content></Content>
@@ -573,7 +573,7 @@
 	</Elements>
 	<Elements>
 		<Id>330</Id>
-		<Placement>Index_news_list</Placement>
+		<Placement>placement_Index_news_list</Placement>
 		<ElementName>2018年起会员积分调整</ElementName>
 		<Title>2018年起会员积分调整</Title>
 		<Content></Content>
@@ -590,7 +590,7 @@
 	</Elements>
 	<Elements>
 		<Id>331</Id>
-		<Placement>Index_news_list</Placement>
+		<Placement>placement_Index_news_list</Placement>
 		<ElementName>2018年起会员积分调整</ElementName>
 		<Title>2018年起会员积分调整</Title>
 		<Content></Content>
@@ -607,7 +607,7 @@
 	</Elements>
 	<Elements>
 		<Id>332</Id>
-		<Placement>Index_news_list</Placement>
+		<Placement>placement_Index_news_list</Placement>
 		<ElementName>2018年起会员积分调整</ElementName>
 		<Title>2018年起会员积分调整</Title>
 		<Content></Content>
@@ -624,7 +624,7 @@
 	</Elements>
 	<Elements>
 		<Id>333</Id>
-		<Placement>Index_news_list</Placement>
+		<Placement>placement_Index_news_list</Placement>
 		<ElementName>2018年起会员积分调整</ElementName>
 		<Title>2018年起会员积分调整</Title>
 		<Content></Content>
@@ -641,7 +641,7 @@
 	</Elements>
 	<Elements>
 		<Id>334</Id>
-		<Placement>Index_news_list</Placement>
+		<Placement>placement_Index_news_list</Placement>
 		<ElementName>2018年起会员积分调整</ElementName>
 		<Title>2018年起会员积分调整</Title>
 		<Content></Content>
@@ -658,7 +658,7 @@
 	</Elements>
 	<Elements>
 		<Id>335</Id>
-		<Placement>Index_news_list</Placement>
+		<Placement>placement_Index_news_list</Placement>
 		<ElementName>2018年起会员积分调整</ElementName>
 		<Title>2018年起会员积分调整</Title>
 		<Content></Content>
@@ -675,7 +675,7 @@
 	</Elements>
 	<Elements>
 		<Id>336</Id>
-		<Placement>Index_news_list</Placement>
+		<Placement>placement_Index_news_list</Placement>
 		<ElementName>2018年起会员积分调整</ElementName>
 		<Title>2018年起会员积分调整</Title>
 		<Content></Content>

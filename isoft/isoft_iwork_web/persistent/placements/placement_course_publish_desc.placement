@@ -1,18 +1,18 @@
 <PlacementElementMppaer>
 	<Placement>
 		<Id>60</Id>
-		<PlacementName>element_course_publish_desc</PlacementName>
+		<PlacementName>placement_course_publish_desc</PlacementName>
 		<PlacementLabel>课程发布规范说明</PlacementLabel>
 		<PlacementDesc>课程发布规范说明</PlacementDesc>
 		<CreatedBy>SYSTEM</CreatedBy>
-		<CreatedTime>2019-09-04T22:45:21+08:00</CreatedTime>
+		<CreatedTime>2019-12-18T20:43:10+08:00</CreatedTime>
 		<LastUpdatedBy>SYSTEM</LastUpdatedBy>
-		<LastUpdatedTime>2019-09-04T22:45:21+08:00</LastUpdatedTime>
+		<LastUpdatedTime>2019-12-18T20:43:10+08:00</LastUpdatedTime>
 		<ElementLimit>-1</ElementLimit>
 	</Placement>
 	<Elements>
 		<Id>281</Id>
-		<Placement>element_course_publish_desc</Placement>
+		<Placement>placement_course_publish_desc</Placement>
 		<ElementName>课程发布规范说明</ElementName>
 		<Title>课程发布规范说明</Title>
 		<Content></Content>
@@ -29,7 +29,7 @@
 	</Elements>
 	<Elements>
 		<Id>282</Id>
-		<Placement>element_course_publish_desc</Placement>
+		<Placement>placement_course_publish_desc</Placement>
 		<ElementName>eeeeeeeeeeeeee</ElementName>
 		<Title>eeeeeeeeeeeeee</Title>
 		<Content></Content>

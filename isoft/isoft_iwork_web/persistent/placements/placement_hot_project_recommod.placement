@@ -1,18 +1,18 @@
 <PlacementElementMppaer>
 	<Placement>
 		<Id>58</Id>
-		<PlacementName>hot_project_recommod</PlacementName>
+		<PlacementName>placement_hot_project_recommod</PlacementName>
 		<PlacementLabel>热门项目推荐</PlacementLabel>
 		<PlacementDesc>热门项目推荐</PlacementDesc>
 		<CreatedBy>SYSTEM</CreatedBy>
-		<CreatedTime>2019-09-03T21:53:25+08:00</CreatedTime>
+		<CreatedTime>2019-12-18T20:43:31+08:00</CreatedTime>
 		<LastUpdatedBy>SYSTEM</LastUpdatedBy>
-		<LastUpdatedTime>2019-09-03T21:53:25+08:00</LastUpdatedTime>
+		<LastUpdatedTime>2019-12-18T20:43:31+08:00</LastUpdatedTime>
 		<ElementLimit>-1</ElementLimit>
 	</Placement>
 	<Elements>
 		<Id>261</Id>
-		<Placement>hot_project_recommod</Placement>
+		<Placement>placement_hot_project_recommod</Placement>
 		<ElementName>SpringBoot</ElementName>
 		<Title>SpringBoot</Title>
 		<Content>SpringBoot</Content>
@@ -29,7 +29,7 @@
 	</Elements>
 	<Elements>
 		<Id>262</Id>
-		<Placement>hot_project_recommod</Placement>
+		<Placement>placement_hot_project_recommod</Placement>
 		<ElementName>SpringBoot</ElementName>
 		<Title>SpringBoot</Title>
 		<Content>SpringBoot</Content>
@@ -46,7 +46,7 @@
 	</Elements>
 	<Elements>
 		<Id>263</Id>
-		<Placement>hot_project_recommod</Placement>
+		<Placement>placement_hot_project_recommod</Placement>
 		<ElementName>SpringBoot</ElementName>
 		<Title>SpringBoot</Title>
 		<Content>SpringBoot</Content>
@@ -63,7 +63,7 @@
 	</Elements>
 	<Elements>
 		<Id>264</Id>
-		<Placement>hot_project_recommod</Placement>
+		<Placement>placement_hot_project_recommod</Placement>
 		<ElementName>SpringBoot</ElementName>
 		<Title>SpringBoot</Title>
 		<Content>SpringBoot</Content>
@@ -80,7 +80,7 @@
 	</Elements>
 	<Elements>
 		<Id>265</Id>
-		<Placement>hot_project_recommod</Placement>
+		<Placement>placement_hot_project_recommod</Placement>
 		<ElementName>SpringBoot</ElementName>
 		<Title>SpringBoot</Title>
 		<Content>SpringBoot</Content>
@@ -97,7 +97,7 @@
 	</Elements>
 	<Elements>
 		<Id>266</Id>
-		<Placement>hot_project_recommod</Placement>
+		<Placement>placement_hot_project_recommod</Placement>
 		<ElementName>SpringBoot</ElementName>
 		<Title>SpringBoot</Title>
 		<Content>SpringBoot</Content>
@@ -114,7 +114,7 @@
 	</Elements>
 	<Elements>
 		<Id>267</Id>
-		<Placement>hot_project_recommod</Placement>
+		<Placement>placement_hot_project_recommod</Placement>
 		<ElementName>SpringBoot</ElementName>
 		<Title>SpringBoot</Title>
 		<Content>SpringBoot</Content>
@@ -131,7 +131,7 @@
 	</Elements>
 	<Elements>
 		<Id>268</Id>
-		<Placement>hot_project_recommod</Placement>
+		<Placement>placement_hot_project_recommod</Placement>
 		<ElementName>SpringBoot</ElementName>
 		<Title>SpringBoot</Title>
 		<Content>SpringBoot</Content>
@@ -148,7 +148,7 @@
 	</Elements>
 	<Elements>
 		<Id>269</Id>
-		<Placement>hot_project_recommod</Placement>
+		<Placement>placement_hot_project_recommod</Placement>
 		<ElementName>SpringBoot</ElementName>
 		<Title>SpringBoot</Title>
 		<Content>SpringBoot</Content>

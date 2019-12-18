@@ -29,7 +29,7 @@
       </Col>
     </Row>
 
-    <HorizontalLinks :placement_name="GLOBAL.element_want_to_find"/>
+    <HorizontalLinks :placement_name="GLOBAL.placement_want_to_find"/>
   </div>
 </template>
 

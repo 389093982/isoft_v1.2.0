@@ -25,7 +25,7 @@
         </Form>
       </Col>
       <Col span="12">
-        <MarkDownElementRender :placement_name="GLOBAL.element_course_publish_desc"/>
+        <MarkDownElementRender :placement_name="GLOBAL.placement_course_publish_desc"/>
       </Col>
     </Row>
   </div>

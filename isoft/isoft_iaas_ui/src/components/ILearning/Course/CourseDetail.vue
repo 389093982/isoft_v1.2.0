@@ -55,7 +55,7 @@
         <HotRecommend showMode="list" style="margin-left: 2px;"/>
         <!-- 推荐系统 -->
         <Recommand />
-        <CommunicationGroup :placement_name="GLOBAL.communication_group"/>
+        <CommunicationGroup :placement_name="GLOBAL.placement_communication_group"/>
       </Col>
     </Row>
   </div>

@@ -1,18 +1,18 @@
 <PlacementElementMppaer>
 	<Placement>
 		<Id>35</Id>
-		<PlacementName>element_host_course_type_carousel</PlacementName>
+		<PlacementName>placement_host_course_type_carousel</PlacementName>
 		<PlacementLabel>helloworld123</PlacementLabel>
 		<PlacementDesc>热门课程类型多级菜单</PlacementDesc>
 		<CreatedBy>SYSTEM</CreatedBy>
-		<CreatedTime>2019-08-31T17:28:40+08:00</CreatedTime>
+		<CreatedTime>2019-12-18T20:45:19+08:00</CreatedTime>
 		<LastUpdatedBy>SYSTEM</LastUpdatedBy>
-		<LastUpdatedTime>2019-08-31T17:28:40+08:00</LastUpdatedTime>
+		<LastUpdatedTime>2019-12-18T20:45:19+08:00</LastUpdatedTime>
 		<ElementLimit>-1</ElementLimit>
 	</Placement>
 	<Elements>
 		<Id>60</Id>
-		<Placement>element_host_course_type_carousel</Placement>
+		<Placement>placement_host_course_type_carousel</Placement>
 		<ElementName>Java</ElementName>
 		<Title>Java</Title>
 		<Content></Content>
@@ -29,7 +29,7 @@
 	</Elements>
 	<Elements>
 		<Id>61</Id>
-		<Placement>element_host_course_type_carousel</Placement>
+		<Placement>placement_host_course_type_carousel</Placement>
 		<ElementName>Python</ElementName>
 		<Title>Python</Title>
 		<Content></Content>
@@ -46,7 +46,7 @@
 	</Elements>
 	<Elements>
 		<Id>62</Id>
-		<Placement>element_host_course_type_carousel</Placement>
+		<Placement>placement_host_course_type_carousel</Placement>
 		<ElementName>Go</ElementName>
 		<Title>Go</Title>
 		<Content></Content>
@@ -63,7 +63,7 @@
 	</Elements>
 	<Elements>
 		<Id>63</Id>
-		<Placement>element_host_course_type_carousel</Placement>
+		<Placement>placement_host_course_type_carousel</Placement>
 		<ElementName>Java基础</ElementName>
 		<Title>Java基础</Title>
 		<Content></Content>
@@ -80,7 +80,7 @@
 	</Elements>
 	<Elements>
 		<Id>64</Id>
-		<Placement>element_host_course_type_carousel</Placement>
+		<Placement>placement_host_course_type_carousel</Placement>
 		<ElementName>Java高并发</ElementName>
 		<Title>Java高并发</Title>
 		<Content></Content>
@@ -97,7 +97,7 @@
 	</Elements>
 	<Elements>
 		<Id>65</Id>
-		<Placement>element_host_course_type_carousel</Placement>
+		<Placement>placement_host_course_type_carousel</Placement>
 		<ElementName>Python基础</ElementName>
 		<Title>Python基础</Title>
 		<Content></Content>
@@ -114,7 +114,7 @@
 	</Elements>
 	<Elements>
 		<Id>66</Id>
-		<Placement>element_host_course_type_carousel</Placement>
+		<Placement>placement_host_course_type_carousel</Placement>
 		<ElementName>Python高并发</ElementName>
 		<Title>Python高并发</Title>
 		<Content></Content>
@@ -131,7 +131,7 @@
 	</Elements>
 	<Elements>
 		<Id>67</Id>
-		<Placement>element_host_course_type_carousel</Placement>
+		<Placement>placement_host_course_type_carousel</Placement>
 		<ElementName>Go高并发</ElementName>
 		<Title>Go高并发</Title>
 		<Content></Content>
@@ -148,7 +148,7 @@
 	</Elements>
 	<Elements>
 		<Id>68</Id>
-		<Placement>element_host_course_type_carousel</Placement>
+		<Placement>placement_host_course_type_carousel</Placement>
 		<ElementName>Go基础</ElementName>
 		<Title>Go基础</Title>
 		<Content></Content>
@@ -165,7 +165,7 @@
 	</Elements>
 	<Elements>
 		<Id>82</Id>
-		<Placement>element_host_course_type_carousel</Placement>
+		<Placement>placement_host_course_type_carousel</Placement>
 		<ElementName>66666666</ElementName>
 		<Title>66666666</Title>
 		<Content>66666666666666666</Content>
@@ -182,7 +182,7 @@
 	</Elements>
 	<Elements>
 		<Id>91</Id>
-		<Placement>element_host_course_type_carousel</Placement>
+		<Placement>placement_host_course_type_carousel</Placement>
 		<ElementName>设计模式123</ElementName>
 		<Title>设计模式123</Title>
 		<Content></Content>
@@ -199,7 +199,7 @@
 	</Elements>
 	<Elements>
 		<Id>92</Id>
-		<Placement>element_host_course_type_carousel</Placement>
+		<Placement>placement_host_course_type_carousel</Placement>
 		<ElementName>阿里云环境搭建</ElementName>
 		<Title>阿里云环境搭建</Title>
 		<Content></Content>
@@ -216,7 +216,7 @@
 	</Elements>
 	<Elements>
 		<Id>93</Id>
-		<Placement>element_host_course_type_carousel</Placement>
+		<Placement>placement_host_course_type_carousel</Placement>
 		<ElementName>Go 语言基础语法</ElementName>
 		<Title>Go 语言基础语法</Title>
 		<Content></Content>
@@ -233,7 +233,7 @@
 	</Elements>
 	<Elements>
 		<Id>94</Id>
-		<Placement>element_host_course_type_carousel</Placement>
+		<Placement>placement_host_course_type_carousel</Placement>
 		<ElementName>Go 语言基础语法Go 语言基础语法Go 语言基础语法</ElementName>
 		<Title>Go 语言基础语法Go 语言基础语法Go 语言基础语法</Title>
 		<Content></Content>
@@ -250,7 +250,7 @@
 	</Elements>
 	<Elements>
 		<Id>95</Id>
-		<Placement>element_host_course_type_carousel</Placement>
+		<Placement>placement_host_course_type_carousel</Placement>
 		<ElementName>对象存储COS</ElementName>
 		<Title>对象存储COS</Title>
 		<Content></Content>
@@ -267,7 +267,7 @@
 	</Elements>
 	<Elements>
 		<Id>96</Id>
-		<Placement>element_host_course_type_carousel</Placement>
+		<Placement>placement_host_course_type_carousel</Placement>
 		<ElementName>MySQL</ElementName>
 		<Title>MySQL</Title>
 		<Content></Content>
@@ -284,7 +284,7 @@
 	</Elements>
 	<Elements>
 		<Id>97</Id>
-		<Placement>element_host_course_type_carousel</Placement>
+		<Placement>placement_host_course_type_carousel</Placement>
 		<ElementName>人工智能</ElementName>
 		<Title>人工智能</Title>
 		<Content></Content>
@@ -301,7 +301,7 @@
 	</Elements>
 	<Elements>
 		<Id>98</Id>
-		<Placement>element_host_course_type_carousel</Placement>
+		<Placement>placement_host_course_type_carousel</Placement>
 		<ElementName>解决方案</ElementName>
 		<Title>解决方案</Title>
 		<Content></Content>
@@ -318,7 +318,7 @@
 	</Elements>
 	<Elements>
 		<Id>99</Id>
-		<Placement>element_host_course_type_carousel</Placement>
+		<Placement>placement_host_course_type_carousel</Placement>
 		<ElementName>文字识别</ElementName>
 		<Title>文字识别</Title>
 		<Content></Content>
@@ -335,7 +335,7 @@
 	</Elements>
 	<Elements>
 		<Id>100</Id>
-		<Placement>element_host_course_type_carousel</Placement>
+		<Placement>placement_host_course_type_carousel</Placement>
 		<ElementName>微信小程序</ElementName>
 		<Title>微信小程序</Title>
 		<Content></Content>
@@ -352,7 +352,7 @@
 	</Elements>
 	<Elements>
 		<Id>101</Id>
-		<Placement>element_host_course_type_carousel</Placement>
+		<Placement>placement_host_course_type_carousel</Placement>
 		<ElementName>语音识别</ElementName>
 		<Title>语音识别</Title>
 		<Content></Content>
@@ -369,7 +369,7 @@
 	</Elements>
 	<Elements>
 		<Id>102</Id>
-		<Placement>element_host_course_type_carousel</Placement>
+		<Placement>placement_host_course_type_carousel</Placement>
 		<ElementName>云启未来</ElementName>
 		<Title>云启未来</Title>
 		<Content></Content>
@@ -386,7 +386,7 @@
 	</Elements>
 	<Elements>
 		<Id>103</Id>
-		<Placement>element_host_course_type_carousel</Placement>
+		<Placement>placement_host_course_type_carousel</Placement>
 		<ElementName>负载均衡CLB</ElementName>
 		<Title>负载均衡CLB</Title>
 		<Content></Content>
@@ -403,7 +403,7 @@
 	</Elements>
 	<Elements>
 		<Id>104</Id>
-		<Placement>element_host_course_type_carousel</Placement>
+		<Placement>placement_host_course_type_carousel</Placement>
 		<ElementName>负载均衡CLB</ElementName>
 		<Title>负载均衡CLB</Title>
 		<Content></Content>
@@ -420,7 +420,7 @@
 	</Elements>
 	<Elements>
 		<Id>105</Id>
-		<Placement>element_host_course_type_carousel</Placement>
+		<Placement>placement_host_course_type_carousel</Placement>
 		<ElementName>域名注册</ElementName>
 		<Title>域名注册</Title>
 		<Content></Content>
@@ -437,7 +437,7 @@
 	</Elements>
 	<Elements>
 		<Id>106</Id>
-		<Placement>element_host_course_type_carousel</Placement>
+		<Placement>placement_host_course_type_carousel</Placement>
 		<ElementName>域名注册123</ElementName>
 		<Title>域名注册123</Title>
 		<Content></Content>
@@ -454,7 +454,7 @@
 	</Elements>
 	<Elements>
 		<Id>107</Id>
-		<Placement>element_host_course_type_carousel</Placement>
+		<Placement>placement_host_course_type_carousel</Placement>
 		<ElementName>域名注册234</ElementName>
 		<Title>域名注册234</Title>
 		<Content></Content>
@@ -471,7 +471,7 @@
 	</Elements>
 	<Elements>
 		<Id>108</Id>
-		<Placement>element_host_course_type_carousel</Placement>
+		<Placement>placement_host_course_type_carousel</Placement>
 		<ElementName>域名注册44444</ElementName>
 		<Title>域名注册44444</Title>
 		<Content></Content>
@@ -488,7 +488,7 @@
 	</Elements>
 	<Elements>
 		<Id>109</Id>
-		<Placement>element_host_course_type_carousel</Placement>
+		<Placement>placement_host_course_type_carousel</Placement>
 		<ElementName>555555555</ElementName>
 		<Title>555555555</Title>
 		<Content></Content>
@@ -505,7 +505,7 @@
 	</Elements>
 	<Elements>
 		<Id>110</Id>
-		<Placement>element_host_course_type_carousel</Placement>
+		<Placement>placement_host_course_type_carousel</Placement>
 		<ElementName>测试1</ElementName>
 		<Title>测试1</Title>
 		<Content></Content>
@@ -522,7 +522,7 @@
 	</Elements>
 	<Elements>
 		<Id>111</Id>
-		<Placement>element_host_course_type_carousel</Placement>
+		<Placement>placement_host_course_type_carousel</Placement>
 		<ElementName>测试2</ElementName>
 		<Title>测试2</Title>
 		<Content></Content>
@@ -539,7 +539,7 @@
 	</Elements>
 	<Elements>
 		<Id>112</Id>
-		<Placement>element_host_course_type_carousel</Placement>
+		<Placement>placement_host_course_type_carousel</Placement>
 		<ElementName>测试3</ElementName>
 		<Title>测试3</Title>
 		<Content></Content>
@@ -556,7 +556,7 @@
 	</Elements>
 	<Elements>
 		<Id>113</Id>
-		<Placement>element_host_course_type_carousel</Placement>
+		<Placement>placement_host_course_type_carousel</Placement>
 		<ElementName>测试4</ElementName>
 		<Title>测试4</Title>
 		<Content></Content>
@@ -573,7 +573,7 @@
 	</Elements>
 	<Elements>
 		<Id>114</Id>
-		<Placement>element_host_course_type_carousel</Placement>
+		<Placement>placement_host_course_type_carousel</Placement>
 		<ElementName>测试1测试1测试1测试1测试1</ElementName>
 		<Title>测试1测试1测试1测试1测试1</Title>
 		<Content></Content>
@@ -590,7 +590,7 @@
 	</Elements>
 	<Elements>
 		<Id>115</Id>
-		<Placement>element_host_course_type_carousel</Placement>
+		<Placement>placement_host_course_type_carousel</Placement>
 		<ElementName>查看《保障服务协议》与免保范围</ElementName>
 		<Title>查看《保障服务协议》与免保范围</Title>
 		<Content></Content>
@@ -607,7 +607,7 @@
 	</Elements>
 	<Elements>
 		<Id>116</Id>
-		<Placement>element_host_course_type_carousel</Placement>
+		<Placement>placement_host_course_type_carousel</Placement>
 		<ElementName>AI换脸两大风险</ElementName>
 		<Title>AI换脸两大风险</Title>
 		<Content></Content>
@@ -624,7 +624,7 @@
 	</Elements>
 	<Elements>
 		<Id>117</Id>
-		<Placement>element_host_course_type_carousel</Placement>
+		<Placement>placement_host_course_type_carousel</Placement>
 		<ElementName>AI换脸两大风险</ElementName>
 		<Title>AI换脸两大风险</Title>
 		<Content></Content>
@@ -641,7 +641,7 @@
 	</Elements>
 	<Elements>
 		<Id>118</Id>
-		<Placement>element_host_course_type_carousel</Placement>
+		<Placement>placement_host_course_type_carousel</Placement>
 		<ElementName>AI换脸两大风险</ElementName>
 		<Title>AI换脸两大风险</Title>
 		<Content></Content>
@@ -658,7 +658,7 @@
 	</Elements>
 	<Elements>
 		<Id>119</Id>
-		<Placement>element_host_course_type_carousel</Placement>
+		<Placement>placement_host_course_type_carousel</Placement>
 		<ElementName>首页- Go语言中文网</ElementName>
 		<Title>首页- Go语言中文网</Title>
 		<Content></Content>
@@ -675,7 +675,7 @@
 	</Elements>
 	<Elements>
 		<Id>120</Id>
-		<Placement>element_host_course_type_carousel</Placement>
+		<Placement>placement_host_course_type_carousel</Placement>
 		<ElementName>首页- Go语言中文网</ElementName>
 		<Title>首页- Go语言中文网</Title>
 		<Content></Content>
@@ -692,7 +692,7 @@
 	</Elements>
 	<Elements>
 		<Id>121</Id>
-		<Placement>element_host_course_type_carousel</Placement>
+		<Placement>placement_host_course_type_carousel</Placement>
 		<ElementName>首页- Go语言中文网</ElementName>
 		<Title>首页- Go语言中文网</Title>
 		<Content></Content>
@@ -709,7 +709,7 @@
 	</Elements>
 	<Elements>
 		<Id>122</Id>
-		<Placement>element_host_course_type_carousel</Placement>
+		<Placement>placement_host_course_type_carousel</Placement>
 		<ElementName>首页- Go语言中文网</ElementName>
 		<Title>首页- Go语言中文网</Title>
 		<Content></Content>
@@ -726,7 +726,7 @@
 	</Elements>
 	<Elements>
 		<Id>123</Id>
-		<Placement>element_host_course_type_carousel</Placement>
+		<Placement>placement_host_course_type_carousel</Placement>
 		<ElementName>首页- Go语言中文网</ElementName>
 		<Title>首页- Go语言中文网</Title>
 		<Content></Content>

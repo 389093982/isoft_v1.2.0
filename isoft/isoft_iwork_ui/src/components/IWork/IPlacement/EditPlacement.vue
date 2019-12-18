@@ -35,6 +35,15 @@
   export default {
     name: "EditPlacement",
     data(){
+      const _validatePlacementName = (rule, value, callback) =>  {
+        if (value === '') {
+          callback(new Error('占位符名称不能为空!'));
+        } else if (value.indexOf("placement_") < 0) {
+          callback(new Error('占位符名称必须以 placement_ 开头!'));
+        } else {
+          callback();
+        }
+      };
       return {
         formInline: {
           placement_name:'',
@@ -44,16 +53,13 @@
         },
         ruleInline: {
           placement_name: [
-            { required: true, message: 'Please fill in the placement_name.', trigger: 'blur' },
+            { required: true, validator: _validatePlacementName,  trigger: 'blur' },
           ],
           placement_desc: [
             { required: true, message: 'Please fill in the placement_desc.', trigger: 'blur' },
           ],
           placement_label: [
             { required: true, message: 'Please fill in the placement_label.', trigger: 'blur' },
-          ],
-          element_limit: [
-            { required: true, message: 'Please fill in the element_limit.', trigger: 'blur' },
           ],
         }
       }

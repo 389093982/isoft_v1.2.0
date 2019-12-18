@@ -82,7 +82,7 @@
    </div>
 
    <div class="isoft_bg_white isoft_pd10" style="margin-top: 8px;">
-     <HorizontalLinks :placement_name="GLOBAL.element_want_to_find"/>
+     <HorizontalLinks :placement_name="GLOBAL.placement_want_to_find"/>
    </div>
 
  </div>

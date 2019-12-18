@@ -21,7 +21,7 @@
       <Col span="7">
         <div class="isoft_bg_white isoft_pd10">
           <ToolBox :placement_name="GLOBAL.element_host_app_recommand"/>
-          <NewsNotice :placement_name="GLOBAL.Index_news_list"/>
+          <NewsNotice :placement_name="GLOBAL.placement_Index_news_list"/>
         </div>
       </Col>
     </Row>
@@ -37,7 +37,7 @@
 
     <div class="isoft_bg_white isoft_pd10" style="margin-top: 5px;">
       <!-- 热门开源项目 -->
-      <IHotRecommand :placement_name="GLOBAL.hot_project_recommod"/>
+      <IHotRecommand :placement_name="GLOBAL.placement_hot_project_recommod"/>
     </div>
 
     <div class="isoft_bg_white isoft_pd10" style="margin-top: 5px;">
@@ -45,7 +45,7 @@
     </div>
 
     <div class="isoft_bg_white isoft_pd10" style="margin-top: 5px;">
-      <HorizontalLinks :placement_name="GLOBAL.element_want_to_find"/>
+      <HorizontalLinks :placement_name="GLOBAL.placement_want_to_find"/>
     </div>
 
 

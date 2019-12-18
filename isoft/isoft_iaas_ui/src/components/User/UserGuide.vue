@@ -1,6 +1,6 @@
 <template>
   <div>
-    <ElementsLoader :placement_name="GLOBAL.element_user_guide" @onLoadElement="onLoadElement">
+    <ElementsLoader :placement_name="GLOBAL.placement_user_guide" @onLoadElement="onLoadElement">
       <IBeautifulCard :title="placement_label" v-if="elements.length > 0">
         <div slot="content">
           <Row style="min-height: 500px;padding: 20px;">

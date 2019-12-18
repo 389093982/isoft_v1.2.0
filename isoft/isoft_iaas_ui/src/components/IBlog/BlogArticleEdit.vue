@@ -203,7 +203,7 @@
         }
       },
       refreshHotCatalogItems: async function () {
-        const result = await FilterElementByPlacement(this.GLOBAL.element_host_recommend_blog_tpyes);
+        const result = await FilterElementByPlacement(this.GLOBAL.placement_host_recommend_blog_tpyes);
         if(result.status == "SUCCESS"){
           this.hotCatalogItems = result.elements;
         }

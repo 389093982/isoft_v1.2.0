@@ -1,33 +1,33 @@
-const element_host_recommend_blog_tpyes = "element_host_recommend_blog_tpyes";
-const element_host_course_type_carousel = "element_host_course_type_carousel";
-const element_host_toolbox_list = "element_host_toolbox_list";
-const element_host_app_recommand = "element_host_app_recommand";
-const element_host_toolbox_list3 = "element_host_toolbox_list3";
-const element_host_toolbox_list4 = "element_host_toolbox_list4";
-const communication_group = "communication_group";
-const element_want_to_find = "element_want_to_find";
-const hot_project_recommod = "hot_project_recommod";
-const frind_link = "frind_link";
-const Index_news_list = "Index_news_list";
-const element_course_publish_desc = "element_course_publish_desc";
-const element_user_guide = "element_user_guide";
-const element_discount_list = "element_discount_list";
-const element_activity_list = "element_activity_list";
+const placement_host_recommend_blog_tpyes = "placement_host_recommend_blog_tpyes";
+const placement_host_course_type_carousel = "placement_host_course_type_carousel";
+const placement_host_toolbox_list = "placement_host_toolbox_list";
+const placement_host_app_recommand = "placement_host_app_recommand";
+const placement_host_toolbox_list3 = "placement_host_toolbox_list3";
+const placement_host_toolbox_list4 = "placement_host_toolbox_list4";
+const placement_communication_group = "placement_communication_group";
+const placement_want_to_find = "placement_want_to_find";
+const placement_hot_project_recommod = "placement_hot_project_recommod";
+const placement_frind_link = "placement_frind_link";
+const placement_Index_news_list = "placement_Index_news_list";
+const placement_course_publish_desc = "placement_course_publish_desc";
+const placement_user_guide = "placement_user_guide";
+const placement_discount_list = "placement_discount_list";
+const placement_activity_list = "placement_activity_list";
 
 export default {
-  element_host_recommend_blog_tpyes,
-  element_host_course_type_carousel,
-  element_host_toolbox_list,
-  element_host_app_recommand,
-  element_host_toolbox_list3,
-  element_host_toolbox_list4,
-  communication_group,
-  element_want_to_find,
-  hot_project_recommod,
-  frind_link,
-  Index_news_list,
-  element_course_publish_desc,
-  element_user_guide,
-  element_discount_list,
-  element_activity_list,
+  placement_host_recommend_blog_tpyes,
+  placement_host_course_type_carousel,
+  placement_host_toolbox_list,
+  placement_host_app_recommand,
+  placement_host_toolbox_list3,
+  placement_host_toolbox_list4,
+  placement_communication_group,
+  placement_want_to_find,
+  placement_hot_project_recommod,
+  placement_frind_link,
+  placement_Index_news_list,
+  placement_course_publish_desc,
+  placement_user_guide,
+  placement_discount_list,
+  placement_activity_list,
 }

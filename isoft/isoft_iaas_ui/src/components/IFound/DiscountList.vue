@@ -1,6 +1,6 @@
 <template>
   <div>
-    <GraphicLink :placement_name="GLOBAL.element_discount_list"/>
+    <GraphicLink :placement_name="GLOBAL.placement_discount_list"/>
   </div>
 </template>
 

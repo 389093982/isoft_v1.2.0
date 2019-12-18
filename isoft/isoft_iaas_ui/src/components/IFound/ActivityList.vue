@@ -1,6 +1,6 @@
 <template>
   <div>
-    <GraphicLink :placement_name="GLOBAL.element_activity_list"/>
+    <GraphicLink :placement_name="GLOBAL.placement_activity_list"/>
   </div>
 </template>
 

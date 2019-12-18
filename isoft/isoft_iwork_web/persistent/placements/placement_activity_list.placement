@@ -1,18 +1,18 @@
 <PlacementElementMppaer>
 	<Placement>
 		<Id>64</Id>
-		<PlacementName>element_activity_list</PlacementName>
+		<PlacementName>placement_activity_list</PlacementName>
 		<PlacementLabel>聚活动列表</PlacementLabel>
 		<PlacementDesc>聚活动列表</PlacementDesc>
 		<CreatedBy>SYSTEM</CreatedBy>
-		<CreatedTime>2019-10-25T23:51:05+08:00</CreatedTime>
+		<CreatedTime>2019-12-18T20:42:56+08:00</CreatedTime>
 		<LastUpdatedBy>SYSTEM</LastUpdatedBy>
-		<LastUpdatedTime>2019-10-25T23:51:05+08:00</LastUpdatedTime>
+		<LastUpdatedTime>2019-12-18T20:42:56+08:00</LastUpdatedTime>
 		<ElementLimit>50</ElementLimit>
 	</Placement>
 	<Elements>
 		<Id>341</Id>
-		<Placement>element_activity_list</Placement>
+		<Placement>placement_activity_list</Placement>
 		<ElementName>gocn官网活动开始啦</ElementName>
 		<Title>gocn官网活动开始啦</Title>
 		<Content></Content>
@@ -29,7 +29,7 @@
 	</Elements>
 	<Elements>
 		<Id>342</Id>
-		<Placement>element_activity_list</Placement>
+		<Placement>placement_activity_list</Placement>
 		<ElementName>gocn官网活动开始啦</ElementName>
 		<Title>gocn官网活动开始啦</Title>
 		<Content></Content>
@@ -46,7 +46,7 @@
 	</Elements>
 	<Elements>
 		<Id>343</Id>
-		<Placement>element_activity_list</Placement>
+		<Placement>placement_activity_list</Placement>
 		<ElementName>gocn官网活动开始啦</ElementName>
 		<Title>gocn官网活动开始啦</Title>
 		<Content>jjj</Content>
@@ -63,7 +63,7 @@
 	</Elements>
 	<Elements>
 		<Id>344</Id>
-		<Placement>element_activity_list</Placement>
+		<Placement>placement_activity_list</Placement>
 		<ElementName>gocn官网活动开始啦</ElementName>
 		<Title>gocn官网活动开始啦</Title>
 		<Content></Content>
@@ -80,7 +80,7 @@
 	</Elements>
 	<Elements>
 		<Id>347</Id>
-		<Placement>element_activity_list</Placement>
+		<Placement>placement_activity_list</Placement>
 		<ElementName>gocn官网活动开始啦</ElementName>
 		<Title>gocn官网活动开始啦</Title>
 		<Content></Content>
@@ -97,7 +97,7 @@
 	</Elements>
 	<Elements>
 		<Id>348</Id>
-		<Placement>element_activity_list</Placement>
+		<Placement>placement_activity_list</Placement>
 		<ElementName>gocn官网活动开始啦</ElementName>
 		<Title>gocn官网活动开始啦</Title>
 		<Content></Content>

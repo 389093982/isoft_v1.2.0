@@ -36,7 +36,7 @@
               </a>
             </div>
             <div>
-              <HotCourseType :placement_name="GLOBAL.element_host_course_type_carousel" v-show="showCourseType===true" @chooseCourseType="chooseCourseType"/>
+              <HotCourseType :placement_name="GLOBAL.placement_host_course_type_carousel" v-show="showCourseType===true" @chooseCourseType="chooseCourseType"/>
               <TotalCourseType v-show="showCourseType===false" @chooseCourseType="chooseCourseType"/>
             </div>
           </div>
