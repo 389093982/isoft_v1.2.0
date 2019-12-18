@@ -21,7 +21,7 @@
           <FormItem prop="placement_desc" label="占位符描述">
             <Input type="text" v-model="formInline.placement_desc" placeholder="placement_desc"/>
           </FormItem>
-          <div class="remark" v-show="showRemark">备注：element_limit:占位符元素最大显示数量</div>
+          <div class="remark" v-show="showRemark">备注：element_limit:占位符元素最大显示数量,小于1默认1000</div>
           <FormItem prop="element_limit" label="元素显示数量">
             <Input type="number" v-model="formInline.element_limit" placeholder="element_limit"/>
           </FormItem>
