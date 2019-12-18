@@ -1,23 +1,29 @@
 <template>
   <div>
+    <Button type="success" size="small" @click="showRemark = !showRemark">显示备注</Button>
+
     <Form ref="formInline" :model="formInline" :rules="ruleInline" :label-width="100">
       <Row>
         <Col span="12">
+          <div class="remark" v-show="showRemark">备注：placement_name:仅做命名区分,不用于界面展示</div>
           <FormItem prop="placement_name" label="占位符名称">
-            <Input type="text" v-model="formInline.placement_name" placeholder="placement_name" style="width: 80%;"/>
+            <Input type="text" v-model="formInline.placement_name" placeholder="placement_name"/>
           </FormItem>
+          <div class="remark" v-show="showRemark">备注：placement_label:界面块元素顶级名称,用于界面展示</div>
           <FormItem prop="placement_label" label="页面显示名称">
-            <Input type="text" v-model="formInline.placement_label" placeholder="placement_label" style="width: 80%;"/>
+            <Input type="text" v-model="formInline.placement_label" placeholder="placement_label"/>
           </FormItem>
           占位符所在页面：xxx
           元素支持字段：xxxxxxxx
         </Col>
         <Col span="12">
+          <div class="remark" v-show="showRemark">备注：placement_desc:仅做说明,不用于界面展示</div>
           <FormItem prop="placement_desc" label="占位符描述">
-            <Input type="text" v-model="formInline.placement_desc" placeholder="placement_desc" style="width: 80%;"/>
+            <Input type="text" v-model="formInline.placement_desc" placeholder="placement_desc"/>
           </FormItem>
+          <div class="remark" v-show="showRemark">备注：element_limit:占位符元素最大显示数量</div>
           <FormItem prop="element_limit" label="元素显示数量">
-            <Input type="number" v-model="formInline.element_limit" placeholder="element_limit" style="width: 80%;"/>
+            <Input type="number" v-model="formInline.element_limit" placeholder="element_limit"/>
           </FormItem>
           <FormItem>
             <Button type="success" @click="handleSubmit" style="margin-right: 6px">提交</Button>
@@ -45,6 +51,7 @@
         }
       };
       return {
+        showRemark:true,
         formInline: {
           placement_name:'',
           placement_desc:'',
@@ -104,5 +111,9 @@
 </script>
 
 <style scoped>
-
+  .remark{
+    text-align: right;
+    color: green;
+    font-size: 12px;
+  }
 </style>
