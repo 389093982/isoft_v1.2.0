@@ -10,10 +10,6 @@
       <ISimpleSearch slot="right" @handleSimpleSearch="handleSearch"/>
     </ISimpleLeftRightRow>
 
-    <Tag v-for="placement in placements" color="green">
-      <span @click="clickPlacement(placement.placement_name)">{{placement.placement_name}}</span>
-    </Tag>
-
     <Table border :columns="columns1" :data="elements" size="small"></Table>
     <Page :total="total" :page-size="offset" show-total show-sizer :styles="{'text-align': 'center','margin-top': '10px'}"
           @on-change="handleChange" @on-page-size-change="handlePageSizeChange"/>
@@ -21,7 +17,7 @@
 </template>
 
 <script>
-  import {FilterElements,UpdateElementStatus,GetAllPlacements,CopyElement,ImportElement} from "../../../api"
+  import {FilterElements,UpdateElementStatus,CopyElement,ImportElement} from "../../../api"
   import ISimpleSearch from "../../Common/search/ISimpleSearch"
   import MultiClickButton from "../../Common/button/MultiClickButton"
   import ISimpleLeftRightRow from "../../Common/layout/ISimpleLeftRightRow"
@@ -41,7 +37,6 @@
         offset:10,
         // 搜索条件
         search:"",
-        placements:[],
         elements: [],
         columns1: [
           {
@@ -166,16 +161,10 @@
         this.refreshElementList();
       },
       refreshElementList:async function () {
-        const result = await FilterElements(this.offset, this.current_page, this.search);
+        const result = await FilterElements(this.offset, this.current_page, this.$route.query.placement_name, this.search);
         if(result.status=="SUCCESS"){
           this.elements = result.elements;
           this.total = result.paginator.totalcount;
-        }
-      },
-      refreshAllPlacements:async function () {
-        const result = await GetAllPlacements();
-        if(result.status == "SUCCESS"){
-          this.placements = result.placements;
         }
       },
       handleChange(page){
@@ -200,14 +189,7 @@
       },
     },
     mounted(){
-      if(this.$route.query.search != undefined){
-        this.search = this.$route.query.search;
-      }
-      if(this.$route.query.placement_name != undefined){
-        this.search = this.$route.query.placement_name;
-      }
       this.refreshElementList();
-      this.refreshAllPlacements();
     }
   }
 </script>

@@ -162,7 +162,7 @@ export const EditAuditTaskTarget = (task_name, update_cases) => ajax(BASE_URL+"/
 export const GetAuditHandleData = (task_name, current_page, offset) => ajax(BASE_URL+"/iwork/getAuditHandleData", {task_name, current_page, offset},'POST');
 
 // 占位符、页面元素模块
-export const FilterElements = (offset,current_page,search) => ajax(BASE_URL+'/iwork/filterPageElement',{offset,current_page,search},'GET');
+export const FilterElements = (offset,current_page,placement_name, search) => ajax(BASE_URL+'/iwork/filterPageElement',{offset,current_page,placement_name, search},'GET');
 
 export const EditElement = (id, placement, element_name, navigation_level, navigation_parent_id, title, content, md_content, imgpath, linked_refer) =>
   ajax(BASE_URL+'/iwork/editElement',{id, placement, element_name, navigation_level, navigation_parent_id, title, content, md_content, imgpath, linked_refer},'POST');
@@ -175,8 +175,6 @@ export const EditPlacement = (id, placement_name, placement_desc, placement_labe
 export const QueryPlacementById = (id) => ajax(BASE_URL+'/iwork/queryPlacementById',{id},'GET');
 
 export const FilterPlacement = (offset,current_page,search) => ajax(BASE_URL+'/iwork/filterPagePlacement',{offset,current_page,search},'GET');
-
-export const GetAllPlacements = () => ajax(BASE_URL+'/iwork/getAllPlacements',{},'GET');
 
 export const CopyElement = (id) => ajax(BASE_URL+'/iwork/copyElement',{id},'GET');
 

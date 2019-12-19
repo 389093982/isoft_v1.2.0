@@ -85,21 +85,12 @@ func (this *WorkController) CopyPlacement() {
 	this.ServeJSON()
 }
 
-func (this *WorkController) GetAllPlacements() {
-	placements, err := models.GetAllPlacements()
-	if err == nil {
-		this.Data["json"] = &map[string]interface{}{"status": "SUCCESS", "placements": placements}
-	} else {
-		this.Data["json"] = &map[string]interface{}{"status": "ERROR", "errorMsg": err.Error()}
-	}
-	this.ServeJSON()
-}
-
 func (this *WorkController) FilterPageElement() {
+	placement_name := this.GetString("placement_name")
 	offset, _ := this.GetInt("offset", 10)            // 每页记录数
 	current_page, _ := this.GetInt("current_page", 1) // 当前页
 	condArr := map[string]string{"search": this.GetString("search")}
-	elements, count, err := models.FilterPageElement(condArr, current_page, offset, orm.NewOrm())
+	elements, count, err := models.FilterPageElement(condArr, placement_name, current_page, offset, orm.NewOrm())
 	paginator := pagination.SetPaginator(this.Ctx, offset, count)
 	if err == nil {
 		this.Data["json"] = &map[string]interface{}{"status": "SUCCESS", "elements": elements,

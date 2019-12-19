@@ -112,12 +112,13 @@ func GetAllPlacements() (placements []Placement, err error) {
 	return
 }
 
-func FilterPageElement(condArr map[string]string, page int, offset int, o orm.Ormer) (elements []Element, counts int64, err error) {
+func FilterPageElement(condArr map[string]string, placement_name string, page int, offset int, o orm.Ormer) (elements []Element, counts int64, err error) {
 	qs := o.QueryTable("element")
 	var cond = orm.NewCondition()
+	cond = cond.And("placement", placement_name)
 	if search, ok := condArr["search"]; ok && strings.TrimSpace(search) != "" {
 		subCond := orm.NewCondition()
-		subCond = cond.And("placement__contains", search).Or("element_name__contains", search).Or("title__contains", search)
+		subCond = cond.And("title__contains", search).Or("element_name__contains", search)
 		cond = cond.AndCond(subCond)
 	}
 	qs = qs.SetCond(cond)
