@@ -169,8 +169,8 @@ export const EditElement = (id, placement, element_name, navigation_level, navig
 
 export const UpdateElementStatus = (id, status) => ajax(BASE_URL+'/iwork/updateElementStatus',{id, status},'GET');
 
-export const EditPlacement = (id, placement_name, placement_desc, placement_label, element_limit) =>
-  ajax(BASE_URL+'/iwork/editPlacement',{id, placement_name, placement_desc, placement_label, element_limit},'GET');
+export const EditPlacement = (id, placement_name, placement_desc, placement_label, element_limit, placement_type) =>
+  ajax(BASE_URL+'/iwork/editPlacement',{id, placement_name, placement_desc, placement_label, element_limit, placement_type},'GET');
 
 export const QueryPlacementById = (id) => ajax(BASE_URL+'/iwork/queryPlacementById',{id},'GET');
 

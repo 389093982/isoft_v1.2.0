@@ -13,8 +13,15 @@
           <FormItem prop="placement_label" label="页面显示名称">
             <Input type="text" v-model="formInline.placement_label" placeholder="placement_label"/>
           </FormItem>
-          占位符所在页面：xxx
-          元素支持字段：xxxxxxxx
+          <FormItem prop="placement_type" label="占位符类型">
+            <Select v-model.trim="formInline.placement_type" placeholder="placement_type">
+              <Option value="all">默认类型 -- all</Option>
+              <Option value="text_link">文字链接 -- text_link</Option>
+              <Option value="text_event">文字事件 -- text_event</Option>
+              <Option value="img_text_link">图文链接 -- img_text_link</Option>
+              <Option value="img_text_event">图文事件 -- img_text_event</Option>
+            </Select>
+          </FormItem>
         </Col>
         <Col span="12">
           <div class="remark" v-show="showRemark">备注：placement_desc:仅做说明,不用于界面展示</div>
@@ -57,6 +64,7 @@
           placement_desc:'',
           placement_label:'',
           element_limit:'-1',
+          placement_type:'',
         },
         ruleInline: {
           placement_name: [
@@ -77,7 +85,7 @@
           if (valid) {
             let id = this.$route.query.id == undefined ? 0 : this.$route.query.id;
               const result = await EditPlacement(id, this.formInline.placement_name, this.formInline.placement_desc,
-                this.formInline.placement_label, this.formInline.element_limit);
+                this.formInline.placement_label, this.formInline.element_limit, this.formInline.placement_type);
               if(result.status == "SUCCESS"){
                 this.$Message.success('提交成功!');
               }else{
@@ -98,6 +106,7 @@
           this.formInline.placement_name = placement.placement_name;
           this.formInline.placement_desc = placement.placement_desc;
           this.formInline.placement_label = placement.placement_label;
+          this.formInline.placement_type = placement.placement_type;
           this.formInline.element_limit = placement.element_limit;
         }
       }

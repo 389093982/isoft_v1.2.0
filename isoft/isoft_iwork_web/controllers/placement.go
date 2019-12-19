@@ -29,12 +29,14 @@ func (this *WorkController) EditPlacement() {
 	placement_desc := this.GetString("placement_desc")
 	placement_label := this.GetString("placement_label")
 	element_limit, _ := this.GetInt64("element_limit")
+	placement_type := this.GetString("placement_type")
 
 	placement := &models.Placement{
 		Id:              id,
 		PlacementName:   placement_name,
 		PlacementDesc:   placement_desc,
 		PlacementLabel:  placement_label,
+		PlacementType:   placement_type,
 		ElementLimit:    element_limit,
 		CreatedBy:       `SYSTEM`,
 		CreatedTime:     time.Now(),
