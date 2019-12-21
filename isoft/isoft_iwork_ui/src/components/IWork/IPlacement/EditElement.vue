@@ -1,7 +1,11 @@
 <template>
   <div>
     <Button type="success" size="small" @click="showRemark = !showRemark">显示备注</Button>
-    <span v-if="placement">{{placement.placement_type}}</span>
+
+    <Button type="warning" size="small" v-if="placement" @click="showPlacementTypeDesc = !showPlacementTypeDesc">
+      当前占位符类型:{{placement.placement_type}}
+    </Button>
+    <p v-for="(value, key) in placement_types" v-show="showPlacementTypeDesc"><span style="display:inline-block;width: 100px;">{{key}}:</span><Tag v-for="(val, index) in value">{{val}}</Tag></p>
 
     <Form ref="formInline" :model="formInline" :rules="ruleInline" :label-width="100">
       <Row>
@@ -75,8 +79,13 @@
     data(){
       return {
         placement_types:{
+          'all':['placement_name','element_name','element_label','navigation_level','navigation_parent_id','content','imgpath','linked_refer','md_content'],
+          'text_link':['placement_name','element_name','element_label','navigation_level','navigation_parent_id','content','imgpath','linked_refer','md_content'],
+          'text_event':['placement_name','element_name','element_label','navigation_level','navigation_parent_id','content','imgpath','linked_refer','md_content'],
           'img_text_link':['placement_name','element_name','element_label'],
+          'img_text_event':['placement_name','element_name','element_label','navigation_level','navigation_parent_id','content','imgpath','linked_refer','md_content'],
         },
+        showPlacementTypeDesc:false,
         showRemark:true,
         placement:null,
         toolbars: {
