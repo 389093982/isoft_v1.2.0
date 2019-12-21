@@ -3,6 +3,7 @@
 		<Id>86</Id>
 		<PlacementName>placement_communication_group</PlacementName>
 		<PlacementLabel>交流群组</PlacementLabel>
+		<PlacementType></PlacementType>
 		<PlacementDesc>交流群组</PlacementDesc>
 		<CreatedBy>SYSTEM</CreatedBy>
 		<CreatedTime>2019-12-18T20:44:32+08:00</CreatedTime>
@@ -14,7 +15,7 @@
 		<Id>217</Id>
 		<Placement>placement_communication_group</Placement>
 		<ElementName>推荐交流群组</ElementName>
-		<Title>推荐交流群组</Title>
+		<ElementLabel>推荐交流群组</ElementLabel>
 		<Content>Java技术交流群 389093982</Content>
 		<LinkedRefer></LinkedRefer>
 		<ImgPath></ImgPath>
@@ -31,7 +32,7 @@
 		<Id>356</Id>
 		<Placement>placement_communication_group</Placement>
 		<ElementName>推荐交流群组1111</ElementName>
-		<Title>推荐交流群组</Title>
+		<ElementLabel>推荐交流群组</ElementLabel>
 		<Content>Java技术交流群 389093982</Content>
 		<LinkedRefer></LinkedRefer>
 		<ImgPath></ImgPath>
@@ -48,7 +49,7 @@
 		<Id>357</Id>
 		<Placement>placement_communication_group</Placement>
 		<ElementName>推荐交流群组222</ElementName>
-		<Title>推荐交流群组</Title>
+		<ElementLabel>推荐交流群组</ElementLabel>
 		<Content>Java技术交流群 389093982</Content>
 		<LinkedRefer></LinkedRefer>
 		<ImgPath></ImgPath>

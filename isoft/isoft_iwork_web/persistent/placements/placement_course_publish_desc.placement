@@ -3,6 +3,7 @@
 		<Id>60</Id>
 		<PlacementName>placement_course_publish_desc</PlacementName>
 		<PlacementLabel>课程发布规范说明</PlacementLabel>
+		<PlacementType></PlacementType>
 		<PlacementDesc>课程发布规范说明</PlacementDesc>
 		<CreatedBy>SYSTEM</CreatedBy>
 		<CreatedTime>2019-12-18T20:43:10+08:00</CreatedTime>
@@ -14,7 +15,7 @@
 		<Id>281</Id>
 		<Placement>placement_course_publish_desc</Placement>
 		<ElementName>课程发布规范说明</ElementName>
-		<Title>课程发布规范说明</Title>
+		<ElementLabel>课程发布规范说明</ElementLabel>
 		<Content></Content>
 		<LinkedRefer></LinkedRefer>
 		<ImgPath></ImgPath>
@@ -31,7 +32,7 @@
 		<Id>282</Id>
 		<Placement>placement_course_publish_desc</Placement>
 		<ElementName>eeeeeeeeeeeeee</ElementName>
-		<Title>eeeeeeeeeeeeee</Title>
+		<ElementLabel>eeeeeeeeeeeeee</ElementLabel>
 		<Content></Content>
 		<LinkedRefer></LinkedRefer>
 		<ImgPath></ImgPath>

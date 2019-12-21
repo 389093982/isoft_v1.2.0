@@ -3,6 +3,7 @@
 		<Id>64</Id>
 		<PlacementName>placement_activity_list</PlacementName>
 		<PlacementLabel>聚活动列表</PlacementLabel>
+		<PlacementType></PlacementType>
 		<PlacementDesc>聚活动列表</PlacementDesc>
 		<CreatedBy>SYSTEM</CreatedBy>
 		<CreatedTime>2019-12-18T20:42:56+08:00</CreatedTime>
@@ -14,7 +15,7 @@
 		<Id>341</Id>
 		<Placement>placement_activity_list</Placement>
 		<ElementName>gocn官网活动开始啦</ElementName>
-		<Title>gocn官网活动开始啦</Title>
+		<ElementLabel>gocn官网活动开始啦</ElementLabel>
 		<Content></Content>
 		<LinkedRefer>http://www.gocn.com</LinkedRefer>
 		<ImgPath>http://localhost:8086/api/files/92bf93dbc4bf415e24c7b53962d1e801.jpg</ImgPath>
@@ -31,7 +32,7 @@
 		<Id>342</Id>
 		<Placement>placement_activity_list</Placement>
 		<ElementName>gocn官网活动开始啦</ElementName>
-		<Title>gocn官网活动开始啦</Title>
+		<ElementLabel>gocn官网活动开始啦</ElementLabel>
 		<Content></Content>
 		<LinkedRefer>http://www.gocn.com</LinkedRefer>
 		<ImgPath>http://localhost:8086/api/files/92bf93dbc4bf415e24c7b53962d1e801.jpg</ImgPath>
@@ -48,7 +49,7 @@
 		<Id>343</Id>
 		<Placement>placement_activity_list</Placement>
 		<ElementName>gocn官网活动开始啦</ElementName>
-		<Title>gocn官网活动开始啦</Title>
+		<ElementLabel>gocn官网活动开始啦</ElementLabel>
 		<Content>jjj</Content>
 		<LinkedRefer>http://www.gocn.com</LinkedRefer>
 		<ImgPath>http://localhost:8086/api/files/92bf93dbc4bf415e24c7b53962d1e801.jpg</ImgPath>
@@ -65,7 +66,7 @@
 		<Id>344</Id>
 		<Placement>placement_activity_list</Placement>
 		<ElementName>gocn官网活动开始啦</ElementName>
-		<Title>gocn官网活动开始啦</Title>
+		<ElementLabel>gocn官网活动开始啦</ElementLabel>
 		<Content></Content>
 		<LinkedRefer>http://www.gocn.com</LinkedRefer>
 		<ImgPath>http://localhost:8086/api/files/92bf93dbc4bf415e24c7b53962d1e801.jpg</ImgPath>
@@ -82,7 +83,7 @@
 		<Id>347</Id>
 		<Placement>placement_activity_list</Placement>
 		<ElementName>gocn官网活动开始啦</ElementName>
-		<Title>gocn官网活动开始啦</Title>
+		<ElementLabel>gocn官网活动开始啦</ElementLabel>
 		<Content></Content>
 		<LinkedRefer>http://www.gocn.com</LinkedRefer>
 		<ImgPath>http://localhost:8086/api/files/92bf93dbc4bf415e24c7b53962d1e801.jpg</ImgPath>
@@ -99,7 +100,7 @@
 		<Id>348</Id>
 		<Placement>placement_activity_list</Placement>
 		<ElementName>gocn官网活动开始啦</ElementName>
-		<Title>gocn官网活动开始啦</Title>
+		<ElementLabel>gocn官网活动开始啦</ElementLabel>
 		<Content></Content>
 		<LinkedRefer>http://www.gocn.com</LinkedRefer>
 		<ImgPath>http://localhost:8086/api/files/92bf93dbc4bf415e24c7b53962d1e801.jpg</ImgPath>

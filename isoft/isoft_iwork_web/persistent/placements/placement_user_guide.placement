@@ -3,6 +3,7 @@
 		<Id>61</Id>
 		<PlacementName>placement_user_guide</PlacementName>
 		<PlacementLabel>帮助中心</PlacementLabel>
+		<PlacementType></PlacementType>
 		<PlacementDesc>帮助中心</PlacementDesc>
 		<CreatedBy>SYSTEM</CreatedBy>
 		<CreatedTime>2019-12-18T20:43:03+08:00</CreatedTime>
@@ -14,7 +15,7 @@
 		<Id>285</Id>
 		<Placement>placement_user_guide</Placement>
 		<ElementName>站点引导</ElementName>
-		<Title>站点引导</Title>
+		<ElementLabel>站点引导</ElementLabel>
 		<Content></Content>
 		<LinkedRefer></LinkedRefer>
 		<ImgPath></ImgPath>
@@ -31,7 +32,7 @@
 		<Id>286</Id>
 		<Placement>placement_user_guide</Placement>
 		<ElementName>广告位招租</ElementName>
-		<Title>广告位招租</Title>
+		<ElementLabel>广告位招租</ElementLabel>
 		<Content></Content>
 		<LinkedRefer></LinkedRefer>
 		<ImgPath></ImgPath>
@@ -48,7 +49,7 @@
 		<Id>287</Id>
 		<Placement>placement_user_guide</Placement>
 		<ElementName>邀请好友赢取 VIP</ElementName>
-		<Title>邀请好友赢取 VIP</Title>
+		<ElementLabel>邀请好友赢取 VIP</ElementLabel>
 		<Content></Content>
 		<LinkedRefer></LinkedRefer>
 		<ImgPath></ImgPath>
@@ -65,7 +66,7 @@
 		<Id>288</Id>
 		<Placement>placement_user_guide</Placement>
 		<ElementName>如何开课</ElementName>
-		<Title>如何开课</Title>
+		<ElementLabel>如何开课</ElementLabel>
 		<Content></Content>
 		<LinkedRefer></LinkedRefer>
 		<ImgPath></ImgPath>
@@ -82,7 +83,7 @@
 		<Id>289</Id>
 		<Placement>placement_user_guide</Placement>
 		<ElementName>如何开课</ElementName>
-		<Title>如何开课</Title>
+		<ElementLabel>如何开课</ElementLabel>
 		<Content></Content>
 		<LinkedRefer></LinkedRefer>
 		<ImgPath></ImgPath>
@@ -99,7 +100,7 @@
 		<Id>290</Id>
 		<Placement>placement_user_guide</Placement>
 		<ElementName>如何开课</ElementName>
-		<Title>如何开课</Title>
+		<ElementLabel>如何开课</ElementLabel>
 		<Content></Content>
 		<LinkedRefer></LinkedRefer>
 		<ImgPath></ImgPath>
@@ -116,7 +117,7 @@
 		<Id>291</Id>
 		<Placement>placement_user_guide</Placement>
 		<ElementName>如何开课</ElementName>
-		<Title>如何开课</Title>
+		<ElementLabel>如何开课</ElementLabel>
 		<Content></Content>
 		<LinkedRefer></LinkedRefer>
 		<ImgPath></ImgPath>

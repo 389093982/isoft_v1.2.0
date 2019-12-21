@@ -3,6 +3,7 @@
 		<Id>63</Id>
 		<PlacementName>placement_discount_list</PlacementName>
 		<PlacementLabel>聚优惠列表</PlacementLabel>
+		<PlacementType></PlacementType>
 		<PlacementDesc>聚优惠列表</PlacementDesc>
 		<CreatedBy>SYSTEM</CreatedBy>
 		<CreatedTime>2019-12-18T20:42:42+08:00</CreatedTime>
@@ -14,7 +15,7 @@
 		<Id>337</Id>
 		<Placement>placement_discount_list</Placement>
 		<ElementName>淘宝优惠券便宜啦</ElementName>
-		<Title>淘宝优惠券便宜啦</Title>
+		<ElementLabel>淘宝优惠券便宜啦</ElementLabel>
 		<Content>华为手机优惠券领取华为手机优惠券领取华为手机优惠券领取</Content>
 		<LinkedRefer>http://www.baidu.com?aaaaaaaaaaa=bbbbbbbbb</LinkedRefer>
 		<ImgPath>http://localhost:8086/api/files/身份证扫描件.jpg</ImgPath>
@@ -31,7 +32,7 @@
 		<Id>338</Id>
 		<Placement>placement_discount_list</Placement>
 		<ElementName>华为手机优惠券领取</ElementName>
-		<Title>华为手机优惠券领取</Title>
+		<ElementLabel>华为手机优惠券领取</ElementLabel>
 		<Content>华为手机优惠券领取华为手机优惠券领取华为手机优惠券领取</Content>
 		<LinkedRefer></LinkedRefer>
 		<ImgPath>http://localhost:8086/api/files/3.jpg</ImgPath>
@@ -48,7 +49,7 @@
 		<Id>339</Id>
 		<Placement>placement_discount_list</Placement>
 		<ElementName>华为手机优惠券领取</ElementName>
-		<Title>华为手机优惠券领取</Title>
+		<ElementLabel>华为手机优惠券领取</ElementLabel>
 		<Content>华为手机优惠券领取华为手机优惠券领取华为手机优惠券领取</Content>
 		<LinkedRefer></LinkedRefer>
 		<ImgPath>http://localhost:8086/api/files/3.jpg</ImgPath>
@@ -65,7 +66,7 @@
 		<Id>340</Id>
 		<Placement>placement_discount_list</Placement>
 		<ElementName>华为手机优惠券领取</ElementName>
-		<Title>华为手机优惠券领取</Title>
+		<ElementLabel>华为手机优惠券领取</ElementLabel>
 		<Content>华为手机优惠券领取华为手机优惠券领取华为手机优惠券领取</Content>
 		<LinkedRefer></LinkedRefer>
 		<ImgPath>http://localhost:8086/api/files/3.jpg</ImgPath>

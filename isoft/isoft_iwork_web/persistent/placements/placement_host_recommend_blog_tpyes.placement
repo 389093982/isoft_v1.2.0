@@ -3,6 +3,7 @@
 		<Id>32</Id>
 		<PlacementName>placement_host_recommend_blog_tpyes</PlacementName>
 		<PlacementLabel>热门推荐博客分类</PlacementLabel>
+		<PlacementType></PlacementType>
 		<PlacementDesc>热门推荐博客分类</PlacementDesc>
 		<CreatedBy>SYSTEM</CreatedBy>
 		<CreatedTime>2019-12-18T20:41:40+08:00</CreatedTime>
@@ -14,7 +15,7 @@
 		<Id>30</Id>
 		<Placement>placement_host_recommend_blog_tpyes</Placement>
 		<ElementName>java社区</ElementName>
-		<Title>java社区</Title>
+		<ElementLabel>java社区</ElementLabel>
 		<Content>人生苦短，我用python</Content>
 		<LinkedRefer>java社区</LinkedRefer>
 		<ImgPath>http://localhost:8086/api/files/python_50_50.jpg</ImgPath>
@@ -31,7 +32,7 @@
 		<Id>31</Id>
 		<Placement>placement_host_recommend_blog_tpyes</Placement>
 		<ElementName>python社区</ElementName>
-		<Title>python社区</Title>
+		<ElementLabel>python社区</ElementLabel>
 		<Content>人生苦短，我用python</Content>
 		<LinkedRefer>python社区</LinkedRefer>
 		<ImgPath>http://localhost:8086/api/files/python_50_50.jpg</ImgPath>
@@ -48,7 +49,7 @@
 		<Id>32</Id>
 		<Placement>placement_host_recommend_blog_tpyes</Placement>
 		<ElementName>golang社区</ElementName>
-		<Title>golang社区</Title>
+		<ElementLabel>golang社区</ElementLabel>
 		<Content>人生苦短，我用python</Content>
 		<LinkedRefer>golang社区</LinkedRefer>
 		<ImgPath>http://localhost:8086/api/files/python_50_50.jpg</ImgPath>
@@ -65,7 +66,7 @@
 		<Id>33</Id>
 		<Placement>placement_host_recommend_blog_tpyes</Placement>
 		<ElementName>招聘空间</ElementName>
-		<Title>招聘空间</Title>
+		<ElementLabel>招聘空间</ElementLabel>
 		<Content>人生苦短，我用python</Content>
 		<LinkedRefer>招聘空间</LinkedRefer>
 		<ImgPath>http://localhost:8086/api/files/python_50_50.jpg</ImgPath>
@@ -82,7 +83,7 @@
 		<Id>34</Id>
 		<Placement>placement_host_recommend_blog_tpyes</Placement>
 		<ElementName>开源项目</ElementName>
-		<Title>开源项目</Title>
+		<ElementLabel>开源项目</ElementLabel>
 		<Content>人生苦短，我用java</Content>
 		<LinkedRefer>开源项目</LinkedRefer>
 		<ImgPath>http://localhost:8086/api/files/java_50_50.jpg</ImgPath>
@@ -99,7 +100,7 @@
 		<Id>35</Id>
 		<Placement>placement_host_recommend_blog_tpyes</Placement>
 		<ElementName>个性空间</ElementName>
-		<Title>个性空间</Title>
+		<ElementLabel>个性空间</ElementLabel>
 		<Content>人生苦短，我用java</Content>
 		<LinkedRefer>个性空间</LinkedRefer>
 		<ImgPath>http://localhost:8086/api/files/java_50_50.jpg</ImgPath>
@@ -116,7 +117,7 @@
 		<Id>283</Id>
 		<Placement>placement_host_recommend_blog_tpyes</Placement>
 		<ElementName>官方声明</ElementName>
-		<Title>官方声明</Title>
+		<ElementLabel>官方声明</ElementLabel>
 		<Content>人生苦短，我用java</Content>
 		<LinkedRefer>官方声明</LinkedRefer>
 		<ImgPath>http://localhost:8086/api/files/java_50_50.jpg</ImgPath>
@@ -133,7 +134,7 @@
 		<Id>355</Id>
 		<Placement>placement_host_recommend_blog_tpyes</Placement>
 		<ElementName>656756fsddsf</ElementName>
-		<Title>ghfffgfdfgf</Title>
+		<ElementLabel>ghfffgfdfgf</ElementLabel>
 		<Content></Content>
 		<LinkedRefer></LinkedRefer>
 		<ImgPath></ImgPath>

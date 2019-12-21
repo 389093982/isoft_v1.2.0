@@ -3,6 +3,7 @@
 		<Id>57</Id>
 		<PlacementName>placement_want_to_find</PlacementName>
 		<PlacementLabel>您是不是想找:</PlacementLabel>
+		<PlacementType></PlacementType>
 		<PlacementDesc>您是不是想找:</PlacementDesc>
 		<CreatedBy>SYSTEM</CreatedBy>
 		<CreatedTime>2019-12-18T20:44:02+08:00</CreatedTime>
@@ -14,7 +15,7 @@
 		<Id>237</Id>
 		<Placement>placement_want_to_find</Placement>
 		<ElementName>品质生活家</ElementName>
-		<Title>品质生活家</Title>
+		<ElementLabel>品质生活家</ElementLabel>
 		<Content></Content>
 		<LinkedRefer></LinkedRefer>
 		<ImgPath></ImgPath>
@@ -31,7 +32,7 @@
 		<Id>238</Id>
 		<Placement>placement_want_to_find</Placement>
 		<ElementName>品质生活家</ElementName>
-		<Title>品质生活家</Title>
+		<ElementLabel>品质生活家</ElementLabel>
 		<Content></Content>
 		<LinkedRefer></LinkedRefer>
 		<ImgPath></ImgPath>
@@ -48,7 +49,7 @@
 		<Id>239</Id>
 		<Placement>placement_want_to_find</Placement>
 		<ElementName>品质生活家</ElementName>
-		<Title>品质生活家</Title>
+		<ElementLabel>品质生活家</ElementLabel>
 		<Content></Content>
 		<LinkedRefer></LinkedRefer>
 		<ImgPath></ImgPath>
@@ -65,7 +66,7 @@
 		<Id>240</Id>
 		<Placement>placement_want_to_find</Placement>
 		<ElementName>品质生活家</ElementName>
-		<Title>品质生活家</Title>
+		<ElementLabel>品质生活家</ElementLabel>
 		<Content></Content>
 		<LinkedRefer></LinkedRefer>
 		<ImgPath></ImgPath>
@@ -82,7 +83,7 @@
 		<Id>241</Id>
 		<Placement>placement_want_to_find</Placement>
 		<ElementName>品质生活家</ElementName>
-		<Title>品质生活家</Title>
+		<ElementLabel>品质生活家</ElementLabel>
 		<Content></Content>
 		<LinkedRefer></LinkedRefer>
 		<ImgPath></ImgPath>
@@ -99,7 +100,7 @@
 		<Id>242</Id>
 		<Placement>placement_want_to_find</Placement>
 		<ElementName>精品课程</ElementName>
-		<Title>精品课程</Title>
+		<ElementLabel>精品课程</ElementLabel>
 		<Content></Content>
 		<LinkedRefer>http://localhost:6003/#/ilearning/index</LinkedRefer>
 		<ImgPath></ImgPath>
@@ -116,7 +117,7 @@
 		<Id>243</Id>
 		<Placement>placement_want_to_find</Placement>
 		<ElementName>品质生活家</ElementName>
-		<Title>品质生活家</Title>
+		<ElementLabel>品质生活家</ElementLabel>
 		<Content></Content>
 		<LinkedRefer></LinkedRefer>
 		<ImgPath></ImgPath>
@@ -133,7 +134,7 @@
 		<Id>244</Id>
 		<Placement>placement_want_to_find</Placement>
 		<ElementName>品质生活家</ElementName>
-		<Title>品质生活家</Title>
+		<ElementLabel>品质生活家</ElementLabel>
 		<Content></Content>
 		<LinkedRefer></LinkedRefer>
 		<ImgPath></ImgPath>
@@ -150,7 +151,7 @@
 		<Id>245</Id>
 		<Placement>placement_want_to_find</Placement>
 		<ElementName>品质生活家</ElementName>
-		<Title>品质生活家</Title>
+		<ElementLabel>品质生活家</ElementLabel>
 		<Content></Content>
 		<LinkedRefer></LinkedRefer>
 		<ImgPath></ImgPath>
@@ -167,7 +168,7 @@
 		<Id>246</Id>
 		<Placement>placement_want_to_find</Placement>
 		<ElementName>品质生活家</ElementName>
-		<Title>品质生活家</Title>
+		<ElementLabel>品质生活家</ElementLabel>
 		<Content></Content>
 		<LinkedRefer></LinkedRefer>
 		<ImgPath></ImgPath>
@@ -184,7 +185,7 @@
 		<Id>247</Id>
 		<Placement>placement_want_to_find</Placement>
 		<ElementName>品质生活家</ElementName>
-		<Title>品质生活家</Title>
+		<ElementLabel>品质生活家</ElementLabel>
 		<Content></Content>
 		<LinkedRefer></LinkedRefer>
 		<ImgPath></ImgPath>
@@ -201,7 +202,7 @@
 		<Id>248</Id>
 		<Placement>placement_want_to_find</Placement>
 		<ElementName>品质生活家</ElementName>
-		<Title>品质生活家</Title>
+		<ElementLabel>品质生活家</ElementLabel>
 		<Content></Content>
 		<LinkedRefer></LinkedRefer>
 		<ImgPath></ImgPath>
@@ -218,7 +219,7 @@
 		<Id>249</Id>
 		<Placement>placement_want_to_find</Placement>
 		<ElementName>品质生活家</ElementName>
-		<Title>品质生活家</Title>
+		<ElementLabel>品质生活家</ElementLabel>
 		<Content></Content>
 		<LinkedRefer></LinkedRefer>
 		<ImgPath></ImgPath>
@@ -235,7 +236,7 @@
 		<Id>250</Id>
 		<Placement>placement_want_to_find</Placement>
 		<ElementName>品质生活家</ElementName>
-		<Title>品质生活家</Title>
+		<ElementLabel>品质生活家</ElementLabel>
 		<Content></Content>
 		<LinkedRefer></LinkedRefer>
 		<ImgPath></ImgPath>
@@ -252,7 +253,7 @@
 		<Id>251</Id>
 		<Placement>placement_want_to_find</Placement>
 		<ElementName>品质生活家</ElementName>
-		<Title>品质生活家</Title>
+		<ElementLabel>品质生活家</ElementLabel>
 		<Content></Content>
 		<LinkedRefer></LinkedRefer>
 		<ImgPath></ImgPath>
@@ -269,7 +270,7 @@
 		<Id>252</Id>
 		<Placement>placement_want_to_find</Placement>
 		<ElementName>品质生活家</ElementName>
-		<Title>品质生活家</Title>
+		<ElementLabel>品质生活家</ElementLabel>
 		<Content></Content>
 		<LinkedRefer></LinkedRefer>
 		<ImgPath></ImgPath>
@@ -286,7 +287,7 @@
 		<Id>253</Id>
 		<Placement>placement_want_to_find</Placement>
 		<ElementName>品质生活家</ElementName>
-		<Title>品质生活家</Title>
+		<ElementLabel>品质生活家</ElementLabel>
 		<Content></Content>
 		<LinkedRefer></LinkedRefer>
 		<ImgPath></ImgPath>
@@ -303,7 +304,7 @@
 		<Id>254</Id>
 		<Placement>placement_want_to_find</Placement>
 		<ElementName>品质生活家</ElementName>
-		<Title>品质生活家</Title>
+		<ElementLabel>品质生活家</ElementLabel>
 		<Content></Content>
 		<LinkedRefer></LinkedRefer>
 		<ImgPath></ImgPath>
@@ -320,7 +321,7 @@
 		<Id>255</Id>
 		<Placement>placement_want_to_find</Placement>
 		<ElementName>品质生活家</ElementName>
-		<Title>品质生活家</Title>
+		<ElementLabel>品质生活家</ElementLabel>
 		<Content></Content>
 		<LinkedRefer></LinkedRefer>
 		<ImgPath></ImgPath>
@@ -337,7 +338,7 @@
 		<Id>256</Id>
 		<Placement>placement_want_to_find</Placement>
 		<ElementName>热门书单</ElementName>
-		<Title>热门书单</Title>
+		<ElementLabel>热门书单</ElementLabel>
 		<Content></Content>
 		<LinkedRefer>http://localhost:6003/#/iblog/book_list</LinkedRefer>
 		<ImgPath></ImgPath>
@@ -354,7 +355,7 @@
 		<Id>257</Id>
 		<Placement>placement_want_to_find</Placement>
 		<ElementName>品质生活家</ElementName>
-		<Title>品质生活家</Title>
+		<ElementLabel>品质生活家</ElementLabel>
 		<Content></Content>
 		<LinkedRefer></LinkedRefer>
 		<ImgPath></ImgPath>
@@ -371,7 +372,7 @@
 		<Id>258</Id>
 		<Placement>placement_want_to_find</Placement>
 		<ElementName>品质生活家</ElementName>
-		<Title>品质生活家</Title>
+		<ElementLabel>品质生活家</ElementLabel>
 		<Content></Content>
 		<LinkedRefer></LinkedRefer>
 		<ImgPath></ImgPath>
@@ -388,7 +389,7 @@
 		<Id>259</Id>
 		<Placement>placement_want_to_find</Placement>
 		<ElementName>品质生活家</ElementName>
-		<Title>品质生活家</Title>
+		<ElementLabel>品质生活家</ElementLabel>
 		<Content></Content>
 		<LinkedRefer></LinkedRefer>
 		<ImgPath></ImgPath>
@@ -405,7 +406,7 @@
 		<Id>260</Id>
 		<Placement>placement_want_to_find</Placement>
 		<ElementName>品质生活家</ElementName>
-		<Title>品质生活家</Title>
+		<ElementLabel>品质生活家</ElementLabel>
 		<Content></Content>
 		<LinkedRefer></LinkedRefer>
 		<ImgPath></ImgPath>
@@ -422,7 +423,7 @@
 		<Id>284</Id>
 		<Placement>placement_want_to_find</Placement>
 		<ElementName>博客中心</ElementName>
-		<Title>博客中心</Title>
+		<ElementLabel>博客中心</ElementLabel>
 		<Content></Content>
 		<LinkedRefer>http://localhost:6003/#/iblog/blog_list</LinkedRefer>
 		<ImgPath></ImgPath>
