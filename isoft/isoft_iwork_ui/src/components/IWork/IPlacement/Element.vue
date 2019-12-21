@@ -2,7 +2,7 @@
   <div>
     <ISimpleLeftRightRow>
       <span slot="left">
-        <Button type="success" size="small" @click="$router.push({ path: '/iwork/elementEdit'})">新增页面元素</Button>
+        <Button type="success" size="small" @click="$router.push({ path: '/iwork/elementEdit', query: {placement_name:$route.query.placement_name}})">新增页面元素</Button>
         <IFileUpload size="small" ref="fileUpload" @uploadComplete="uploadComplete" action="/api/iwork/import" uploadLabel="导入"/>
       </span>
 

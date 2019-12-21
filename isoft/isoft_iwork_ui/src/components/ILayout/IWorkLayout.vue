@@ -81,7 +81,6 @@
                 内容管理
               </template>
               <MenuItem name="6-1"><router-link to="/iwork/placementList">占位符管理</router-link></MenuItem>
-              <MenuItem name="6-2"><router-link to="/iwork/elementList">页面元素管理</router-link></MenuItem>
             </Submenu>
           </Menu>
         </Sider>

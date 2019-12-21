@@ -1,14 +1,10 @@
 <template>
   <div>
-    <IBaseChooser ref="placement_chooser" chooser-title="占位符选择">
-      <Placement :chooserMode="true" @choosePlacement="choosePlacement"/>
-    </IBaseChooser>
-
     <Form ref="formInline" :model="formInline" :rules="ruleInline" :label-width="100">
       <Row>
         <Col span="12">
-          <FormItem prop="element_name" label="元素名称">
-            <Input type="text" v-model="formInline.element_name" placeholder="element_name" style="width: 80%;"/>
+          <FormItem label="占位符">
+            <Input type="text" readonly="readonly" v-model="formInline.placement" placeholder="placement" style="width: 80%;"/>
           </FormItem>
           <FormItem prop="navigation_level" label="导航级别">
             <Input type="text" readonly="readonly" v-model="formInline.navigation_level" placeholder="navigation_level" style="width: 80%;"/>
@@ -29,9 +25,8 @@
           </FormItem>
         </Col>
         <Col span="12">
-          <FormItem label="占位符">
-            <Input type="text" readonly="readonly" v-model="formInline.placement" placeholder="placement" style="width: 80%;"/>
-            <Button type="success" @click="$refs.placement_chooser.showModal()">选择</Button>
+          <FormItem prop="element_name" label="元素名称">
+            <Input type="text" v-model="formInline.element_name" placeholder="element_name" style="width: 80%;"/>
           </FormItem>
           <FormItem prop="title" label="标题">
             <Input type="text" v-model="formInline.title" placeholder="title" style="width: 80%;"/>
@@ -136,10 +131,6 @@
         let search = checkEmpty(this.formInline.placement) ? "" : this.formInline.placement;
         this.$router.push({ path: '/iwork/elementList', query: { search: search }});
       },
-      choosePlacement:function (placement_name) {
-        this.formInline.placement = placement_name;
-        this.$refs.placement_chooser.hideModal();
-      },
       chooseElement:function(element){
         this.formInline.navigation_level = element.navigation_level + 1;
         this.formInline.navigation_parent_id = element.id;
@@ -175,6 +166,8 @@
     mounted(){
       if(this.$route.query.id != undefined && this.$route.query.id > 0){
         this.refreshElement(this.$route.query.id);
+      }else{
+        this.formInline.placement = this.$route.query.placement_name;
       }
     }
   }
