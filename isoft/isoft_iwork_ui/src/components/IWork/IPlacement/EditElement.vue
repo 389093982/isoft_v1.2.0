@@ -134,8 +134,7 @@
         })
       },
       handleGoBack:function(){
-        let search = checkEmpty(this.formInline.placement) ? "" : this.formInline.placement;
-        this.$router.push({ path: '/iwork/elementList', query: { search: search }});
+        this.$router.push({ path: '/iwork/elementList', query: { placement_name: this.formInline.placement }});
       },
       chooseElement:function(element){
         this.formInline.navigation_level = element.navigation_level + 1;
