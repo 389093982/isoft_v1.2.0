@@ -44,6 +44,8 @@ import ArticleEdit from "../components/ShareArticle/ArticleEdit"
 import ShareArticlePlace from "../components/ShareArticle/ShareArticlePlace"
 import SharingHall from "../components/ShareArticle/SharingHall"
 
+const Apply = () => import("@/components/Advertisement/Apply");
+
 import {joinArray} from "../tools"
 
 Vue.use(Router);
@@ -137,6 +139,14 @@ const IUserReouter = [{
   ]
 }];
 
+const IAdvertisement = [{
+  path: '/advertisement',
+  component: ILayout,
+  children: [
+    {path: 'apply',component: Apply},
+  ]
+}];
+
 const IFoundReouter = [{
   path: '/ifound',
   component: ILayout,
@@ -179,6 +189,7 @@ const VipCenterReouter = [{
 
 function getAllRouters() {
   let allRouters = [];
+  allRouters = joinArray(allRouters, IAdvertisement);
   allRouters = joinArray(allRouters, IFoundReouter);
   allRouters = joinArray(allRouters, IGoodReouter);
   allRouters = joinArray(allRouters, IUserReouter);
