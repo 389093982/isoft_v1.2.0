@@ -52,6 +52,17 @@ func (this *WorkController) EditPlacement() {
 	this.ServeJSON()
 }
 
+func (this *WorkController) QueryPlacementByName() {
+	placement_name := this.GetString("placement_name")
+	placement, err := models.QueryPlacementByName(placement_name)
+	if err == nil {
+		this.Data["json"] = &map[string]interface{}{"status": "SUCCESS", "placement": placement}
+	} else {
+		this.Data["json"] = &map[string]interface{}{"status": "ERROR", "errorMsg": err.Error()}
+	}
+	this.ServeJSON()
+}
+
 func (this *WorkController) QueryPlacementById() {
 	id, _ := this.GetInt64("id", 0)
 	placement, err := models.QueryPlacementById(id)

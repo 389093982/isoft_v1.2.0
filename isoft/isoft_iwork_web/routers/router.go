@@ -102,6 +102,7 @@ func loadloadIWorkerRouterDetail() {
 	registRouter("/api/iwork/filterPagePlacement", wc, wc.FilterPagePlacement, "get,post:FilterPagePlacement")
 	registRouter("/api/iwork/editPlacement", wc, wc.EditPlacement, "get,post:EditPlacement")
 	registRouter("/api/iwork/queryPlacementById", wc, wc.QueryPlacementById, "get,post:QueryPlacementById")
+	registRouter("/api/iwork/queryPlacementByName", wc, wc.QueryPlacementByName, "get,post:QueryPlacementByName")
 	registRouter("/api/iwork/deletePlacementById", wc, wc.DeletePlacementById, "get,post:DeletePlacementById")
 	registRouter("/api/iwork/copyPlacement", wc, wc.CopyPlacement, "get,post:CopyPlacement")
 	registRouter("/api/iwork/filterPageElement", wc, wc.FilterPageElement, "get,post:FilterPageElement")

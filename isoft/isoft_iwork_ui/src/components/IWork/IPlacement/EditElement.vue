@@ -1,19 +1,20 @@
 <template>
   <div>
     <Button type="success" size="small" @click="showRemark = !showRemark">显示备注</Button>
+    <span v-if="placement">{{placement.placement_type}}</span>
 
     <Form ref="formInline" :model="formInline" :rules="ruleInline" :label-width="100">
       <Row>
         <Col span="12">
-          <div class="remark" v-show="showRemark">备注：placement_name:仅做命名区分,不用于界面展示</div>
-          <FormItem label="占位符">
+          <div class="remark" v-show="showRemark && checkShow('placement_name')">备注：placement_name:仅做命名区分,不用于界面展示</div>
+          <FormItem label="占位符" v-show="checkShow('placement_name')">
             <Input type="text" readonly="readonly" v-model="formInline.placement" placeholder="placement"/>
           </FormItem>
-          <div class="remark" v-show="showRemark">备注：element_label:界面块元素名称,用于界面展示</div>
-          <FormItem prop="element_label" label="页面显示名称">
+          <div class="remark" v-show="showRemark && checkShow('element_label')">备注：element_label:界面块元素名称,用于界面展示</div>
+          <FormItem prop="element_label" v-show="checkShow('element_label')" label="页面显示名称">
             <Input type="text" v-model="formInline.element_label" placeholder="element_label"/>
           </FormItem>
-          <FormItem prop="navigation_parent_id" label="父级关联 id">
+          <FormItem prop="navigation_parent_id" v-show="checkShow('navigation_parent_id')" label="父级关联 id">
             <Input type="text" readonly="readonly" v-model="formInline.navigation_parent_id" placeholder="navigation_parent_id" style="width: 80%;"/>
             <Poptip v-model="visible_choose_element" placement="left-start" width="400" @on-popper-show="showChooseElement">
               <a href="javascript:;">选择父级</a>
@@ -24,29 +25,29 @@
               </div>
             </Poptip>
           </FormItem>
-          <FormItem prop="content"  label="内容">
+          <FormItem prop="content" v-show="checkShow('content')" label="内容">
             <Input type="textarea" :rows="3" v-model="formInline.content" placeholder="content"/>
           </FormItem>
         </Col>
         <Col span="12">
-          <div class="remark" v-show="showRemark">备注：element_name:仅做命名区分,不用于界面展示</div>
-          <FormItem prop="element_name" label="元素名称">
+          <div class="remark" v-show="showRemark && checkShow('element_name')">备注：element_name:仅做命名区分,不用于界面展示</div>
+          <FormItem prop="element_name" v-show="checkShow('element_name')" label="元素名称">
             <Input type="text" v-model="formInline.element_name" placeholder="element_name"/>
           </FormItem>
-          <FormItem prop="navigation_level" label="导航级别">
+          <FormItem prop="navigation_level" v-show="checkShow('navigation_level')" label="导航级别">
             <Input type="text" readonly="readonly" v-model="formInline.navigation_level" placeholder="navigation_level"/>
           </FormItem>
-          <FormItem prop="imgpath"  label="图片">
+          <FormItem prop="imgpath" v-show="checkShow('imgpath')" label="图片">
             <Input type="text" readonly="readonly" v-model="formInline.imgpath" placeholder="imgpath" style="width: 80%;"/>
             <IFileUpload @uploadComplete="uploadComplete" action="/api/iwork/httpservice/fileUpload" uploadLabel="上传"/>
           </FormItem>
-          <FormItem prop="linked_refer"  label="链接关键词">
+          <FormItem prop="linked_refer" v-show="checkShow('linked_refer')" label="链接关键词">
             <Input type="text" v-model="formInline.linked_refer" placeholder="linked_refer"/>
           </FormItem>
         </Col>
       </Row>
       <Row>
-        <FormItem prop="md_content" label="markdown内容">
+        <FormItem prop="md_content" v-show="checkShow('md_content')" label="markdown内容">
           <mavon-editor v-model="formInline.md_content" :toolbars="toolbars" :ishljs = "true" style="z-index: 1;"/>
         </FormItem>
       </Row>
@@ -65,15 +66,19 @@
   import Placement from "./Placement"
   import Element from "./Element"
   import IFileUpload from "../IFile/IFileUpload"
-  import {EditElement,FilterElementByPlacement,QueryElementById} from "../../../api"
-  import {checkEmpty} from "../../../tools"
+  import {EditElement,FilterElementByPlacement,QueryElementById,QueryPlacementByName} from "../../../api"
+  import {checkEmpty,oneOf} from "../../../tools"
 
   export default {
     name: "EditElement",
     components:{IBaseChooser,Placement,Element,IFileUpload},
     data(){
       return {
+        placement_types:{
+          'img_text_link':['placement_name','element_name','element_label'],
+        },
         showRemark:true,
+        placement:null,
         toolbars: {
           bold: true, // 粗体
           italic: true, // 斜体
@@ -116,6 +121,9 @@
       }
     },
     methods:{
+      checkShow:function(name){
+        return this.placement != null && oneOf(name, this.placement_types[this.placement.placement_type]);
+      },
       handleSubmit() {
         this.$refs['formInline'].validate(async (valid) => {
           if (valid) {
@@ -166,14 +174,20 @@
           this.formInline.imgpath = element.img_path;
           this.formInline.linked_refer = element.linked_refer;
         }
+      },
+      refreshPlacement:async function (placement_name) {
+        const result = await QueryPlacementByName(placement_name);
+        if(result.status == "SUCCESS"){
+          this.placement = result.placement;
+        }
       }
     },
     mounted(){
+      this.formInline.placement = this.$route.query.placement_name;
       if(this.$route.query.id != undefined && this.$route.query.id > 0){
         this.refreshElement(this.$route.query.id);
-      }else{
-        this.formInline.placement = this.$route.query.placement_name;
       }
+      this.refreshPlacement(this.$route.query.placement_name);
     }
   }
 </script>

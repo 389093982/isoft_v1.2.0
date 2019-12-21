@@ -174,6 +174,8 @@ export const EditPlacement = (id, placement_name, placement_desc, placement_labe
 
 export const QueryPlacementById = (id) => ajax(BASE_URL+'/iwork/queryPlacementById',{id},'GET');
 
+export const QueryPlacementByName = (placement_name) => ajax(BASE_URL+'/iwork/queryPlacementByName',{placement_name},'GET');
+
 export const FilterPlacement = (offset,current_page,search) => ajax(BASE_URL+'/iwork/filterPagePlacement',{offset,current_page,search},'GET');
 
 export const CopyElement = (id) => ajax(BASE_URL+'/iwork/copyElement',{id},'GET');
