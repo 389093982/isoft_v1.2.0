@@ -3,199 +3,114 @@
 		<Id>59</Id>
 		<PlacementName>placement_frind_link</PlacementName>
 		<PlacementLabel>友情链接</PlacementLabel>
-		<PlacementType></PlacementType>
+		<PlacementType>text_link</PlacementType>
 		<PlacementDesc>友情链接</PlacementDesc>
 		<CreatedBy>SYSTEM</CreatedBy>
-		<CreatedTime>2019-12-18T20:43:20+08:00</CreatedTime>
+		<CreatedTime>2019-12-21T19:09:20+08:00</CreatedTime>
 		<LastUpdatedBy>SYSTEM</LastUpdatedBy>
-		<LastUpdatedTime>2019-12-18T20:43:20+08:00</LastUpdatedTime>
+		<LastUpdatedTime>2019-12-21T19:09:20+08:00</LastUpdatedTime>
 		<ElementLimit>-1</ElementLimit>
 	</Placement>
 	<Elements>
-		<Id>270</Id>
-		<Placement>placement_frind_link</Placement>
-		<ElementName>友情链接123</ElementName>
-		<ElementLabel>友情链接123</ElementLabel>
-		<Content></Content>
-		<LinkedRefer>友情链接123</LinkedRefer>
-		<ImgPath></ImgPath>
-		<Status>1</Status>
-		<NavigationLevel>0</NavigationLevel>
-		<NavigationParentId>0</NavigationParentId>
-		<MdContent></MdContent>
-		<CreatedBy>SYSTEM</CreatedBy>
-		<CreatedTime>2019-09-03T22:05:16+08:00</CreatedTime>
-		<LastUpdatedBy>SYSTEM</LastUpdatedBy>
-		<LastUpdatedTime>2019-09-03T22:05:16+08:00</LastUpdatedTime>
-	</Elements>
-	<Elements>
-		<Id>271</Id>
-		<Placement>placement_frind_link</Placement>
-		<ElementName>友情链接123</ElementName>
-		<ElementLabel>友情链接123</ElementLabel>
-		<Content></Content>
-		<LinkedRefer>友情链接123</LinkedRefer>
-		<ImgPath></ImgPath>
-		<Status>1</Status>
-		<NavigationLevel>0</NavigationLevel>
-		<NavigationParentId>0</NavigationParentId>
-		<MdContent></MdContent>
-		<CreatedBy>SYSTEM</CreatedBy>
-		<CreatedTime>2019-09-03T22:05:16+08:00</CreatedTime>
-		<LastUpdatedBy>SYSTEM</LastUpdatedBy>
-		<LastUpdatedTime>2019-09-03T22:05:16+08:00</LastUpdatedTime>
-	</Elements>
-	<Elements>
-		<Id>272</Id>
-		<Placement>placement_frind_link</Placement>
-		<ElementName>友情链接123</ElementName>
-		<ElementLabel>友情链接123</ElementLabel>
-		<Content></Content>
-		<LinkedRefer>友情链接123</LinkedRefer>
-		<ImgPath></ImgPath>
-		<Status>1</Status>
-		<NavigationLevel>0</NavigationLevel>
-		<NavigationParentId>0</NavigationParentId>
-		<MdContent></MdContent>
-		<CreatedBy>SYSTEM</CreatedBy>
-		<CreatedTime>2019-09-03T22:05:16+08:00</CreatedTime>
-		<LastUpdatedBy>SYSTEM</LastUpdatedBy>
-		<LastUpdatedTime>2019-09-03T22:05:16+08:00</LastUpdatedTime>
-	</Elements>
-	<Elements>
-		<Id>273</Id>
-		<Placement>placement_frind_link</Placement>
-		<ElementName>友情链接123</ElementName>
-		<ElementLabel>友情链接123</ElementLabel>
-		<Content></Content>
-		<LinkedRefer>友情链接123</LinkedRefer>
-		<ImgPath></ImgPath>
-		<Status>1</Status>
-		<NavigationLevel>0</NavigationLevel>
-		<NavigationParentId>0</NavigationParentId>
-		<MdContent></MdContent>
-		<CreatedBy>SYSTEM</CreatedBy>
-		<CreatedTime>2019-09-03T22:05:16+08:00</CreatedTime>
-		<LastUpdatedBy>SYSTEM</LastUpdatedBy>
-		<LastUpdatedTime>2019-09-03T22:05:16+08:00</LastUpdatedTime>
-	</Elements>
-	<Elements>
-		<Id>274</Id>
-		<Placement>placement_frind_link</Placement>
-		<ElementName>友情链接123</ElementName>
-		<ElementLabel>友情链接123</ElementLabel>
-		<Content></Content>
-		<LinkedRefer>友情链接123</LinkedRefer>
-		<ImgPath></ImgPath>
-		<Status>1</Status>
-		<NavigationLevel>0</NavigationLevel>
-		<NavigationParentId>0</NavigationParentId>
-		<MdContent></MdContent>
-		<CreatedBy>SYSTEM</CreatedBy>
-		<CreatedTime>2019-09-03T22:05:16+08:00</CreatedTime>
-		<LastUpdatedBy>SYSTEM</LastUpdatedBy>
-		<LastUpdatedTime>2019-09-03T22:05:16+08:00</LastUpdatedTime>
-	</Elements>
-	<Elements>
-		<Id>275</Id>
-		<Placement>placement_frind_link</Placement>
-		<ElementName>友情链接123</ElementName>
-		<ElementLabel>友情链接123</ElementLabel>
-		<Content></Content>
-		<LinkedRefer>友情链接123</LinkedRefer>
-		<ImgPath></ImgPath>
-		<Status>1</Status>
-		<NavigationLevel>0</NavigationLevel>
-		<NavigationParentId>0</NavigationParentId>
-		<MdContent></MdContent>
-		<CreatedBy>SYSTEM</CreatedBy>
-		<CreatedTime>2019-09-03T22:05:16+08:00</CreatedTime>
-		<LastUpdatedBy>SYSTEM</LastUpdatedBy>
-		<LastUpdatedTime>2019-09-03T22:05:16+08:00</LastUpdatedTime>
-	</Elements>
-	<Elements>
-		<Id>276</Id>
-		<Placement>placement_frind_link</Placement>
-		<ElementName>友情链接123</ElementName>
-		<ElementLabel>友情链接123</ElementLabel>
-		<Content></Content>
-		<LinkedRefer>友情链接123</LinkedRefer>
-		<ImgPath></ImgPath>
-		<Status>1</Status>
-		<NavigationLevel>0</NavigationLevel>
-		<NavigationParentId>0</NavigationParentId>
-		<MdContent></MdContent>
-		<CreatedBy>SYSTEM</CreatedBy>
-		<CreatedTime>2019-09-03T22:05:16+08:00</CreatedTime>
-		<LastUpdatedBy>SYSTEM</LastUpdatedBy>
-		<LastUpdatedTime>2019-09-03T22:05:16+08:00</LastUpdatedTime>
-	</Elements>
-	<Elements>
-		<Id>277</Id>
-		<Placement>placement_frind_link</Placement>
-		<ElementName>友情链接123</ElementName>
-		<ElementLabel>友情链接123</ElementLabel>
-		<Content></Content>
-		<LinkedRefer>友情链接123</LinkedRefer>
-		<ImgPath></ImgPath>
-		<Status>1</Status>
-		<NavigationLevel>0</NavigationLevel>
-		<NavigationParentId>0</NavigationParentId>
-		<MdContent></MdContent>
-		<CreatedBy>SYSTEM</CreatedBy>
-		<CreatedTime>2019-09-03T22:05:16+08:00</CreatedTime>
-		<LastUpdatedBy>SYSTEM</LastUpdatedBy>
-		<LastUpdatedTime>2019-09-03T22:05:16+08:00</LastUpdatedTime>
-	</Elements>
-	<Elements>
-		<Id>278</Id>
-		<Placement>placement_frind_link</Placement>
-		<ElementName>友情链接123</ElementName>
-		<ElementLabel>友情链接123</ElementLabel>
-		<Content></Content>
-		<LinkedRefer>友情链接123</LinkedRefer>
-		<ImgPath></ImgPath>
-		<Status>1</Status>
-		<NavigationLevel>0</NavigationLevel>
-		<NavigationParentId>0</NavigationParentId>
-		<MdContent></MdContent>
-		<CreatedBy>SYSTEM</CreatedBy>
-		<CreatedTime>2019-09-03T22:05:16+08:00</CreatedTime>
-		<LastUpdatedBy>SYSTEM</LastUpdatedBy>
-		<LastUpdatedTime>2019-09-03T22:05:16+08:00</LastUpdatedTime>
-	</Elements>
-	<Elements>
 		<Id>279</Id>
 		<Placement>placement_frind_link</Placement>
-		<ElementName>友情链接123</ElementName>
-		<ElementLabel>友情链接123</ElementLabel>
+		<ElementName>element_w3school</ElementName>
+		<ElementLabel>w3school 在线教程</ElementLabel>
 		<Content></Content>
-		<LinkedRefer>友情链接123</LinkedRefer>
+		<LinkedRefer>https://www.w3school.com.cn/</LinkedRefer>
 		<ImgPath></ImgPath>
 		<Status>1</Status>
 		<NavigationLevel>0</NavigationLevel>
 		<NavigationParentId>0</NavigationParentId>
 		<MdContent></MdContent>
 		<CreatedBy>SYSTEM</CreatedBy>
-		<CreatedTime>2019-09-03T22:05:16+08:00</CreatedTime>
+		<CreatedTime>2019-12-21T19:19:52+08:00</CreatedTime>
 		<LastUpdatedBy>SYSTEM</LastUpdatedBy>
-		<LastUpdatedTime>2019-09-03T22:05:16+08:00</LastUpdatedTime>
+		<LastUpdatedTime>2019-12-21T19:19:52+08:00</LastUpdatedTime>
 	</Elements>
 	<Elements>
-		<Id>280</Id>
+		<Id>359</Id>
 		<Placement>placement_frind_link</Placement>
-		<ElementName>友情链接123</ElementName>
-		<ElementLabel>友情链接123</ElementLabel>
+		<ElementName>element_cainiao</ElementName>
+		<ElementLabel>菜鸟教程</ElementLabel>
 		<Content></Content>
-		<LinkedRefer>友情链接123</LinkedRefer>
+		<LinkedRefer>https://www.runoob.com/</LinkedRefer>
 		<ImgPath></ImgPath>
 		<Status>1</Status>
 		<NavigationLevel>0</NavigationLevel>
 		<NavigationParentId>0</NavigationParentId>
 		<MdContent></MdContent>
 		<CreatedBy>SYSTEM</CreatedBy>
-		<CreatedTime>2019-09-03T22:05:16+08:00</CreatedTime>
+		<CreatedTime>2019-12-21T19:23:12+08:00</CreatedTime>
 		<LastUpdatedBy>SYSTEM</LastUpdatedBy>
-		<LastUpdatedTime>2019-09-03T22:05:16+08:00</LastUpdatedTime>
+		<LastUpdatedTime>2019-12-21T19:23:12+08:00</LastUpdatedTime>
+	</Elements>
+	<Elements>
+		<Id>360</Id>
+		<Placement>placement_frind_link</Placement>
+		<ElementName>element_studygolang</ElementName>
+		<ElementLabel>go语言中文网</ElementLabel>
+		<Content></Content>
+		<LinkedRefer>https://studygolang.com/</LinkedRefer>
+		<ImgPath></ImgPath>
+		<Status>1</Status>
+		<NavigationLevel>0</NavigationLevel>
+		<NavigationParentId>0</NavigationParentId>
+		<MdContent></MdContent>
+		<CreatedBy>SYSTEM</CreatedBy>
+		<CreatedTime>2019-12-21T19:25:02+08:00</CreatedTime>
+		<LastUpdatedBy>SYSTEM</LastUpdatedBy>
+		<LastUpdatedTime>2019-12-21T19:25:02+08:00</LastUpdatedTime>
+	</Elements>
+	<Elements>
+		<Id>361</Id>
+		<Placement>placement_frind_link</Placement>
+		<ElementName>element_gocn</ElementName>
+		<ElementLabel>gocn每日新闻</ElementLabel>
+		<Content></Content>
+		<LinkedRefer>https://gocn.vip/</LinkedRefer>
+		<ImgPath></ImgPath>
+		<Status>1</Status>
+		<NavigationLevel>0</NavigationLevel>
+		<NavigationParentId>0</NavigationParentId>
+		<MdContent></MdContent>
+		<CreatedBy>SYSTEM</CreatedBy>
+		<CreatedTime>2019-12-21T19:25:57+08:00</CreatedTime>
+		<LastUpdatedBy>SYSTEM</LastUpdatedBy>
+		<LastUpdatedTime>2019-12-21T19:25:57+08:00</LastUpdatedTime>
+	</Elements>
+	<Elements>
+		<Id>362</Id>
+		<Placement>placement_frind_link</Placement>
+		<ElementName>element_pythontab</ElementName>
+		<ElementLabel>python中文开发者社区</ElementLabel>
+		<Content></Content>
+		<LinkedRefer>https://www.pythontab.com/</LinkedRefer>
+		<ImgPath></ImgPath>
+		<Status>1</Status>
+		<NavigationLevel>0</NavigationLevel>
+		<NavigationParentId>0</NavigationParentId>
+		<MdContent></MdContent>
+		<CreatedBy>SYSTEM</CreatedBy>
+		<CreatedTime>2019-12-21T19:49:09+08:00</CreatedTime>
+		<LastUpdatedBy>SYSTEM</LastUpdatedBy>
+		<LastUpdatedTime>2019-12-21T19:49:09+08:00</LastUpdatedTime>
+	</Elements>
+	<Elements>
+		<Id>363</Id>
+		<Placement>placement_frind_link</Placement>
+		<ElementName>element_bootcss</ElementName>
+		<ElementLabel>bootstrap 中文网</ElementLabel>
+		<Content></Content>
+		<LinkedRefer>https://www.bootcss.com/</LinkedRefer>
+		<ImgPath></ImgPath>
+		<Status>1</Status>
+		<NavigationLevel>0</NavigationLevel>
+		<NavigationParentId>0</NavigationParentId>
+		<MdContent></MdContent>
+		<CreatedBy>SYSTEM</CreatedBy>
+		<CreatedTime>2019-12-21T19:51:50+08:00</CreatedTime>
+		<LastUpdatedBy>SYSTEM</LastUpdatedBy>
+		<LastUpdatedTime>2019-12-21T19:51:50+08:00</LastUpdatedTime>
 	</Elements>
 </PlacementElementMppaer>

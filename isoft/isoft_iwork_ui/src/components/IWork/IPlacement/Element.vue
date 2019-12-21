@@ -125,7 +125,7 @@
                   on:{
                     handleClick:async function (index, bindData) {
                       if (bindData == 2){   // 编辑模式
-                        _this.$router.push({ path: '/iwork/elementEdit', query: { id: _this.elements[params.index].id }});
+                        _this.$router.push({ path: '/iwork/elementEdit', query: {id:_this.elements[params.index].id, placement_name:_this.$route.query.placement_name}});
                       }else if (bindData == 3){   // 复制模式
                         _this.copyElement(_this.elements[params.index].id);
                       }else{

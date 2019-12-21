@@ -3,7 +3,7 @@
 		<Id>53</Id>
 		<PlacementName>placement_host_toolbox_list3</PlacementName>
 		<PlacementLabel>开心一刻</PlacementLabel>
-		<PlacementType></PlacementType>
+		<PlacementType>all</PlacementType>
 		<PlacementDesc>开心一刻</PlacementDesc>
 		<CreatedBy>SYSTEM</CreatedBy>
 		<CreatedTime>2019-12-18T20:44:50+08:00</CreatedTime>

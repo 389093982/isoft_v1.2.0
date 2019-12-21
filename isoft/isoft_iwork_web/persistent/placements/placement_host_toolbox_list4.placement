@@ -3,7 +3,7 @@
 		<Id>54</Id>
 		<PlacementName>placement_host_toolbox_list4</PlacementName>
 		<PlacementLabel>逗你一笑</PlacementLabel>
-		<PlacementType></PlacementType>
+		<PlacementType>all</PlacementType>
 		<PlacementDesc>逗你一笑</PlacementDesc>
 		<CreatedBy>SYSTEM</CreatedBy>
 		<CreatedTime>2019-12-18T20:44:58+08:00</CreatedTime>

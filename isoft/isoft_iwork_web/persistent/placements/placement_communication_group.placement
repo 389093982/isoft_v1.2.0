@@ -3,7 +3,7 @@
 		<Id>86</Id>
 		<PlacementName>placement_communication_group</PlacementName>
 		<PlacementLabel>交流群组</PlacementLabel>
-		<PlacementType></PlacementType>
+		<PlacementType>all</PlacementType>
 		<PlacementDesc>交流群组</PlacementDesc>
 		<CreatedBy>SYSTEM</CreatedBy>
 		<CreatedTime>2019-12-18T20:44:32+08:00</CreatedTime>

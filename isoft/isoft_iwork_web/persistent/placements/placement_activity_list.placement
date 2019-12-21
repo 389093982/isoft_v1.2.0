@@ -3,7 +3,7 @@
 		<Id>64</Id>
 		<PlacementName>placement_activity_list</PlacementName>
 		<PlacementLabel>聚活动列表</PlacementLabel>
-		<PlacementType></PlacementType>
+		<PlacementType>all</PlacementType>
 		<PlacementDesc>聚活动列表</PlacementDesc>
 		<CreatedBy>SYSTEM</CreatedBy>
 		<CreatedTime>2019-12-18T20:42:56+08:00</CreatedTime>

@@ -45,7 +45,8 @@
             <Input type="text" readonly="readonly" v-model="formInline.imgpath" placeholder="imgpath" style="width: 80%;"/>
             <IFileUpload @uploadComplete="uploadComplete" action="/api/iwork/httpservice/fileUpload" uploadLabel="上传"/>
           </FormItem>
-          <FormItem prop="linked_refer" v-show="checkShow('linked_refer')" label="链接关键词">
+          <div class="remark" v-show="showRemark && checkShow('linked_refer')">备注：linked_refer:链接地址、链接关键词等</div>
+          <FormItem prop="linked_refer" v-show="checkShow('linked_refer')" label="链接信息">
             <Input type="text" v-model="formInline.linked_refer" placeholder="linked_refer"/>
           </FormItem>
         </Col>
@@ -77,10 +78,19 @@
     name: "EditElement",
     components:{IBaseChooser,Placement,Element,IFileUpload},
     data(){
+      const _validateElementName = (rule, value, callback) => {
+        if (value === '') {
+          callback(new Error('元素名称不能为空!'));
+        } else if (value.indexOf("element_") < 0) {
+          callback(new Error('元素名称必须以 element_ 开头'));
+        } else {
+          callback();
+        }
+      };
       return {
         placement_types:{
           'all':['placement_name','element_name','element_label','navigation_level','navigation_parent_id','content','imgpath','linked_refer','md_content'],
-          'text_link':['placement_name','element_name','element_label','navigation_level','navigation_parent_id','content','imgpath','linked_refer','md_content'],
+          'text_link':['placement_name','element_name','element_label','linked_refer'],
           'text_event':['placement_name','element_name','element_label','navigation_level','navigation_parent_id','content','imgpath','linked_refer','md_content'],
           'img_text_link':['placement_name','element_name','element_label'],
           'img_text_event':['placement_name','element_name','element_label','navigation_level','navigation_parent_id','content','imgpath','linked_refer','md_content'],
@@ -123,6 +133,9 @@
           md_content: '',
         },
         ruleInline: {
+          element_name: [
+            { required: true, validator: _validateElementName,  trigger: 'blur' }
+          ],
           element_label: [
             { required: true, message: 'Please fill in the element_label.', trigger: 'blur' },
           ],

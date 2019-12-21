@@ -3,7 +3,7 @@
 		<Id>58</Id>
 		<PlacementName>placement_hot_project_recommod</PlacementName>
 		<PlacementLabel>热门项目推荐</PlacementLabel>
-		<PlacementType></PlacementType>
+		<PlacementType>all</PlacementType>
 		<PlacementDesc>热门项目推荐</PlacementDesc>
 		<CreatedBy>SYSTEM</CreatedBy>
 		<CreatedTime>2019-12-18T20:43:31+08:00</CreatedTime>

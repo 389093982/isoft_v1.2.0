@@ -3,7 +3,7 @@
 		<Id>55</Id>
 		<PlacementName>placement_Index_news_list</PlacementName>
 		<PlacementLabel>新闻公告</PlacementLabel>
-		<PlacementType></PlacementType>
+		<PlacementType>all</PlacementType>
 		<PlacementDesc>新闻公告</PlacementDesc>
 		<CreatedBy>SYSTEM</CreatedBy>
 		<CreatedTime>2019-12-18T20:43:40+08:00</CreatedTime>

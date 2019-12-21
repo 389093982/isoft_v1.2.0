@@ -3,12 +3,12 @@
 		<Id>36</Id>
 		<PlacementName>placement_host_toolbox_list</PlacementName>
 		<PlacementLabel>工具盒</PlacementLabel>
-		<PlacementType></PlacementType>
+		<PlacementType>all</PlacementType>
 		<PlacementDesc>工具盒</PlacementDesc>
 		<CreatedBy>SYSTEM</CreatedBy>
-		<CreatedTime>2019-12-18T20:45:10+08:00</CreatedTime>
+		<CreatedTime>2019-12-21T18:00:42+08:00</CreatedTime>
 		<LastUpdatedBy>SYSTEM</LastUpdatedBy>
-		<LastUpdatedTime>2019-12-18T20:45:10+08:00</LastUpdatedTime>
+		<LastUpdatedTime>2019-12-21T18:00:42+08:00</LastUpdatedTime>
 		<ElementLimit>-1</ElementLimit>
 	</Placement>
 	<Elements>
