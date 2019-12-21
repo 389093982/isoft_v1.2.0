@@ -10,10 +10,10 @@
           <div class="item" style="padding:10px; height: 100px;">
             <Row>
               <Col span="6">
-                <img :src="element.img_path" :alt="element.title" width="50px" height="50px" @error="defImg()"/>
+                <img :src="element.img_path" :alt="element.element_label" width="50px" height="50px" @error="defImg()"/>
               </Col>
               <Col span="18" style="padding-left: 5px;">
-                <p class="share_catalog_name">{{element.title}}</p>
+                <p class="share_catalog_name">{{element.element_label}}</p>
                 <p style="font-size: 12px;">{{element.content}}</p>
               </Col>
             </Row>

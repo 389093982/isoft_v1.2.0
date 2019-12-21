@@ -107,7 +107,7 @@ func (this *WorkController) EditElement() {
 	element_name := this.GetString("element_name")
 	navigation_level, _ := this.GetInt64("navigation_level", 0)
 	navigation_parent_id, _ := this.GetInt64("navigation_parent_id", 0)
-	title := this.GetString("title")
+	element_label := this.GetString("element_label")
 	content := this.GetString("content")
 	md_content := this.GetString("md_content")
 	imgpath := this.GetString("imgpath")
@@ -119,7 +119,7 @@ func (this *WorkController) EditElement() {
 		ElementName:        element_name,
 		NavigationLevel:    navigation_level,
 		NavigationParentId: navigation_parent_id,
-		Title:              title,
+		ElementLabel:       element_label,
 		Content:            content,
 		MdContent:          md_content,
 		ImgPath:            imgpath,

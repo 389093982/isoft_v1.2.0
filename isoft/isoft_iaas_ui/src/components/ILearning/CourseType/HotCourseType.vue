@@ -8,7 +8,7 @@
         <Col span="22">
           <span v-for="element in elements">
             <a class="isoft_font12" style="margin-right: 10px;" v-if="element.navigation_level == 0"
-               @click="currentElement=element">{{element.title}}</a>
+               @click="currentElement=element">{{element.element_label}}</a>
           </span>
         </Col>
       </Row>
@@ -19,8 +19,8 @@
         <Col span="22">
           <span v-for="element in elements" style="margin-right:10px;"
                 v-if="currentElement != null && element.navigation_parent_id == currentElement.id">
-            <a class="isoft_font12" @click="chooseCourseType(currentElement.title, element.title)">
-              {{element.title}}
+            <a class="isoft_font12" @click="chooseCourseType(currentElement.element_label, element.element_label)">
+              {{element.element_label}}
             </a>
           </span>
         </Col>

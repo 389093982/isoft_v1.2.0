@@ -3,7 +3,7 @@
     <Row style="padding: 10px;">
       <Col span="2">{{placement_label}}</Col>
       <Col span="2" v-for="element in elements">
-        <IBeautifulLink @onclick="openLink(element)">{{element.title}}</IBeautifulLink>
+        <IBeautifulLink @onclick="openLink(element)">{{element.element_label}}</IBeautifulLink>
       </Col>
     </Row>
   </ElementsLoader>

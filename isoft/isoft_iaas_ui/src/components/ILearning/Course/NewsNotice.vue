@@ -5,7 +5,7 @@
         <li v-for="(element, index) in elements">
           <span style="float:right;color: #999;font-size: 12px;"><Time :time="element.created_time" type="date"/></span>
           <a target="_blank">
-            <img class="imgIcon" src="../../../assets/icon_b.png"/>{{element.title}} <img v-if="index < 10" src="../../../assets/news.gif">
+            <img class="imgIcon" src="../../../assets/icon_b.png"/>{{element.element_label}} <img v-if="index < 10" src="../../../assets/news.gif">
           </a>
         </li>
       </ul>

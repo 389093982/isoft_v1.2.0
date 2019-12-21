@@ -30,7 +30,7 @@ type Element struct {
 	Id                 int64     `json:"id"`
 	Placement          string    `json:"placement"`
 	ElementName        string    `json:"element_name"`
-	Title              string    `json:"title"`
+	ElementLabel       string    `json:"element_label"`
 	Content            string    `json:"content" orm:"type(text)"`
 	LinkedRefer        string    `json:"linked_refer"`
 	ImgPath            string    `json:"img_path"`
@@ -118,7 +118,7 @@ func FilterPageElement(condArr map[string]string, placement_name string, page in
 	cond = cond.And("placement", placement_name)
 	if search, ok := condArr["search"]; ok && strings.TrimSpace(search) != "" {
 		subCond := orm.NewCondition()
-		subCond = cond.And("title__contains", search).Or("element_name__contains", search)
+		subCond = cond.And("element_label__contains", search).Or("element_name__contains", search)
 		cond = cond.AndCond(subCond)
 	}
 	qs = qs.SetCond(cond)

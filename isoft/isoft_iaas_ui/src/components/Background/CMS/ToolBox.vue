@@ -6,7 +6,7 @@
           <li v-for="element in elements" class="li">
             <a :href="element.linked_refer" target="_blank">
               <img :src="element.img_path" width="30px" height="30px" @error="defImg()"/>
-              <p style="font-size: 12px;">{{element.title}}</p>
+              <p style="font-size: 12px;">{{element.element_label}}</p>
             </a>
           </li>
         </ul>

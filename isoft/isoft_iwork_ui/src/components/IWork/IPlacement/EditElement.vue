@@ -1,13 +1,17 @@
 <template>
   <div>
+    <Button type="success" size="small" @click="showRemark = !showRemark">显示备注</Button>
+
     <Form ref="formInline" :model="formInline" :rules="ruleInline" :label-width="100">
       <Row>
         <Col span="12">
+          <div class="remark" v-show="showRemark">备注：placement_name:仅做命名区分,不用于界面展示</div>
           <FormItem label="占位符">
-            <Input type="text" readonly="readonly" v-model="formInline.placement" placeholder="placement" style="width: 80%;"/>
+            <Input type="text" readonly="readonly" v-model="formInline.placement" placeholder="placement"/>
           </FormItem>
-          <FormItem prop="navigation_level" label="导航级别">
-            <Input type="text" readonly="readonly" v-model="formInline.navigation_level" placeholder="navigation_level" style="width: 80%;"/>
+          <div class="remark" v-show="showRemark">备注：element_label:界面块元素名称,用于界面展示</div>
+          <FormItem prop="element_label" label="页面显示名称">
+            <Input type="text" v-model="formInline.element_label" placeholder="element_label"/>
           </FormItem>
           <FormItem prop="navigation_parent_id" label="父级关联 id">
             <Input type="text" readonly="readonly" v-model="formInline.navigation_parent_id" placeholder="navigation_parent_id" style="width: 80%;"/>
@@ -15,28 +19,29 @@
               <a href="javascript:;">选择父级</a>
               <div slot="content" style="width: 100%;">
                 <Tag style="margin: 5px;float: left;" v-for="element in elements">
-                  <span @click="chooseElement(element)">{{element.title}}</span>
+                  <span @click="chooseElement(element)">{{element.element_label}}</span>
                 </Tag>
               </div>
             </Poptip>
           </FormItem>
           <FormItem prop="content"  label="内容">
-            <Input type="textarea" :rows="3" v-model="formInline.content" placeholder="content" style="width: 80%;"/>
+            <Input type="textarea" :rows="3" v-model="formInline.content" placeholder="content"/>
           </FormItem>
         </Col>
         <Col span="12">
+          <div class="remark" v-show="showRemark">备注：element_name:仅做命名区分,不用于界面展示</div>
           <FormItem prop="element_name" label="元素名称">
-            <Input type="text" v-model="formInline.element_name" placeholder="element_name" style="width: 80%;"/>
+            <Input type="text" v-model="formInline.element_name" placeholder="element_name"/>
           </FormItem>
-          <FormItem prop="title" label="标题">
-            <Input type="text" v-model="formInline.title" placeholder="title" style="width: 80%;"/>
+          <FormItem prop="navigation_level" label="导航级别">
+            <Input type="text" readonly="readonly" v-model="formInline.navigation_level" placeholder="navigation_level"/>
           </FormItem>
           <FormItem prop="imgpath"  label="图片">
             <Input type="text" readonly="readonly" v-model="formInline.imgpath" placeholder="imgpath" style="width: 80%;"/>
             <IFileUpload @uploadComplete="uploadComplete" action="/api/iwork/httpservice/fileUpload" uploadLabel="上传"/>
           </FormItem>
           <FormItem prop="linked_refer"  label="链接关键词">
-            <Input type="text" v-model="formInline.linked_refer" placeholder="linked_refer" style="width: 80%;"/>
+            <Input type="text" v-model="formInline.linked_refer" placeholder="linked_refer"/>
           </FormItem>
         </Col>
       </Row>
@@ -68,6 +73,7 @@
     components:{IBaseChooser,Placement,Element,IFileUpload},
     data(){
       return {
+        showRemark:true,
         toolbars: {
           bold: true, // 粗体
           italic: true, // 斜体
@@ -93,18 +99,18 @@
         elements:[],
         formInline: {
           placement:'',
+          element_label: '',
           element_name:'',
           navigation_level:0,  // 元素层级
           navigation_parent_id:0,   // 父级元素 id
-          title: '',
           content: '',
           imgpath: '',
           linked_refer: '',
           md_content: '',
         },
         ruleInline: {
-          title: [
-            { required: true, message: 'Please fill in the title.', trigger: 'blur' },
+          element_label: [
+            { required: true, message: 'Please fill in the element_label.', trigger: 'blur' },
           ],
         }
       }
@@ -115,7 +121,7 @@
           if (valid) {
             let id = this.$route.query.id == undefined ? 0 : this.$route.query.id;
             const result = await EditElement(id, this.formInline.placement, this.formInline.element_name, this.formInline.navigation_level,
-              this.formInline.navigation_parent_id, this.formInline.title, this.formInline.content, this.formInline.md_content,
+              this.formInline.navigation_parent_id, this.formInline.element_label, this.formInline.content, this.formInline.md_content,
               this.formInline.imgpath, this.formInline.linked_refer);
             if(result.status=="SUCCESS"){
               this.$Message.success('提交成功!');
@@ -155,7 +161,7 @@
           let element = result.element;
           this.formInline.placement = element.placement;
           this.formInline.element_name = element.element_name;
-          this.formInline.title = element.title;
+          this.formInline.element_label = element.element_label;
           this.formInline.content = element.content;
           this.formInline.md_content = element.md_content;
           this.formInline.imgpath = element.img_path;
@@ -174,5 +180,9 @@
 </script>
 
 <style scoped>
-
+  .remark{
+    text-align: right;
+    color: green;
+    font-size: 12px;
+  }
 </style>
