@@ -1,6 +1,7 @@
 <template>
   <div>
-    <EditAdvertisement ref="editAdvertisement"/>
+    <EditAdvertisement ref="editAdvertisement" @handleSubmit="handleAdvertisementSubmit"/>
+
     <div class="isoft_bg_white" style="padding: 10px 10px 0 10px;">
       <IBeautifulCard title="我的广告清单">
         <div slot="content" style="padding: 10px;">
@@ -15,11 +16,14 @@
               <Col span="2">操作</Col>
             </Row>
             <Row v-for="(advertisement,index) in advertisements">
-              <Col span="4">{{advertisement.advertisement_label}}</Col>
-              <Col span="4">{{advertisement.linked_type}}</Col>
-              <Col span="4">{{advertisement.linked_refer}}</Col>
-              <Col span="4">{{advertisement.linked_img}}</Col>
-              <Col span="4">{{loginUserName}}</Col>
+              <!-- 加空格是防止没有内容而不占空间 -->
+              <Col span="4">{{advertisement.advertisement_label}}&nbsp;</Col>
+              <Col span="4">{{advertisement.linked_type}}&nbsp;</Col>
+              <Col span="4">{{advertisement.linked_refer}}&nbsp;</Col>
+              <Col span="4" class="isoft_inline_ellipsis">
+                <span :title="advertisement.linked_img">{{advertisement.linked_img}}</span>&nbsp;
+              </Col>
+              <Col span="4">{{loginUserName}}&nbsp;</Col>
               <Col span="2">已发布</Col>
               <Col span="2"><a @click="editAdvertisement(advertisement.id)">编辑</a></Col>
             </Row>
@@ -45,6 +49,9 @@
       }
     },
     methods:{
+      handleAdvertisementSubmit:function(){
+        this.refreshPersonalAdvertisement();
+      },
       refreshPersonalAdvertisement:async function () {
         const result = await GetPersonalAdvertisement();
         if(result.status == "SUCCESS"){

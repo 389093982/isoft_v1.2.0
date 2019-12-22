@@ -70,7 +70,7 @@
   import IBaseChooser from "../../Common/IBaseChooser"
   import Placement from "./Placement"
   import Element from "./Element"
-  import IFileUpload from "../IFile/IFileUpload"
+  import IFileUpload from "../../Common/file/IFileUpload"
   import {EditElement,FilterElementByPlacement,QueryElementById,QueryPlacementByName} from "../../../api"
   import {checkEmpty,oneOf} from "../../../tools"
 

@@ -1,6 +1,6 @@
 <template>
 <span>
-  <Button :size="btnSize" type="success" @click="fileUploadModal = true">{{ uploadLabel }}</Button>
+  <Button v-if="showButton" :size="size" type="success" @click="fileUploadModal = true">{{ uploadLabel }}</Button>
   <Modal
     v-model="fileUploadModal"
     width="500"
@@ -9,9 +9,7 @@
     <div>
       <Upload
         ref="upload"
-        :multiple="multiple"
-        :format="fileSuffixs"
-        :on-format-error="handleFormatError"
+        multiple
         :on-success="uploadComplete"
         :action="action">
         <Button icon="ios-cloud-upload-outline">{{ uploadLabel }}</Button>
@@ -25,21 +23,9 @@
   export default {
     name: "IFileUpload",
     props: {
-      fileSuffixs:{
-        type:Array,
-        default: () => {return ['jpg','jpeg','png']},
-      },
-      multiple:{
-        type:Boolean,
-        default:true,
-      },
-      autoHideModal:{
-        type:Boolean,
-        default:false,
-      },
-      btnSize:{
-        type:String,
-        default:'default',
+      showButton: {
+        type: Boolean,
+        default: true
       },
       uploadLabel: {
         type: String,
@@ -49,9 +35,9 @@
         type: String,
         default: ''
       },
-      extraData: {
-        type:[Object,Number,String],
-        default:null,
+      size: {
+        type: String,
+        default: 'default'
       }
     },
     data () {
@@ -61,17 +47,8 @@
       }
     },
     methods:{
-      handleFormatError (file) {
-        this.$Notice.warning({
-          title: '温馨提示',
-          desc: '上传文件 ' + file.name + ' 格式不合法！'
-        });
-      },
       uploadComplete(result, file) {
         if(result.status=="SUCCESS"){
-          // 传递 extraData 数据
-          result.extraData = this.extraData;
-          result.file = file;
           // 父子组件通信
           this.$emit('uploadComplete',result);
           this.$Notice.success({
@@ -84,9 +61,9 @@
             desc: '文件 ' + file.name + ' 上传失败!'
           });
         }
-        if(this.autoHideModal){
-          this.hideModal();
-        }
+      },
+      showModal(){
+        this.fileUploadModal = true;
       },
       hideModal(){
         this.fileUploadModal = false;

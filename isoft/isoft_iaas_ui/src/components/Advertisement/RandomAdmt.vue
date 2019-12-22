@@ -1,6 +1,8 @@
 <template>
   <div v-if="advertisements && showAdv" class="rightSuspension isoft_bg_white">
-    <div v-for="(advertisement, index) in advertisements">{{advertisement.advertisement_label}}</div>
+    <div v-for="(advertisement, index) in advertisements">
+      <img :src="advertisement.linked_img" width="95px;" height="50px;"/>
+    </div>
   </div>
 </template>
 

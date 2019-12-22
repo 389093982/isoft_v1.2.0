@@ -1,6 +1,6 @@
 <template>
 <span>
-  <Button :size="size" type="success" @click="fileUploadModal = true">{{ uploadLabel }}</Button>
+  <Button v-if="showButton" :size="size" type="success" @click="fileUploadModal = true">{{ uploadLabel }}</Button>
   <Modal
     v-model="fileUploadModal"
     width="500"
@@ -23,6 +23,10 @@
   export default {
     name: "IFileUpload",
     props: {
+      showButton: {
+        type: Boolean,
+        default: true
+      },
       uploadLabel: {
         type: String,
         default: '文件上传'
@@ -57,6 +61,9 @@
             desc: '文件 ' + file.name + ' 上传失败!'
           });
         }
+      },
+      showModal(){
+        this.fileUploadModal = true;
       },
       hideModal(){
         this.fileUploadModal = false;

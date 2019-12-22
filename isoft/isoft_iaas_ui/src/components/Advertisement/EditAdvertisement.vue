@@ -15,6 +15,8 @@
           <FormItem label="链接图片" prop="linked_img">
             <Input v-model="formValidate.linked_img" placeholder="点击右边图标选择图片"
                    readonly="readonly" icon="ios-document" @on-click="editLinkedImg"></Input>
+            <IFileUpload ref="fileUpload" :show-button="false" @uploadComplete="uploadComplete"
+                         action="/api/iwork/httpservice/fileUpload" uploadLabel="上传链接图片"/>
           </FormItem>
           <FormItem>
             <Button type="success" size="small" @click="handleSubmit('formValidate')">Submit</Button>
@@ -31,9 +33,12 @@
 
 <script>
   import {EditAdvertisement,QueryAdvertisementById} from "../../api"
+  import {handleSpecial} from "../../tools"
+  import IFileUpload from "../Common/file/IFileUpload"
 
   export default {
     name: "EditAdvertisement",
+    components: {IFileUpload},
     data(){
       return {
         formValidate: {
@@ -57,17 +62,24 @@
       }
     },
     methods:{
+      uploadComplete: function (result) {
+        if(result.status == "SUCCESS"){
+          this.formValidate.linked_img = result.fileServerPath;
+          this.$refs.fileUpload.hideModal();
+        }
+      },
       editLinkedImg:function(){
-        alert(1111);
+        this.$refs.fileUpload.showModal();
       },
       handleSubmit (name) {
         var _this = this;
         this.$refs[name].validate(async (valid) => {
           if (valid) {
             const result = await EditAdvertisement(_this.formValidate.id, _this.formValidate.advertisement_label,
-              _this.formValidate.linked_type, _this.formValidate.linked_refer, _this.formValidate.linked_img);
+              _this.formValidate.linked_type, _this.formValidate.linked_refer, handleSpecial(_this.formValidate.linked_img));
             if(result.status == "SUCCESS"){
               _this.$Message.success('提交成功!');
+              _this.$emit("handleSubmit");
             }else{
               _this.$Message.error('提交失败!');
             }
