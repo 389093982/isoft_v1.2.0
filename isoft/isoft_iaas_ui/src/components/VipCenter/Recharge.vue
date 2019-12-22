@@ -12,7 +12,7 @@
         </div>
         <div class="vipDesc">
           <Row>
-            <a style="color: #ff6600">当前账号:  </a>zhouPeng123
+            <a style="color: #ff6600">当前账号:  </a>{{loginUserName}}
           </Row><br>
           <Row>
             <a style="color: #ff6600">开通时长:  </a>{{openingTime}}&nbsp;&nbsp;&nbsp;
@@ -41,8 +41,9 @@
   </div>
 </template>
 
-
 <script>
+  import {GetLoginUserName} from "../../tools"
+
 	export default {
 		name: "Recharge",
     data(){
@@ -50,6 +51,11 @@
         openingTime: ' 1个月 / ¥60 ',
         payType:'微信支付',
         payMoney:'60',
+      }
+    },
+    computed:{
+		  loginUserName:function () {
+        return GetLoginUserName();
       }
     },
     methods:{
