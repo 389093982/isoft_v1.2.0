@@ -4,7 +4,7 @@
   <transition name="fadeInOut">
     <div v-if="advertisements && showAdv" class="rightSuspension isoft_bg_white">
       <div v-for="(advertisement, index) in advertisements">
-        <a target="_blank" :href="advertisement.linked_refer" :title="advertisement.linked_refer">
+        <a target="_blank" :href="advertisement.linked_refer" :title="advertisement.advertisement_label">
           <img :src="advertisement.linked_img" width="95px;" height="50px;"/>
         </a>
       </div>

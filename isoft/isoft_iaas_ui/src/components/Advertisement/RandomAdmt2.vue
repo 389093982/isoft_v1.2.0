@@ -1,9 +1,10 @@
 <template>
   <div v-if="advertisements && advertisements.length > 0" style="margin-top: 5px;">
     <Row :gutter="10">
-      <Col span="12" v-for="(advertisement, index) in advertisements">
-        <a target="_blank" :href="advertisement.linked_refer" :title="advertisement.linked_refer">
+      <Col span="12" v-for="(advertisement, index) in advertisements" style="height: 80px;margin-bottom: 10px;">
+        <a target="_blank" :href="advertisement.linked_refer" :title="advertisement.advertisement_label">
           <img :src="advertisement.linked_img" width="130px;" height="80px;"/>
+          <div class="advertisement_label">{{advertisement.advertisement_label}}</div>
         </a>
       </Col>
     </Row>
@@ -41,5 +42,19 @@
   }
   *{
     box-sizing: border-box;
+  }
+  a .advertisement_label {
+    display: none;
+    background-color: rgba(0,0,0,0.6);
+    color: white;
+    width: 130px;
+    height: 30px;
+    position: relative;
+    top: 0px;
+    transition: all ease-in 1s;
+  }
+  a:hover .advertisement_label {
+    display: block;
+    top: -30px;
   }
 </style>
