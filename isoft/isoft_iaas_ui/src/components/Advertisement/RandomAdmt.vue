@@ -58,7 +58,7 @@
     opacity: 1;
   }
   .fadeInOut-enter-active,.fadeInOut-leave-active{
-    transition: all 2s;
+    transition: all 1s;
   }
 
   .rightSuspension {
