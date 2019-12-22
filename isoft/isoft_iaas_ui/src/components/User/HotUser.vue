@@ -2,11 +2,11 @@
   <div>
     <IBeautifulCard title="用户排行榜">
       <div slot="content" style="padding: 10px;">
-        <Row v-for="user in users">
+        <Row v-for="user in users" :gutter="10">
           <Col span="4">
             <img width="30" height="30" :src="user.small_icon" @error="defImg()">
           </Col>
-          <Col span="10">
+          <Col span="10" class="isoft_inline_ellipsis">
             <IBeautifulLink @onclick="$router.push({path:'/user/detail',query:{username:user.user_name}})">{{user.user_name}}</IBeautifulLink>
           </Col>
           <Col span="10" class="small_font_size">
@@ -52,7 +52,9 @@
 </script>
 
 <style scoped>
-.small_font_size {
-  font-size: 12px;
-}
+  @import "../../assets/css/isoft_common.css";
+
+  .small_font_size {
+    font-size: 12px;
+  }
 </style>

@@ -76,6 +76,7 @@
       </Col>
         <Col span="7" class="isoft_bg_white isoft_pd10">
           <HotUser/>
+          <RandomAdmt2/>
           <CatalogList/>
         </Col>
     </Row>
@@ -95,10 +96,11 @@
   import HotUser from "../User/HotUser"
   import HorizontalLinks from "../Elementviewers/HorizontalLinks";
   import IBeautifulLink from "../Common/link/IBeautifulLink";
+  import RandomAdmt2 from "../Advertisement/RandomAdmt2";
 
   export default {
     name: "BlogList",
-    components:{IBeautifulLink, HorizontalLinks, CatalogList,HotCatalogItems,HotUser},
+    components:{RandomAdmt2, IBeautifulLink, HorizontalLinks, CatalogList,HotCatalogItems,HotUser},
     data(){
       return {
         // 当前页
