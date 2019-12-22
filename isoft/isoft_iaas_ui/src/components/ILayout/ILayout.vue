@@ -13,6 +13,7 @@
     </Layout>
 
     <RightSuspensionMenu/>
+    <RandomAdmt/>
   </div>
 </template>
 
@@ -20,11 +21,13 @@
 
   import Header from '../Header/Header'
   import Footer from '../Footer/Footer'
-  import RightSuspensionMenu from "./RightSuspensionMenu";
+  import RightSuspensionMenu from "./RightSuspensionMenu"
+  import RandomAdmt from "../Advertisement/RandomAdmt"
 
   export default {
     name: 'ILayout',
     components: {
+      RandomAdmt,
       RightSuspensionMenu,
       Header,
       Footer

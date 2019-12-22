@@ -1,5 +1,5 @@
 <template>
-  <div class="leftSuspension">
+  <div class="rightSuspension">
     <div class="itemArea">问题反馈</div>
     <div class="itemArea">问题反馈</div>
     <div class="itemArea">问题反馈</div>
@@ -15,7 +15,7 @@
 </script>
 
 <style scoped>
-  .leftSuspension {
+  .rightSuspension {
     position: fixed;
     width: 50px;
     min-height: 200px;
@@ -24,7 +24,7 @@
     z-index: 999;
     transition: right ease-in 200ms;
   }
-  .leftSuspension:hover {
+  .rightSuspension:hover {
     right: 0px;
   }
   .itemArea{
