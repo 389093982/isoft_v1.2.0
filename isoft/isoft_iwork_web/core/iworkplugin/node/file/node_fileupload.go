@@ -2,6 +2,7 @@ package file
 
 import (
 	"isoft/isoft/common/hashutil"
+	"isoft/isoft/common/stringutil"
 	"isoft/isoft_iwork_web/core/interfaces"
 	"isoft/isoft_iwork_web/core/iworkconst"
 	"isoft/isoft_iwork_web/core/iworkdata/param"
@@ -34,6 +35,7 @@ func (this *DoReceiveFileNode) Execute(trackingId string) {
 	if calHash := this.TmpDataMap[iworkconst.BOOL_PREFIX+"calHash?"].(string); calHash == "true" {
 		hash, _ := hashutil.CalculateHashWithFile(tempFilePath)
 		paramMap["hash"] = hash
+		paramMap["handleSpecialHash"], _ = stringutil.ReplaceAllString(hash, "/", "-")
 	}
 	this.DataStore.CacheDatas(this.WorkStep.WorkStepName, paramMap)
 }
@@ -58,6 +60,9 @@ func (this *DoReceiveFileNode) GetRuntimeParamOutputSchema() *iworkmodels.ParamO
 	if calHash == "true" || calHash == "`true`" {
 		pos.ParamOutputSchemaItems = append(pos.ParamOutputSchemaItems, iworkmodels.ParamOutputSchemaItem{
 			ParamName: "hash",
+		})
+		pos.ParamOutputSchemaItems = append(pos.ParamOutputSchemaItems, iworkmodels.ParamOutputSchemaItem{
+			ParamName: "handleSpecialHash",
 		})
 	}
 	return pos

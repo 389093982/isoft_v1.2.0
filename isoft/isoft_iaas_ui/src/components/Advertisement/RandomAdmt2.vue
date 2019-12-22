@@ -45,6 +45,7 @@
   }
   a .advertisement_label {
     display: none;
+    padding-left: 10px;
     background-color: rgba(0,0,0,0.6);
     color: white;
     width: 130px;
@@ -55,6 +56,6 @@
   }
   a:hover .advertisement_label {
     display: block;
-    top: -30px;
+    top: -37px;
   }
 </style>
