@@ -120,6 +120,9 @@ export const queryPageAdvise = (offset,current_page) => ajax(BASE_URL+'/iwork/ht
 
 // 广告模块
 export const GetPersonalAdvertisement = () => ajax(BASE_URL+'/iwork/httpservice/GetPersonalAdvertisement',{},'GET');
+
+export const QueryAdvertisementById = (id) => ajax(BASE_URL+'/iwork/httpservice/QueryAdvertisementById',{id},'GET');
+
 export const EditAdvertisement = (id,advertisement_label,linked_type,linked_refer,linked_img) => ajax(BASE_URL+'/iwork/httpservice/EditAdvertisement',{id,advertisement_label,linked_type,linked_refer,linked_img},'GET');
 
 //作文分享-查询title

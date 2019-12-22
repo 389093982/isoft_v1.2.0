@@ -22,7 +22,7 @@
 </template>
 
 <script>
-  import {EditAdvertisement} from "../../api"
+  import {EditAdvertisement,QueryAdvertisementById} from "../../api"
 
   export default {
     name: "EditAdvertisement",
@@ -70,6 +70,18 @@
       },
       handleReset (name) {
         this.$refs[name].resetFields();
+      },
+      initData:async function (id) {
+        const result = await QueryAdvertisementById(id);
+        if(result.status == "SUCCESS"){
+          this.formValidate.id = result.advertisement.id;
+          this.formValidate.advertisement_label = result.advertisement.advertisement_label;
+          this.formValidate.linked_type = result.advertisement.linked_type;
+          this.formValidate.linked_refer = result.advertisement.linked_refer;
+          this.formValidate.linked_img = result.advertisement.linked_img;
+        }else{
+          this.$Message.error(result.errorMsg);
+        }
       }
     }
   }
