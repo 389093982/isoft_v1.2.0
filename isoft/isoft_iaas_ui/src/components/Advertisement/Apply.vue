@@ -21,7 +21,7 @@
 </template>
 
 <script>
-  import {CheckHasLogin} from "../../tools"
+  import {CheckHasLoginConfirmDialog} from "../../tools"
 
   export default {
     name: "Apply",
@@ -32,17 +32,7 @@
     },
     methods:{
       manageAdvertisement:function () {
-        if(!CheckHasLogin()){
-          this.$Modal.confirm({
-            title: '登录提示！',
-            content: '您还未登录！前往登录？',
-            onOk: () => {
-              window.location.href = "/#/sso/login/?redirectUrl=" + window.location.href;
-            },
-          });
-        }else{
-          this.$router.push({path:'/advertisement/manage'});
-        }
+        CheckHasLoginConfirmDialog(this, "/advertisement/manage");
       }
     }
   }

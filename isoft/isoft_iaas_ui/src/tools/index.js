@@ -176,3 +176,18 @@ export function handleSpecial(data){
   data=data.replace(/\&/g,"%26");
   return data;
 }
+
+export function CheckHasLoginConfirmDialog(node, successpath){
+  var _this = node;
+  if(!CheckHasLogin()){
+    _this.$Modal.confirm({
+      title: '登录提示！',
+      content: '您还未登录！前往登录？',
+      onOk: () => {
+        window.location.href = "/#/sso/login/?redirectUrl=" + window.location.href;
+      },
+    });
+  }else{
+    _this.$router.push({path:successpath});
+  }
+}
