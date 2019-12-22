@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="isoft_bg_white isoft_pd10">
     <div>
       <a @click="prePage()" style="color: #ff6600"><Icon type="ios-undo-outline"  style="font-size: 40px"/>会员中心</a>
     </div>
@@ -17,10 +17,10 @@
           <Row>
             <a style="color: #ff6600">开通时长:  </a>{{openingTime}}&nbsp;&nbsp;&nbsp;
             <RadioGroup v-model="openingTime" type="button">
-              <Radio label=" 1年 / ¥360 " openingTime></Radio>
-              <Radio label=" 6个月 / ¥240 " openingTime></Radio>
-              <Radio label=" 3个月 / ¥150 " openingTime></Radio>
               <Radio label=" 1个月 / ¥60 " openingTime></Radio>
+              <Radio label=" 3个月 / ¥150 " openingTime></Radio>
+              <Radio label=" 6个月 / ¥240 " openingTime></Radio>
+              <Radio label=" 1年 / ¥360 " openingTime></Radio>
             </RadioGroup>
           </Row><br>
           <Row>

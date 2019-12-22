@@ -1,5 +1,5 @@
 <template>
-  <div class="isoft_bg_white">
+  <div class="isoft_bg_white isoft_pd10">
     <div class="vipCenterUp">
       <div style="font-size: 30px;padding: 70px 20px 30px 38%">
         <span style="color: #ff6600">会员尊享，学而不止</span>
@@ -75,18 +75,15 @@
   }
 </script>
 <style>
-
-
   .vipCenterUp{
-    float: left;
     width: 100%;
     height:246px;
     background-image:url("../../../static/images/vipCenter/vipCenterImg.png");
     background-position-x: center;
     background-position-y: center;
+    margin-bottom: 10px;
   }
   .vipCenterDown{
-    float: left;
     width: 100%;
     height:500px;
     background-position-x: center;
