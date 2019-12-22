@@ -1,12 +1,15 @@
 <template>
-  <div v-if="advertisements && showAdv" class="rightSuspension isoft_bg_white">
-    <div v-for="(advertisement, index) in advertisements">
-      <a target="_blank" :href="advertisement.linked_refer" :title="advertisement.linked_refer">
-        <img :src="advertisement.linked_img" width="95px;" height="50px;" @click="gotoAdvertisement(advertisement)"/>
-      </a>
-
+  <!-- 需要动画元素放在transition标签内部，在样式里添加类名属性 -->
+  <!-- 多个元素使用transition-group -->
+  <transition name="fadeInOut">
+    <div v-if="advertisements && showAdv" class="rightSuspension isoft_bg_white">
+      <div v-for="(advertisement, index) in advertisements">
+        <a target="_blank" :href="advertisement.linked_refer" :title="advertisement.linked_refer">
+          <img :src="advertisement.linked_img" width="95px;" height="50px;" @click="gotoAdvertisement(advertisement)"/>
+        </a>
+      </div>
     </div>
-  </div>
+  </transition>
 </template>
 
 <script>
@@ -30,7 +33,7 @@
           this.showAdv = true;
           setTimeout(function () {
             _this.showAdv = false;
-          }, 3000);
+          }, 10000);
         }
       },
     },
@@ -38,7 +41,7 @@
       var _this = this;
       this.advFunc = setInterval(function(){
         _this.refreshRandomAdvertisement();
-      },5000);
+      },10000);
     },
     beforeDestroy(){
       clearInterval(this.advFunc);
@@ -48,6 +51,15 @@
 
 <style scoped>
   @import "../../assets/css/isoft_common.css";
+  .fadeInOut-enter,.fadeInOut-leave-to{
+    opacity: 0;
+  }
+  .fadeInOut-enter-to,.fadeInOut-leave{
+    opacity: 1;
+  }
+  .fadeInOut-enter-active,.fadeInOut-leave-active{
+    transition: all 2s;
+  }
 
   .rightSuspension {
     position: fixed;
