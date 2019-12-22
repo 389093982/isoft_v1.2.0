@@ -40,7 +40,7 @@
 </script>
 
 <style scoped>
-  @import "../../assets/css/isoft_common.css";
+
 
   .header{
     margin: 0 10px 10px 10px;

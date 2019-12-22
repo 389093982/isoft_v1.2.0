@@ -116,7 +116,7 @@
 </script>
 
 <style scoped>
-  @import "../../assets/css/isoft_common.css";
+
 
   dd .catalogEditIcon{
     display: none;

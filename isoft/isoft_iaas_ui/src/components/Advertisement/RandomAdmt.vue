@@ -50,7 +50,7 @@
 </script>
 
 <style scoped>
-  @import "../../assets/css/isoft_common.css";
+
   .fadeInOut-enter,.fadeInOut-leave-to{
     opacity: 0;
   }

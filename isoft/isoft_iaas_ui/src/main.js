@@ -29,9 +29,12 @@ Vue.use(animated)
 import hovered from 'hover.css'
 Vue.use(hovered)
 
+//------------------------------------------------------------------
 // 注册自定义公共组件
 import IBeautifulLink from "./components/Common/link/IBeautifulLink"
 Vue.component('IBeautifulLink', IBeautifulLink);
+import "./assets/css/isoft_common.css"
+//------------------------------------------------------------------
 
 Vue.config.productionTip = false
 

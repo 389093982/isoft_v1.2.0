@@ -89,7 +89,7 @@
 
 <style scoped>
   /* 引入公共样式库 */
-  @import "../../assets/css/isoft_common.css";
+
 
   .section01_bg{
     height: 450px;

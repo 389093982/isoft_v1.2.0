@@ -154,7 +154,7 @@
 </script>
 
 <style scoped>
-  @import "../../assets/css/isoft_common.css";
+
 
   a{
     color: #3d3d3d;

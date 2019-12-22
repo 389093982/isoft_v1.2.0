@@ -81,5 +81,5 @@
 </script>
 
 <style scoped>
-  @import "../../assets/css/isoft_common.css";
+
 </style>

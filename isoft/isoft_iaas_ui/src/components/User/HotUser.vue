@@ -52,7 +52,7 @@
 </script>
 
 <style scoped>
-  @import "../../assets/css/isoft_common.css";
+
 
   .small_font_size {
     font-size: 12px;

@@ -69,7 +69,7 @@
 </script>
 
 <style scoped>
-  @import "../../assets/css/isoft_common.css";
+
 
   .top{
     padding: 10px;

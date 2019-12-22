@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="isoft_bg_white">
     <div class="vipCenterUp">
       <div style="font-size: 30px;padding: 70px 20px 30px 38%">
         <span style="color: #ff6600">会员尊享，学而不止</span>
@@ -75,6 +75,8 @@
   }
 </script>
 <style>
+
+
   .vipCenterUp{
     float: left;
     width: 100%;
@@ -97,5 +99,4 @@
   .demo-split-pane{
     padding: 10px;
   }
-
 </style>
