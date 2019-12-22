@@ -10,22 +10,22 @@
 
       <TabPane label="流程" name="name2">
         <Collapse>
-          <Panel v-for="module_name in module_names">
+          <Panel v-for="module_name in module_names" :name="module_name">
             {{module_name}}
             <div slot="content">
               <div v-if="work.module_name == module_name" v-for="work in works"
                    draggable="true" @dragstart="dragstart($event, 'work_name__' + work.work_name)">
-                <Tag>{{ work.work_name }}</Tag>
+                <Tag><span @click="$router.push({path:'/iwork/workList',query:{work_name:work.work_name}})">{{ work.work_name }}</span></Tag>
               </div>
             </div>
           </Panel>
 
-          <Panel>
+          <Panel name="all">
             全部
             <div slot="content">
               <div v-for="work in works"
                    draggable="true" @dragstart="dragstart($event, 'work_name__' + work.work_name)">
-                <Tag>{{ work.work_name }}</Tag>
+                <Tag><span @click="$router.push({path:'/iwork/workList',query:{work_name:work.work_name}})">{{ work.work_name }}</span></Tag>
               </div>
             </div>
           </Panel>

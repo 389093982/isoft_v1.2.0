@@ -89,7 +89,7 @@
 <style scoped>
   .layout-nav{
     float: right;
-    width: 1050px;
+    width: 1150px;
   }
 </style>
 

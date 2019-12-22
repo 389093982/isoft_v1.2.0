@@ -391,6 +391,9 @@
       }
     },
     mounted: function () {
+      if(this.$route.query.work_name != null){
+        this.search = this.$route.query.work_name;
+      }
       this.refreshWorkList();
       this.refreshAllModules();
       this.refreshNodeMetas();

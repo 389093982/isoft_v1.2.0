@@ -113,8 +113,14 @@ export const AddAppRegister = (app_address) => ajax(BASE_URL+"/iwork/httpservice
 // 登录记录分页查询
 export const LoginRecordList = (offset,current_page,search) => ajax(BASE_URL+"/iwork/httpservice/LoginRecordList2", {offset,current_page,search},'POST');
 
+// 意见或建议
 export const InsertAdvise = (advise) => ajax(BASE_URL+"/iwork/httpservice/InsertAdvise", {advise},'POST');
+
 export const queryPageAdvise = (offset,current_page) => ajax(BASE_URL+'/iwork/httpservice/queryPageAdvise',{offset,current_page},'GET');
+
+// 广告模块
+export const GetPersonalAdvertisement = () => ajax(BASE_URL+'/iwork/httpservice/GetPersonalAdvertisement',{},'GET');
+export const EditAdvertisement = (id,advertisement_label,linked_type,linked_refer,linked_img) => ajax(BASE_URL+'/iwork/httpservice/EditAdvertisement',{id,advertisement_label,linked_type,linked_refer,linked_img},'GET');
 
 //作文分享-查询title
 export const queryArticleTitleList = (offset,current_page) => ajax(BASE_URL+'iwork/httpservice/queryArticleTitleList',{offset,current_page},'POST');

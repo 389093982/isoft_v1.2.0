@@ -44,7 +44,8 @@ import ArticleEdit from "../components/ShareArticle/ArticleEdit"
 import ShareArticlePlace from "../components/ShareArticle/ShareArticlePlace"
 import SharingHall from "../components/ShareArticle/SharingHall"
 
-const Apply = () => import("@/components/Advertisement/Apply");
+const AdvApply = () => import("@/components/Advertisement/Apply");
+const AdvManage = () => import("@/components/Advertisement/Manage");
 
 import {joinArray} from "../tools"
 
@@ -143,7 +144,8 @@ const IAdvertisement = [{
   path: '/advertisement',
   component: ILayout,
   children: [
-    {path: 'apply',component: Apply},
+    {path: 'apply',component: AdvApply},
+    {path: 'manage',component: AdvManage},
   ]
 }];
 
