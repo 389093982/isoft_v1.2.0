@@ -123,6 +123,8 @@ export const GetPersonalAdvertisement = () => ajax(BASE_URL+'/iwork/httpservice/
 
 export const QueryAdvertisementById = (id) => ajax(BASE_URL+'/iwork/httpservice/QueryAdvertisementById',{id},'GET');
 
+export const GetRandomAdvertisement = () => ajax(BASE_URL+'/iwork/httpservice/GetRandomAdvertisement',{},'GET');
+
 export const EditAdvertisement = (id,advertisement_label,linked_type,linked_refer,linked_img) => ajax(BASE_URL+'/iwork/httpservice/EditAdvertisement',{id,advertisement_label,linked_type,linked_refer,linked_img},'GET');
 
 //作文分享-查询title

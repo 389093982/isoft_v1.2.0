@@ -1,23 +1,31 @@
 <template>
   <div class="isoft_bg_white" style="padding: 10px 10px 0 10px;">
-    <Form ref="formValidate" :model="formValidate" :rules="ruleValidate" :label-width="80">
-      <FormItem label="链接名称" prop="advertisement_label">
-        <Input v-model="formValidate.advertisement_label" placeholder="Enter advertisement_label..."/>
-      </FormItem>
-      <FormItem label="链接类型" prop="linked_type">
-        <Input v-model="formValidate.linked_type" placeholder="Enter linked_type..."></Input>
-      </FormItem>
-      <FormItem label="链接地址" prop="linked_refer">
-        <Input v-model="formValidate.linked_refer" placeholder="Enter linked_refer..."></Input>
-      </FormItem>
-      <FormItem label="链接图片" prop="linked_img">
-        <Input v-model="formValidate.linked_img" placeholder="Enter linked_img..."></Input>
-      </FormItem>
-      <FormItem>
-        <Button type="success" size="small" @click="handleSubmit('formValidate')">Submit</Button>
-        <Button type="warning" size="small" @click="handleReset('formValidate')">Cancel</Button>
-      </FormItem>
-    </Form>
+    <Row :gutter="10">
+      <Col span="12">
+        <Form ref="formValidate" :model="formValidate" :rules="ruleValidate" :label-width="80">
+          <FormItem label="链接名称" prop="advertisement_label">
+            <Input v-model="formValidate.advertisement_label" placeholder="Enter advertisement_label..."/>
+          </FormItem>
+          <FormItem label="链接类型" prop="linked_type">
+            <Input v-model="formValidate.linked_type" placeholder="Enter linked_type..."></Input>
+          </FormItem>
+          <FormItem label="链接地址" prop="linked_refer">
+            <Input v-model="formValidate.linked_refer" placeholder="Enter linked_refer..."></Input>
+          </FormItem>
+          <FormItem label="链接图片" prop="linked_img">
+            <Input v-model="formValidate.linked_img" placeholder="点击右边图标选择图片"
+                   readonly="readonly" icon="ios-document" @on-click="editLinkedImg"></Input>
+          </FormItem>
+          <FormItem>
+            <Button type="success" size="small" @click="handleSubmit('formValidate')">Submit</Button>
+            <Button type="warning" size="small" @click="handleReset('formValidate')">Cancel</Button>
+          </FormItem>
+        </Form>
+      </Col>
+      <Col span="12">
+        这块再来点别的东西
+      </Col>
+    </Row>
   </div>
 </template>
 
@@ -49,6 +57,9 @@
       }
     },
     methods:{
+      editLinkedImg:function(){
+        alert(1111);
+      },
       handleSubmit (name) {
         var _this = this;
         this.$refs[name].validate(async (valid) => {
