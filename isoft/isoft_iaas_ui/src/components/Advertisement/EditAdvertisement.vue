@@ -45,9 +45,6 @@
           linked_refer: [
             { required: true, message: '链接地址不能为空', trigger: 'blur' }
           ],
-          linked_img: [
-            { required: true, message: '链接图片不能为空', trigger: 'blur' }
-          ],
         },
       }
     },
