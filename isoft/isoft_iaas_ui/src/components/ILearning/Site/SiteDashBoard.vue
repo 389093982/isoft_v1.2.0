@@ -1,5 +1,5 @@
 <template>
-  <div style="height: 500px;">
+  <div style="min-height: 200px;">
     截止2018-10-11，已收入10649家平台机构
 
     已有78649名网友查询了64232个平台

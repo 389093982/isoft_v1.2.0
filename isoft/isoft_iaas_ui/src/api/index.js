@@ -123,7 +123,7 @@ export const GetPersonalAdvertisement = () => ajax(BASE_URL+'/iwork/httpservice/
 
 export const QueryAdvertisementById = (id) => ajax(BASE_URL+'/iwork/httpservice/QueryAdvertisementById',{id},'GET');
 
-export const GetRandomAdvertisement = () => ajax(BASE_URL+'/iwork/httpservice/GetRandomAdvertisement',{},'GET');
+export const GetRandomAdvertisement = (limit) => ajax(BASE_URL+'/iwork/httpservice/GetRandomAdvertisement',{limit},'GET');
 
 export const EditAdvertisement = (id,advertisement_label,linked_type,linked_refer,linked_img) => ajax(BASE_URL+'/iwork/httpservice/EditAdvertisement',{id,advertisement_label,linked_type,linked_refer,linked_img},'GET');
 

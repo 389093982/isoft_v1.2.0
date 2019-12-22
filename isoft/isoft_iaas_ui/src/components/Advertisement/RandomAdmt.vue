@@ -27,7 +27,7 @@
     methods:{
       refreshRandomAdvertisement:async function(){
         var _this = this;
-        const result = await GetRandomAdvertisement();
+        const result = await GetRandomAdvertisement(10);
         if(result.status == "SUCCESS"){
           this.advertisements = result.advertisements;
           this.showAdv = true;

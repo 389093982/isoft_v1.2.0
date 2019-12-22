@@ -62,6 +62,7 @@
       </Col>
       <Col span="6" class="isoft_bg_white isoft_pd10">
         <HotUser/>
+        <RandomAdmt2/>
       </Col>
     </Row>
   </div>
@@ -76,10 +77,13 @@
   import IFileUpload from "../Common/file/IFileUpload"
   import HotUser from "../User/HotUser";
   import IndexCarousel from "../ILearning/IndexCarousel";
+  import RandomAdmt2 from "../Advertisement/RandomAdmt2";
 
   export default {
     name: "BookList",
-    components: {IndexCarousel, HotUser, IBeautifulLink, IKeyValueForm, IBeautifulCard,ISimpleConfirmModal,IFileUpload},
+    components: {
+      RandomAdmt2,
+      IndexCarousel, HotUser, IBeautifulLink, IKeyValueForm, IBeautifulCard,ISimpleConfirmModal,IFileUpload},
     data(){
       return {
         books:[],
