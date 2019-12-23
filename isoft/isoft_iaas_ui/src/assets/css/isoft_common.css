@@ -9,6 +9,11 @@
   border-top:3px solid rgba(255, 0, 0, 0.2);
 }
 
+.isoft_top10 {
+  margin-top: 10px;
+}
+
+
 .isoft_pd10 {
   padding: 10px;
 }

@@ -47,6 +47,10 @@ import SharingHall from "../components/ShareArticle/SharingHall"
 const AdvApply = () => import("@/components/Advertisement/Apply");
 const AdvManage = () => import("@/components/Advertisement/Manage");
 
+const JobList = () => import("@/components/IJob/JobList");
+const Employee = () => import("@/components/IJob/Employee");
+const Employer = () => import("@/components/IJob/Employer");
+
 import {joinArray} from "../tools"
 
 Vue.use(Router);
@@ -140,6 +144,16 @@ const IUserReouter = [{
   ]
 }];
 
+const IJob = [{
+  path: '/job',
+  component: ILayout,
+  children: [
+    {path: 'jobList',component: JobList},
+    {path: 'employee',component: Employee},
+    {path: 'employer',component: Employer},
+  ]
+}];
+
 const IAdvertisement = [{
   path: '/advertisement',
   component: ILayout,
@@ -191,6 +205,7 @@ const VipCenterReouter = [{
 
 function getAllRouters() {
   let allRouters = [];
+  allRouters = joinArray(allRouters, IJob);
   allRouters = joinArray(allRouters, IAdvertisement);
   allRouters = joinArray(allRouters, IFoundReouter);
   allRouters = joinArray(allRouters, IGoodReouter);
